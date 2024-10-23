@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'A4950E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A4950E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.3mm'], 'footprint':'Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.3mm', 'keywords':'full-bridge h-bridge', 'description':'', 'datasheet':'http://www.allegromicro.com/~/media/Files/Datasheets/A4950-Datasheet.ashx', 'pins':[
+        Part(**{ 'name':'A4950E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A4950E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.3mm'], 'footprint':'Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.3mm', 'keywords':'full-bridge h-bridge', 'description':'', 'datasheet':'http://www.allegromicro.com/~/media/Files/Datasheets/A4950-Datasheet.ashx', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nA4950E\n\nfull-bridge h-bridge', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN2',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='IN1',func=Pin.types.INPUT,unit=1),
@@ -14,7 +14,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='LSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='OUT2',func=Pin.types.PWROUT,unit=1),
             Pin(num='9',name='PAD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'A4952_LY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A4952_LY'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10-1EP_3x3mm_P0.5mm_EP1.73x1.98mm'], 'footprint':'Package_SO:MSOP-10-1EP_3x3mm_P0.5mm_EP1.73x1.98mm', 'keywords':'Full-bridge h-bridge', 'description':'', 'datasheet':'www.allegromicro.com/~/media/Files/Datasheets/A4952-3-Datasheet.ashx?la=en', 'pins':[
+        Part(**{ 'name':'A4952_LY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A4952_LY'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10-1EP_3x3mm_P0.5mm_EP1.73x1.98mm'], 'footprint':'Package_SO:MSOP-10-1EP_3x3mm_P0.5mm_EP1.73x1.98mm', 'keywords':'Full-bridge h-bridge', 'description':'', 'datasheet':'www.allegromicro.com/~/media/Files/Datasheets/A4952-3-Datasheet.ashx?la=en', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nA4952_LY\n\nFull-bridge h-bridge', 'pins':[
             Pin(num='1',name='~{FLTn}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='PAD',func=Pin.types.PWRIN,unit=1),
@@ -26,7 +26,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUT1',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='LSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OUT2',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'A4954', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A4954'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16-1EP_4.4x5mm_P0.65mm_EP3x3mm'], 'footprint':'Package_SO:TSSOP-16-1EP_4.4x5mm_P0.65mm_EP3x3mm', 'keywords':'Fullbridge, Stepper Driver', 'description':'', 'datasheet':'https://www.allegromicro.com/-/media/Files/Datasheets/A4954-Datasheet.ashx', 'pins':[
+        Part(**{ 'name':'A4954', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A4954'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16-1EP_4.4x5mm_P0.65mm_EP3x3mm'], 'footprint':'Package_SO:TSSOP-16-1EP_4.4x5mm_P0.65mm_EP3x3mm', 'keywords':'Fullbridge, Stepper Driver', 'description':'', 'datasheet':'https://www.allegromicro.com/-/media/Files/Datasheets/A4954-Datasheet.ashx', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nA4954\n\nFullbridge, Stepper Driver', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='OUT1',func=Pin.types.PWROUT,unit=1),
             Pin(num='11',name='LSS12',func=Pin.types.PWRIN,unit=1),
@@ -44,7 +44,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VREF12',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='VBB',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AMT49413', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AMT49413'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm_ThermalVias'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm_ThermalVias', 'keywords':'BLDC 3-Phase', 'description':'', 'datasheet':'https://www.allegromicro.com/-/media/Files/Datasheets/AMT49413-Datasheet.ashx', 'pins':[
+        Part(**{ 'name':'AMT49413', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AMT49413'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm_ThermalVias'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm_ThermalVias', 'keywords':'BLDC 3-Phase', 'description':'', 'datasheet':'https://www.allegromicro.com/-/media/Files/Datasheets/AMT49413-Datasheet.ashx', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nAMT49413\n\nBLDC 3-Phase', 'pins':[
             Pin(num='1',name='N.C.',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='H1',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='H2',func=Pin.types.INPUT,unit=1),
@@ -94,7 +94,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TACHO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='BRAKE',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DIR',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DRV8308', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8308'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA0040E_VQFN-40-1EP_6x6mm_P0.5mm_EP3.52x2.62mm'], 'footprint':'Package_DFN_QFN:Texas_RHA0040E_VQFN-40-1EP_6x6mm_P0.5mm_EP3.52x2.62mm', 'keywords':'bldc mosfet-driver hall-sensor', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/drv8308.pdf', 'pins':[
+        Part(**{ 'name':'DRV8308', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8308'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA0040E_VQFN-40-1EP_6x6mm_P0.5mm_EP3.52x2.62mm'], 'footprint':'Package_DFN_QFN:Texas_RHA0040E_VQFN-40-1EP_6x6mm_P0.5mm_EP3.52x2.62mm', 'keywords':'bldc mosfet-driver hall-sensor', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/drv8308.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nDRV8308\n\nbldc mosfet-driver hall-sensor', 'pins':[
             Pin(num='1',name='UHP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='FGINP',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SCLK',func=Pin.types.INPUT,unit=1),
@@ -136,7 +136,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSW',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='FGFB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='FGINN_TACH',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DRV8412', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8412'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-44-1EP_6.1x14mm_P0.635mm_EP5.2x14mm_Mask4.31x8.26mm_ThermalVias'], 'footprint':'Package_SO:HTSSOP-44-1EP_6.1x14mm_P0.635mm_EP5.2x14mm_Mask4.31x8.26mm_ThermalVias', 'keywords':'Dual Full-Bridge PWM Motor Driver', 'description':'', 'datasheet':'https://www.ti.com/lit/gpn/DRV8412', 'pins':[
+        Part(**{ 'name':'DRV8412', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8412'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-44-1EP_6.1x14mm_P0.635mm_EP5.2x14mm_Mask4.31x8.26mm_ThermalVias'], 'footprint':'Package_SO:HTSSOP-44-1EP_6.1x14mm_P0.635mm_EP5.2x14mm_Mask4.31x8.26mm_ThermalVias', 'keywords':'Dual Full-Bridge PWM Motor Driver', 'description':'', 'datasheet':'https://www.ti.com/lit/gpn/DRV8412', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nDRV8412\n\nDual Full-Bridge PWM Motor Driver', 'pins':[
             Pin(num='1',name='GVDD_C',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='M3',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VREG',func=Pin.types.OUTPUT,unit=1),
@@ -182,7 +182,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PWM_C',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='M1',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='M2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DRV8432', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8432'}), 'ref_prefix':'U', 'fplist':['Package_SO:HSOP-36-1EP_11.0x15.9mm_P0.65mm_SlugUp'], 'footprint':'Package_SO:HSOP-36-1EP_11.0x15.9mm_P0.65mm_SlugUp', 'keywords':'Dual Full-Bridge PWM Motor Driver', 'description':'', 'datasheet':'https://www.ti.com/lit/gpn/DRV8412', 'pins':[
+        Part(**{ 'name':'DRV8432', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8432'}), 'ref_prefix':'U', 'fplist':['Package_SO:HSOP-36-1EP_11.0x15.9mm_P0.65mm_SlugUp'], 'footprint':'Package_SO:HSOP-36-1EP_11.0x15.9mm_P0.65mm_SlugUp', 'keywords':'Dual Full-Bridge PWM Motor Driver', 'description':'', 'datasheet':'https://www.ti.com/lit/gpn/DRV8412', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nDRV8432\n\nDual Full-Bridge PWM Motor Driver', 'pins':[
             Pin(num='1',name='GVDD_B',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VREG',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='M3',func=Pin.types.INPUT,unit=1),
@@ -219,7 +219,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OC_ADJ',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='AGND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DRV8461SPWP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8461SPWP'}), 'ref_prefix':'U', 'fplist':['Package_SO:Texas_PWP0020A'], 'footprint':'Package_SO:Texas_PWP0020A', 'keywords':'texas ti microstep driver silent STEP DIR', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/drv8461.pdf', 'pins':[
+        Part(**{ 'name':'DRV8461SPWP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8461SPWP'}), 'ref_prefix':'U', 'fplist':['Package_SO:Texas_PWP0020A'], 'footprint':'Package_SO:Texas_PWP0020A', 'keywords':'texas ti microstep driver silent STEP DIR', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/drv8461.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nDRV8461SPWP\n\ntexas ti microstep driver silent STEP DIR', 'pins':[
             Pin(num='1',name='VCP',func=Pin.types.INPUT),
             Pin(num='10',name='BOUT1',func=Pin.types.OUTPUT),
             Pin(num='16',name='~{FAULT}',func=Pin.types.OPENCOLL),
@@ -249,7 +249,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='AOUT1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='AOUT2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='BOUT2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DRV8662', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8662'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGP0020D_VQFN-20-1EP_4x4mm_P0.5mm_EP2.7x2.7mm_ThermalVias'], 'footprint':'Package_DFN_QFN:Texas_RGP0020D_VQFN-20-1EP_4x4mm_P0.5mm_EP2.7x2.7mm_ThermalVias', 'keywords':'piezo driver boost', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/drv8662.pdf', 'pins':[
+        Part(**{ 'name':'DRV8662', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8662'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGP0020D_VQFN-20-1EP_4x4mm_P0.5mm_EP2.7x2.7mm_ThermalVias'], 'footprint':'Package_DFN_QFN:Texas_RGP0020D_VQFN-20-1EP_4x4mm_P0.5mm_EP2.7x2.7mm_ThermalVias', 'keywords':'piezo driver boost', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/drv8662.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nDRV8662\n\npiezo driver boost', 'pins':[
             Pin(num='1',name='VPUMP',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='VBST',func=Pin.types.PWROUT,unit=1),
             Pin(num='11',name='VBST',func=Pin.types.PASSIVE,unit=1),
@@ -271,7 +271,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SW',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SW',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DRV8711', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8711'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Stepper driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/slvsc40f/slvsc40f.pdf', 'pins':[
+        Part(**{ 'name':'DRV8711', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8711'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Stepper driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/slvsc40f/slvsc40f.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nDRV8711\n\nStepper driver', 'pins':[
             Pin(num='1',name='CP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='STEP/AIN1',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DIR/AIN2',func=Pin.types.INPUT,unit=1),
@@ -311,7 +311,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VINT',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='SLEEPn',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='RESET',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DRV8800PWP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8800PWP'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-16-1EP_4.4x5mm_P0.65mm_EP3.4x5mm_Mask3x3mm_ThermalVias'], 'footprint':'Package_SO:HTSSOP-16-1EP_4.4x5mm_P0.65mm_EP3.4x5mm_Mask3x3mm_ThermalVias', 'keywords':'H-Bridge Motor Driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/drv8801.pdf', 'pins':[
+        Part(**{ 'name':'DRV8800PWP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8800PWP'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-16-1EP_4.4x5mm_P0.65mm_EP3.4x5mm_Mask3x3mm_ThermalVias'], 'footprint':'Package_SO:HTSSOP-16-1EP_4.4x5mm_P0.65mm_EP3.4x5mm_Mask3x3mm_ThermalVias', 'keywords':'H-Bridge Motor Driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/drv8801.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nDRV8800PWP\n\nH-Bridge Motor Driver', 'pins':[
             Pin(num='1',name='~{FAULT}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='10',name='OUT-',func=Pin.types.PWROUT,unit=1),
             Pin(num='11',name='CP1',func=Pin.types.PWRIN,unit=1),
@@ -329,7 +329,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUT+',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='SENSE',func=Pin.types.PWROUT,unit=1),
             Pin(num='9',name='VBB',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DRV8800RTY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8800RTY'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RTY_WQFN-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm_ThermalVias'], 'footprint':'Package_DFN_QFN:Texas_RTY_WQFN-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm_ThermalVias', 'keywords':'H-Bridge Motor Driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/drv8801.pdf', 'pins':[
+        Part(**{ 'name':'DRV8800RTY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8800RTY'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RTY_WQFN-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm_ThermalVias'], 'footprint':'Package_DFN_QFN:Texas_RTY_WQFN-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm_ThermalVias', 'keywords':'H-Bridge Motor Driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/drv8801.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nDRV8800RTY\n\nH-Bridge Motor Driver', 'pins':[
             Pin(num='1',name='PHASE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='CP1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='CP2',func=Pin.types.PWRIN,unit=1),
@@ -347,7 +347,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SENSE',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='VBB',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OUT-',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DRV8801PWP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8801PWP'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-16-1EP_4.4x5mm_P0.65mm_EP3.4x5mm_Mask3x3mm_ThermalVias'], 'footprint':'Package_SO:HTSSOP-16-1EP_4.4x5mm_P0.65mm_EP3.4x5mm_Mask3x3mm_ThermalVias', 'keywords':'H-Bridge Motor Driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/drv8801.pdf', 'pins':[
+        Part(**{ 'name':'DRV8801PWP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8801PWP'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-16-1EP_4.4x5mm_P0.65mm_EP3.4x5mm_Mask3x3mm_ThermalVias'], 'footprint':'Package_SO:HTSSOP-16-1EP_4.4x5mm_P0.65mm_EP3.4x5mm_Mask3x3mm_ThermalVias', 'keywords':'H-Bridge Motor Driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/drv8801.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nDRV8801PWP\n\nH-Bridge Motor Driver', 'pins':[
             Pin(num='1',name='~{FAULT}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='10',name='OUT-',func=Pin.types.PWROUT,unit=1),
             Pin(num='11',name='CP1',func=Pin.types.PWRIN,unit=1),
@@ -365,7 +365,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUT+',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='SENSE',func=Pin.types.PWROUT,unit=1),
             Pin(num='9',name='VBB',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DRV8801RTY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8801RTY'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RTY_WQFN-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm_ThermalVias'], 'footprint':'Package_DFN_QFN:Texas_RTY_WQFN-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm_ThermalVias', 'keywords':'H-Bridge Motor Driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/drv8801.pdf', 'pins':[
+        Part(**{ 'name':'DRV8801RTY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8801RTY'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RTY_WQFN-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm_ThermalVias'], 'footprint':'Package_DFN_QFN:Texas_RTY_WQFN-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm_ThermalVias', 'keywords':'H-Bridge Motor Driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/drv8801.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nDRV8801RTY\n\nH-Bridge Motor Driver', 'pins':[
             Pin(num='1',name='PHASE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='CP1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='CP2',func=Pin.types.PWRIN,unit=1),
@@ -383,7 +383,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SENSE',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='VBB',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OUT-',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DRV8833PW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8833PW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'H-bridge motor driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/drv8833.pdf', 'pins':[
+        Part(**{ 'name':'DRV8833PW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8833PW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'H-bridge motor driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/drv8833.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nDRV8833PW\n\nH-bridge motor driver', 'pins':[
             Pin(num='1',name='~{SLEEP}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='BIN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VCP',func=Pin.types.BIDIR,unit=1),
@@ -400,7 +400,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='BOUT1',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='~{FAULT}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='BIN1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DRV8833PWP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8833PWP'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-16-1EP_4.4x5mm_P0.65mm_EP3.4x5mm_Mask2.46x2.31mm_ThermalVias'], 'footprint':'Package_SO:HTSSOP-16-1EP_4.4x5mm_P0.65mm_EP3.4x5mm_Mask2.46x2.31mm_ThermalVias', 'keywords':'H-bridge motor driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/drv8833.pdf', 'pins':[
+        Part(**{ 'name':'DRV8833PWP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8833PWP'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-16-1EP_4.4x5mm_P0.65mm_EP3.4x5mm_Mask2.46x2.31mm_ThermalVias'], 'footprint':'Package_SO:HTSSOP-16-1EP_4.4x5mm_P0.65mm_EP3.4x5mm_Mask2.46x2.31mm_ThermalVias', 'keywords':'H-bridge motor driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/drv8833.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nDRV8833PWP\n\nH-bridge motor driver', 'pins':[
             Pin(num='1',name='~{SLEEP}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='BIN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VCP',func=Pin.types.BIDIR,unit=1),
@@ -418,7 +418,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='BOUT1',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='~{FAULT}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='BIN1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DRV8833RTY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8833RTY'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RTY_WQFN-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm_ThermalVias'], 'footprint':'Package_DFN_QFN:Texas_RTY_WQFN-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm_ThermalVias', 'keywords':'H-bridge motor driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/drv8833.pdf', 'pins':[
+        Part(**{ 'name':'DRV8833RTY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8833RTY'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RTY_WQFN-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm_ThermalVias'], 'footprint':'Package_DFN_QFN:Texas_RTY_WQFN-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm_ThermalVias', 'keywords':'H-bridge motor driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/drv8833.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nDRV8833RTY\n\nH-bridge motor driver', 'pins':[
             Pin(num='1',name='AISEN',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VM',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -436,7 +436,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='BIN1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='BIN2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VCP',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DRV8837C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8837C'}), 'ref_prefix':'U', 'fplist':['Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm'], 'footprint':'Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm', 'keywords':'half bridge driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/drv8837c.pdf', 'pins':[
+        Part(**{ 'name':'DRV8837C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8837C'}), 'ref_prefix':'U', 'fplist':['Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm'], 'footprint':'Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm', 'keywords':'half bridge driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/drv8837c.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nDRV8837C\n\nhalf bridge driver', 'pins':[
             Pin(num='1',name='VM',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='OUT1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='OUT2',func=Pin.types.OUTPUT,unit=1),
@@ -446,7 +446,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{SLEEP}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DRV8838', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8838'}), 'ref_prefix':'U', 'fplist':['Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm'], 'footprint':'Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm', 'keywords':'half bridge driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/drv8837.pdf', 'pins':[
+        Part(**{ 'name':'DRV8838', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8838'}), 'ref_prefix':'U', 'fplist':['Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm'], 'footprint':'Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm', 'keywords':'half bridge driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/drv8837.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nDRV8838\n\nhalf bridge driver', 'pins':[
             Pin(num='1',name='VM',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='OUT1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='OUT2',func=Pin.types.OUTPUT,unit=1),
@@ -456,7 +456,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{SLEEP}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DRV8847PWP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8847PWP'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-16-1EP_4.4x5mm_P0.65mm_EP3.4x5mm_Mask2.46x2.31mm_ThermalVias'], 'footprint':'Package_SO:HTSSOP-16-1EP_4.4x5mm_P0.65mm_EP3.4x5mm_Mask2.46x2.31mm_ThermalVias', 'keywords':'Dual H-Bridge motor driver', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/drv8847.pdf', 'pins':[
+        Part(**{ 'name':'DRV8847PWP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8847PWP'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-16-1EP_4.4x5mm_P0.65mm_EP3.4x5mm_Mask2.46x2.31mm_ThermalVias'], 'footprint':'Package_SO:HTSSOP-16-1EP_4.4x5mm_P0.65mm_EP3.4x5mm_Mask2.46x2.31mm_ThermalVias', 'keywords':'Dual H-Bridge motor driver', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/drv8847.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nDRV8847PWP\n\nDual H-Bridge motor driver', 'pins':[
             Pin(num='1',name='~{SLEEP}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='IN4',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='TRQ',func=Pin.types.INPUT,unit=1),
@@ -474,7 +474,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUT3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='~{FAULT}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='IN3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DRV8847PWR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8847PWR'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'Dual H-Bridge motor driver', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/drv8847.pdf', 'pins':[
+        Part(**{ 'name':'DRV8847PWR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8847PWR'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'Dual H-Bridge motor driver', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/drv8847.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nDRV8847PWR\n\nDual H-Bridge motor driver', 'pins':[
             Pin(num='1',name='~{SLEEP}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='IN4',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='TRQ',func=Pin.types.INPUT,unit=1),
@@ -491,7 +491,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUT3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='~{FAULT}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='IN3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DRV8847RTE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8847RTE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.7x1.7mm_ThermalVias'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.7x1.7mm_ThermalVias', 'keywords':'Dual H-Bridge motor driver', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/drv8847.pdf', 'pins':[
+        Part(**{ 'name':'DRV8847RTE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8847RTE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.7x1.7mm_ThermalVias'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.7x1.7mm_ThermalVias', 'keywords':'Dual H-Bridge motor driver', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/drv8847.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nDRV8847RTE\n\nDual H-Bridge motor driver', 'pins':[
             Pin(num='1',name='ISEN12',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='VM',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -509,7 +509,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IN3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='IN4',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='TRQ',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DRV8847SPWR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8847SPWR'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'Dual H-Bridge motor driver', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/drv8847.pdf', 'pins':[
+        Part(**{ 'name':'DRV8847SPWR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8847SPWR'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'Dual H-Bridge motor driver', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/drv8847.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nDRV8847SPWR\n\nDual H-Bridge motor driver', 'pins':[
             Pin(num='1',name='~{SLEEP}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='IN4',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SCL',func=Pin.types.INPUT,unit=1),
@@ -526,7 +526,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUT3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='~{FAULT}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='IN3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DRV8848', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8848'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16-1EP_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16-1EP_4.4x5mm_P0.65mm', 'keywords':'Dual H-Bridge motor driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/drv8848.pdf', 'pins':[
+        Part(**{ 'name':'DRV8848', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8848'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16-1EP_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16-1EP_4.4x5mm_P0.65mm', 'keywords':'Dual H-Bridge motor driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/drv8848.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nDRV8848\n\nDual H-Bridge motor driver', 'pins':[
             Pin(num='1',name='~{SLEEP}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='BIN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VREF',func=Pin.types.INPUT,unit=1),
@@ -544,7 +544,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='BOUT1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='~{FAULT}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='BIN1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DRV8870DDA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8870DDA'}), 'ref_prefix':'U', 'fplist':['Package_SO:Texas_HTSOP-8-1EP_3.9x4.9mm_P1.27mm_EP2.95x4.9mm_Mask2.4x3.1mm_ThermalVias'], 'footprint':'Package_SO:Texas_HTSOP-8-1EP_3.9x4.9mm_P1.27mm_EP2.95x4.9mm_Mask2.4x3.1mm_ThermalVias', 'keywords':'H-bridge driver motor current limit', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/drv8870.pdf', 'pins':[
+        Part(**{ 'name':'DRV8870DDA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8870DDA'}), 'ref_prefix':'U', 'fplist':['Package_SO:Texas_HTSOP-8-1EP_3.9x4.9mm_P1.27mm_EP2.95x4.9mm_Mask2.4x3.1mm_ThermalVias'], 'footprint':'Package_SO:Texas_HTSOP-8-1EP_3.9x4.9mm_P1.27mm_EP2.95x4.9mm_Mask2.4x3.1mm_ThermalVias', 'keywords':'H-bridge driver motor current limit', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/drv8870.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nDRV8870DDA\n\nH-bridge driver motor current limit', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN2',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='IN1',func=Pin.types.INPUT,unit=1),
@@ -554,7 +554,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='ISEN',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='OUT2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DRV8871DDA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8871DDA'}), 'ref_prefix':'U', 'fplist':['Package_SO:Texas_HTSOP-8-1EP_3.9x4.9mm_P1.27mm_EP2.95x4.9mm_Mask2.4x3.1mm_ThermalVias'], 'footprint':'Package_SO:Texas_HTSOP-8-1EP_3.9x4.9mm_P1.27mm_EP2.95x4.9mm_Mask2.4x3.1mm_ThermalVias', 'keywords':'H-bridge driver motor current limit', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/drv8871.pdf', 'pins':[
+        Part(**{ 'name':'DRV8871DDA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8871DDA'}), 'ref_prefix':'U', 'fplist':['Package_SO:Texas_HTSOP-8-1EP_3.9x4.9mm_P1.27mm_EP2.95x4.9mm_Mask2.4x3.1mm_ThermalVias'], 'footprint':'Package_SO:Texas_HTSOP-8-1EP_3.9x4.9mm_P1.27mm_EP2.95x4.9mm_Mask2.4x3.1mm_ThermalVias', 'keywords':'H-bridge driver motor current limit', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/drv8871.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nDRV8871DDA\n\nH-bridge driver motor current limit', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN2',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='IN1',func=Pin.types.INPUT,unit=1),
@@ -564,7 +564,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='OUT2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DRV8872DDA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8872DDA'}), 'ref_prefix':'U', 'fplist':['Package_SO:Texas_HTSOP-8-1EP_3.9x4.9mm_P1.27mm_EP2.95x4.9mm_Mask2.4x3.1mm_ThermalVias'], 'footprint':'Package_SO:Texas_HTSOP-8-1EP_3.9x4.9mm_P1.27mm_EP2.95x4.9mm_Mask2.4x3.1mm_ThermalVias', 'keywords':'H-bridge driver motor current limit', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/drv8872.pdf', 'pins':[
+        Part(**{ 'name':'DRV8872DDA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8872DDA'}), 'ref_prefix':'U', 'fplist':['Package_SO:Texas_HTSOP-8-1EP_3.9x4.9mm_P1.27mm_EP2.95x4.9mm_Mask2.4x3.1mm_ThermalVias'], 'footprint':'Package_SO:Texas_HTSOP-8-1EP_3.9x4.9mm_P1.27mm_EP2.95x4.9mm_Mask2.4x3.1mm_ThermalVias', 'keywords':'H-bridge driver motor current limit', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/drv8872.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nDRV8872DDA\n\nH-bridge driver motor current limit', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN2',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='IN1',func=Pin.types.INPUT,unit=1),
@@ -574,7 +574,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='ISEN',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='OUT2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'L293', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L293'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'Half-H Driver Motor', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/l293.pdf', 'pins':[
+        Part(**{ 'name':'L293', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L293'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'Half-H Driver Motor', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/l293.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nL293\n\nHalf-H Driver Motor', 'pins':[
             Pin(num='1',name='EN1,2',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='3A',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='3Y',func=Pin.types.OUTPUT,unit=1),
@@ -591,7 +591,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='2A',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC2',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='EN3,4',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'L293E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L293E'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'Half-H Driver Motor Sense', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/l293e.pdf', 'pins':[
+        Part(**{ 'name':'L293E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L293E'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'Half-H Driver Motor Sense', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/l293e.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nL293E\n\nHalf-H Driver Motor Sense', 'pins':[
             Pin(num='1',name='EN12',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VS',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='EN34',func=Pin.types.INPUT,unit=1),
@@ -612,7 +612,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SENSE2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='OUT2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='IN2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'L297', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L297'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Stepper Motor Controller', 'description':'', 'datasheet':'www.st.com/resource/en/datasheet/cd00000063.pdf', 'pins':[
+        Part(**{ 'name':'L297', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L297'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Stepper Motor Controller', 'description':'', 'datasheet':'www.st.com/resource/en/datasheet/cd00000063.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nL297\n\nStepper Motor Controller', 'pins':[
             Pin(num='11',name='CONTROL',func=Pin.types.INPUT,unit=1),
             Pin(num='12',name='Vs',func=Pin.types.PWRIN,unit=1),
             Pin(num='13',name='SENS2',func=Pin.types.INPUT,unit=1),
@@ -633,7 +633,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='C',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='INH2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='D',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'L298HN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L298HN'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead5.84mm_TabDown'], 'footprint':'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead5.84mm_TabDown', 'keywords':'H-bridge motor driver', 'description':'', 'datasheet':'http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/CD00000240.pdf', 'pins':[
+        Part(**{ 'name':'L298HN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L298HN'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead5.84mm_TabDown'], 'footprint':'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead5.84mm_TabDown', 'keywords':'H-bridge motor driver', 'description':'', 'datasheet':'http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/CD00000240.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nL298HN\n\nH-bridge motor driver', 'pins':[
             Pin(num='1',name='SENSE_A',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='IN3',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='EnB',func=Pin.types.INPUT,unit=1),
@@ -649,7 +649,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IN2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Vss',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'L298P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L298P'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'H-bridge motor driver', 'description':'', 'datasheet':'http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/CD00000240.pdf', 'pins':[
+        Part(**{ 'name':'L298P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L298P'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'H-bridge motor driver', 'description':'', 'datasheet':'http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/CD00000240.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nL298P\n\nH-bridge motor driver', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -670,7 +670,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IN1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='EnA',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='IN2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LMD18200', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LMD18200'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical', 'keywords':'H-Bridge DC stepper servo motor driver Motion Control Applications', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lmd18200.pdf', 'pins':[
+        Part(**{ 'name':'LMD18200', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LMD18200'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical', 'keywords':'H-Bridge DC stepper servo motor driver Motion Control Applications', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lmd18200.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nLMD18200\n\nH-Bridge DC stepper servo motor driver Motion Control Applications', 'pins':[
             Pin(num='1',name='BOOTSTRAP1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='OUTPUT2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='BOOTSTRAP2',func=Pin.types.PASSIVE,unit=1),
@@ -682,7 +682,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='CURRENT_SENSE_OUTPUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='~{THERMAL_FLAG_OUTPUT}',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX22201', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX22201'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Maxim_TDFN-12-1EP_3x3mm_P0.5mm_EP1.7x2.5mm_ThermalVias'], 'footprint':'Package_DFN_QFN:Maxim_TDFN-12-1EP_3x3mm_P0.5mm_EP1.7x2.5mm_ThermalVias', 'keywords':'Brushed Motor Driver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/max22201-max22207.pdf', 'pins':[
+        Part(**{ 'name':'MAX22201', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX22201'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Maxim_TDFN-12-1EP_3x3mm_P0.5mm_EP1.7x2.5mm_ThermalVias'], 'footprint':'Package_DFN_QFN:Maxim_TDFN-12-1EP_3x3mm_P0.5mm_EP1.7x2.5mm_ThermalVias', 'keywords':'Brushed Motor Driver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/max22201-max22207.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nMAX22201\n\nBrushed Motor Driver', 'pins':[
             Pin(num='1',name='ILIM',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='V_{M}',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='OUT1',func=Pin.types.OUTPUT,unit=1),
@@ -696,7 +696,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='V_{18}',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='GNDA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OUT2',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX22202', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX22202'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Maxim_TDFN-12-1EP_3x3mm_P0.5mm_EP1.7x2.5mm_ThermalVias'], 'footprint':'Package_DFN_QFN:Maxim_TDFN-12-1EP_3x3mm_P0.5mm_EP1.7x2.5mm_ThermalVias', 'keywords':'Brushed Motor Driver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/max22201-max22207.pdf', 'pins':[
+        Part(**{ 'name':'MAX22202', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX22202'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Maxim_TDFN-12-1EP_3x3mm_P0.5mm_EP1.7x2.5mm_ThermalVias'], 'footprint':'Package_DFN_QFN:Maxim_TDFN-12-1EP_3x3mm_P0.5mm_EP1.7x2.5mm_ThermalVias', 'keywords':'Brushed Motor Driver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/max22201-max22207.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nMAX22202\n\nBrushed Motor Driver', 'pins':[
             Pin(num='1',name='ILIM',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='V_{M}',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='OUT1',func=Pin.types.OUTPUT,unit=1),
@@ -710,7 +710,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='V_{18}',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='GNDA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OUT2',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX22207', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX22207'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Maxim_TDFN-12-1EP_3x3mm_P0.5mm_EP1.7x2.5mm_ThermalVias'], 'footprint':'Package_DFN_QFN:Maxim_TDFN-12-1EP_3x3mm_P0.5mm_EP1.7x2.5mm_ThermalVias', 'keywords':'Brushed Motor Driver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/max22201-max22207.pdf', 'pins':[
+        Part(**{ 'name':'MAX22207', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX22207'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Maxim_TDFN-12-1EP_3x3mm_P0.5mm_EP1.7x2.5mm_ThermalVias'], 'footprint':'Package_DFN_QFN:Maxim_TDFN-12-1EP_3x3mm_P0.5mm_EP1.7x2.5mm_ThermalVias', 'keywords':'Brushed Motor Driver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/max22201-max22207.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nMAX22207\n\nBrushed Motor Driver', 'pins':[
             Pin(num='1',name='ILIM',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='V_{M}',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='OUT1',func=Pin.types.OUTPUT,unit=1),
@@ -724,7 +724,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='V_{18}',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='GNDA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OUT2',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAC5527QM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC5527QM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Qorvo_TQFN66-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm'], 'footprint':'Package_DFN_QFN:Qorvo_TQFN66-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm', 'keywords':'mcu motor driver', 'description':'', 'datasheet':'https://www.qorvo.com/products/d/da006847', 'pins':[
+        Part(**{ 'name':'PAC5527QM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC5527QM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Qorvo_TQFN66-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm'], 'footprint':'Package_DFN_QFN:Qorvo_TQFN66-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm', 'keywords':'mcu motor driver', 'description':'', 'datasheet':'https://www.qorvo.com/products/d/da006847', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nPAC5527QM\n\nmcu motor driver', 'pins':[
             Pin(num='1',name='PF2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='AIO4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AIO5',func=Pin.types.BIDIR,unit=1),
@@ -774,7 +774,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AIO1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='AIO2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='AIO3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PG001M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PG001M'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Support IC for SLA7042M/SLA7044M', 'description':'', 'datasheet':'http://www.allegromicro.com/~/media/Files/Sanken/Datasheets/PG001M-Datasheet.ashx', 'pins':[
+        Part(**{ 'name':'PG001M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PG001M'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Support IC for SLA7042M/SLA7044M', 'description':'', 'datasheet':'http://www.allegromicro.com/~/media/Files/Sanken/Datasheets/PG001M-Datasheet.ashx', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nPG001M\n\nSupport IC for SLA7042M/SLA7044M', 'pins':[
             Pin(num='1',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DATA_B',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='DATA_A',func=Pin.types.OUTPUT,unit=1),
@@ -788,7 +788,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='MSEL_2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='~{MONITOR}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Pololu_Breakout_A4988', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Pololu_Breakout_A4988'}), 'ref_prefix':'A', 'fplist':['Module:Pololu_Breakout-16_15.2x20.3mm'], 'footprint':'Module:Pololu_Breakout-16_15.2x20.3mm', 'keywords':'Pololu Breakout Board Stepper Driver A4988', 'description':'', 'datasheet':'https://www.pololu.com/product/2980/pictures', 'pins':[
+        Part(**{ 'name':'Pololu_Breakout_A4988', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Pololu_Breakout_A4988'}), 'ref_prefix':'A', 'fplist':['Module:Pololu_Breakout-16_15.2x20.3mm'], 'footprint':'Module:Pololu_Breakout-16_15.2x20.3mm', 'keywords':'Pololu Breakout Board Stepper Driver A4988', 'description':'', 'datasheet':'https://www.pololu.com/product/2980/pictures', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nPololu_Breakout_A4988\n\nPololu Breakout Board Stepper Driver A4988', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='MS1',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='MS2',func=Pin.types.INPUT,unit=1),
@@ -805,7 +805,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VMOT',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='~{ENABLE}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Pololu_Breakout_DRV8825', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Pololu_Breakout_DRV8825'}), 'ref_prefix':'A', 'fplist':['Module:Pololu_Breakout-16_15.2x20.3mm'], 'footprint':'Module:Pololu_Breakout-16_15.2x20.3mm', 'keywords':'Pololu Breakout Board Stepper Driver DRV8825', 'description':'', 'datasheet':'https://www.pololu.com/product/2982', 'pins':[
+        Part(**{ 'name':'Pololu_Breakout_DRV8825', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Pololu_Breakout_DRV8825'}), 'ref_prefix':'A', 'fplist':['Module:Pololu_Breakout-16_15.2x20.3mm'], 'footprint':'Module:Pololu_Breakout-16_15.2x20.3mm', 'keywords':'Pololu Breakout Board Stepper Driver DRV8825', 'description':'', 'datasheet':'https://www.pololu.com/product/2982', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nPololu_Breakout_DRV8825\n\nPololu Breakout Board Stepper Driver DRV8825', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='M0',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='M1',func=Pin.types.INPUT,unit=1),
@@ -822,7 +822,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VMOT',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='~{EN}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SLA7044M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SLA7044M'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Stepper driver', 'description':'', 'datasheet':'http://www.sumzi.com/upload/files/2007/07/2007073114282034189.PDF', 'pins':[
+        Part(**{ 'name':'SLA7044M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SLA7044M'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Stepper driver', 'description':'', 'datasheet':'http://www.sumzi.com/upload/files/2007/07/2007073114282034189.PDF', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nSLA7044M\n\nStepper driver', 'pins':[
             Pin(num='1',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{STROBE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='REF',func=Pin.types.INPUT,unit=1),
@@ -840,8 +840,8 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='15',name='Vdd',func=Pin.types.PWRIN,unit=2),
             Pin(num='16',name='~{CLOCK}',func=Pin.types.INPUT,unit=2),
             Pin(num='17',name='DATA',func=Pin.types.INPUT,unit=2),
-            Pin(num='18',name='~{OUT}',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '1', '4', '6', '5', '2', '9', '3', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '15', '12', '16', '11', '13', '17', '10', '18']}] }),
-        Part(**{ 'name':'SLA7070MPRT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SLA7070MPRT'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Stepper driver', 'description':'', 'datasheet':'http://www.semicon.sanken-ele.co.jp/sk_content/sla7070mprt_ds_en.pdf', 'pins':[
+            Pin(num='18',name='~{OUT}',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['9', '2', '1', '3', '5', '6', '7', '8', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['17', '11', '13', '14', '12', '16', '10', '18', '15']}] }),
+        Part(**{ 'name':'SLA7070MPRT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SLA7070MPRT'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Stepper driver', 'description':'', 'datasheet':'http://www.semicon.sanken-ele.co.jp/sk_content/sla7070mprt_ds_en.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nSLA7070MPRT\n\nStepper driver', 'pins':[
             Pin(num='1',name='OUTA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='CLOCK',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VBB',func=Pin.types.PWRIN,unit=1),
@@ -865,7 +865,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='M1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='M2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='M3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SLA7075MPRT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SLA7075MPRT'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Stepper driver', 'description':'', 'datasheet':'http://www.semicon.sanken-ele.co.jp/sk_content/sla7075mprt_ds_en.pdf', 'pins':[
+        Part(**{ 'name':'SLA7075MPRT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SLA7075MPRT'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Stepper driver', 'description':'', 'datasheet':'http://www.semicon.sanken-ele.co.jp/sk_content/sla7075mprt_ds_en.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nSLA7075MPRT\n\nStepper driver', 'pins':[
             Pin(num='1',name='OUTA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='CLOCK',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VBB',func=Pin.types.PWRIN,unit=1),
@@ -889,7 +889,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='M1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='M2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='M3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SN754410NE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN754410NE'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'h-bridge motor driver', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn754410.pdf', 'pins':[
+        Part(**{ 'name':'SN754410NE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN754410NE'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'h-bridge motor driver', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn754410.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nSN754410NE\n\nh-bridge motor driver', 'pins':[
             Pin(num='1',name='1,2EN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='3A',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='3Y',func=Pin.types.OUTPUT,unit=1),
@@ -906,7 +906,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='2A',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC2',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='3,4EN',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STK672-040-E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STK672-040-E'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Stepper driver', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/EN5227-D.PDF', 'pins':[
+        Part(**{ 'name':'STK672-040-E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STK672-040-E'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Stepper driver', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/EN5227-D.PDF', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nSTK672-040-E\n\nStepper driver', 'pins':[
             Pin(num='1',name='~{B}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='M2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='M3',func=Pin.types.INPUT,unit=1),
@@ -929,7 +929,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Vref',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='M1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STK672-080-E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STK672-080-E'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Stepper driver', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/EN6507-D.PDF', 'pins':[
+        Part(**{ 'name':'STK672-080-E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STK672-080-E'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Stepper driver', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/EN6507-D.PDF', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nSTK672-080-E\n\nStepper driver', 'pins':[
             Pin(num='1',name='PG',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='CWB',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='CLOCK',func=Pin.types.INPUT,unit=1),
@@ -945,7 +945,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Vref',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='M1',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='M2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STSPIN220', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STSPIN220'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.8x1.8mm'], 'footprint':'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'keywords':'motor driver stepper', 'description':'', 'datasheet':'www.st.com/resource/en/datasheet/stspin220.pdf', 'pins':[
+        Part(**{ 'name':'STSPIN220', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STSPIN220'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.8x1.8mm'], 'footprint':'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'keywords':'motor driver stepper', 'description':'', 'datasheet':'www.st.com/resource/en/datasheet/stspin220.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nSTSPIN220\n\nmotor driver stepper', 'pins':[
             Pin(num='1',name='DIR',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OUTB1',func=Pin.types.PWROUT,unit=1),
             Pin(num='11',name='REF',func=Pin.types.INPUT,unit=1),
@@ -963,7 +963,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='OUTB2',func=Pin.types.PWROUT,unit=1),
             Pin(num='9',name='SENSEB',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STSPIN230', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STSPIN230'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.8x1.8mm'], 'footprint':'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'keywords':'motor driver half-bridge', 'description':'', 'datasheet':'www.st.com/resource/en/datasheet/stspin230.pdf', 'pins':[
+        Part(**{ 'name':'STSPIN230', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STSPIN230'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.8x1.8mm'], 'footprint':'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'keywords':'motor driver half-bridge', 'description':'', 'datasheet':'www.st.com/resource/en/datasheet/stspin230.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nSTSPIN230\n\nmotor driver half-bridge', 'pins':[
             Pin(num='1',name='INUL',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OUTW',func=Pin.types.PWROUT,unit=1),
             Pin(num='11',name='INWL',func=Pin.types.INPUT,unit=1),
@@ -981,7 +981,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='OUTV',func=Pin.types.PWROUT,unit=1),
             Pin(num='9',name='SENSEVW',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STSPIN233', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STSPIN233'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.8x1.8mm'], 'footprint':'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'keywords':'motor driver half-bridge', 'description':'', 'datasheet':'www.st.com/resource/en/datasheet/stspin233.pdf', 'pins':[
+        Part(**{ 'name':'STSPIN233', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STSPIN233'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.8x1.8mm'], 'footprint':'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'keywords':'motor driver half-bridge', 'description':'', 'datasheet':'www.st.com/resource/en/datasheet/stspin233.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nSTSPIN233\n\nmotor driver half-bridge', 'pins':[
             Pin(num='1',name='INU',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OUTW',func=Pin.types.PWROUT,unit=1),
             Pin(num='11',name='INW',func=Pin.types.INPUT,unit=1),
@@ -999,7 +999,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUTV',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='SENSEV',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='SENSEW',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STSPIN240', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STSPIN240'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.8x1.8mm'], 'footprint':'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'keywords':'motor driver dc brushed', 'description':'', 'datasheet':'www.st.com/resource/en/datasheet/stspin240.pdf', 'pins':[
+        Part(**{ 'name':'STSPIN240', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STSPIN240'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.8x1.8mm'], 'footprint':'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'keywords':'motor driver dc brushed', 'description':'', 'datasheet':'www.st.com/resource/en/datasheet/stspin240.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nSTSPIN240\n\nmotor driver dc brushed', 'pins':[
             Pin(num='1',name='PHA',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OUTB1',func=Pin.types.PWROUT,unit=1),
             Pin(num='11',name='REF',func=Pin.types.INPUT,unit=1),
@@ -1017,7 +1017,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='OUTB2',func=Pin.types.PWROUT,unit=1),
             Pin(num='9',name='SENSEB',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TB6612FNG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TB6612FNG'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_5.3x8.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'keywords':'H-bridge motor driver', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/us/product/linear/motordriver/detail.TB6612FNG.html', 'pins':[
+        Part(**{ 'name':'TB6612FNG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TB6612FNG'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_5.3x8.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'keywords':'H-bridge motor driver', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/us/product/linear/motordriver/detail.TB6612FNG.html', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nTB6612FNG\n\nH-bridge motor driver', 'pins':[
             Pin(num='1',name='AO1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='PGND2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='BO1',func=Pin.types.OUTPUT,unit=1),
@@ -1042,7 +1042,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='BO2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='BO2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='PGND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TC78H670FTG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TC78H670FTG'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.8x1.8mm'], 'footprint':'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'keywords':'stepping motor driver', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/TC78H670FTG_datasheet_en_20210209.pdf?did=68606&prodName=TC78H670FTG', 'pins':[
+        Part(**{ 'name':'TC78H670FTG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TC78H670FTG'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.8x1.8mm'], 'footprint':'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'keywords':'stepping motor driver', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/TC78H670FTG_datasheet_en_20210209.pdf?did=68606&prodName=TC78H670FTG', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nTC78H670FTG\n\nstepping motor driver', 'pins':[
             Pin(num='2',name='AGND',func=Pin.types.PWRIN),
             Pin(num='3',name='VM',func=Pin.types.PWRIN),
             Pin(num='4',name='PGND_A',func=Pin.types.PWRIN),
@@ -1060,7 +1060,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='16',name='MODE2',func=Pin.types.INPUT,unit=1),
             Pin(num='17',name='GND_PAD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PGND_B',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TMC2041-LA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMC2041-LA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.3x5.3mm_ThermalVias'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.3x5.3mm_ThermalVias', 'keywords':'Dual driver stepper motor', 'description':'', 'datasheet':'https://www.trinamic.com/fileadmin/assets/Products/ICs_Documents/TMC2041_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'TMC2041-LA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMC2041-LA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.3x5.3mm_ThermalVias'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.3x5.3mm_ThermalVias', 'keywords':'Dual driver stepper motor', 'description':'', 'datasheet':'https://www.trinamic.com/fileadmin/assets/Products/ICs_Documents/TMC2041_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nTMC2041-LA\n\nDual driver stepper motor', 'pins':[
             Pin(num='1',name='GNDD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='SWION',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='CLK',func=Pin.types.INPUT,unit=1),
@@ -1110,7 +1110,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC_IO',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='SDO',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SWIOP',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TMC2100-LA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMC2100-LA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-36-1EP_5x6mm_P0.5mm_EP3.6x4.1mm_ThermalVias'], 'footprint':'Package_DFN_QFN:QFN-36-1EP_5x6mm_P0.5mm_EP3.6x4.1mm_ThermalVias', 'keywords':'Driver stepper motor', 'description':'', 'datasheet':'https://www.trinamic.com/fileadmin/assets/Products/ICs_Documents/TMC2100_datasheet_Rev1.08.pdf', 'pins':[
+        Part(**{ 'name':'TMC2100-LA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMC2100-LA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-36-1EP_5x6mm_P0.5mm_EP3.6x4.1mm_ThermalVias'], 'footprint':'Package_DFN_QFN:QFN-36-1EP_5x6mm_P0.5mm_EP3.6x4.1mm_ThermalVias', 'keywords':'Driver stepper motor', 'description':'', 'datasheet':'https://www.trinamic.com/fileadmin/assets/Products/ICs_Documents/TMC2100_datasheet_Rev1.08.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nTMC2100-LA\n\nDriver stepper motor', 'pins':[
             Pin(num='1',name='CLK',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GNDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='GNDD',func=Pin.types.PASSIVE,unit=1),
@@ -1148,7 +1148,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIR',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC_IO',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='DNC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TMC2100-TA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMC2100-TA'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP5x5mm_ThermalVias'], 'footprint':'Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP5x5mm_ThermalVias', 'keywords':'Standalone driver stepper motor', 'description':'', 'datasheet':'https://www.trinamic.com/fileadmin/assets/Products/ICs_Documents/TMC2100_datasheet_Rev1.08.pdf', 'pins':[
+        Part(**{ 'name':'TMC2100-TA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMC2100-TA'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP5x5mm_ThermalVias'], 'footprint':'Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP5x5mm_ThermalVias', 'keywords':'Standalone driver stepper motor', 'description':'', 'datasheet':'https://www.trinamic.com/fileadmin/assets/Products/ICs_Documents/TMC2100_datasheet_Rev1.08.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nTMC2100-TA\n\nStandalone driver stepper motor', 'pins':[
             Pin(num='1',name='TST_MODE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VCC_IO',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DNC',func=Pin.types.NOCONNECT,unit=1),
@@ -1198,7 +1198,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CFG0',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='STEP',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DIR',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TMC2130-LA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMC2130-LA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-36-1EP_5x6mm_P0.5mm_EP3.6x4.1mm'], 'footprint':'Package_DFN_QFN:QFN-36-1EP_5x6mm_P0.5mm_EP3.6x4.1mm', 'keywords':'stepper motor driver', 'description':'', 'datasheet':'http://www.trinamic.com/fileadmin/assets/Products/ICs_Documents/TMC2130_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'TMC2130-LA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMC2130-LA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-36-1EP_5x6mm_P0.5mm_EP3.6x4.1mm'], 'footprint':'Package_DFN_QFN:QFN-36-1EP_5x6mm_P0.5mm_EP3.6x4.1mm', 'keywords':'stepper motor driver', 'description':'', 'datasheet':'http://www.trinamic.com/fileadmin/assets/Products/ICs_Documents/TMC2130_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nTMC2130-LA\n\nstepper motor driver', 'pins':[
             Pin(num='1',name='CLK',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='SPI_MODE',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.PASSIVE,unit=1),
@@ -1236,7 +1236,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIR',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC_IO',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='DNC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TMC2130-TA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMC2130-TA'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP5x5mm'], 'footprint':'Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP5x5mm', 'keywords':'stepper motor driver', 'description':'', 'datasheet':'http://www.trinamic.com/fileadmin/assets/Products/ICs_Documents/TMC2130_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'TMC2130-TA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMC2130-TA'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP5x5mm'], 'footprint':'Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP5x5mm', 'keywords':'stepper motor driver', 'description':'', 'datasheet':'http://www.trinamic.com/fileadmin/assets/Products/ICs_Documents/TMC2130_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nTMC2130-TA\n\nstepper motor driver', 'pins':[
             Pin(num='1',name='TST_MODE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VCC_IO',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DNC',func=Pin.types.NOCONNECT,unit=1),
@@ -1286,7 +1286,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDO_CFG0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='STEP',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DIR',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TMC2160', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMC2160'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP5x5mm'], 'footprint':'Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP5x5mm', 'keywords':'Standalone driver stepper motor', 'description':'', 'datasheet':'https://www.trinamic.com/fileadmin/assets/Products/ICs_Documents/TMC2160A-datasheet_Rev1.06.pdf', 'pins':[
+        Part(**{ 'name':'TMC2160', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMC2160'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP5x5mm'], 'footprint':'Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP5x5mm', 'keywords':'Standalone driver stepper motor', 'description':'', 'datasheet':'https://www.trinamic.com/fileadmin/assets/Products/ICs_Documents/TMC2160A-datasheet_Rev1.06.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nTMC2160\n\nStandalone driver stepper motor', 'pins':[
             Pin(num='1',name='HB1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='SRBL',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='TST_MODE',func=Pin.types.INPUT,unit=1),
@@ -1336,7 +1336,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SRAL',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SRAH',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='SRBH',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TMC2202-WA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMC2202-WA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-32-1EP_5x5mm_P0.5mm_EP3.4x3.4mm_ThermalVias'], 'footprint':'Package_DFN_QFN:TQFN-32-1EP_5x5mm_P0.5mm_EP3.4x3.4mm_ThermalVias', 'keywords':'Standalone driver stepper motor', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/TMC2202_TMC2208_TMC2224_datasheet_rev1.13.pdf', 'pins':[
+        Part(**{ 'name':'TMC2202-WA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMC2202-WA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-32-1EP_5x5mm_P0.5mm_EP3.4x3.4mm_ThermalVias'], 'footprint':'Package_DFN_QFN:TQFN-32-1EP_5x5mm_P0.5mm_EP3.4x3.4mm_ThermalVias', 'keywords':'Standalone driver stepper motor', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/TMC2202_TMC2208_TMC2224_datasheet_rev1.13.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nTMC2202-WA\n\nStandalone driver stepper motor', 'pins':[
             Pin(num='1',name='OB2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='5VOUT',func=Pin.types.PWROUT,unit=1),
             Pin(num='11',name='MS1',func=Pin.types.INPUT,unit=1),
@@ -1369,7 +1369,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CPO',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='CPI',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='VCP',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TMC2208-LA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMC2208-LA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-32-1EP_5x5mm_P0.5mm_EP3.4x3.4mm_ThermalVias'], 'footprint':'Package_DFN_QFN:TQFN-32-1EP_5x5mm_P0.5mm_EP3.4x3.4mm_ThermalVias', 'keywords':'Standalone driver stepper motor', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/TMC2202_TMC2208_TMC2224_datasheet_rev1.13.pdf', 'pins':[
+        Part(**{ 'name':'TMC2208-LA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMC2208-LA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-32-1EP_5x5mm_P0.5mm_EP3.4x3.4mm_ThermalVias'], 'footprint':'Package_DFN_QFN:TQFN-32-1EP_5x5mm_P0.5mm_EP3.4x3.4mm_ThermalVias', 'keywords':'Standalone driver stepper motor', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/TMC2202_TMC2208_TMC2224_datasheet_rev1.13.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nTMC2208-LA\n\nStandalone driver stepper motor', 'pins':[
             Pin(num='1',name='OB2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='MS2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DIAG',func=Pin.types.OUTPUT,unit=1),
@@ -1398,7 +1398,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='5VOUT',func=Pin.types.PWROUT,unit=1),
             Pin(num='9',name='MS1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TMC2224-LA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMC2224-LA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-32-1EP_5x5mm_P0.5mm_EP3.4x3.4mm_ThermalVias'], 'footprint':'Package_DFN_QFN:TQFN-32-1EP_5x5mm_P0.5mm_EP3.4x3.4mm_ThermalVias', 'keywords':'Standalone driver stepper motor', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/TMC2202_TMC2208_TMC2224_datasheet_rev1.13.pdf', 'pins':[
+        Part(**{ 'name':'TMC2224-LA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMC2224-LA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-32-1EP_5x5mm_P0.5mm_EP3.4x3.4mm_ThermalVias'], 'footprint':'Package_DFN_QFN:TQFN-32-1EP_5x5mm_P0.5mm_EP3.4x3.4mm_ThermalVias', 'keywords':'Standalone driver stepper motor', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/TMC2202_TMC2208_TMC2224_datasheet_rev1.13.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nTMC2224-LA\n\nStandalone driver stepper motor', 'pins':[
             Pin(num='1',name='MS2',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OA1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='OB1',func=Pin.types.OUTPUT,unit=1),
@@ -1427,7 +1427,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='OA2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='BRA',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TMC2226-SA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMC2226-SA'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.75x6.2mm_ThermalVias'], 'footprint':'Package_SO:HTSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.75x6.2mm_ThermalVias', 'keywords':'Standalone driver stepper motor', 'description':'', 'datasheet':'https://www.trinamic.com/fileadmin/assets/Products/ICs_Documents/TMC2226_datasheet_rev1.10.pdf', 'pins':[
+        Part(**{ 'name':'TMC2226-SA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMC2226-SA'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.75x6.2mm_ThermalVias'], 'footprint':'Package_SO:HTSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.75x6.2mm_ThermalVias', 'keywords':'Standalone driver stepper motor', 'description':'', 'datasheet':'https://www.trinamic.com/fileadmin/assets/Products/ICs_Documents/TMC2226_datasheet_rev1.10.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nTMC2226-SA\n\nStandalone driver stepper motor', 'pins':[
             Pin(num='1',name='OB1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='SPREAD',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='5VOUT',func=Pin.types.PWROUT,unit=1),
@@ -1457,7 +1457,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CPO',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CPI',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VCP',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TMC262', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMC262'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'trinamic tlc262 stepper', 'description':'', 'datasheet':'https://www.trinamic.com/fileadmin/assets/Products/ICs_Documents/TMC262_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'TMC262', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMC262'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'trinamic tlc262 stepper', 'description':'', 'datasheet':'https://www.trinamic.com/fileadmin/assets/Products/ICs_Documents/TMC262_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nTMC262\n\ntrinamic tlc262 stepper', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='SD0',func=Pin.types.TRISTATE,unit=1),
             Pin(num='11',name='SDI',func=Pin.types.INPUT,unit=1),
@@ -1491,7 +1491,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='LA2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='SRA',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='5VOUT',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TMC2660', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMC2660'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Standalone driver stepper motor', 'description':'', 'datasheet':'https://www.trinamic.com/fileadmin/assets/Products/ICs_Documents/TMC2660_datasheet_Rev1.07.pdf', 'pins':[
+        Part(**{ 'name':'TMC2660', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMC2660'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Standalone driver stepper motor', 'description':'', 'datasheet':'https://www.trinamic.com/fileadmin/assets/Products/ICs_Documents/TMC2660_datasheet_Rev1.07.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nTMC2660\n\nStandalone driver stepper motor', 'pins':[
             Pin(num='1',name='n.c.',func=Pin.types.FREE,unit=1),
             Pin(num='10',name='OA2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='OA2',func=Pin.types.PASSIVE,unit=1),
@@ -1536,7 +1536,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OA1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='OA1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='BRA',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TMC5130A-TA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMC5130A-TA'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP5x5mm_ThermalVias'], 'footprint':'Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP5x5mm_ThermalVias', 'keywords':'Standalone driver stepper motor', 'description':'', 'datasheet':'https://www.trinamic.com/fileadmin/assets/Products/ICs_Documents/TMC5130_datasheet_Rev1.17.pdf', 'pins':[
+        Part(**{ 'name':'TMC5130A-TA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMC5130A-TA'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP5x5mm_ThermalVias'], 'footprint':'Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP5x5mm_ThermalVias', 'keywords':'Standalone driver stepper motor', 'description':'', 'datasheet':'https://www.trinamic.com/fileadmin/assets/Products/ICs_Documents/TMC5130_datasheet_Rev1.17.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nTMC5130A-TA\n\nStandalone driver stepper motor', 'pins':[
             Pin(num='1',name='TST_MODE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VCC_IO',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='SD_MODE',func=Pin.types.INPUT,unit=1),
@@ -1586,7 +1586,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDO_NAO_CFG0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='REFL_STEP',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='REFR_DIR',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TMC5160A-TA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMC5160A-TA'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP5x5mm_ThermalVias'], 'footprint':'Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP5x5mm_ThermalVias', 'keywords':'stepper motor driver trinamic', 'description':'', 'datasheet':'https://www.trinamic.com/fileadmin/assets/Products/ICs_Documents/TMC5160A_Datasheet_Rev1.14.pdf', 'pins':[
+        Part(**{ 'name':'TMC5160A-TA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMC5160A-TA'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP5x5mm_ThermalVias'], 'footprint':'Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP5x5mm_ThermalVias', 'keywords':'stepper motor driver trinamic', 'description':'', 'datasheet':'https://www.trinamic.com/fileadmin/assets/Products/ICs_Documents/TMC5160A_Datasheet_Rev1.14.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nTMC5160A-TA\n\nstepper motor driver trinamic', 'pins':[
             Pin(num='1',name='HB1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='SRBL',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='TST_MODE',func=Pin.types.INPUT,unit=1),
@@ -1636,7 +1636,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SRAL',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='SRAH',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='SRBH',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'VNH2SP30', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VNH2SP30'}), 'ref_prefix':'U', 'fplist':['Package_SO:ST_MultiPowerSO-30'], 'footprint':'Package_SO:ST_MultiPowerSO-30', 'keywords':'full-bridge h-bridge', 'description':'', 'datasheet':'http://www.st.com/content/ccc/resource/technical/document/datasheet/group2/66/b8/f5/2c/9a/66/41/c7/CD00043711/files/CD00043711.pdf/jcr:content/translations/en.CD00043711.pdf', 'pins':[
+        Part(**{ 'name':'VNH2SP30', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VNH2SP30'}), 'ref_prefix':'U', 'fplist':['Package_SO:ST_MultiPowerSO-30'], 'footprint':'Package_SO:ST_MultiPowerSO-30', 'keywords':'full-bridge h-bridge', 'description':'', 'datasheet':'http://www.st.com/content/ccc/resource/technical/document/datasheet/group2/66/b8/f5/2c/9a/66/41/c7/CD00043711/files/CD00043711.pdf/jcr:content/translations/en.CD00043711.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nVNH2SP30\n\nfull-bridge h-bridge', 'pins':[
             Pin(num='1',name='OUTA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='EN/DIAB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='INB',func=Pin.types.INPUT,unit=1),
@@ -1670,7 +1670,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='PWM',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='CS',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'VNH5019A-E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VNH5019A-E'}), 'ref_prefix':'U', 'fplist':['Package_SO:ST_MultiPowerSO-30'], 'footprint':'Package_SO:ST_MultiPowerSO-30', 'keywords':'full-bridge h-bridge', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/vnh5019a-e.pdf', 'pins':[
+        Part(**{ 'name':'VNH5019A-E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VNH5019A-E'}), 'ref_prefix':'U', 'fplist':['Package_SO:ST_MultiPowerSO-30'], 'footprint':'Package_SO:ST_MultiPowerSO-30', 'keywords':'full-bridge h-bridge', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/vnh5019a-e.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nVNH5019A-E\n\nfull-bridge h-bridge', 'pins':[
             Pin(num='1',name='OUTA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='INB',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='CP',func=Pin.types.OUTPUT,unit=1),
@@ -1704,7 +1704,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PWM',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CS',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='EN/DIAGB',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ZXBM5210-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ZXBM5210-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'H-bridge, motor driver, PWM, single coil', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/ZXBM5210.pdf', 'pins':[
+        Part(**{ 'name':'ZXBM5210-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ZXBM5210-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'H-bridge, motor driver, PWM, single coil', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/ZXBM5210.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nZXBM5210-S\n\nH-bridge, motor driver, PWM, single coil', 'pins':[
             Pin(num='1',name='OUT1',func=Pin.types.OUTPUT),
             Pin(num='2',name='VM',func=Pin.types.PWRIN),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN),
@@ -1713,7 +1713,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VREF',func=Pin.types.INPUT),
             Pin(num='7',name='OUT2',func=Pin.types.OUTPUT),
             Pin(num='8',name='GND',func=Pin.types.PWRIN)], 'unit_defs':[] }),
-        Part(**{ 'name':'ZXBM5210-SP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ZXBM5210-SP'}), 'ref_prefix':'U', 'fplist':['Package_SO:Diodes_SO-8EP'], 'footprint':'Package_SO:Diodes_SO-8EP', 'keywords':'H-bridge, motor driver, PWM, single coil', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/ZXBM5210.pdf', 'pins':[
+        Part(**{ 'name':'ZXBM5210-SP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ZXBM5210-SP'}), 'ref_prefix':'U', 'fplist':['Package_SO:Diodes_SO-8EP'], 'footprint':'Package_SO:Diodes_SO-8EP', 'keywords':'H-bridge, motor driver, PWM, single coil', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/ZXBM5210.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nZXBM5210-SP\n\nH-bridge, motor driver, PWM, single coil', 'pins':[
             Pin(num='1',name='OUT1',func=Pin.types.OUTPUT),
             Pin(num='2',name='VM',func=Pin.types.PWRIN),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN),
@@ -1723,7 +1723,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUT2',func=Pin.types.OUTPUT),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE)], 'unit_defs':[] }),
-        Part(**{ 'name':'A4950K', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A4950K'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.3mm', 'Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.3mm'], 'footprint':'Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.3mm', 'keywords':'full-bridge h-bridge', 'description':'', 'datasheet':'http://www.allegromicro.com/~/media/Files/Datasheets/A4950-Datasheet.ashx', 'pins':[
+        Part(**{ 'name':'A4950K', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A4950K'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.3mm', 'Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.3mm'], 'footprint':'Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.3mm', 'keywords':'full-bridge h-bridge', 'description':'', 'datasheet':'http://www.allegromicro.com/~/media/Files/Datasheets/A4950-Datasheet.ashx', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nA4950K\n\nfull-bridge h-bridge', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN2',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='IN1',func=Pin.types.INPUT,unit=1),
@@ -1733,7 +1733,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='LSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='OUT2',func=Pin.types.PWROUT,unit=1),
             Pin(num='9',name='PAD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'A4953_LJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A4953_LJ'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.3mm', 'Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.3mm', 'Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.3mm'], 'footprint':'Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.3mm', 'keywords':'Full-bridge h-bridge', 'description':'', 'datasheet':'www.allegromicro.com/~/media/Files/Datasheets/A4952-3-Datasheet.ashx?la=en', 'pins':[
+        Part(**{ 'name':'A4953_LJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A4953_LJ'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.3mm', 'Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.3mm', 'Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.3mm'], 'footprint':'Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.3mm', 'keywords':'Full-bridge h-bridge', 'description':'', 'datasheet':'www.allegromicro.com/~/media/Files/Datasheets/A4952-3-Datasheet.ashx?la=en', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nA4953_LJ\n\nFull-bridge h-bridge', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN2',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='IN1',func=Pin.types.INPUT,unit=1),
@@ -1743,7 +1743,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='LSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='OUT2',func=Pin.types.PWROUT,unit=1),
             Pin(num='9',name='PAD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DRV8212P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8212P'}), 'ref_prefix':'U', 'fplist':['Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm', 'Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm_ThermalVias'], 'footprint':'Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm', 'keywords':'half bridge driver', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/drv8212p.pdf', 'pins':[
+        Part(**{ 'name':'DRV8212P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8212P'}), 'ref_prefix':'U', 'fplist':['Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm', 'Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm_ThermalVias'], 'footprint':'Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm', 'keywords':'half bridge driver', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/drv8212p.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nDRV8212P\n\nhalf bridge driver', 'pins':[
             Pin(num='1',name='VM',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='OUT1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='OUT2',func=Pin.types.OUTPUT,unit=1),
@@ -1753,7 +1753,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{SLEEP}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DRV8837', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8837'}), 'ref_prefix':'U', 'fplist':['Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm', 'Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm_ThermalVias', 'Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm'], 'footprint':'Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm', 'keywords':'half bridge driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/drv8837.pdf', 'pins':[
+        Part(**{ 'name':'DRV8837', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8837'}), 'ref_prefix':'U', 'fplist':['Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm', 'Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm_ThermalVias', 'Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm'], 'footprint':'Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm', 'keywords':'half bridge driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/drv8837.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nDRV8837\n\nhalf bridge driver', 'pins':[
             Pin(num='1',name='VM',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='OUT1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='OUT2',func=Pin.types.OUTPUT,unit=1),
@@ -1763,7 +1763,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{SLEEP}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'L293D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L293D'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm', 'Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'Half-H Driver Motor', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/l293.pdf', 'pins':[
+        Part(**{ 'name':'L293D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L293D'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm', 'Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'Half-H Driver Motor', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/l293.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nL293D\n\nHalf-H Driver Motor', 'pins':[
             Pin(num='1',name='EN1,2',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='3A',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='3Y',func=Pin.types.OUTPUT,unit=1),
@@ -1780,7 +1780,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='2A',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC2',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='EN3,4',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'L298N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L298N'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead5.84mm_TabDown', 'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead5.84mm_TabDown', 'keywords':'H-bridge motor driver', 'description':'', 'datasheet':'http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/CD00000240.pdf', 'pins':[
+        Part(**{ 'name':'L298N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L298N'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead5.84mm_TabDown', 'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead5.84mm_TabDown', 'keywords':'H-bridge motor driver', 'description':'', 'datasheet':'http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/CD00000240.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nL298N\n\nH-bridge motor driver', 'pins':[
             Pin(num='1',name='SENSE_A',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='IN3',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='EnB',func=Pin.types.INPUT,unit=1),
@@ -1796,7 +1796,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IN2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Vss',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SLA7042M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SLA7042M'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Stepper driver', 'description':'', 'datasheet':'www.sumzi.com/upload/files/2007/07/2007073114282034189.PDF', 'pins':[
+        Part(**{ 'name':'SLA7042M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SLA7042M'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Stepper driver', 'description':'', 'datasheet':'www.sumzi.com/upload/files/2007/07/2007073114282034189.PDF', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nSLA7042M\n\nStepper driver', 'pins':[
             Pin(num='1',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{STROBE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='REF',func=Pin.types.INPUT,unit=1),
@@ -1814,8 +1814,8 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='15',name='Vdd',func=Pin.types.PWRIN,unit=2),
             Pin(num='16',name='~{CLOCK}',func=Pin.types.INPUT,unit=2),
             Pin(num='17',name='DATA',func=Pin.types.INPUT,unit=2),
-            Pin(num='18',name='~{OUT}',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '8', '1', '9', '7', '5', '3', '2', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '13', '15', '18', '14', '16', '12', '10', '17']}] }),
-        Part(**{ 'name':'SLA7071MPRT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SLA7071MPRT'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Stepper driver', 'description':'', 'datasheet':'http://www.semicon.sanken-ele.co.jp/sk_content/sla7071mprt_ds_en.pdf', 'pins':[
+            Pin(num='18',name='~{OUT}',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1', '9', '8', '2', '5', '3', '7', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '15', '18', '17', '14', '16', '11', '12', '10']}] }),
+        Part(**{ 'name':'SLA7071MPRT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SLA7071MPRT'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Stepper driver', 'description':'', 'datasheet':'http://www.semicon.sanken-ele.co.jp/sk_content/sla7071mprt_ds_en.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nSLA7071MPRT\n\nStepper driver', 'pins':[
             Pin(num='1',name='OUTA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='CLOCK',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VBB',func=Pin.types.PWRIN,unit=1),
@@ -1839,7 +1839,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='M1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='M2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='M3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SLA7072MPRT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SLA7072MPRT'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'Stepper driver', 'description':'', 'datasheet':'http://www.semicon.sanken-ele.co.jp/sk_content/sla7072mprt_ds_en.pdf', 'pins':[
+        Part(**{ 'name':'SLA7072MPRT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SLA7072MPRT'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'Stepper driver', 'description':'', 'datasheet':'http://www.semicon.sanken-ele.co.jp/sk_content/sla7072mprt_ds_en.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nSLA7072MPRT\n\nStepper driver', 'pins':[
             Pin(num='1',name='OUTA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='CLOCK',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VBB',func=Pin.types.PWRIN,unit=1),
@@ -1863,7 +1863,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='M1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='M2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='M3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SLA7073MPRT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SLA7073MPRT'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'Stepper driver', 'description':'', 'datasheet':'http://www.semicon.sanken-ele.co.jp/sk_content/sla7073mprt_ds_en.pdf', 'pins':[
+        Part(**{ 'name':'SLA7073MPRT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SLA7073MPRT'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'Stepper driver', 'description':'', 'datasheet':'http://www.semicon.sanken-ele.co.jp/sk_content/sla7073mprt_ds_en.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nSLA7073MPRT\n\nStepper driver', 'pins':[
             Pin(num='1',name='OUTA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='CLOCK',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VBB',func=Pin.types.PWRIN,unit=1),
@@ -1887,7 +1887,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='M1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='M2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='M3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SLA7076MPRT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SLA7076MPRT'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Stepper driver', 'description':'', 'datasheet':'http://www.semicon.sanken-ele.co.jp/sk_content/sla7076mprt_ds_en.pdf', 'pins':[
+        Part(**{ 'name':'SLA7076MPRT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SLA7076MPRT'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Stepper driver', 'description':'', 'datasheet':'http://www.semicon.sanken-ele.co.jp/sk_content/sla7076mprt_ds_en.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nSLA7076MPRT\n\nStepper driver', 'pins':[
             Pin(num='1',name='OUTA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='CLOCK',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VBB',func=Pin.types.PWRIN,unit=1),
@@ -1911,7 +1911,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='M1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='M2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='M3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SLA7077MPRT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SLA7077MPRT'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'Stepper driver', 'description':'', 'datasheet':'http://www.semicon.sanken-ele.co.jp/sk_content/sla7077mprt_ds_en.pdf', 'pins':[
+        Part(**{ 'name':'SLA7077MPRT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SLA7077MPRT'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'Stepper driver', 'description':'', 'datasheet':'http://www.semicon.sanken-ele.co.jp/sk_content/sla7077mprt_ds_en.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nSLA7077MPRT\n\nStepper driver', 'pins':[
             Pin(num='1',name='OUTA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='CLOCK',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VBB',func=Pin.types.PWRIN,unit=1),
@@ -1935,7 +1935,7 @@ Driver_Motor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='M1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='M2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='M3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SLA7078MPRT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SLA7078MPRT'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'Stepper driver', 'description':'', 'datasheet':'http://www.semicon.sanken-ele.co.jp/sk_content/sla7078mprt_ds_en.pdf', 'pins':[
+        Part(**{ 'name':'SLA7078MPRT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SLA7078MPRT'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'Stepper driver', 'description':'', 'datasheet':'http://www.semicon.sanken-ele.co.jp/sk_content/sla7078mprt_ds_en.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Motor.kicad_sym\nSLA7078MPRT\n\nStepper driver', 'pins':[
             Pin(num='1',name='OUTA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='CLOCK',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VBB',func=Pin.types.PWRIN,unit=1),

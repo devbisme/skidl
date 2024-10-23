@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 RF_RFID = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'HTRC11001T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HTRC11001T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'HITAG RFID', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/037031.pdf', 'pins':[
+        Part(**{ 'name':'HTRC11001T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HTRC11001T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'HITAG RFID', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/037031.pdf', 'search_text':'/usr/share/kicad/symbols/RF_RFID.kicad_sym\nHTRC11001T\n\nHITAG RFID', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='12',name='CEXT',func=Pin.types.PASSIVE,unit=1),
@@ -18,7 +18,7 @@ RF_RFID = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTAL2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DIN',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PN5120A0HN1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PN5120A0HN1'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:HVQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:HVQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'PN512 RFID', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/PN512.pdf', 'pins':[
+        Part(**{ 'name':'PN5120A0HN1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PN5120A0HN1'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:HVQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:HVQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'PN512 RFID', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/PN512.pdf', 'search_text':'/usr/share/kicad/symbols/RF_RFID.kicad_sym\nPN5120A0HN1\n\nPN512 RFID', 'pins':[
             Pin(num='1',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='TVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='TX1',func=Pin.types.OUTPUT,unit=1),

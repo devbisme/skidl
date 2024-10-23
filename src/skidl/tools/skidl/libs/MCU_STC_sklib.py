@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 MCU_STC = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'STC15W201S-35x-SOP16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STC15W201S-35x-SOP16'}), 'ref_prefix':'U', 'fplist':['Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'keywords':'STC 8051 microcontroller', 'description':'', 'datasheet':'www.stcmicro.com/datasheet/STC15F2K60S2-en.pdf', 'pins':[
+        Part(**{ 'name':'STC15W201S-35x-SOP16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STC15W201S-35x-SOP16'}), 'ref_prefix':'U', 'fplist':['Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'keywords':'STC 8051 microcontroller', 'description':'', 'datasheet':'www.stcmicro.com/datasheet/STC15F2K60S2-en.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_STC.kicad_sym\nSTC15W201S-35x-SOP16\n\nSTC 8051 microcontroller', 'pins':[
             Pin(num='1',name='P1.2/CMPO/T0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='TxD/T2/P3.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='INT0/P3.2',func=Pin.types.BIDIR,unit=1),
@@ -21,7 +21,7 @@ MCU_STC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CMP+/P5.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RxD/~{INT4}/T2CLKO/P3.0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STC8G1K08-38I-TSSOP20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STC8G1K08-38I-TSSOP20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'STC 8051 microcontroller', 'description':'', 'datasheet':'www.stcmicro.com/datasheet/STC8G-en.pdf', 'pins':[
+        Part(**{ 'name':'STC8G1K08-38I-TSSOP20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STC8G1K08-38I-TSSOP20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'STC 8051 microcontroller', 'description':'', 'datasheet':'www.stcmicro.com/datasheet/STC8G-en.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_STC.kicad_sym\nSTC8G1K08-38I-TSSOP20\n\nSTC 8051 microcontroller', 'pins':[
             Pin(num='1',name='P1.2/ADC2/SS/T2/ECI',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='INT4/RxD/ADC8/P3.0',func=Pin.types.BIDIR,unit=1),
@@ -42,7 +42,7 @@ MCU_STC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='MCLKO/RST/P5.4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='P5.5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IAP15W205S-35x-SOP16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IAP15W205S-35x-SOP16'}), 'ref_prefix':'U', 'fplist':['Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'keywords':'STC 8051 microcontroller', 'description':'', 'datasheet':'www.stcmicro.com/datasheet/STC15F2K60S2-en.pdf', 'pins':[
+        Part(**{ 'name':'IAP15W205S-35x-SOP16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IAP15W205S-35x-SOP16'}), 'ref_prefix':'U', 'fplist':['Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'keywords':'STC 8051 microcontroller', 'description':'', 'datasheet':'www.stcmicro.com/datasheet/STC15F2K60S2-en.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_STC.kicad_sym\nIAP15W205S-35x-SOP16\n\nSTC 8051 microcontroller', 'pins':[
             Pin(num='1',name='P1.2/CMPO/T0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='TxD/T2/P3.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='INT0/P3.2',func=Pin.types.BIDIR,unit=1),
@@ -59,7 +59,7 @@ MCU_STC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CMP+/P5.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RxD/~{INT4}/T2CLKO/P3.0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRC15W207S-35x-SOP16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRC15W207S-35x-SOP16'}), 'ref_prefix':'U', 'fplist':['Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'keywords':'STC 8051 microcontroller', 'description':'', 'datasheet':'www.stcmicro.com/datasheet/STC15F2K60S2-en.pdf', 'pins':[
+        Part(**{ 'name':'IRC15W207S-35x-SOP16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRC15W207S-35x-SOP16'}), 'ref_prefix':'U', 'fplist':['Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'keywords':'STC 8051 microcontroller', 'description':'', 'datasheet':'www.stcmicro.com/datasheet/STC15F2K60S2-en.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_STC.kicad_sym\nIRC15W207S-35x-SOP16\n\nSTC 8051 microcontroller', 'pins':[
             Pin(num='1',name='P1.2/CMPO/T0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='TxD/T2/P3.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='INT0/P3.2',func=Pin.types.BIDIR,unit=1),
@@ -76,7 +76,7 @@ MCU_STC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CMP+/P5.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RxD/~{INT4}/T2CLKO/P3.0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STC15W202S-35x-SOP16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STC15W202S-35x-SOP16'}), 'ref_prefix':'U', 'fplist':['Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'keywords':'STC 8051 microcontroller', 'description':'', 'datasheet':'www.stcmicro.com/datasheet/STC15F2K60S2-en.pdf', 'pins':[
+        Part(**{ 'name':'STC15W202S-35x-SOP16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STC15W202S-35x-SOP16'}), 'ref_prefix':'U', 'fplist':['Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'keywords':'STC 8051 microcontroller', 'description':'', 'datasheet':'www.stcmicro.com/datasheet/STC15F2K60S2-en.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_STC.kicad_sym\nSTC15W202S-35x-SOP16\n\nSTC 8051 microcontroller', 'pins':[
             Pin(num='1',name='P1.2/CMPO/T0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='TxD/T2/P3.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='INT0/P3.2',func=Pin.types.BIDIR,unit=1),
@@ -93,7 +93,7 @@ MCU_STC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CMP+/P5.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RxD/~{INT4}/T2CLKO/P3.0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STC15W203S-35x-SOP16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STC15W203S-35x-SOP16'}), 'ref_prefix':'U', 'fplist':['Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'keywords':'STC 8051 microcontroller', 'description':'', 'datasheet':'www.stcmicro.com/datasheet/STC15F2K60S2-en.pdf', 'pins':[
+        Part(**{ 'name':'STC15W203S-35x-SOP16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STC15W203S-35x-SOP16'}), 'ref_prefix':'U', 'fplist':['Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'keywords':'STC 8051 microcontroller', 'description':'', 'datasheet':'www.stcmicro.com/datasheet/STC15F2K60S2-en.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_STC.kicad_sym\nSTC15W203S-35x-SOP16\n\nSTC 8051 microcontroller', 'pins':[
             Pin(num='1',name='P1.2/CMPO/T0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='TxD/T2/P3.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='INT0/P3.2',func=Pin.types.BIDIR,unit=1),
@@ -110,7 +110,7 @@ MCU_STC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CMP+/P5.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RxD/~{INT4}/T2CLKO/P3.0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STC15W204S-35x-SOP16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STC15W204S-35x-SOP16'}), 'ref_prefix':'U', 'fplist':['Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'keywords':'STC 8051 microcontroller', 'description':'', 'datasheet':'www.stcmicro.com/datasheet/STC15F2K60S2-en.pdf', 'pins':[
+        Part(**{ 'name':'STC15W204S-35x-SOP16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STC15W204S-35x-SOP16'}), 'ref_prefix':'U', 'fplist':['Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:STC_SOP-16_3.9x9.9mm_P1.27mm', 'keywords':'STC 8051 microcontroller', 'description':'', 'datasheet':'www.stcmicro.com/datasheet/STC15F2K60S2-en.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_STC.kicad_sym\nSTC15W204S-35x-SOP16\n\nSTC 8051 microcontroller', 'pins':[
             Pin(num='1',name='P1.2/CMPO/T0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='TxD/T2/P3.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='INT0/P3.2',func=Pin.types.BIDIR,unit=1),
@@ -127,7 +127,7 @@ MCU_STC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CMP+/P5.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RxD/~{INT4}/T2CLKO/P3.0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STC8G1K04-38I-TSSOP20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STC8G1K04-38I-TSSOP20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'STC 8051 microcontroller', 'description':'', 'datasheet':'www.stcmicro.com/datasheet/STC8G-en.pdf', 'pins':[
+        Part(**{ 'name':'STC8G1K04-38I-TSSOP20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STC8G1K04-38I-TSSOP20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'STC 8051 microcontroller', 'description':'', 'datasheet':'www.stcmicro.com/datasheet/STC8G-en.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_STC.kicad_sym\nSTC8G1K04-38I-TSSOP20\n\nSTC 8051 microcontroller', 'pins':[
             Pin(num='1',name='P1.2/ADC2/SS/T2/ECI',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='INT4/RxD/ADC8/P3.0',func=Pin.types.BIDIR,unit=1),
@@ -148,7 +148,7 @@ MCU_STC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='MCLKO/RST/P5.4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='P5.5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STC8G1K17-38I-TSSOP20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STC8G1K17-38I-TSSOP20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'STC 8051 microcontroller', 'description':'', 'datasheet':'www.stcmicro.com/datasheet/STC8G-en.pdf', 'pins':[
+        Part(**{ 'name':'STC8G1K17-38I-TSSOP20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STC8G1K17-38I-TSSOP20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'STC 8051 microcontroller', 'description':'', 'datasheet':'www.stcmicro.com/datasheet/STC8G-en.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_STC.kicad_sym\nSTC8G1K17-38I-TSSOP20\n\nSTC 8051 microcontroller', 'pins':[
             Pin(num='1',name='P1.2/ADC2/SS/T2/ECI',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='INT4/RxD/ADC8/P3.0',func=Pin.types.BIDIR,unit=1),

@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Memory_EPROM = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'27C010', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'27C010'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'OTP EPROM 1MiBit', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc0321.pdf', 'pins':[
+        Part(**{ 'name':'27C010', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'27C010'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'OTP EPROM 1MiBit', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc0321.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EPROM.kicad_sym\n27C010\n\nOTP EPROM 1MiBit', 'pins':[
             Pin(num='1',name='VPP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='A1',func=Pin.types.INPUT,unit=1),
@@ -36,7 +36,7 @@ Memory_EPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A5',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A4',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'27C020', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'27C020'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'OTP EPROM 2MiBit', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/doc0570.pdf', 'pins':[
+        Part(**{ 'name':'27C020', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'27C020'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'OTP EPROM 2MiBit', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/doc0570.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EPROM.kicad_sym\n27C020\n\nOTP EPROM 2MiBit', 'pins':[
             Pin(num='1',name='VPP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='A1',func=Pin.types.INPUT,unit=1),
@@ -69,7 +69,7 @@ Memory_EPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A5',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A4',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'27C040', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'27C040'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'OTP EPROM 4MiBit', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/doc0189.pdf', 'pins':[
+        Part(**{ 'name':'27C040', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'27C040'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'OTP EPROM 4MiBit', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/doc0189.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EPROM.kicad_sym\n27C040\n\nOTP EPROM 4MiBit', 'pins':[
             Pin(num='1',name='VPP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='A1',func=Pin.types.INPUT,unit=1),
@@ -102,7 +102,7 @@ Memory_EPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A5',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A4',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'27C080', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'27C080'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'OTP EPROM 8MiBit', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/doc0360.pdf', 'pins':[
+        Part(**{ 'name':'27C080', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'27C080'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'OTP EPROM 8MiBit', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/doc0360.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EPROM.kicad_sym\n27C080\n\nOTP EPROM 8MiBit', 'pins':[
             Pin(num='1',name='A19',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='A1',func=Pin.types.INPUT,unit=1),
@@ -135,7 +135,7 @@ Memory_EPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A5',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A4',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'27C128', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'27C128'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'OTP EPROM 128KiBit', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/11003L.pdf', 'pins':[
+        Part(**{ 'name':'27C128', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'27C128'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'OTP EPROM 128KiBit', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/11003L.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EPROM.kicad_sym\n27C128\n\nOTP EPROM 128KiBit', 'pins':[
             Pin(num='1',name='VPP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='D0',func=Pin.types.TRISTATE,unit=1),
@@ -164,7 +164,7 @@ Memory_EPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'27C256', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'27C256'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'OTP EPROM 256 KiBit', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc0014.pdf', 'pins':[
+        Part(**{ 'name':'27C256', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'27C256'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'OTP EPROM 256 KiBit', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc0014.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EPROM.kicad_sym\n27C256\n\nOTP EPROM 256 KiBit', 'pins':[
             Pin(num='1',name='VPP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='D0',func=Pin.types.TRISTATE,unit=1),
@@ -193,7 +193,7 @@ Memory_EPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'27C512', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'27C512'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'OTP EPROM 512KiBit', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc0015.pdf', 'pins':[
+        Part(**{ 'name':'27C512', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'27C512'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'OTP EPROM 512KiBit', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc0015.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EPROM.kicad_sym\n27C512\n\nOTP EPROM 512KiBit', 'pins':[
             Pin(num='1',name='A15',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='D0',func=Pin.types.TRISTATE,unit=1),
@@ -222,7 +222,7 @@ Memory_EPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'27C512PLCC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'27C512PLCC'}), 'ref_prefix':'U', 'fplist':['Package_LCC:PLCC-32_11.4x14.0mm_P1.27mm'], 'footprint':'Package_LCC:PLCC-32_11.4x14.0mm_P1.27mm', 'keywords':'OTP EPROM 512KiBit', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc0015.pdf', 'pins':[
+        Part(**{ 'name':'27C512PLCC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'27C512PLCC'}), 'ref_prefix':'U', 'fplist':['Package_LCC:PLCC-32_11.4x14.0mm_P1.27mm'], 'footprint':'Package_LCC:PLCC-32_11.4x14.0mm_P1.27mm', 'keywords':'OTP EPROM 512KiBit', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc0015.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EPROM.kicad_sym\n27C512PLCC\n\nOTP EPROM 512KiBit', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='A0',func=Pin.types.INPUT,unit=1),
@@ -255,7 +255,7 @@ Memory_EPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A4',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'27C64', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'27C64'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'OTP EPROM 64KiBit', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/11107M.pdf', 'pins':[
+        Part(**{ 'name':'27C64', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'27C64'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'OTP EPROM 64KiBit', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/11107M.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EPROM.kicad_sym\n27C64\n\nOTP EPROM 64KiBit', 'pins':[
             Pin(num='1',name='VPP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='D0',func=Pin.types.TRISTATE,unit=1),
@@ -284,7 +284,7 @@ Memory_EPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'27128', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'27128'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm', 'Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'Erasable OTP EPROM 128KiBit', 'description':'', 'datasheet':'http://eeshop.unl.edu/pdf/27128.pdf', 'pins':[
+        Part(**{ 'name':'27128', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'27128'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm', 'Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'Erasable OTP EPROM 128KiBit', 'description':'', 'datasheet':'http://eeshop.unl.edu/pdf/27128.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EPROM.kicad_sym\n27128\n\nErasable OTP EPROM 128KiBit', 'pins':[
             Pin(num='1',name='VPP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='D0',func=Pin.types.TRISTATE,unit=1),
@@ -313,7 +313,7 @@ Memory_EPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'27256', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'27256'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm', 'Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'Erasable EPROM 256 KiBit', 'description':'', 'datasheet':'http://datasheet.octopart.com/D27256-2-Intel-datasheet-17852618.pdf', 'pins':[
+        Part(**{ 'name':'27256', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'27256'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm', 'Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'Erasable EPROM 256 KiBit', 'description':'', 'datasheet':'http://datasheet.octopart.com/D27256-2-Intel-datasheet-17852618.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EPROM.kicad_sym\n27256\n\nErasable EPROM 256 KiBit', 'pins':[
             Pin(num='1',name='VPP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='D0',func=Pin.types.TRISTATE,unit=1),
@@ -342,7 +342,7 @@ Memory_EPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'27512', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'27512'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm', 'Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'Erasable EPROM 512KiBit', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheets/120/227190_DS.pdf', 'pins':[
+        Part(**{ 'name':'27512', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'27512'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm', 'Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'Erasable EPROM 512KiBit', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheets/120/227190_DS.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EPROM.kicad_sym\n27512\n\nErasable EPROM 512KiBit', 'pins':[
             Pin(num='1',name='A15',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='D0',func=Pin.types.TRISTATE,unit=1),
@@ -371,7 +371,7 @@ Memory_EPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'2764', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'2764'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm', 'Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'EPROM 64KiBit', 'description':'', 'datasheet':'https://downloads.reactivemicro.com/Electronics/ROM/2764%20EPROM.pdf', 'pins':[
+        Part(**{ 'name':'2764', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'2764'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm', 'Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'EPROM 64KiBit', 'description':'', 'datasheet':'https://downloads.reactivemicro.com/Electronics/ROM/2764%20EPROM.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EPROM.kicad_sym\n2764\n\nEPROM 64KiBit', 'pins':[
             Pin(num='1',name='VPP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='D0',func=Pin.types.TRISTATE,unit=1),

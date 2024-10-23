@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Memory_ROM = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'XC18V01SO20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC18V01SO20'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'xilinx/xc18v00proms.pdf', 'pins':[
+        Part(**{ 'name':'XC18V01SO20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC18V01SO20'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'xilinx/xc18v00proms.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_ROM.kicad_sym\nXC18V01SO20\n\n', 'pins':[
             Pin(num='1',name='D0',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='CE',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -25,7 +25,7 @@ Memory_ROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D4/CF',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='OE/RESET',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='D6',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XCF08P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XCF08P'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'PROM FLASH', 'description':'', 'datasheet':'https://www.xilinx.com/support/documentation/data_sheets/ds123.pdf', 'pins':[
+        Part(**{ 'name':'XCF08P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XCF08P'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'PROM FLASH', 'description':'', 'datasheet':'https://www.xilinx.com/support/documentation/data_sheets/ds123.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_ROM.kicad_sym\nXCF08P\n\nPROM FLASH', 'pins':[
             Pin(num='A1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='A2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='A3',name='OE/RST',func=Pin.types.INPUT,unit=1),

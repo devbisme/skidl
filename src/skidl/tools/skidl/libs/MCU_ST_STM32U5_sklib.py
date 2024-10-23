@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'STM32U535CBTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535CBTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535cb.pdf', 'pins':[
+        Part(**{ 'name':'STM32U535CBTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535CBTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535cb.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U535CBTx\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -53,7 +53,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U535CBTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535CBTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535cb.pdf', 'pins':[
+        Part(**{ 'name':'STM32U535CBTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535CBTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535cb.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U535CBTxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -102,205 +102,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U535CBUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535CBUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535cb.pdf', 'pins':[
-            Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
-            Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='12',name='PA2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='13',name='PA3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='14',name='PA4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='15',name='PA5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='16',name='PA6',func=Pin.types.BIDIR,unit=1),
-            Pin(num='17',name='PA7',func=Pin.types.BIDIR,unit=1),
-            Pin(num='18',name='PB0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='19',name='PB1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='2',name='PC13',func=Pin.types.BIDIR,unit=1),
-            Pin(num='20',name='PB2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='21',name='PB10',func=Pin.types.BIDIR,unit=1),
-            Pin(num='22',name='VCAP',func=Pin.types.PWROUT,unit=1),
-            Pin(num='23',name='VSS',func=Pin.types.PWRIN,unit=1),
-            Pin(num='24',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='25',name='PB12',func=Pin.types.BIDIR,unit=1),
-            Pin(num='26',name='PB13',func=Pin.types.BIDIR,unit=1),
-            Pin(num='27',name='PB14',func=Pin.types.BIDIR,unit=1),
-            Pin(num='28',name='PB15',func=Pin.types.BIDIR,unit=1),
-            Pin(num='29',name='PA8',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='PC14',func=Pin.types.BIDIR,unit=1),
-            Pin(num='30',name='PA9',func=Pin.types.BIDIR,unit=1),
-            Pin(num='31',name='PA10',func=Pin.types.BIDIR,unit=1),
-            Pin(num='32',name='PA11',func=Pin.types.BIDIR,unit=1),
-            Pin(num='33',name='PA12',func=Pin.types.BIDIR,unit=1),
-            Pin(num='34',name='PA13',func=Pin.types.BIDIR,unit=1),
-            Pin(num='35',name='VSS',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='36',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='37',name='PA14',func=Pin.types.BIDIR,unit=1),
-            Pin(num='38',name='PA15',func=Pin.types.BIDIR,unit=1),
-            Pin(num='39',name='PB3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='PC15',func=Pin.types.BIDIR,unit=1),
-            Pin(num='40',name='PB4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='41',name='PB5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='42',name='PB6',func=Pin.types.BIDIR,unit=1),
-            Pin(num='43',name='PB7',func=Pin.types.BIDIR,unit=1),
-            Pin(num='44',name='PH3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='45',name='PB8',func=Pin.types.BIDIR,unit=1),
-            Pin(num='46',name='PB9',func=Pin.types.BIDIR,unit=1),
-            Pin(num='47',name='VSS',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='48',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='49',name='VSS',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='5',name='PH0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='PH1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
-            Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
-            Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U535CBUxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535CBUxQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535cb.pdf', 'pins':[
-            Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
-            Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='12',name='PA2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='13',name='PA3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='14',name='PA4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='15',name='PA5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='16',name='PA6',func=Pin.types.BIDIR,unit=1),
-            Pin(num='17',name='PA7',func=Pin.types.BIDIR,unit=1),
-            Pin(num='18',name='PB0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='19',name='PB1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='2',name='PC13',func=Pin.types.BIDIR,unit=1),
-            Pin(num='20',name='VLXSMPS',func=Pin.types.PWRIN,unit=1),
-            Pin(num='21',name='VDDSMPS',func=Pin.types.PWRIN,unit=1),
-            Pin(num='22',name='VSSSMPS',func=Pin.types.PWRIN,unit=1),
-            Pin(num='23',name='VDD11',func=Pin.types.PWRIN,unit=1),
-            Pin(num='24',name='VSS',func=Pin.types.PWRIN,unit=1),
-            Pin(num='25',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='26',name='PB13',func=Pin.types.BIDIR,unit=1),
-            Pin(num='27',name='PB14',func=Pin.types.BIDIR,unit=1),
-            Pin(num='28',name='PB15',func=Pin.types.BIDIR,unit=1),
-            Pin(num='29',name='PA8',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='PC14',func=Pin.types.BIDIR,unit=1),
-            Pin(num='30',name='PA9',func=Pin.types.BIDIR,unit=1),
-            Pin(num='31',name='PA10',func=Pin.types.BIDIR,unit=1),
-            Pin(num='32',name='PA11',func=Pin.types.BIDIR,unit=1),
-            Pin(num='33',name='PA12',func=Pin.types.BIDIR,unit=1),
-            Pin(num='34',name='PA13',func=Pin.types.BIDIR,unit=1),
-            Pin(num='35',name='VSS',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='36',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='37',name='PA14',func=Pin.types.BIDIR,unit=1),
-            Pin(num='38',name='PA15',func=Pin.types.BIDIR,unit=1),
-            Pin(num='39',name='PB3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='PC15',func=Pin.types.BIDIR,unit=1),
-            Pin(num='40',name='PB4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='41',name='PB5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='42',name='PB6',func=Pin.types.BIDIR,unit=1),
-            Pin(num='43',name='PB7',func=Pin.types.BIDIR,unit=1),
-            Pin(num='44',name='PH3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='45',name='PB8',func=Pin.types.BIDIR,unit=1),
-            Pin(num='46',name='VDD11',func=Pin.types.PWRIN,unit=1),
-            Pin(num='47',name='VSS',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='48',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='49',name='VSS',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='5',name='PH0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='PH1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
-            Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
-            Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U535CCTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535CCTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535cc.pdf', 'pins':[
-            Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
-            Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='12',name='PA2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='13',name='PA3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='14',name='PA4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='15',name='PA5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='16',name='PA6',func=Pin.types.BIDIR,unit=1),
-            Pin(num='17',name='PA7',func=Pin.types.BIDIR,unit=1),
-            Pin(num='18',name='PB0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='19',name='PB1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='2',name='PC13',func=Pin.types.BIDIR,unit=1),
-            Pin(num='20',name='PB2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='21',name='PB10',func=Pin.types.BIDIR,unit=1),
-            Pin(num='22',name='VCAP',func=Pin.types.PWROUT,unit=1),
-            Pin(num='23',name='VSS',func=Pin.types.PWRIN,unit=1),
-            Pin(num='24',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='25',name='PB12',func=Pin.types.BIDIR,unit=1),
-            Pin(num='26',name='PB13',func=Pin.types.BIDIR,unit=1),
-            Pin(num='27',name='PB14',func=Pin.types.BIDIR,unit=1),
-            Pin(num='28',name='PB15',func=Pin.types.BIDIR,unit=1),
-            Pin(num='29',name='PA8',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='PC14',func=Pin.types.BIDIR,unit=1),
-            Pin(num='30',name='PA9',func=Pin.types.BIDIR,unit=1),
-            Pin(num='31',name='PA10',func=Pin.types.BIDIR,unit=1),
-            Pin(num='32',name='PA11',func=Pin.types.BIDIR,unit=1),
-            Pin(num='33',name='PA12',func=Pin.types.BIDIR,unit=1),
-            Pin(num='34',name='PA13',func=Pin.types.BIDIR,unit=1),
-            Pin(num='35',name='VSS',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='36',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='37',name='PA14',func=Pin.types.BIDIR,unit=1),
-            Pin(num='38',name='PA15',func=Pin.types.BIDIR,unit=1),
-            Pin(num='39',name='PB3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='PC15',func=Pin.types.BIDIR,unit=1),
-            Pin(num='40',name='PB4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='41',name='PB5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='42',name='PB6',func=Pin.types.BIDIR,unit=1),
-            Pin(num='43',name='PB7',func=Pin.types.BIDIR,unit=1),
-            Pin(num='44',name='PH3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='45',name='PB8',func=Pin.types.BIDIR,unit=1),
-            Pin(num='46',name='PB9',func=Pin.types.BIDIR,unit=1),
-            Pin(num='47',name='VSS',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='48',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='5',name='PH0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='PH1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
-            Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
-            Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U535CCTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535CCTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535cc.pdf', 'pins':[
-            Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
-            Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='12',name='PA2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='13',name='PA3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='14',name='PA4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='15',name='PA5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='16',name='PA6',func=Pin.types.BIDIR,unit=1),
-            Pin(num='17',name='PA7',func=Pin.types.BIDIR,unit=1),
-            Pin(num='18',name='PB0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='19',name='PB1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='2',name='PC13',func=Pin.types.BIDIR,unit=1),
-            Pin(num='20',name='VLXSMPS',func=Pin.types.PWRIN,unit=1),
-            Pin(num='21',name='VDDSMPS',func=Pin.types.PWRIN,unit=1),
-            Pin(num='22',name='VSSSMPS',func=Pin.types.PWRIN,unit=1),
-            Pin(num='23',name='VDD11',func=Pin.types.PWRIN,unit=1),
-            Pin(num='24',name='VSS',func=Pin.types.PWRIN,unit=1),
-            Pin(num='25',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='26',name='PB13',func=Pin.types.BIDIR,unit=1),
-            Pin(num='27',name='PB14',func=Pin.types.BIDIR,unit=1),
-            Pin(num='28',name='PB15',func=Pin.types.BIDIR,unit=1),
-            Pin(num='29',name='PA8',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='PC14',func=Pin.types.BIDIR,unit=1),
-            Pin(num='30',name='PA9',func=Pin.types.BIDIR,unit=1),
-            Pin(num='31',name='PA10',func=Pin.types.BIDIR,unit=1),
-            Pin(num='32',name='PA11',func=Pin.types.BIDIR,unit=1),
-            Pin(num='33',name='PA12',func=Pin.types.BIDIR,unit=1),
-            Pin(num='34',name='PA13',func=Pin.types.BIDIR,unit=1),
-            Pin(num='35',name='VSS',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='36',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='37',name='PA14',func=Pin.types.BIDIR,unit=1),
-            Pin(num='38',name='PA15',func=Pin.types.BIDIR,unit=1),
-            Pin(num='39',name='PB3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='PC15',func=Pin.types.BIDIR,unit=1),
-            Pin(num='40',name='PB4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='41',name='PB5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='42',name='PB6',func=Pin.types.BIDIR,unit=1),
-            Pin(num='43',name='PB7',func=Pin.types.BIDIR,unit=1),
-            Pin(num='44',name='PH3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='45',name='PB8',func=Pin.types.BIDIR,unit=1),
-            Pin(num='46',name='VDD11',func=Pin.types.PWRIN,unit=1),
-            Pin(num='47',name='VSS',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='48',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='5',name='PH0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='PH1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
-            Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
-            Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U535CCUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535CCUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535cc.pdf', 'pins':[
+        Part(**{ 'name':'STM32U535CBUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535CBUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535cb.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U535CBUx\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -350,7 +152,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U535CCUxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535CCUxQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535cc.pdf', 'pins':[
+        Part(**{ 'name':'STM32U535CBUxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535CBUxQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535cb.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U535CBUxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -400,7 +202,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U535CETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535CETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535ce.pdf', 'pins':[
+        Part(**{ 'name':'STM32U535CCTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535CCTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535cc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U535CCTx\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -449,7 +251,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U535CETxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535CETxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535ce.pdf', 'pins':[
+        Part(**{ 'name':'STM32U535CCTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535CCTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535cc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U535CCTxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -498,7 +300,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U535CEUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535CEUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535ce.pdf', 'pins':[
+        Part(**{ 'name':'STM32U535CCUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535CCUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535cc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U535CCUx\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -548,7 +350,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U535CEUxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535CEUxQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535ce.pdf', 'pins':[
+        Part(**{ 'name':'STM32U535CCUxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535CCUxQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535cc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U535CCUxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -598,7 +400,205 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U535JEYxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535JEYxQ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-72_3.38x3.38mm_P0.35m_Stagger'], 'footprint':'Package_CSP:ST_WLCSP-72_3.38x3.38mm_P0.35m_Stagger', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535je.pdf', 'pins':[
+        Part(**{ 'name':'STM32U535CETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535CETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535ce.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U535CETx\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
+            Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
+            Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='12',name='PA2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='13',name='PA3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='14',name='PA4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='15',name='PA5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='16',name='PA6',func=Pin.types.BIDIR,unit=1),
+            Pin(num='17',name='PA7',func=Pin.types.BIDIR,unit=1),
+            Pin(num='18',name='PB0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='19',name='PB1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='2',name='PC13',func=Pin.types.BIDIR,unit=1),
+            Pin(num='20',name='PB2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='21',name='PB10',func=Pin.types.BIDIR,unit=1),
+            Pin(num='22',name='VCAP',func=Pin.types.PWROUT,unit=1),
+            Pin(num='23',name='VSS',func=Pin.types.PWRIN,unit=1),
+            Pin(num='24',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='25',name='PB12',func=Pin.types.BIDIR,unit=1),
+            Pin(num='26',name='PB13',func=Pin.types.BIDIR,unit=1),
+            Pin(num='27',name='PB14',func=Pin.types.BIDIR,unit=1),
+            Pin(num='28',name='PB15',func=Pin.types.BIDIR,unit=1),
+            Pin(num='29',name='PA8',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='PC14',func=Pin.types.BIDIR,unit=1),
+            Pin(num='30',name='PA9',func=Pin.types.BIDIR,unit=1),
+            Pin(num='31',name='PA10',func=Pin.types.BIDIR,unit=1),
+            Pin(num='32',name='PA11',func=Pin.types.BIDIR,unit=1),
+            Pin(num='33',name='PA12',func=Pin.types.BIDIR,unit=1),
+            Pin(num='34',name='PA13',func=Pin.types.BIDIR,unit=1),
+            Pin(num='35',name='VSS',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='36',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='37',name='PA14',func=Pin.types.BIDIR,unit=1),
+            Pin(num='38',name='PA15',func=Pin.types.BIDIR,unit=1),
+            Pin(num='39',name='PB3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='PC15',func=Pin.types.BIDIR,unit=1),
+            Pin(num='40',name='PB4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='41',name='PB5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='42',name='PB6',func=Pin.types.BIDIR,unit=1),
+            Pin(num='43',name='PB7',func=Pin.types.BIDIR,unit=1),
+            Pin(num='44',name='PH3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='45',name='PB8',func=Pin.types.BIDIR,unit=1),
+            Pin(num='46',name='PB9',func=Pin.types.BIDIR,unit=1),
+            Pin(num='47',name='VSS',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='48',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='5',name='PH0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='PH1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
+            Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
+            Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'STM32U535CETxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535CETxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535ce.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U535CETxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
+            Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
+            Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='12',name='PA2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='13',name='PA3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='14',name='PA4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='15',name='PA5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='16',name='PA6',func=Pin.types.BIDIR,unit=1),
+            Pin(num='17',name='PA7',func=Pin.types.BIDIR,unit=1),
+            Pin(num='18',name='PB0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='19',name='PB1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='2',name='PC13',func=Pin.types.BIDIR,unit=1),
+            Pin(num='20',name='VLXSMPS',func=Pin.types.PWRIN,unit=1),
+            Pin(num='21',name='VDDSMPS',func=Pin.types.PWRIN,unit=1),
+            Pin(num='22',name='VSSSMPS',func=Pin.types.PWRIN,unit=1),
+            Pin(num='23',name='VDD11',func=Pin.types.PWRIN,unit=1),
+            Pin(num='24',name='VSS',func=Pin.types.PWRIN,unit=1),
+            Pin(num='25',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='26',name='PB13',func=Pin.types.BIDIR,unit=1),
+            Pin(num='27',name='PB14',func=Pin.types.BIDIR,unit=1),
+            Pin(num='28',name='PB15',func=Pin.types.BIDIR,unit=1),
+            Pin(num='29',name='PA8',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='PC14',func=Pin.types.BIDIR,unit=1),
+            Pin(num='30',name='PA9',func=Pin.types.BIDIR,unit=1),
+            Pin(num='31',name='PA10',func=Pin.types.BIDIR,unit=1),
+            Pin(num='32',name='PA11',func=Pin.types.BIDIR,unit=1),
+            Pin(num='33',name='PA12',func=Pin.types.BIDIR,unit=1),
+            Pin(num='34',name='PA13',func=Pin.types.BIDIR,unit=1),
+            Pin(num='35',name='VSS',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='36',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='37',name='PA14',func=Pin.types.BIDIR,unit=1),
+            Pin(num='38',name='PA15',func=Pin.types.BIDIR,unit=1),
+            Pin(num='39',name='PB3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='PC15',func=Pin.types.BIDIR,unit=1),
+            Pin(num='40',name='PB4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='41',name='PB5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='42',name='PB6',func=Pin.types.BIDIR,unit=1),
+            Pin(num='43',name='PB7',func=Pin.types.BIDIR,unit=1),
+            Pin(num='44',name='PH3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='45',name='PB8',func=Pin.types.BIDIR,unit=1),
+            Pin(num='46',name='VDD11',func=Pin.types.PWRIN,unit=1),
+            Pin(num='47',name='VSS',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='48',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='5',name='PH0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='PH1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
+            Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
+            Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'STM32U535CEUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535CEUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535ce.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U535CEUx\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
+            Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
+            Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='12',name='PA2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='13',name='PA3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='14',name='PA4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='15',name='PA5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='16',name='PA6',func=Pin.types.BIDIR,unit=1),
+            Pin(num='17',name='PA7',func=Pin.types.BIDIR,unit=1),
+            Pin(num='18',name='PB0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='19',name='PB1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='2',name='PC13',func=Pin.types.BIDIR,unit=1),
+            Pin(num='20',name='PB2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='21',name='PB10',func=Pin.types.BIDIR,unit=1),
+            Pin(num='22',name='VCAP',func=Pin.types.PWROUT,unit=1),
+            Pin(num='23',name='VSS',func=Pin.types.PWRIN,unit=1),
+            Pin(num='24',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='25',name='PB12',func=Pin.types.BIDIR,unit=1),
+            Pin(num='26',name='PB13',func=Pin.types.BIDIR,unit=1),
+            Pin(num='27',name='PB14',func=Pin.types.BIDIR,unit=1),
+            Pin(num='28',name='PB15',func=Pin.types.BIDIR,unit=1),
+            Pin(num='29',name='PA8',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='PC14',func=Pin.types.BIDIR,unit=1),
+            Pin(num='30',name='PA9',func=Pin.types.BIDIR,unit=1),
+            Pin(num='31',name='PA10',func=Pin.types.BIDIR,unit=1),
+            Pin(num='32',name='PA11',func=Pin.types.BIDIR,unit=1),
+            Pin(num='33',name='PA12',func=Pin.types.BIDIR,unit=1),
+            Pin(num='34',name='PA13',func=Pin.types.BIDIR,unit=1),
+            Pin(num='35',name='VSS',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='36',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='37',name='PA14',func=Pin.types.BIDIR,unit=1),
+            Pin(num='38',name='PA15',func=Pin.types.BIDIR,unit=1),
+            Pin(num='39',name='PB3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='PC15',func=Pin.types.BIDIR,unit=1),
+            Pin(num='40',name='PB4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='41',name='PB5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='42',name='PB6',func=Pin.types.BIDIR,unit=1),
+            Pin(num='43',name='PB7',func=Pin.types.BIDIR,unit=1),
+            Pin(num='44',name='PH3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='45',name='PB8',func=Pin.types.BIDIR,unit=1),
+            Pin(num='46',name='PB9',func=Pin.types.BIDIR,unit=1),
+            Pin(num='47',name='VSS',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='48',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='49',name='VSS',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='5',name='PH0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='PH1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
+            Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
+            Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'STM32U535CEUxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535CEUxQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535ce.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U535CEUxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
+            Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
+            Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='12',name='PA2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='13',name='PA3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='14',name='PA4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='15',name='PA5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='16',name='PA6',func=Pin.types.BIDIR,unit=1),
+            Pin(num='17',name='PA7',func=Pin.types.BIDIR,unit=1),
+            Pin(num='18',name='PB0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='19',name='PB1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='2',name='PC13',func=Pin.types.BIDIR,unit=1),
+            Pin(num='20',name='VLXSMPS',func=Pin.types.PWRIN,unit=1),
+            Pin(num='21',name='VDDSMPS',func=Pin.types.PWRIN,unit=1),
+            Pin(num='22',name='VSSSMPS',func=Pin.types.PWRIN,unit=1),
+            Pin(num='23',name='VDD11',func=Pin.types.PWRIN,unit=1),
+            Pin(num='24',name='VSS',func=Pin.types.PWRIN,unit=1),
+            Pin(num='25',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='26',name='PB13',func=Pin.types.BIDIR,unit=1),
+            Pin(num='27',name='PB14',func=Pin.types.BIDIR,unit=1),
+            Pin(num='28',name='PB15',func=Pin.types.BIDIR,unit=1),
+            Pin(num='29',name='PA8',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='PC14',func=Pin.types.BIDIR,unit=1),
+            Pin(num='30',name='PA9',func=Pin.types.BIDIR,unit=1),
+            Pin(num='31',name='PA10',func=Pin.types.BIDIR,unit=1),
+            Pin(num='32',name='PA11',func=Pin.types.BIDIR,unit=1),
+            Pin(num='33',name='PA12',func=Pin.types.BIDIR,unit=1),
+            Pin(num='34',name='PA13',func=Pin.types.BIDIR,unit=1),
+            Pin(num='35',name='VSS',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='36',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='37',name='PA14',func=Pin.types.BIDIR,unit=1),
+            Pin(num='38',name='PA15',func=Pin.types.BIDIR,unit=1),
+            Pin(num='39',name='PB3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='PC15',func=Pin.types.BIDIR,unit=1),
+            Pin(num='40',name='PB4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='41',name='PB5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='42',name='PB6',func=Pin.types.BIDIR,unit=1),
+            Pin(num='43',name='PB7',func=Pin.types.BIDIR,unit=1),
+            Pin(num='44',name='PH3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='45',name='PB8',func=Pin.types.BIDIR,unit=1),
+            Pin(num='46',name='VDD11',func=Pin.types.PWRIN,unit=1),
+            Pin(num='47',name='VSS',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='48',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='49',name='VSS',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='5',name='PH0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='PH1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
+            Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
+            Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'STM32U535JEYxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535JEYxQ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-72_3.38x3.38mm_P0.35m_Stagger'], 'footprint':'Package_CSP:ST_WLCSP-72_3.38x3.38mm_P0.35m_Stagger', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535je.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U535JEYxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='A10',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='A12',name='PH3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A14',name='VDD11',func=Pin.types.PWRIN,unit=1),
@@ -671,7 +671,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='J4',name='VDD11',func=Pin.types.PWRIN,unit=1),
             Pin(num='J6',name='VDDSMPS',func=Pin.types.PWRIN,unit=1),
             Pin(num='J8',name='VLXSMPS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U535NCYxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535NCYxQ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-56_3.38x3.38mm_P0.4m_Stagger'], 'footprint':'Package_CSP:ST_WLCSP-56_3.38x3.38mm_P0.4m_Stagger', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535nc.pdf', 'pins':[
+        Part(**{ 'name':'STM32U535NCYxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535NCYxQ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-56_3.38x3.38mm_P0.4m_Stagger'], 'footprint':'Package_CSP:ST_WLCSP-56_3.38x3.38mm_P0.4m_Stagger', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535nc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U535NCYxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='A1',name='VDDUSB',func=Pin.types.PWRIN,unit=1),
             Pin(num='A11',name='VDD11',func=Pin.types.PWRIN,unit=1),
             Pin(num='A13',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -728,7 +728,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='H4',name='VDD11',func=Pin.types.PWRIN,unit=1),
             Pin(num='H6',name='VDDSMPS',func=Pin.types.PWRIN,unit=1),
             Pin(num='H8',name='VLXSMPS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U535NEYxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535NEYxQ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-56_3.38x3.38mm_P0.4m_Stagger'], 'footprint':'Package_CSP:ST_WLCSP-56_3.38x3.38mm_P0.4m_Stagger', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535ne.pdf', 'pins':[
+        Part(**{ 'name':'STM32U535NEYxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535NEYxQ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-56_3.38x3.38mm_P0.4m_Stagger'], 'footprint':'Package_CSP:ST_WLCSP-56_3.38x3.38mm_P0.4m_Stagger', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535ne.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U535NEYxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='A1',name='VDDUSB',func=Pin.types.PWRIN,unit=1),
             Pin(num='A11',name='VDD11',func=Pin.types.PWRIN,unit=1),
             Pin(num='A13',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -785,7 +785,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='H4',name='VDD11',func=Pin.types.PWRIN,unit=1),
             Pin(num='H6',name='VDDSMPS',func=Pin.types.PWRIN,unit=1),
             Pin(num='H8',name='VLXSMPS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U535RBIx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535RBIx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535rb.pdf', 'pins':[
+        Part(**{ 'name':'STM32U535RBIx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535RBIx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535rb.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U535RBIx\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='A1',name='PC14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='PC13',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PB9',func=Pin.types.BIDIR,unit=1),
@@ -850,7 +850,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='H6',name='PC5',func=Pin.types.BIDIR,unit=1),
             Pin(num='H7',name='VCAP',func=Pin.types.PWROUT,unit=1),
             Pin(num='H8',name='PB12',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U535RBIxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535RBIxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535rb.pdf', 'pins':[
+        Part(**{ 'name':'STM32U535RBIxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535RBIxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535rb.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U535RBIxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='A1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A2',name='VDD11',func=Pin.types.PWRIN,unit=1),
             Pin(num='A3',name='PH3',func=Pin.types.BIDIR,unit=1),
@@ -915,7 +915,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='H6',name='VDDSMPS',func=Pin.types.PWRIN,unit=1),
             Pin(num='H7',name='VDD11',func=Pin.types.PWRIN,unit=1),
             Pin(num='H8',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U535RBTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535RBTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535rb.pdf', 'pins':[
+        Part(**{ 'name':'STM32U535RBTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535RBTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535rb.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U535RBTx\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -980,7 +980,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U535RBTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535RBTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535rb.pdf', 'pins':[
+        Part(**{ 'name':'STM32U535RBTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535RBTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535rb.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U535RBTxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -1045,7 +1045,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U535RCIx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535RCIx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535rc.pdf', 'pins':[
+        Part(**{ 'name':'STM32U535RCIx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535RCIx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535rc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U535RCIx\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='A1',name='PC14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='PC13',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PB9',func=Pin.types.BIDIR,unit=1),
@@ -1110,7 +1110,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='H6',name='PC5',func=Pin.types.BIDIR,unit=1),
             Pin(num='H7',name='VCAP',func=Pin.types.PWROUT,unit=1),
             Pin(num='H8',name='PB12',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U535RCIxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535RCIxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535rc.pdf', 'pins':[
+        Part(**{ 'name':'STM32U535RCIxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535RCIxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535rc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U535RCIxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='A1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A2',name='VDD11',func=Pin.types.PWRIN,unit=1),
             Pin(num='A3',name='PH3',func=Pin.types.BIDIR,unit=1),
@@ -1175,7 +1175,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='H6',name='VDDSMPS',func=Pin.types.PWRIN,unit=1),
             Pin(num='H7',name='VDD11',func=Pin.types.PWRIN,unit=1),
             Pin(num='H8',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U535RCTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535RCTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535rc.pdf', 'pins':[
+        Part(**{ 'name':'STM32U535RCTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535RCTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535rc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U535RCTx\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -1240,7 +1240,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U535RCTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535RCTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535rc.pdf', 'pins':[
+        Part(**{ 'name':'STM32U535RCTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535RCTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535rc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U535RCTxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -1305,7 +1305,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U535REIx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535REIx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535re.pdf', 'pins':[
+        Part(**{ 'name':'STM32U535REIx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535REIx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535re.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U535REIx\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='A1',name='PC14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='PC13',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PB9',func=Pin.types.BIDIR,unit=1),
@@ -1370,7 +1370,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='H6',name='PC5',func=Pin.types.BIDIR,unit=1),
             Pin(num='H7',name='VCAP',func=Pin.types.PWROUT,unit=1),
             Pin(num='H8',name='PB12',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U535REIxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535REIxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535re.pdf', 'pins':[
+        Part(**{ 'name':'STM32U535REIxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535REIxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535re.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U535REIxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='A1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A2',name='VDD11',func=Pin.types.PWRIN,unit=1),
             Pin(num='A3',name='PH3',func=Pin.types.BIDIR,unit=1),
@@ -1435,7 +1435,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='H6',name='VDDSMPS',func=Pin.types.PWRIN,unit=1),
             Pin(num='H7',name='VDD11',func=Pin.types.PWRIN,unit=1),
             Pin(num='H8',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U535RETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535RETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535re.pdf', 'pins':[
+        Part(**{ 'name':'STM32U535RETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535RETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535re.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U535RETx\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -1500,7 +1500,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U535RETxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535RETxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535re.pdf', 'pins':[
+        Part(**{ 'name':'STM32U535RETxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535RETxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535re.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U535RETxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -1565,7 +1565,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U535VCIx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535VCIx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535vc.pdf', 'pins':[
+        Part(**{ 'name':'STM32U535VCIx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535VCIx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535vc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U535VCIx\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA13',func=Pin.types.BIDIR,unit=1),
@@ -1666,7 +1666,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE9',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PE11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U535VCIxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535VCIxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535vc.pdf', 'pins':[
+        Part(**{ 'name':'STM32U535VCIxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535VCIxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535vc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U535VCIxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='A1',name='PB9',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PD2',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD0',func=Pin.types.BIDIR,unit=1),
@@ -1767,7 +1767,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE14',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PB10',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='VLXSMPS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U535VCTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535VCTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535vc.pdf', 'pins':[
+        Part(**{ 'name':'STM32U535VCTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535VCTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535vc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U535VCTx\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -1868,7 +1868,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U535VCTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535VCTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535vc.pdf', 'pins':[
+        Part(**{ 'name':'STM32U535VCTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535VCTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535vc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U535VCTxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -1969,7 +1969,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='VDD11',func=Pin.types.PWRIN,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U535VEIx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535VEIx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535ve.pdf', 'pins':[
+        Part(**{ 'name':'STM32U535VEIx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535VEIx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535ve.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U535VEIx\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA13',func=Pin.types.BIDIR,unit=1),
@@ -2070,7 +2070,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE9',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PE11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U535VEIxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535VEIxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535ve.pdf', 'pins':[
+        Part(**{ 'name':'STM32U535VEIxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535VEIxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535ve.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U535VEIxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='A1',name='PB9',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PD2',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD0',func=Pin.types.BIDIR,unit=1),
@@ -2171,7 +2171,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE14',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PB10',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='VLXSMPS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U535VETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535VETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535ve.pdf', 'pins':[
+        Part(**{ 'name':'STM32U535VETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535VETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535ve.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U535VETx\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -2272,7 +2272,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U535VETxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535VETxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535ve.pdf', 'pins':[
+        Part(**{ 'name':'STM32U535VETxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U535VETxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u535ve.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U535VETxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -2373,7 +2373,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='VDD11',func=Pin.types.PWRIN,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U545CETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U545CETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u545ce.pdf', 'pins':[
+        Part(**{ 'name':'STM32U545CETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U545CETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u545ce.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U545CETx\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -2422,7 +2422,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U545CETxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U545CETxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u545ce.pdf', 'pins':[
+        Part(**{ 'name':'STM32U545CETxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U545CETxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u545ce.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U545CETxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -2471,7 +2471,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U545CEUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U545CEUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u545ce.pdf', 'pins':[
+        Part(**{ 'name':'STM32U545CEUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U545CEUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u545ce.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U545CEUx\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -2521,7 +2521,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U545CEUxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U545CEUxQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u545ce.pdf', 'pins':[
+        Part(**{ 'name':'STM32U545CEUxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U545CEUxQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u545ce.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U545CEUxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -2571,7 +2571,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U545JEYxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U545JEYxQ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-72_3.38x3.38mm_P0.35m_Stagger'], 'footprint':'Package_CSP:ST_WLCSP-72_3.38x3.38mm_P0.35m_Stagger', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u545je.pdf', 'pins':[
+        Part(**{ 'name':'STM32U545JEYxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U545JEYxQ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-72_3.38x3.38mm_P0.35m_Stagger'], 'footprint':'Package_CSP:ST_WLCSP-72_3.38x3.38mm_P0.35m_Stagger', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u545je.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U545JEYxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='A10',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='A12',name='PH3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A14',name='VDD11',func=Pin.types.PWRIN,unit=1),
@@ -2644,7 +2644,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='J4',name='VDD11',func=Pin.types.PWRIN,unit=1),
             Pin(num='J6',name='VDDSMPS',func=Pin.types.PWRIN,unit=1),
             Pin(num='J8',name='VLXSMPS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U545NEYxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U545NEYxQ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-56_3.38x3.38mm_P0.4m_Stagger'], 'footprint':'Package_CSP:ST_WLCSP-56_3.38x3.38mm_P0.4m_Stagger', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u545ne.pdf', 'pins':[
+        Part(**{ 'name':'STM32U545NEYxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U545NEYxQ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-56_3.38x3.38mm_P0.4m_Stagger'], 'footprint':'Package_CSP:ST_WLCSP-56_3.38x3.38mm_P0.4m_Stagger', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u545ne.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U545NEYxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='A1',name='VDDUSB',func=Pin.types.PWRIN,unit=1),
             Pin(num='A11',name='VDD11',func=Pin.types.PWRIN,unit=1),
             Pin(num='A13',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -2701,7 +2701,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='H4',name='VDD11',func=Pin.types.PWRIN,unit=1),
             Pin(num='H6',name='VDDSMPS',func=Pin.types.PWRIN,unit=1),
             Pin(num='H8',name='VLXSMPS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U545REIx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U545REIx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u545re.pdf', 'pins':[
+        Part(**{ 'name':'STM32U545REIx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U545REIx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u545re.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U545REIx\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='A1',name='PC14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='PC13',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PB9',func=Pin.types.BIDIR,unit=1),
@@ -2766,7 +2766,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='H6',name='PC5',func=Pin.types.BIDIR,unit=1),
             Pin(num='H7',name='VCAP',func=Pin.types.PWROUT,unit=1),
             Pin(num='H8',name='PB12',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U545REIxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U545REIxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u545re.pdf', 'pins':[
+        Part(**{ 'name':'STM32U545REIxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U545REIxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u545re.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U545REIxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='A1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A2',name='VDD11',func=Pin.types.PWRIN,unit=1),
             Pin(num='A3',name='PH3',func=Pin.types.BIDIR,unit=1),
@@ -2831,7 +2831,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='H6',name='VDDSMPS',func=Pin.types.PWRIN,unit=1),
             Pin(num='H7',name='VDD11',func=Pin.types.PWRIN,unit=1),
             Pin(num='H8',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U545RETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U545RETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u545re.pdf', 'pins':[
+        Part(**{ 'name':'STM32U545RETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U545RETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u545re.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U545RETx\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -2896,7 +2896,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U545RETxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U545RETxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u545re.pdf', 'pins':[
+        Part(**{ 'name':'STM32U545RETxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U545RETxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u545re.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U545RETxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -2961,7 +2961,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U545VEIx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U545VEIx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u545ve.pdf', 'pins':[
+        Part(**{ 'name':'STM32U545VEIx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U545VEIx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u545ve.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U545VEIx\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA13',func=Pin.types.BIDIR,unit=1),
@@ -3062,7 +3062,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE9',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PE11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U545VEIxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U545VEIxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u545ve.pdf', 'pins':[
+        Part(**{ 'name':'STM32U545VEIxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U545VEIxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u545ve.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U545VEIxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='A1',name='PB9',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PD2',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD0',func=Pin.types.BIDIR,unit=1),
@@ -3163,7 +3163,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE14',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PB10',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='VLXSMPS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U545VETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U545VETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u545ve.pdf', 'pins':[
+        Part(**{ 'name':'STM32U545VETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U545VETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u545ve.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U545VETx\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -3264,7 +3264,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U545VETxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U545VETxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u545ve.pdf', 'pins':[
+        Part(**{ 'name':'STM32U545VETxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U545VETxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u545ve.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U545VETxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -3365,7 +3365,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='VDD11',func=Pin.types.PWRIN,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U575AGIx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575AGIx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575ag.pdf', 'pins':[
+        Part(**{ 'name':'STM32U575AGIx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575AGIx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575ag.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U575AGIx\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='A1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -3535,7 +3535,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='N7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='N8',name='PE12',func=Pin.types.BIDIR,unit=1),
             Pin(num='N9',name='PG14',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U575AGIxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575AGIxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575ag.pdf', 'pins':[
+        Part(**{ 'name':'STM32U575AGIxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575AGIxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575ag.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U575AGIxQ\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='A1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -3705,7 +3705,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='N7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='N8',name='PE12',func=Pin.types.BIDIR,unit=1),
             Pin(num='N9',name='VLXSMPS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U575AIIx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575AIIx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575ai.pdf', 'pins':[
+        Part(**{ 'name':'STM32U575AIIx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575AIIx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575ai.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U575AIIx\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='A1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -3875,7 +3875,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='N7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='N8',name='PE12',func=Pin.types.BIDIR,unit=1),
             Pin(num='N9',name='PG14',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U575AIIxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575AIIxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575ai.pdf', 'pins':[
+        Part(**{ 'name':'STM32U575AIIxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575AIIxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575ai.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U575AIIxQ\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='A1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -4045,7 +4045,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='N7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='N8',name='PE12',func=Pin.types.BIDIR,unit=1),
             Pin(num='N9',name='VLXSMPS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U575CGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575CGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575cg.pdf', 'pins':[
+        Part(**{ 'name':'STM32U575CGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575CGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575cg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U575CGTx\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -4094,7 +4094,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U575CGTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575CGTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575cg.pdf', 'pins':[
+        Part(**{ 'name':'STM32U575CGTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575CGTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575cg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U575CGTxQ\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -4143,205 +4143,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U575CGUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575CGUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575cg.pdf', 'pins':[
-            Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
-            Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='12',name='PA2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='13',name='PA3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='14',name='PA4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='15',name='PA5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='16',name='PA6',func=Pin.types.BIDIR,unit=1),
-            Pin(num='17',name='PA7',func=Pin.types.BIDIR,unit=1),
-            Pin(num='18',name='PB0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='19',name='PB1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='2',name='PC13',func=Pin.types.BIDIR,unit=1),
-            Pin(num='20',name='PB2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='21',name='PB10',func=Pin.types.BIDIR,unit=1),
-            Pin(num='22',name='VCAP',func=Pin.types.PWROUT,unit=1),
-            Pin(num='23',name='VSS',func=Pin.types.PWRIN,unit=1),
-            Pin(num='24',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='25',name='PB12',func=Pin.types.BIDIR,unit=1),
-            Pin(num='26',name='PB13',func=Pin.types.BIDIR,unit=1),
-            Pin(num='27',name='PB14',func=Pin.types.BIDIR,unit=1),
-            Pin(num='28',name='PB15',func=Pin.types.BIDIR,unit=1),
-            Pin(num='29',name='PA8',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='PC14',func=Pin.types.BIDIR,unit=1),
-            Pin(num='30',name='PA9',func=Pin.types.BIDIR,unit=1),
-            Pin(num='31',name='PA10',func=Pin.types.BIDIR,unit=1),
-            Pin(num='32',name='PA11',func=Pin.types.BIDIR,unit=1),
-            Pin(num='33',name='PA12',func=Pin.types.BIDIR,unit=1),
-            Pin(num='34',name='PA13',func=Pin.types.BIDIR,unit=1),
-            Pin(num='35',name='VSS',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='36',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='37',name='PA14',func=Pin.types.BIDIR,unit=1),
-            Pin(num='38',name='PA15',func=Pin.types.BIDIR,unit=1),
-            Pin(num='39',name='PB3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='PC15',func=Pin.types.BIDIR,unit=1),
-            Pin(num='40',name='PB4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='41',name='PB5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='42',name='PB6',func=Pin.types.BIDIR,unit=1),
-            Pin(num='43',name='PB7',func=Pin.types.BIDIR,unit=1),
-            Pin(num='44',name='PH3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='45',name='PB8',func=Pin.types.BIDIR,unit=1),
-            Pin(num='46',name='PB9',func=Pin.types.BIDIR,unit=1),
-            Pin(num='47',name='VSS',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='48',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='49',name='VSS',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='5',name='PH0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='PH1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
-            Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
-            Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U575CGUxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575CGUxQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575cg.pdf', 'pins':[
-            Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
-            Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='12',name='PA2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='13',name='PA3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='14',name='PA4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='15',name='PA5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='16',name='PA6',func=Pin.types.BIDIR,unit=1),
-            Pin(num='17',name='PA7',func=Pin.types.BIDIR,unit=1),
-            Pin(num='18',name='PB0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='19',name='PB1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='2',name='PC13',func=Pin.types.BIDIR,unit=1),
-            Pin(num='20',name='VLXSMPS',func=Pin.types.PWRIN,unit=1),
-            Pin(num='21',name='VDDSMPS',func=Pin.types.PWRIN,unit=1),
-            Pin(num='22',name='VSSSMPS',func=Pin.types.PWRIN,unit=1),
-            Pin(num='23',name='VDD11',func=Pin.types.PWRIN,unit=1),
-            Pin(num='24',name='VSS',func=Pin.types.PWRIN,unit=1),
-            Pin(num='25',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='26',name='PB13',func=Pin.types.BIDIR,unit=1),
-            Pin(num='27',name='PB14',func=Pin.types.BIDIR,unit=1),
-            Pin(num='28',name='PB15',func=Pin.types.BIDIR,unit=1),
-            Pin(num='29',name='PA8',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='PC14',func=Pin.types.BIDIR,unit=1),
-            Pin(num='30',name='PA9',func=Pin.types.BIDIR,unit=1),
-            Pin(num='31',name='PA10',func=Pin.types.BIDIR,unit=1),
-            Pin(num='32',name='PA11',func=Pin.types.BIDIR,unit=1),
-            Pin(num='33',name='PA12',func=Pin.types.BIDIR,unit=1),
-            Pin(num='34',name='PA13',func=Pin.types.BIDIR,unit=1),
-            Pin(num='35',name='VSS',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='36',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='37',name='PA14',func=Pin.types.BIDIR,unit=1),
-            Pin(num='38',name='PA15',func=Pin.types.BIDIR,unit=1),
-            Pin(num='39',name='PB3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='PC15',func=Pin.types.BIDIR,unit=1),
-            Pin(num='40',name='PB4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='41',name='PB5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='42',name='PB6',func=Pin.types.BIDIR,unit=1),
-            Pin(num='43',name='PB7',func=Pin.types.BIDIR,unit=1),
-            Pin(num='44',name='PH3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='45',name='PB8',func=Pin.types.BIDIR,unit=1),
-            Pin(num='46',name='VDD11',func=Pin.types.PWRIN,unit=1),
-            Pin(num='47',name='VSS',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='48',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='49',name='VSS',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='5',name='PH0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='PH1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
-            Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
-            Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U575CITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575CITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575ci.pdf', 'pins':[
-            Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
-            Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='12',name='PA2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='13',name='PA3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='14',name='PA4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='15',name='PA5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='16',name='PA6',func=Pin.types.BIDIR,unit=1),
-            Pin(num='17',name='PA7',func=Pin.types.BIDIR,unit=1),
-            Pin(num='18',name='PB0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='19',name='PB1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='2',name='PC13',func=Pin.types.BIDIR,unit=1),
-            Pin(num='20',name='PB2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='21',name='PB10',func=Pin.types.BIDIR,unit=1),
-            Pin(num='22',name='VCAP',func=Pin.types.PWROUT,unit=1),
-            Pin(num='23',name='VSS',func=Pin.types.PWRIN,unit=1),
-            Pin(num='24',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='25',name='PB12',func=Pin.types.BIDIR,unit=1),
-            Pin(num='26',name='PB13',func=Pin.types.BIDIR,unit=1),
-            Pin(num='27',name='PB14',func=Pin.types.BIDIR,unit=1),
-            Pin(num='28',name='PB15',func=Pin.types.BIDIR,unit=1),
-            Pin(num='29',name='PA8',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='PC14',func=Pin.types.BIDIR,unit=1),
-            Pin(num='30',name='PA9',func=Pin.types.BIDIR,unit=1),
-            Pin(num='31',name='PA10',func=Pin.types.BIDIR,unit=1),
-            Pin(num='32',name='PA11',func=Pin.types.BIDIR,unit=1),
-            Pin(num='33',name='PA12',func=Pin.types.BIDIR,unit=1),
-            Pin(num='34',name='PA13',func=Pin.types.BIDIR,unit=1),
-            Pin(num='35',name='VSS',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='36',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='37',name='PA14',func=Pin.types.BIDIR,unit=1),
-            Pin(num='38',name='PA15',func=Pin.types.BIDIR,unit=1),
-            Pin(num='39',name='PB3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='PC15',func=Pin.types.BIDIR,unit=1),
-            Pin(num='40',name='PB4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='41',name='PB5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='42',name='PB6',func=Pin.types.BIDIR,unit=1),
-            Pin(num='43',name='PB7',func=Pin.types.BIDIR,unit=1),
-            Pin(num='44',name='PH3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='45',name='PB8',func=Pin.types.BIDIR,unit=1),
-            Pin(num='46',name='PB9',func=Pin.types.BIDIR,unit=1),
-            Pin(num='47',name='VSS',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='48',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='5',name='PH0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='PH1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
-            Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
-            Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U575CITxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575CITxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575ci.pdf', 'pins':[
-            Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
-            Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='12',name='PA2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='13',name='PA3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='14',name='PA4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='15',name='PA5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='16',name='PA6',func=Pin.types.BIDIR,unit=1),
-            Pin(num='17',name='PA7',func=Pin.types.BIDIR,unit=1),
-            Pin(num='18',name='PB0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='19',name='PB1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='2',name='PC13',func=Pin.types.BIDIR,unit=1),
-            Pin(num='20',name='VLXSMPS',func=Pin.types.PWRIN,unit=1),
-            Pin(num='21',name='VDDSMPS',func=Pin.types.PWRIN,unit=1),
-            Pin(num='22',name='VSSSMPS',func=Pin.types.PWRIN,unit=1),
-            Pin(num='23',name='VDD11',func=Pin.types.PWRIN,unit=1),
-            Pin(num='24',name='VSS',func=Pin.types.PWRIN,unit=1),
-            Pin(num='25',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='26',name='PB13',func=Pin.types.BIDIR,unit=1),
-            Pin(num='27',name='PB14',func=Pin.types.BIDIR,unit=1),
-            Pin(num='28',name='PB15',func=Pin.types.BIDIR,unit=1),
-            Pin(num='29',name='PA8',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='PC14',func=Pin.types.BIDIR,unit=1),
-            Pin(num='30',name='PA9',func=Pin.types.BIDIR,unit=1),
-            Pin(num='31',name='PA10',func=Pin.types.BIDIR,unit=1),
-            Pin(num='32',name='PA11',func=Pin.types.BIDIR,unit=1),
-            Pin(num='33',name='PA12',func=Pin.types.BIDIR,unit=1),
-            Pin(num='34',name='PA13',func=Pin.types.BIDIR,unit=1),
-            Pin(num='35',name='VSS',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='36',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='37',name='PA14',func=Pin.types.BIDIR,unit=1),
-            Pin(num='38',name='PA15',func=Pin.types.BIDIR,unit=1),
-            Pin(num='39',name='PB3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='PC15',func=Pin.types.BIDIR,unit=1),
-            Pin(num='40',name='PB4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='41',name='PB5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='42',name='PB6',func=Pin.types.BIDIR,unit=1),
-            Pin(num='43',name='PB7',func=Pin.types.BIDIR,unit=1),
-            Pin(num='44',name='PH3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='45',name='PB8',func=Pin.types.BIDIR,unit=1),
-            Pin(num='46',name='VDD11',func=Pin.types.PWRIN,unit=1),
-            Pin(num='47',name='VSS',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='48',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='5',name='PH0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='PH1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
-            Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
-            Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U575CIUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575CIUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575ci.pdf', 'pins':[
+        Part(**{ 'name':'STM32U575CGUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575CGUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575cg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U575CGUx\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -4391,7 +4193,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U575CIUxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575CIUxQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575ci.pdf', 'pins':[
+        Part(**{ 'name':'STM32U575CGUxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575CGUxQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575cg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U575CGUxQ\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -4441,7 +4243,205 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U575OGYxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575OGYxQ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-90_4.20x3.95mm_P0.4mm_Stagger'], 'footprint':'Package_CSP:ST_WLCSP-90_4.20x3.95mm_P0.4mm_Stagger', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575og.pdf', 'pins':[
+        Part(**{ 'name':'STM32U575CITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575CITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575ci.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U575CITx\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
+            Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
+            Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='12',name='PA2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='13',name='PA3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='14',name='PA4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='15',name='PA5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='16',name='PA6',func=Pin.types.BIDIR,unit=1),
+            Pin(num='17',name='PA7',func=Pin.types.BIDIR,unit=1),
+            Pin(num='18',name='PB0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='19',name='PB1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='2',name='PC13',func=Pin.types.BIDIR,unit=1),
+            Pin(num='20',name='PB2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='21',name='PB10',func=Pin.types.BIDIR,unit=1),
+            Pin(num='22',name='VCAP',func=Pin.types.PWROUT,unit=1),
+            Pin(num='23',name='VSS',func=Pin.types.PWRIN,unit=1),
+            Pin(num='24',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='25',name='PB12',func=Pin.types.BIDIR,unit=1),
+            Pin(num='26',name='PB13',func=Pin.types.BIDIR,unit=1),
+            Pin(num='27',name='PB14',func=Pin.types.BIDIR,unit=1),
+            Pin(num='28',name='PB15',func=Pin.types.BIDIR,unit=1),
+            Pin(num='29',name='PA8',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='PC14',func=Pin.types.BIDIR,unit=1),
+            Pin(num='30',name='PA9',func=Pin.types.BIDIR,unit=1),
+            Pin(num='31',name='PA10',func=Pin.types.BIDIR,unit=1),
+            Pin(num='32',name='PA11',func=Pin.types.BIDIR,unit=1),
+            Pin(num='33',name='PA12',func=Pin.types.BIDIR,unit=1),
+            Pin(num='34',name='PA13',func=Pin.types.BIDIR,unit=1),
+            Pin(num='35',name='VSS',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='36',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='37',name='PA14',func=Pin.types.BIDIR,unit=1),
+            Pin(num='38',name='PA15',func=Pin.types.BIDIR,unit=1),
+            Pin(num='39',name='PB3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='PC15',func=Pin.types.BIDIR,unit=1),
+            Pin(num='40',name='PB4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='41',name='PB5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='42',name='PB6',func=Pin.types.BIDIR,unit=1),
+            Pin(num='43',name='PB7',func=Pin.types.BIDIR,unit=1),
+            Pin(num='44',name='PH3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='45',name='PB8',func=Pin.types.BIDIR,unit=1),
+            Pin(num='46',name='PB9',func=Pin.types.BIDIR,unit=1),
+            Pin(num='47',name='VSS',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='48',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='5',name='PH0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='PH1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
+            Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
+            Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'STM32U575CITxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575CITxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575ci.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U575CITxQ\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
+            Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
+            Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='12',name='PA2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='13',name='PA3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='14',name='PA4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='15',name='PA5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='16',name='PA6',func=Pin.types.BIDIR,unit=1),
+            Pin(num='17',name='PA7',func=Pin.types.BIDIR,unit=1),
+            Pin(num='18',name='PB0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='19',name='PB1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='2',name='PC13',func=Pin.types.BIDIR,unit=1),
+            Pin(num='20',name='VLXSMPS',func=Pin.types.PWRIN,unit=1),
+            Pin(num='21',name='VDDSMPS',func=Pin.types.PWRIN,unit=1),
+            Pin(num='22',name='VSSSMPS',func=Pin.types.PWRIN,unit=1),
+            Pin(num='23',name='VDD11',func=Pin.types.PWRIN,unit=1),
+            Pin(num='24',name='VSS',func=Pin.types.PWRIN,unit=1),
+            Pin(num='25',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='26',name='PB13',func=Pin.types.BIDIR,unit=1),
+            Pin(num='27',name='PB14',func=Pin.types.BIDIR,unit=1),
+            Pin(num='28',name='PB15',func=Pin.types.BIDIR,unit=1),
+            Pin(num='29',name='PA8',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='PC14',func=Pin.types.BIDIR,unit=1),
+            Pin(num='30',name='PA9',func=Pin.types.BIDIR,unit=1),
+            Pin(num='31',name='PA10',func=Pin.types.BIDIR,unit=1),
+            Pin(num='32',name='PA11',func=Pin.types.BIDIR,unit=1),
+            Pin(num='33',name='PA12',func=Pin.types.BIDIR,unit=1),
+            Pin(num='34',name='PA13',func=Pin.types.BIDIR,unit=1),
+            Pin(num='35',name='VSS',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='36',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='37',name='PA14',func=Pin.types.BIDIR,unit=1),
+            Pin(num='38',name='PA15',func=Pin.types.BIDIR,unit=1),
+            Pin(num='39',name='PB3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='PC15',func=Pin.types.BIDIR,unit=1),
+            Pin(num='40',name='PB4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='41',name='PB5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='42',name='PB6',func=Pin.types.BIDIR,unit=1),
+            Pin(num='43',name='PB7',func=Pin.types.BIDIR,unit=1),
+            Pin(num='44',name='PH3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='45',name='PB8',func=Pin.types.BIDIR,unit=1),
+            Pin(num='46',name='VDD11',func=Pin.types.PWRIN,unit=1),
+            Pin(num='47',name='VSS',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='48',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='5',name='PH0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='PH1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
+            Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
+            Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'STM32U575CIUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575CIUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575ci.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U575CIUx\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
+            Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
+            Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='12',name='PA2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='13',name='PA3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='14',name='PA4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='15',name='PA5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='16',name='PA6',func=Pin.types.BIDIR,unit=1),
+            Pin(num='17',name='PA7',func=Pin.types.BIDIR,unit=1),
+            Pin(num='18',name='PB0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='19',name='PB1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='2',name='PC13',func=Pin.types.BIDIR,unit=1),
+            Pin(num='20',name='PB2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='21',name='PB10',func=Pin.types.BIDIR,unit=1),
+            Pin(num='22',name='VCAP',func=Pin.types.PWROUT,unit=1),
+            Pin(num='23',name='VSS',func=Pin.types.PWRIN,unit=1),
+            Pin(num='24',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='25',name='PB12',func=Pin.types.BIDIR,unit=1),
+            Pin(num='26',name='PB13',func=Pin.types.BIDIR,unit=1),
+            Pin(num='27',name='PB14',func=Pin.types.BIDIR,unit=1),
+            Pin(num='28',name='PB15',func=Pin.types.BIDIR,unit=1),
+            Pin(num='29',name='PA8',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='PC14',func=Pin.types.BIDIR,unit=1),
+            Pin(num='30',name='PA9',func=Pin.types.BIDIR,unit=1),
+            Pin(num='31',name='PA10',func=Pin.types.BIDIR,unit=1),
+            Pin(num='32',name='PA11',func=Pin.types.BIDIR,unit=1),
+            Pin(num='33',name='PA12',func=Pin.types.BIDIR,unit=1),
+            Pin(num='34',name='PA13',func=Pin.types.BIDIR,unit=1),
+            Pin(num='35',name='VSS',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='36',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='37',name='PA14',func=Pin.types.BIDIR,unit=1),
+            Pin(num='38',name='PA15',func=Pin.types.BIDIR,unit=1),
+            Pin(num='39',name='PB3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='PC15',func=Pin.types.BIDIR,unit=1),
+            Pin(num='40',name='PB4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='41',name='PB5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='42',name='PB6',func=Pin.types.BIDIR,unit=1),
+            Pin(num='43',name='PB7',func=Pin.types.BIDIR,unit=1),
+            Pin(num='44',name='PH3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='45',name='PB8',func=Pin.types.BIDIR,unit=1),
+            Pin(num='46',name='PB9',func=Pin.types.BIDIR,unit=1),
+            Pin(num='47',name='VSS',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='48',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='49',name='VSS',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='5',name='PH0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='PH1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
+            Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
+            Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'STM32U575CIUxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575CIUxQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575ci.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U575CIUxQ\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
+            Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
+            Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='12',name='PA2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='13',name='PA3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='14',name='PA4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='15',name='PA5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='16',name='PA6',func=Pin.types.BIDIR,unit=1),
+            Pin(num='17',name='PA7',func=Pin.types.BIDIR,unit=1),
+            Pin(num='18',name='PB0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='19',name='PB1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='2',name='PC13',func=Pin.types.BIDIR,unit=1),
+            Pin(num='20',name='VLXSMPS',func=Pin.types.PWRIN,unit=1),
+            Pin(num='21',name='VDDSMPS',func=Pin.types.PWRIN,unit=1),
+            Pin(num='22',name='VSSSMPS',func=Pin.types.PWRIN,unit=1),
+            Pin(num='23',name='VDD11',func=Pin.types.PWRIN,unit=1),
+            Pin(num='24',name='VSS',func=Pin.types.PWRIN,unit=1),
+            Pin(num='25',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='26',name='PB13',func=Pin.types.BIDIR,unit=1),
+            Pin(num='27',name='PB14',func=Pin.types.BIDIR,unit=1),
+            Pin(num='28',name='PB15',func=Pin.types.BIDIR,unit=1),
+            Pin(num='29',name='PA8',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='PC14',func=Pin.types.BIDIR,unit=1),
+            Pin(num='30',name='PA9',func=Pin.types.BIDIR,unit=1),
+            Pin(num='31',name='PA10',func=Pin.types.BIDIR,unit=1),
+            Pin(num='32',name='PA11',func=Pin.types.BIDIR,unit=1),
+            Pin(num='33',name='PA12',func=Pin.types.BIDIR,unit=1),
+            Pin(num='34',name='PA13',func=Pin.types.BIDIR,unit=1),
+            Pin(num='35',name='VSS',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='36',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='37',name='PA14',func=Pin.types.BIDIR,unit=1),
+            Pin(num='38',name='PA15',func=Pin.types.BIDIR,unit=1),
+            Pin(num='39',name='PB3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='PC15',func=Pin.types.BIDIR,unit=1),
+            Pin(num='40',name='PB4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='41',name='PB5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='42',name='PB6',func=Pin.types.BIDIR,unit=1),
+            Pin(num='43',name='PB7',func=Pin.types.BIDIR,unit=1),
+            Pin(num='44',name='PH3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='45',name='PB8',func=Pin.types.BIDIR,unit=1),
+            Pin(num='46',name='VDD11',func=Pin.types.PWRIN,unit=1),
+            Pin(num='47',name='VSS',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='48',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='49',name='VSS',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='5',name='PH0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='PH1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
+            Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
+            Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'STM32U575OGYxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575OGYxQ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-90_4.20x3.95mm_P0.4mm_Stagger'], 'footprint':'Package_CSP:ST_WLCSP-90_4.20x3.95mm_P0.4mm_Stagger', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575og.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U575OGYxQ\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='A1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A11',name='VDDIO2',func=Pin.types.PWRIN,unit=1),
             Pin(num='A13',name='PB6',func=Pin.types.BIDIR,unit=1),
@@ -4532,7 +4532,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='K4',name='VDDSMPS',func=Pin.types.PWRIN,unit=1),
             Pin(num='K6',name='VLXSMPS',func=Pin.types.PWRIN,unit=1),
             Pin(num='K8',name='PE9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U575OIYxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575OIYxQ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-90_4.20x3.95mm_P0.4mm_Stagger'], 'footprint':'Package_CSP:ST_WLCSP-90_4.20x3.95mm_P0.4mm_Stagger', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575oi.pdf', 'pins':[
+        Part(**{ 'name':'STM32U575OIYxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575OIYxQ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-90_4.20x3.95mm_P0.4mm_Stagger'], 'footprint':'Package_CSP:ST_WLCSP-90_4.20x3.95mm_P0.4mm_Stagger', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575oi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U575OIYxQ\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='A1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A11',name='VDDIO2',func=Pin.types.PWRIN,unit=1),
             Pin(num='A13',name='PB6',func=Pin.types.BIDIR,unit=1),
@@ -4623,7 +4623,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='K4',name='VDDSMPS',func=Pin.types.PWRIN,unit=1),
             Pin(num='K6',name='VLXSMPS',func=Pin.types.PWRIN,unit=1),
             Pin(num='K8',name='PE9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U575QGIx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575QGIx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575qg.pdf', 'pins':[
+        Part(**{ 'name':'STM32U575QGIx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575QGIx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575qg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U575QGIx\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='A1',name='PE5',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PC11',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA15',func=Pin.types.BIDIR,unit=1),
@@ -4756,7 +4756,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE9',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE13',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PG14',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U575QGIxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575QGIxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575qg.pdf', 'pins':[
+        Part(**{ 'name':'STM32U575QGIxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575QGIxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575qg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U575QGIxQ\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='A1',name='PE5',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PC11',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA15',func=Pin.types.BIDIR,unit=1),
@@ -4889,7 +4889,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE9',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE13',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='VDDSMPS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U575QIIx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575QIIx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575qi.pdf', 'pins':[
+        Part(**{ 'name':'STM32U575QIIx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575QIIx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575qi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U575QIIx\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='A1',name='PE5',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PC11',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA15',func=Pin.types.BIDIR,unit=1),
@@ -5022,7 +5022,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE9',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE13',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PG14',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U575QIIxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575QIIxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575qi.pdf', 'pins':[
+        Part(**{ 'name':'STM32U575QIIxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575QIIxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575qi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U575QIIxQ\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='A1',name='PE5',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PC11',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA15',func=Pin.types.BIDIR,unit=1),
@@ -5155,7 +5155,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE9',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE13',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='VDDSMPS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U575RGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575RGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575rg.pdf', 'pins':[
+        Part(**{ 'name':'STM32U575RGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575RGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575rg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U575RGTx\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -5220,7 +5220,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U575RGTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575RGTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575rg.pdf', 'pins':[
+        Part(**{ 'name':'STM32U575RGTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575RGTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575rg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U575RGTxQ\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -5285,7 +5285,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U575RITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575RITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575ri.pdf', 'pins':[
+        Part(**{ 'name':'STM32U575RITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575RITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575ri.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U575RITx\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -5350,7 +5350,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U575RITxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575RITxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575ri.pdf', 'pins':[
+        Part(**{ 'name':'STM32U575RITxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575RITxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575ri.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U575RITxQ\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -5415,7 +5415,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U575VGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575VGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575vg.pdf', 'pins':[
+        Part(**{ 'name':'STM32U575VGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575VGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575vg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U575VGTx\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -5516,7 +5516,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U575VGTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575VGTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575vg.pdf', 'pins':[
+        Part(**{ 'name':'STM32U575VGTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575VGTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575vg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U575VGTxQ\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -5617,7 +5617,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='VDD11',func=Pin.types.PWRIN,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U575VITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575VITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575vi.pdf', 'pins':[
+        Part(**{ 'name':'STM32U575VITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575VITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575vi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U575VITx\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -5718,7 +5718,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U575VITxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575VITxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575vi.pdf', 'pins':[
+        Part(**{ 'name':'STM32U575VITxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575VITxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575vi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U575VITxQ\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -5819,7 +5819,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='VDD11',func=Pin.types.PWRIN,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U575ZGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575ZGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575zg.pdf', 'pins':[
+        Part(**{ 'name':'STM32U575ZGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575ZGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575zg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U575ZGTx\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -5964,7 +5964,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U575ZGTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575ZGTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575zg.pdf', 'pins':[
+        Part(**{ 'name':'STM32U575ZGTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575ZGTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575zg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U575ZGTxQ\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -6109,7 +6109,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U575ZITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575ZITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575zi.pdf', 'pins':[
+        Part(**{ 'name':'STM32U575ZITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575ZITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575zi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U575ZITx\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -6254,7 +6254,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U575ZITxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575ZITxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575zi.pdf', 'pins':[
+        Part(**{ 'name':'STM32U575ZITxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U575ZITxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u575zi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U575ZITxQ\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -6399,7 +6399,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U585AIIx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U585AIIx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u585ai.pdf', 'pins':[
+        Part(**{ 'name':'STM32U585AIIx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U585AIIx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u585ai.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U585AIIx\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='A1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -6569,7 +6569,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='N7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='N8',name='PE12',func=Pin.types.BIDIR,unit=1),
             Pin(num='N9',name='PG14',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U585AIIxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U585AIIxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u585ai.pdf', 'pins':[
+        Part(**{ 'name':'STM32U585AIIxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U585AIIxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u585ai.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U585AIIxQ\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='A1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -6739,7 +6739,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='N7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='N8',name='PE12',func=Pin.types.BIDIR,unit=1),
             Pin(num='N9',name='VLXSMPS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U585CITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U585CITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u585ci.pdf', 'pins':[
+        Part(**{ 'name':'STM32U585CITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U585CITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u585ci.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U585CITx\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -6788,7 +6788,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U585CITxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U585CITxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u585ci.pdf', 'pins':[
+        Part(**{ 'name':'STM32U585CITxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U585CITxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u585ci.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U585CITxQ\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -6837,7 +6837,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U585CIUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U585CIUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u585ci.pdf', 'pins':[
+        Part(**{ 'name':'STM32U585CIUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U585CIUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u585ci.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U585CIUx\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -6887,7 +6887,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U585CIUxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U585CIUxQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u585ci.pdf', 'pins':[
+        Part(**{ 'name':'STM32U585CIUxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U585CIUxQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u585ci.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U585CIUxQ\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -6937,7 +6937,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U585OIYxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U585OIYxQ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-90_4.20x3.95mm_P0.4mm_Stagger'], 'footprint':'Package_CSP:ST_WLCSP-90_4.20x3.95mm_P0.4mm_Stagger', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u585oi.pdf', 'pins':[
+        Part(**{ 'name':'STM32U585OIYxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U585OIYxQ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-90_4.20x3.95mm_P0.4mm_Stagger'], 'footprint':'Package_CSP:ST_WLCSP-90_4.20x3.95mm_P0.4mm_Stagger', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u585oi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U585OIYxQ\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='A1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A11',name='VDDIO2',func=Pin.types.PWRIN,unit=1),
             Pin(num='A13',name='PB6',func=Pin.types.BIDIR,unit=1),
@@ -7028,7 +7028,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='K4',name='VDDSMPS',func=Pin.types.PWRIN,unit=1),
             Pin(num='K6',name='VLXSMPS',func=Pin.types.PWRIN,unit=1),
             Pin(num='K8',name='PE9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U585QIIx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U585QIIx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u585qi.pdf', 'pins':[
+        Part(**{ 'name':'STM32U585QIIx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U585QIIx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u585qi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U585QIIx\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='A1',name='PE5',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PC11',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA15',func=Pin.types.BIDIR,unit=1),
@@ -7161,7 +7161,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE9',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE13',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PG14',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U585QIIxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U585QIIxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u585qi.pdf', 'pins':[
+        Part(**{ 'name':'STM32U585QIIxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U585QIIxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u585qi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U585QIIxQ\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='A1',name='PE5',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PC11',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA15',func=Pin.types.BIDIR,unit=1),
@@ -7294,7 +7294,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE9',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE13',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='VDDSMPS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U585RITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U585RITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u585ri.pdf', 'pins':[
+        Part(**{ 'name':'STM32U585RITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U585RITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u585ri.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U585RITx\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -7359,7 +7359,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U585RITxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U585RITxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u585ri.pdf', 'pins':[
+        Part(**{ 'name':'STM32U585RITxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U585RITxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u585ri.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U585RITxQ\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -7424,7 +7424,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U585VITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U585VITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u585vi.pdf', 'pins':[
+        Part(**{ 'name':'STM32U585VITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U585VITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u585vi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U585VITx\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -7525,7 +7525,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U585VITxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U585VITxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u585vi.pdf', 'pins':[
+        Part(**{ 'name':'STM32U585VITxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U585VITxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u585vi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U585VITxQ\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -7626,7 +7626,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='VDD11',func=Pin.types.PWRIN,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U585ZITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U585ZITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u585zi.pdf', 'pins':[
+        Part(**{ 'name':'STM32U585ZITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U585ZITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u585zi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U585ZITx\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -7771,7 +7771,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U585ZITxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U585ZITxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u585zi.pdf', 'pins':[
+        Part(**{ 'name':'STM32U585ZITxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U585ZITxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U575/585', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u585zi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U585ZITxQ\n\nArm Cortex-M33 STM32U5 STM32U575/585', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -7916,7 +7916,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U595AIHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595AIHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:ST_TFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:ST_TFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595ai.pdf', 'pins':[
+        Part(**{ 'name':'STM32U595AIHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595AIHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:ST_TFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:ST_TFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595ai.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U595AIHx\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='A1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -8086,7 +8086,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='N7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='N8',name='PE12',func=Pin.types.BIDIR,unit=1),
             Pin(num='N9',name='PG14',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U595AIHxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595AIHxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:ST_TFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:ST_TFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595ai.pdf', 'pins':[
+        Part(**{ 'name':'STM32U595AIHxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595AIHxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:ST_TFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:ST_TFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595ai.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U595AIHxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='A1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -8256,7 +8256,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='N7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='N8',name='PE12',func=Pin.types.BIDIR,unit=1),
             Pin(num='N9',name='VLXSMPS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U595AJHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595AJHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:ST_TFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:ST_TFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595aj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U595AJHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595AJHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:ST_TFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:ST_TFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595aj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U595AJHx\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='A1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -8426,7 +8426,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='N7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='N8',name='PE12',func=Pin.types.BIDIR,unit=1),
             Pin(num='N9',name='PG14',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U595AJHxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595AJHxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:ST_TFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:ST_TFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595aj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U595AJHxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595AJHxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:ST_TFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:ST_TFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595aj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U595AJHxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='A1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -8596,7 +8596,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='N7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='N8',name='PE12',func=Pin.types.BIDIR,unit=1),
             Pin(num='N9',name='VLXSMPS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U595QIIx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595QIIx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595qi.pdf', 'pins':[
+        Part(**{ 'name':'STM32U595QIIx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595QIIx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595qi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U595QIIx\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='A1',name='PE5',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PC11',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA15',func=Pin.types.BIDIR,unit=1),
@@ -8729,7 +8729,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE9',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE13',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PG14',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U595QIIxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595QIIxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595qi.pdf', 'pins':[
+        Part(**{ 'name':'STM32U595QIIxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595QIIxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595qi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U595QIIxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='A1',name='PE5',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PC11',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA15',func=Pin.types.BIDIR,unit=1),
@@ -8862,7 +8862,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE9',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE13',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='VDDSMPS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U595QJIx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595QJIx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595qj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U595QJIx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595QJIx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595qj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U595QJIx\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='A1',name='PE5',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PC11',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA15',func=Pin.types.BIDIR,unit=1),
@@ -8995,7 +8995,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE9',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE13',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PG14',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U595QJIxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595QJIxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595qj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U595QJIxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595QJIxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595qj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U595QJIxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='A1',name='PE5',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PC11',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA15',func=Pin.types.BIDIR,unit=1),
@@ -9128,7 +9128,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE9',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE13',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='VDDSMPS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U595RITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595RITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595ri.pdf', 'pins':[
+        Part(**{ 'name':'STM32U595RITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595RITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595ri.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U595RITx\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -9193,7 +9193,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U595RITxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595RITxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595ri.pdf', 'pins':[
+        Part(**{ 'name':'STM32U595RITxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595RITxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595ri.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U595RITxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -9258,7 +9258,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U595RJTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595RJTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595rj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U595RJTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595RJTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595rj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U595RJTx\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -9323,7 +9323,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U595RJTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595RJTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595rj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U595RJTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595RJTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595rj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U595RJTxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -9388,7 +9388,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U595VITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595VITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595vi.pdf', 'pins':[
+        Part(**{ 'name':'STM32U595VITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595VITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595vi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U595VITx\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -9489,7 +9489,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U595VITxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595VITxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595vi.pdf', 'pins':[
+        Part(**{ 'name':'STM32U595VITxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595VITxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595vi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U595VITxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -9590,7 +9590,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='VDD11',func=Pin.types.PWRIN,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U595VJTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595VJTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595vj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U595VJTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595VJTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595vj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U595VJTx\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -9691,7 +9691,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U595VJTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595VJTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595vj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U595VJTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595VJTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595vj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U595VJTxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -9792,7 +9792,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='VDD11',func=Pin.types.PWRIN,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U595ZITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595ZITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595zi.pdf', 'pins':[
+        Part(**{ 'name':'STM32U595ZITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595ZITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595zi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U595ZITx\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -9937,7 +9937,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U595ZITxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595ZITxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595zi.pdf', 'pins':[
+        Part(**{ 'name':'STM32U595ZITxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595ZITxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595zi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U595ZITxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -10082,7 +10082,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U595ZIYxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595ZIYxQ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-150_5.38x5.47mm_P0.4m_Stagger'], 'footprint':'Package_CSP:ST_WLCSP-150_5.38x5.47mm_P0.4m_Stagger', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595zi.pdf', 'pins':[
+        Part(**{ 'name':'STM32U595ZIYxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595ZIYxQ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-150_5.38x5.47mm_P0.4m_Stagger'], 'footprint':'Package_CSP:ST_WLCSP-150_5.38x5.47mm_P0.4m_Stagger', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595zi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U595ZIYxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='A1',name='VDDUSB',func=Pin.types.PWRIN,unit=1),
             Pin(num='A11',name='VDD11',func=Pin.types.PWRIN,unit=1),
             Pin(num='A13',name='PE2',func=Pin.types.BIDIR,unit=1),
@@ -10233,7 +10233,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='Y4',name='PE13',func=Pin.types.BIDIR,unit=1),
             Pin(num='Y6',name='PE10',func=Pin.types.BIDIR,unit=1),
             Pin(num='Y8',name='PF15',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U595ZJTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595ZJTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U595/5A5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595zj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U595ZJTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595ZJTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U595/5A5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595zj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U595ZJTx\n\nArm Cortex-M33 STM32U5 STM32U595/5A5', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -10378,7 +10378,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U595ZJTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595ZJTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U595/5A5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595zj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U595ZJTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595ZJTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U595/5A5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595zj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U595ZJTxQ\n\nArm Cortex-M33 STM32U5 STM32U595/5A5', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -10523,7 +10523,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U595ZJYxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595ZJYxQ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-150_5.38x5.47mm_P0.4m_Stagger'], 'footprint':'Package_CSP:ST_WLCSP-150_5.38x5.47mm_P0.4m_Stagger', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595zj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U595ZJYxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U595ZJYxQ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-150_5.38x5.47mm_P0.4m_Stagger'], 'footprint':'Package_CSP:ST_WLCSP-150_5.38x5.47mm_P0.4m_Stagger', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u595zj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U595ZJYxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='A1',name='VDDUSB',func=Pin.types.PWRIN,unit=1),
             Pin(num='A11',name='VDD11',func=Pin.types.PWRIN,unit=1),
             Pin(num='A13',name='PE2',func=Pin.types.BIDIR,unit=1),
@@ -10674,7 +10674,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='Y4',name='PE13',func=Pin.types.BIDIR,unit=1),
             Pin(num='Y6',name='PE10',func=Pin.types.BIDIR,unit=1),
             Pin(num='Y8',name='PF15',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U599BJYxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U599BJYxQ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-208_5.38x5.47mm_P0.35mm_Stagger'], 'footprint':'Package_CSP:ST_WLCSP-208_5.38x5.47mm_P0.35mm_Stagger', 'keywords':'Arm Cortex-M33 STM32U5 STM32U599/5A9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u599bj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U599BJYxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U599BJYxQ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-208_5.38x5.47mm_P0.35mm_Stagger'], 'footprint':'Package_CSP:ST_WLCSP-208_5.38x5.47mm_P0.35mm_Stagger', 'keywords':'Arm Cortex-M33 STM32U5 STM32U599/5A9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u599bj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U599BJYxQ\n\nArm Cortex-M33 STM32U5 STM32U599/5A9', 'pins':[
             Pin(num='A10',name='PD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='A12',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A14',name='PG13',func=Pin.types.BIDIR,unit=1),
@@ -10883,7 +10883,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='T5',name='PB12',func=Pin.types.BIDIR,unit=1),
             Pin(num='T7',name='PB13',func=Pin.types.BIDIR,unit=1),
             Pin(num='T9',name='VDDSMPS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U599NIHxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U599NIHxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm'], 'footprint':'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U599/5A9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u599ni.pdf', 'pins':[
+        Part(**{ 'name':'STM32U599NIHxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U599NIHxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm'], 'footprint':'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U599/5A9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u599ni.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U599NIHxQ\n\nArm Cortex-M33 STM32U5 STM32U599/5A9', 'pins':[
             Pin(num='A1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='A10',name='PC10',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA15',func=Pin.types.BIDIR,unit=1),
@@ -11100,7 +11100,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PF14',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PG0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U599NJHxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U599NJHxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm'], 'footprint':'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U599/5A9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u599nj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U599NJHxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U599NJHxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm'], 'footprint':'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U599/5A9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u599nj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U599NJHxQ\n\nArm Cortex-M33 STM32U5 STM32U599/5A9', 'pins':[
             Pin(num='A1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='A10',name='PC10',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA15',func=Pin.types.BIDIR,unit=1),
@@ -11317,7 +11317,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PF14',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PG0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U599VITxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U599VITxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u599vi.pdf', 'pins':[
+        Part(**{ 'name':'STM32U599VITxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U599VITxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u599vi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U599VITxQ\n\nArm Cortex-M33 STM32U5 STM32U5x9', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -11418,7 +11418,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='VDD11',func=Pin.types.PWRIN,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U599VJTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U599VJTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u599vj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U599VJTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U599VJTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u599vj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U599VJTx\n\nArm Cortex-M33 STM32U5 STM32U5x9', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -11519,7 +11519,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U599VJTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U599VJTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u599vj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U599VJTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U599VJTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u599vj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U599VJTxQ\n\nArm Cortex-M33 STM32U5 STM32U5x9', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -11620,7 +11620,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='VDD11',func=Pin.types.PWRIN,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U599ZITxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U599ZITxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u599zi.pdf', 'pins':[
+        Part(**{ 'name':'STM32U599ZITxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U599ZITxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u599zi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U599ZITxQ\n\nArm Cortex-M33 STM32U5 STM32U5x9', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -11765,7 +11765,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U599ZIYxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U599ZIYxQ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-150_5.38x5.47mm_P0.4m_Stagger'], 'footprint':'Package_CSP:ST_WLCSP-150_5.38x5.47mm_P0.4m_Stagger', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u599zi.pdf', 'pins':[
+        Part(**{ 'name':'STM32U599ZIYxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U599ZIYxQ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-150_5.38x5.47mm_P0.4m_Stagger'], 'footprint':'Package_CSP:ST_WLCSP-150_5.38x5.47mm_P0.4m_Stagger', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u599zi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U599ZIYxQ\n\nArm Cortex-M33 STM32U5 STM32U5x9', 'pins':[
             Pin(num='A1',name='VDDUSB',func=Pin.types.PWRIN,unit=1),
             Pin(num='A11',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A13',name='PC14',func=Pin.types.BIDIR,unit=1),
@@ -11916,7 +11916,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='Y4',name='PB13',func=Pin.types.BIDIR,unit=1),
             Pin(num='Y6',name='PE12',func=Pin.types.BIDIR,unit=1),
             Pin(num='Y8',name='PF14',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U599ZJTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U599ZJTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U599/5A9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u599zj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U599ZJTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U599ZJTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U599/5A9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u599zj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U599ZJTxQ\n\nArm Cortex-M33 STM32U5 STM32U599/5A9', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -12061,7 +12061,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U599ZJYxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U599ZJYxQ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-150_5.38x5.47mm_P0.4m_Stagger'], 'footprint':'Package_CSP:ST_WLCSP-150_5.38x5.47mm_P0.4m_Stagger', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u599zj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U599ZJYxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U599ZJYxQ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-150_5.38x5.47mm_P0.4m_Stagger'], 'footprint':'Package_CSP:ST_WLCSP-150_5.38x5.47mm_P0.4m_Stagger', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u599zj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U599ZJYxQ\n\nArm Cortex-M33 STM32U5 STM32U5x9', 'pins':[
             Pin(num='A1',name='VDDUSB',func=Pin.types.PWRIN,unit=1),
             Pin(num='A11',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A13',name='PC14',func=Pin.types.BIDIR,unit=1),
@@ -12212,7 +12212,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='Y4',name='PB13',func=Pin.types.BIDIR,unit=1),
             Pin(num='Y6',name='PE12',func=Pin.types.BIDIR,unit=1),
             Pin(num='Y8',name='PF14',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U5A5AJHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5A5AJHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:ST_TFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:ST_TFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5a5aj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U5A5AJHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5A5AJHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:ST_TFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:ST_TFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5a5aj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U5A5AJHx\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='A1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -12382,7 +12382,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='N7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='N8',name='PE12',func=Pin.types.BIDIR,unit=1),
             Pin(num='N9',name='PG14',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U5A5AJHxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5A5AJHxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:ST_TFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:ST_TFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5a5aj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U5A5AJHxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5A5AJHxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:ST_TFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:ST_TFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5a5aj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U5A5AJHxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='A1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -12552,7 +12552,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='N7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='N8',name='PE12',func=Pin.types.BIDIR,unit=1),
             Pin(num='N9',name='VLXSMPS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U5A5QIIxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5A5QIIxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5a5qi.pdf', 'pins':[
+        Part(**{ 'name':'STM32U5A5QIIxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5A5QIIxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5a5qi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U5A5QIIxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='A1',name='PE5',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PC11',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA15',func=Pin.types.BIDIR,unit=1),
@@ -12685,7 +12685,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE9',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE13',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='VDDSMPS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U5A5QJIx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5A5QJIx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5a5qj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U5A5QJIx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5A5QJIx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5a5qj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U5A5QJIx\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='A1',name='PE5',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PC11',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA15',func=Pin.types.BIDIR,unit=1),
@@ -12818,7 +12818,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE9',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE13',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PG14',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U5A5QJIxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5A5QJIxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5a5qj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U5A5QJIxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5A5QJIxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-132_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5a5qj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U5A5QJIxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='A1',name='PE5',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PC11',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA15',func=Pin.types.BIDIR,unit=1),
@@ -12951,7 +12951,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE9',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE13',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='VDDSMPS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U5A5RJTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5A5RJTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5a5rj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U5A5RJTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5A5RJTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5a5rj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U5A5RJTx\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -13016,7 +13016,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U5A5RJTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5A5RJTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5a5rj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U5A5RJTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5A5RJTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5a5rj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U5A5RJTxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -13081,7 +13081,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U5A5VJTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5A5VJTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5a5vj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U5A5VJTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5A5VJTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5a5vj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U5A5VJTx\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -13182,7 +13182,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U5A5VJTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5A5VJTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5a5vj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U5A5VJTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5A5VJTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5a5vj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U5A5VJTxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -13283,7 +13283,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='VDD11',func=Pin.types.PWRIN,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U5A5ZJTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5A5ZJTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U595/5A5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5a5zj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U5A5ZJTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5A5ZJTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U595/5A5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5a5zj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U5A5ZJTx\n\nArm Cortex-M33 STM32U5 STM32U595/5A5', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -13428,7 +13428,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U5A5ZJTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5A5ZJTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U595/5A5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5a5zj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U5A5ZJTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5A5ZJTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U595/5A5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5a5zj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U5A5ZJTxQ\n\nArm Cortex-M33 STM32U5 STM32U595/5A5', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -13573,7 +13573,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U5A5ZJYxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5A5ZJYxQ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-150_5.38x5.47mm_P0.4m_Stagger'], 'footprint':'Package_CSP:ST_WLCSP-150_5.38x5.47mm_P0.4m_Stagger', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5a5zj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U5A5ZJYxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5A5ZJYxQ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-150_5.38x5.47mm_P0.4m_Stagger'], 'footprint':'Package_CSP:ST_WLCSP-150_5.38x5.47mm_P0.4m_Stagger', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x5', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5a5zj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U5A5ZJYxQ\n\nArm Cortex-M33 STM32U5 STM32U5x5', 'pins':[
             Pin(num='A1',name='VDDUSB',func=Pin.types.PWRIN,unit=1),
             Pin(num='A11',name='VDD11',func=Pin.types.PWRIN,unit=1),
             Pin(num='A13',name='PE2',func=Pin.types.BIDIR,unit=1),
@@ -13724,7 +13724,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='Y4',name='PE13',func=Pin.types.BIDIR,unit=1),
             Pin(num='Y6',name='PE10',func=Pin.types.BIDIR,unit=1),
             Pin(num='Y8',name='PF15',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U5A9BJYxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5A9BJYxQ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-208_5.38x5.47mm_P0.35mm_Stagger'], 'footprint':'Package_CSP:ST_WLCSP-208_5.38x5.47mm_P0.35mm_Stagger', 'keywords':'Arm Cortex-M33 STM32U5 STM32U599/5A9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5a9bj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U5A9BJYxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5A9BJYxQ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-208_5.38x5.47mm_P0.35mm_Stagger'], 'footprint':'Package_CSP:ST_WLCSP-208_5.38x5.47mm_P0.35mm_Stagger', 'keywords':'Arm Cortex-M33 STM32U5 STM32U599/5A9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5a9bj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U5A9BJYxQ\n\nArm Cortex-M33 STM32U5 STM32U599/5A9', 'pins':[
             Pin(num='A10',name='PD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='A12',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A14',name='PG13',func=Pin.types.BIDIR,unit=1),
@@ -13933,7 +13933,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='T5',name='PB12',func=Pin.types.BIDIR,unit=1),
             Pin(num='T7',name='PB13',func=Pin.types.BIDIR,unit=1),
             Pin(num='T9',name='VDDSMPS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U5A9NJHxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5A9NJHxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm'], 'footprint':'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U599/5A9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5a9nj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U5A9NJHxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5A9NJHxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm'], 'footprint':'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U599/5A9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5a9nj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U5A9NJHxQ\n\nArm Cortex-M33 STM32U5 STM32U599/5A9', 'pins':[
             Pin(num='A1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='A10',name='PC10',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA15',func=Pin.types.BIDIR,unit=1),
@@ -14150,7 +14150,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PF14',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PG0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U5A9VJTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5A9VJTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5a9vj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U5A9VJTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5A9VJTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5a9vj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U5A9VJTxQ\n\nArm Cortex-M33 STM32U5 STM32U5x9', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -14251,7 +14251,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='VDD11',func=Pin.types.PWRIN,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U5A9ZJTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5A9ZJTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5a9zj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U5A9ZJTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5A9ZJTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5a9zj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U5A9ZJTxQ\n\nArm Cortex-M33 STM32U5 STM32U5x9', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -14396,7 +14396,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U5A9ZJYxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5A9ZJYxQ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-150_5.38x5.47mm_P0.4m_Stagger'], 'footprint':'Package_CSP:ST_WLCSP-150_5.38x5.47mm_P0.4m_Stagger', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5a9zj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U5A9ZJYxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5A9ZJYxQ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-150_5.38x5.47mm_P0.4m_Stagger'], 'footprint':'Package_CSP:ST_WLCSP-150_5.38x5.47mm_P0.4m_Stagger', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5x9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5a9zj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U5A9ZJYxQ\n\nArm Cortex-M33 STM32U5 STM32U5x9', 'pins':[
             Pin(num='A1',name='VDDUSB',func=Pin.types.PWRIN,unit=1),
             Pin(num='A11',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A13',name='PC14',func=Pin.types.BIDIR,unit=1),
@@ -14547,7 +14547,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='Y4',name='PB13',func=Pin.types.BIDIR,unit=1),
             Pin(num='Y6',name='PE12',func=Pin.types.BIDIR,unit=1),
             Pin(num='Y8',name='PF14',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U5F7VITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5F7VITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5F7/5G7', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5f7vi.pdf', 'pins':[
+        Part(**{ 'name':'STM32U5F7VITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5F7VITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5F7/5G7', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5f7vi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U5F7VITx\n\nArm Cortex-M33 STM32U5 STM32U5F7/5G7', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -14648,7 +14648,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U5F7VITxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5F7VITxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5F7/5G7', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5f7vi.pdf', 'pins':[
+        Part(**{ 'name':'STM32U5F7VITxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5F7VITxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5F7/5G7', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5f7vi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U5F7VITxQ\n\nArm Cortex-M33 STM32U5 STM32U5F7/5G7', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -14749,7 +14749,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='VDD11',func=Pin.types.PWRIN,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U5F7VJTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5F7VJTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5F7/5G7', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5f7vj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U5F7VJTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5F7VJTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5F7/5G7', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5f7vj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U5F7VJTx\n\nArm Cortex-M33 STM32U5 STM32U5F7/5G7', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -14850,7 +14850,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U5F7VJTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5F7VJTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5F7/5G7', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5f7vj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U5F7VJTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5F7VJTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5F7/5G7', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5f7vj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U5F7VJTxQ\n\nArm Cortex-M33 STM32U5 STM32U5F7/5G7', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -14951,7 +14951,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='VDD11',func=Pin.types.PWRIN,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U5F9BJYxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5F9BJYxQ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-208_5.8x5.6mm_P0.35_Stagger'], 'footprint':'Package_CSP:ST_WLCSP-208_5.8x5.6mm_P0.35_Stagger', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5F9/5G9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5f9bj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U5F9BJYxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5F9BJYxQ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-208_5.8x5.6mm_P0.35_Stagger'], 'footprint':'Package_CSP:ST_WLCSP-208_5.8x5.6mm_P0.35_Stagger', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5F9/5G9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5f9bj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U5F9BJYxQ\n\nArm Cortex-M33 STM32U5 STM32U5F9/5G9', 'pins':[
             Pin(num='A10',name='PD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='A12',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A14',name='PG13',func=Pin.types.BIDIR,unit=1),
@@ -15160,7 +15160,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='T5',name='PB12',func=Pin.types.BIDIR,unit=1),
             Pin(num='T7',name='PB13',func=Pin.types.BIDIR,unit=1),
             Pin(num='T9',name='VDDSMPS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U5F9NJHxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5F9NJHxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm'], 'footprint':'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5F9/5G9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5f9nj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U5F9NJHxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5F9NJHxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm'], 'footprint':'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5F9/5G9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5f9nj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U5F9NJHxQ\n\nArm Cortex-M33 STM32U5 STM32U5F9/5G9', 'pins':[
             Pin(num='A1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='A10',name='PC10',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA15',func=Pin.types.BIDIR,unit=1),
@@ -15377,7 +15377,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PF14',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PG0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U5F9VITxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5F9VITxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5F9/5G9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5f9vi.pdf', 'pins':[
+        Part(**{ 'name':'STM32U5F9VITxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5F9VITxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5F9/5G9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5f9vi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U5F9VITxQ\n\nArm Cortex-M33 STM32U5 STM32U5F9/5G9', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DSI_CKP',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -15478,7 +15478,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PB9',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='VDD11',func=Pin.types.PWRIN,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U5F9VJTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5F9VJTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5F9/5G9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5f9vj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U5F9VJTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5F9VJTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5F9/5G9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5f9vj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U5F9VJTxQ\n\nArm Cortex-M33 STM32U5 STM32U5F9/5G9', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DSI_CKP',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -15579,7 +15579,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PB9',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='VDD11',func=Pin.types.PWRIN,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U5F9ZITxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5F9ZITxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5F9/5G9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5f9zi.pdf', 'pins':[
+        Part(**{ 'name':'STM32U5F9ZITxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5F9ZITxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5F9/5G9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5f9zi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U5F9ZITxQ\n\nArm Cortex-M33 STM32U5 STM32U5F9/5G9', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PC8',func=Pin.types.BIDIR,unit=1),
@@ -15724,7 +15724,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PI3',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U5F9ZJTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5F9ZJTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5F9/5G9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5f9zj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U5F9ZJTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5F9ZJTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5F9/5G9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5f9zj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U5F9ZJTxQ\n\nArm Cortex-M33 STM32U5 STM32U5F9/5G9', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PC8',func=Pin.types.BIDIR,unit=1),
@@ -15869,7 +15869,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PI3',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U5G7VJTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5G7VJTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5F7/5G7', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5g7vj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U5G7VJTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5G7VJTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5F7/5G7', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5g7vj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U5G7VJTx\n\nArm Cortex-M33 STM32U5 STM32U5F7/5G7', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -15970,7 +15970,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U5G7VJTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5G7VJTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5F7/5G7', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5g7vj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U5G7VJTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5G7VJTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5F7/5G7', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5g7vj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U5G7VJTxQ\n\nArm Cortex-M33 STM32U5 STM32U5F7/5G7', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -16071,7 +16071,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='VDD11',func=Pin.types.PWRIN,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U5G9BJYxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5G9BJYxQ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-208_5.8x5.6mm_P0.35_Stagger'], 'footprint':'Package_CSP:ST_WLCSP-208_5.8x5.6mm_P0.35_Stagger', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5F9/5G9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5g9bj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U5G9BJYxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5G9BJYxQ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-208_5.8x5.6mm_P0.35_Stagger'], 'footprint':'Package_CSP:ST_WLCSP-208_5.8x5.6mm_P0.35_Stagger', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5F9/5G9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5g9bj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U5G9BJYxQ\n\nArm Cortex-M33 STM32U5 STM32U5F9/5G9', 'pins':[
             Pin(num='A10',name='PD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='A12',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A14',name='PG13',func=Pin.types.BIDIR,unit=1),
@@ -16280,7 +16280,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='T5',name='PB12',func=Pin.types.BIDIR,unit=1),
             Pin(num='T7',name='PB13',func=Pin.types.BIDIR,unit=1),
             Pin(num='T9',name='VDDSMPS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U5G9NJHxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5G9NJHxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm'], 'footprint':'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5F9/5G9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5g9nj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U5G9NJHxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5G9NJHxQ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm'], 'footprint':'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5F9/5G9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5g9nj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U5G9NJHxQ\n\nArm Cortex-M33 STM32U5 STM32U5F9/5G9', 'pins':[
             Pin(num='A1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='A10',name='PC10',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA15',func=Pin.types.BIDIR,unit=1),
@@ -16497,7 +16497,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PF14',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PG0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U5G9VJTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5G9VJTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5F9/5G9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5g9vj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U5G9VJTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5G9VJTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5F9/5G9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5g9vj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U5G9VJTxQ\n\nArm Cortex-M33 STM32U5 STM32U5F9/5G9', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DSI_CKP',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -16598,7 +16598,7 @@ MCU_ST_STM32U5 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PB9',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='VDD11',func=Pin.types.PWRIN,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32U5G9ZJTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5G9ZJTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5F9/5G9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5g9zj.pdf', 'pins':[
+        Part(**{ 'name':'STM32U5G9ZJTxQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32U5G9ZJTxQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M33 STM32U5 STM32U5F9/5G9', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32u5g9zj.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32U5.kicad_sym\nSTM32U5G9ZJTxQ\n\nArm Cortex-M33 STM32U5 STM32U5F9/5G9', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PC8',func=Pin.types.BIDIR,unit=1),

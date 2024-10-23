@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Memory_NVRAM = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'47L04', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'47L04'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'4kb 3V I2C serial EERAM SRAM EEPROM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005371C.pdf', 'pins':[
+        Part(**{ 'name':'47L04', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'47L04'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'4kb 3V I2C serial EERAM SRAM EEPROM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005371C.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_NVRAM.kicad_sym\n47L04\n\n4kb 3V I2C serial EERAM SRAM EEPROM', 'pins':[
             Pin(num='1',name='VCAP',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -13,7 +13,7 @@ Memory_NVRAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='HS',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FM16W08-SG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FM16W08-SG'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'FRAM 5V Parallel', 'description':'', 'datasheet':'http://www.cypress.com/file/41731/download', 'pins':[
+        Part(**{ 'name':'FM16W08-SG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FM16W08-SG'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'FRAM 5V Parallel', 'description':'', 'datasheet':'http://www.cypress.com/file/41731/download', 'search_text':'/usr/share/kicad/symbols/Memory_NVRAM.kicad_sym\nFM16W08-SG\n\nFRAM 5V Parallel', 'pins':[
             Pin(num='10',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DQ0',func=Pin.types.BIDIR,unit=1),
             Pin(num='12',name='DQ1',func=Pin.types.BIDIR,unit=1),
@@ -40,7 +40,7 @@ Memory_NVRAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FM18W08-SG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FM18W08-SG'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'FRAM 5V Parallel', 'description':'', 'datasheet':'http://www.cypress.com/file/136521/download', 'pins':[
+        Part(**{ 'name':'FM18W08-SG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FM18W08-SG'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'FRAM 5V Parallel', 'description':'', 'datasheet':'http://www.cypress.com/file/136521/download', 'search_text':'/usr/share/kicad/symbols/Memory_NVRAM.kicad_sym\nFM18W08-SG\n\nFRAM 5V Parallel', 'pins':[
             Pin(num='1',name='A14',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DQ0',func=Pin.types.BIDIR,unit=1),
@@ -69,7 +69,7 @@ Memory_NVRAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FM24C64B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FM24C64B'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'FRAM I2C Serial 5V FRAM NVRAM', 'description':'', 'datasheet':'http://www.cypress.com/file/41651/download', 'pins':[
+        Part(**{ 'name':'FM24C64B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FM24C64B'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'FRAM I2C Serial 5V FRAM NVRAM', 'description':'', 'datasheet':'http://www.cypress.com/file/41651/download', 'search_text':'/usr/share/kicad/symbols/Memory_NVRAM.kicad_sym\nFM24C64B\n\nFRAM I2C Serial 5V FRAM NVRAM', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -78,7 +78,7 @@ Memory_NVRAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FM24CL16B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FM24CL16B'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'FRAM I2C Serial 3.6V FRAM NVRAM', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-FM24CL16B_16-Kbit_(2_K_8)_Serial_(I2C)_F-RAM-DataSheet-v13_00-EN.pdf?fileId=8ac78c8c7d0d8da4017d0ec99cb241e9', 'pins':[
+        Part(**{ 'name':'FM24CL16B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FM24CL16B'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'FRAM I2C Serial 3.6V FRAM NVRAM', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-FM24CL16B_16-Kbit_(2_K_8)_Serial_(I2C)_F-RAM-DataSheet-v13_00-EN.pdf?fileId=8ac78c8c7d0d8da4017d0ec99cb241e9', 'search_text':'/usr/share/kicad/symbols/Memory_NVRAM.kicad_sym\nFM24CL16B\n\nFRAM I2C Serial 3.6V FRAM NVRAM', 'pins':[
             Pin(num='1',name='~',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='~',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='3',name='~',func=Pin.types.NOCONNECT,unit=1),
@@ -87,7 +87,7 @@ Memory_NVRAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MB85RS16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MB85RS16'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FRAM SPI 3.3V', 'description':'', 'datasheet':'http://www.fujitsu.com/downloads/MICRO/fsa/pdf/products/memory/fram/MB85RS16-DS501-00014-6v0-E.pdf', 'pins':[
+        Part(**{ 'name':'MB85RS16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MB85RS16'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FRAM SPI 3.3V', 'description':'', 'datasheet':'http://www.fujitsu.com/downloads/MICRO/fsa/pdf/products/memory/fram/MB85RS16-DS501-00014-6v0-E.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_NVRAM.kicad_sym\nMB85RS16\n\nFRAM SPI 3.3V', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='SO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='~{WP}',func=Pin.types.INPUT,unit=1),
@@ -96,7 +96,7 @@ Memory_NVRAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~{HOLD}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MR20H40', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MR20H40'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'MRAM SPI EEPROM 3.3V', 'description':'', 'datasheet':'https://www.everspin.com/file/217/download', 'pins':[
+        Part(**{ 'name':'MR20H40', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MR20H40'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'MRAM SPI EEPROM 3.3V', 'description':'', 'datasheet':'https://www.everspin.com/file/217/download', 'search_text':'/usr/share/kicad/symbols/Memory_NVRAM.kicad_sym\nMR20H40\n\nMRAM SPI EEPROM 3.3V', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='SO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='~{WP}',func=Pin.types.INPUT,unit=1),
@@ -106,7 +106,7 @@ Memory_NVRAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{HOLD}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PAD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'47C04', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'47C04'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'4kb 5V I2C serial EERAM SRAM EEPROM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005371C.pdf', 'pins':[
+        Part(**{ 'name':'47C04', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'47C04'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'4kb 5V I2C serial EERAM SRAM EEPROM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005371C.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_NVRAM.kicad_sym\n47C04\n\n4kb 5V I2C serial EERAM SRAM EEPROM', 'pins':[
             Pin(num='1',name='VCAP',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -115,7 +115,7 @@ Memory_NVRAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='HS',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'47C16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'47C16'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'16kb 5V I2C serial EERAM SRAM EEPROM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005371C.pdf', 'pins':[
+        Part(**{ 'name':'47C16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'47C16'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'16kb 5V I2C serial EERAM SRAM EEPROM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005371C.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_NVRAM.kicad_sym\n47C16\n\n16kb 5V I2C serial EERAM SRAM EEPROM', 'pins':[
             Pin(num='1',name='VCAP',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -124,7 +124,7 @@ Memory_NVRAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='HS',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'47L16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'47L16'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'16kb 3V I2C serial EERAM SRAM EEPROM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005371C.pdf', 'pins':[
+        Part(**{ 'name':'47L16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'47L16'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'16kb 3V I2C serial EERAM SRAM EEPROM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005371C.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_NVRAM.kicad_sym\n47L16\n\n16kb 3V I2C serial EERAM SRAM EEPROM', 'pins':[
             Pin(num='1',name='VCAP',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -133,7 +133,7 @@ Memory_NVRAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='HS',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FM1608B-SG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FM1608B-SG'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'FRAM 5V Parallel', 'description':'', 'datasheet':'http://www.cypress.com/file/41731/download', 'pins':[
+        Part(**{ 'name':'FM1608B-SG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FM1608B-SG'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'FRAM 5V Parallel', 'description':'', 'datasheet':'http://www.cypress.com/file/41731/download', 'search_text':'/usr/share/kicad/symbols/Memory_NVRAM.kicad_sym\nFM1608B-SG\n\nFRAM 5V Parallel', 'pins':[
             Pin(num='10',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DQ0',func=Pin.types.BIDIR,unit=1),
             Pin(num='12',name='DQ1',func=Pin.types.BIDIR,unit=1),
@@ -160,7 +160,7 @@ Memory_NVRAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FM1808B-SG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FM1808B-SG'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'FRAM 5V Parallel', 'description':'', 'datasheet':'http://www.cypress.com/file/136521/download', 'pins':[
+        Part(**{ 'name':'FM1808B-SG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FM1808B-SG'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'FRAM 5V Parallel', 'description':'', 'datasheet':'http://www.cypress.com/file/136521/download', 'search_text':'/usr/share/kicad/symbols/Memory_NVRAM.kicad_sym\nFM1808B-SG\n\nFRAM 5V Parallel', 'pins':[
             Pin(num='1',name='A14',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DQ0',func=Pin.types.BIDIR,unit=1),
@@ -189,7 +189,7 @@ Memory_NVRAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FM24C64C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FM24C64C'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'FRAM I2C Serial 5V FRAM NVRAM', 'description':'', 'datasheet':'http://www.cypress.com/file/41651/download', 'pins':[
+        Part(**{ 'name':'FM24C64C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FM24C64C'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'FRAM I2C Serial 5V FRAM NVRAM', 'description':'', 'datasheet':'http://www.cypress.com/file/41651/download', 'search_text':'/usr/share/kicad/symbols/Memory_NVRAM.kicad_sym\nFM24C64C\n\nFRAM I2C Serial 5V FRAM NVRAM', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -198,7 +198,7 @@ Memory_NVRAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MB85RS128B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MB85RS128B'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FRAM SPI 3.3V', 'description':'', 'datasheet':'http://www.fujitsu.com/downloads/MICRO/fsa/pdf/products/memory/fram/MB85RS16-DS501-00014-6v0-E.pdf', 'pins':[
+        Part(**{ 'name':'MB85RS128B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MB85RS128B'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FRAM SPI 3.3V', 'description':'', 'datasheet':'http://www.fujitsu.com/downloads/MICRO/fsa/pdf/products/memory/fram/MB85RS16-DS501-00014-6v0-E.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_NVRAM.kicad_sym\nMB85RS128B\n\nFRAM SPI 3.3V', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='SO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='~{WP}',func=Pin.types.INPUT,unit=1),
@@ -207,7 +207,7 @@ Memory_NVRAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~{HOLD}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MB85RS1MT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MB85RS1MT'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'FRAM SPI 3.3V', 'description':'', 'datasheet':'http://www.fujitsu.com/downloads/MICRO/fsa/pdf/products/memory/fram/MB85RS16-DS501-00014-6v0-E.pdf', 'pins':[
+        Part(**{ 'name':'MB85RS1MT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MB85RS1MT'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'FRAM SPI 3.3V', 'description':'', 'datasheet':'http://www.fujitsu.com/downloads/MICRO/fsa/pdf/products/memory/fram/MB85RS16-DS501-00014-6v0-E.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_NVRAM.kicad_sym\nMB85RS1MT\n\nFRAM SPI 3.3V', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='SO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='~{WP}',func=Pin.types.INPUT,unit=1),
@@ -216,7 +216,7 @@ Memory_NVRAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~{HOLD}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MB85RS256B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MB85RS256B'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'FRAM SPI 3.3V', 'description':'', 'datasheet':'http://www.fujitsu.com/downloads/MICRO/fsa/pdf/products/memory/fram/MB85RS16-DS501-00014-6v0-E.pdf', 'pins':[
+        Part(**{ 'name':'MB85RS256B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MB85RS256B'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'FRAM SPI 3.3V', 'description':'', 'datasheet':'http://www.fujitsu.com/downloads/MICRO/fsa/pdf/products/memory/fram/MB85RS16-DS501-00014-6v0-E.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_NVRAM.kicad_sym\nMB85RS256B\n\nFRAM SPI 3.3V', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='SO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='~{WP}',func=Pin.types.INPUT,unit=1),
@@ -225,7 +225,7 @@ Memory_NVRAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~{HOLD}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MB85RS2MT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MB85RS2MT'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'FRAM SPI 3.3V', 'description':'', 'datasheet':'http://www.fujitsu.com/downloads/MICRO/fsa/pdf/products/memory/fram/MB85RS16-DS501-00014-6v0-E.pdf', 'pins':[
+        Part(**{ 'name':'MB85RS2MT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MB85RS2MT'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'FRAM SPI 3.3V', 'description':'', 'datasheet':'http://www.fujitsu.com/downloads/MICRO/fsa/pdf/products/memory/fram/MB85RS16-DS501-00014-6v0-E.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_NVRAM.kicad_sym\nMB85RS2MT\n\nFRAM SPI 3.3V', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='SO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='~{WP}',func=Pin.types.INPUT,unit=1),
@@ -234,7 +234,7 @@ Memory_NVRAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~{HOLD}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MB85RS512T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MB85RS512T'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', ''], 'footprint':'', 'keywords':'FRAM SPI 3.3V', 'description':'', 'datasheet':'http://www.fujitsu.com/downloads/MICRO/fsa/pdf/products/memory/fram/MB85RS16-DS501-00014-6v0-E.pdf', 'pins':[
+        Part(**{ 'name':'MB85RS512T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MB85RS512T'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', ''], 'footprint':'', 'keywords':'FRAM SPI 3.3V', 'description':'', 'datasheet':'http://www.fujitsu.com/downloads/MICRO/fsa/pdf/products/memory/fram/MB85RS16-DS501-00014-6v0-E.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_NVRAM.kicad_sym\nMB85RS512T\n\nFRAM SPI 3.3V', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='SO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='~{WP}',func=Pin.types.INPUT,unit=1),
@@ -243,7 +243,7 @@ Memory_NVRAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~{HOLD}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MB85RS64', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MB85RS64'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', ''], 'footprint':'', 'keywords':'FRAM SPI 3.3V', 'description':'', 'datasheet':'http://www.fujitsu.com/downloads/MICRO/fme/fram/datasheet-MB85RS64.pdf', 'pins':[
+        Part(**{ 'name':'MB85RS64', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MB85RS64'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', ''], 'footprint':'', 'keywords':'FRAM SPI 3.3V', 'description':'', 'datasheet':'http://www.fujitsu.com/downloads/MICRO/fme/fram/datasheet-MB85RS64.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_NVRAM.kicad_sym\nMB85RS64\n\nFRAM SPI 3.3V', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='SO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='~{WP}',func=Pin.types.INPUT,unit=1),
@@ -252,7 +252,7 @@ Memory_NVRAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~{HOLD}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MR25H40', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MR25H40'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'MRAM SPI EEPROM 3.3V', 'description':'', 'datasheet':'https://www.everspin.com/file/217/download', 'pins':[
+        Part(**{ 'name':'MR25H40', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MR25H40'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'MRAM SPI EEPROM 3.3V', 'description':'', 'datasheet':'https://www.everspin.com/file/217/download', 'search_text':'/usr/share/kicad/symbols/Memory_NVRAM.kicad_sym\nMR25H40\n\nMRAM SPI EEPROM 3.3V', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='SO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='~{WP}',func=Pin.types.INPUT,unit=1),

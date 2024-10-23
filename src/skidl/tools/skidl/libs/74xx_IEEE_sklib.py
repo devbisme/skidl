@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'7400', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7400'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'7400', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7400'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7400\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -18,8 +18,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='11',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
-            Pin(num='13',name='~',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['14', '2', '7', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '4', '6', '7', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '10', '9', '7', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '13', '12', '7', '11']}] }),
-        Part(**{ 'name':'7401', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7401'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='13',name='~',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '7', '14', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '4', '7', '14', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '14', '9', '8', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '13', '7', '11', '14']}] }),
+        Part(**{ 'name':'7401', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7401'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7401\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -33,8 +33,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='11',name='~',func=Pin.types.OPENCOLL,unit=4),
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
-            Pin(num='13',name='~',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '14', '3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '14', '4', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '14', '10', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '14', '11', '13', '12']}] }),
-        Part(**{ 'name':'7402', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7402'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='13',name='~',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '1', '14', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '14', '5', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '7', '8', '14', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '7', '13', '14', '12']}] }),
+        Part(**{ 'name':'7402', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7402'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7402\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -48,8 +48,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='11',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
-            Pin(num='13',name='~',func=Pin.types.OUTPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '14', '3', '7', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '14', '4', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '14', '9', '7']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '13', '12', '14', '7']}] }),
-        Part(**{ 'name':'7404', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7404'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='13',name='~',func=Pin.types.OUTPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '7', '14', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7', '14', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '7', '14', '9', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '13', '14', '12', '11']}] }),
+        Part(**{ 'name':'7404', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7404'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7404\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -63,8 +63,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.INPUT,unit=5),
             Pin(num='11',name='~',func=Pin.types.INPUT,unit=5),
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=6),
-            Pin(num='13',name='~',func=Pin.types.INPUT,unit=6)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '7', '14', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '7', '4', '14']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '7', '5', '14']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '7', '9', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '7', '11', '14']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13', '7', '14']}] }),
-        Part(**{ 'name':'7405', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7405'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='13',name='~',func=Pin.types.INPUT,unit=6)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '14', '2', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '7', '4', '14']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '14', '6', '7']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '14', '9', '7']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '14', '11', '7']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '14', '13', '7']}] }),
+        Part(**{ 'name':'7405', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7405'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7405\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -78,8 +78,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.OPENCOLL,unit=5),
             Pin(num='11',name='~',func=Pin.types.INPUT,unit=5),
             Pin(num='12',name='~',func=Pin.types.OPENCOLL,unit=6),
-            Pin(num='13',name='~',func=Pin.types.INPUT,unit=6)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '7', '14', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '14', '3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '7', '14', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '7', '9', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '7', '14', '10']},{'label': 'uF', 'num': 6, 'pin_nums': ['13', '7', '14', '12']}] }),
-        Part(**{ 'name':'7406', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7406'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='13',name='~',func=Pin.types.INPUT,unit=6)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['14', '2', '1', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '3', '4', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '5', '6', '7']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '8', '9', '7']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '10', '11', '7']},{'label': 'uF', 'num': 6, 'pin_nums': ['14', '13', '12', '7']}] }),
+        Part(**{ 'name':'7406', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7406'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7406\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -93,8 +93,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.OPENCOLL,unit=5),
             Pin(num='11',name='~',func=Pin.types.INPUT,unit=5),
             Pin(num='12',name='~',func=Pin.types.OPENCOLL,unit=6),
-            Pin(num='13',name='~',func=Pin.types.INPUT,unit=6)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '14', '7', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '4', '3', '14']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '5', '6', '14']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '8', '9', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '11', '14', '10']},{'label': 'uF', 'num': 6, 'pin_nums': ['7', '12', '13', '14']}] }),
-        Part(**{ 'name':'7407', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7407'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='13',name='~',func=Pin.types.INPUT,unit=6)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '7', '2', '14']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '7', '3', '14']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '7', '6', '14']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '7', '9', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7', '10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '7', '13', '14']}] }),
+        Part(**{ 'name':'7407', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7407'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7407\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -108,8 +108,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.OPENCOLL,unit=5),
             Pin(num='11',name='~',func=Pin.types.INPUT,unit=5),
             Pin(num='12',name='~',func=Pin.types.OPENCOLL,unit=6),
-            Pin(num='13',name='~',func=Pin.types.INPUT,unit=6)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '7', '14', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '7', '14', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7', '5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '7', '14', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7', '10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '7', '13', '14']}] }),
-        Part(**{ 'name':'7408', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7408'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='13',name='~',func=Pin.types.INPUT,unit=6)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '14', '2', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '14', '3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '7', '14', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['9', '14', '8', '7']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '14', '10', '7']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '14', '13', '7']}] }),
+        Part(**{ 'name':'7408', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7408'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7408\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -123,8 +123,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='11',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
-            Pin(num='13',name='~',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '14', '3', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5', '14', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '9', '14', '10', '7']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '13', '14', '11', '7']}] }),
-        Part(**{ 'name':'7409', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7409'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='13',name='~',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['14', '1', '3', '2', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '6', '4', '5', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '10', '8', '9', '7']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '7', '12', '13', '11']}] }),
+        Part(**{ 'name':'7409', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7409'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7409\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -138,8 +138,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='11',name='~',func=Pin.types.OPENCOLL,unit=4),
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
-            Pin(num='13',name='~',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '14', '7', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '4', '14', '7', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '9', '10', '14', '7']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '11', '14', '13', '7']}] }),
-        Part(**{ 'name':'7410', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7410'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='13',name='~',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '14', '3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '7', '14', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '7', '14', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '11', '7', '14', '12']}] }),
+        Part(**{ 'name':'7410', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7410'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7410\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -153,8 +153,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='11',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=3),
-            Pin(num='9',name='~',func=Pin.types.INPUT,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['14', '1', '12', '2', '7', '13']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '4', '6', '3', '7', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '11', '9', '10', '8', '7']}] }),
-        Part(**{ 'name':'7411', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7411'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='9',name='~',func=Pin.types.INPUT,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '14', '2', '12', '13', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3', '14', '6', '7', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '14', '9', '11', '7', '8']}] }),
+        Part(**{ 'name':'7411', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7411'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7411\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -168,8 +168,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='11',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=3),
-            Pin(num='9',name='~',func=Pin.types.INPUT,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['12', '2', '7', '1', '14', '13']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '7', '14', '5', '6', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '10', '7', '14', '9', '11']}] }),
-        Part(**{ 'name':'7412', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7412'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='9',name='~',func=Pin.types.INPUT,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['12', '13', '14', '2', '1', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '14', '3', '6', '4', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '10', '14', '9', '11', '7']}] }),
+        Part(**{ 'name':'7412', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7412'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7412\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -183,8 +183,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='11',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='8',name='~',func=Pin.types.OPENCOLL,unit=3),
-            Pin(num='9',name='~',func=Pin.types.INPUT,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['13', '7', '1', '2', '12', '14']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '3', '6', '4', '14']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '10', '8', '11', '9', '14']}] }),
-        Part(**{ 'name':'74126', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74126'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='9',name='~',func=Pin.types.INPUT,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '1', '14', '12', '2', '13']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '3', '6', '14', '4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '11', '14', '9', '7', '8']}] }),
+        Part(**{ 'name':'74126', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74126'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74126\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='EN',func=Pin.types.INPUT,unit=1),
@@ -198,8 +198,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='D',func=Pin.types.INPUT,unit=3),
             Pin(num='13',name='EN',func=Pin.types.INPUT,unit=4),
             Pin(num='11',name='O',func=Pin.types.TRISTATE,unit=4),
-            Pin(num='12',name='D',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '14', '2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '14', '4', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7', '9', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '7', '12', '14', '11']}] }),
-        Part(**{ 'name':'74128', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74128'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='12',name='D',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '7', '2', '14']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '4', '5', '7', '14']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '7', '9', '10', '14']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '13', '12', '7', '14']}] }),
+        Part(**{ 'name':'74128', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74128'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74128\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -213,8 +213,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='11',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
-            Pin(num='13',name='~',func=Pin.types.OUTPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '7', '3', '2', '14']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '4', '5', '14', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '10', '14', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '12', '13', '14', '11']}] }),
-        Part(**{ 'name':'7413', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7413'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='13',name='~',func=Pin.types.OUTPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['14', '2', '3', '7', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '14', '7', '4', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '14', '8', '9', '7']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '14', '13', '7']}] }),
+        Part(**{ 'name':'7413', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7413'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7413\n\n', 'pins':[
             Pin(num='14',name='VDD',func=Pin.types.PWRIN),
             Pin(num='7',name='VSS',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -226,8 +226,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=2),
-            Pin(num='9',name='~',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '7', '2', '5', '6', '14', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '7', '8', '10', '13', '14', '12']}] }),
-        Part(**{ 'name':'74132', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74132'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='9',name='~',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '1', '14', '6', '7', '2', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '8', '7', '12', '13', '14', '9']}] }),
+        Part(**{ 'name':'74132', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74132'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74132\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -241,8 +241,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='11',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
-            Pin(num='13',name='~',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '14', '7', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '14', '7', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '9', '10', '8', '7']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '12', '11', '7', '13']}] }),
-        Part(**{ 'name':'74136', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74136'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='13',name='~',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '7', '2', '14']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '5', '6', '7', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '8', '7', '14']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '12', '7', '14', '11']}] }),
+        Part(**{ 'name':'74136', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74136'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74136\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -256,8 +256,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='11',name='~',func=Pin.types.OPENCOLL,unit=4),
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
-            Pin(num='13',name='~',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['14', '2', '7', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '4', '7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '9', '10', '7', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '13', '7', '11', '12']}] }),
-        Part(**{ 'name':'7414', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7414'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='13',name='~',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['14', '2', '7', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '4', '7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '9', '7', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '13', '7', '11', '12']}] }),
+        Part(**{ 'name':'7414', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7414'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7414\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -271,8 +271,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.OUTPUT,unit=5),
             Pin(num='11',name='~',func=Pin.types.INPUT,unit=5),
             Pin(num='12',name='~',func=Pin.types.OUTPUT,unit=6),
-            Pin(num='13',name='~',func=Pin.types.INPUT,unit=6)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '7', '14', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '7', '3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '7', '14', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '7', '9', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '7', '14', '10']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '7', '14', '13']}] }),
-        Part(**{ 'name':'74141', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74141'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='13',name='~',func=Pin.types.INPUT,unit=6)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '14', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '14', '3', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '6', '7', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '14', '9', '7']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '10', '14', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['14', '12', '13', '7']}] }),
+        Part(**{ 'name':'74141', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74141'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74141\n\n', 'pins':[
             Pin(num='12',name='GND',func=Pin.types.PWRIN),
             Pin(num='5',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='~{Q8}',func=Pin.types.OPENCOLL,unit=1),
@@ -289,7 +289,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{Q2}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='~{Q3}',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74147', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74147'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74147', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74147'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74147\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~{E4}',func=Pin.types.INPUT,unit=1),
@@ -305,7 +305,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~{S2}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='~{S1}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='~{S0}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74148', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74148'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74148', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74148'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74148\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~{I4}',func=Pin.types.INPUT,unit=1),
@@ -322,7 +322,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~{S2}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='~{S1}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='~{S0}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74151', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74151'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74151', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74151'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74151\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='I3',func=Pin.types.INPUT,unit=1),
@@ -339,7 +339,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~{Q}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='~{E}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='S2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74153', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74153'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74153', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74153'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74153\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~{ENa}',func=Pin.types.INPUT,unit=1),
@@ -356,7 +356,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='I0a',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='Qa',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='Qb',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74154', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74154'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'demux', 'description':'', 'datasheet':'https://www.ti.com/lit/gpn/CD74HCT154', 'pins':[
+        Part(**{ 'name':'74154', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74154'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'demux', 'description':'', 'datasheet':'https://www.ti.com/lit/gpn/CD74HCT154', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74154\n\ndemux', 'pins':[
             Pin(num='12',name='GND',func=Pin.types.PWRIN),
             Pin(num='24',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='~{S0}',func=Pin.types.OUTPUT,unit=1),
@@ -381,7 +381,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{S6}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='~{S7}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='~{S8}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74155', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74155'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74155', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74155'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74155\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='Ea1',func=Pin.types.INPUT,unit=1),
@@ -398,7 +398,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~{Q1a}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='~{Q0a}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='~{Q0b}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74156', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74156'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74156', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74156'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74156\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='Ea1',func=Pin.types.INPUT,unit=1),
@@ -415,7 +415,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~{Q1a}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='~{Q0a}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='~{Q0b}',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74157', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74157'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74157', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74157'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74157\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='A/B',func=Pin.types.INPUT,unit=1),
@@ -432,7 +432,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='I1b',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='Qb',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='Qd',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74158', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74158'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74158', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74158'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74158\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='Sens',func=Pin.types.INPUT,unit=1),
@@ -449,7 +449,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='I1b',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~{Qb}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='~{Qd}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74159', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74159'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74159', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74159'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74159\n\n', 'pins':[
             Pin(num='12',name='GND',func=Pin.types.PWRIN),
             Pin(num='24',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='~{S0}',func=Pin.types.OPENCOLL,unit=1),
@@ -474,7 +474,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{S6}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='~{S7}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='~{S8}',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74164', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74164'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74164', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74164'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74164\n\n', 'pins':[
             Pin(num='1',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Qe',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='Qf',func=Pin.types.OUTPUT,unit=1),
@@ -489,7 +489,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='CK',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{R}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74165', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74165'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74165', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74165'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74165\n\n', 'pins':[
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='SH',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='SER',func=Pin.types.INPUT,unit=1),
@@ -506,7 +506,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='H',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~{QH}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='QH',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74166', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74166'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74166', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74166'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74166\n\n', 'pins':[
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='SER',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='E',func=Pin.types.INPUT,unit=1),
@@ -523,7 +523,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CLK_Inh',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='CLK',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{R}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74173', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74173'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74173', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74173'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74173\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~{M}',func=Pin.types.INPUT,unit=1),
@@ -540,7 +540,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Q3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='CK',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{G1}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74176', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74176'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74176', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74176'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74176\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~{LD}',func=Pin.types.INPUT,unit=1),
@@ -555,7 +555,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~{CK2}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{CK1}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='Qb',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'7420', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7420'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'7420', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7420'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7420\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -567,8 +567,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=2),
-            Pin(num='9',name='~',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '5', '7', '6', '2', '14', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '7', '12', '9', '14', '13', '8']}] }),
-        Part(**{ 'name':'7421', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7421'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='9',name='~',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '6', '4', '5', '7', '14']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '13', '8', '10', '7', '14', '12']}] }),
+        Part(**{ 'name':'7421', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7421'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7421\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -580,8 +580,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=2),
-            Pin(num='9',name='~',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['14', '7', '1', '4', '5', '2', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '7', '10', '12', '8', '13', '9']}] }),
-        Part(**{ 'name':'7422', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7422'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='9',name='~',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '5', '6', '14', '4', '7', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '12', '13', '9', '14', '7', '10']}] }),
+        Part(**{ 'name':'7422', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7422'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7422\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -593,8 +593,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='8',name='~',func=Pin.types.OPENCOLL,unit=2),
-            Pin(num='9',name='~',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '1', '14', '2', '6', '4', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['12', '13', '14', '9', '7', '8', '10']}] }),
-        Part(**{ 'name':'7425', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7425'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='9',name='~',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '6', '4', '14', '7', '5', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '13', '9', '10', '14', '8', '12']}] }),
+        Part(**{ 'name':'7425', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7425'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7425\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -608,8 +608,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=2),
-            Pin(num='9',name='~',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['14', '6', '2', '4', '3', '7', '1', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['12', '14', '8', '11', '10', '7', '9', '13']}] }),
-        Part(**{ 'name':'74251', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74251'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='9',name='~',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '4', '2', '5', '6', '14', '7', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '12', '14', '7', '10', '9', '13', '11']}] }),
+        Part(**{ 'name':'74251', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74251'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74251\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='I3',func=Pin.types.INPUT,unit=1),
@@ -626,7 +626,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~{Q}',func=Pin.types.TRISTATE,unit=1),
             Pin(num='7',name='~{E}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='S2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74253', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74253'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74253', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74253'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74253\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~{ENa}',func=Pin.types.INPUT,unit=1),
@@ -643,7 +643,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='I0a',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='Qa',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='Qb',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'7426', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7426'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'7426', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7426'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7426\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -657,8 +657,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='11',name='~',func=Pin.types.OPENCOLL,unit=4),
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
-            Pin(num='13',name='~',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'u', 'num': 0, 'pin_nums': ['7', '14']},{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2', '7', '14']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6', '4', '14']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '8', '7', '14']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '13', '12', '7', '14']}] }),
-        Part(**{ 'name':'7427', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7427'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='13',name='~',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'u', 'num': 0, 'pin_nums': ['14', '7']},{'label': 'uA', 'num': 1, 'pin_nums': ['2', '7', '3', '14', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '4', '6', '14', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '7', '14', '9', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '12', '13', '11', '14']}] }),
+        Part(**{ 'name':'7427', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7427'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7427\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -672,8 +672,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='11',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=3),
-            Pin(num='9',name='~',func=Pin.types.INPUT,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '12', '14', '13', '7', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3', '14', '6', '7', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '11', '9', '14', '7', '8']}] }),
-        Part(**{ 'name':'74278', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74278'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='9',name='~',func=Pin.types.INPUT,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '12', '14', '13', '7', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '5', '6', '3', '7', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '14', '11', '9', '7', '8']}] }),
+        Part(**{ 'name':'74278', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74278'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74278\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='Str',func=Pin.types.INPUT,unit=1),
@@ -687,7 +687,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~{P1}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='Y3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='Y2',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'7428', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7428'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'7428', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7428'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7428\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -701,8 +701,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='11',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
-            Pin(num='13',name='~',func=Pin.types.OUTPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '7', '14', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '14', '6', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '7', '10', '8', '14']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '12', '14', '11', '13']}] }),
-        Part(**{ 'name':'74293', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74293'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='13',name='~',func=Pin.types.OUTPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['14', '1', '3', '2', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '6', '5', '4', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '14', '9', '7']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '14', '11', '13', '7']}] }),
+        Part(**{ 'name':'74293', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74293'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74293\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='10',name='~{CKA}',func=Pin.types.INPUT,unit=1),
@@ -713,7 +713,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='Q1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='Q3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='Q0',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'7430', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7430'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'7430', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7430'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7430\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -725,7 +725,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'7432', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7432'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'7432', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7432'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7432\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -739,8 +739,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='11',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
-            Pin(num='13',name='~',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '7', '1', '2', '14']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '6', '4', '14']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '10', '7', '9', '14']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '12', '13', '14', '11']}] }),
-        Part(**{ 'name':'7433', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7433'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='13',name='~',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '14', '2', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '4', '14', '5', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9', '14', '7']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '13', '11', '14', '7']}] }),
+        Part(**{ 'name':'7433', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7433'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7433\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.OPENCOLL,unit=1),
@@ -754,8 +754,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='11',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
-            Pin(num='13',name='~',func=Pin.types.OPENCOLL,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['14', '2', '7', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '14', '4', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '7', '14', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '14', '12', '11', '13']}] }),
-        Part(**{ 'name':'7437', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7437'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='13',name='~',func=Pin.types.OPENCOLL,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '2', '14', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '7', '14', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '7', '10', '14', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '12', '14', '11', '13']}] }),
+        Part(**{ 'name':'7437', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7437'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7437\n\n', 'pins':[
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -769,8 +769,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='11',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
-            Pin(num='13',name='~',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'u', 'num': 0, 'pin_nums': ['7', '14']},{'label': 'uA', 'num': 1, 'pin_nums': ['14', '1', '2', '7', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '7', '6', '4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '8', '7', '9', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '13', '11', '7', '12']}] }),
-        Part(**{ 'name':'7440', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7440'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='13',name='~',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'u', 'num': 0, 'pin_nums': ['14', '7']},{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '14', '7', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '4', '14', '7', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '14', '10', '7', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '13', '14', '12', '7']}] }),
+        Part(**{ 'name':'7440', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7440'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7440\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -782,8 +782,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=2),
-            Pin(num='9',name='~',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '2', '7', '6', '4', '1', '14']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '8', '7', '9', '12', '13', '14']}] }),
-        Part(**{ 'name':'7442', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7442'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='9',name='~',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '2', '6', '1', '4', '14', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '8', '12', '9', '13', '14', '7']}] }),
+        Part(**{ 'name':'7442', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7442'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7442\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~{Q0}',func=Pin.types.OUTPUT,unit=1),
@@ -800,7 +800,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~{Q5}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='~{Q6}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='~{Q7}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74425', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74425'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74425', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74425'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74425\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='EN',func=Pin.types.INPUT,unit=1),
@@ -814,8 +814,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='D',func=Pin.types.INPUT,unit=3),
             Pin(num='13',name='EN',func=Pin.types.INPUT,unit=4),
             Pin(num='11',name='O',func=Pin.types.TRISTATE,unit=4),
-            Pin(num='12',name='D',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '7', '14', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '4', '14', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '7', '10', '14', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '7', '12', '14', '11']}] }),
-        Part(**{ 'name':'7443', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7443'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='12',name='D',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '7', '14', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '4', '6', '14']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '7', '14', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '7', '11', '14', '13']}] }),
+        Part(**{ 'name':'7443', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7443'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7443\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~{Q0}',func=Pin.types.OUTPUT,unit=1),
@@ -832,7 +832,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~{Q5}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='~{Q6}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='~{Q7}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'7444', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7444'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'7444', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7444'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7444\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~{Q0}',func=Pin.types.OUTPUT,unit=1),
@@ -849,7 +849,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~{Q5}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='~{Q6}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='~{Q7}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'7445', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7445'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'7445', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7445'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7445\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~{Q0}',func=Pin.types.OPENCOLL,unit=1),
@@ -866,7 +866,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~{Q5}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='~{Q6}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='~{Q7}',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'7446', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7446'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'7446', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7446'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7446\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='B',func=Pin.types.INPUT,unit=1),
@@ -883,7 +883,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='D',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{e}',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'7448', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7448'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'7448', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7448'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7448\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='B',func=Pin.types.INPUT,unit=1),
@@ -900,7 +900,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='D',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='e',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'7451', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7451'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'7451', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7451'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7451\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='10',name='~',func=Pin.types.INPUT,unit=1),
@@ -912,8 +912,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='5',name='~',func=Pin.types.INPUT,unit=2),
-            Pin(num='6',name='~',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['13', '14', '9', '10', '2', '7', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '5', '3', '4', '7', '6', '2']}] }),
-        Part(**{ 'name':'7454', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7454'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='6',name='~',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['13', '9', '10', '2', '14', '7', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3', '4', '14', '7', '6', '2']}] }),
+        Part(**{ 'name':'7454', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7454'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7454\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -924,8 +924,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='4',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=1),
-            Pin(num='9',name='~',func=Pin.types.INPUT,unit=1)], 'unit_defs':[{'label': 'u', 'num': 0, 'pin_nums': ['14', '7']},{'label': 'uA', 'num': 1, 'pin_nums': ['13', '14', '7', '9', '4', '1', '2', '5', '3', '10', '8']}] }),
-        Part(**{ 'name':'7483', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7483'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='9',name='~',func=Pin.types.INPUT,unit=1)], 'unit_defs':[{'label': 'u', 'num': 0, 'pin_nums': ['14', '7']},{'label': 'uA', 'num': 1, 'pin_nums': ['14', '10', '5', '8', '13', '9', '7', '1', '3', '2', '4']}] }),
+        Part(**{ 'name':'7483', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7483'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7483\n\n', 'pins':[
             Pin(num='12',name='GND',func=Pin.types.PWRIN),
             Pin(num='5',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='A4',func=Pin.types.INPUT,unit=1),
@@ -942,7 +942,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='B2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='S1',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'7485', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7485'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'7485', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7485'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7485\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='B3',func=Pin.types.INPUT,unit=1),
@@ -959,7 +959,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Oa=b',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='Oa<b',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='B0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'7486', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7486'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'7486', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7486'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7486\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -973,8 +973,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='11',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
-            Pin(num='13',name='~',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '7', '14', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '14', '6', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '9', '14', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '12', '14', '13', '11']}] }),
-        Part(**{ 'name':'7490', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7490'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='13',name='~',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['14', '3', '7', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '5', '7', '6', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '9', '7', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '7', '12', '13', '11']}] }),
+        Part(**{ 'name':'7490', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7490'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7490\n\n', 'pins':[
             Pin(num='10',name='GND',func=Pin.types.PWRIN),
             Pin(num='5',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='~{CKB}',func=Pin.types.INPUT,unit=1),
@@ -987,7 +987,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='R9(2)',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='Q2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='Q1',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'7491', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7491'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'7491', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7491'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7491\n\n', 'pins':[
             Pin(num='10',name='GND',func=Pin.types.PWRIN),
             Pin(num='5',name='VCC',func=Pin.types.PWRIN),
             Pin(num='11',name='B',func=Pin.types.INPUT,unit=1),
@@ -995,7 +995,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='Qh',func=Pin.types.OUTPUT,unit=1),
             Pin(num='14',name='~{Qh}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='Ck',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'7492', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7492'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'7492', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7492'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7492\n\n', 'pins':[
             Pin(num='10',name='GND',func=Pin.types.PWRIN),
             Pin(num='5',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='~{CP1}',func=Pin.types.INPUT,unit=1),
@@ -1006,7 +1006,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='R0(2)',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='Q3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='Q2',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'7493', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7493'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'7493', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7493'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7493\n\n', 'pins':[
             Pin(num='10',name='GND',func=Pin.types.PWRIN),
             Pin(num='5',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='~{CKB}',func=Pin.types.INPUT,unit=1),
@@ -1017,7 +1017,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='R0(2)',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='Q2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='Q1',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'7495', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7495'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'7495', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7495'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7495\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='Ser',func=Pin.types.INPUT,unit=1),
@@ -1032,7 +1032,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Mode',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{CK2}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{CK1}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'7496', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7496'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'7496', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7496'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7496\n\n', 'pins':[
             Pin(num='12',name='GND',func=Pin.types.PWRIN),
             Pin(num='5',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='CK',func=Pin.types.INPUT,unit=1),
@@ -1049,7 +1049,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P4',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PE',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='Ser',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HC237', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC237'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74HC237', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC237'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74HC237\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
@@ -1065,8 +1065,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~{G2}',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='G1',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='Y7',func=Pin.types.OUTPUT,unit=1),
-            Pin(num='9',name='Y6',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[{'label': 'u', 'num': 0, 'pin_nums': ['16', '8']},{'label': 'uA', 'num': 1, 'pin_nums': ['16', '8', '6', '9', '4', '11', '14', '1', '12', '10', '13', '3', '5', '7', '15', '2']}] }),
-        Part(**{ 'name':'74HC238', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC238'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='9',name='Y6',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[{'label': 'u', 'num': 0, 'pin_nums': ['16', '8']},{'label': 'uA', 'num': 1, 'pin_nums': ['8', '9', '4', '6', '13', '14', '12', '10', '3', '5', '7', '15', '11', '16', '2', '1']}] }),
+        Part(**{ 'name':'74HC238', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC238'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74HC238\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Y5',func=Pin.types.OUTPUT,unit=1),
@@ -1083,7 +1083,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Y7',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Y6',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HC36', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC36'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74HC36', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC36'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74HC36\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -1097,8 +1097,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='11',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
-            Pin(num='13',name='~',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '7', '2', '1', '14']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '4', '14', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '7', '8', '9', '14']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '14', '12', '13', '11']}] }),
-        Part(**{ 'name':'74HC804', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC804'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='13',name='~',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '7', '2', '3', '14']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '4', '6', '5', '14']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '9', '10', '8', '14']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '7', '11', '13', '14']}] }),
+        Part(**{ 'name':'74HC804', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC804'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74HC804\n\n', 'pins':[
             Pin(num='10',name='GND',func=Pin.types.PWRIN),
             Pin(num='20',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -1118,8 +1118,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='16',name='~',func=Pin.types.INPUT,unit=5),
             Pin(num='17',name='~',func=Pin.types.OUTPUT,unit=6),
             Pin(num='18',name='~',func=Pin.types.INPUT,unit=6),
-            Pin(num='19',name='~',func=Pin.types.INPUT,unit=6)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '10', '2', '20']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '10', '6', '4', '20']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '10', '9', '20', '7']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '11', '13', '10', '20']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '10', '15', '20', '16']},{'label': 'uF', 'num': 6, 'pin_nums': ['10', '19', '17', '20', '18']}] }),
-        Part(**{ 'name':'74HC805', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC805'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='19',name='~',func=Pin.types.INPUT,unit=6)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '10', '1', '20', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '10', '5', '20', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '7', '20', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '10', '12', '11', '20']},{'label': 'uE', 'num': 5, 'pin_nums': ['15', '10', '16', '20', '14']},{'label': 'uF', 'num': 6, 'pin_nums': ['17', '19', '10', '18', '20']}] }),
+        Part(**{ 'name':'74HC805', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC805'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74HC805\n\n', 'pins':[
             Pin(num='10',name='GND',func=Pin.types.PWRIN),
             Pin(num='20',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -1139,8 +1139,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='16',name='~',func=Pin.types.INPUT,unit=5),
             Pin(num='17',name='~',func=Pin.types.OUTPUT,unit=6),
             Pin(num='18',name='~',func=Pin.types.INPUT,unit=6),
-            Pin(num='19',name='~',func=Pin.types.INPUT,unit=6)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '20', '10', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['20', '10', '5', '6', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '20', '10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '11', '20', '10', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['16', '20', '10', '15', '14']},{'label': 'uF', 'num': 6, 'pin_nums': ['18', '20', '10', '17', '19']}] }),
-        Part(**{ 'name':'74HC808', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC808'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='19',name='~',func=Pin.types.INPUT,unit=6)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '20', '10', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '20', '5', '6', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['20', '9', '10', '7', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '20', '10', '12', '11']},{'label': 'uE', 'num': 5, 'pin_nums': ['15', '20', '16', '10', '14']},{'label': 'uF', 'num': 6, 'pin_nums': ['20', '10', '18', '19', '17']}] }),
+        Part(**{ 'name':'74HC808', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC808'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74HC808\n\n', 'pins':[
             Pin(num='10',name='GND',func=Pin.types.PWRIN),
             Pin(num='20',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -1160,8 +1160,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='16',name='~',func=Pin.types.INPUT,unit=5),
             Pin(num='17',name='~',func=Pin.types.OUTPUT,unit=6),
             Pin(num='18',name='~',func=Pin.types.INPUT,unit=6),
-            Pin(num='19',name='~',func=Pin.types.INPUT,unit=6)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['20', '2', '3', '10', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['20', '4', '5', '10', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '20', '7', '8', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['20', '13', '11', '10', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['20', '14', '16', '15', '10']},{'label': 'uF', 'num': 6, 'pin_nums': ['20', '18', '17', '19', '10']}] }),
-        Part(**{ 'name':'74HC832', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC832'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='19',name='~',func=Pin.types.INPUT,unit=6)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '10', '2', '3', '20']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '4', '10', '5', '20']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '20', '10', '7', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '10', '13', '11', '20']},{'label': 'uE', 'num': 5, 'pin_nums': ['20', '14', '16', '10', '15']},{'label': 'uF', 'num': 6, 'pin_nums': ['19', '10', '18', '20', '17']}] }),
+        Part(**{ 'name':'74HC832', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC832'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74HC832\n\n', 'pins':[
             Pin(num='10',name='GND',func=Pin.types.PWRIN),
             Pin(num='20',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -1181,8 +1181,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='16',name='~',func=Pin.types.INPUT,unit=5),
             Pin(num='17',name='~',func=Pin.types.OUTPUT,unit=6),
             Pin(num='18',name='~',func=Pin.types.INPUT,unit=6),
-            Pin(num='19',name='~',func=Pin.types.INPUT,unit=6)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['20', '2', '1', '3', '10']},{'label': 'uB', 'num': 2, 'pin_nums': ['20', '6', '4', '5', '10']},{'label': 'uC', 'num': 3, 'pin_nums': ['20', '9', '7', '8', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['20', '12', '11', '13', '10']},{'label': 'uE', 'num': 5, 'pin_nums': ['20', '14', '16', '10', '15']},{'label': 'uF', 'num': 6, 'pin_nums': ['17', '19', '20', '18', '10']}] }),
-        Part(**{ 'name':'74LS133', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS133'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='19',name='~',func=Pin.types.INPUT,unit=6)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['10', '20', '2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '20', '6', '4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '10', '20', '9', '7']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '20', '12', '13', '11']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '15', '20', '14', '16']},{'label': 'uF', 'num': 6, 'pin_nums': ['10', '17', '19', '20', '18']}] }),
+        Part(**{ 'name':'74LS133', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS133'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS133\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -1199,7 +1199,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS137', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS137'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS137', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS137'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS137\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{Y5}',func=Pin.types.OUTPUT,unit=1),
@@ -1216,7 +1216,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{Y7}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='~{Y6}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS138', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS138'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS138', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS138'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS138\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{Y5}',func=Pin.types.OUTPUT,unit=1),
@@ -1233,7 +1233,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{Y7}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='~{Y6}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS139', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS139'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DECOD4', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74ls139a.pdf', 'pins':[
+        Part(**{ 'name':'74LS139', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS139'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DECOD4', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74ls139a.pdf', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS139\n\nTTL DECOD4', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~{EN}',func=Pin.types.INPUT,unit=1),
@@ -1249,8 +1249,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='B',func=Pin.types.INPUT,unit=2),
             Pin(num='14',name='A',func=Pin.types.INPUT,unit=2),
             Pin(num='15',name='~{EN}',func=Pin.types.INPUT,unit=2),
-            Pin(num='9',name='~{Q3}',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '4', '16', '2', '8', '5', '7', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '14', '9', '12', '16', '8', '11', '13', '15']}] }),
-        Part(**{ 'name':'74LS15', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS15'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='9',name='~{Q3}',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '8', '4', '5', '2', '16', '7', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '13', '14', '10', '12', '9', '16', '8', '15']}] }),
+        Part(**{ 'name':'74LS15', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS15'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS15\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -1264,8 +1264,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='11',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=3),
-            Pin(num='9',name='~',func=Pin.types.INPUT,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '12', '2', '1', '13', '14']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '7', '5', '6', '3', '14']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '11', '7', '10', '8', '14']}] }),
-        Part(**{ 'name':'74LS152', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS152'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='9',name='~',func=Pin.types.INPUT,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['13', '14', '12', '2', '1', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '3', '14', '4', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '14', '9', '8', '10', '7']}] }),
+        Part(**{ 'name':'74LS152', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS152'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS152\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='I4',func=Pin.types.INPUT,unit=1),
@@ -1280,7 +1280,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~{Q}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='S2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='S1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS161', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS161'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS161', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS161'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS161\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~{MR}',func=Pin.types.INPUT,unit=1),
@@ -1297,7 +1297,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='P3',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='ENP',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{Pe}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS168', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS168'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS168', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS168'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS168\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='U/D',func=Pin.types.INPUT,unit=1),
@@ -1314,7 +1314,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='P3',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~{ENP}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{LD}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS170', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS170'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS170', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS170'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS170\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='D2',func=Pin.types.INPUT,unit=1),
@@ -1331,7 +1331,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Q4',func=Pin.types.TRISTATE,unit=1),
             Pin(num='7',name='Q3',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='Q2',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS177', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS177'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS177', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS177'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS177\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~{Ld}',func=Pin.types.INPUT,unit=1),
@@ -1346,7 +1346,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~{CK2}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{CK1}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='Q1',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS190', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS190'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS190', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS190'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS190\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='P1',func=Pin.types.INPUT,unit=1),
@@ -1363,7 +1363,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Q2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='Q3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='P3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS192', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS192'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74ls193.pdf', 'pins':[
+        Part(**{ 'name':'74LS192', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS192'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74ls193.pdf', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS192\n\nTTL CNT CNT4', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='B',func=Pin.types.INPUT,unit=1),
@@ -1380,7 +1380,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='QC',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='QD',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='D',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS194', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS194'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS194', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS194'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS194\n\n', 'pins':[
             Pin(num='7',name='Lser',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='16',name='VDD',func=Pin.types.PWRIN),
@@ -1396,8 +1396,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='4',name='P1',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='P2',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='P3',func=Pin.types.INPUT,unit=1),
-            Pin(num='9',name='SO',func=Pin.types.INPUT,unit=1)], 'unit_defs':[{'label': 'u', 'num': 0, 'pin_nums': ['7', '16', '8']},{'label': 'uA', 'num': 1, 'pin_nums': ['6', '2', '4', '1', '12', '14', '7', '8', '10', '15', '3', '5', '9', '16', '13', '11']}] }),
-        Part(**{ 'name':'74LS195', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS195'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='9',name='SO',func=Pin.types.INPUT,unit=1)], 'unit_defs':[{'label': 'u', 'num': 0, 'pin_nums': ['8', '7', '16']},{'label': 'uA', 'num': 1, 'pin_nums': ['1', '13', '8', '11', '3', '2', '4', '6', '9', '12', '14', '10', '15', '7', '16', '5']}] }),
+        Part(**{ 'name':'74LS195', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS195'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS195\n\n', 'pins':[
             Pin(num='7',name='Lser',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='16',name='VDD',func=Pin.types.PWRIN),
@@ -1413,8 +1413,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='4',name='P1',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='P2',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='P3',func=Pin.types.INPUT,unit=1),
-            Pin(num='9',name='SH',func=Pin.types.INPUT,unit=1)], 'unit_defs':[{'label': 'u', 'num': 0, 'pin_nums': ['7', '16', '8']},{'label': 'uA', 'num': 1, 'pin_nums': ['7', '8', '13', '10', '5', '9', '11', '2', '4', '6', '1', '14', '16', '15', '12', '3']}] }),
-        Part(**{ 'name':'74LS239', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS239'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='9',name='SH',func=Pin.types.INPUT,unit=1)], 'unit_defs':[{'label': 'u', 'num': 0, 'pin_nums': ['7', '8', '16']},{'label': 'uA', 'num': 1, 'pin_nums': ['11', '15', '4', '6', '12', '10', '3', '5', '9', '7', '13', '8', '1', '2', '14', '16']}] }),
+        Part(**{ 'name':'74LS239', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS239'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS239\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~{EN}',func=Pin.types.INPUT,unit=1),
@@ -1430,8 +1430,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='A',func=Pin.types.INPUT,unit=2),
             Pin(num='14',name='B',func=Pin.types.INPUT,unit=2),
             Pin(num='15',name='~{EN}',func=Pin.types.INPUT,unit=2),
-            Pin(num='9',name='Q3',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['16', '5', '3', '8', '2', '1', '6', '4', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '13', '14', '15', '8', '10', '12', '9', '16']}] }),
-        Part(**{ 'name':'74LS240', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS240'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'7400 logic ttl low power schottky', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74ls240.pdf', 'pins':[
+            Pin(num='9',name='Q3',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '16', '2', '7', '5', '3', '8', '1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '15', '16', '11', '13', '9', '8', '12', '14']}] }),
+        Part(**{ 'name':'74LS240', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS240'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'7400 logic ttl low power schottky', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74ls240.pdf', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS240\n\n7400 logic ttl low power schottky', 'pins':[
             Pin(num='10',name='GND',func=Pin.types.PWRIN),
             Pin(num='20',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='~{OE}',func=Pin.types.INPUT,unit=1),
@@ -1451,8 +1451,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='~{O3}',func=Pin.types.TRISTATE,unit=2),
             Pin(num='5',name='~{O2}',func=Pin.types.TRISTATE,unit=2),
             Pin(num='7',name='~{O1}',func=Pin.types.TRISTATE,unit=2),
-            Pin(num='9',name='~{O0}',func=Pin.types.TRISTATE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['16', '6', '12', '4', '20', '1', '18', '14', '10', '2', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '3', '13', '17', '20', '9', '19', '11', '5', '15', '10']}] }),
-        Part(**{ 'name':'74LS241', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS241'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'7400 logic ttl low power schottky', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74ls241.pdf', 'pins':[
+            Pin(num='9',name='~{O0}',func=Pin.types.TRISTATE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['18', '14', '2', '1', '10', '6', '16', '4', '12', '8', '20']},{'label': 'uB', 'num': 2, 'pin_nums': ['15', '19', '5', '7', '20', '17', '11', '3', '10', '13', '9']}] }),
+        Part(**{ 'name':'74LS241', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS241'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'7400 logic ttl low power schottky', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74ls241.pdf', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS241\n\n7400 logic ttl low power schottky', 'pins':[
             Pin(num='10',name='GND',func=Pin.types.PWRIN),
             Pin(num='20',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='~{OE}',func=Pin.types.INPUT,unit=1),
@@ -1472,8 +1472,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='O3',func=Pin.types.TRISTATE,unit=2),
             Pin(num='5',name='O2',func=Pin.types.TRISTATE,unit=2),
             Pin(num='7',name='O1',func=Pin.types.TRISTATE,unit=2),
-            Pin(num='9',name='O0',func=Pin.types.TRISTATE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '1', '6', '16', '8', '18', '12', '14', '10', '20', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '13', '17', '3', '5', '10', '20', '19', '11', '15', '7']}] }),
-        Part(**{ 'name':'74LS242', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS242'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='9',name='O0',func=Pin.types.TRISTATE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '8', '4', '1', '16', '12', '10', '6', '14', '18', '20']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '5', '19', '3', '13', '17', '7', '10', '15', '11', '20']}] }),
+        Part(**{ 'name':'74LS242', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS242'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS242\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~{GAB}',func=Pin.types.INPUT,unit=1),
@@ -1486,7 +1486,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{B3}',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='~{B2}',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS243', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS243'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS243', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS243'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS243\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~{GAB}',func=Pin.types.INPUT,unit=1),
@@ -1499,7 +1499,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='B3',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='B2',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS244', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS244'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'7400 logic ttl low power schottky', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74ls244.pdf', 'pins':[
+        Part(**{ 'name':'74LS244', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS244'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'7400 logic ttl low power schottky', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74ls244.pdf', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS244\n\n7400 logic ttl low power schottky', 'pins':[
             Pin(num='10',name='GND',func=Pin.types.PWRIN),
             Pin(num='20',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='~{OE}',func=Pin.types.INPUT,unit=1),
@@ -1519,8 +1519,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='O3',func=Pin.types.TRISTATE,unit=2),
             Pin(num='5',name='O2',func=Pin.types.TRISTATE,unit=2),
             Pin(num='7',name='O1',func=Pin.types.TRISTATE,unit=2),
-            Pin(num='9',name='O0',func=Pin.types.TRISTATE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['14', '6', '1', '18', '20', '2', '10', '16', '12', '8', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['20', '13', '17', '19', '11', '15', '5', '7', '9', '10', '3']}] }),
-        Part(**{ 'name':'74LS245', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS245'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='9',name='O0',func=Pin.types.TRISTATE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['12', '8', '10', '18', '4', '1', '14', '6', '20', '2', '16']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '15', '19', '10', '13', '17', '3', '7', '9', '20', '5']}] }),
+        Part(**{ 'name':'74LS245', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS245'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS245\n\n', 'pins':[
             Pin(num='10',name='GND',func=Pin.types.PWRIN),
             Pin(num='20',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='~{DIR}',func=Pin.types.INPUT,unit=1),
@@ -1541,7 +1541,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A5',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='A6',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='A7',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS257', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS257'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS257', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS257'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS257\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='S',func=Pin.types.INPUT,unit=1),
@@ -1558,7 +1558,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='I1b',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='Qb',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='Qd',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS258', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS258'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS258', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS258'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS258\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='S',func=Pin.types.INPUT,unit=1),
@@ -1575,7 +1575,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='I1b',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~{Qb}',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='~{Qd}',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS266', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS266'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS266', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS266'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS266\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -1589,8 +1589,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='11',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
-            Pin(num='13',name='~',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '7', '14', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '14', '6', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '10', '8', '14', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '11', '12', '14', '13']}] }),
-        Part(**{ 'name':'74LS280', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS280'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='13',name='~',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['14', '1', '3', '2', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '14', '5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '14', '8', '7', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '14', '11', '12', '7']}] }),
+        Part(**{ 'name':'74LS280', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS280'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS280\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='G',func=Pin.types.INPUT,unit=1),
@@ -1604,7 +1604,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~{Odd}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS283', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS283'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS283', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS283'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS283\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='S2',func=Pin.types.OUTPUT,unit=1),
@@ -1621,7 +1621,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='B1',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='C0',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='C4',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS290', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS290'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS290', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS290'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS290\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='R9(1)',func=Pin.types.INPUT,unit=1),
@@ -1634,7 +1634,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='Q1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='Q3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='Q0',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS295', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS295'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS295', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS295'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS295\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='Ds',func=Pin.types.INPUT,unit=1),
@@ -1649,7 +1649,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='LD',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='EN',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{CK}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS298', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS298'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS298', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS298'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS298\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='I1b',func=Pin.types.INPUT,unit=1),
@@ -1666,7 +1666,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='I1d',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='I0d',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='I0c',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS299', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS299'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS299', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS299'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS299\n\n', 'pins':[
             Pin(num='10',name='GND',func=Pin.types.PWRIN),
             Pin(num='20',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='S0',func=Pin.types.INPUT,unit=1),
@@ -1687,7 +1687,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IO0',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='Q0',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='~{CLR}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS348', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS348'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS348', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS348'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS348\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~{I4}',func=Pin.types.INPUT,unit=1),
@@ -1704,7 +1704,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~{S2}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='~{S1}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='~{S0}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS352', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS352'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS352', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS352'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS352\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~{ENa}',func=Pin.types.INPUT,unit=1),
@@ -1721,7 +1721,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='I0a',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~{Qa}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='~{Qb}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS353', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS353'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS353', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS353'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS353\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~{ENa}',func=Pin.types.INPUT,unit=1),
@@ -1738,7 +1738,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='I0a',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~{Qa}',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='~{Qb}',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS365', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS365'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS365', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS365'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS365\n\n', 'pins':[
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='~{E1}',func=Pin.types.INPUT,unit=1),
@@ -1754,8 +1754,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='O2',func=Pin.types.TRISTATE,unit=1),
             Pin(num='6',name='I3',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='O3',func=Pin.types.TRISTATE,unit=1),
-            Pin(num='9',name='O4',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[{'label': 'u', 'num': 0, 'pin_nums': ['8', '16']},{'label': 'uA', 'num': 1, 'pin_nums': ['14', '10', '12', '1', '3', '5', '6', '7', '13', '15', '9', '8', '11', '2', '16', '4']}] }),
-        Part(**{ 'name':'74LS366', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS366'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='9',name='O4',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[{'label': 'u', 'num': 0, 'pin_nums': ['8', '16']},{'label': 'uA', 'num': 1, 'pin_nums': ['13', '15', '1', '8', '11', '2', '16', '4', '6', '9', '14', '12', '10', '3', '5', '7']}] }),
+        Part(**{ 'name':'74LS366', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS366'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS366\n\n', 'pins':[
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='~{E1}',func=Pin.types.INPUT,unit=1),
@@ -1771,8 +1771,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~{O2}',func=Pin.types.TRISTATE,unit=1),
             Pin(num='6',name='I3',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~{O3}',func=Pin.types.TRISTATE,unit=1),
-            Pin(num='9',name='~{O4}',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[{'label': 'u', 'num': 0, 'pin_nums': ['16', '8']},{'label': 'uA', 'num': 1, 'pin_nums': ['1', '5', '9', '12', '2', '11', '8', '16', '13', '3', '6', '14', '7', '10', '4', '15']}] }),
-        Part(**{ 'name':'74LS367', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS367'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='9',name='~{O4}',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[{'label': 'u', 'num': 0, 'pin_nums': ['8', '16']},{'label': 'uA', 'num': 1, 'pin_nums': ['11', '2', '5', '16', '13', '9', '3', '1', '14', '10', '8', '12', '4', '15', '7', '6']}] }),
+        Part(**{ 'name':'74LS367', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS367'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS367\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~{1G}',func=Pin.types.INPUT,unit=1),
@@ -1789,7 +1789,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='1I3',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='1Y3',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='1Y4',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS368', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS368'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS368', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS368'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS368\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~{1G}',func=Pin.types.INPUT,unit=1),
@@ -1806,7 +1806,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='1I3',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~{1Y3}',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='~{1Y4}',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS386', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS386'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS386', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS386'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS386\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -1820,8 +1820,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='11',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
-            Pin(num='13',name='~',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '14', '7', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '14', '7', '4', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '14', '9', '7', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '14', '11', '7', '13']}] }),
-        Part(**{ 'name':'74LS390', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS390'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='13',name='~',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3', '7', '14']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '7', '14', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '9', '7', '10', '14']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '13', '7', '14', '11']}] }),
+        Part(**{ 'name':'74LS390', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS390'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS390\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~{CK0}',func=Pin.types.INPUT,unit=1),
@@ -1837,8 +1837,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='Q0',func=Pin.types.OUTPUT,unit=2),
             Pin(num='14',name='CLR',func=Pin.types.INPUT,unit=2),
             Pin(num='15',name='~{CK0}',func=Pin.types.INPUT,unit=2),
-            Pin(num='9',name='Q3',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '1', '16', '7', '2', '5', '3', '6', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '13', '15', '16', '14', '12', '9', '10', '8']}] }),
-        Part(**{ 'name':'74LS395', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS395'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='9',name='Q3',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '8', '4', '16', '2', '7', '5', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '8', '14', '9', '13', '11', '15', '16', '12']}] }),
+        Part(**{ 'name':'74LS395', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS395'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS395\n\n', 'pins':[
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='16',name='VDD',func=Pin.types.PWRIN),
             Pin(num='1',name='~{R}',func=Pin.types.INPUT,unit=1),
@@ -1854,8 +1854,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='P2',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='P3',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='LD',func=Pin.types.INPUT,unit=1),
-            Pin(num='9',name='~{EN}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[{'label': 'u', 'num': 0, 'pin_nums': ['8', '16']},{'label': 'uA', 'num': 1, 'pin_nums': ['8', '4', '9', '14', '1', '10', '12', '3', '5', '7', '15', '16', '2', '13', '6', '11']}] }),
-        Part(**{ 'name':'74LS396', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS396'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='9',name='~{EN}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[{'label': 'u', 'num': 0, 'pin_nums': ['8', '16']},{'label': 'uA', 'num': 1, 'pin_nums': ['2', '13', '11', '4', '6', '9', '15', '16', '1', '14', '10', '8', '5', '12', '3', '7']}] }),
+        Part(**{ 'name':'74LS396', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS396'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS396\n\n', 'pins':[
             Pin(num='1',name='2Q1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='1Q3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='2Q3',func=Pin.types.OUTPUT,unit=1),
@@ -1872,7 +1872,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CK',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='D3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS398', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS398'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS398', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS398'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS398\n\n', 'pins':[
             Pin(num='10',name='GND',func=Pin.types.PWRIN),
             Pin(num='20',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='WS',func=Pin.types.INPUT,unit=1),
@@ -1893,7 +1893,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I0b',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{Qb}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='Qb',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS399', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS399'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS399', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS399'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS399\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='WS',func=Pin.types.INPUT,unit=1),
@@ -1910,7 +1910,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='I0b',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='Qb',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='CK',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS445', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS445'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS445', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS445'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS445\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~{Q0}',func=Pin.types.OPENCOLL,unit=1),
@@ -1927,7 +1927,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~{Q5}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='~{Q6}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='~{Q7}',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS465', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS465'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS465', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS465'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS465\n\n', 'pins':[
             Pin(num='10',name='GND',func=Pin.types.PWRIN),
             Pin(num='20',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='~{G1}',func=Pin.types.INPUT,unit=1),
@@ -1948,7 +1948,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='B2',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='A3',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='B3',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS466', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS466'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS466', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS466'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS466\n\n', 'pins':[
             Pin(num='10',name='GND',func=Pin.types.PWRIN),
             Pin(num='20',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='~{G1}',func=Pin.types.INPUT,unit=1),
@@ -1969,7 +1969,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{B2}',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='A3',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='~{B3}',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS467', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS467'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS467', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS467'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS467\n\n', 'pins':[
             Pin(num='10',name='GND',func=Pin.types.PWRIN),
             Pin(num='20',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='~{OE}',func=Pin.types.INPUT,unit=1),
@@ -1989,8 +1989,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='16',name='I2',func=Pin.types.INPUT,unit=2),
             Pin(num='17',name='O3',func=Pin.types.TRISTATE,unit=2),
             Pin(num='18',name='I3',func=Pin.types.INPUT,unit=2),
-            Pin(num='19',name='~{OE}',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['9', '7', '5', '20', '3', '8', '10', '1', '2', '6', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['18', '12', '14', '16', '20', '10', '15', '11', '13', '17', '19']}] }),
-        Part(**{ 'name':'74LS468', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS468'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='19',name='~{OE}',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '6', '3', '4', '1', '9', '10', '5', '7', '8', '20']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '15', '17', '19', '13', '10', '12', '14', '16', '18', '20']}] }),
+        Part(**{ 'name':'74LS468', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS468'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS468\n\n', 'pins':[
             Pin(num='10',name='GND',func=Pin.types.PWRIN),
             Pin(num='20',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='~{OE}',func=Pin.types.INPUT,unit=1),
@@ -2010,8 +2010,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='~{O3}',func=Pin.types.TRISTATE,unit=2),
             Pin(num='5',name='~{O2}',func=Pin.types.TRISTATE,unit=2),
             Pin(num='7',name='~{O1}',func=Pin.types.TRISTATE,unit=2),
-            Pin(num='9',name='~{O0}',func=Pin.types.TRISTATE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '14', '20', '2', '8', '16', '10', '12', '4', '6', '18']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '19', '5', '15', '9', '20', '10', '17', '13', '3', '7']}] }),
-        Part(**{ 'name':'74LS49', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS49'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='9',name='~{O0}',func=Pin.types.TRISTATE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['12', '4', '6', '20', '18', '16', '14', '1', '10', '2', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '17', '3', '7', '20', '11', '15', '19', '5', '9', '10']}] }),
+        Part(**{ 'name':'74LS49', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS49'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS49\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='B',func=Pin.types.INPUT,unit=1),
@@ -2026,7 +2026,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~{e}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='~{d}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='~{c}',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS540', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS540'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS540', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS540'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS540\n\n', 'pins':[
             Pin(num='10',name='GND',func=Pin.types.PWRIN),
             Pin(num='20',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='~{G1}',func=Pin.types.INPUT,unit=1),
@@ -2047,7 +2047,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A5',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A6',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A7',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS541', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS541'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS541', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS541'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS541\n\n', 'pins':[
             Pin(num='10',name='GND',func=Pin.types.PWRIN),
             Pin(num='20',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='~{G1}',func=Pin.types.INPUT,unit=1),
@@ -2068,7 +2068,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A5',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A6',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A7',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS55', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS55'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS55', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS55'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS55\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -2080,7 +2080,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{Y}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS56', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS56'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS56', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS56'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS56\n\n', 'pins':[
             Pin(num='2',name='VCC',func=Pin.types.PWRIN),
             Pin(num='4',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~{CLKB}',func=Pin.types.INPUT,unit=1),
@@ -2089,7 +2089,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CLR',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='Qb',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='Qc',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS590', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS590'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS590', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS590'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS590\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='Qb',func=Pin.types.OUTPUT,unit=1),
@@ -2106,7 +2106,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Qg',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='Qh',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='~{RCO}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS591', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS591'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS591', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS591'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS591\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='Qb',func=Pin.types.OUTPUT,unit=1),
@@ -2123,7 +2123,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Qg',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='Qh',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='~{RCO}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS594', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS594'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS594', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS594'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS594\n\n', 'pins':[
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='QB',func=Pin.types.TRISTATE,unit=1),
             Pin(num='10',name='~{SCLR}',func=Pin.types.INPUT,unit=1),
@@ -2140,7 +2140,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='QG',func=Pin.types.TRISTATE,unit=1),
             Pin(num='7',name='QH',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='QHser',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS595', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS595'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS595', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS595'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS595\n\n', 'pins':[
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='QB',func=Pin.types.TRISTATE,unit=1),
             Pin(num='10',name='~{SCLR}',func=Pin.types.INPUT,unit=1),
@@ -2157,7 +2157,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='QG',func=Pin.types.TRISTATE,unit=1),
             Pin(num='7',name='QH',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='QHser',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS596', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS596'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS596', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS596'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS596\n\n', 'pins':[
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='QB',func=Pin.types.TRISTATE,unit=1),
             Pin(num='10',name='~{SCLR}',func=Pin.types.INPUT,unit=1),
@@ -2174,7 +2174,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='QG',func=Pin.types.TRISTATE,unit=1),
             Pin(num='7',name='QH',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='QHser',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS597', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS597'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS597', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS597'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS597\n\n', 'pins':[
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{R}',func=Pin.types.INPUT,unit=1),
@@ -2191,7 +2191,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='H',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='QH',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS599', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS599'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS599', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS599'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS599\n\n', 'pins':[
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='QB',func=Pin.types.TRISTATE,unit=1),
             Pin(num='10',name='~{SCLR}',func=Pin.types.INPUT,unit=1),
@@ -2208,7 +2208,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='QG',func=Pin.types.TRISTATE,unit=1),
             Pin(num='7',name='QH',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='QHser',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS620', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS620'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS620', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS620'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS620\n\n', 'pins':[
             Pin(num='10',name='GND',func=Pin.types.PWRIN),
             Pin(num='20',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='GAB',func=Pin.types.INPUT,unit=1),
@@ -2229,7 +2229,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A5',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='A6',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='A7',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS621', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS621'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS621', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS621'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS621\n\n', 'pins':[
             Pin(num='10',name='GND',func=Pin.types.PWRIN),
             Pin(num='20',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='GAB',func=Pin.types.INPUT,unit=1),
@@ -2250,7 +2250,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A5',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='A6',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='A7',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS622', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS622'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS622', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS622'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS622\n\n', 'pins':[
             Pin(num='10',name='GND',func=Pin.types.PWRIN),
             Pin(num='20',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='GAB',func=Pin.types.INPUT,unit=1),
@@ -2271,7 +2271,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A5',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='A6',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='A7',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS623', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS623'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS623', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS623'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS623\n\n', 'pins':[
             Pin(num='10',name='GND',func=Pin.types.PWRIN),
             Pin(num='20',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='GAB',func=Pin.types.INPUT,unit=1),
@@ -2292,7 +2292,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A5',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='A6',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='A7',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS638', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS638'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS638', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS638'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS638\n\n', 'pins':[
             Pin(num='10',name='GND',func=Pin.types.PWRIN),
             Pin(num='20',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='~{DIR}',func=Pin.types.INPUT,unit=1),
@@ -2313,7 +2313,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A5',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='A6',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='A7',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS670', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS670'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS670', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS670'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS670\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='D2',func=Pin.types.INPUT,unit=1),
@@ -2330,7 +2330,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Q4',func=Pin.types.TRISTATE,unit=1),
             Pin(num='7',name='Q3',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='Q2',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS682', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS682'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS682', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS682'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS682\n\n', 'pins':[
             Pin(num='10',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~{P>Q}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='P4',func=Pin.types.INPUT,unit=1),
@@ -2351,7 +2351,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Q2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='P3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='Q3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS683', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS683'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS683', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS683'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS683\n\n', 'pins':[
             Pin(num='1',name='~{P>Q}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='P4',func=Pin.types.INPUT,unit=1),
@@ -2372,30 +2372,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Q2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='P3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='Q3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS686', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS686'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
-            Pin(num='1',name='~{P>Q}',func=Pin.types.OUTPUT,unit=1),
-            Pin(num='10',name='P3',func=Pin.types.INPUT,unit=1),
-            Pin(num='11',name='Q3',func=Pin.types.INPUT,unit=1),
-            Pin(num='12',name='GND',func=Pin.types.PWRIN,unit=1),
-            Pin(num='13',name='P4',func=Pin.types.INPUT,unit=1),
-            Pin(num='14',name='Q4',func=Pin.types.INPUT,unit=1),
-            Pin(num='15',name='P5',func=Pin.types.INPUT,unit=1),
-            Pin(num='16',name='Q5',func=Pin.types.INPUT,unit=1),
-            Pin(num='17',name='P6',func=Pin.types.INPUT,unit=1),
-            Pin(num='18',name='Q6',func=Pin.types.INPUT,unit=1),
-            Pin(num='2',name='~{G1}',func=Pin.types.INPUT,unit=1),
-            Pin(num='20',name='P7',func=Pin.types.INPUT,unit=1),
-            Pin(num='21',name='Q7',func=Pin.types.INPUT,unit=1),
-            Pin(num='22',name='~{P=Q}',func=Pin.types.OUTPUT,unit=1),
-            Pin(num='23',name='~{G2}',func=Pin.types.INPUT,unit=1),
-            Pin(num='24',name='VCC',func=Pin.types.PWRIN,unit=1),
-            Pin(num='3',name='P0',func=Pin.types.INPUT,unit=1),
-            Pin(num='4',name='Q0',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='P1',func=Pin.types.INPUT,unit=1),
-            Pin(num='6',name='Q1',func=Pin.types.INPUT,unit=1),
-            Pin(num='8',name='P2',func=Pin.types.INPUT,unit=1),
-            Pin(num='9',name='Q2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS687', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS687'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS686', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS686'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS686\n\n', 'pins':[
             Pin(num='1',name='~{P>Q}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='P3',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='Q3',func=Pin.types.INPUT,unit=1),
@@ -2418,7 +2395,30 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Q1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='P2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='Q2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS688', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS688'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS687', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS687'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS687\n\n', 'pins':[
+            Pin(num='1',name='~{P>Q}',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='10',name='P3',func=Pin.types.INPUT,unit=1),
+            Pin(num='11',name='Q3',func=Pin.types.INPUT,unit=1),
+            Pin(num='12',name='GND',func=Pin.types.PWRIN,unit=1),
+            Pin(num='13',name='P4',func=Pin.types.INPUT,unit=1),
+            Pin(num='14',name='Q4',func=Pin.types.INPUT,unit=1),
+            Pin(num='15',name='P5',func=Pin.types.INPUT,unit=1),
+            Pin(num='16',name='Q5',func=Pin.types.INPUT,unit=1),
+            Pin(num='17',name='P6',func=Pin.types.INPUT,unit=1),
+            Pin(num='18',name='Q6',func=Pin.types.INPUT,unit=1),
+            Pin(num='2',name='~{G1}',func=Pin.types.INPUT,unit=1),
+            Pin(num='20',name='P7',func=Pin.types.INPUT,unit=1),
+            Pin(num='21',name='Q7',func=Pin.types.INPUT,unit=1),
+            Pin(num='22',name='~{P=Q}',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='23',name='~{G2}',func=Pin.types.INPUT,unit=1),
+            Pin(num='24',name='VCC',func=Pin.types.PWRIN,unit=1),
+            Pin(num='3',name='P0',func=Pin.types.INPUT,unit=1),
+            Pin(num='4',name='Q0',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='P1',func=Pin.types.INPUT,unit=1),
+            Pin(num='6',name='Q1',func=Pin.types.INPUT,unit=1),
+            Pin(num='8',name='P2',func=Pin.types.INPUT,unit=1),
+            Pin(num='9',name='Q2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'74LS688', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS688'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS688\n\n', 'pins':[
             Pin(num='1',name='~{G1}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='P4',func=Pin.types.INPUT,unit=1),
@@ -2439,7 +2439,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Q2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='P3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='Q3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS689', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS689'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS689', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS689'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS689\n\n', 'pins':[
             Pin(num='1',name='~{G1}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='P4',func=Pin.types.INPUT,unit=1),
@@ -2460,7 +2460,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Q2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='P3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='Q3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74S140', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74S140'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74S140', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74S140'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74S140\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -2472,8 +2472,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=2),
-            Pin(num='9',name='~',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '1', '2', '14', '6', '4', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '8', '14', '9', '7', '12', '13']}] }),
-        Part(**{ 'name':'7403', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7403'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='9',name='~',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '1', '14', '6', '5', '4', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '7', '9', '14', '13', '8', '12']}] }),
+        Part(**{ 'name':'7403', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7403'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7403\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -2487,8 +2487,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='11',name='~',func=Pin.types.OPENCOLL,unit=4),
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
-            Pin(num='13',name='~',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '3', '14', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6', '14', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '9', '10', '14', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '7', '14', '13', '11']}] }),
-        Part(**{ 'name':'74125', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74125'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='13',name='~',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '3', '2', '1', '14']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '4', '6', '5', '14']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '8', '9', '10', '14']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '11', '13', '12', '14']}] }),
+        Part(**{ 'name':'74125', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74125'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74125\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='EN',func=Pin.types.INPUT,unit=1),
@@ -2502,8 +2502,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='D',func=Pin.types.INPUT,unit=3),
             Pin(num='13',name='EN',func=Pin.types.INPUT,unit=4),
             Pin(num='11',name='O',func=Pin.types.TRISTATE,unit=4),
-            Pin(num='12',name='D',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '7', '14', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '4', '5', '7', '14']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '9', '10', '7', '14']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '12', '11', '14', '7']}] }),
-        Part(**{ 'name':'74145', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74145'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='12',name='D',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '14', '2', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '14', '6', '4', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '14', '8', '7']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '14', '13', '12', '7']}] }),
+        Part(**{ 'name':'74145', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74145'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74145\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~{Q0}',func=Pin.types.OPENCOLL,unit=1),
@@ -2520,7 +2520,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~{Q5}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='~{Q6}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='~{Q7}',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'7416', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7416'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'7416', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7416'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7416\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -2534,8 +2534,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.OPENCOLL,unit=5),
             Pin(num='11',name='~',func=Pin.types.INPUT,unit=5),
             Pin(num='12',name='~',func=Pin.types.OPENCOLL,unit=6),
-            Pin(num='13',name='~',func=Pin.types.INPUT,unit=6)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['14', '1', '2', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '4', '3', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '14', '6', '7']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '14', '9', '7']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7', '11', '10']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '14', '13', '7']}] }),
-        Part(**{ 'name':'7417', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7417'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='13',name='~',func=Pin.types.INPUT,unit=6)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '1', '14', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '4', '14', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '7', '14', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '8', '14', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '10', '14', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['7', '12', '14', '13']}] }),
+        Part(**{ 'name':'7417', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7417'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7417\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -2549,8 +2549,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.OPENCOLL,unit=5),
             Pin(num='11',name='~',func=Pin.types.INPUT,unit=5),
             Pin(num='12',name='~',func=Pin.types.OPENCOLL,unit=6),
-            Pin(num='13',name='~',func=Pin.types.INPUT,unit=6)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '1', '14', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '4', '14', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '14', '5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '9', '14', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14', '10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['7', '14', '12', '13']}] }),
-        Part(**{ 'name':'74196', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74196'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='13',name='~',func=Pin.types.INPUT,unit=6)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '14', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '3', '7', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6', '14', '7']},{'label': 'uD', 'num': 4, 'pin_nums': ['9', '14', '8', '7']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '14', '11', '7']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '14', '13', '7']}] }),
+        Part(**{ 'name':'74196', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74196'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74196\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~{LD}',func=Pin.types.INPUT,unit=1),
@@ -2565,7 +2565,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~{CK2}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{CK1}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='Qb',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74246', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74246'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74246', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74246'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74246\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='B',func=Pin.types.INPUT,unit=1),
@@ -2582,7 +2582,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='D',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{e}',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74247', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74247'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74247', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74247'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74247\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='B',func=Pin.types.INPUT,unit=1),
@@ -2599,7 +2599,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='D',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{e}',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74248', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74248'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74248', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74248'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74248\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='B',func=Pin.types.INPUT,unit=1),
@@ -2616,7 +2616,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='D',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='e',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74249', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74249'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74249', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74249'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74249\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='B',func=Pin.types.INPUT,unit=1),
@@ -2633,7 +2633,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='D',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='e',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'7438', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7438'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'7438', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7438'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7438\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -2647,8 +2647,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='11',name='~',func=Pin.types.OPENCOLL,unit=4),
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
-            Pin(num='13',name='~',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'u', 'num': 0, 'pin_nums': ['7', '14']},{'label': 'uA', 'num': 1, 'pin_nums': ['2', '7', '14', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '4', '14', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '14', '9', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '12', '14', '13', '11']}] }),
-        Part(**{ 'name':'7439', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7439'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='13',name='~',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'u', 'num': 0, 'pin_nums': ['14', '7']},{'label': 'uA', 'num': 1, 'pin_nums': ['7', '14', '3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '4', '14', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '14', '8', '10', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '14', '13', '11', '12']}] }),
+        Part(**{ 'name':'7439', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7439'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7439\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -2662,8 +2662,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='11',name='~',func=Pin.types.OPENCOLL,unit=4),
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
-            Pin(num='13',name='~',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '1', '3', '14', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '14', '4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '10', '8', '9', '14']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '7', '11', '12', '14']}] }),
-        Part(**{ 'name':'74426', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74426'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='13',name='~',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['14', '1', '2', '7', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '4', '5', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '9', '14', '7', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '14', '13', '7', '11']}] }),
+        Part(**{ 'name':'74426', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74426'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74426\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='EN',func=Pin.types.INPUT,unit=1),
@@ -2677,8 +2677,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='D',func=Pin.types.INPUT,unit=3),
             Pin(num='13',name='EN',func=Pin.types.INPUT,unit=4),
             Pin(num='11',name='O',func=Pin.types.TRISTATE,unit=4),
-            Pin(num='12',name='D',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['14', '1', '7', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '14', '7', '4', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '14', '8', '7', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '13', '12', '7', '11']}] }),
-        Part(**{ 'name':'7447', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7447'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='12',name='D',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['14', '3', '1', '2', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '4', '6', '5', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '9', '10', '8', '7']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '11', '13', '12', '7']}] }),
+        Part(**{ 'name':'7447', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7447'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n7447\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='B',func=Pin.types.INPUT,unit=1),
@@ -2695,7 +2695,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='D',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{e}',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS160', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS160'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS160', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS160'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS160\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~{MR}',func=Pin.types.INPUT,unit=1),
@@ -2712,7 +2712,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='P3',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='ENP',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{Pe}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS162', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS162'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS162', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS162'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS162\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~{MR}',func=Pin.types.INPUT,unit=1),
@@ -2729,7 +2729,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='P3',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='ENP',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{Pe}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS163', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS163'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS163', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS163'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS163\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~{MR}',func=Pin.types.INPUT,unit=1),
@@ -2746,7 +2746,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='P3',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='ENP',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{Pe}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS169', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS169'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS169', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS169'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS169\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='U/D',func=Pin.types.INPUT,unit=1),
@@ -2763,7 +2763,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='P3',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~{ENP}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{LD}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS18', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS18'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS18', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS18'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS18\n\n', 'pins':[
             Pin(num='14',name='VDD',func=Pin.types.PWRIN),
             Pin(num='7',name='VSS',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -2775,8 +2775,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=2),
-            Pin(num='9',name='~',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '2', '7', '6', '4', '1', '14']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '14', '8', '7', '12', '9', '13']}] }),
-        Part(**{ 'name':'74LS19', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS19'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='9',name='~',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '7', '5', '14', '4', '1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '9', '13', '10', '14', '8', '12']}] }),
+        Part(**{ 'name':'74LS19', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS19'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS19\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -2790,8 +2790,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.OUTPUT,unit=5),
             Pin(num='11',name='~',func=Pin.types.INPUT,unit=5),
             Pin(num='12',name='~',func=Pin.types.OUTPUT,unit=6),
-            Pin(num='13',name='~',func=Pin.types.INPUT,unit=6)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '14', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '4', '14', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '14', '7', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '8', '14', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14', '11', '10']},{'label': 'uF', 'num': 6, 'pin_nums': ['7', '12', '14', '13']}] }),
-        Part(**{ 'name':'74LS191', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS191'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='13',name='~',func=Pin.types.INPUT,unit=6)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '14', '1', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '14', '3', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '5', '14', '7']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '14', '9', '7']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14', '11', '10']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '7', '14', '13']}] }),
+        Part(**{ 'name':'74LS191', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS191'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS191\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='P1',func=Pin.types.INPUT,unit=1),
@@ -2808,7 +2808,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Q2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='Q3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='P3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS193', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS193'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74ls193.pdf', 'pins':[
+        Part(**{ 'name':'74LS193', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS193'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74ls193.pdf', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS193\n\nTTL CNT CNT4', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='B',func=Pin.types.INPUT,unit=1),
@@ -2825,7 +2825,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='QC',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='QD',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='D',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS197', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS197'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS197', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS197'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS197\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~{Ld}',func=Pin.types.INPUT,unit=1),
@@ -2840,7 +2840,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~{CK2}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{CK1}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='Q1',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS24'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS24'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS24\n\n', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
@@ -2854,8 +2854,8 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='11',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
-            Pin(num='13',name='~',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '7', '3', '1', '14']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '14', '4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '8', '14', '9', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '11', '13', '14', '12']}] }),
-        Part(**{ 'name':'74LS323', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS323'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='13',name='~',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '14', '3', '7', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '5', '7', '4', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '9', '10', '7', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '12', '7', '11', '13']}] }),
+        Part(**{ 'name':'74LS323', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS323'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS323\n\n', 'pins':[
             Pin(num='10',name='GND',func=Pin.types.PWRIN),
             Pin(num='20',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='S0',func=Pin.types.INPUT,unit=1),
@@ -2876,7 +2876,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IO0',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='Q0',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='~{CLR}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS347', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS347'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS347', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS347'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS347\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='B',func=Pin.types.INPUT,unit=1),
@@ -2893,7 +2893,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='D',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{e}',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS447', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS447'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS447', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS447'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS447\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='B',func=Pin.types.INPUT,unit=1),
@@ -2910,7 +2910,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='D',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{e}',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS57', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS57'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS57', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS57'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS57\n\n', 'pins':[
             Pin(num='2',name='VCC',func=Pin.types.PWRIN),
             Pin(num='4',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~{CLKB}',func=Pin.types.INPUT,unit=1),
@@ -2919,7 +2919,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CLR',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='Qb',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='Qc',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS639', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS639'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS639', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS639'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS639\n\n', 'pins':[
             Pin(num='10',name='GND',func=Pin.types.PWRIN),
             Pin(num='20',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='~{DIR}',func=Pin.types.INPUT,unit=1),
@@ -2940,7 +2940,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A5',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='A6',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='A7',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS640', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS640'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS640', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS640'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS640\n\n', 'pins':[
             Pin(num='10',name='GND',func=Pin.types.PWRIN),
             Pin(num='20',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='GAB',func=Pin.types.INPUT,unit=1),
@@ -2961,7 +2961,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A5',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='A6',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='A7',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS641', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS641'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS641', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS641'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS641\n\n', 'pins':[
             Pin(num='10',name='GND',func=Pin.types.PWRIN),
             Pin(num='20',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='GAB',func=Pin.types.INPUT,unit=1),
@@ -2982,7 +2982,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A5',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='A6',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='A7',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS642', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS642'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS642', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS642'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS642\n\n', 'pins':[
             Pin(num='10',name='GND',func=Pin.types.PWRIN),
             Pin(num='20',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='GAB',func=Pin.types.INPUT,unit=1),
@@ -3003,7 +3003,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A5',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='A6',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='A7',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS645', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS645'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS645', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS645'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS645\n\n', 'pins':[
             Pin(num='10',name='GND',func=Pin.types.PWRIN),
             Pin(num='20',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='GAB',func=Pin.types.INPUT,unit=1),
@@ -3024,7 +3024,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A5',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='A6',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='A7',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS668', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS668'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS668', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS668'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS668\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='U/D',func=Pin.types.INPUT,unit=1),
@@ -3041,7 +3041,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='P3',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~{ENP}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{LD}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS669', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS669'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS669', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS669'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS669\n\n', 'pins':[
             Pin(num='16',name='VCC',func=Pin.types.PWRIN),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='U/D',func=Pin.types.INPUT,unit=1),
@@ -3058,7 +3058,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='P3',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~{ENP}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{LD}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS684', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS684'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS684', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS684'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS684\n\n', 'pins':[
             Pin(num='10',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='~{P>Q}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='P4',func=Pin.types.INPUT,unit=1),
@@ -3079,7 +3079,7 @@ _74xx_IEEE = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Q2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='P3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='Q3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS685', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS685'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'74LS685', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS685'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/74xx_IEEE.kicad_sym\n74LS685\n\n', 'pins':[
             Pin(num='1',name='~{P>Q}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='P4',func=Pin.types.INPUT,unit=1),

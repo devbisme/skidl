@@ -4,20 +4,20 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'24AA02-OT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'24AA02-OT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'I2C Serial EEPROM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21709J.pdf', 'pins':[
+        Part(**{ 'name':'24AA02-OT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'24AA02-OT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'I2C Serial EEPROM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21709J.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\n24AA02-OT\n\nI2C Serial EEPROM', 'pins':[
             Pin(num='1',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='V_{SS}',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='V_{CC}',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='WP',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'24AA025E-OT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'24AA025E-OT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'Microchip', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MPD/ProductDocuments/DataSheets/2-Kbit-I2C-Serial-EEPROMs-+EUI-48-or-EUI-64-Node-20002124.pdf', 'pins':[
+        Part(**{ 'name':'24AA025E-OT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'24AA025E-OT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'Microchip', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MPD/ProductDocuments/DataSheets/2-Kbit-I2C-Serial-EEPROMs-+EUI-48-or-EUI-64-Node-20002124.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\n24AA025E-OT\n\nMicrochip', 'pins':[
             Pin(num='1',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='V_{SS}',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='V_{CC}',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'24AA025E-SN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'24AA025E-SN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Microchip', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MPD/ProductDocuments/DataSheets/2-Kbit-I2C-Serial-EEPROMs-+EUI-48-or-EUI-64-Node-20002124.pdf', 'pins':[
+        Part(**{ 'name':'24AA025E-SN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'24AA025E-SN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Microchip', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MPD/ProductDocuments/DataSheets/2-Kbit-I2C-Serial-EEPROMs-+EUI-48-or-EUI-64-Node-20002124.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\n24AA025E-SN\n\nMicrochip', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -26,13 +26,13 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='V_{CC}',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'24AA02E-OT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'24AA02E-OT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'Microchip', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MPD/ProductDocuments/DataSheets/2-Kbit-I2C-Serial-EEPROMs-+EUI-48-or-EUI-64-Node-20002124.pdf', 'pins':[
+        Part(**{ 'name':'24AA02E-OT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'24AA02E-OT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'Microchip', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MPD/ProductDocuments/DataSheets/2-Kbit-I2C-Serial-EEPROMs-+EUI-48-or-EUI-64-Node-20002124.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\n24AA02E-OT\n\nMicrochip', 'pins':[
             Pin(num='1',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='V_{SS}',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='V_{CC}',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'24AA02E-SN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'24AA02E-SN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Microchip', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MPD/ProductDocuments/DataSheets/2-Kbit-I2C-Serial-EEPROMs-+EUI-48-or-EUI-64-Node-20002124.pdf', 'pins':[
+        Part(**{ 'name':'24AA02E-SN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'24AA02E-SN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Microchip', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MPD/ProductDocuments/DataSheets/2-Kbit-I2C-Serial-EEPROMs-+EUI-48-or-EUI-64-Node-20002124.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\n24AA02E-SN\n\nMicrochip', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -41,7 +41,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='V_{CC}',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'24LC16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'24LC16'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'I2C Serial EEPROM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21703d.pdf', 'pins':[
+        Part(**{ 'name':'24LC16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'24LC16'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'I2C Serial EEPROM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21703d.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\n24LC16\n\nI2C Serial EEPROM', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -50,7 +50,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'25CSM04xxSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'25CSM04xxSN'}), 'ref_prefix':'U3', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'EEPROM memory SPI serial', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MPD/ProductDocuments/DataSheets/25CSM04-4-Mbit-SPI-Serial-EEPROM-With-128-Bit-Serial-Number-and-Enhanced-Write-Protection-20005817C.pdf', 'pins':[
+        Part(**{ 'name':'25CSM04xxSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'25CSM04xxSN'}), 'ref_prefix':'U3', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'EEPROM memory SPI serial', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MPD/ProductDocuments/DataSheets/25CSM04-4-Mbit-SPI-Serial-EEPROM-With-128-Bit-Serial-Number-and-Enhanced-Write-Protection-20005817C.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\n25CSM04xxSN\n\nEEPROM memory SPI serial', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='SO',func=Pin.types.TRISTATE,unit=1),
             Pin(num='3',name='~{WP}',func=Pin.types.INPUT,unit=1),
@@ -59,7 +59,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~{HOLD}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='V_{CC}',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'25LCxxx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'25LCxxx'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'EEPROM memory SPI serial', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21832H.pdf', 'pins':[
+        Part(**{ 'name':'25LCxxx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'25LCxxx'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'EEPROM memory SPI serial', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21832H.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\n25LCxxx\n\nEEPROM memory SPI serial', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='MISO',func=Pin.types.TRISTATE,unit=1),
             Pin(num='3',name='~{WP}',func=Pin.types.INPUT,unit=1),
@@ -68,7 +68,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~{HOLD}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'25LCxxx-MC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'25LCxxx-MC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'keywords':'EEPROM memory SPI serial', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21832H.pdf', 'pins':[
+        Part(**{ 'name':'25LCxxx-MC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'25LCxxx-MC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'keywords':'EEPROM memory SPI serial', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21832H.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\n25LCxxx-MC\n\nEEPROM memory SPI serial', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='MISO',func=Pin.types.TRISTATE,unit=1),
             Pin(num='3',name='~{WP}',func=Pin.types.INPUT,unit=1),
@@ -78,7 +78,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{HOLD}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'28C256', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'28C256'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Parallel EEPROM 256Kb', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc0006.pdf', 'pins':[
+        Part(**{ 'name':'28C256', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'28C256'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Parallel EEPROM 256Kb', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc0006.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\n28C256\n\nParallel EEPROM 256Kb', 'pins':[
             Pin(num='1',name='A14',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='D0',func=Pin.types.TRISTATE,unit=1),
@@ -107,7 +107,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'93AAxxA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'93AAxxA'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'EEPROM memory Microwire', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001749K.pdf', 'pins':[
+        Part(**{ 'name':'93AAxxA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'93AAxxA'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'EEPROM memory Microwire', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001749K.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\n93AAxxA\n\nEEPROM memory Microwire', 'pins':[
             Pin(num='1',name='CS',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DI',func=Pin.types.INPUT,unit=1),
@@ -116,14 +116,14 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'93AAxxAT-xOT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'93AAxxAT-xOT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'EEPROM memory Microwire', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001749K.pdf', 'pins':[
+        Part(**{ 'name':'93AAxxAT-xOT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'93AAxxAT-xOT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'EEPROM memory Microwire', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001749K.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\n93AAxxAT-xOT\n\nEEPROM memory Microwire', 'pins':[
             Pin(num='1',name='DO',func=Pin.types.TRISTATE,unit=1),
             Pin(num='2',name='Vss',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='DI',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='CLK',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='CS',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='Vcc',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'93AAxxC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'93AAxxC'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'EEPROM memory Microwire', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001749K.pdf', 'pins':[
+        Part(**{ 'name':'93AAxxC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'93AAxxC'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'EEPROM memory Microwire', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001749K.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\n93AAxxC\n\nEEPROM memory Microwire', 'pins':[
             Pin(num='1',name='CS',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DI',func=Pin.types.INPUT,unit=1),
@@ -132,7 +132,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='ORG',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'93CxxA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'93CxxA'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'EEPROM memory Microwire', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001749K.pdf', 'pins':[
+        Part(**{ 'name':'93CxxA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'93CxxA'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'EEPROM memory Microwire', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001749K.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\n93CxxA\n\nEEPROM memory Microwire', 'pins':[
             Pin(num='1',name='CS',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DI',func=Pin.types.INPUT,unit=1),
@@ -141,7 +141,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'93CxxC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'93CxxC'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'EEPROM memory Microwire', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001749K.pdf', 'pins':[
+        Part(**{ 'name':'93CxxC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'93CxxC'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'EEPROM memory Microwire', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001749K.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\n93CxxC\n\nEEPROM memory Microwire', 'pins':[
             Pin(num='1',name='CS',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DI',func=Pin.types.INPUT,unit=1),
@@ -150,7 +150,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='ORG',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'93LCxxA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'93LCxxA'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'EEPROM memory Microwire', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001749K.pdf', 'pins':[
+        Part(**{ 'name':'93LCxxA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'93LCxxA'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'EEPROM memory Microwire', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001749K.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\n93LCxxA\n\nEEPROM memory Microwire', 'pins':[
             Pin(num='1',name='CS',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DI',func=Pin.types.INPUT,unit=1),
@@ -159,14 +159,14 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'93LCxxAxxOT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'93LCxxAxxOT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'EEPROM memory Microwire', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001749K.pdf', 'pins':[
+        Part(**{ 'name':'93LCxxAxxOT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'93LCxxAxxOT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'EEPROM memory Microwire', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001749K.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\n93LCxxAxxOT\n\nEEPROM memory Microwire', 'pins':[
             Pin(num='1',name='DO',func=Pin.types.TRISTATE,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='DI',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='CLK',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='CS',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'93LCxxC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'93LCxxC'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'EEPROM memory Microwire', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001749K.pdf', 'pins':[
+        Part(**{ 'name':'93LCxxC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'93LCxxC'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'EEPROM memory Microwire', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001749K.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\n93LCxxC\n\nEEPROM memory Microwire', 'pins':[
             Pin(num='1',name='CS',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DI',func=Pin.types.INPUT,unit=1),
@@ -175,7 +175,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='ORG',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT24CS01-MAHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS01-MAHM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8815-SEEPROM-AT24CS01-02-Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'AT24CS01-MAHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS01-MAHM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8815-SEEPROM-AT24CS01-02-Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nAT24CS01-MAHM\n\nI2C Serial EEPROM Nonvolatile Memory', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -184,7 +184,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT24CS01-SSHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS01-SSHM'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8815-SEEPROM-AT24CS01-02-Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'AT24CS01-SSHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS01-SSHM'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8815-SEEPROM-AT24CS01-02-Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nAT24CS01-SSHM\n\nI2C Serial EEPROM Nonvolatile Memory', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -193,13 +193,13 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT24CS01-STUM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS01-STUM'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8815-SEEPROM-AT24CS01-02-Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'AT24CS01-STUM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS01-STUM'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8815-SEEPROM-AT24CS01-02-Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nAT24CS01-STUM\n\nI2C Serial EEPROM Nonvolatile Memory', 'pins':[
             Pin(num='1',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='WP',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT24CS01-XHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS01-XHM'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_4.4x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8815-SEEPROM-AT24CS01-02-Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'AT24CS01-XHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS01-XHM'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_4.4x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8815-SEEPROM-AT24CS01-02-Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nAT24CS01-XHM\n\nI2C Serial EEPROM Nonvolatile Memory', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -208,7 +208,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT24CS04-MAHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS04-MAHM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8766-SEEPROM-AT24CS04-08-Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'AT24CS04-MAHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS04-MAHM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8766-SEEPROM-AT24CS04-08-Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nAT24CS04-MAHM\n\nI2C Serial EEPROM Nonvolatile Memory', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -218,7 +218,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT24CS04-SSHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS04-SSHM'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8766-SEEPROM-AT24CS04-08-Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'AT24CS04-SSHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS04-SSHM'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8766-SEEPROM-AT24CS04-08-Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nAT24CS04-SSHM\n\nI2C Serial EEPROM Nonvolatile Memory', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -227,7 +227,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT24CS04-XHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS04-XHM'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_4.4x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8766-SEEPROM-AT24CS04-08-Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'AT24CS04-XHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS04-XHM'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_4.4x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8766-SEEPROM-AT24CS04-08-Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nAT24CS04-XHM\n\nI2C Serial EEPROM Nonvolatile Memory', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -236,7 +236,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT24CS08-MAHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS08-MAHM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8766-SEEPROM-AT24CS04-08-Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'AT24CS08-MAHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS08-MAHM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8766-SEEPROM-AT24CS04-08-Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nAT24CS08-MAHM\n\nI2C Serial EEPROM Nonvolatile Memory', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -246,7 +246,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT24CS08-SSHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS08-SSHM'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8766-SEEPROM-AT24CS04-08-Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'AT24CS08-SSHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS08-SSHM'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8766-SEEPROM-AT24CS04-08-Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nAT24CS08-SSHM\n\nI2C Serial EEPROM Nonvolatile Memory', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -255,7 +255,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT24CS08-XHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS08-XHM'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_4.4x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8766-SEEPROM-AT24CS04-08-Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'AT24CS08-XHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS08-XHM'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_4.4x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8766-SEEPROM-AT24CS04-08-Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nAT24CS08-XHM\n\nI2C Serial EEPROM Nonvolatile Memory', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -264,7 +264,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT24CS16-MAHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS16-MAHM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8859-SEEPROM-AT24CS16-Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'AT24CS16-MAHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS16-MAHM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8859-SEEPROM-AT24CS16-Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nAT24CS16-MAHM\n\nI2C Serial EEPROM Nonvolatile Memory', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -274,7 +274,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT24CS16-SSHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS16-SSHM'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8859-SEEPROM-AT24CS16-Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'AT24CS16-SSHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS16-SSHM'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8859-SEEPROM-AT24CS16-Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nAT24CS16-SSHM\n\nI2C Serial EEPROM Nonvolatile Memory', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -283,7 +283,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT24CS16-XHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS16-XHM'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_4.4x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8859-SEEPROM-AT24CS16-Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'AT24CS16-XHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS16-XHM'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_4.4x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8859-SEEPROM-AT24CS16-Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nAT24CS16-XHM\n\nI2C Serial EEPROM Nonvolatile Memory', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -292,7 +292,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT24CS32-SSHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS32-SSHM'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8869-SEEPROM-AT24CS32-Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'AT24CS32-SSHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS32-SSHM'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8869-SEEPROM-AT24CS32-Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nAT24CS32-SSHM\n\nI2C Serial EEPROM Nonvolatile Memory', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -301,7 +301,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT24CS32-XHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS32-XHM'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_4.4x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8869-SEEPROM-AT24CS32-Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'AT24CS32-XHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS32-XHM'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_4.4x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8869-SEEPROM-AT24CS32-Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nAT24CS32-XHM\n\nI2C Serial EEPROM Nonvolatile Memory', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -310,7 +310,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT24CS64-SSHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS64-SSHM'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8870-SEEPROM-AT24CS64-Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'AT24CS64-SSHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS64-SSHM'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8870-SEEPROM-AT24CS64-Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nAT24CS64-SSHM\n\nI2C Serial EEPROM Nonvolatile Memory', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -319,7 +319,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT24CS64-XHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS64-XHM'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_4.4x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8870-SEEPROM-AT24CS64-Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'AT24CS64-XHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS64-XHM'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_4.4x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8870-SEEPROM-AT24CS64-Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nAT24CS64-XHM\n\nI2C Serial EEPROM Nonvolatile Memory', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -328,7 +328,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CAT24M01L', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CAT24M01L'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'EEPROM 1Mb I2C', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/CAT24M01-D.PDF', 'pins':[
+        Part(**{ 'name':'CAT24M01L', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CAT24M01L'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'EEPROM 1Mb I2C', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/CAT24M01-D.PDF', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nCAT24M01L\n\nEEPROM 1Mb I2C', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -337,7 +337,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CAT24M01W', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CAT24M01W'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'EEPROM 1Mb I2C', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/CAT24M01-D.PDF', 'pins':[
+        Part(**{ 'name':'CAT24M01W', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CAT24M01W'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'EEPROM 1Mb I2C', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/CAT24M01-D.PDF', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nCAT24M01W\n\nEEPROM 1Mb I2C', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -346,7 +346,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CAT24M01X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CAT24M01X'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'keywords':'EEPROM 1Mb I2C', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/CAT24M01-D.PDF', 'pins':[
+        Part(**{ 'name':'CAT24M01X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CAT24M01X'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'keywords':'EEPROM 1Mb I2C', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/CAT24M01-D.PDF', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nCAT24M01X\n\nEEPROM 1Mb I2C', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -355,7 +355,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CAT24M01Y', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CAT24M01Y'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_4.4x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'keywords':'EEPROM 1Mb I2C', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/CAT24M01-D.PDF', 'pins':[
+        Part(**{ 'name':'CAT24M01Y', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CAT24M01Y'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_4.4x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'keywords':'EEPROM 1Mb I2C', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/CAT24M01-D.PDF', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nCAT24M01Y\n\nEEPROM 1Mb I2C', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -364,25 +364,25 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DS2431', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DS2431'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-92_Inline'], 'footprint':'Package_TO_SOT_THT:TO-92_Inline', 'keywords':'1kb EEPROM memory', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/DS2431.pdf', 'pins':[
+        Part(**{ 'name':'DS2431', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DS2431'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-92_Inline'], 'footprint':'Package_TO_SOT_THT:TO-92_Inline', 'keywords':'1kb EEPROM memory', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/DS2431.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nDS2431\n\n1kb EEPROM memory', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IO',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DS2431P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DS2431P'}), 'ref_prefix':'U', 'fplist':['Package_SO_J-Lead:TSOC-6_3.76x3.94mm_P1.27mm'], 'footprint':'Package_SO_J-Lead:TSOC-6_3.76x3.94mm_P1.27mm', 'keywords':'1kb EEPROM memory', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/DS2431.pdf', 'pins':[
+        Part(**{ 'name':'DS2431P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DS2431P'}), 'ref_prefix':'U', 'fplist':['Package_SO_J-Lead:TSOC-6_3.76x3.94mm_P1.27mm'], 'footprint':'Package_SO_J-Lead:TSOC-6_3.76x3.94mm_P1.27mm', 'keywords':'1kb EEPROM memory', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/DS2431.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nDS2431P\n\n1kb EEPROM memory', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IO',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='4',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='5',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='6',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DS2431Q', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DS2431Q'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Maxim_TDFN-6-1EP_3x3mm_P0.95mm_EP1.5x2.3mm'], 'footprint':'Package_DFN_QFN:Maxim_TDFN-6-1EP_3x3mm_P0.95mm_EP1.5x2.3mm', 'keywords':'1kb EEPROM memory', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/DS2431.pdf', 'pins':[
+        Part(**{ 'name':'DS2431Q', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DS2431Q'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Maxim_TDFN-6-1EP_3x3mm_P0.95mm_EP1.5x2.3mm'], 'footprint':'Package_DFN_QFN:Maxim_TDFN-6-1EP_3x3mm_P0.95mm_EP1.5x2.3mm', 'keywords':'1kb EEPROM memory', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/DS2431.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nDS2431Q\n\n1kb EEPROM memory', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='IO',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='5',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='6',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'M24C02-WDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'M24C02-WDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_4.4x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'keywords':'Nonvolatile Non-Volatile Memory ROM ST', 'description':'', 'datasheet':'http://www.st.com/content/ccc/resource/technical/document/datasheet/b0/d8/50/40/5a/85/49/6f/DM00071904.pdf/files/DM00071904.pdf/jcr:content/translations/en.DM00071904.pdf', 'pins':[
+        Part(**{ 'name':'M24C02-WDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'M24C02-WDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_4.4x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'keywords':'Nonvolatile Non-Volatile Memory ROM ST', 'description':'', 'datasheet':'http://www.st.com/content/ccc/resource/technical/document/datasheet/b0/d8/50/40/5a/85/49/6f/DM00071904.pdf/files/DM00071904.pdf/jcr:content/translations/en.DM00071904.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nM24C02-WDW\n\nNonvolatile Non-Volatile Memory ROM ST', 'pins':[
             Pin(num='1',name='E0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='E1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='E2',func=Pin.types.INPUT,unit=1),
@@ -391,7 +391,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~{WC}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'M24C02-WMN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'M24C02-WMN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Nonvolatile Non-Volatile Memory ROM ST', 'description':'', 'datasheet':'http://www.st.com/content/ccc/resource/technical/document/datasheet/b0/d8/50/40/5a/85/49/6f/DM00071904.pdf/files/DM00071904.pdf/jcr:content/translations/en.DM00071904.pdf', 'pins':[
+        Part(**{ 'name':'M24C02-WMN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'M24C02-WMN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Nonvolatile Non-Volatile Memory ROM ST', 'description':'', 'datasheet':'http://www.st.com/content/ccc/resource/technical/document/datasheet/b0/d8/50/40/5a/85/49/6f/DM00071904.pdf/files/DM00071904.pdf/jcr:content/translations/en.DM00071904.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nM24C02-WMN\n\nNonvolatile Non-Volatile Memory ROM ST', 'pins':[
             Pin(num='1',name='E0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='E1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='E2',func=Pin.types.INPUT,unit=1),
@@ -400,7 +400,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~{WC}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'M95256-WMN6P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'M95256-WMN6P'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SPI EEPROM', 'description':'', 'datasheet':'http://www.st.com/content/ccc/resource/technical/document/datasheet/9d/75/f0/3e/76/00/4c/0b/CD00103810.pdf/files/CD00103810.pdf/jcr:content/translations/en.CD00103810.pdf', 'pins':[
+        Part(**{ 'name':'M95256-WMN6P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'M95256-WMN6P'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SPI EEPROM', 'description':'', 'datasheet':'http://www.st.com/content/ccc/resource/technical/document/datasheet/9d/75/f0/3e/76/00/4c/0b/CD00103810.pdf/files/CD00103810.pdf/jcr:content/translations/en.CD00103810.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nM95256-WMN6P\n\nSPI EEPROM', 'pins':[
             Pin(num='1',name='~{S}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='Q',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='~{W}',func=Pin.types.INPUT,unit=1),
@@ -409,7 +409,17 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~{HOLD}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TMS4C1050N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMS4C1050N'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'Field Memory', 'description':'', 'datasheet':'http://www.datasheets360.com/pdf/3640170882560205603', 'pins':[
+        Part(**{ 'name':'M95512-Axxx-MF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'M95512-Axxx-MF'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:WFDFPN-8-1EP_3x2mm_P0.5mm_EP1.25x1.35mm'], 'footprint':'Package_DFN_QFN:WFDFPN-8-1EP_3x2mm_P0.5mm_EP1.25x1.35mm', 'keywords':'SPI EEPROM', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/m95512-a125.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nM95512-Axxx-MF\n\nSPI EEPROM', 'pins':[
+            Pin(num='1',name='~{S}',func=Pin.types.INPUT,unit=1),
+            Pin(num='2',name='Q',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='3',name='~{W}',func=Pin.types.INPUT,unit=1),
+            Pin(num='4',name='VSS',func=Pin.types.PWRIN,unit=1),
+            Pin(num='5',name='D',func=Pin.types.INPUT,unit=1),
+            Pin(num='6',name='C',func=Pin.types.INPUT,unit=1),
+            Pin(num='7',name='~{HOLD}',func=Pin.types.INPUT,unit=1),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
+            Pin(num='9',name='EP',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'TMS4C1050N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMS4C1050N'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'Field Memory', 'description':'', 'datasheet':'http://www.datasheets360.com/pdf/3640170882560205603', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nTMS4C1050N\n\nField Memory', 'pins':[
             Pin(num='1',name='WE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Q2',func=Pin.types.TRISTATE,unit=1),
             Pin(num='11',name='Q1',func=Pin.types.TRISTATE,unit=1),
@@ -426,7 +436,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Q3',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'24LC00', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'24LC00'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'I2C Serial EEPROM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21178G.pdf', 'pins':[
+        Part(**{ 'name':'24LC00', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'24LC00'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'I2C Serial EEPROM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21178G.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\n24LC00\n\nI2C Serial EEPROM', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -435,7 +445,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'24LC01', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'24LC01'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'I2C Serial EEPROM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21711J.pdf', 'pins':[
+        Part(**{ 'name':'24LC01', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'24LC01'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'I2C Serial EEPROM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21711J.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\n24LC01\n\nI2C Serial EEPROM', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -444,7 +454,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'24LC02', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'24LC02'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'I2C Serial EEPROM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21709c.pdf', 'pins':[
+        Part(**{ 'name':'24LC02', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'24LC02'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'I2C Serial EEPROM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21709c.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\n24LC02\n\nI2C Serial EEPROM', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -453,7 +463,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'24LC04', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'24LC04'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'I2C Serial EEPROM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21708K.pdf', 'pins':[
+        Part(**{ 'name':'24LC04', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'24LC04'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'I2C Serial EEPROM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21708K.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\n24LC04\n\nI2C Serial EEPROM', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -462,7 +472,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'24LC08', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'24LC08'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', ''], 'footprint':'', 'keywords':'I2C Serial EEPROM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21710J.pdf', 'pins':[
+        Part(**{ 'name':'24LC08', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'24LC08'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', ''], 'footprint':'', 'keywords':'I2C Serial EEPROM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21710J.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\n24LC08\n\nI2C Serial EEPROM', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -471,7 +481,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'24LC1025', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'24LC1025'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', ''], 'footprint':'', 'keywords':'I2C Serial EEPROM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21941B.pdf', 'pins':[
+        Part(**{ 'name':'24LC1025', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'24LC1025'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', ''], 'footprint':'', 'keywords':'I2C Serial EEPROM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21941B.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\n24LC1025\n\nI2C Serial EEPROM', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -480,7 +490,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'24LC128', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'24LC128'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'I2C Serial EEPROM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21191s.pdf', 'pins':[
+        Part(**{ 'name':'24LC128', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'24LC128'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'I2C Serial EEPROM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21191s.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\n24LC128\n\nI2C Serial EEPROM', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -489,7 +499,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'24LC256', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'24LC256'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'I2C Serial EEPROM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/21203m.pdf', 'pins':[
+        Part(**{ 'name':'24LC256', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'24LC256'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'I2C Serial EEPROM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/21203m.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\n24LC256\n\nI2C Serial EEPROM', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -498,7 +508,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'24LC32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'24LC32'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'I2C Serial EEPROM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21072G.pdf', 'pins':[
+        Part(**{ 'name':'24LC32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'24LC32'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'I2C Serial EEPROM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21072G.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\n24LC32\n\nI2C Serial EEPROM', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -507,7 +517,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'24LC512', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'24LC512'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'I2C Serial EEPROM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21754M.pdf', 'pins':[
+        Part(**{ 'name':'24LC512', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'24LC512'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'I2C Serial EEPROM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21754M.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\n24LC512\n\nI2C Serial EEPROM', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -516,7 +526,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'24LC64', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'24LC64'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'I2C Serial EEPROM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21189f.pdf', 'pins':[
+        Part(**{ 'name':'24LC64', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'24LC64'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'I2C Serial EEPROM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21189f.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\n24LC64\n\nI2C Serial EEPROM', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -525,7 +535,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'25CSM04xxMF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'25CSM04xxMF'}), 'ref_prefix':'U3', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DFN_QFN:WDFN-8-1EP_6x5mm_P1.27mm_EP3.4x4mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'EEPROM memory SPI serial', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MPD/ProductDocuments/DataSheets/25CSM04-4-Mbit-SPI-Serial-EEPROM-With-128-Bit-Serial-Number-and-Enhanced-Write-Protection-20005817C.pdf', 'pins':[
+        Part(**{ 'name':'25CSM04xxMF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'25CSM04xxMF'}), 'ref_prefix':'U3', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DFN_QFN:WDFN-8-1EP_6x5mm_P1.27mm_EP3.4x4mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'EEPROM memory SPI serial', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MPD/ProductDocuments/DataSheets/25CSM04-4-Mbit-SPI-Serial-EEPROM-With-128-Bit-Serial-Number-and-Enhanced-Write-Protection-20005817C.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\n25CSM04xxMF\n\nEEPROM memory SPI serial', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='SO',func=Pin.types.TRISTATE,unit=1),
             Pin(num='3',name='~{WP}',func=Pin.types.INPUT,unit=1),
@@ -534,7 +544,17 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~{HOLD}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='V_{CC}',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'93AAxxB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'93AAxxB'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'EEPROM memory Microwire', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001749K.pdf', 'pins':[
+        Part(**{ 'name':'25LCxxx-MF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'25LCxxx-MF'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'Package_DFN_QFN:WFDFPN-8-1EP_3x2mm_P0.5mm_EP1.25x1.35mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'keywords':'EEPROM memory SPI serial', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/25LC512-512-Kbit-SPI-Bus-Serial-EEPROM-20002065D.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\n25LCxxx-MF\n\nEEPROM memory SPI serial', 'pins':[
+            Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
+            Pin(num='2',name='MISO',func=Pin.types.TRISTATE,unit=1),
+            Pin(num='3',name='~{WP}',func=Pin.types.INPUT,unit=1),
+            Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=1),
+            Pin(num='5',name='MOSI',func=Pin.types.INPUT,unit=1),
+            Pin(num='6',name='SCK',func=Pin.types.INPUT,unit=1),
+            Pin(num='7',name='~{HOLD}',func=Pin.types.INPUT,unit=1),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
+            Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'93AAxxB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'93AAxxB'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'EEPROM memory Microwire', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001749K.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\n93AAxxB\n\nEEPROM memory Microwire', 'pins':[
             Pin(num='1',name='CS',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DI',func=Pin.types.INPUT,unit=1),
@@ -543,14 +563,14 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'93AAxxBT-xOT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'93AAxxBT-xOT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'EEPROM memory Microwire', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001749K.pdf', 'pins':[
+        Part(**{ 'name':'93AAxxBT-xOT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'93AAxxBT-xOT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'EEPROM memory Microwire', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001749K.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\n93AAxxBT-xOT\n\nEEPROM memory Microwire', 'pins':[
             Pin(num='1',name='DO',func=Pin.types.TRISTATE,unit=1),
             Pin(num='2',name='Vss',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='DI',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='CLK',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='CS',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='Vcc',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'93CxxB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'93CxxB'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'EEPROM memory Microwire', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001749K.pdf', 'pins':[
+        Part(**{ 'name':'93CxxB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'93CxxB'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'EEPROM memory Microwire', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001749K.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\n93CxxB\n\nEEPROM memory Microwire', 'pins':[
             Pin(num='1',name='CS',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DI',func=Pin.types.INPUT,unit=1),
@@ -559,7 +579,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'93LCxxB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'93LCxxB'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'EEPROM memory Microwire', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001749K.pdf', 'pins':[
+        Part(**{ 'name':'93LCxxB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'93LCxxB'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'EEPROM memory Microwire', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001749K.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\n93LCxxB\n\nEEPROM memory Microwire', 'pins':[
             Pin(num='1',name='CS',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DI',func=Pin.types.INPUT,unit=1),
@@ -568,14 +588,14 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'93LCxxBxxOT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'93LCxxBxxOT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'1K Microwire Serial EEPROM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001749K.pdf', 'pins':[
+        Part(**{ 'name':'93LCxxBxxOT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'93LCxxBxxOT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'1K Microwire Serial EEPROM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001749K.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\n93LCxxBxxOT\n\n1K Microwire Serial EEPROM', 'pins':[
             Pin(num='1',name='DO',func=Pin.types.TRISTATE,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='DI',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='CLK',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='CS',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT24CS02-MAHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS02-MAHM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8815-SEEPROM-AT24CS01-02-Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'AT24CS02-MAHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS02-MAHM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8815-SEEPROM-AT24CS01-02-Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nAT24CS02-MAHM\n\nI2C Serial EEPROM Nonvolatile Memory', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -584,7 +604,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT24CS02-SSHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS02-SSHM'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8815-SEEPROM-AT24CS01-02-Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'AT24CS02-SSHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS02-SSHM'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8815-SEEPROM-AT24CS01-02-Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nAT24CS02-SSHM\n\nI2C Serial EEPROM Nonvolatile Memory', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -593,13 +613,13 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT24CS02-STUM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS02-STUM'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8815-SEEPROM-AT24CS01-02-Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'AT24CS02-STUM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS02-STUM'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8815-SEEPROM-AT24CS01-02-Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nAT24CS02-STUM\n\nI2C Serial EEPROM Nonvolatile Memory', 'pins':[
             Pin(num='1',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='WP',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT24CS02-XHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS02-XHM'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'Package_SO:TSSOP-8_4.4x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8815-SEEPROM-AT24CS01-02-Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'AT24CS02-XHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS02-XHM'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'Package_SO:TSSOP-8_4.4x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8815-SEEPROM-AT24CS01-02-Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nAT24CS02-XHM\n\nI2C Serial EEPROM Nonvolatile Memory', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -608,25 +628,25 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT24CS04-STUM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS04-STUM'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8766-SEEPROM-AT24CS04-08-Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'AT24CS04-STUM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS04-STUM'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8766-SEEPROM-AT24CS04-08-Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nAT24CS04-STUM\n\nI2C Serial EEPROM Nonvolatile Memory', 'pins':[
             Pin(num='1',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='WP',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT24CS08-STUM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS08-STUM'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8766-SEEPROM-AT24CS04-08-Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'AT24CS08-STUM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS08-STUM'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8766-SEEPROM-AT24CS04-08-Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nAT24CS08-STUM\n\nI2C Serial EEPROM Nonvolatile Memory', 'pins':[
             Pin(num='1',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='WP',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT24CS16-STUM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS16-STUM'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8859-SEEPROM-AT24CS16-Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'AT24CS16-STUM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS16-STUM'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8859-SEEPROM-AT24CS16-Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nAT24CS16-STUM\n\nI2C Serial EEPROM Nonvolatile Memory', 'pins':[
             Pin(num='1',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='WP',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT24CS32-MAHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS32-MAHM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8869-SEEPROM-AT24CS32-Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'AT24CS32-MAHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS32-MAHM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8869-SEEPROM-AT24CS32-Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nAT24CS32-MAHM\n\nI2C Serial EEPROM Nonvolatile Memory', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -635,13 +655,13 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT24CS32-STUM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS32-STUM'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8869-SEEPROM-AT24CS32-Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'AT24CS32-STUM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS32-STUM'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8869-SEEPROM-AT24CS32-Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nAT24CS32-STUM\n\nI2C Serial EEPROM Nonvolatile Memory', 'pins':[
             Pin(num='1',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='WP',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT24CS64-MAHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS64-MAHM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8870-SEEPROM-AT24CS64-Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'AT24CS64-MAHM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT24CS64-MAHM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm', 'keywords':'I2C Serial EEPROM Nonvolatile Memory', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8870-SEEPROM-AT24CS64-Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nAT24CS64-MAHM\n\nI2C Serial EEPROM Nonvolatile Memory', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
@@ -650,7 +670,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT25xxx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT25xxx'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'EEPROM memory SPI serial', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8707-SEEPROM-AT25010B-020B-040B-Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'AT25xxx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT25xxx'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'EEPROM memory SPI serial', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8707-SEEPROM-AT25010B-020B-040B-Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nAT25xxx\n\nEEPROM memory SPI serial', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='MISO',func=Pin.types.TRISTATE,unit=1),
             Pin(num='3',name='~{WP}',func=Pin.types.INPUT,unit=1),
@@ -659,7 +679,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~{HOLD}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT25xxx-MA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT25xxx-MA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'keywords':'EEPROM memory SPI serial', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8707-SEEPROM-AT25010B-020B-040B-Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'AT25xxx-MA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT25xxx-MA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'Package_DFN_QFN:WFDFPN-8-1EP_3x2mm_P0.5mm_EP1.25x1.35mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'keywords':'EEPROM memory SPI serial', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8707-SEEPROM-AT25010B-020B-040B-Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nAT25xxx-MA\n\nEEPROM memory SPI serial', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='MISO',func=Pin.types.TRISTATE,unit=1),
             Pin(num='3',name='~{WP}',func=Pin.types.INPUT,unit=1),
@@ -669,7 +689,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{HOLD}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'BR25Sxxx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BR25Sxxx'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'EEPROM memory SPI serial', 'description':'', 'datasheet':'http://www.rohm.com/web/global/products/-/product/BR25G128F-3', 'pins':[
+        Part(**{ 'name':'BR25Sxxx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BR25Sxxx'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'EEPROM memory SPI serial', 'description':'', 'datasheet':'http://www.rohm.com/web/global/products/-/product/BR25G128F-3', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nBR25Sxxx\n\nEEPROM memory SPI serial', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='MISO',func=Pin.types.TRISTATE,unit=1),
             Pin(num='3',name='~{WP}',func=Pin.types.INPUT,unit=1),
@@ -678,44 +698,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~{HOLD}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'BR25xxx-NUX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BR25xxx-NUX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'keywords':'EEPROM memory SPI serial', 'description':'', 'datasheet':'http://www.rohm.com/web/global/products/-/product/BR25G128F-3', 'pins':[
-            Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
-            Pin(num='2',name='MISO',func=Pin.types.TRISTATE,unit=1),
-            Pin(num='3',name='~{WP}',func=Pin.types.INPUT,unit=1),
-            Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=1),
-            Pin(num='5',name='MOSI',func=Pin.types.INPUT,unit=1),
-            Pin(num='6',name='SCK',func=Pin.types.INPUT,unit=1),
-            Pin(num='7',name='~{HOLD}',func=Pin.types.INPUT,unit=1),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
-            Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CAT24C128', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CAT24C128'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'I2C EEPROM Serial 128kb', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/CAT24C128-D.PDF', 'pins':[
-            Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
-            Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
-            Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
-            Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=1),
-            Pin(num='5',name='SDA',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
-            Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CAT24C256', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CAT24C256'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'I2C EEPROM Serial 256kb', 'description':'', 'datasheet':'https://www.onsemi.cn/PowerSolutions/document/CAT24C256-D.PDF', 'pins':[
-            Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
-            Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
-            Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
-            Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=1),
-            Pin(num='5',name='SDA',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
-            Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CAT250xxx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CAT250xxx'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'EEPROM memory SPI serial', 'description':'', 'datasheet':'http://www.onsemi.com/PowerSolutions/product.do?id=CAT25040', 'pins':[
-            Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
-            Pin(num='2',name='MISO',func=Pin.types.TRISTATE,unit=1),
-            Pin(num='3',name='~{WP}',func=Pin.types.INPUT,unit=1),
-            Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=1),
-            Pin(num='5',name='MOSI',func=Pin.types.INPUT,unit=1),
-            Pin(num='6',name='SCK',func=Pin.types.INPUT,unit=1),
-            Pin(num='7',name='~{HOLD}',func=Pin.types.INPUT,unit=1),
-            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CAT250xxx-HU4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CAT250xxx-HU4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'keywords':'EEPROM memory SPI serial', 'description':'', 'datasheet':'http://www.onsemi.com/PowerSolutions/product.do?id=CAT25040', 'pins':[
+        Part(**{ 'name':'BR25xxx-NUX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BR25xxx-NUX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'Package_DFN_QFN:WFDFPN-8-1EP_3x2mm_P0.5mm_EP1.25x1.35mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'keywords':'EEPROM memory SPI serial', 'description':'', 'datasheet':'http://www.rohm.com/web/global/products/-/product/BR25G128F-3', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nBR25xxx-NUX\n\nEEPROM memory SPI serial', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='MISO',func=Pin.types.TRISTATE,unit=1),
             Pin(num='3',name='~{WP}',func=Pin.types.INPUT,unit=1),
@@ -725,7 +708,44 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{HOLD}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'M24C01-FDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'M24C01-FDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'Package_SO:TSSOP-8_4.4x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'keywords':'Nonvolatile Non-Volatile Memory ROM ST', 'description':'', 'datasheet':'http://www.st.com/content/ccc/resource/technical/document/datasheet/b0/d8/50/40/5a/85/49/6f/DM00071904.pdf/files/DM00071904.pdf/jcr:content/translations/en.DM00071904.pdf', 'pins':[
+        Part(**{ 'name':'CAT24C128', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CAT24C128'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'I2C EEPROM Serial 128kb', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/CAT24C128-D.PDF', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nCAT24C128\n\nI2C EEPROM Serial 128kb', 'pins':[
+            Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
+            Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
+            Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
+            Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=1),
+            Pin(num='5',name='SDA',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
+            Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'CAT24C256', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CAT24C256'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'I2C EEPROM Serial 256kb', 'description':'', 'datasheet':'https://www.onsemi.cn/PowerSolutions/document/CAT24C256-D.PDF', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nCAT24C256\n\nI2C EEPROM Serial 256kb', 'pins':[
+            Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
+            Pin(num='2',name='A1',func=Pin.types.INPUT,unit=1),
+            Pin(num='3',name='A2',func=Pin.types.INPUT,unit=1),
+            Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=1),
+            Pin(num='5',name='SDA',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
+            Pin(num='7',name='WP',func=Pin.types.INPUT,unit=1),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'CAT250xxx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CAT250xxx'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'EEPROM memory SPI serial', 'description':'', 'datasheet':'http://www.onsemi.com/PowerSolutions/product.do?id=CAT25040', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nCAT250xxx\n\nEEPROM memory SPI serial', 'pins':[
+            Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
+            Pin(num='2',name='MISO',func=Pin.types.TRISTATE,unit=1),
+            Pin(num='3',name='~{WP}',func=Pin.types.INPUT,unit=1),
+            Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=1),
+            Pin(num='5',name='MOSI',func=Pin.types.INPUT,unit=1),
+            Pin(num='6',name='SCK',func=Pin.types.INPUT,unit=1),
+            Pin(num='7',name='~{HOLD}',func=Pin.types.INPUT,unit=1),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'CAT250xxx-HU4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CAT250xxx-HU4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'Package_DFN_QFN:WFDFPN-8-1EP_3x2mm_P0.5mm_EP1.25x1.35mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'keywords':'EEPROM memory SPI serial', 'description':'', 'datasheet':'http://www.onsemi.com/PowerSolutions/product.do?id=CAT25040', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nCAT250xxx-HU4\n\nEEPROM memory SPI serial', 'pins':[
+            Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
+            Pin(num='2',name='MISO',func=Pin.types.TRISTATE,unit=1),
+            Pin(num='3',name='~{WP}',func=Pin.types.INPUT,unit=1),
+            Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=1),
+            Pin(num='5',name='MOSI',func=Pin.types.INPUT,unit=1),
+            Pin(num='6',name='SCK',func=Pin.types.INPUT,unit=1),
+            Pin(num='7',name='~{HOLD}',func=Pin.types.INPUT,unit=1),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
+            Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'M24C01-FDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'M24C01-FDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'Package_SO:TSSOP-8_4.4x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'keywords':'Nonvolatile Non-Volatile Memory ROM ST', 'description':'', 'datasheet':'http://www.st.com/content/ccc/resource/technical/document/datasheet/b0/d8/50/40/5a/85/49/6f/DM00071904.pdf/files/DM00071904.pdf/jcr:content/translations/en.DM00071904.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nM24C01-FDW\n\nNonvolatile Non-Volatile Memory ROM ST', 'pins':[
             Pin(num='1',name='E0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='E1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='E2',func=Pin.types.INPUT,unit=1),
@@ -734,7 +754,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~{WC}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'M24C01-FMN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'M24C01-FMN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Nonvolatile Non-Volatile Memory ROM ST', 'description':'', 'datasheet':'http://www.st.com/content/ccc/resource/technical/document/datasheet/b0/d8/50/40/5a/85/49/6f/DM00071904.pdf/files/DM00071904.pdf/jcr:content/translations/en.DM00071904.pdf', 'pins':[
+        Part(**{ 'name':'M24C01-FMN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'M24C01-FMN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Nonvolatile Non-Volatile Memory ROM ST', 'description':'', 'datasheet':'http://www.st.com/content/ccc/resource/technical/document/datasheet/b0/d8/50/40/5a/85/49/6f/DM00071904.pdf/files/DM00071904.pdf/jcr:content/translations/en.DM00071904.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nM24C01-FMN\n\nNonvolatile Non-Volatile Memory ROM ST', 'pins':[
             Pin(num='1',name='E0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='E1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='E2',func=Pin.types.INPUT,unit=1),
@@ -743,7 +763,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~{WC}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'M24C01-RDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'M24C01-RDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'Package_SO:TSSOP-8_4.4x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'keywords':'Nonvolatile Non-Volatile Memory ROM ST', 'description':'', 'datasheet':'http://www.st.com/content/ccc/resource/technical/document/datasheet/b0/d8/50/40/5a/85/49/6f/DM00071904.pdf/files/DM00071904.pdf/jcr:content/translations/en.DM00071904.pdf', 'pins':[
+        Part(**{ 'name':'M24C01-RDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'M24C01-RDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'Package_SO:TSSOP-8_4.4x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'keywords':'Nonvolatile Non-Volatile Memory ROM ST', 'description':'', 'datasheet':'http://www.st.com/content/ccc/resource/technical/document/datasheet/b0/d8/50/40/5a/85/49/6f/DM00071904.pdf/files/DM00071904.pdf/jcr:content/translations/en.DM00071904.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nM24C01-RDW\n\nNonvolatile Non-Volatile Memory ROM ST', 'pins':[
             Pin(num='1',name='E0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='E1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='E2',func=Pin.types.INPUT,unit=1),
@@ -752,7 +772,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~{WC}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'M24C01-RMN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'M24C01-RMN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Nonvolatile Non-Volatile Memory ROM ST', 'description':'', 'datasheet':'http://www.st.com/content/ccc/resource/technical/document/datasheet/b0/d8/50/40/5a/85/49/6f/DM00071904.pdf/files/DM00071904.pdf/jcr:content/translations/en.DM00071904.pdf', 'pins':[
+        Part(**{ 'name':'M24C01-RMN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'M24C01-RMN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Nonvolatile Non-Volatile Memory ROM ST', 'description':'', 'datasheet':'http://www.st.com/content/ccc/resource/technical/document/datasheet/b0/d8/50/40/5a/85/49/6f/DM00071904.pdf/files/DM00071904.pdf/jcr:content/translations/en.DM00071904.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nM24C01-RMN\n\nNonvolatile Non-Volatile Memory ROM ST', 'pins':[
             Pin(num='1',name='E0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='E1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='E2',func=Pin.types.INPUT,unit=1),
@@ -761,7 +781,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~{WC}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'M24C01-WDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'M24C01-WDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'Package_SO:TSSOP-8_4.4x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'keywords':'Nonvolatile Non-Volatile Memory ROM ST', 'description':'', 'datasheet':'http://www.st.com/content/ccc/resource/technical/document/datasheet/b0/d8/50/40/5a/85/49/6f/DM00071904.pdf/files/DM00071904.pdf/jcr:content/translations/en.DM00071904.pdf', 'pins':[
+        Part(**{ 'name':'M24C01-WDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'M24C01-WDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'Package_SO:TSSOP-8_4.4x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'keywords':'Nonvolatile Non-Volatile Memory ROM ST', 'description':'', 'datasheet':'http://www.st.com/content/ccc/resource/technical/document/datasheet/b0/d8/50/40/5a/85/49/6f/DM00071904.pdf/files/DM00071904.pdf/jcr:content/translations/en.DM00071904.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nM24C01-WDW\n\nNonvolatile Non-Volatile Memory ROM ST', 'pins':[
             Pin(num='1',name='E0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='E1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='E2',func=Pin.types.INPUT,unit=1),
@@ -770,7 +790,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~{WC}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'M24C01-WMN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'M24C01-WMN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Nonvolatile Non-Volatile Memory ROM ST', 'description':'', 'datasheet':'http://www.st.com/content/ccc/resource/technical/document/datasheet/b0/d8/50/40/5a/85/49/6f/DM00071904.pdf/files/DM00071904.pdf/jcr:content/translations/en.DM00071904.pdf', 'pins':[
+        Part(**{ 'name':'M24C01-WMN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'M24C01-WMN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Nonvolatile Non-Volatile Memory ROM ST', 'description':'', 'datasheet':'http://www.st.com/content/ccc/resource/technical/document/datasheet/b0/d8/50/40/5a/85/49/6f/DM00071904.pdf/files/DM00071904.pdf/jcr:content/translations/en.DM00071904.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nM24C01-WMN\n\nNonvolatile Non-Volatile Memory ROM ST', 'pins':[
             Pin(num='1',name='E0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='E1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='E2',func=Pin.types.INPUT,unit=1),
@@ -779,7 +799,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~{WC}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'M24C02-FDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'M24C02-FDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'Package_SO:TSSOP-8_4.4x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'keywords':'Nonvolatile Non-Volatile Memory ROM ST', 'description':'', 'datasheet':'http://www.st.com/content/ccc/resource/technical/document/datasheet/b0/d8/50/40/5a/85/49/6f/DM00071904.pdf/files/DM00071904.pdf/jcr:content/translations/en.DM00071904.pdf', 'pins':[
+        Part(**{ 'name':'M24C02-FDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'M24C02-FDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'Package_SO:TSSOP-8_4.4x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'keywords':'Nonvolatile Non-Volatile Memory ROM ST', 'description':'', 'datasheet':'http://www.st.com/content/ccc/resource/technical/document/datasheet/b0/d8/50/40/5a/85/49/6f/DM00071904.pdf/files/DM00071904.pdf/jcr:content/translations/en.DM00071904.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nM24C02-FDW\n\nNonvolatile Non-Volatile Memory ROM ST', 'pins':[
             Pin(num='1',name='E0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='E1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='E2',func=Pin.types.INPUT,unit=1),
@@ -788,7 +808,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~{WC}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'M24C02-FMN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'M24C02-FMN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Nonvolatile Non-Volatile Memory ROM ST', 'description':'', 'datasheet':'http://www.st.com/content/ccc/resource/technical/document/datasheet/b0/d8/50/40/5a/85/49/6f/DM00071904.pdf/files/DM00071904.pdf/jcr:content/translations/en.DM00071904.pdf', 'pins':[
+        Part(**{ 'name':'M24C02-FMN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'M24C02-FMN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Nonvolatile Non-Volatile Memory ROM ST', 'description':'', 'datasheet':'http://www.st.com/content/ccc/resource/technical/document/datasheet/b0/d8/50/40/5a/85/49/6f/DM00071904.pdf/files/DM00071904.pdf/jcr:content/translations/en.DM00071904.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nM24C02-FMN\n\nNonvolatile Non-Volatile Memory ROM ST', 'pins':[
             Pin(num='1',name='E0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='E1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='E2',func=Pin.types.INPUT,unit=1),
@@ -797,7 +817,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~{WC}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'M24C02-RDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'M24C02-RDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'Package_SO:TSSOP-8_4.4x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'keywords':'Nonvolatile Non-Volatile Memory ROM ST', 'description':'', 'datasheet':'http://www.st.com/content/ccc/resource/technical/document/datasheet/b0/d8/50/40/5a/85/49/6f/DM00071904.pdf/files/DM00071904.pdf/jcr:content/translations/en.DM00071904.pdf', 'pins':[
+        Part(**{ 'name':'M24C02-RDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'M24C02-RDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'Package_SO:TSSOP-8_4.4x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'keywords':'Nonvolatile Non-Volatile Memory ROM ST', 'description':'', 'datasheet':'http://www.st.com/content/ccc/resource/technical/document/datasheet/b0/d8/50/40/5a/85/49/6f/DM00071904.pdf/files/DM00071904.pdf/jcr:content/translations/en.DM00071904.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nM24C02-RDW\n\nNonvolatile Non-Volatile Memory ROM ST', 'pins':[
             Pin(num='1',name='E0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='E1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='E2',func=Pin.types.INPUT,unit=1),
@@ -806,7 +826,7 @@ Memory_EEPROM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~{WC}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'M24C02-RMN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'M24C02-RMN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Nonvolatile Non-Volatile Memory ROM ST', 'description':'', 'datasheet':'http://www.st.com/content/ccc/resource/technical/document/datasheet/b0/d8/50/40/5a/85/49/6f/DM00071904.pdf/files/DM00071904.pdf/jcr:content/translations/en.DM00071904.pdf', 'pins':[
+        Part(**{ 'name':'M24C02-RMN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'M24C02-RMN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Nonvolatile Non-Volatile Memory ROM ST', 'description':'', 'datasheet':'http://www.st.com/content/ccc/resource/technical/document/datasheet/b0/d8/50/40/5a/85/49/6f/DM00071904.pdf/files/DM00071904.pdf/jcr:content/translations/en.DM00071904.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_EEPROM.kicad_sym\nM24C02-RMN\n\nNonvolatile Non-Volatile Memory ROM ST', 'pins':[
             Pin(num='1',name='E0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='E1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='E2',func=Pin.types.INPUT,unit=1),

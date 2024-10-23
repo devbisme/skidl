@@ -4,33 +4,33 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Sensor_Magnetic = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'A1101ELHL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A1101ELHL'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23W'], 'footprint':'Package_TO_SOT_SMD:SOT-23W', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.allegromicro.com/-/media/files/datasheets/a110x-datasheet.ashx', 'pins':[
+        Part(**{ 'name':'A1101ELHL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A1101ELHL'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23W'], 'footprint':'Package_TO_SOT_SMD:SOT-23W', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.allegromicro.com/-/media/files/datasheets/a110x-datasheet.ashx', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nA1101ELHL\n\nhall switch', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VOUT',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'A1301KLHLT-T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A1301KLHLT-T'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23W'], 'footprint':'Package_TO_SOT_SMD:SOT-23W', 'keywords':'hall switch', 'description':'', 'datasheet':'http://www.allegromicro.com/~/media/Files/Datasheets/A1301-2-Datasheet.ashx', 'pins':[
+        Part(**{ 'name':'A1301KLHLT-T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A1301KLHLT-T'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23W'], 'footprint':'Package_TO_SOT_SMD:SOT-23W', 'keywords':'hall switch', 'description':'', 'datasheet':'http://www.allegromicro.com/~/media/Files/Datasheets/A1301-2-Datasheet.ashx', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nA1301KLHLT-T\n\nhall switch', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'A1301KUA-T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A1301KUA-T'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'hall switch', 'description':'', 'datasheet':'http://www.allegromicro.com/~/media/Files/Datasheets/A1301-2-Datasheet.ashx', 'pins':[
+        Part(**{ 'name':'A1301KUA-T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A1301KUA-T'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'hall switch', 'description':'', 'datasheet':'http://www.allegromicro.com/~/media/Files/Datasheets/A1301-2-Datasheet.ashx', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nA1301KUA-T\n\nhall switch', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VOUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AH1806-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AH1806-P'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/AH1806.pdf', 'pins':[
+        Part(**{ 'name':'AH1806-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AH1806-P'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/AH1806.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nAH1806-P\n\nhall switch', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='OUTPUT',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AH1806-W', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AH1806-W'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SC-59'], 'footprint':'Package_TO_SOT_SMD:SC-59', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/AH1806.pdf', 'pins':[
+        Part(**{ 'name':'AH1806-W', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AH1806-W'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SC-59'], 'footprint':'Package_TO_SOT_SMD:SC-59', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/AH1806.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nAH1806-W\n\nhall switch', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='OUTPUT',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AH1806-Z', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AH1806-Z'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-553'], 'footprint':'Package_TO_SOT_SMD:SOT-553', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/AH1806.pdf', 'pins':[
+        Part(**{ 'name':'AH1806-Z', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AH1806-Z'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-553'], 'footprint':'Package_TO_SOT_SMD:SOT-553', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/AH1806.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nAH1806-Z\n\nhall switch', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='4',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='OUTPUT',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AK7452', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AK7452'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'sensor magnetic hall position rotation spi', 'description':'', 'datasheet':'https://www.akm.com/akm/en/file/datasheet/AK7452.pdf', 'pins':[
+        Part(**{ 'name':'AK7452', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AK7452'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'sensor magnetic hall position rotation spi', 'description':'', 'datasheet':'https://www.akm.com/akm/en/file/datasheet/AK7452.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nAK7452\n\nsensor magnetic hall position rotation spi', 'pins':[
             Pin(num='1',name='U',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='TESTE',func=Pin.types.PASSIVE,unit=1),
@@ -47,7 +47,7 @@ Sensor_Magnetic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{CSN}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AS5045B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AS5045B'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_5.3x6.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-16_5.3x6.2mm_P0.65mm', 'keywords':'Magnetic Hall Encoder', 'description':'', 'datasheet':'https://ams.com/documents/20143/36005/AS5045B_DS000397_2-00.pdf', 'pins':[
+        Part(**{ 'name':'AS5045B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AS5045B'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_5.3x6.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-16_5.3x6.2mm_P0.65mm', 'keywords':'Magnetic Hall Encoder', 'description':'', 'datasheet':'https://ams.com/documents/20143/36005/AS5045B_DS000397_2-00.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nAS5045B\n\nMagnetic Hall Encoder', 'pins':[
             Pin(num='1',name='~{MagINC}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='10',name='CLK',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~{CS}',func=Pin.types.INPUT,unit=1),
@@ -64,7 +64,7 @@ Sensor_Magnetic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='PDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DO',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AS5047D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AS5047D'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'Magnetic Hall Sensor', 'description':'', 'datasheet':'https://ams.com/documents/20143/36005/AS5047D_DS000394_2-00.pdf', 'pins':[
+        Part(**{ 'name':'AS5047D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AS5047D'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'Magnetic Hall Sensor', 'description':'', 'datasheet':'https://ams.com/documents/20143/36005/AS5047D_DS000394_2-00.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nAS5047D\n\nMagnetic Hall Sensor', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='U',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -79,7 +79,7 @@ Sensor_Magnetic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='W/PWM',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='V',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AS5048A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AS5048A'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'sensor magnetic hall position rotation spi', 'description':'', 'datasheet':'https://ams.com/documents/20143/36005/AS5048_DS000298_4-00.pdf', 'pins':[
+        Part(**{ 'name':'AS5048A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AS5048A'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'sensor magnetic hall position rotation spi', 'description':'', 'datasheet':'https://ams.com/documents/20143/36005/AS5048_DS000298_4-00.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nAS5048A\n\nsensor magnetic hall position rotation spi', 'pins':[
             Pin(num='1',name='~{CSn}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='TEST',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='VDD5V',func=Pin.types.PWRIN,unit=1),
@@ -94,7 +94,7 @@ Sensor_Magnetic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TEST',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='TEST',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='TEST',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AS5048B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AS5048B'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'sensor magnetic hall position rotation i2c', 'description':'', 'datasheet':'https://ams.com/documents/20143/36005/AS5048_DS000298_4-00.pdf', 'pins':[
+        Part(**{ 'name':'AS5048B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AS5048B'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'sensor magnetic hall position rotation i2c', 'description':'', 'datasheet':'https://ams.com/documents/20143/36005/AS5048_DS000298_4-00.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nAS5048B\n\nsensor magnetic hall position rotation i2c', 'pins':[
             Pin(num='1',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='TEST',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='VDD5V',func=Pin.types.PWRIN,unit=1),
@@ -109,7 +109,7 @@ Sensor_Magnetic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TEST',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='TEST',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='TEST',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AS5055A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AS5055A'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm_PullBack'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm_PullBack', 'keywords':'sensor magnetic hall position rotation spi', 'description':'', 'datasheet':'https://ams.com/documents/20143/36005/AS5055A_DS000304_2-00.pdf', 'pins':[
+        Part(**{ 'name':'AS5055A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AS5055A'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm_PullBack'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm_PullBack', 'keywords':'sensor magnetic hall position rotation spi', 'description':'', 'datasheet':'https://ams.com/documents/20143/36005/AS5055A_DS000304_2-00.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nAS5055A\n\nsensor magnetic hall position rotation spi', 'pins':[
             Pin(num='1',name='MOSI',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{EN_INT}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VDDp',func=Pin.types.PWRIN,unit=1),
@@ -127,7 +127,7 @@ Sensor_Magnetic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='TEST',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'BM1422AGMV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BM1422AGMV'}), 'ref_prefix':'U', 'fplist':['Package_LGA:Rohm_MLGA010V020A_LGA-10_2x2mm_P0.45mm_LayoutBorder2x3y'], 'footprint':'Package_LGA:Rohm_MLGA010V020A_LGA-10_2x2mm_P0.45mm_LayoutBorder2x3y', 'keywords':'3D 3axis magnetometer magnetic sensor I2C', 'description':'', 'datasheet':'https://fscdn.rohm.com/en/products/databook/datasheet/ic/sensor/geomagnetic/bm1422agmv-e.pdf', 'pins':[
+        Part(**{ 'name':'BM1422AGMV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BM1422AGMV'}), 'ref_prefix':'U', 'fplist':['Package_LGA:Rohm_MLGA010V020A_LGA-10_2x2mm_P0.45mm_LayoutBorder2x3y'], 'footprint':'Package_LGA:Rohm_MLGA010V020A_LGA-10_2x2mm_P0.45mm_LayoutBorder2x3y', 'keywords':'3D 3axis magnetometer magnetic sensor I2C', 'description':'', 'datasheet':'https://fscdn.rohm.com/en/products/databook/datasheet/ic/sensor/geomagnetic/bm1422agmv-e.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nBM1422AGMV\n\n3D 3axis magnetometer magnetic sensor I2C', 'pins':[
             Pin(num='1',name='AVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -138,7 +138,7 @@ Sensor_Magnetic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DRDY',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='ADDR',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'BMM150', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BMM150'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-12_1.56x1.56mm_P0.4mm'], 'footprint':'Package_CSP:WLCSP-12_1.56x1.56mm_P0.4mm', 'keywords':'BOSH Geomagnetic Sensor', 'description':'', 'datasheet':'https://www.mouser.com/datasheet/2/783/BST-BMM150-DS001-01-786480.pdf', 'pins':[
+        Part(**{ 'name':'BMM150', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BMM150'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-12_1.56x1.56mm_P0.4mm'], 'footprint':'Package_CSP:WLCSP-12_1.56x1.56mm_P0.4mm', 'keywords':'BOSH Geomagnetic Sensor', 'description':'', 'datasheet':'https://www.mouser.com/datasheet/2/783/BST-BMM150-DS001-01-786480.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nBMM150\n\nBOSH Geomagnetic Sensor', 'pins':[
             Pin(num='A1',name='PS',func=Pin.types.INPUT,unit=1),
             Pin(num='A3',name='SCK',func=Pin.types.BIDIR,unit=1),
             Pin(num='A5',name='CSB',func=Pin.types.INPUT,unit=1),
@@ -151,15 +151,15 @@ Sensor_Magnetic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='E1',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='E3',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='E5',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DRV5055A1xDBZxQ1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV5055A1xDBZxQ1'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23'], 'footprint':'Package_TO_SOT_SMD:SOT-23', 'keywords':'Automotive Ratiometric Linear Hall Effect Sensor AEC-Q100', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/drv5055-q1.pdf', 'pins':[
+        Part(**{ 'name':'DRV5055A1xDBZxQ1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV5055A1xDBZxQ1'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23'], 'footprint':'Package_TO_SOT_SMD:SOT-23', 'keywords':'Automotive Ratiometric Linear Hall Effect Sensor AEC-Q100', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/drv5055-q1.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nDRV5055A1xDBZxQ1\n\nAutomotive Ratiometric Linear Hall Effect Sensor AEC-Q100', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DRV5055A1xLPGxQ1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV5055A1xLPGxQ1'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-92_Inline'], 'footprint':'Package_TO_SOT_THT:TO-92_Inline', 'keywords':'Automotive Ratiometric Linear Hall Effect Sensor AEC-Q100', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/drv5055-q1.pdf', 'pins':[
+        Part(**{ 'name':'DRV5055A1xLPGxQ1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV5055A1xLPGxQ1'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-92_Inline'], 'footprint':'Package_TO_SOT_THT:TO-92_Inline', 'keywords':'Automotive Ratiometric Linear Hall Effect Sensor AEC-Q100', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/drv5055-q1.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nDRV5055A1xLPGxQ1\n\nAutomotive Ratiometric Linear Hall Effect Sensor AEC-Q100', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='OUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IST8310', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IST8310'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-16_3x3mm_P0.5mm'], 'footprint':'Package_LGA:LGA-16_3x3mm_P0.5mm', 'keywords':'magnet field sensor compass', 'description':'', 'datasheet':'http://www.isentek.com/en/dlf.php?file=../ISENTEK/(201703-09)IST8310%20Datasheet%20v1.2_brief-105.09.20.pdf', 'pins':[
+        Part(**{ 'name':'IST8310', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IST8310'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-16_3x3mm_P0.5mm'], 'footprint':'Package_LGA:LGA-16_3x3mm_P0.5mm', 'keywords':'magnet field sensor compass', 'description':'', 'datasheet':'http://www.isentek.com/en/dlf.php?file=../ISENTEK/(201703-09)IST8310%20Datasheet%20v1.2_brief-105.09.20.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nIST8310\n\nmagnet field sensor compass', 'pins':[
             Pin(num='1',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='C1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='VSS',func=Pin.types.PASSIVE,unit=1),
@@ -176,7 +176,7 @@ Sensor_Magnetic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VPP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LIS2MDL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LIS2MDL'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-12_2x2mm_P0.5mm'], 'footprint':'Package_LGA:LGA-12_2x2mm_P0.5mm', 'keywords':'digital magnetometer', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/lis2mdl.pdf', 'pins':[
+        Part(**{ 'name':'LIS2MDL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LIS2MDL'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-12_2x2mm_P0.5mm'], 'footprint':'Package_LGA:LGA-12_2x2mm_P0.5mm', 'keywords':'digital magnetometer', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/lis2mdl.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nLIS2MDL\n\ndigital magnetometer', 'pins':[
             Pin(num='1',name='SCL/SPC',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Vdd_IO',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -189,7 +189,7 @@ Sensor_Magnetic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DRDY',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Vdd',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LIS3MDL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LIS3MDL'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-12_2x2mm_P0.5mm'], 'footprint':'Package_LGA:LGA-12_2x2mm_P0.5mm', 'keywords':'digital magnetometer', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/lis3mdl.pdf', 'pins':[
+        Part(**{ 'name':'LIS3MDL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LIS3MDL'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-12_2x2mm_P0.5mm'], 'footprint':'Package_LGA:LGA-12_2x2mm_P0.5mm', 'keywords':'digital magnetometer', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/lis3mdl.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nLIS3MDL\n\ndigital magnetometer', 'pins':[
             Pin(num='1',name='SCL/SPC',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SDA/SDI/SDO',func=Pin.types.BIDIR,unit=1),
@@ -202,7 +202,7 @@ Sensor_Magnetic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='INT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='DRDY',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='SDO/SA1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MA730', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MA730'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.75x1.75mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.75x1.75mm', 'keywords':'sensor magnetic hall position rotation spi', 'description':'', 'datasheet':'https://www.monolithicpower.com/pub/media/document/m/a/ma730_r1.01.pdf', 'pins':[
+        Part(**{ 'name':'MA730', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MA730'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.75x1.75mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.75x1.75mm', 'keywords':'sensor magnetic hall position rotation spi', 'description':'', 'datasheet':'https://www.monolithicpower.com/pub/media/document/m/a/ma730_r1.01.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nMA730\n\nsensor magnetic hall position rotation spi', 'pins':[
             Pin(num='1',name='SSD',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='TEST',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='MGL',func=Pin.types.OUTPUT,unit=1),
@@ -220,12 +220,12 @@ Sensor_Magnetic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='MISO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PWM',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MMC5633NJL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MMC5633NJL'}), 'ref_prefix':'U', 'fplist':['Package_BGA:WLP-4_0.86x0.86mm_P0.4mm'], 'footprint':'Package_BGA:WLP-4_0.86x0.86mm_P0.4mm', 'keywords':'I2C I3C magnetic 3-axis sensor magnetometer AMR magnetoresistance', 'description':'', 'datasheet':'http://www.memsic.com/uploadfiles/2020/08/20200827165106864.pdf', 'pins':[
+        Part(**{ 'name':'MMC5633NJL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MMC5633NJL'}), 'ref_prefix':'U', 'fplist':['Package_BGA:WLP-4_0.86x0.86mm_P0.4mm'], 'footprint':'Package_BGA:WLP-4_0.86x0.86mm_P0.4mm', 'keywords':'I2C I3C magnetic 3-axis sensor magnetometer AMR magnetoresistance', 'description':'', 'datasheet':'http://www.memsic.com/uploadfiles/2020/08/20200827165106864.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nMMC5633NJL\n\nI2C I3C magnetic 3-axis sensor magnetometer AMR magnetoresistance', 'pins':[
             Pin(num='A1',name='VSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='A2',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='B1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='B2',name='SDA',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MMC5883MA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MMC5883MA'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-16_3x3mm_P0.5mm'], 'footprint':'Package_LGA:LGA-16_3x3mm_P0.5mm', 'keywords':'I2C magnetic 3-axis sensor', 'description':'', 'datasheet':'http://www.memsic.com/userfiles/files/DataSheets/Magnetic-Sensors-Datasheets/MMC5883MA-RevC.pdf', 'pins':[
+        Part(**{ 'name':'MMC5883MA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MMC5883MA'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-16_3x3mm_P0.5mm'], 'footprint':'Package_LGA:LGA-16_3x3mm_P0.5mm', 'keywords':'I2C magnetic 3-axis sensor', 'description':'', 'datasheet':'http://www.memsic.com/userfiles/files/DataSheets/Magnetic-Sensors-Datasheets/MMC5883MA-RevC.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nMMC5883MA\n\nI2C magnetic 3-axis sensor', 'pins':[
             Pin(num='1',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='CAP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -242,7 +242,7 @@ Sensor_Magnetic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MT6701CT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MT6701CT'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SO-8_3.9x4.9mm_P1.27mm', 'keywords':'sensor magnetic hall rotation', 'description':'', 'datasheet':'https://www.magntek.com.cn/upload/MT6701_Rev.1.5.pdf', 'pins':[
+        Part(**{ 'name':'MT6701CT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MT6701CT'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SO-8_3.9x4.9mm_P1.27mm', 'keywords':'sensor magnetic hall rotation', 'description':'', 'datasheet':'https://www.magntek.com.cn/upload/MT6701_Rev.1.5.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nMT6701CT\n\nsensor magnetic hall rotation', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='MODE',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='OUT',func=Pin.types.OUTPUT,unit=1),
@@ -251,7 +251,7 @@ Sensor_Magnetic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='B',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='Z',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MT6701QT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MT6701QT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.7x1.7mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.7x1.7mm', 'keywords':'sensor magnetic hall rotation', 'description':'', 'datasheet':'https://www.magntek.com.cn/upload/MT6701_Rev.1.5.pdf', 'pins':[
+        Part(**{ 'name':'MT6701QT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MT6701QT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.7x1.7mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.7x1.7mm', 'keywords':'sensor magnetic hall rotation', 'description':'', 'datasheet':'https://www.magntek.com.cn/upload/MT6701_Rev.1.5.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nMT6701QT\n\nsensor magnetic hall rotation', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='U',func=Pin.types.OUTPUT,unit=1),
@@ -269,7 +269,7 @@ Sensor_Magnetic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='B',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='Z',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='W',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MT6816CT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MT6816CT'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SO-8_3.9x4.9mm_P1.27mm', 'keywords':'ABZ UVW SPI 14bit AMR Incremental Absolute Position Encoder', 'description':'', 'datasheet':'http://www.magntek.com.cn/upload/MT6816_Rev.2.0.pdf', 'pins':[
+        Part(**{ 'name':'MT6816CT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MT6816CT'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SO-8_3.9x4.9mm_P1.27mm', 'keywords':'ABZ UVW SPI 14bit AMR Incremental Absolute Position Encoder', 'description':'', 'datasheet':'http://www.magntek.com.cn/upload/MT6816_Rev.2.0.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nMT6816CT\n\nABZ UVW SPI 14bit AMR Incremental Absolute Position Encoder', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='HVPP',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='OUT',func=Pin.types.OUTPUT,unit=1),
@@ -278,37 +278,46 @@ Sensor_Magnetic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='B/V',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='Z/W',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SM351LT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SM351LT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23'], 'footprint':'Package_TO_SOT_SMD:SOT-23', 'keywords':'Hall Effect Switch Sensor', 'description':'', 'datasheet':'https://sensing.honeywell.com/honeywell-sensing-nanopower-series-product-sheet-50095501-a-en.pdf', 'pins':[
+        Part(**{ 'name':'SM351LT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SM351LT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23'], 'footprint':'Package_TO_SOT_SMD:SOT-23', 'keywords':'Hall Effect Switch Sensor', 'description':'', 'datasheet':'https://sensing.honeywell.com/honeywell-sensing-nanopower-series-product-sheet-50095501-a-en.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nSM351LT\n\nHall Effect Switch Sensor', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='OUTPUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si7210-B-xx-IM2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si7210-B-xx-IM2'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TDFN-8_1.4x1.6mm_P0.4mm'], 'footprint':'Package_DFN_QFN:TDFN-8_1.4x1.6mm_P0.4mm', 'keywords':'I2C hall effect magnetic postition temperature sensor', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si7210-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si7210-B-xx-IM2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si7210-B-xx-IM2'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TDFN-8_1.4x1.6mm_P0.4mm'], 'footprint':'Package_DFN_QFN:TDFN-8_1.4x1.6mm_P0.4mm', 'keywords':'I2C hall effect magnetic postition temperature sensor', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si7210-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nSi7210-B-xx-IM2\n\nI2C hall effect magnetic postition temperature sensor', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='Out',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='V_{DD}',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si7210-B-xx-IV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si7210-B-xx-IV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'I2C hall effect magnetic postition temperature sensor', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si7210-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si7210-B-xx-IV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si7210-B-xx-IV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'I2C hall effect magnetic postition temperature sensor', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si7210-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nSi7210-B-xx-IV\n\nI2C hall effect magnetic postition temperature sensor', 'pins':[
             Pin(num='1',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='V_{DD}',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='ALERT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLV493D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLV493D'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'magnetic field i2c', 'description':'', 'datasheet':'http://www.infineon.com/dgdl/Infineon-TLV493D-A1B6-DS-v01_00-EN.pdf?fileId=5546d462525dbac40152a6b85c760e80', 'pins':[
+        Part(**{ 'name':'TLE5012B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLE5012B'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Infineon GMR Angle Position Rotation SPI SSC PWM IIF SPC SENT HSM BIST AEC', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-TLE5012B_Exxxx-DataSheet-v02_01-EN.pdf?fileId=db3a304334fac4c601350f31c43c433f', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nTLE5012B\n\nInfineon GMR Angle Position Rotation SPI SSC PWM IIF SPC SENT HSM BIST AEC', 'pins':[
+            Pin(num='1',name='IFC',func=Pin.types.BIDIR,unit=1),
+            Pin(num='2',name='SCK',func=Pin.types.INPUT,unit=1),
+            Pin(num='3',name='CSQ',func=Pin.types.INPUT,unit=1),
+            Pin(num='4',name='DATA',func=Pin.types.BIDIR,unit=1),
+            Pin(num='5',name='IFA',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
+            Pin(num='8',name='IFB',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'TLV493D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLV493D'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'magnetic field i2c', 'description':'', 'datasheet':'http://www.infineon.com/dgdl/Infineon-TLV493D-A1B6-DS-v01_00-EN.pdf?fileId=5546d462525dbac40152a6b85c760e80', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nTLV493D\n\nmagnetic field i2c', 'pins':[
             Pin(num='1',name='SCL/INT',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='SDA/ADDR',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TMAG5110A2xxDBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMAG5110A2xxDBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tmag5110.pdf', 'pins':[
+        Part(**{ 'name':'TMAG5110A2xxDBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMAG5110A2xxDBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tmag5110.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nTMAG5110A2xxDBV\n\nhall switch', 'pins':[
             Pin(num='3',name='NC',func=Pin.types.PASSIVE),
             Pin(num='5',name='OUT2',func=Pin.types.OPENCOLL),
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='OUT1',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TMAG5170-Q1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMAG5170-Q1'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:VSSOP-8_3x3mm_P0.65mm', 'keywords':'sensor magnetic hall position rotation spi', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tmag5170-q1.pdf', 'pins':[
+        Part(**{ 'name':'TMAG5170-Q1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMAG5170-Q1'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:VSSOP-8_3x3mm_P0.65mm', 'keywords':'sensor magnetic hall position rotation spi', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tmag5170-q1.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nTMAG5170-Q1\n\nsensor magnetic hall position rotation spi', 'pins':[
             Pin(num='1',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='MOSI',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='MISO',func=Pin.types.OUTPUT,unit=1),
@@ -317,55 +326,55 @@ Sensor_Magnetic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='TEST',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~{ALERT}',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'A1101LLHL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A1101LLHL'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W'], 'footprint':'Package_TO_SOT_SMD:SOT-23W', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.allegromicro.com/-/media/files/datasheets/a110x-datasheet.ashx', 'pins':[
+        Part(**{ 'name':'A1101LLHL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A1101LLHL'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W'], 'footprint':'Package_TO_SOT_SMD:SOT-23W', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.allegromicro.com/-/media/files/datasheets/a110x-datasheet.ashx', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nA1101LLHL\n\nhall switch', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VOUT',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'A1102ELHL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A1102ELHL'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W'], 'footprint':'Package_TO_SOT_SMD:SOT-23W', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.allegromicro.com/-/media/files/datasheets/a110x-datasheet.ashx', 'pins':[
+        Part(**{ 'name':'A1102ELHL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A1102ELHL'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W'], 'footprint':'Package_TO_SOT_SMD:SOT-23W', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.allegromicro.com/-/media/files/datasheets/a110x-datasheet.ashx', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nA1102ELHL\n\nhall switch', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VOUT',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'A1102LLHL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A1102LLHL'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W'], 'footprint':'Package_TO_SOT_SMD:SOT-23W', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.allegromicro.com/-/media/files/datasheets/a110x-datasheet.ashx', 'pins':[
+        Part(**{ 'name':'A1102LLHL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A1102LLHL'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W'], 'footprint':'Package_TO_SOT_SMD:SOT-23W', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.allegromicro.com/-/media/files/datasheets/a110x-datasheet.ashx', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nA1102LLHL\n\nhall switch', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VOUT',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'A1103ELHL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A1103ELHL'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W'], 'footprint':'Package_TO_SOT_SMD:SOT-23W', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.allegromicro.com/-/media/files/datasheets/a110x-datasheet.ashx', 'pins':[
+        Part(**{ 'name':'A1103ELHL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A1103ELHL'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W'], 'footprint':'Package_TO_SOT_SMD:SOT-23W', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.allegromicro.com/-/media/files/datasheets/a110x-datasheet.ashx', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nA1103ELHL\n\nhall switch', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VOUT',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'A1103LLHL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A1103LLHL'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W'], 'footprint':'Package_TO_SOT_SMD:SOT-23W', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.allegromicro.com/-/media/files/datasheets/a110x-datasheet.ashx', 'pins':[
+        Part(**{ 'name':'A1103LLHL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A1103LLHL'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W'], 'footprint':'Package_TO_SOT_SMD:SOT-23W', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.allegromicro.com/-/media/files/datasheets/a110x-datasheet.ashx', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nA1103LLHL\n\nhall switch', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VOUT',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'A1104LLHL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A1104LLHL'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W'], 'footprint':'Package_TO_SOT_SMD:SOT-23W', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.allegromicro.com/-/media/files/datasheets/a110x-datasheet.ashx', 'pins':[
+        Part(**{ 'name':'A1104LLHL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A1104LLHL'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W'], 'footprint':'Package_TO_SOT_SMD:SOT-23W', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.allegromicro.com/-/media/files/datasheets/a110x-datasheet.ashx', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nA1104LLHL\n\nhall switch', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VOUT',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'A1106LLHL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A1106LLHL'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W'], 'footprint':'Package_TO_SOT_SMD:SOT-23W', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.allegromicro.com/-/media/files/datasheets/a110x-datasheet.ashx', 'pins':[
+        Part(**{ 'name':'A1106LLHL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A1106LLHL'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W'], 'footprint':'Package_TO_SOT_SMD:SOT-23W', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.allegromicro.com/-/media/files/datasheets/a110x-datasheet.ashx', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nA1106LLHL\n\nhall switch', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VOUT',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'A1301EUA-T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A1301EUA-T'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'hall switch', 'description':'', 'datasheet':'http://www.allegromicro.com/~/media/Files/Datasheets/A1301-2-Datasheet.ashx', 'pins':[
+        Part(**{ 'name':'A1301EUA-T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A1301EUA-T'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'hall switch', 'description':'', 'datasheet':'http://www.allegromicro.com/~/media/Files/Datasheets/A1301-2-Datasheet.ashx', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nA1301EUA-T\n\nhall switch', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VOUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'A1302ELHLT-T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A1302ELHLT-T'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W'], 'footprint':'Package_TO_SOT_SMD:SOT-23W', 'keywords':'hall switch', 'description':'', 'datasheet':'http://www.allegromicro.com/~/media/Files/Datasheets/A1301-2-Datasheet.ashx', 'pins':[
+        Part(**{ 'name':'A1302ELHLT-T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A1302ELHLT-T'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W'], 'footprint':'Package_TO_SOT_SMD:SOT-23W', 'keywords':'hall switch', 'description':'', 'datasheet':'http://www.allegromicro.com/~/media/Files/Datasheets/A1301-2-Datasheet.ashx', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nA1302ELHLT-T\n\nhall switch', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'A1302KLHLT-T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A1302KLHLT-T'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W'], 'footprint':'Package_TO_SOT_SMD:SOT-23W', 'keywords':'hall switch', 'description':'', 'datasheet':'http://www.allegromicro.com/~/media/Files/Datasheets/A1301-2-Datasheet.ashx', 'pins':[
+        Part(**{ 'name':'A1302KLHLT-T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A1302KLHLT-T'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W'], 'footprint':'Package_TO_SOT_SMD:SOT-23W', 'keywords':'hall switch', 'description':'', 'datasheet':'http://www.allegromicro.com/~/media/Files/Datasheets/A1301-2-Datasheet.ashx', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nA1302KLHLT-T\n\nhall switch', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'A1302KUA-T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A1302KUA-T'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'hall switch', 'description':'', 'datasheet':'http://www.allegromicro.com/~/media/Files/Datasheets/A1301-2-Datasheet.ashx', 'pins':[
+        Part(**{ 'name':'A1302KUA-T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A1302KUA-T'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'hall switch', 'description':'', 'datasheet':'http://www.allegromicro.com/~/media/Files/Datasheets/A1301-2-Datasheet.ashx', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nA1302KUA-T\n\nhall switch', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VOUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'A3214ELHLT-T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A3214ELHLT-T'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W'], 'footprint':'Package_TO_SOT_SMD:SOT-23W', 'keywords':'hall switch', 'description':'', 'datasheet':'http://www.allegromicro.com/~/media/Files/Datasheets/A3213-4-Datasheet.ashx', 'pins':[
+        Part(**{ 'name':'A3214ELHLT-T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A3214ELHLT-T'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W', 'Package_TO_SOT_SMD:SOT-23W'], 'footprint':'Package_TO_SOT_SMD:SOT-23W', 'keywords':'hall switch', 'description':'', 'datasheet':'http://www.allegromicro.com/~/media/Files/Datasheets/A3213-4-Datasheet.ashx', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nA3214ELHLT-T\n\nhall switch', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AS5050A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AS5050A'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm_PullBack', 'Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm_PullBack'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm_PullBack', 'keywords':'sensor magnetic hall position rotation spi', 'description':'', 'datasheet':'https://ams.com/documents/20143/36005/AS5055A_DS000304_2-00.pdf', 'pins':[
+        Part(**{ 'name':'AS5050A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AS5050A'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm_PullBack', 'Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm_PullBack'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm_PullBack', 'keywords':'sensor magnetic hall position rotation spi', 'description':'', 'datasheet':'https://ams.com/documents/20143/36005/AS5055A_DS000304_2-00.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nAS5050A\n\nsensor magnetic hall position rotation spi', 'pins':[
             Pin(num='1',name='MOSI',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{EN_INT}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VDDp',func=Pin.types.PWRIN,unit=1),
@@ -383,47 +392,47 @@ Sensor_Magnetic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='TEST',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DRV5033AJxDBZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV5033AJxDBZ'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23'], 'footprint':'Package_TO_SOT_SMD:SOT-23', 'keywords':'Digital Omnipolar Switch Hall Effect Sensor', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/drv5033.pdf', 'pins':[
+        Part(**{ 'name':'DRV5033AJxDBZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV5033AJxDBZ'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23'], 'footprint':'Package_TO_SOT_SMD:SOT-23', 'keywords':'Digital Omnipolar Switch Hall Effect Sensor', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/drv5033.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nDRV5033AJxDBZ\n\nDigital Omnipolar Switch Hall Effect Sensor', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DRV5033AJxLPG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV5033AJxLPG'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-92_Inline', 'Package_TO_SOT_THT:TO-92_Inline'], 'footprint':'Package_TO_SOT_THT:TO-92_Inline', 'keywords':'Digital Omnipolar Switch Hall Effect Sensor', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/drv5033.pdf', 'pins':[
+        Part(**{ 'name':'DRV5033AJxLPG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV5033AJxLPG'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-92_Inline', 'Package_TO_SOT_THT:TO-92_Inline'], 'footprint':'Package_TO_SOT_THT:TO-92_Inline', 'keywords':'Digital Omnipolar Switch Hall Effect Sensor', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/drv5033.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nDRV5033AJxLPG\n\nDigital Omnipolar Switch Hall Effect Sensor', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='OUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DRV5033FAxDBZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV5033FAxDBZ'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23'], 'footprint':'Package_TO_SOT_SMD:SOT-23', 'keywords':'Digital Omnipolar Switch Hall Effect Sensor', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/drv5033.pdf', 'pins':[
+        Part(**{ 'name':'DRV5033FAxDBZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV5033FAxDBZ'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23'], 'footprint':'Package_TO_SOT_SMD:SOT-23', 'keywords':'Digital Omnipolar Switch Hall Effect Sensor', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/drv5033.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nDRV5033FAxDBZ\n\nDigital Omnipolar Switch Hall Effect Sensor', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DRV5033FAxLPG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV5033FAxLPG'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-92_Inline', 'Package_TO_SOT_THT:TO-92_Inline', 'Package_TO_SOT_THT:TO-92_Inline'], 'footprint':'Package_TO_SOT_THT:TO-92_Inline', 'keywords':'Digital Omnipolar Switch Hall Effect Sensor', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/drv5033.pdf', 'pins':[
+        Part(**{ 'name':'DRV5033FAxLPG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV5033FAxLPG'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-92_Inline', 'Package_TO_SOT_THT:TO-92_Inline', 'Package_TO_SOT_THT:TO-92_Inline'], 'footprint':'Package_TO_SOT_THT:TO-92_Inline', 'keywords':'Digital Omnipolar Switch Hall Effect Sensor', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/drv5033.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nDRV5033FAxLPG\n\nDigital Omnipolar Switch Hall Effect Sensor', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='OUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DRV5055A2xDBZxQ1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV5055A2xDBZxQ1'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23'], 'footprint':'Package_TO_SOT_SMD:SOT-23', 'keywords':'Automotive Ratiometric Linear Hall Effect Sensor AEC-Q100', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/drv5055-q1.pdf', 'pins':[
+        Part(**{ 'name':'DRV5055A2xDBZxQ1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV5055A2xDBZxQ1'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23'], 'footprint':'Package_TO_SOT_SMD:SOT-23', 'keywords':'Automotive Ratiometric Linear Hall Effect Sensor AEC-Q100', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/drv5055-q1.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nDRV5055A2xDBZxQ1\n\nAutomotive Ratiometric Linear Hall Effect Sensor AEC-Q100', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DRV5055A2xLPGxQ1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV5055A2xLPGxQ1'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-92_Inline', 'Package_TO_SOT_THT:TO-92_Inline', 'Package_TO_SOT_THT:TO-92_Inline', 'Package_TO_SOT_THT:TO-92_Inline'], 'footprint':'Package_TO_SOT_THT:TO-92_Inline', 'keywords':'Automotive Ratiometric Linear Hall Effect Sensor AEC-Q100', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/drv5055-q1.pdf', 'pins':[
+        Part(**{ 'name':'DRV5055A2xLPGxQ1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV5055A2xLPGxQ1'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-92_Inline', 'Package_TO_SOT_THT:TO-92_Inline', 'Package_TO_SOT_THT:TO-92_Inline', 'Package_TO_SOT_THT:TO-92_Inline'], 'footprint':'Package_TO_SOT_THT:TO-92_Inline', 'keywords':'Automotive Ratiometric Linear Hall Effect Sensor AEC-Q100', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/drv5055-q1.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nDRV5055A2xLPGxQ1\n\nAutomotive Ratiometric Linear Hall Effect Sensor AEC-Q100', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='OUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DRV5055A3xDBZxQ1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV5055A3xDBZxQ1'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23'], 'footprint':'Package_TO_SOT_SMD:SOT-23', 'keywords':'Automotive Ratiometric Linear Hall Effect Sensor AEC-Q100', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/drv5055-q1.pdf', 'pins':[
+        Part(**{ 'name':'DRV5055A3xDBZxQ1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV5055A3xDBZxQ1'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23'], 'footprint':'Package_TO_SOT_SMD:SOT-23', 'keywords':'Automotive Ratiometric Linear Hall Effect Sensor AEC-Q100', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/drv5055-q1.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nDRV5055A3xDBZxQ1\n\nAutomotive Ratiometric Linear Hall Effect Sensor AEC-Q100', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DRV5055A3xLPGxQ1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV5055A3xLPGxQ1'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-92_Inline', 'Package_TO_SOT_THT:TO-92_Inline', 'Package_TO_SOT_THT:TO-92_Inline', 'Package_TO_SOT_THT:TO-92_Inline', 'Package_TO_SOT_THT:TO-92_Inline'], 'footprint':'Package_TO_SOT_THT:TO-92_Inline', 'keywords':'Automotive Ratiometric Linear Hall Effect Sensor AEC-Q100', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/drv5055-q1.pdf', 'pins':[
+        Part(**{ 'name':'DRV5055A3xLPGxQ1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV5055A3xLPGxQ1'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-92_Inline', 'Package_TO_SOT_THT:TO-92_Inline', 'Package_TO_SOT_THT:TO-92_Inline', 'Package_TO_SOT_THT:TO-92_Inline', 'Package_TO_SOT_THT:TO-92_Inline'], 'footprint':'Package_TO_SOT_THT:TO-92_Inline', 'keywords':'Automotive Ratiometric Linear Hall Effect Sensor AEC-Q100', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/drv5055-q1.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nDRV5055A3xLPGxQ1\n\nAutomotive Ratiometric Linear Hall Effect Sensor AEC-Q100', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='OUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DRV5055A4xDBZxQ1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV5055A4xDBZxQ1'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23'], 'footprint':'Package_TO_SOT_SMD:SOT-23', 'keywords':'Automotive Ratiometric Linear Hall Effect Sensor AEC-Q100', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/drv5055-q1.pdf', 'pins':[
+        Part(**{ 'name':'DRV5055A4xDBZxQ1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV5055A4xDBZxQ1'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23'], 'footprint':'Package_TO_SOT_SMD:SOT-23', 'keywords':'Automotive Ratiometric Linear Hall Effect Sensor AEC-Q100', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/drv5055-q1.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nDRV5055A4xDBZxQ1\n\nAutomotive Ratiometric Linear Hall Effect Sensor AEC-Q100', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DRV5055A4xLPGxQ1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV5055A4xLPGxQ1'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-92_Inline', 'Package_TO_SOT_THT:TO-92_Inline', 'Package_TO_SOT_THT:TO-92_Inline', 'Package_TO_SOT_THT:TO-92_Inline', 'Package_TO_SOT_THT:TO-92_Inline', 'Package_TO_SOT_THT:TO-92_Inline'], 'footprint':'Package_TO_SOT_THT:TO-92_Inline', 'keywords':'Automotive Ratiometric Linear Hall Effect Sensor AEC-Q100', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/drv5055-q1.pdf', 'pins':[
+        Part(**{ 'name':'DRV5055A4xLPGxQ1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV5055A4xLPGxQ1'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-92_Inline', 'Package_TO_SOT_THT:TO-92_Inline', 'Package_TO_SOT_THT:TO-92_Inline', 'Package_TO_SOT_THT:TO-92_Inline', 'Package_TO_SOT_THT:TO-92_Inline', 'Package_TO_SOT_THT:TO-92_Inline'], 'footprint':'Package_TO_SOT_THT:TO-92_Inline', 'keywords':'Automotive Ratiometric Linear Hall Effect Sensor AEC-Q100', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/drv5055-q1.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nDRV5055A4xLPGxQ1\n\nAutomotive Ratiometric Linear Hall Effect Sensor AEC-Q100', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='OUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IST8308', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IST8308'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-16_3x3mm_P0.5mm', 'Package_LGA:LGA-16_3x3mm_P0.5mm'], 'footprint':'Package_LGA:LGA-16_3x3mm_P0.5mm', 'keywords':'magnet field sensor compass', 'description':'', 'datasheet':'http://www.isentek.com/en/dlf.php?file=../ISENTEK/(201703-20)IST8308%20Datasheet%20v1.0_brief.pdf', 'pins':[
+        Part(**{ 'name':'IST8308', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IST8308'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-16_3x3mm_P0.5mm', 'Package_LGA:LGA-16_3x3mm_P0.5mm'], 'footprint':'Package_LGA:LGA-16_3x3mm_P0.5mm', 'keywords':'magnet field sensor compass', 'description':'', 'datasheet':'http://www.isentek.com/en/dlf.php?file=../ISENTEK/(201703-20)IST8308%20Datasheet%20v1.0_brief.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nIST8308\n\nmagnet field sensor compass', 'pins':[
             Pin(num='1',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='C1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='VSS',func=Pin.types.PASSIVE,unit=1),
@@ -440,71 +449,71 @@ Sensor_Magnetic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VPP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SM353LT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SM353LT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23'], 'footprint':'Package_TO_SOT_SMD:SOT-23', 'keywords':'Hall Effect Switch Sensor', 'description':'', 'datasheet':'https://sensing.honeywell.com/honeywell-sensing-nanopower-series-product-sheet-50095501-a-en.pdf', 'pins':[
+        Part(**{ 'name':'SM353LT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SM353LT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23', 'Package_TO_SOT_SMD:SOT-23'], 'footprint':'Package_TO_SOT_SMD:SOT-23', 'keywords':'Hall Effect Switch Sensor', 'description':'', 'datasheet':'https://sensing.honeywell.com/honeywell-sensing-nanopower-series-product-sheet-50095501-a-en.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nSM353LT\n\nHall Effect Switch Sensor', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='OUTPUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TMAG5110A4xxDBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMAG5110A4xxDBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tmag5110.pdf', 'pins':[
+        Part(**{ 'name':'TMAG5110A4xxDBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMAG5110A4xxDBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tmag5110.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nTMAG5110A4xxDBV\n\nhall switch', 'pins':[
             Pin(num='3',name='NC',func=Pin.types.PASSIVE),
             Pin(num='5',name='OUT2',func=Pin.types.OPENCOLL),
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='OUT1',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TMAG5110B2xxDBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMAG5110B2xxDBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tmag5110.pdf', 'pins':[
+        Part(**{ 'name':'TMAG5110B2xxDBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMAG5110B2xxDBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tmag5110.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nTMAG5110B2xxDBV\n\nhall switch', 'pins':[
             Pin(num='3',name='NC',func=Pin.types.PASSIVE),
             Pin(num='5',name='OUT2',func=Pin.types.OPENCOLL),
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='OUT1',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TMAG5110B4xxDBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMAG5110B4xxDBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tmag5110.pdf', 'pins':[
+        Part(**{ 'name':'TMAG5110B4xxDBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMAG5110B4xxDBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tmag5110.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nTMAG5110B4xxDBV\n\nhall switch', 'pins':[
             Pin(num='3',name='NC',func=Pin.types.PASSIVE),
             Pin(num='5',name='OUT2',func=Pin.types.OPENCOLL),
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='OUT1',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TMAG5110C2xxDBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMAG5110C2xxDBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tmag5110.pdf', 'pins':[
+        Part(**{ 'name':'TMAG5110C2xxDBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMAG5110C2xxDBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tmag5110.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nTMAG5110C2xxDBV\n\nhall switch', 'pins':[
             Pin(num='3',name='NC',func=Pin.types.PASSIVE),
             Pin(num='5',name='OUT2',func=Pin.types.OPENCOLL),
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='OUT1',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TMAG5110C4xxDBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMAG5110C4xxDBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tmag5110.pdf', 'pins':[
+        Part(**{ 'name':'TMAG5110C4xxDBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMAG5110C4xxDBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tmag5110.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nTMAG5110C4xxDBV\n\nhall switch', 'pins':[
             Pin(num='3',name='NC',func=Pin.types.PASSIVE),
             Pin(num='5',name='OUT2',func=Pin.types.OPENCOLL),
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='OUT1',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TMAG5111A2xxDBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMAG5111A2xxDBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tmag5111.pdf', 'pins':[
+        Part(**{ 'name':'TMAG5111A2xxDBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMAG5111A2xxDBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tmag5111.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nTMAG5111A2xxDBV\n\nhall switch', 'pins':[
             Pin(num='3',name='NC',func=Pin.types.PASSIVE),
             Pin(num='5',name='OUT2',func=Pin.types.OPENCOLL),
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='OUT1',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TMAG5111A4xxDBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMAG5111A4xxDBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tmag5111.pdf', 'pins':[
+        Part(**{ 'name':'TMAG5111A4xxDBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMAG5111A4xxDBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tmag5111.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nTMAG5111A4xxDBV\n\nhall switch', 'pins':[
             Pin(num='3',name='NC',func=Pin.types.PASSIVE),
             Pin(num='5',name='OUT2',func=Pin.types.OPENCOLL),
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='OUT1',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TMAG5111B2xxDBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMAG5111B2xxDBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tmag5111.pdf', 'pins':[
+        Part(**{ 'name':'TMAG5111B2xxDBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMAG5111B2xxDBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tmag5111.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nTMAG5111B2xxDBV\n\nhall switch', 'pins':[
             Pin(num='3',name='NC',func=Pin.types.PASSIVE),
             Pin(num='5',name='OUT2',func=Pin.types.OPENCOLL),
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='OUT1',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TMAG5111B4xxDBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMAG5111B4xxDBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tmag5111.pdf', 'pins':[
+        Part(**{ 'name':'TMAG5111B4xxDBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMAG5111B4xxDBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tmag5111.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nTMAG5111B4xxDBV\n\nhall switch', 'pins':[
             Pin(num='3',name='NC',func=Pin.types.PASSIVE),
             Pin(num='5',name='OUT2',func=Pin.types.OPENCOLL),
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='OUT1',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TMAG5111C2xxDBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMAG5111C2xxDBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tmag5111.pdf', 'pins':[
+        Part(**{ 'name':'TMAG5111C2xxDBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMAG5111C2xxDBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tmag5111.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nTMAG5111C2xxDBV\n\nhall switch', 'pins':[
             Pin(num='3',name='NC',func=Pin.types.PASSIVE),
             Pin(num='5',name='OUT2',func=Pin.types.OPENCOLL),
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='OUT1',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TMAG5111C4xxDBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMAG5111C4xxDBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tmag5111.pdf', 'pins':[
+        Part(**{ 'name':'TMAG5111C4xxDBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMAG5111C4xxDBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'hall switch', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tmag5111.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Magnetic.kicad_sym\nTMAG5111C4xxDBV\n\nhall switch', 'pins':[
             Pin(num='3',name='NC',func=Pin.types.PASSIVE),
             Pin(num='5',name='OUT2',func=Pin.types.OPENCOLL),
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),

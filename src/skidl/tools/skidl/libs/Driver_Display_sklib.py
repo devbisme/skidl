@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Driver_Display = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'82720', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'82720'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Graphics Controller', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'82720', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'82720'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Graphics Controller', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/Driver_Display.kicad_sym\n82720\n\nGraphics Controller', 'pins':[
             Pin(num='1',name='2xWCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{WR}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='A0',func=Pin.types.INPUT,unit=1),
@@ -45,7 +45,7 @@ Driver_Display = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DREQ',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='~{DACK}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{RD}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS7843E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS7843E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'Single-supply, 12bit, 4 ch, touch screen driver, 2.2 - 5.25 VDD, -40 to +85 C, QSPI, SPI, 3-wire serial interface, SSOP-16', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads7843.pdf', 'pins':[
+        Part(**{ 'name':'ADS7843E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS7843E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'Single-supply, 12bit, 4 ch, touch screen driver, 2.2 - 5.25 VDD, -40 to +85 C, QSPI, SPI, 3-wire serial interface, SSOP-16', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads7843.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Display.kicad_sym\nADS7843E\n\nSingle-supply, 12bit, 4 ch, touch screen driver, 2.2 - 5.25 VDD, -40 to +85 C, QSPI, SPI, 3-wire serial interface, SSOP-16', 'pins':[
             Pin(num='1',name='+VCC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='+VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='~{PENIRQ}',func=Pin.types.OPENCOLL,unit=1),
@@ -62,7 +62,7 @@ Driver_Display = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IN3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='IN4',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VREF',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AY0438X-L', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AY0438X-L'}), 'ref_prefix':'U', 'fplist':['Package_LCC:PLCC-44'], 'footprint':'Package_LCC:PLCC-44', 'keywords':'driver display', 'description':'', 'datasheet':'http://www.farnell.com/datasheets/43336.pdf', 'pins':[
+        Part(**{ 'name':'AY0438X-L', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AY0438X-L'}), 'ref_prefix':'U', 'fplist':['Package_LCC:PLCC-44'], 'footprint':'Package_LCC:PLCC-44', 'keywords':'driver display', 'description':'', 'datasheet':'http://www.farnell.com/datasheets/43336.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Display.kicad_sym\nAY0438X-L\n\ndriver display', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='SEG_26',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='SEG_25',func=Pin.types.OUTPUT,unit=1),
@@ -107,7 +107,7 @@ Driver_Display = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SEG_29',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='SEG_28',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='SEG_27',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AY0438X-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AY0438X-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'driver display', 'description':'', 'datasheet':'http://www.farnell.com/datasheets/43336.pdf', 'pins':[
+        Part(**{ 'name':'AY0438X-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AY0438X-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'driver display', 'description':'', 'datasheet':'http://www.farnell.com/datasheets/43336.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Display.kicad_sym\nAY0438X-P\n\ndriver display', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='SEG_25',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='SEG_24',func=Pin.types.OUTPUT,unit=1),
@@ -148,7 +148,7 @@ Driver_Display = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SEG_28',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='SEG_27',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='SEG_26',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CR2013-MI2120', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CR2013-MI2120'}), 'ref_prefix':'U', 'fplist':['Display:CR2013-MI2120'], 'footprint':'Display:CR2013-MI2120', 'keywords':'driver display', 'description':'', 'datasheet':'http://pan.baidu.com/s/11Y990', 'pins':[
+        Part(**{ 'name':'CR2013-MI2120', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CR2013-MI2120'}), 'ref_prefix':'U', 'fplist':['Display:CR2013-MI2120'], 'footprint':'Display:CR2013-MI2120', 'keywords':'driver display', 'description':'', 'datasheet':'http://pan.baidu.com/s/11Y990', 'search_text':'/usr/share/kicad/symbols/Driver_Display.kicad_sym\nCR2013-MI2120\n\ndriver display', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='SD_CS',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SD_MOSI',func=Pin.types.INPUT,unit=1),
@@ -163,7 +163,7 @@ Driver_Display = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='LED',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='MISO',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XPT2046QF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XPT2046QF'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm', 'keywords':'', 'description':'', 'datasheet':'http://www.xptek.cn/uploadfile/download/201707171401161883.pdf', 'pins':[
+        Part(**{ 'name':'XPT2046QF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XPT2046QF'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm', 'keywords':'', 'description':'', 'datasheet':'http://www.xptek.cn/uploadfile/download/201707171401161883.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Display.kicad_sym\nXPT2046QF\n\n', 'pins':[
             Pin(num='1',name='BUSY',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='VBAT',func=Pin.types.PWRIN,unit=1),
@@ -181,7 +181,7 @@ Driver_Display = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='YP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='XN',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='YN',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XPT2046TS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XPT2046TS'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'Single-supply, 12bit, 4 ch, touch screen driver, 2.2 - 5.25 VDD, -40 to +85 C, QSPI, SPI, 3-wire serial interface, TSSOP-16', 'description':'', 'datasheet':'http://www.xptek.cn/uploadfile/download/201707171401161883.pdf', 'pins':[
+        Part(**{ 'name':'XPT2046TS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XPT2046TS'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'Single-supply, 12bit, 4 ch, touch screen driver, 2.2 - 5.25 VDD, -40 to +85 C, QSPI, SPI, 3-wire serial interface, TSSOP-16', 'description':'', 'datasheet':'http://www.xptek.cn/uploadfile/download/201707171401161883.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Display.kicad_sym\nXPT2046TS\n\nSingle-supply, 12bit, 4 ch, touch screen driver, 2.2 - 5.25 VDD, -40 to +85 C, QSPI, SPI, 3-wire serial interface, TSSOP-16', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='IOVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='~{PENIRQ}',func=Pin.types.OPENCOLL,unit=1),
@@ -198,7 +198,7 @@ Driver_Display = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VREF',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS7843E-2K5', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS7843E-2K5'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'Single-supply, 12bit, 4 ch, touch screen driver, 2.2 - 5.25 VDD, -40 to +85 C, QSPI, SPI, 3-wire serial interface, SSOP-16', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads7843.pdf', 'pins':[
+        Part(**{ 'name':'ADS7843E-2K5', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS7843E-2K5'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'Single-supply, 12bit, 4 ch, touch screen driver, 2.2 - 5.25 VDD, -40 to +85 C, QSPI, SPI, 3-wire serial interface, SSOP-16', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads7843.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Display.kicad_sym\nADS7843E-2K5\n\nSingle-supply, 12bit, 4 ch, touch screen driver, 2.2 - 5.25 VDD, -40 to +85 C, QSPI, SPI, 3-wire serial interface, SSOP-16', 'pins':[
             Pin(num='1',name='+VCC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='+VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='~{PENIRQ}',func=Pin.types.OPENCOLL,unit=1),
@@ -215,7 +215,7 @@ Driver_Display = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IN3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='IN4',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VREF',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS7843EG4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS7843EG4'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'Single-supply, 12bit, 4 ch, touch screen driver, 2.2 - 5.25 VDD, -40 to +85 C, QSPI, SPI, 3-wire serial interface, SSOP-16', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads7843.pdf', 'pins':[
+        Part(**{ 'name':'ADS7843EG4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS7843EG4'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'Single-supply, 12bit, 4 ch, touch screen driver, 2.2 - 5.25 VDD, -40 to +85 C, QSPI, SPI, 3-wire serial interface, SSOP-16', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads7843.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Display.kicad_sym\nADS7843EG4\n\nSingle-supply, 12bit, 4 ch, touch screen driver, 2.2 - 5.25 VDD, -40 to +85 C, QSPI, SPI, 3-wire serial interface, SSOP-16', 'pins':[
             Pin(num='1',name='+VCC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='+VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='~{PENIRQ}',func=Pin.types.OPENCOLL,unit=1),
@@ -232,7 +232,7 @@ Driver_Display = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IN3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='IN4',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VREF',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS7843IDBQRQ1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS7843IDBQRQ1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'Single-supply, 12bit, 4 ch, touch screen driver, 2.2 - 5.25 VDD, -40 to +125 C, QSPI, SPI, 3-wire serial interface, SSOP-16', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads7843-q1.pdf', 'pins':[
+        Part(**{ 'name':'ADS7843IDBQRQ1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS7843IDBQRQ1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'Single-supply, 12bit, 4 ch, touch screen driver, 2.2 - 5.25 VDD, -40 to +125 C, QSPI, SPI, 3-wire serial interface, SSOP-16', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads7843-q1.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Display.kicad_sym\nADS7843IDBQRQ1\n\nSingle-supply, 12bit, 4 ch, touch screen driver, 2.2 - 5.25 VDD, -40 to +125 C, QSPI, SPI, 3-wire serial interface, SSOP-16', 'pins':[
             Pin(num='1',name='+VCC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='+VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='~{PENIRQ}',func=Pin.types.OPENCOLL,unit=1),

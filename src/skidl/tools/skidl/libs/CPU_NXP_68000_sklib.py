@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 CPU_NXP_68000 = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'68000D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'68000D'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'68000 Microprocessor CPU', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC68000UM.pdf', 'pins':[
+        Part(**{ 'name':'68000D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'68000D'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'68000 Microprocessor CPU', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC68000UM.pdf', 'search_text':'/usr/share/kicad/symbols/CPU_NXP_68000.kicad_sym\n68000D\n\n68000 Microprocessor CPU', 'pins':[
             Pin(num='1',name='D4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='DTACK',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='BG',func=Pin.types.OUTPUT,unit=1),
@@ -69,7 +69,7 @@ CPU_NXP_68000 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='UDS',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='LDS',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='R/W',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'68008D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'68008D'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'68000 Microprocessor CPU', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC68000UM.pdf', 'pins':[
+        Part(**{ 'name':'68008D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'68008D'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'68000 Microprocessor CPU', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC68000UM.pdf', 'search_text':'/usr/share/kicad/symbols/CPU_NXP_68000.kicad_sym\n68008D\n\n68000 Microprocessor CPU', 'pins':[
             Pin(num='1',name='A3',func=Pin.types.TRISTATE,unit=1),
             Pin(num='10',name='A12',func=Pin.types.TRISTATE,unit=1),
             Pin(num='11',name='A13',func=Pin.types.TRISTATE,unit=1),
@@ -118,7 +118,7 @@ CPU_NXP_68000 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A9',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='A10',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='A11',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC68000FN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68000FN'}), 'ref_prefix':'U', 'fplist':['Package_LCC:PLCC-68'], 'footprint':'Package_LCC:PLCC-68', 'keywords':'MPRO', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC68000UM.pdf', 'pins':[
+        Part(**{ 'name':'MC68000FN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68000FN'}), 'ref_prefix':'U', 'fplist':['Package_LCC:PLCC-68'], 'footprint':'Package_LCC:PLCC-68', 'keywords':'MPRO', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC68000UM.pdf', 'search_text':'/usr/share/kicad/symbols/CPU_NXP_68000.kicad_sym\nMC68000FN\n\nMPRO', 'pins':[
             Pin(num='1',name='D4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='DTACK',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='BG',func=Pin.types.OUTPUT,unit=1),
@@ -187,7 +187,7 @@ CPU_NXP_68000 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='UDS',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='LDS',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='R/W',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC68332', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68332'}), 'ref_prefix':'U', 'fplist':['Package_QFP:PQFP-132_24x24mm_P0.635mm'], 'footprint':'Package_QFP:PQFP-132_24x24mm_P0.635mm', 'keywords':'MCU 32 bit', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheet/motorola/SPAKMC332AVFC20.pdf', 'pins':[
+        Part(**{ 'name':'MC68332', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68332'}), 'ref_prefix':'U', 'fplist':['Package_QFP:PQFP-132_24x24mm_P0.635mm'], 'footprint':'Package_QFP:PQFP-132_24x24mm_P0.635mm', 'keywords':'MCU 32 bit', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheet/motorola/SPAKMC332AVFC20.pdf', 'search_text':'/usr/share/kicad/symbols/CPU_NXP_68000.kicad_sym\nMC68332\n\nMCU 32 bit', 'pins':[
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='TP6',func=Pin.types.INPUT,unit=1),
@@ -320,7 +320,7 @@ CPU_NXP_68000 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='D11',func=Pin.types.INPUT,unit=1),
             Pin(num='98',name='D10',func=Pin.types.INPUT,unit=1),
             Pin(num='99',name='D9',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'68010D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'68010D'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'68000 Microprocessor CPU', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC68000UM.pdf', 'pins':[
+        Part(**{ 'name':'68010D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'68010D'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'68000 Microprocessor CPU', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC68000UM.pdf', 'search_text':'/usr/share/kicad/symbols/CPU_NXP_68000.kicad_sym\n68010D\n\n68000 Microprocessor CPU', 'pins':[
             Pin(num='1',name='D4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='DTACK',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='BG',func=Pin.types.OUTPUT,unit=1),

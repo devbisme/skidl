@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'IR4301', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR4301'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Infineon_PQFN-22-15-4EP_6x5mm_P0.65mm'], 'footprint':'Package_DFN_QFN:Infineon_PQFN-22-15-4EP_6x5mm_P0.65mm', 'keywords':'integrated class d amplifier', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir4301.pdf?fileId=5546d462533600a4015355d5fc691819', 'pins':[
+        Part(**{ 'name':'IR4301', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR4301'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Infineon_PQFN-22-15-4EP_6x5mm_P0.65mm'], 'footprint':'Package_DFN_QFN:Infineon_PQFN-22-15-4EP_6x5mm_P0.65mm', 'keywords':'integrated class d amplifier', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir4301.pdf?fileId=5546d462533600a4015355d5fc691819', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nIR4301\n\nintegrated class d amplifier', 'pins':[
             Pin(num='1',name='VAA',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VN',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='VS',func=Pin.types.OUTPUT,unit=1),
@@ -20,7 +20,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='COM',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR4302', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR4302'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Infineon_PQFN-44-31-5EP_7x7mm_P0.5mm'], 'footprint':'Package_DFN_QFN:Infineon_PQFN-44-31-5EP_7x7mm_P0.5mm', 'keywords':'integrated class d amplifier 2ch', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir4302.pdf?fileId=5546d462533600a4015355d602a9181d', 'pins':[
+        Part(**{ 'name':'IR4302', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR4302'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Infineon_PQFN-44-31-5EP_7x7mm_P0.5mm'], 'footprint':'Package_DFN_QFN:Infineon_PQFN-44-31-5EP_7x7mm_P0.5mm', 'keywords':'integrated class d amplifier 2ch', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir4302.pdf?fileId=5546d462533600a4015355d602a9181d', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nIR4302\n\nintegrated class d amplifier 2ch', 'pins':[
             Pin(num='1',name='CLIP',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='10',name='COMP1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='CSD',func=Pin.types.PASSIVE,unit=1),
@@ -51,8 +51,8 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='26',name='VB2',func=Pin.types.PWRIN,unit=2),
             Pin(num='27',name='CSH2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='3',name='IN-2',func=Pin.types.INPUT,unit=2),
-            Pin(num='4',name='IN+2',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['17', '18', '5', '10', '20', '1', '11', '19', '6', '13', '12', '7', '28', '21', '8', '29', '9', '14', '30', '15', '31', '16']},{'label': 'uB', 'num': 2, 'pin_nums': ['27', '4', '23', '2', '25', '22', '24', '26', '3']}] }),
-        Part(**{ 'name':'IRS2052M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2052M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Infineon_MLPQ-48-1EP_7x7mm_P0.5mm_EP5.55x5.55mm'], 'footprint':'Package_DFN_QFN:Infineon_MLPQ-48-1EP_7x7mm_P0.5mm_EP5.55x5.55mm', 'keywords':'Gate Driver Class D 2ch', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2052mpbf.pdf?fileId=5546d462533600a401535675d3b32788', 'pins':[
+            Pin(num='4',name='IN+2',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['14', '28', '21', '13', '1', '31', '18', '5', '12', '8', '20', '17', '30', '16', '29', '19', '7', '6', '11', '15', '9', '10']},{'label': 'uB', 'num': 2, 'pin_nums': ['26', '25', '23', '27', '22', '24', '2', '3', '4']}] }),
+        Part(**{ 'name':'IRS2052M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2052M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Infineon_MLPQ-48-1EP_7x7mm_P0.5mm_EP5.55x5.55mm'], 'footprint':'Package_DFN_QFN:Infineon_MLPQ-48-1EP_7x7mm_P0.5mm_EP5.55x5.55mm', 'keywords':'Gate Driver Class D 2ch', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2052mpbf.pdf?fileId=5546d462533600a401535675d3b32788', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nIRS2052M\n\nGate Driver Class D 2ch', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='VS1',func=Pin.types.PASSIVE,unit=1),
@@ -101,8 +101,8 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='X1A',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='X2B',func=Pin.types.OUTPUT,unit=2),
             Pin(num='8',name='X2A',func=Pin.types.INPUT,unit=2),
-            Pin(num='9',name='XSL',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['14', '15', '46', '48', '19', '16', '37', '47', '32', '17', '24', '29', '49', '31', '1', '35', '28', '10', '41', '25', '36', '30', '42', '12', '27', '43', '13', '34', '44', '11', '33', '45']},{'label': 'uB', 'num': 2, 'pin_nums': ['22', '20', '26', '9', '2', '39', '40', '6', '23', '3', '18', '21', '8', '4', '5', '7', '38']}] }),
-        Part(**{ 'name':'IRS2092', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2092'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'Gate Driver Class D', 'description':'', 'datasheet':'http://www.infineon.com/dgdl/irs2092.pdf?fileId=5546d462533600a401535675f1be2790', 'pins':[
+            Pin(num='9',name='XSL',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['11', '12', '15', '32', '46', '48', '33', '47', '35', '27', '34', '49', '14', '1', '36', '10', '28', '17', '24', '42', '19', '25', '29', '43', '16', '41', '37', '30', '44', '13', '31', '45']},{'label': 'uB', 'num': 2, 'pin_nums': ['39', '40', '6', '2', '23', '3', '18', '8', '21', '38', '4', '5', '7', '9', '26', '22', '20']}] }),
+        Part(**{ 'name':'IRS2092', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2092'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'Gate Driver Class D', 'description':'', 'datasheet':'http://www.infineon.com/dgdl/irs2092.pdf?fileId=5546d462533600a401535675f1be2790', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nIRS2092\n\nGate Driver Class D', 'pins':[
             Pin(num='1',name='VAA',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='COM',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='LO',func=Pin.types.OUTPUT,unit=1),
@@ -119,7 +119,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VREF',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='OCSET',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='DT',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS2092S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2092S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'Gate Driver Class D', 'description':'', 'datasheet':'http://www.infineon.com/dgdl/irs2092.pdf?fileId=5546d462533600a401535675f1be2790', 'pins':[
+        Part(**{ 'name':'IRS2092S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2092S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'Gate Driver Class D', 'description':'', 'datasheet':'http://www.infineon.com/dgdl/irs2092.pdf?fileId=5546d462533600a401535675f1be2790', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nIRS2092S\n\nGate Driver Class D', 'pins':[
             Pin(num='1',name='VAA',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='COM',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='LO',func=Pin.types.OUTPUT,unit=1),
@@ -136,7 +136,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VREF',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='OCSET',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='DT',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS2093M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2093M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Infineon_MLPQ-48-1EP_7x7mm_P0.5mm_EP5.55x5.55mm'], 'footprint':'Package_DFN_QFN:Infineon_MLPQ-48-1EP_7x7mm_P0.5mm_EP5.55x5.55mm', 'keywords':'Gate Driver Class D 4ch', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2093mpbf.pdf?fileId=5546d462533600a401535675fb892793', 'pins':[
+        Part(**{ 'name':'IRS2093M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2093M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Infineon_MLPQ-48-1EP_7x7mm_P0.5mm_EP5.55x5.55mm'], 'footprint':'Package_DFN_QFN:Infineon_MLPQ-48-1EP_7x7mm_P0.5mm_EP5.55x5.55mm', 'keywords':'Gate Driver Class D 4ch', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2093mpbf.pdf?fileId=5546d462533600a401535675fb892793', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nIRS2093M\n\nGate Driver Class D 4ch', 'pins':[
             Pin(num='1',name='DS',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VS1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='12',name='HO1',func=Pin.types.OUTPUT,unit=1),
@@ -185,8 +185,8 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='29',name='VB4',func=Pin.types.PWRIN,unit=4),
             Pin(num='30',name='CSH4',func=Pin.types.PASSIVE,unit=4),
             Pin(num='39',name='COMP4',func=Pin.types.OUTPUT,unit=4),
-            Pin(num='40',name='IN4',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['49', '35', '2', '48', '4', '36', '20', '5', '3', '6', '31', '41', '1', '11', '42', '13', '32', '43', '14', '33', '46', '18', '15', '34', '47', '19', '12']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '44', '16', '7', '17', '10', '45', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['25', '37', '23', '24', '26', '38', '22']},{'label': 'uD', 'num': 4, 'pin_nums': ['29', '27', '39', '21', '28', '30', '40']}] }),
-        Part(**{ 'name':'IRS20957S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS20957S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'Gate Driver Class D', 'description':'', 'datasheet':'http://www.infineon.com/dgdl/irs20957spbf.pdf?fileId=5546d462533600a401535676143e2799', 'pins':[
+            Pin(num='40',name='IN4',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['14', '34', '47', '49', '13', '35', '48', '4', '11', '1', '36', '5', '12', '6', '41', '20', '3', '31', '42', '2', '43', '19', '15', '32', '33', '46', '18']},{'label': 'uB', 'num': 2, 'pin_nums': ['16', '7', '44', '45', '8', '9', '17', '10']},{'label': 'uC', 'num': 3, 'pin_nums': ['22', '38', '24', '26', '23', '25', '37']},{'label': 'uD', 'num': 4, 'pin_nums': ['21', '28', '30', '40', '29', '27', '39']}] }),
+        Part(**{ 'name':'IRS20957S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS20957S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'Gate Driver Class D', 'description':'', 'datasheet':'http://www.infineon.com/dgdl/irs20957spbf.pdf?fileId=5546d462533600a401535676143e2799', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nIRS20957S\n\nGate Driver Class D', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='LO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -203,7 +203,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OCSET',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='DT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='COM',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS20965S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS20965S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'Gate Driver Class D', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs20965spbf.pdf?fileId=5546d462533600a4015356761d8b279b', 'pins':[
+        Part(**{ 'name':'IRS20965S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS20965S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'Gate Driver Class D', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs20965spbf.pdf?fileId=5546d462533600a4015356761d8b279b', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nIRS20965S\n\nGate Driver Class D', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='LO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -220,7 +220,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VREF',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='OCSET',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='COM',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS2452AM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2452AM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Infineon_MLPQ-40-32-1EP_7x7mm_P0.5mm'], 'footprint':'Package_DFN_QFN:Infineon_MLPQ-40-32-1EP_7x7mm_P0.5mm', 'keywords':'Gate Driver Class D 2ch', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-IRS2452AM-DS-v01_00-EN.pdf?fileId=5546d462584d1d4a01584ee4f1f00713', 'pins':[
+        Part(**{ 'name':'IRS2452AM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2452AM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Infineon_MLPQ-40-32-1EP_7x7mm_P0.5mm'], 'footprint':'Package_DFN_QFN:Infineon_MLPQ-40-32-1EP_7x7mm_P0.5mm', 'keywords':'Gate Driver Class D 2ch', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-IRS2452AM-DS-v01_00-EN.pdf?fileId=5546d462584d1d4a01584ee4f1f00713', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nIRS2452AM\n\nGate Driver Class D 2ch', 'pins':[
             Pin(num='10',name='COMP1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='CSD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='12',name='BTL',func=Pin.types.INPUT,unit=1),
@@ -253,8 +253,8 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='29',name='VB2',func=Pin.types.PWRIN,unit=2),
             Pin(num='3',name='IN+2',func=Pin.types.INPUT,unit=2),
             Pin(num='30',name='CSH2',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='32',name='CLK',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '21', '9', '7', '12', '19', '17', '11', '24', '13', '22', '31', '16', '33', '20', '4', '14', '10', '6', '18', '15', '23', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['29', '3', '26', '30', '2', '27', '28', '32', '25', '1']}] }),
-        Part(**{ 'name':'IS31AP4991-GRLS2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS31AP4991-GRLS2'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOP-8_3.9x4.9mm_P1.27mm', 'keywords':'ultra low consumption distortion', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/31AP4991.pdf', 'pins':[
+            Pin(num='32',name='CLK',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '15', '10', '17', '19', '9', '18', '16', '31', '21', '4', '20', '11', '5', '22', '12', '23', '6', '13', '7', '33', '24', '14']},{'label': 'uB', 'num': 2, 'pin_nums': ['27', '26', '29', '2', '32', '1', '25', '3', '28', '30']}] }),
+        Part(**{ 'name':'IS31AP4991-GRLS2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS31AP4991-GRLS2'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOP-8_3.9x4.9mm_P1.27mm', 'keywords':'ultra low consumption distortion', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/31AP4991.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nIS31AP4991-GRLS2\n\nultra low consumption distortion', 'pins':[
             Pin(num='1',name='+',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='-',func=Pin.types.INPUT,unit=1),
@@ -263,7 +263,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='~{SDB}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IS31AP4991-SLS2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS31AP4991-SLS2'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'ultra low consumption distortion', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/31AP4991.pdf', 'pins':[
+        Part(**{ 'name':'IS31AP4991-SLS2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS31AP4991-SLS2'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'ultra low consumption distortion', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/31AP4991.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nIS31AP4991-SLS2\n\nultra low consumption distortion', 'pins':[
             Pin(num='1',name='~{SDB}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='BYP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='+',func=Pin.types.INPUT,unit=1),
@@ -272,13 +272,13 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LM1875', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM1875'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-5_P3.4x3.7mm_StaggerOdd_Lead3.8mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-5_P3.4x3.7mm_StaggerOdd_Lead3.8mm_Vertical', 'keywords':'audio amplifier', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm1875.pdf', 'pins':[
+        Part(**{ 'name':'LM1875', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM1875'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-5_P3.4x3.7mm_StaggerOdd_Lead3.8mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-5_P3.4x3.7mm_StaggerOdd_Lead3.8mm_Vertical', 'keywords':'audio amplifier', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm1875.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nLM1875\n\naudio amplifier', 'pins':[
             Pin(num='1',name='+',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='V-',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='5',name='V+',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LM1876', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM1876'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm1876.pdf', 'pins':[
+        Part(**{ 'name':'LM1876', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM1876'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm1876.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nLM1876\n\naudio amplifier 2ch', 'pins':[
             Pin(num='2',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=1),
@@ -293,8 +293,8 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='13',name='+',func=Pin.types.INPUT,unit=2),
             Pin(num='14',name='STBY',func=Pin.types.INPUT,unit=2),
-            Pin(num='15',name='V+',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '8', '7', '2', '3', '9', '4', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '11', '15', '1', '10', '12', '14']}] }),
-        Part(**{ 'name':'LM1877', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM1877'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm1877.pdf', 'pins':[
+            Pin(num='15',name='V+',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '8', '4', '6', '3', '9', '7', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '11', '15', '1', '10', '12', '14']}] }),
+        Part(**{ 'name':'LM1877', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM1877'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm1877.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nLM1877\n\naudio amplifier 2ch', 'pins':[
             Pin(num='1',name='BIAS',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='6',name='+',func=Pin.types.INPUT,unit=1),
@@ -308,8 +308,8 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='14',name='V+',func=Pin.types.PWRIN,unit=3),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=3),
             Pin(num='4',name='GND',func=Pin.types.PASSIVE,unit=3),
-            Pin(num='5',name='GND',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '6', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '8', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '14', '12', '4', '3', '10', '11']}] }),
-        Part(**{ 'name':'LM2876', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM2876'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm2876.pdf', 'pins':[
+            Pin(num='5',name='GND',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '6', '1', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '13', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '14', '5', '12', '4', '3', '10']}] }),
+        Part(**{ 'name':'LM2876', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM2876'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm2876.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nLM2876\n\naudio amplifier 2ch', 'pins':[
             Pin(num='1',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='+',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -321,7 +321,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='MUTE',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='-',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LM380N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM380N'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'audio amplifier', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm380.pdf', 'pins':[
+        Part(**{ 'name':'LM380N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM380N'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'audio amplifier', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm380.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nLM380N\n\naudio amplifier', 'pins':[
             Pin(num='1',name='BYPASS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -336,7 +336,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LM380N-8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM380N-8'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'audio amplifier', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm380.pdf', 'pins':[
+        Part(**{ 'name':'LM380N-8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM380N-8'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'audio amplifier', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm380.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nLM380N-8\n\naudio amplifier', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='+',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='-',func=Pin.types.INPUT,unit=1),
@@ -345,7 +345,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='BYPASS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LM384', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM384'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'audio amplifier', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm384.pdf', 'pins':[
+        Part(**{ 'name':'LM384', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM384'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'audio amplifier', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm384.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nLM384\n\naudio amplifier', 'pins':[
             Pin(num='1',name='BYPASS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -360,7 +360,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LM386', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM386'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'single Power opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm386.pdf', 'pins':[
+        Part(**{ 'name':'LM386', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM386'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'single Power opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm386.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nLM386\n\nsingle Power opamp', 'pins':[
             Pin(num='1',name='GAIN',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='+',func=Pin.types.INPUT,unit=1),
@@ -369,7 +369,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='BYPASS',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GAIN',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LM3886', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM3886'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical', 'keywords':'audio amplifier', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm3886.pdf', 'pins':[
+        Part(**{ 'name':'LM3886', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM3886'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical', 'keywords':'audio amplifier', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm3886.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nLM3886\n\naudio amplifier', 'pins':[
             Pin(num='1',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='+',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -381,15 +381,15 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='MUTE',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='-',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LM4752TS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM4752TS'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TO-263-7_TabPin4'], 'footprint':'Package_TO_SOT_SMD:TO-263-7_TabPin4', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm4752.pdf', 'pins':[
+        Part(**{ 'name':'LM4752TS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM4752TS'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TO-263-7_TabPin4'], 'footprint':'Package_TO_SOT_SMD:TO-263-7_TabPin4', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm4752.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nLM4752TS\n\naudio amplifier 2ch', 'pins':[
             Pin(num='5',name='BIAS',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='+',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='2',name='+',func=Pin.types.INPUT,unit=2),
             Pin(num='3',name='V+',func=Pin.types.PWRIN,unit=3),
-            Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '6', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '2']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '4']}] }),
-        Part(**{ 'name':'LM4755TS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM4755TS'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TO-263-9_TabPin5'], 'footprint':'Package_TO_SOT_SMD:TO-263-9_TabPin5', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm4755.pdf', 'pins':[
+            Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '5', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '1']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '3']}] }),
+        Part(**{ 'name':'LM4755TS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM4755TS'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TO-263-9_TabPin5'], 'footprint':'Package_TO_SOT_SMD:TO-263-9_TabPin5', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm4755.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nLM4755TS\n\naudio amplifier 2ch', 'pins':[
             Pin(num='2',name='MUTE',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='BIAS',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='+',func=Pin.types.INPUT,unit=1),
@@ -398,8 +398,8 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='3',name='+',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=3),
-            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '6', '7', '2', '9']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '4']}] }),
-        Part(**{ 'name':'LM4766', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM4766'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm4766.pdf', 'pins':[
+            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '8', '9', '7', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '5']}] }),
+        Part(**{ 'name':'LM4766', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM4766'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm4766.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nLM4766\n\naudio amplifier 2ch', 'pins':[
             Pin(num='2',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=1),
@@ -414,8 +414,8 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='13',name='+',func=Pin.types.INPUT,unit=2),
             Pin(num='14',name='NC',func=Pin.types.NOCONNECT,unit=2),
-            Pin(num='15',name='V+',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '6', '3', '4', '7', '2', '9', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '15', '11', '13', '1', '12', '14']}] }),
-        Part(**{ 'name':'LM4810', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM4810'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_3x3mm_P0.65mm', 'keywords':'audio amplifier headphone', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm4810.pdf', 'pins':[
+            Pin(num='15',name='V+',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '5', '9', '8', '6', '4', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '13', '15', '1', '14', '10', '12']}] }),
+        Part(**{ 'name':'LM4810', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM4810'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_3x3mm_P0.65mm', 'keywords':'audio amplifier headphone', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm4810.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nLM4810\n\naudio amplifier headphone', 'pins':[
             Pin(num='1',name='VOUT1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='VIN1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='BYPASS',func=Pin.types.PASSIVE,unit=1),
@@ -424,7 +424,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VIN2',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='VOUT2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LM4811', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM4811'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-10_3x3mm_P0.5mm', 'keywords':'audio amplifier headphone 2ch', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm4811.pdf', 'pins':[
+        Part(**{ 'name':'LM4811', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM4811'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-10_3x3mm_P0.5mm', 'keywords':'audio amplifier headphone 2ch', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm4811.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nLM4811\n\naudio amplifier headphone 2ch', 'pins':[
             Pin(num='1',name='VOUT1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VIN1',func=Pin.types.INPUT,unit=1),
@@ -435,7 +435,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SHDN',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VIN2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VOUT2',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LM4950TA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM4950TA'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-5_P3.4x3.7mm_StaggerOdd_Lead3.8mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-5_P3.4x3.7mm_StaggerOdd_Lead3.8mm_Vertical', 'keywords':'audio amplifier', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm4950.pdf', 'pins':[
+        Part(**{ 'name':'LM4950TA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM4950TA'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-5_P3.4x3.7mm_StaggerOdd_Lead3.8mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-5_P3.4x3.7mm_StaggerOdd_Lead3.8mm_Vertical', 'keywords':'audio amplifier', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm4950.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nLM4950TA\n\naudio amplifier', 'pins':[
             Pin(num='1',name='VINA',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~{SHDN}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -444,8 +444,8 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='VINB',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=3),
             Pin(num='5',name='GND',func=Pin.types.PASSIVE,unit=3),
-            Pin(num='6',name='VDD',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '5', '6']}] }),
-        Part(**{ 'name':'LM4950TS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM4950TS'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TO-263-9_TabPin5'], 'footprint':'Package_TO_SOT_SMD:TO-263-9_TabPin5', 'keywords':'audio amplifier', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm4950.pdf', 'pins':[
+            Pin(num='6',name='VDD',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '8', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '5', '6']}] }),
+        Part(**{ 'name':'LM4950TS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM4950TS'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TO-263-9_TabPin5'], 'footprint':'Package_TO_SOT_SMD:TO-263-9_TabPin5', 'keywords':'audio amplifier', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm4950.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nLM4950TS\n\naudio amplifier', 'pins':[
             Pin(num='1',name='VINA',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~{SHDN}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -454,8 +454,8 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='VINB',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=3),
             Pin(num='5',name='GND',func=Pin.types.PASSIVE,unit=3),
-            Pin(num='6',name='VDD',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '5', '6']}] }),
-        Part(**{ 'name':'LM4990ITL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM4990ITL'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-9_1.4715x1.4715mm_Layout3x3_P0.5mm'], 'footprint':'Package_BGA:Texas_DSBGA-9_1.4715x1.4715mm_Layout3x3_P0.5mm', 'keywords':'audio amplifier class d', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm4990.pdf', 'pins':[
+            Pin(num='6',name='VDD',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '8', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '5', '6']}] }),
+        Part(**{ 'name':'LM4990ITL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM4990ITL'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-9_1.4715x1.4715mm_Layout3x3_P0.5mm'], 'footprint':'Package_BGA:Texas_DSBGA-9_1.4715x1.4715mm_Layout3x3_P0.5mm', 'keywords':'audio amplifier class d', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm4990.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nLM4990ITL\n\naudio amplifier class d', 'pins':[
             Pin(num='A1',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='A2',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='A3',name='+',func=Pin.types.INPUT,unit=1),
@@ -464,10 +464,9 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='B3',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='C1',name='BYP',func=Pin.types.INPUT,unit=1),
             Pin(num='C2',name='~',func=Pin.types.OUTPUT,unit=1),
-            Pin(num='C3',name='~{SHDN}',func=Pin.types.OUTPUT,unit=1),
-            Pin(num='5',name='~',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['B3', 'A3', 'C3', 'B1', 'A1', 'C1', 'B2', 'A2', 'C2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5']}] }),
-        Part(**{ 'name':'LM4990LD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM4990LD'}), 'ref_prefix':'U', 'fplist':['Package_SON:WSON-10-1EP_4x3mm_P0.5mm_EP2.2x2mm'], 'footprint':'Package_SON:WSON-10-1EP_4x3mm_P0.5mm_EP2.2x2mm', 'keywords':'audio amplifier class d', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm4990.pdf', 'pins':[
-            Pin(num='1',name='SHDN',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='C3',name='~{SHDN}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'LM4990LD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM4990LD'}), 'ref_prefix':'U', 'fplist':['Package_SON:WSON-10-1EP_4x3mm_P0.5mm_EP2.2x2mm'], 'footprint':'Package_SON:WSON-10-1EP_4x3mm_P0.5mm_EP2.2x2mm', 'keywords':'audio amplifier class d', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm4990.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nLM4990LD\n\naudio amplifier class d', 'pins':[
+            Pin(num='1',name='SHDN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='~',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='BYP',func=Pin.types.INPUT,unit=1),
@@ -478,8 +477,8 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LM4990MH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM4990MH'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10-1EP_3x3mm_P0.5mm_EP1.68x1.88mm'], 'footprint':'Package_SO:MSOP-10-1EP_3x3mm_P0.5mm_EP1.68x1.88mm', 'keywords':'audio amplifier class d', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm4990.pdf', 'pins':[
-            Pin(num='1',name='~{SHDN}',func=Pin.types.OUTPUT,unit=1),
+        Part(**{ 'name':'LM4990MH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM4990MH'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10-1EP_3x3mm_P0.5mm_EP1.68x1.88mm'], 'footprint':'Package_SO:MSOP-10-1EP_3x3mm_P0.5mm_EP1.68x1.88mm', 'keywords':'audio amplifier class d', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm4990.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nLM4990MH\n\naudio amplifier class d', 'pins':[
+            Pin(num='1',name='~{SHDN}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='~',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='BYP',func=Pin.types.INPUT,unit=1),
@@ -490,8 +489,8 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LM4990MM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM4990MM'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_3x3mm_P0.65mm', 'keywords':'audio amplifier class d', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm4990.pdf', 'pins':[
-            Pin(num='1',name='~{SHDN}',func=Pin.types.OUTPUT,unit=1),
+        Part(**{ 'name':'LM4990MM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM4990MM'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_3x3mm_P0.65mm', 'keywords':'audio amplifier class d', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm4990.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nLM4990MM\n\naudio amplifier class d', 'pins':[
+            Pin(num='1',name='~{SHDN}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='BYP',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='+',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='-',func=Pin.types.INPUT,unit=1),
@@ -499,13 +498,13 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LME49600', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LME49600'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TO-263-5_TabPin3'], 'footprint':'Package_TO_SOT_SMD:TO-263-5_TabPin3', 'keywords':'audio buffer amplifier', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lme49600.pdf', 'pins':[
+        Part(**{ 'name':'LME49600', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LME49600'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TO-263-5_TabPin3'], 'footprint':'Package_TO_SOT_SMD:TO-263-5_TabPin3', 'keywords':'audio buffer amplifier', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lme49600.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nLME49600\n\naudio buffer amplifier', 'pins':[
             Pin(num='1',name='BW',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='V-',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='5',name='V+',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MA12040', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MA12040'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.45x5.45mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.45x5.45mm', 'keywords':'integrated class d amplifier', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-MA12040-DS-v01_00-EN.pdf?fileId=5546d46264a8de7e0164b7467a3d617c', 'pins':[
+        Part(**{ 'name':'MA12040', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MA12040'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.45x5.45mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.45x5.45mm', 'keywords':'integrated class d amplifier', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-MA12040-DS-v01_00-EN.pdf?fileId=5546d46264a8de7e0164b7467a3d617c', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nMA12040\n\nintegrated class d amplifier', 'pins':[
             Pin(num='1',name='PVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='OUT0B',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='OUT0B',func=Pin.types.PASSIVE,unit=1),
@@ -570,7 +569,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='PVDD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='CF0BP',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MA12040P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MA12040P'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.45x5.45mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.45x5.45mm', 'keywords':'integrated class d amplifier', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-MA12040P-DS-v01_00-EN.pdf?fileId=5546d46264a8de7e0164b74ff0e561a2', 'pins':[
+        Part(**{ 'name':'MA12040P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MA12040P'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.45x5.45mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.45x5.45mm', 'keywords':'integrated class d amplifier', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-MA12040P-DS-v01_00-EN.pdf?fileId=5546d46264a8de7e0164b74ff0e561a2', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nMA12040P\n\nintegrated class d amplifier', 'pins':[
             Pin(num='1',name='PVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='OUT0B',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='OUT0B',func=Pin.types.PASSIVE,unit=1),
@@ -635,7 +634,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='PVDD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='CF0BP',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX9701xTG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX9701xTG'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:TQFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'stereo power amplifier', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX9701.pdf', 'pins':[
+        Part(**{ 'name':'MAX9701xTG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX9701xTG'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:TQFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'stereo power amplifier', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX9701.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nMAX9701xTG\n\nstereo power amplifier', 'pins':[
             Pin(num='1',name='~{SHDN}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='SYNC_OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -661,7 +660,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUTL-',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX9715xTE+', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX9715xTE+'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-16-1EP_5x5mm_P0.8mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:TQFN-16-1EP_5x5mm_P0.8mm_EP3.1x3.1mm', 'keywords':'Class-D Stereo', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX9715.pdf', 'pins':[
+        Part(**{ 'name':'MAX9715xTE+', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX9715xTE+'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-16-1EP_5x5mm_P0.8mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:TQFN-16-1EP_5x5mm_P0.8mm_EP3.1x3.1mm', 'keywords':'Class-D Stereo', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX9715.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nMAX9715xTE+\n\nClass-D Stereo', 'pins':[
             Pin(num='1',name='PGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='OUTR-',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='OUTR+',func=Pin.types.OUTPUT,unit=1),
@@ -679,7 +678,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='~{SHDN}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='PVDD',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX9814', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX9814'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-14-1EP_3x3mm_P0.4mm_EP1.78x2.35mm'], 'footprint':'Package_DFN_QFN:DFN-14-1EP_3x3mm_P0.4mm_EP1.78x2.35mm', 'keywords':'audio microphone amplifier', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX9814.pdf', 'pins':[
+        Part(**{ 'name':'MAX9814', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX9814'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-14-1EP_3x3mm_P0.4mm_EP1.78x2.35mm'], 'footprint':'Package_DFN_QFN:DFN-14-1EP_3x3mm_P0.4mm_EP1.78x2.35mm', 'keywords':'audio microphone amplifier', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX9814.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nMAX9814\n\naudio microphone amplifier', 'pins':[
             Pin(num='1',name='CT',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GAIN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -695,7 +694,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='MICIN',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A/R',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX98306xDT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX98306xDT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TDFN-14-1EP_3x3mm_P0.4mm_EP1.78x2.35mm'], 'footprint':'Package_DFN_QFN:TDFN-14-1EP_3x3mm_P0.4mm_EP1.78x2.35mm', 'keywords':'Class-D stereo amplifier', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX98306.pdf', 'pins':[
+        Part(**{ 'name':'MAX98306xDT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX98306xDT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TDFN-14-1EP_3x3mm_P0.4mm_EP1.78x2.35mm'], 'footprint':'Package_DFN_QFN:TDFN-14-1EP_3x3mm_P0.4mm_EP1.78x2.35mm', 'keywords':'Class-D stereo amplifier', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX98306.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nMAX98306xDT\n\nClass-D stereo amplifier', 'pins':[
             Pin(num='1',name='PGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='OUTR+',func=Pin.types.PWROUT,unit=1),
             Pin(num='11',name='PVDD',func=Pin.types.PWRIN,unit=1),
@@ -711,7 +710,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='INR+',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PGND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='OUTR-',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX98396EWB+', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX98396EWB+'}), 'ref_prefix':'U', 'fplist':['Package_CSP:Maxim_WLCSP-35_3.0x2.17mm_Layout7x5_P0.4mm_Ball0.27mm_Pad0.25mm'], 'footprint':'Package_CSP:Maxim_WLCSP-35_3.0x2.17mm_Layout7x5_P0.4mm_Ball0.27mm_Pad0.25mm', 'keywords':'digital audio amp i2s tdm class-dg', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX98396.pdf', 'pins':[
+        Part(**{ 'name':'MAX98396EWB+', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX98396EWB+'}), 'ref_prefix':'U', 'fplist':['Package_CSP:Maxim_WLCSP-35_3.0x2.17mm_Layout7x5_P0.4mm_Ball0.27mm_Pad0.25mm'], 'footprint':'Package_CSP:Maxim_WLCSP-35_3.0x2.17mm_Layout7x5_P0.4mm_Ball0.27mm_Pad0.25mm', 'keywords':'digital audio amp i2s tdm class-dg', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX98396.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nMAX98396EWB+\n\ndigital audio amp i2s tdm class-dg', 'pins':[
             Pin(num='A1',name='PVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A2',name='PVDD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='A3',name='~{RESET}',func=Pin.types.INPUT,unit=1),
@@ -747,7 +746,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='E5',name='AGND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='E6',name='LRCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='E7',name='BCLK',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX9850xTI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX9850xTI'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm_ThermalVias'], 'footprint':'Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm_ThermalVias', 'keywords':'audio ampflifier stereo i2s', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX9850.pdf', 'pins':[
+        Part(**{ 'name':'MAX9850xTI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX9850xTI'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm_ThermalVias'], 'footprint':'Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm_ThermalVias', 'keywords':'audio ampflifier stereo i2s', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX9850.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nMAX9850xTI\n\naudio ampflifier stereo i2s', 'pins':[
             Pin(num='1',name='LRCLK',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='INL',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='OUTR',func=Pin.types.OUTPUT,unit=1),
@@ -777,7 +776,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='ADD',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GPIO',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='INR',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'OPA1622', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA1622'}), 'ref_prefix':'U', 'fplist':['Package_SON:Texas_S-PVSON-N10'], 'footprint':'Package_SON:Texas_S-PVSON-N10', 'keywords':'dual opamp audio', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/opa1622.pdf', 'pins':[
+        Part(**{ 'name':'OPA1622', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPA1622'}), 'ref_prefix':'U', 'fplist':['Package_SON:Texas_S-PVSON-N10'], 'footprint':'Package_SON:Texas_S-PVSON-N10', 'keywords':'dual opamp audio', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/opa1622.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nOPA1622\n\ndual opamp audio', 'pins':[
             Pin(num='1',name='+',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='EN',func=Pin.types.INPUT,unit=1),
@@ -788,15 +787,15 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='11',name='V-',func=Pin.types.PASSIVE,unit=3),
             Pin(num='2',name='V+',func=Pin.types.PWRIN,unit=3),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '8', '9', '10']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '4', '3', '2']}] }),
-        Part(**{ 'name':'PAM8301', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAM8301'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'audio amplifier class d', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/products_inactive_data/PAM8301.pdf', 'pins':[
+            Pin(num='4',name='V-',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['10', '1', '9', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['2', '11', '3', '4']}] }),
+        Part(**{ 'name':'PAM8301', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAM8301'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'audio amplifier class d', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/products_inactive_data/PAM8301.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nPAM8301\n\naudio amplifier class d', 'pins':[
             Pin(num='1',name='OUT-',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='~{SD}',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='OUT+',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAM8302AAD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAM8302AAD'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'audio amplifier class d', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/PAM8302A.pdf', 'pins':[
+        Part(**{ 'name':'PAM8302AAD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAM8302AAD'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'audio amplifier class d', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/PAM8302A.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nPAM8302AAD\n\naudio amplifier class d', 'pins':[
             Pin(num='1',name='~{SD}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='3',name='IN+',func=Pin.types.INPUT,unit=1),
@@ -805,7 +804,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='OUT-',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAM8302AAY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAM8302AAY'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'keywords':'audio amplifier class d', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/PAM8302A.pdf', 'pins':[
+        Part(**{ 'name':'PAM8302AAY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAM8302AAY'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'keywords':'audio amplifier class d', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/PAM8302A.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nPAM8302AAY\n\naudio amplifier class d', 'pins':[
             Pin(num='1',name='~{SD}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='3',name='IN+',func=Pin.types.INPUT,unit=1),
@@ -814,7 +813,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='OUT-',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAM8403D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAM8403D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOP-16_3.9x9.9mm_P1.27mm', 'keywords':'audio amplifier class d', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/products_inactive_data/PAM8403.pdf', 'pins':[
+        Part(**{ 'name':'PAM8403D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAM8403D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOP-16_3.9x9.9mm_P1.27mm', 'keywords':'audio amplifier class d', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/products_inactive_data/PAM8403.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nPAM8403D\n\naudio amplifier class d', 'pins':[
             Pin(num='1',name='LOUT+',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='INR',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -831,7 +830,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='INL',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VREF',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAM8406D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAM8406D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOP-16_3.9x9.9mm_P1.27mm', 'keywords':'audio amplifier class d or class ab', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/PAM8406.pdf', 'pins':[
+        Part(**{ 'name':'PAM8406D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAM8406D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOP-16_3.9x9.9mm_P1.27mm', 'keywords':'audio amplifier class d or class ab', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/PAM8406.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nPAM8406D\n\naudio amplifier class d or class ab', 'pins':[
             Pin(num='1',name='+OUT_L',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='INR',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -848,7 +847,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='INL',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VREF',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='MODE',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SSM2017P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SSM2017P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'audio preamplifier', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/obsolete-data-sheets/139484016SSM2017.pdf', 'pins':[
+        Part(**{ 'name':'SSM2017P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SSM2017P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'audio preamplifier', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/obsolete-data-sheets/139484016SSM2017.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nSSM2017P\n\naudio preamplifier', 'pins':[
             Pin(num='1',name='RG1',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='+',func=Pin.types.INPUT,unit=1),
@@ -857,7 +856,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RG2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SSM2018', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SSM2018'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'audio VCA', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/SSM2018.pdf', 'pins':[
+        Part(**{ 'name':'SSM2018', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SSM2018'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'audio VCA', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/SSM2018.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nSSM2018\n\naudio VCA', 'pins':[
             Pin(num='9',name='COMP3',func=Pin.types.PASSIVE),
             Pin(num='1',name='+I1-G',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='V-',func=Pin.types.PWRIN,unit=1),
@@ -874,7 +873,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='+IN',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='-IN',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='COMP2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SSM2120', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SSM2120'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-22_W7.62mm'], 'footprint':'Package_DIP:DIP-22_W7.62mm', 'keywords':'audio VCA', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/obsolete-data-sheets/105738070SSM2120.pdf', 'pins':[
+        Part(**{ 'name':'SSM2120', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SSM2120'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-22_W7.62mm'], 'footprint':'Package_DIP:DIP-22_W7.62mm', 'keywords':'audio VCA', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/obsolete-data-sheets/105738070SSM2120.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nSSM2120\n\naudio VCA', 'pins':[
             Pin(num='4',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='5',name='+',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='CFT',func=Pin.types.INPUT,unit=1),
@@ -896,8 +895,8 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='IREF',func=Pin.types.INPUT,unit=5),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=5),
             Pin(num='21',name='V+',func=Pin.types.PWRIN,unit=5),
-            Pin(num='22',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '6', '7', '4', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '1', '3', '2']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '18', '20', '17', '19']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '13', '15', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['22', '21', '11', '10']}] }),
-        Part(**{ 'name':'SSM2122', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SSM2122'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'audio VCA', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/obsolete-data-sheets/105738070SSM2120.pdf', 'pins':[
+            Pin(num='22',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '4', '7', '6', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '3', '9', '1']},{'label': 'uC', 'num': 3, 'pin_nums': ['19', '17', '18', '20', '16']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '14', '15', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11', '21', '22']}] }),
+        Part(**{ 'name':'SSM2122', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SSM2122'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'audio VCA', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/obsolete-data-sheets/105738070SSM2120.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nSSM2122\n\naudio VCA', 'pins':[
             Pin(num='2',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='+',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='CFT',func=Pin.types.INPUT,unit=1),
@@ -913,8 +912,8 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='16',name='GND',func=Pin.types.PASSIVE,unit=3),
             Pin(num='7',name='IREF',func=Pin.types.INPUT,unit=3),
             Pin(num='8',name='V-',func=Pin.types.PWRIN,unit=3),
-            Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '5', '4', '2', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '13', '11', '14', '12']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '7', '15', '9', '8', '1']}] }),
-        Part(**{ 'name':'SSM2165', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SSM2165'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'audio microphone preamplifier', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/obsolete-data-sheets/SSM2165.PDF', 'pins':[
+            Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '5', '4', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['12', '11', '10', '13', '14']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '1', '8', '16', '15', '7']}] }),
+        Part(**{ 'name':'SSM2165', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SSM2165'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'audio microphone preamplifier', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/obsolete-data-sheets/SSM2165.PDF', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nSSM2165\n\naudio microphone preamplifier', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VCAIN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='BUFOUT',func=Pin.types.OUTPUT,unit=1),
@@ -923,7 +922,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='COMP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='VOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SSM2167', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SSM2167'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'audio microphone amplifier', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/SSM2167.pdf', 'pins':[
+        Part(**{ 'name':'SSM2167', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SSM2167'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'audio microphone amplifier', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/SSM2167.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nSSM2167\n\naudio microphone amplifier', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VCAIN',func=Pin.types.INPUT,unit=1),
@@ -934,7 +933,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GATE',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='COMP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='VOUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SSM2211CP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SSM2211CP'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-8-1EP_3x3mm_P0.5mm_EP1.45x1.74mm'], 'footprint':'Package_CSP:LFCSP-8-1EP_3x3mm_P0.5mm_EP1.45x1.74mm', 'keywords':'audio amplifier', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/SSM2211.pdf', 'pins':[
+        Part(**{ 'name':'SSM2211CP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SSM2211CP'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-8-1EP_3x3mm_P0.5mm_EP1.45x1.74mm'], 'footprint':'Package_CSP:LFCSP-8-1EP_3x3mm_P0.5mm_EP1.45x1.74mm', 'keywords':'audio amplifier', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/SSM2211.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nSSM2211CP\n\naudio amplifier', 'pins':[
             Pin(num='1',name='SHUTDOWN',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='BYPASS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='IN+',func=Pin.types.INPUT,unit=1),
@@ -944,7 +943,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VoutB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='V-',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SSM2211S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SSM2211S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'audio amplifier', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/SSM2211.pdf', 'pins':[
+        Part(**{ 'name':'SSM2211S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SSM2211S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'audio amplifier', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/SSM2211.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nSSM2211S\n\naudio amplifier', 'pins':[
             Pin(num='1',name='SHUTDOWN',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='BYPASS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='IN+',func=Pin.types.INPUT,unit=1),
@@ -953,7 +952,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VoutB',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STK433_Sanyo', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STK433_Sanyo'}), 'ref_prefix':'U', 'fplist':['Package_SIP:Sanyo_STK4xx-15_59.2x8.0mm_P2.54mm'], 'footprint':'Package_SIP:Sanyo_STK4xx-15_59.2x8.0mm_P2.54mm', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://datasheet.octopart.com/STK430-Sanyo-datasheet-107060.pdf', 'pins':[
+        Part(**{ 'name':'STK433_Sanyo', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STK433_Sanyo'}), 'ref_prefix':'U', 'fplist':['Package_SIP:Sanyo_STK4xx-15_59.2x8.0mm_P2.54mm'], 'footprint':'Package_SIP:Sanyo_STK4xx-15_59.2x8.0mm_P2.54mm', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://datasheet.octopart.com/STK430-Sanyo-datasheet-107060.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nSTK433_Sanyo\n\naudio amplifier 2ch', 'pins':[
             Pin(num='1',name='+',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='V-',func=Pin.types.PWRIN,unit=1),
@@ -968,8 +967,8 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='V-',func=Pin.types.PWRIN,unit=2),
             Pin(num='13',name='V-',func=Pin.types.PWRIN,unit=2),
             Pin(num='14',name='-',func=Pin.types.INPUT,unit=2),
-            Pin(num='15',name='+',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '8', '2', '5', '3', '7', '9', '1', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '12', '14', '11', '13', '15']}] }),
-        Part(**{ 'name':'STK437_Sanyo', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STK437_Sanyo'}), 'ref_prefix':'U', 'fplist':['Package_SIP:Sanyo_STK4xx-15_78.0x8.0mm_P2.54mm'], 'footprint':'Package_SIP:Sanyo_STK4xx-15_78.0x8.0mm_P2.54mm', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://datasheet.octopart.com/STK430-Sanyo-datasheet-107060.pdf', 'pins':[
+            Pin(num='15',name='+',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '3', '9', '1', '7', '2', '4', '6', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '14', '13', '11', '15', '12']}] }),
+        Part(**{ 'name':'STK437_Sanyo', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STK437_Sanyo'}), 'ref_prefix':'U', 'fplist':['Package_SIP:Sanyo_STK4xx-15_78.0x8.0mm_P2.54mm'], 'footprint':'Package_SIP:Sanyo_STK4xx-15_78.0x8.0mm_P2.54mm', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://datasheet.octopart.com/STK430-Sanyo-datasheet-107060.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nSTK437_Sanyo\n\naudio amplifier 2ch', 'pins':[
             Pin(num='1',name='+',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='V-',func=Pin.types.PWRIN,unit=1),
@@ -984,8 +983,8 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='V-',func=Pin.types.PWRIN,unit=2),
             Pin(num='13',name='V-',func=Pin.types.PWRIN,unit=2),
             Pin(num='14',name='-',func=Pin.types.INPUT,unit=2),
-            Pin(num='15',name='+',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '4', '6', '8', '1', '7', '5', '9']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '11', '14', '15', '10', '12']}] }),
-        Part(**{ 'name':'Si8241BB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8241BB'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'class d gate driver', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/Si824x.pdf', 'pins':[
+            Pin(num='15',name='+',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1', '3', '5', '7', '9', '2', '4', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '12', '14', '11', '13', '15']}] }),
+        Part(**{ 'name':'Si8241BB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8241BB'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'class d gate driver', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/Si824x.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nSi8241BB\n\nclass d gate driver', 'pins':[
             Pin(num='1',name='PWM',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VOB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='VDDB',func=Pin.types.PWRIN,unit=1),
@@ -1002,7 +1001,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='VDDI',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GNDB',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TAS5825MRHB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TAS5825MRHB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:VQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'Class-D Stereo', 'description':'', 'datasheet':'www.ti.com/lit/ds/symlink/tas5825m.pdf', 'pins':[
+        Part(**{ 'name':'TAS5825MRHB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TAS5825MRHB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:VQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'Class-D Stereo', 'description':'', 'datasheet':'www.ti.com/lit/ds/symlink/tas5825m.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nTAS5825MRHB\n\nClass-D Stereo', 'pins':[
             Pin(num='1',name='BST_A+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='GPIO1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='GPIO2',func=Pin.types.BIDIR,unit=1),
@@ -1036,7 +1035,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VR_DIG',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='ADR',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GPIO0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TDA1308', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA1308'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'audio amplifier', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/TDA1308.pdf', 'pins':[
+        Part(**{ 'name':'TDA1308', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA1308'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'audio amplifier', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/TDA1308.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nTDA1308\n\naudio amplifier', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='+',func=Pin.types.INPUT,unit=1),
@@ -1044,14 +1043,14 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='4',name='VSS',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
-        Part(**{ 'name':'TDA2003', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA2003'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-5_P3.4x3.7mm_StaggerOdd_Lead3.8mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-5_P3.4x3.7mm_StaggerOdd_Lead3.8mm_Vertical', 'keywords':'audio amplifier', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/cd00000123.pdf', 'pins':[
+            Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '8']}] }),
+        Part(**{ 'name':'TDA2003', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA2003'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-5_P3.4x3.7mm_StaggerOdd_Lead3.8mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-5_P3.4x3.7mm_StaggerOdd_Lead3.8mm_Vertical', 'keywords':'audio amplifier', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/cd00000123.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nTDA2003\n\naudio amplifier', 'pins':[
             Pin(num='1',name='+',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='5',name='V+',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TDA2005', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA2005'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical', 'keywords':'audio amplifier', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/cd00000124.pdf', 'pins':[
+        Part(**{ 'name':'TDA2005', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA2005'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical', 'keywords':'audio amplifier', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/cd00000124.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nTDA2005\n\naudio amplifier', 'pins':[
             Pin(num='1',name='+',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='BOOT',func=Pin.types.PASSIVE,unit=1),
@@ -1062,14 +1061,14 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='BOOT',func=Pin.types.PASSIVE,unit=2),
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='6',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='9',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '11', '2', '3', '10']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '7', '8', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '9']}] }),
-        Part(**{ 'name':'TDA2030', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA2030'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-5_P3.4x3.7mm_StaggerOdd_Lead3.8mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-5_P3.4x3.7mm_StaggerOdd_Lead3.8mm_Vertical', 'keywords':'audio amplifier', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/cd00000128.pdf', 'pins':[
+            Pin(num='9',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '10', '2', '11']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '8', '7', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '9']}] }),
+        Part(**{ 'name':'TDA2030', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA2030'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-5_P3.4x3.7mm_StaggerOdd_Lead3.8mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-5_P3.4x3.7mm_StaggerOdd_Lead3.8mm_Vertical', 'keywords':'audio amplifier', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/cd00000128.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nTDA2030\n\naudio amplifier', 'pins':[
             Pin(num='1',name='+',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='-Vs',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='5',name='+Vs',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TDA7052A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA7052A'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'audio amplifier', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/TDA7052A_AT.pdf', 'pins':[
+        Part(**{ 'name':'TDA7052A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA7052A'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'audio amplifier', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/TDA7052A_AT.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nTDA7052A\n\naudio amplifier', 'pins':[
             Pin(num='1',name='VP',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='+',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -1078,7 +1077,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TDA7264', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA7264'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-8_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-8_Vertical', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/tda7264.pdf', 'pins':[
+        Part(**{ 'name':'TDA7264', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA7264'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-8_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-8_Vertical', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/tda7264.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nTDA7264\n\naudio amplifier 2ch', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='4',name='MUTE',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -1086,8 +1085,8 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='6',name='IN',func=Pin.types.INPUT,unit=2),
             Pin(num='2',name='V+',func=Pin.types.PWRIN,unit=3),
-            Pin(num='5',name='V-',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '1', '8', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['2', '5']}] }),
-        Part(**{ 'name':'TDA7265', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA7265'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/tda7265.pdf', 'pins':[
+            Pin(num='5',name='V-',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '4', '1', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['2', '5']}] }),
+        Part(**{ 'name':'TDA7265', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA7265'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/tda7265.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nTDA7265\n\naudio amplifier 2ch', 'pins':[
             Pin(num='10',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='+',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -1098,8 +1097,8 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='1',name='V-',func=Pin.types.PWRIN,unit=3),
             Pin(num='3',name='V+',func=Pin.types.PWRIN,unit=3),
-            Pin(num='6',name='V-',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '9', '11', '5', '10']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '7', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '6', '1']}] }),
-        Part(**{ 'name':'TDA7266', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA7266'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/tda7266.pdf', 'pins':[
+            Pin(num='6',name='V-',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['10', '11', '2', '9', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '7', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '6', '1']}] }),
+        Part(**{ 'name':'TDA7266', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA7266'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/tda7266.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nTDA7266\n\naudio amplifier 2ch', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -1114,8 +1113,8 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='V+',func=Pin.types.PASSIVE,unit=3),
             Pin(num='3',name='V+',func=Pin.types.PWRIN,unit=3),
             Pin(num='8',name='PG',func=Pin.types.PWRIN,unit=3),
-            Pin(num='9',name='SG',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '6', '10', '11', '2', '5', '7', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['15', '14', '12']},{'label': 'uC', 'num': 3, 'pin_nums': ['13', '3', '8', '9']}] }),
-        Part(**{ 'name':'TDA7266D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA7266D'}), 'ref_prefix':'U', 'fplist':['Package_SO:HSOP-20-1EP_11.0x15.9mm_P1.27mm_SlugDown'], 'footprint':'Package_SO:HSOP-20-1EP_11.0x15.9mm_P1.27mm_SlugDown', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/tda7266d.pdf', 'pins':[
+            Pin(num='9',name='SG',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '10', '1', '7', '2', '11', '6', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['12', '14', '15']},{'label': 'uC', 'num': 3, 'pin_nums': ['13', '3', '8', '9']}] }),
+        Part(**{ 'name':'TDA7266D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA7266D'}), 'ref_prefix':'U', 'fplist':['Package_SO:HSOP-20-1EP_11.0x15.9mm_P1.27mm_SlugDown'], 'footprint':'Package_SO:HSOP-20-1EP_11.0x15.9mm_P1.27mm_SlugDown', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/tda7266d.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nTDA7266D\n\naudio amplifier 2ch', 'pins':[
             Pin(num='12',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='17',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='18',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -1135,8 +1134,8 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='SG',func=Pin.types.PWRIN,unit=3),
             Pin(num='15',name='V+',func=Pin.types.PASSIVE,unit=3),
             Pin(num='20',name='PG',func=Pin.types.PASSIVE,unit=3),
-            Pin(num='6',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '4', '5', '18', '12', '17', '7', '8', '3', '9']},{'label': 'uB', 'num': 2, 'pin_nums': ['16', '14', '19']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '15', '20', '6', '1', '13', '11']}] }),
-        Part(**{ 'name':'TDA7266M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA7266M'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical', 'keywords':'audio amplifier', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/tda7266m.pdf', 'pins':[
+            Pin(num='6',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['17', '2', '12', '18', '4', '5', '7', '9', '3', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['16', '14', '19']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '20', '15', '6', '1', '13', '11']}] }),
+        Part(**{ 'name':'TDA7266M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA7266M'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical', 'keywords':'audio amplifier', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/tda7266m.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nTDA7266M\n\naudio amplifier', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -1152,7 +1151,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='STBY',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PG',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='SG',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TDA7266P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA7266P'}), 'ref_prefix':'U', 'fplist':['Package_SO:ST_PowerSSO-24_SlugDown'], 'footprint':'Package_SO:ST_PowerSSO-24_SlugDown', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/tda7266p.pdf', 'pins':[
+        Part(**{ 'name':'TDA7266P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA7266P'}), 'ref_prefix':'U', 'fplist':['Package_SO:ST_PowerSSO-24_SlugDown'], 'footprint':'Package_SO:ST_PowerSSO-24_SlugDown', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/tda7266p.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nTDA7266P\n\naudio amplifier 2ch', 'pins':[
             Pin(num='10',name='MUTE',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='STBY',func=Pin.types.INPUT,unit=1),
             Pin(num='12',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -1176,8 +1175,8 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='14',name='SG',func=Pin.types.PWRIN,unit=3),
             Pin(num='18',name='V+',func=Pin.types.PASSIVE,unit=3),
             Pin(num='24',name='PG',func=Pin.types.PASSIVE,unit=3),
-            Pin(num='7',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '11', '13', '2', '12', '9', '4', '5', '8', '21', '23', '16', '3', '10', '6', '22']},{'label': 'uB', 'num': 2, 'pin_nums': ['20', '17', '19']},{'label': 'uC', 'num': 3, 'pin_nums': ['1', '7', '24', '18', '14']}] }),
-        Part(**{ 'name':'TDA7293', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA7293'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical', 'keywords':'audio amplifier', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/tda7293.pdf', 'pins':[
+            Pin(num='7',name='V+',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['12', '11', '13', '2', '9', '4', '5', '8', '21', '23', '16', '3', '10', '6', '22', '15']},{'label': 'uB', 'num': 2, 'pin_nums': ['17', '19', '20']},{'label': 'uC', 'num': 3, 'pin_nums': ['1', '24', '7', '18', '14']}] }),
+        Part(**{ 'name':'TDA7293', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA7293'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical', 'keywords':'audio amplifier', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/tda7293.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nTDA7293\n\naudio amplifier', 'pins':[
             Pin(num='1',name='SGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='MUTE',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -1193,7 +1192,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='+Vs',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='-Vs',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='STBY',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TDA7496', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA7496'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/tda7297.pdf', 'pins':[
+        Part(**{ 'name':'TDA7496', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA7496'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/tda7297.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nTDA7496\n\naudio amplifier 2ch', 'pins':[
             Pin(num='10',name='MUTE',func=Pin.types.INPUT,unit=1),
             Pin(num='12',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='V',func=Pin.types.INPUT,unit=1),
@@ -1208,8 +1207,8 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='11',name='PG',func=Pin.types.PWRIN,unit=3),
             Pin(num='13',name='V+',func=Pin.types.PWRIN,unit=3),
             Pin(num='15',name='PG',func=Pin.types.PASSIVE,unit=3),
-            Pin(num='8',name='SG',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '4', '10', '12', '6', '9', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '1', '2', '14']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '15', '13', '11']}] }),
-        Part(**{ 'name':'TFA9879HN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TFA9879HN'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:HVQFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias'], 'footprint':'Package_DFN_QFN:HVQFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias', 'keywords':'Audio Amplifier Class D NXP Semiconductors', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/TFA9879.pdf', 'pins':[
+            Pin(num='8',name='SG',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '4', '9', '10', '5', '6', '12']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '2', '14', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '15', '13', '8']}] }),
+        Part(**{ 'name':'TFA9879HN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TFA9879HN'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:HVQFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias'], 'footprint':'Package_DFN_QFN:HVQFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias', 'keywords':'Audio Amplifier Class D NXP Semiconductors', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/TFA9879.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nTFA9879HN\n\nAudio Amplifier Class D NXP Semiconductors', 'pins':[
             Pin(num='1',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='OUTA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='GNDP',func=Pin.types.PASSIVE,unit=1),
@@ -1235,7 +1234,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDDP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='VDDP',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OUTB',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'THAT151xx08', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'THAT151xx08'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Audio Preamplifier', 'description':'', 'datasheet':'https://www.thatcorp.com/datashts/THAT_1510-1512_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'THAT151xx08', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'THAT151xx08'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Audio Preamplifier', 'description':'', 'datasheet':'https://www.thatcorp.com/datashts/THAT_1510-1512_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nTHAT151xx08\n\nAudio Preamplifier', 'pins':[
             Pin(num='1',name='Rg1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='-In',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='+In',func=Pin.types.INPUT,unit=1),
@@ -1244,7 +1243,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Out',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Rg2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'THAT2180', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'THAT2180'}), 'ref_prefix':'U', 'fplist':['Package_SIP:SIP-8_19x3mm_P2.54mm'], 'footprint':'Package_SIP:SIP-8_19x3mm_P2.54mm', 'keywords':'audio vca', 'description':'', 'datasheet':'http://www.thatcorp.com/datashts/THAT_2180-Series_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'THAT2180', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'THAT2180'}), 'ref_prefix':'U', 'fplist':['Package_SIP:SIP-8_19x3mm_P2.54mm'], 'footprint':'Package_SIP:SIP-8_19x3mm_P2.54mm', 'keywords':'audio vca', 'description':'', 'datasheet':'http://www.thatcorp.com/datashts/THAT_2180-Series_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nTHAT2180\n\naudio vca', 'pins':[
             Pin(num='5',name='V-',func=Pin.types.PWRIN),
             Pin(num='6',name='GND',func=Pin.types.PWRIN),
             Pin(num='7',name='V+',func=Pin.types.PWRIN),
@@ -1253,7 +1252,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='E-',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='SYM',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'THAT2181', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'THAT2181'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'audio vca', 'description':'', 'datasheet':'http://www.thatcorp.com/datashts/THAT_2181-Series_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'THAT2181', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'THAT2181'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'audio vca', 'description':'', 'datasheet':'http://www.thatcorp.com/datashts/THAT_2181-Series_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nTHAT2181\n\naudio vca', 'pins':[
             Pin(num='5',name='V-',func=Pin.types.PWRIN),
             Pin(num='6',name='GND',func=Pin.types.PWRIN),
             Pin(num='7',name='V+',func=Pin.types.PWRIN),
@@ -1262,7 +1261,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='E-',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='SYM',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TPA3251', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPA3251'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-44_6.1x14mm_P0.635mm_TopEP4.14x7.01mm'], 'footprint':'Package_SO:HTSSOP-44_6.1x14mm_P0.635mm_TopEP4.14x7.01mm', 'keywords':'stereo class d amplifier', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tpa3251.pdf', 'pins':[
+        Part(**{ 'name':'TPA3251', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPA3251'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-44_6.1x14mm_P0.635mm_TopEP4.14x7.01mm'], 'footprint':'Package_SO:HTSSOP-44_6.1x14mm_P0.635mm_TopEP4.14x7.01mm', 'keywords':'stereo class d amplifier', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tpa3251.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nTPA3251\n\nstereo class d amplifier', 'pins':[
             Pin(num='1',name='GVDD_AB',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='OSC_IOP',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='DVDD',func=Pin.types.PASSIVE,unit=1),
@@ -1306,8 +1305,8 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='30',name='PVDD_CD',func=Pin.types.PASSIVE,unit=2),
             Pin(num='31',name='PVDD_CD',func=Pin.types.PASSIVE,unit=2),
             Pin(num='32',name='OUT_C',func=Pin.types.OUTPUT,unit=2),
-            Pin(num='4',name='M2',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['36', '44', '15', '13', '10', '38', '5', '2', '25', '6', '20', '40', '26', '39', '7', '33', '41', '8', '34', '42', '9', '1', '11', '12', '35', '43', '37', '14']},{'label': 'uB', 'num': 2, 'pin_nums': ['16', '21', '23', '18', '27', '29', '30', '31', '32', '17', '19', '22', '24', '28', '3', '4']}] }),
-        Part(**{ 'name':'TPA6110A2DGN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPA6110A2DGN'}), 'ref_prefix':'U', 'fplist':['Package_SO:HVSSOP-8-1EP_3x3mm_P0.65mm_EP1.57x1.89mm'], 'footprint':'Package_SO:HVSSOP-8-1EP_3x3mm_P0.65mm_EP1.57x1.89mm', 'keywords':'audio amplifier headphone', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tpa6110a2.pdf', 'pins':[
+            Pin(num='4',name='M2',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '40', '20', '26', '39', '7', '33', '41', '8', '34', '42', '9', '1', '11', '12', '35', '43', '37', '14', '36', '44', '15', '13', '10', '38', '5', '2', '25']},{'label': 'uB', 'num': 2, 'pin_nums': ['16', '21', '23', '27', '18', '29', '30', '31', '32', '17', '19', '22', '24', '28', '3', '4']}] }),
+        Part(**{ 'name':'TPA6110A2DGN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPA6110A2DGN'}), 'ref_prefix':'U', 'fplist':['Package_SO:HVSSOP-8-1EP_3x3mm_P0.65mm_EP1.57x1.89mm'], 'footprint':'Package_SO:HVSSOP-8-1EP_3x3mm_P0.65mm_EP1.57x1.89mm', 'keywords':'audio amplifier headphone', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tpa6110a2.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nTPA6110A2DGN\n\naudio amplifier headphone', 'pins':[
             Pin(num='1',name='BYPASS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='SHDN',func=Pin.types.INPUT,unit=1),
@@ -1317,7 +1316,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VO1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='IN1-',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TPA6132A2RTE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPA6132A2RTE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:WQFN-16-1EP_3x3mm_P0.5mm_EP1.6x1.6mm_ThermalVias'], 'footprint':'Package_DFN_QFN:WQFN-16-1EP_3x3mm_P0.5mm_EP1.6x1.6mm_ThermalVias', 'keywords':'DirectPath audio amplifier Stereo', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tpa6132a2.pdf', 'pins':[
+        Part(**{ 'name':'TPA6132A2RTE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPA6132A2RTE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:WQFN-16-1EP_3x3mm_P0.5mm_EP1.6x1.6mm_ThermalVias'], 'footprint':'Package_DFN_QFN:WQFN-16-1EP_3x3mm_P0.5mm_EP1.6x1.6mm_ThermalVias', 'keywords':'DirectPath audio amplifier Stereo', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tpa6132a2.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nTPA6132A2RTE\n\nDirectPath audio amplifier Stereo', 'pins':[
             Pin(num='1',name='INL-',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='CPP',func=Pin.types.PASSIVE,unit=1),
@@ -1335,7 +1334,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='G1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='HPVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='CPN',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TPA6203A1DGN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPA6203A1DGN'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8-1EP_3x3mm_P0.65mm_EP1.95x2.15mm_ThermalVias'], 'footprint':'Package_SO:MSOP-8-1EP_3x3mm_P0.65mm_EP1.95x2.15mm_ThermalVias', 'keywords':'Differential audio amplifier Mono', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tpa6203a1.pdf', 'pins':[
+        Part(**{ 'name':'TPA6203A1DGN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPA6203A1DGN'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8-1EP_3x3mm_P0.65mm_EP1.95x2.15mm_ThermalVias'], 'footprint':'Package_SO:MSOP-8-1EP_3x3mm_P0.65mm_EP1.95x2.15mm_ThermalVias', 'keywords':'Differential audio amplifier Mono', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tpa6203a1.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nTPA6203A1DGN\n\nDifferential audio amplifier Mono', 'pins':[
             Pin(num='1',name='~{SHUTDOWN}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='BYPASS',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='IN+',func=Pin.types.INPUT,unit=1),
@@ -1345,7 +1344,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='V_{O-}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR4311', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR4311'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Infineon_PQFN-22-15-4EP_6x5mm_P0.65mm', 'Package_DFN_QFN:Infineon_PQFN-22-15-4EP_6x5mm_P0.65mm'], 'footprint':'Package_DFN_QFN:Infineon_PQFN-22-15-4EP_6x5mm_P0.65mm', 'keywords':'integrated class d amplifier', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir4301.pdf?fileId=5546d462533600a4015355d5fc691819', 'pins':[
+        Part(**{ 'name':'IR4311', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR4311'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Infineon_PQFN-22-15-4EP_6x5mm_P0.65mm', 'Package_DFN_QFN:Infineon_PQFN-22-15-4EP_6x5mm_P0.65mm'], 'footprint':'Package_DFN_QFN:Infineon_PQFN-22-15-4EP_6x5mm_P0.65mm', 'keywords':'integrated class d amplifier', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir4301.pdf?fileId=5546d462533600a4015355d5fc691819', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nIR4311\n\nintegrated class d amplifier', 'pins':[
             Pin(num='1',name='VAA',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VN',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='VS',func=Pin.types.OUTPUT,unit=1),
@@ -1361,7 +1360,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='COM',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR4312', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR4312'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Infineon_PQFN-44-31-5EP_7x7mm_P0.5mm', 'Package_DFN_QFN:Infineon_PQFN-44-31-5EP_7x7mm_P0.5mm'], 'footprint':'Package_DFN_QFN:Infineon_PQFN-44-31-5EP_7x7mm_P0.5mm', 'keywords':'integrated class d amplifier 2ch', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir4302.pdf?fileId=5546d462533600a4015355d602a9181d', 'pins':[
+        Part(**{ 'name':'IR4312', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR4312'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Infineon_PQFN-44-31-5EP_7x7mm_P0.5mm', 'Package_DFN_QFN:Infineon_PQFN-44-31-5EP_7x7mm_P0.5mm'], 'footprint':'Package_DFN_QFN:Infineon_PQFN-44-31-5EP_7x7mm_P0.5mm', 'keywords':'integrated class d amplifier 2ch', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir4302.pdf?fileId=5546d462533600a4015355d602a9181d', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nIR4312\n\nintegrated class d amplifier 2ch', 'pins':[
             Pin(num='1',name='CLIP',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='10',name='COMP1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='CSD',func=Pin.types.PASSIVE,unit=1),
@@ -1392,8 +1391,8 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='26',name='VB2',func=Pin.types.PWRIN,unit=2),
             Pin(num='27',name='CSH2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='3',name='IN-2',func=Pin.types.INPUT,unit=2),
-            Pin(num='4',name='IN+2',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['16', '15', '12', '14', '19', '13', '21', '7', '10', '28', '8', '20', '9', '11', '29', '1', '30', '17', '6', '31', '5', '18']},{'label': 'uB', 'num': 2, 'pin_nums': ['24', '26', '3', '22', '2', '4', '27', '25', '23']}] }),
-        Part(**{ 'name':'IR4321', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR4321'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Infineon_PQFN-22-15-4EP_6x5mm_P0.65mm', 'Package_DFN_QFN:Infineon_PQFN-22-15-4EP_6x5mm_P0.65mm', 'Package_DFN_QFN:Infineon_PQFN-22-15-4EP_6x5mm_P0.65mm'], 'footprint':'Package_DFN_QFN:Infineon_PQFN-22-15-4EP_6x5mm_P0.65mm', 'keywords':'integrated class d amplifier', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir4301.pdf?fileId=5546d462533600a4015355d5fc691819', 'pins':[
+            Pin(num='4',name='IN+2',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['17', '19', '31', '18', '21', '16', '28', '20', '15', '12', '29', '14', '13', '30', '6', '7', '8', '10', '9', '11', '1', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['25', '27', '4', '3', '23', '2', '24', '26', '22']}] }),
+        Part(**{ 'name':'IR4321', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR4321'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Infineon_PQFN-22-15-4EP_6x5mm_P0.65mm', 'Package_DFN_QFN:Infineon_PQFN-22-15-4EP_6x5mm_P0.65mm', 'Package_DFN_QFN:Infineon_PQFN-22-15-4EP_6x5mm_P0.65mm'], 'footprint':'Package_DFN_QFN:Infineon_PQFN-22-15-4EP_6x5mm_P0.65mm', 'keywords':'integrated class d amplifier', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir4301.pdf?fileId=5546d462533600a4015355d5fc691819', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nIR4321\n\nintegrated class d amplifier', 'pins':[
             Pin(num='1',name='VAA',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VN',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='VS',func=Pin.types.OUTPUT,unit=1),
@@ -1409,7 +1408,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='COM',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR4322', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR4322'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Infineon_PQFN-44-31-5EP_7x7mm_P0.5mm', 'Package_DFN_QFN:Infineon_PQFN-44-31-5EP_7x7mm_P0.5mm', 'Package_DFN_QFN:Infineon_PQFN-44-31-5EP_7x7mm_P0.5mm'], 'footprint':'Package_DFN_QFN:Infineon_PQFN-44-31-5EP_7x7mm_P0.5mm', 'keywords':'integrated class d amplifier 2ch', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir4302.pdf?fileId=5546d462533600a4015355d602a9181d', 'pins':[
+        Part(**{ 'name':'IR4322', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR4322'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Infineon_PQFN-44-31-5EP_7x7mm_P0.5mm', 'Package_DFN_QFN:Infineon_PQFN-44-31-5EP_7x7mm_P0.5mm', 'Package_DFN_QFN:Infineon_PQFN-44-31-5EP_7x7mm_P0.5mm'], 'footprint':'Package_DFN_QFN:Infineon_PQFN-44-31-5EP_7x7mm_P0.5mm', 'keywords':'integrated class d amplifier 2ch', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir4302.pdf?fileId=5546d462533600a4015355d602a9181d', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nIR4322\n\nintegrated class d amplifier 2ch', 'pins':[
             Pin(num='1',name='CLIP',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='10',name='COMP1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='CSD',func=Pin.types.PASSIVE,unit=1),
@@ -1440,8 +1439,8 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='26',name='VB2',func=Pin.types.PWRIN,unit=2),
             Pin(num='27',name='CSH2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='3',name='IN-2',func=Pin.types.INPUT,unit=2),
-            Pin(num='4',name='IN+2',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '5', '19', '6', '15', '31', '7', '16', '14', '12', '13', '1', '20', '10', '21', '29', '9', '11', '28', '30', '18', '17']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '3', '22', '26', '4', '24', '27', '25', '23']}] }),
-        Part(**{ 'name':'MA12070', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MA12070'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.45x5.45mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.45x5.45mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.45x5.45mm', 'keywords':'integrated class d amplifier', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-MA12070-DS-v01_00-EN.pdf?fileId=5546d46264a8de7e0164b750002861a5', 'pins':[
+            Pin(num='4',name='IN+2',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '16', '17', '28', '18', '5', '29', '9', '14', '15', '11', '6', '12', '7', '13', '19', '30', '8', '31', '20', '10', '21']},{'label': 'uB', 'num': 2, 'pin_nums': ['22', '25', '3', '23', '4', '26', '2', '24', '27']}] }),
+        Part(**{ 'name':'MA12070', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MA12070'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.45x5.45mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.45x5.45mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.45x5.45mm', 'keywords':'integrated class d amplifier', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-MA12070-DS-v01_00-EN.pdf?fileId=5546d46264a8de7e0164b750002861a5', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nMA12070\n\nintegrated class d amplifier', 'pins':[
             Pin(num='1',name='PVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='OUT0B',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='OUT0B',func=Pin.types.PASSIVE,unit=1),
@@ -1506,7 +1505,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='PVDD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='CF0BP',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MA12070P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MA12070P'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.45x5.45mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.45x5.45mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.45x5.45mm', 'keywords':'integrated class d amplifier', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-MA12070P-DS-v01_00-EN.pdf?fileId=5546d46264a8de7e0164b761f2f261e4', 'pins':[
+        Part(**{ 'name':'MA12070P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MA12070P'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.45x5.45mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.45x5.45mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.45x5.45mm', 'keywords':'integrated class d amplifier', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-MA12070P-DS-v01_00-EN.pdf?fileId=5546d46264a8de7e0164b761f2f261e4', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nMA12070P\n\nintegrated class d amplifier', 'pins':[
             Pin(num='1',name='PVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='OUT0B',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='OUT0B',func=Pin.types.PASSIVE,unit=1),
@@ -1571,7 +1570,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='PVDD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='CF0BP',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAM8302AAS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAM8302AAS'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'audio amplifier class d', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/PAM8302A.pdf', 'pins':[
+        Part(**{ 'name':'PAM8302AAS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAM8302AAS'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'audio amplifier class d', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/PAM8302A.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nPAM8302AAS\n\naudio amplifier class d', 'pins':[
             Pin(num='1',name='~{SD}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='3',name='IN+',func=Pin.types.INPUT,unit=1),
@@ -1580,7 +1579,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='OUT-',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STK435_Sanyo', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STK435_Sanyo'}), 'ref_prefix':'U', 'fplist':['Package_SIP:Sanyo_STK4xx-15_59.2x8.0mm_P2.54mm', 'Package_SIP:Sanyo_STK4xx-15_59.2x8.0mm_P2.54mm'], 'footprint':'Package_SIP:Sanyo_STK4xx-15_59.2x8.0mm_P2.54mm', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://datasheet.octopart.com/STK430-Sanyo-datasheet-107060.pdf', 'pins':[
+        Part(**{ 'name':'STK435_Sanyo', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STK435_Sanyo'}), 'ref_prefix':'U', 'fplist':['Package_SIP:Sanyo_STK4xx-15_59.2x8.0mm_P2.54mm', 'Package_SIP:Sanyo_STK4xx-15_59.2x8.0mm_P2.54mm'], 'footprint':'Package_SIP:Sanyo_STK4xx-15_59.2x8.0mm_P2.54mm', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://datasheet.octopart.com/STK430-Sanyo-datasheet-107060.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nSTK435_Sanyo\n\naudio amplifier 2ch', 'pins':[
             Pin(num='1',name='+',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='V-',func=Pin.types.PWRIN,unit=1),
@@ -1595,8 +1594,8 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='V-',func=Pin.types.PWRIN,unit=2),
             Pin(num='13',name='V-',func=Pin.types.PWRIN,unit=2),
             Pin(num='14',name='-',func=Pin.types.INPUT,unit=2),
-            Pin(num='15',name='+',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '5', '3', '7', '9', '8', '4', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '13', '12', '15', '10', '11']}] }),
-        Part(**{ 'name':'STK436_Sanyo', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STK436_Sanyo'}), 'ref_prefix':'U', 'fplist':['Package_SIP:Sanyo_STK4xx-15_59.2x8.0mm_P2.54mm', 'Package_SIP:Sanyo_STK4xx-15_59.2x8.0mm_P2.54mm', 'Package_SIP:Sanyo_STK4xx-15_59.2x8.0mm_P2.54mm'], 'footprint':'Package_SIP:Sanyo_STK4xx-15_59.2x8.0mm_P2.54mm', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://datasheet.octopart.com/STK430-Sanyo-datasheet-107060.pdf', 'pins':[
+            Pin(num='15',name='+',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '7', '6', '4', '2', '1', '9', '3', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '10', '11', '15', '13', '12']}] }),
+        Part(**{ 'name':'STK436_Sanyo', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STK436_Sanyo'}), 'ref_prefix':'U', 'fplist':['Package_SIP:Sanyo_STK4xx-15_59.2x8.0mm_P2.54mm', 'Package_SIP:Sanyo_STK4xx-15_59.2x8.0mm_P2.54mm', 'Package_SIP:Sanyo_STK4xx-15_59.2x8.0mm_P2.54mm'], 'footprint':'Package_SIP:Sanyo_STK4xx-15_59.2x8.0mm_P2.54mm', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://datasheet.octopart.com/STK430-Sanyo-datasheet-107060.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nSTK436_Sanyo\n\naudio amplifier 2ch', 'pins':[
             Pin(num='1',name='+',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='V-',func=Pin.types.PWRIN,unit=1),
@@ -1611,8 +1610,8 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='V-',func=Pin.types.PWRIN,unit=2),
             Pin(num='13',name='V-',func=Pin.types.PWRIN,unit=2),
             Pin(num='14',name='-',func=Pin.types.INPUT,unit=2),
-            Pin(num='15',name='+',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '3', '1', '5', '2', '9', '6', '7', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '14', '12', '10', '15', '13']}] }),
-        Part(**{ 'name':'STK439_Sanyo', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STK439_Sanyo'}), 'ref_prefix':'U', 'fplist':['Package_SIP:Sanyo_STK4xx-15_78.0x8.0mm_P2.54mm', 'Package_SIP:Sanyo_STK4xx-15_78.0x8.0mm_P2.54mm'], 'footprint':'Package_SIP:Sanyo_STK4xx-15_78.0x8.0mm_P2.54mm', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://datasheet.octopart.com/STK430-Sanyo-datasheet-107060.pdf', 'pins':[
+            Pin(num='15',name='+',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '8', '5', '2', '9', '1', '6', '7', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '14', '12', '15', '10', '13']}] }),
+        Part(**{ 'name':'STK439_Sanyo', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STK439_Sanyo'}), 'ref_prefix':'U', 'fplist':['Package_SIP:Sanyo_STK4xx-15_78.0x8.0mm_P2.54mm', 'Package_SIP:Sanyo_STK4xx-15_78.0x8.0mm_P2.54mm'], 'footprint':'Package_SIP:Sanyo_STK4xx-15_78.0x8.0mm_P2.54mm', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://datasheet.octopart.com/STK430-Sanyo-datasheet-107060.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nSTK439_Sanyo\n\naudio amplifier 2ch', 'pins':[
             Pin(num='1',name='+',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='V-',func=Pin.types.PWRIN,unit=1),
@@ -1627,8 +1626,8 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='V-',func=Pin.types.PWRIN,unit=2),
             Pin(num='13',name='V-',func=Pin.types.PWRIN,unit=2),
             Pin(num='14',name='-',func=Pin.types.INPUT,unit=2),
-            Pin(num='15',name='+',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '6', '8', '5', '2', '7', '9', '1', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '12', '13', '11', '15', '14']}] }),
-        Part(**{ 'name':'STK441_Sanyo', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STK441_Sanyo'}), 'ref_prefix':'U', 'fplist':['Package_SIP:Sanyo_STK4xx-15_78.0x8.0mm_P2.54mm', 'Package_SIP:Sanyo_STK4xx-15_78.0x8.0mm_P2.54mm', 'Package_SIP:Sanyo_STK4xx-15_78.0x8.0mm_P2.54mm'], 'footprint':'Package_SIP:Sanyo_STK4xx-15_78.0x8.0mm_P2.54mm', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://datasheet.octopart.com/STK430-Sanyo-datasheet-107060.pdf', 'pins':[
+            Pin(num='15',name='+',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '3', '8', '2', '5', '7', '9', '1', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '12', '13', '11', '15', '14']}] }),
+        Part(**{ 'name':'STK441_Sanyo', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STK441_Sanyo'}), 'ref_prefix':'U', 'fplist':['Package_SIP:Sanyo_STK4xx-15_78.0x8.0mm_P2.54mm', 'Package_SIP:Sanyo_STK4xx-15_78.0x8.0mm_P2.54mm', 'Package_SIP:Sanyo_STK4xx-15_78.0x8.0mm_P2.54mm'], 'footprint':'Package_SIP:Sanyo_STK4xx-15_78.0x8.0mm_P2.54mm', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://datasheet.octopart.com/STK430-Sanyo-datasheet-107060.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nSTK441_Sanyo\n\naudio amplifier 2ch', 'pins':[
             Pin(num='1',name='+',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='V-',func=Pin.types.PWRIN,unit=1),
@@ -1643,8 +1642,8 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='V-',func=Pin.types.PWRIN,unit=2),
             Pin(num='13',name='V-',func=Pin.types.PWRIN,unit=2),
             Pin(num='14',name='-',func=Pin.types.INPUT,unit=2),
-            Pin(num='15',name='+',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '3', '5', '2', '9', '6', '1', '4', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '14', '12', '10', '15', '13']}] }),
-        Part(**{ 'name':'STK443_Sanyo', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STK443_Sanyo'}), 'ref_prefix':'U', 'fplist':['Package_SIP:Sanyo_STK4xx-15_78.0x8.0mm_P2.54mm', 'Package_SIP:Sanyo_STK4xx-15_78.0x8.0mm_P2.54mm', 'Package_SIP:Sanyo_STK4xx-15_78.0x8.0mm_P2.54mm', 'Package_SIP:Sanyo_STK4xx-15_78.0x8.0mm_P2.54mm'], 'footprint':'Package_SIP:Sanyo_STK4xx-15_78.0x8.0mm_P2.54mm', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://datasheet.octopart.com/STK430-Sanyo-datasheet-107060.pdf', 'pins':[
+            Pin(num='15',name='+',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '5', '2', '1', '9', '6', '4', '3', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '14', '12', '10', '15', '13']}] }),
+        Part(**{ 'name':'STK443_Sanyo', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STK443_Sanyo'}), 'ref_prefix':'U', 'fplist':['Package_SIP:Sanyo_STK4xx-15_78.0x8.0mm_P2.54mm', 'Package_SIP:Sanyo_STK4xx-15_78.0x8.0mm_P2.54mm', 'Package_SIP:Sanyo_STK4xx-15_78.0x8.0mm_P2.54mm', 'Package_SIP:Sanyo_STK4xx-15_78.0x8.0mm_P2.54mm'], 'footprint':'Package_SIP:Sanyo_STK4xx-15_78.0x8.0mm_P2.54mm', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://datasheet.octopart.com/STK430-Sanyo-datasheet-107060.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nSTK443_Sanyo\n\naudio amplifier 2ch', 'pins':[
             Pin(num='1',name='+',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='V-',func=Pin.types.PWRIN,unit=1),
@@ -1659,8 +1658,8 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='V-',func=Pin.types.PWRIN,unit=2),
             Pin(num='13',name='V-',func=Pin.types.PWRIN,unit=2),
             Pin(num='14',name='-',func=Pin.types.INPUT,unit=2),
-            Pin(num='15',name='+',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '8', '1', '5', '2', '9', '6', '7', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '14', '12', '10', '15', '13']}] }),
-        Part(**{ 'name':'Si8241CB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8241CB'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'class d gate driver', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/NCD5702-D.PDF', 'pins':[
+            Pin(num='15',name='+',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '3', '5', '2', '9', '1', '6', '7', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '14', '12', '10', '15', '13']}] }),
+        Part(**{ 'name':'Si8241CB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8241CB'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'class d gate driver', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/NCD5702-D.PDF', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nSi8241CB\n\nclass d gate driver', 'pins':[
             Pin(num='1',name='PWM',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VOB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='VDDB',func=Pin.types.PWRIN,unit=1),
@@ -1677,7 +1676,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='VDDI',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GNDB',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8244BB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8244BB'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'class d gate driver', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/NCD5702-D.PDF', 'pins':[
+        Part(**{ 'name':'Si8244BB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8244BB'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'class d gate driver', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/NCD5702-D.PDF', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nSi8244BB\n\nclass d gate driver', 'pins':[
             Pin(num='1',name='PWM',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VOB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='VDDB',func=Pin.types.PWRIN,unit=1),
@@ -1694,7 +1693,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='VDDI',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GNDB',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8244CB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8244CB'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'class d gate driver', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/NCD5702-D.PDF', 'pins':[
+        Part(**{ 'name':'Si8244CB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8244CB'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'class d gate driver', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/NCD5702-D.PDF', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nSi8244CB\n\nclass d gate driver', 'pins':[
             Pin(num='1',name='PWM',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VOB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='VDDB',func=Pin.types.PWRIN,unit=1),
@@ -1711,13 +1710,13 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='VDDI',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GNDB',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TDA2050', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA2050'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-5_P3.4x3.7mm_StaggerOdd_Lead3.8mm_Vertical', 'Package_TO_SOT_THT:TO-220-5_P3.4x3.7mm_StaggerOdd_Lead3.8mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-5_P3.4x3.7mm_StaggerOdd_Lead3.8mm_Vertical', 'keywords':'audio amplifier', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/cd00000131.pdf', 'pins':[
+        Part(**{ 'name':'TDA2050', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA2050'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-5_P3.4x3.7mm_StaggerOdd_Lead3.8mm_Vertical', 'Package_TO_SOT_THT:TO-220-5_P3.4x3.7mm_StaggerOdd_Lead3.8mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-5_P3.4x3.7mm_StaggerOdd_Lead3.8mm_Vertical', 'keywords':'audio amplifier', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/cd00000131.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nTDA2050\n\naudio amplifier', 'pins':[
             Pin(num='1',name='+',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='-Vs',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='5',name='+Vs',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TDA7265B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA7265B'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical', 'Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/tda7265b.pdf', 'pins':[
+        Part(**{ 'name':'TDA7265B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA7265B'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical', 'Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/tda7265b.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nTDA7265B\n\naudio amplifier 2ch', 'pins':[
             Pin(num='10',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='+',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -1728,8 +1727,8 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='1',name='V-',func=Pin.types.PWRIN,unit=3),
             Pin(num='3',name='V+',func=Pin.types.PWRIN,unit=3),
-            Pin(num='6',name='V-',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '11', '10', '9', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '8', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '6', '1']}] }),
-        Part(**{ 'name':'TDA7269A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA7269A'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical', 'Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical', 'Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical', 'keywords':'audio amplfier 2ch', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/tda7269a.pdf', 'pins':[
+            Pin(num='6',name='V-',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['11', '5', '9', '10', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '4', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '6', '1']}] }),
+        Part(**{ 'name':'TDA7269A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA7269A'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical', 'Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical', 'Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical', 'keywords':'audio amplfier 2ch', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/tda7269a.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nTDA7269A\n\naudio amplfier 2ch', 'pins':[
             Pin(num='10',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='+',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -1740,8 +1739,8 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='1',name='V-',func=Pin.types.PWRIN,unit=3),
             Pin(num='3',name='V+',func=Pin.types.PWRIN,unit=3),
-            Pin(num='6',name='V-',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['11', '5', '9', '2', '10']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '7', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '6', '1']}] }),
-        Part(**{ 'name':'TDA7292', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA7292'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical', 'Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical', 'Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical', 'Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/tda7292.pdf', 'pins':[
+            Pin(num='6',name='V-',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['9', '10', '11', '2', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '8', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '6', '1']}] }),
+        Part(**{ 'name':'TDA7292', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA7292'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical', 'Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical', 'Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical', 'Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-11_P3.4x5.08mm_StaggerOdd_Lead4.85mm_Vertical', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/tda7292.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nTDA7292\n\naudio amplifier 2ch', 'pins':[
             Pin(num='10',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='+',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -1752,8 +1751,8 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='-',func=Pin.types.INPUT,unit=2),
             Pin(num='1',name='V-',func=Pin.types.PWRIN,unit=3),
             Pin(num='3',name='V+',func=Pin.types.PWRIN,unit=3),
-            Pin(num='6',name='V-',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['10', '5', '11', '9', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '7', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '6', '1']}] }),
-        Part(**{ 'name':'TDA7294', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA7294'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical', 'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical', 'keywords':'audio amplifier', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/tda7294.pdf', 'pins':[
+            Pin(num='6',name='V-',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['10', '5', '9', '2', '11']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '7', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '6', '1']}] }),
+        Part(**{ 'name':'TDA7294', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA7294'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical', 'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical', 'keywords':'audio amplifier', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/tda7294.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nTDA7294\n\naudio amplifier', 'pins':[
             Pin(num='1',name='SGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='MUTE',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -1769,7 +1768,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='+Vs',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='-Vs',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='STBY',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TDA7295', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA7295'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical', 'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical', 'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical', 'keywords':'audio amplifier', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/tda7295.pdf', 'pins':[
+        Part(**{ 'name':'TDA7295', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA7295'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical', 'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical', 'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical', 'keywords':'audio amplifier', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/tda7295.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nTDA7295\n\naudio amplifier', 'pins':[
             Pin(num='1',name='SGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='MUTE',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -1785,7 +1784,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='+Vs',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='-Vs',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='STBY',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TDA7296', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA7296'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical', 'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical', 'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical', 'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical', 'keywords':'audio amplifier', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/tda7296.pdf', 'pins':[
+        Part(**{ 'name':'TDA7296', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA7296'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical', 'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical', 'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical', 'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical', 'keywords':'audio amplifier', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/tda7296.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nTDA7296\n\naudio amplifier', 'pins':[
             Pin(num='1',name='SGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='MUTE',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -1801,7 +1800,7 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='+Vs',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='-Vs',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='STBY',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TDA7297', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA7297'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical', 'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/tda7297.pdf', 'pins':[
+        Part(**{ 'name':'TDA7297', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA7297'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical', 'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-15_P2.54x2.54mm_StaggerOdd_Lead4.58mm_Vertical', 'keywords':'audio amplifier 2ch', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/tda7297.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nTDA7297\n\naudio amplifier 2ch', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -1816,8 +1815,8 @@ Amplifier_Audio = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='V+',func=Pin.types.PASSIVE,unit=3),
             Pin(num='3',name='V+',func=Pin.types.PWRIN,unit=3),
             Pin(num='8',name='PG',func=Pin.types.PWRIN,unit=3),
-            Pin(num='9',name='SG',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '10', '1', '7', '5', '6', '4', '11']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '15', '12']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '13', '3', '8']}] }),
-        Part(**{ 'name':'TPA6203A1DRB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPA6203A1DRB'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8-1EP_3x3mm_P0.65mm_EP1.95x2.15mm_ThermalVias', 'Package_DFN_QFN:Texas_DRB0008A'], 'footprint':'Package_SO:MSOP-8-1EP_3x3mm_P0.65mm_EP1.95x2.15mm_ThermalVias', 'keywords':'Differential audio amplifier Mono', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tpa6203a1.pdf', 'pins':[
+            Pin(num='9',name='SG',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['11', '6', '10', '7', '5', '2', '1', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['12', '14', '15']},{'label': 'uC', 'num': 3, 'pin_nums': ['13', '3', '9', '8']}] }),
+        Part(**{ 'name':'TPA6203A1DRB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPA6203A1DRB'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8-1EP_3x3mm_P0.65mm_EP1.95x2.15mm_ThermalVias', 'Package_DFN_QFN:Texas_DRB0008A'], 'footprint':'Package_SO:MSOP-8-1EP_3x3mm_P0.65mm_EP1.95x2.15mm_ThermalVias', 'keywords':'Differential audio amplifier Mono', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tpa6203a1.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Audio.kicad_sym\nTPA6203A1DRB\n\nDifferential audio amplifier Mono', 'pins':[
             Pin(num='1',name='~{SHUTDOWN}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='BYPASS',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='IN+',func=Pin.types.INPUT,unit=1),

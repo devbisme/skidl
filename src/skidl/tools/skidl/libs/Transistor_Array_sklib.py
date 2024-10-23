@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Transistor_Array = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'A2982', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A2982'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'relays solenoids lamps steppers servos LEDs', 'description':'', 'datasheet':'https://www.allegromicro.com/~/media/Files/Datasheets/A2981-2-Datasheet.ashx', 'pins':[
+        Part(**{ 'name':'A2982', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A2982'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'relays solenoids lamps steppers servos LEDs', 'description':'', 'datasheet':'https://www.allegromicro.com/~/media/Files/Datasheets/A2981-2-Datasheet.ashx', 'search_text':'/usr/share/kicad/symbols/Transistor_Array.kicad_sym\nA2982\n\nrelays solenoids lamps steppers servos LEDs', 'pins':[
             Pin(num='1',name='IN1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -25,7 +25,7 @@ Transistor_Array = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IN7',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='IN8',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='+VS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC1413D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC1413D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'darlington transistor array', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/MC1413-D.PDF', 'pins':[
+        Part(**{ 'name':'MC1413D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC1413D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'darlington transistor array', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/MC1413-D.PDF', 'search_text':'/usr/share/kicad/symbols/Transistor_Array.kicad_sym\nMC1413D\n\ndarlington transistor array', 'pins':[
             Pin(num='1',name='I1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='O7',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='O6',func=Pin.types.OPENCOLL,unit=1),
@@ -42,7 +42,7 @@ Transistor_Array = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I7',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='COM',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SN75468', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN75468'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'darlington transistor array', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/slrs023e/slrs023e.pdf', 'pins':[
+        Part(**{ 'name':'SN75468', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN75468'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'darlington transistor array', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/slrs023e/slrs023e.pdf', 'search_text':'/usr/share/kicad/symbols/Transistor_Array.kicad_sym\nSN75468\n\ndarlington transistor array', 'pins':[
             Pin(num='1',name='I1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='O7',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='O6',func=Pin.types.OPENCOLL,unit=1),
@@ -59,7 +59,7 @@ Transistor_Array = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I7',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='COM',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TBD62783A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TBD62783A'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'relays solenoids lamps steppers servos LEDs', 'description':'', 'datasheet':'http://toshiba.semicon-storage.com/info/docget.jsp?did=30523&prodName=TBD62783APG', 'pins':[
+        Part(**{ 'name':'TBD62783A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TBD62783A'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'relays solenoids lamps steppers servos LEDs', 'description':'', 'datasheet':'http://toshiba.semicon-storage.com/info/docget.jsp?did=30523&prodName=TBD62783APG', 'search_text':'/usr/share/kicad/symbols/Transistor_Array.kicad_sym\nTBD62783A\n\nrelays solenoids lamps steppers servos LEDs', 'pins':[
             Pin(num='1',name='I1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='O8',func=Pin.types.OPENEMIT,unit=1),
@@ -78,7 +78,7 @@ Transistor_Array = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I7',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='I8',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TBD62785APG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TBD62785APG'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-18_W7.62mm'], 'footprint':'Package_DIP:DIP-18_W7.62mm', 'keywords':'relays solenoids lamps steppers servos LEDs', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/TBD62785APG_datasheet_en_20170530.pdf?did=58399&prodName=TBD62785APG', 'pins':[
+        Part(**{ 'name':'TBD62785APG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TBD62785APG'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-18_W7.62mm'], 'footprint':'Package_DIP:DIP-18_W7.62mm', 'keywords':'relays solenoids lamps steppers servos LEDs', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/TBD62785APG_datasheet_en_20170530.pdf?did=58399&prodName=TBD62785APG', 'search_text':'/usr/share/kicad/symbols/Transistor_Array.kicad_sym\nTBD62785APG\n\nrelays solenoids lamps steppers servos LEDs', 'pins':[
             Pin(num='1',name='I1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='O8',func=Pin.types.OPENEMIT,unit=1),
@@ -97,7 +97,7 @@ Transistor_Array = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I7',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='I8',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ULN2003', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ULN2003'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'darlington transistor array', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uln2003a.pdf', 'pins':[
+        Part(**{ 'name':'ULN2003', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ULN2003'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'darlington transistor array', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uln2003a.pdf', 'search_text':'/usr/share/kicad/symbols/Transistor_Array.kicad_sym\nULN2003\n\ndarlington transistor array', 'pins':[
             Pin(num='1',name='I1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='O7',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='O6',func=Pin.types.OPENCOLL,unit=1),
@@ -114,7 +114,7 @@ Transistor_Array = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I7',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='COM',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ULN2803A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ULN2803A'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Darlington transistor array', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uln2803a.pdf', 'pins':[
+        Part(**{ 'name':'ULN2803A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ULN2803A'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Darlington transistor array', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uln2803a.pdf', 'search_text':'/usr/share/kicad/symbols/Transistor_Array.kicad_sym\nULN2803A\n\nDarlington transistor array', 'pins':[
             Pin(num='1',name='I1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='COM',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='O8',func=Pin.types.OPENCOLL,unit=1),
@@ -133,7 +133,7 @@ Transistor_Array = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I7',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='I8',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ULQ2003A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ULQ2003A'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'darlington transistor array', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uln2003a.pdf', 'pins':[
+        Part(**{ 'name':'ULQ2003A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ULQ2003A'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'darlington transistor array', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uln2003a.pdf', 'search_text':'/usr/share/kicad/symbols/Transistor_Array.kicad_sym\nULQ2003A\n\ndarlington transistor array', 'pins':[
             Pin(num='1',name='I1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='O7',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='O6',func=Pin.types.OPENCOLL,unit=1),
@@ -150,7 +150,7 @@ Transistor_Array = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I7',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='COM',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC1413BD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC1413BD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'darlington transistor array', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/MC1413-D.PDF', 'pins':[
+        Part(**{ 'name':'MC1413BD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC1413BD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'darlington transistor array', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/MC1413-D.PDF', 'search_text':'/usr/share/kicad/symbols/Transistor_Array.kicad_sym\nMC1413BD\n\ndarlington transistor array', 'pins':[
             Pin(num='1',name='I1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='O7',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='O6',func=Pin.types.OPENCOLL,unit=1),
@@ -167,7 +167,7 @@ Transistor_Array = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I7',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='COM',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC1413BP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC1413BP'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'darlington transistor array', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/MC1413-D.PDF', 'pins':[
+        Part(**{ 'name':'MC1413BP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC1413BP'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'darlington transistor array', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/MC1413-D.PDF', 'search_text':'/usr/share/kicad/symbols/Transistor_Array.kicad_sym\nMC1413BP\n\ndarlington transistor array', 'pins':[
             Pin(num='1',name='I1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='O7',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='O6',func=Pin.types.OPENCOLL,unit=1),
@@ -184,7 +184,7 @@ Transistor_Array = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I7',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='COM',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC1413P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC1413P'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_DIP:DIP-16_W7.62mm', 'Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'darlington transistor array', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/MC1413-D.PDF', 'pins':[
+        Part(**{ 'name':'MC1413P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC1413P'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_DIP:DIP-16_W7.62mm', 'Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'darlington transistor array', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/MC1413-D.PDF', 'search_text':'/usr/share/kicad/symbols/Transistor_Array.kicad_sym\nMC1413P\n\ndarlington transistor array', 'pins':[
             Pin(num='1',name='I1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='O7',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='O6',func=Pin.types.OPENCOLL,unit=1),
@@ -201,7 +201,7 @@ Transistor_Array = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I7',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='COM',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCV1413B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCV1413B'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_DIP:DIP-16_W7.62mm', 'Package_DIP:DIP-16_W7.62mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'darlington transistor array', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/MC1413-D.PDF', 'pins':[
+        Part(**{ 'name':'NCV1413B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCV1413B'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_DIP:DIP-16_W7.62mm', 'Package_DIP:DIP-16_W7.62mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'darlington transistor array', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/MC1413-D.PDF', 'search_text':'/usr/share/kicad/symbols/Transistor_Array.kicad_sym\nNCV1413B\n\ndarlington transistor array', 'pins':[
             Pin(num='1',name='I1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='O7',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='O6',func=Pin.types.OPENCOLL,unit=1),
@@ -218,7 +218,7 @@ Transistor_Array = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I7',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='COM',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SN75469', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN75469'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'darlington transistor array', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/slrs023e/slrs023e.pdf', 'pins':[
+        Part(**{ 'name':'SN75469', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN75469'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'darlington transistor array', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/slrs023e/slrs023e.pdf', 'search_text':'/usr/share/kicad/symbols/Transistor_Array.kicad_sym\nSN75469\n\ndarlington transistor array', 'pins':[
             Pin(num='1',name='I1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='O7',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='O6',func=Pin.types.OPENCOLL,unit=1),
@@ -235,7 +235,7 @@ Transistor_Array = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I7',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='COM',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TBD62785AFWG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TBD62785AFWG'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-18_W7.62mm', 'Package_SO:SOP-18_7.495x11.515mm_P1.27mm'], 'footprint':'Package_DIP:DIP-18_W7.62mm', 'keywords':'relays solenoids lamps steppers servos LEDs', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/TBD62785AFWG_datasheet_en_20170530.pdf?did=58399&prodName=TBD62785AFWG', 'pins':[
+        Part(**{ 'name':'TBD62785AFWG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TBD62785AFWG'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-18_W7.62mm', 'Package_SO:SOP-18_7.495x11.515mm_P1.27mm'], 'footprint':'Package_DIP:DIP-18_W7.62mm', 'keywords':'relays solenoids lamps steppers servos LEDs', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/TBD62785AFWG_datasheet_en_20170530.pdf?did=58399&prodName=TBD62785AFWG', 'search_text':'/usr/share/kicad/symbols/Transistor_Array.kicad_sym\nTBD62785AFWG\n\nrelays solenoids lamps steppers servos LEDs', 'pins':[
             Pin(num='1',name='I1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='O8',func=Pin.types.OPENEMIT,unit=1),
@@ -254,7 +254,7 @@ Transistor_Array = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I7',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='I8',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ULN2002', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ULN2002'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'darlington transistor array', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uln2003a.pdf', 'pins':[
+        Part(**{ 'name':'ULN2002', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ULN2002'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'darlington transistor array', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uln2003a.pdf', 'search_text':'/usr/share/kicad/symbols/Transistor_Array.kicad_sym\nULN2002\n\ndarlington transistor array', 'pins':[
             Pin(num='1',name='I1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='O7',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='O6',func=Pin.types.OPENCOLL,unit=1),
@@ -271,7 +271,7 @@ Transistor_Array = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I7',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='COM',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ULN2002A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ULN2002A'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'darlington transistor array', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uln2003a.pdf', 'pins':[
+        Part(**{ 'name':'ULN2002A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ULN2002A'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'darlington transistor array', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uln2003a.pdf', 'search_text':'/usr/share/kicad/symbols/Transistor_Array.kicad_sym\nULN2002A\n\ndarlington transistor array', 'pins':[
             Pin(num='1',name='I1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='O7',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='O6',func=Pin.types.OPENCOLL,unit=1),
@@ -288,7 +288,7 @@ Transistor_Array = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I7',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='COM',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ULN2003A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ULN2003A'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'darlington transistor array', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uln2003a.pdf', 'pins':[
+        Part(**{ 'name':'ULN2003A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ULN2003A'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'darlington transistor array', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uln2003a.pdf', 'search_text':'/usr/share/kicad/symbols/Transistor_Array.kicad_sym\nULN2003A\n\ndarlington transistor array', 'pins':[
             Pin(num='1',name='I1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='O7',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='O6',func=Pin.types.OPENCOLL,unit=1),
@@ -305,7 +305,7 @@ Transistor_Array = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I7',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='COM',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ULN2004', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ULN2004'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'darlington transistor array', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uln2003a.pdf', 'pins':[
+        Part(**{ 'name':'ULN2004', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ULN2004'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'darlington transistor array', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uln2003a.pdf', 'search_text':'/usr/share/kicad/symbols/Transistor_Array.kicad_sym\nULN2004\n\ndarlington transistor array', 'pins':[
             Pin(num='1',name='I1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='O7',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='O6',func=Pin.types.OPENCOLL,unit=1),
@@ -322,7 +322,7 @@ Transistor_Array = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I7',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='COM',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ULN2004A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ULN2004A'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', ''], 'footprint':'', 'keywords':'darlington transistor array', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uln2003a.pdf', 'pins':[
+        Part(**{ 'name':'ULN2004A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ULN2004A'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', ''], 'footprint':'', 'keywords':'darlington transistor array', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uln2003a.pdf', 'search_text':'/usr/share/kicad/symbols/Transistor_Array.kicad_sym\nULN2004A\n\ndarlington transistor array', 'pins':[
             Pin(num='1',name='I1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='O7',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='O6',func=Pin.types.OPENCOLL,unit=1),
@@ -339,7 +339,7 @@ Transistor_Array = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I7',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='COM',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ULN2801A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ULN2801A'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'darlington transistor array', 'description':'', 'datasheet':'http://www.promelec.ru/pdf/1536.pdf', 'pins':[
+        Part(**{ 'name':'ULN2801A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ULN2801A'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'darlington transistor array', 'description':'', 'datasheet':'http://www.promelec.ru/pdf/1536.pdf', 'search_text':'/usr/share/kicad/symbols/Transistor_Array.kicad_sym\nULN2801A\n\ndarlington transistor array', 'pins':[
             Pin(num='1',name='I1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='COM',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='O8',func=Pin.types.OPENCOLL,unit=1),
@@ -358,7 +358,7 @@ Transistor_Array = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I7',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='I8',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ULN2802A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ULN2802A'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'darlington transistor array', 'description':'', 'datasheet':'http://www.promelec.ru/pdf/1536.pdf', 'pins':[
+        Part(**{ 'name':'ULN2802A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ULN2802A'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'darlington transistor array', 'description':'', 'datasheet':'http://www.promelec.ru/pdf/1536.pdf', 'search_text':'/usr/share/kicad/symbols/Transistor_Array.kicad_sym\nULN2802A\n\ndarlington transistor array', 'pins':[
             Pin(num='1',name='I1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='COM',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='O8',func=Pin.types.OPENCOLL,unit=1),
@@ -377,7 +377,7 @@ Transistor_Array = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I7',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='I8',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ULN2804A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ULN2804A'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'darlington transistor array', 'description':'', 'datasheet':'http://www.promelec.ru/pdf/1536.pdf', 'pins':[
+        Part(**{ 'name':'ULN2804A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ULN2804A'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'darlington transistor array', 'description':'', 'datasheet':'http://www.promelec.ru/pdf/1536.pdf', 'search_text':'/usr/share/kicad/symbols/Transistor_Array.kicad_sym\nULN2804A\n\ndarlington transistor array', 'pins':[
             Pin(num='1',name='I1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='COM',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='O8',func=Pin.types.OPENCOLL,unit=1),
@@ -396,7 +396,7 @@ Transistor_Array = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I7',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='I8',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ULN2805A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ULN2805A'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'darlington transistor array', 'description':'', 'datasheet':'http://www.promelec.ru/pdf/1536.pdf', 'pins':[
+        Part(**{ 'name':'ULN2805A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ULN2805A'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'darlington transistor array', 'description':'', 'datasheet':'http://www.promelec.ru/pdf/1536.pdf', 'search_text':'/usr/share/kicad/symbols/Transistor_Array.kicad_sym\nULN2805A\n\ndarlington transistor array', 'pins':[
             Pin(num='1',name='I1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='COM',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='O8',func=Pin.types.OPENCOLL,unit=1),
@@ -415,7 +415,7 @@ Transistor_Array = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I7',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='I8',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ULQ2004A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ULQ2004A'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'darlington transistor array', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uln2003a.pdf', 'pins':[
+        Part(**{ 'name':'ULQ2004A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ULQ2004A'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'darlington transistor array', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uln2003a.pdf', 'search_text':'/usr/share/kicad/symbols/Transistor_Array.kicad_sym\nULQ2004A\n\ndarlington transistor array', 'pins':[
             Pin(num='1',name='I1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='O7',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='O6',func=Pin.types.OPENCOLL,unit=1),

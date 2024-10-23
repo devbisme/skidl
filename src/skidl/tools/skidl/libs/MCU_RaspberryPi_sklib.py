@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 MCU_RaspberryPi = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'RP2040', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RP2040'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-56-1EP_7x7mm_P0.4mm_EP3.2x3.2mm'], 'footprint':'Package_DFN_QFN:QFN-56-1EP_7x7mm_P0.4mm_EP3.2x3.2mm', 'keywords':'RP2040 ARM Cortex-M0+ USB', 'description':'', 'datasheet':'https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'RP2040', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RP2040'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-56-1EP_7x7mm_P0.4mm_EP3.2x3.2mm'], 'footprint':'Package_DFN_QFN:QFN-56-1EP_7x7mm_P0.4mm_EP3.2x3.2mm', 'keywords':'RP2040 ARM Cortex-M0+ USB', 'description':'', 'datasheet':'https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_RaspberryPi.kicad_sym\nRP2040\n\nRP2040 ARM Cortex-M0+ USB', 'pins':[
             Pin(num='1',name='IOVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='IOVDD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='GPIO8',func=Pin.types.BIDIR,unit=1),

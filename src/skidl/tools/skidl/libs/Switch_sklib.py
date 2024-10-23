@@ -4,52 +4,52 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Switch = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'SW_Coded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Coded'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'rotary hex', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_Coded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Coded'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'rotary hex', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_Coded\n\nrotary hex', 'pins':[
             Pin(num='1',name='CM',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='D0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='D1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='D2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='D3',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_Coded_SH-7010', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Coded_SH-7010'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'rotary bcd Real', 'description':'', 'datasheet':'https://www.nidec-copal-electronics.com/e/catalog/switch/sh-7000.pdf', 'pins':[
+        Part(**{ 'name':'SW_Coded_SH-7010', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Coded_SH-7010'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'rotary bcd Real', 'description':'', 'datasheet':'https://www.nidec-copal-electronics.com/e/catalog/switch/sh-7000.pdf', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_Coded_SH-7010\n\nrotary bcd Real', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='C',name='C',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_Coded_SH-7040', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Coded_SH-7040'}), 'ref_prefix':'SW', 'fplist':['Button_Switch_SMD:Nidec_Copal_SH-7040B'], 'footprint':'Button_Switch_SMD:Nidec_Copal_SH-7040B', 'keywords':'rotary bcd Gray', 'description':'', 'datasheet':'https://www.nidec-copal-electronics.com/e/catalog/switch/sh-7000.pdf', 'pins':[
+        Part(**{ 'name':'SW_Coded_SH-7040', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Coded_SH-7040'}), 'ref_prefix':'SW', 'fplist':['Button_Switch_SMD:Nidec_Copal_SH-7040B'], 'footprint':'Button_Switch_SMD:Nidec_Copal_SH-7040B', 'keywords':'rotary bcd Gray', 'description':'', 'datasheet':'https://www.nidec-copal-electronics.com/e/catalog/switch/sh-7000.pdf', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_Coded_SH-7040\n\nrotary bcd Gray', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='C',name='C',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_Coded_SH-7050', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Coded_SH-7050'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'rotary hex Real', 'description':'', 'datasheet':'https://www.nidec-copal-electronics.com/e/catalog/switch/sh-7000.pdf', 'pins':[
+        Part(**{ 'name':'SW_Coded_SH-7050', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Coded_SH-7050'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'rotary hex Real', 'description':'', 'datasheet':'https://www.nidec-copal-electronics.com/e/catalog/switch/sh-7000.pdf', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_Coded_SH-7050\n\nrotary hex Real', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='C',name='C',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_Coded_SH-7080', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Coded_SH-7080'}), 'ref_prefix':'SW', 'fplist':['Button_Switch_SMD:Nidec_Copal_SH-7040B'], 'footprint':'Button_Switch_SMD:Nidec_Copal_SH-7040B', 'keywords':'rotary hex Gray', 'description':'', 'datasheet':'https://www.nidec-copal-electronics.com/e/catalog/switch/sh-7000.pdf', 'pins':[
+        Part(**{ 'name':'SW_Coded_SH-7080', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Coded_SH-7080'}), 'ref_prefix':'SW', 'fplist':['Button_Switch_SMD:Nidec_Copal_SH-7040B'], 'footprint':'Button_Switch_SMD:Nidec_Copal_SH-7040B', 'keywords':'rotary hex Gray', 'description':'', 'datasheet':'https://www.nidec-copal-electronics.com/e/catalog/switch/sh-7000.pdf', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_Coded_SH-7080\n\nrotary hex Gray', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='C',name='C',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_DIP_x01', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_DIP_x01'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'dip switch', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_DIP_x01', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_DIP_x01'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'dip switch', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_DIP_x01\n\ndip switch', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_DIP_x02', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_DIP_x02'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'dip switch', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_DIP_x02', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_DIP_x02'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'dip switch', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_DIP_x02\n\ndip switch', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_DIP_x03', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_DIP_x03'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'dip switch', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_DIP_x03', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_DIP_x03'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'dip switch', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_DIP_x03\n\ndip switch', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_DIP_x04', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_DIP_x04'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'dip switch', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_DIP_x04', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_DIP_x04'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'dip switch', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_DIP_x04\n\ndip switch', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -58,7 +58,7 @@ Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_DIP_x05', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_DIP_x05'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'dip switch', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_DIP_x05', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_DIP_x05'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'dip switch', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_DIP_x05\n\ndip switch', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -69,7 +69,7 @@ Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_DIP_x06', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_DIP_x06'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'dip switch', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_DIP_x06', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_DIP_x06'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'dip switch', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_DIP_x06\n\ndip switch', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -82,7 +82,7 @@ Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_DIP_x07', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_DIP_x07'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'dip switch', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_DIP_x07', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_DIP_x07'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'dip switch', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_DIP_x07\n\ndip switch', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -97,7 +97,7 @@ Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_DIP_x08', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_DIP_x08'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'dip switch', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_DIP_x08', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_DIP_x08'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'dip switch', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_DIP_x08\n\ndip switch', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -114,7 +114,7 @@ Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_DIP_x09', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_DIP_x09'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'dip switch', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_DIP_x09', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_DIP_x09'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'dip switch', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_DIP_x09\n\ndip switch', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -133,7 +133,7 @@ Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_DIP_x10', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_DIP_x10'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'dip switch', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_DIP_x10', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_DIP_x10'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'dip switch', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_DIP_x10\n\ndip switch', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -154,7 +154,7 @@ Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_DIP_x11', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_DIP_x11'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'dip switch', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_DIP_x11', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_DIP_x11'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'dip switch', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_DIP_x11\n\ndip switch', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -177,7 +177,7 @@ Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_DIP_x12', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_DIP_x12'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'dip switch', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_DIP_x12', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_DIP_x12'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'dip switch', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_DIP_x12\n\ndip switch', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -202,7 +202,7 @@ Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_DP3T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_DP3T'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch dp3t ON-ON-ON', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_DP3T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_DP3T'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch dp3t ON-ON-ON', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_DP3T\n\nswitch dp3t ON-ON-ON', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='3',func=Pin.types.PASSIVE,unit=1),
@@ -210,128 +210,128 @@ Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='5',func=Pin.types.PASSIVE,unit=2),
             Pin(num='6',name='6',func=Pin.types.PASSIVE,unit=2),
             Pin(num='7',name='7',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='8',name='8',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '8', '6', '7']}] }),
-        Part(**{ 'name':'SW_DPDT_x2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_DPDT_x2'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch dual-pole double-throw DPDT spdt ON-ON', 'description':'', 'datasheet':'~', 'pins':[
+            Pin(num='8',name='8',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '4', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7', '8']}] }),
+        Part(**{ 'name':'SW_DPDT_x2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_DPDT_x2'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch dual-pole double-throw DPDT spdt ON-ON', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_DPDT_x2\n\nswitch dual-pole double-throw DPDT spdt ON-ON', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='B',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='A',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='B',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='C',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5']}] }),
-        Part(**{ 'name':'SW_DPST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_DPST'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch dual double-pole single-throw OFF-ON', 'description':'', 'datasheet':'~', 'pins':[
+            Pin(num='6',name='C',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '4', '5']}] }),
+        Part(**{ 'name':'SW_DPST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_DPST'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch dual double-pole single-throw OFF-ON', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_DPST\n\nswitch dual double-pole single-throw OFF-ON', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='3',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='4',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_DPST_Temperature', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_DPST_Temperature'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'temperature switch dual double-pole single-throw OFF-ON', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_DPST_Temperature', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_DPST_Temperature'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'temperature switch dual double-pole single-throw OFF-ON', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_DPST_Temperature\n\ntemperature switch dual double-pole single-throw OFF-ON', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='3',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='4',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_DPST_x2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_DPST_x2'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch lever', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_DPST_x2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_DPST_x2'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch lever', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_DPST_x2\n\nswitch lever', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='B',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='A',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='4',name='B',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']}] }),
-        Part(**{ 'name':'SW_E3_SA3216', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_E3_SA3216'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch normally-open pushbutton push-button LCD', 'description':'', 'datasheet':'http://www.e3-keys.com/files/SA%20Technical%20Datasheet%20v2.0.pdf', 'pins':[
+            Pin(num='4',name='B',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']}] }),
+        Part(**{ 'name':'SW_E3_SA3216', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_E3_SA3216'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch normally-open pushbutton push-button LCD', 'description':'', 'datasheet':'http://www.e3-keys.com/files/SA%20Technical%20Datasheet%20v2.0.pdf', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_E3_SA3216\n\nswitch normally-open pushbutton push-button LCD', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='2',name='5V',func=Pin.types.PWRIN),
             Pin(num='3',name='CLK',func=Pin.types.INPUT),
             Pin(num='4',name='DAT',func=Pin.types.INPUT),
             Pin(num='5',name='SW1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='SW2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_MEC_5E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_MEC_5E'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch normally-open pushbutton push-button', 'description':'', 'datasheet':'http://www.apem.com/int/index.php?controller=attachment&id_attachment=1371', 'pins':[
+        Part(**{ 'name':'SW_MEC_5E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_MEC_5E'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch normally-open pushbutton push-button', 'description':'', 'datasheet':'http://www.apem.com/int/index.php?controller=attachment&id_attachment=1371', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_MEC_5E\n\nswitch normally-open pushbutton push-button', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE),
             Pin(num='2',name='2',func=Pin.types.PASSIVE),
             Pin(num='3',name='K',func=Pin.types.PASSIVE),
             Pin(num='4',name='A',func=Pin.types.PASSIVE)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_MEC_5G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_MEC_5G'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch normally-open pushbutton push-button', 'description':'', 'datasheet':'http://www.apem.com/int/index.php?controller=attachment&id_attachment=488', 'pins':[
+        Part(**{ 'name':'SW_MEC_5G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_MEC_5G'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch normally-open pushbutton push-button', 'description':'', 'datasheet':'http://www.apem.com/int/index.php?controller=attachment&id_attachment=488', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_MEC_5G\n\nswitch normally-open pushbutton push-button', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE),
             Pin(num='3',name='B',func=Pin.types.PASSIVE),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='B',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_MEC_5G_2LED', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_MEC_5G_2LED'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch normally-open pushbutton push-button LED', 'description':'', 'datasheet':'http://www.apem.com/int/index.php?controller=attachment&id_attachment=488', 'pins':[
+        Part(**{ 'name':'SW_MEC_5G_2LED', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_MEC_5G_2LED'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch normally-open pushbutton push-button LED', 'description':'', 'datasheet':'http://www.apem.com/int/index.php?controller=attachment&id_attachment=488', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_MEC_5G_2LED\n\nswitch normally-open pushbutton push-button LED', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE),
             Pin(num='2',name='2',func=Pin.types.PASSIVE),
             Pin(num='3',name='K',func=Pin.types.PASSIVE),
             Pin(num='4',name='A',func=Pin.types.PASSIVE)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_MEC_5G_LED', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_MEC_5G_LED'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch normally-open pushbutton push-button LED', 'description':'', 'datasheet':'http://www.apem.com/int/index.php?controller=attachment&id_attachment=488', 'pins':[
+        Part(**{ 'name':'SW_MEC_5G_LED', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_MEC_5G_LED'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch normally-open pushbutton push-button LED', 'description':'', 'datasheet':'http://www.apem.com/int/index.php?controller=attachment&id_attachment=488', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_MEC_5G_LED\n\nswitch normally-open pushbutton push-button LED', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE),
             Pin(num='2',name='2',func=Pin.types.PASSIVE),
             Pin(num='3',name='K',func=Pin.types.PASSIVE),
             Pin(num='4',name='A',func=Pin.types.PASSIVE)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_NKK_GW12LJPCF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_NKK_GW12LJPCF'}), 'ref_prefix':'SW', 'fplist':['Button_Switch_THT:SW_NKK_GW12LJP'], 'footprint':'Button_Switch_THT:SW_NKK_GW12LJP', 'keywords':'switch single-pole double-throw spdt ON-ON illuminated red green', 'description':'', 'datasheet':'http://www.nkkswitches.com/pdf/gwillum.pdf', 'pins':[
+        Part(**{ 'name':'SW_NKK_GW12LJPCF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_NKK_GW12LJPCF'}), 'ref_prefix':'SW', 'fplist':['Button_Switch_THT:SW_NKK_GW12LJP'], 'footprint':'Button_Switch_THT:SW_NKK_GW12LJP', 'keywords':'switch single-pole double-throw spdt ON-ON illuminated red green', 'description':'', 'datasheet':'http://www.nkkswitches.com/pdf/gwillum.pdf', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_NKK_GW12LJPCF\n\nswitch single-pole double-throw spdt ON-ON illuminated red green', 'pins':[
             Pin(num='4',name='KR',func=Pin.types.PASSIVE),
             Pin(num='5',name='A',func=Pin.types.PASSIVE),
             Pin(num='6',name='KG',func=Pin.types.PASSIVE),
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='B',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_Push', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Push'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch normally-open pushbutton push-button', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_Push', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Push'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch normally-open pushbutton push-button', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_Push\n\nswitch normally-open pushbutton push-button', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE),
             Pin(num='2',name='2',func=Pin.types.PASSIVE)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_Push_45deg', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Push_45deg'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch normally-open pushbutton push-button', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_Push_45deg', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Push_45deg'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch normally-open pushbutton push-button', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_Push_45deg\n\nswitch normally-open pushbutton push-button', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE),
             Pin(num='2',name='2',func=Pin.types.PASSIVE)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_Push_DPDT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Push_DPDT'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch dual-pole double-throw spdt ON-ON', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_Push_DPDT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Push_DPDT'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch dual-pole double-throw spdt ON-ON', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_Push_DPDT\n\nswitch dual-pole double-throw spdt ON-ON', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='B',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='B',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='C',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_Push_Dual', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Push_Dual'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch normally-open pushbutton push-button', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_Push_Dual', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Push_Dual'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch normally-open pushbutton push-button', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_Push_Dual\n\nswitch normally-open pushbutton push-button', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE),
             Pin(num='2',name='2',func=Pin.types.PASSIVE),
             Pin(num='3',name='3',func=Pin.types.PASSIVE),
             Pin(num='4',name='4',func=Pin.types.PASSIVE)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_Push_Dual_x2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Push_Dual_x2'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch normally-open pushbutton push-button', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_Push_Dual_x2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Push_Dual_x2'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch normally-open pushbutton push-button', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_Push_Dual_x2\n\nswitch normally-open pushbutton push-button', 'pins':[
             Pin(num='1',name='C',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='D',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='4',name='D',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']}] }),
-        Part(**{ 'name':'SW_Push_LED', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Push_LED'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch normally-open pushbutton push-button LED', 'description':'', 'datasheet':'~', 'pins':[
+            Pin(num='4',name='D',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']}] }),
+        Part(**{ 'name':'SW_Push_LED', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Push_LED'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch normally-open pushbutton push-button LED', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_Push_LED\n\nswitch normally-open pushbutton push-button LED', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE),
             Pin(num='2',name='2',func=Pin.types.PASSIVE),
             Pin(num='3',name='K',func=Pin.types.PASSIVE),
             Pin(num='4',name='A',func=Pin.types.PASSIVE)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_Push_Lamp', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Push_Lamp'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch normally-open pushbutton push-button Lamp', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_Push_Lamp', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Push_Lamp'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch normally-open pushbutton push-button Lamp', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_Push_Lamp\n\nswitch normally-open pushbutton push-button Lamp', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE),
             Pin(num='2',name='2',func=Pin.types.PASSIVE),
             Pin(num='3',name='L',func=Pin.types.PASSIVE),
             Pin(num='4',name='L',func=Pin.types.PASSIVE)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_Push_Open', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Push_Open'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch normally-closed pushbutton push-button', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_Push_Open', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Push_Open'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch normally-closed pushbutton push-button', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_Push_Open\n\nswitch normally-closed pushbutton push-button', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE),
             Pin(num='2',name='B',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_Push_Open_Dual', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Push_Open_Dual'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch normally-closed pushbutton push-button', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_Push_Open_Dual', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Push_Open_Dual'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch normally-closed pushbutton push-button', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_Push_Open_Dual\n\nswitch normally-closed pushbutton push-button', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE),
             Pin(num='2',name='2',func=Pin.types.PASSIVE),
             Pin(num='3',name='3',func=Pin.types.PASSIVE),
             Pin(num='4',name='4',func=Pin.types.PASSIVE)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_Push_Open_Dual_x2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Push_Open_Dual_x2'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch normally-closed pushbutton push-button', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_Push_Open_Dual_x2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Push_Open_Dual_x2'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch normally-closed pushbutton push-button', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_Push_Open_Dual_x2\n\nswitch normally-closed pushbutton push-button', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='1',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']}] }),
-        Part(**{ 'name':'SW_Push_SPDT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Push_SPDT'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch single-pole double-throw spdt ON-ON', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_Push_SPDT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Push_SPDT'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch single-pole double-throw spdt ON-ON', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_Push_SPDT\n\nswitch single-pole double-throw spdt ON-ON', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='B',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_Push_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Push_Shielded'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch normally-open pushbutton momentary', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_Push_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Push_Shielded'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch normally-open pushbutton momentary', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_Push_Shielded\n\nswitch normally-open pushbutton momentary', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE),
             Pin(num='2',name='2',func=Pin.types.PASSIVE),
             Pin(num='SH',name='B',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_Reed', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Reed'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'reed magnetic switch', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_Reed', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Reed'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'reed magnetic switch', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_Reed\n\nreed magnetic switch', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_Reed_Opener', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Reed_Opener'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'reed magnetic switch', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_Reed_Opener', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Reed_Opener'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'reed magnetic switch', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_Reed_Opener\n\nreed magnetic switch', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_Reed_SPDT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Reed_SPDT'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'reed magnetic switch SPDT', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_Reed_SPDT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Reed_SPDT'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'reed magnetic switch SPDT', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_Reed_SPDT\n\nreed magnetic switch SPDT', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='3',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_Rotary_1x12', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Rotary_1x12'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'rotary switch 1x12', 'description':'', 'datasheet':'http://cdn-reichelt.de/documents/datenblatt/C200/DS-Serie%23LOR.pdf', 'pins':[
+        Part(**{ 'name':'SW_Rotary_1x12', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Rotary_1x12'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'rotary switch 1x12', 'description':'', 'datasheet':'http://cdn-reichelt.de/documents/datenblatt/C200/DS-Serie%23LOR.pdf', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_Rotary_1x12\n\nrotary switch 1x12', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='11',func=Pin.types.PASSIVE,unit=1),
@@ -345,20 +345,20 @@ Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_Rotary_1x3_MP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Rotary_1x3_MP'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'Rotary switch 1x3 SP3T', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_Rotary_1x3_MP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Rotary_1x3_MP'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'Rotary switch 1x3 SP3T', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_Rotary_1x3_MP\n\nRotary switch 1x3 SP3T', 'pins':[
             Pin(num='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='MP',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_Rotary_1x4_MP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Rotary_1x4_MP'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'Rotary switch 1x4 SP4T', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_Rotary_1x4_MP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Rotary_1x4_MP'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'Rotary switch 1x4 SP4T', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_Rotary_1x4_MP\n\nRotary switch 1x4 SP4T', 'pins':[
             Pin(num='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',func=Pin.types.PASSIVE,unit=1),
             Pin(num='MP',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_Rotary_1x5_MP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Rotary_1x5_MP'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'Rotary switch 1x5 SP5T', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_Rotary_1x5_MP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Rotary_1x5_MP'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'Rotary switch 1x5 SP5T', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_Rotary_1x5_MP\n\nRotary switch 1x5 SP5T', 'pins':[
             Pin(num='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',func=Pin.types.PASSIVE,unit=1),
@@ -366,7 +366,7 @@ Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',func=Pin.types.PASSIVE,unit=1),
             Pin(num='MP',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_Rotary_1x6_MP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Rotary_1x6_MP'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'Rotary switch 1x6 SP6T', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_Rotary_1x6_MP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Rotary_1x6_MP'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'Rotary switch 1x6 SP6T', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_Rotary_1x6_MP\n\nRotary switch 1x6 SP6T', 'pins':[
             Pin(num='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',func=Pin.types.PASSIVE,unit=1),
@@ -375,7 +375,7 @@ Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='MP',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_Rotary_1x7_MP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Rotary_1x7_MP'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'Rotary switch 1x7 SP7T', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_Rotary_1x7_MP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Rotary_1x7_MP'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'Rotary switch 1x7 SP7T', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_Rotary_1x7_MP\n\nRotary switch 1x7 SP7T', 'pins':[
             Pin(num='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',func=Pin.types.PASSIVE,unit=1),
@@ -385,7 +385,7 @@ Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='MP',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_Rotary_1x8_MP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Rotary_1x8_MP'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'Rotary switch 1x8 SP8T', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_Rotary_1x8_MP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Rotary_1x8_MP'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'Rotary switch 1x8 SP8T', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_Rotary_1x8_MP\n\nRotary switch 1x8 SP8T', 'pins':[
             Pin(num='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',func=Pin.types.PASSIVE,unit=1),
@@ -396,7 +396,7 @@ Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',func=Pin.types.PASSIVE,unit=1),
             Pin(num='MP',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_Rotary_1x9_MP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Rotary_1x9_MP'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'Rotary switch 1x8 SP8T', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_Rotary_1x9_MP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Rotary_1x9_MP'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'Rotary switch 1x8 SP8T', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_Rotary_1x9_MP\n\nRotary switch 1x8 SP8T', 'pins':[
             Pin(num='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',func=Pin.types.PASSIVE,unit=1),
@@ -408,7 +408,7 @@ Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',func=Pin.types.PASSIVE,unit=1),
             Pin(num='MP',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_Rotary_2x6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Rotary_2x6'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'rotary switch 2x6', 'description':'', 'datasheet':'http://cdn-reichelt.de/documents/datenblatt/C200/DS-Serie%23LOR.pdf', 'pins':[
+        Part(**{ 'name':'SW_Rotary_2x6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Rotary_2x6'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'rotary switch 2x6', 'description':'', 'datasheet':'http://cdn-reichelt.de/documents/datenblatt/C200/DS-Serie%23LOR.pdf', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_Rotary_2x6\n\nrotary switch 2x6', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='11',func=Pin.types.PASSIVE,unit=1),
@@ -423,7 +423,7 @@ Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_Rotary_3x4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Rotary_3x4'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'rotary switch 3x4', 'description':'', 'datasheet':'http://cdn-reichelt.de/documents/datenblatt/C200/DS-Serie%23LOR.pdf', 'pins':[
+        Part(**{ 'name':'SW_Rotary_3x4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Rotary_3x4'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'rotary switch 3x4', 'description':'', 'datasheet':'http://cdn-reichelt.de/documents/datenblatt/C200/DS-Serie%23LOR.pdf', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_Rotary_3x4\n\nrotary switch 3x4', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='11',func=Pin.types.PASSIVE,unit=1),
@@ -439,7 +439,7 @@ Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_Rotary_4x3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Rotary_4x3'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'rotary switch 4x3', 'description':'', 'datasheet':'http://cdn-reichelt.de/documents/datenblatt/C200/DS-Serie%23LOR.pdf', 'pins':[
+        Part(**{ 'name':'SW_Rotary_4x3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Rotary_4x3'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'rotary switch 4x3', 'description':'', 'datasheet':'http://cdn-reichelt.de/documents/datenblatt/C200/DS-Serie%23LOR.pdf', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_Rotary_4x3\n\nrotary switch 4x3', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='11',func=Pin.types.PASSIVE,unit=1),
@@ -456,12 +456,12 @@ Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_SP3T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_SP3T'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch sp3t ON-ON-ON', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_SP3T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_SP3T'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch sp3t ON-ON-ON', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_SP3T\n\nswitch sp3t ON-ON-ON', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='3',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='4',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_SP3T_NR01103', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_SP3T_NR01103'}), 'ref_prefix':'SW', 'fplist':['Button_Switch_THT:SW_NKK_NR01'], 'footprint':'Button_Switch_THT:SW_NKK_NR01', 'keywords':'NR01 SP3T Switch', 'description':'', 'datasheet':'https://www.nkkswitches.com/pdf/NR01%20Rotaries.pdf', 'pins':[
+        Part(**{ 'name':'SW_SP3T_NR01103', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_SP3T_NR01103'}), 'ref_prefix':'SW', 'fplist':['Button_Switch_THT:SW_NKK_NR01'], 'footprint':'Button_Switch_THT:SW_NKK_NR01', 'keywords':'NR01 SP3T Switch', 'description':'', 'datasheet':'https://www.nkkswitches.com/pdf/NR01%20Rotaries.pdf', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_SP3T_NR01103\n\nNR01 SP3T Switch', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='3',func=Pin.types.PASSIVE,unit=1),
@@ -469,7 +469,7 @@ Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='C',name='Common',func=Pin.types.PASSIVE,unit=1),
             Pin(num='MP',name='MP',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_SP4T_NR01104', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_SP4T_NR01104'}), 'ref_prefix':'SW', 'fplist':['Button_Switch_THT:SW_NKK_NR01'], 'footprint':'Button_Switch_THT:SW_NKK_NR01', 'keywords':'NR01 SP4T Switch', 'description':'', 'datasheet':'https://www.nkkswitches.com/pdf/NR01%20Rotaries.pdf', 'pins':[
+        Part(**{ 'name':'SW_SP4T_NR01104', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_SP4T_NR01104'}), 'ref_prefix':'SW', 'fplist':['Button_Switch_THT:SW_NKK_NR01'], 'footprint':'Button_Switch_THT:SW_NKK_NR01', 'keywords':'NR01 SP4T Switch', 'description':'', 'datasheet':'https://www.nkkswitches.com/pdf/NR01%20Rotaries.pdf', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_SP4T_NR01104\n\nNR01 SP4T Switch', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='3',func=Pin.types.PASSIVE,unit=1),
@@ -477,7 +477,7 @@ Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='C',name='Common',func=Pin.types.PASSIVE,unit=1),
             Pin(num='MP',name='MP',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_SP5T_NR01105', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_SP5T_NR01105'}), 'ref_prefix':'SW', 'fplist':['Button_Switch_THT:SW_NKK_NR01'], 'footprint':'Button_Switch_THT:SW_NKK_NR01', 'keywords':'NR01 SP5T Switch', 'description':'', 'datasheet':'https://www.nkkswitches.com/pdf/NR01%20Rotaries.pdf', 'pins':[
+        Part(**{ 'name':'SW_SP5T_NR01105', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_SP5T_NR01105'}), 'ref_prefix':'SW', 'fplist':['Button_Switch_THT:SW_NKK_NR01'], 'footprint':'Button_Switch_THT:SW_NKK_NR01', 'keywords':'NR01 SP5T Switch', 'description':'', 'datasheet':'https://www.nkkswitches.com/pdf/NR01%20Rotaries.pdf', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_SP5T_NR01105\n\nNR01 SP5T Switch', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='3',func=Pin.types.PASSIVE,unit=1),
@@ -485,94 +485,98 @@ Switch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='5',func=Pin.types.PASSIVE,unit=1),
             Pin(num='C',name='Common',func=Pin.types.PASSIVE,unit=1),
             Pin(num='MP',name='MP',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_SPDT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_SPDT'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch single-pole double-throw spdt ON-ON', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_SPDT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_SPDT'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch single-pole double-throw spdt ON-ON', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_SPDT\n\nswitch single-pole double-throw spdt ON-ON', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='B',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_SPDT_312', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_SPDT_312'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'changeover single-pole double-throw spdt ON-ON', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_SPDT_312', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_SPDT_312'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'changeover single-pole double-throw spdt ON-ON', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_SPDT_312\n\nchangeover single-pole double-throw spdt ON-ON', 'pins':[
             Pin(num='1',name='B',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='C',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='A',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_SPDT_321', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_SPDT_321'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch single-pole double-throw spdt ON-ON', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_SPDT_321', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_SPDT_321'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch single-pole double-throw spdt ON-ON', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_SPDT_321\n\nswitch single-pole double-throw spdt ON-ON', 'pins':[
             Pin(num='1',name='C',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='B',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='A',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_SPDT_MSM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_SPDT_MSM'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch spdt single-pole double-throw ON-OFF-ON', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_SPDT_MSM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_SPDT_MSM'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch spdt single-pole double-throw ON-OFF-ON', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_SPDT_MSM\n\nswitch spdt single-pole double-throw ON-OFF-ON', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='3',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='4',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_SPST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_SPST'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch lever', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_SPDT_XKB_DMx-xxxx-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_SPDT_XKB_DMx-xxxx-1'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'limit switch single pole double throw spdt microswitch', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_SPDT_XKB_DMx-xxxx-1\n\nlimit switch single pole double throw spdt microswitch', 'pins':[
+            Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='2',name='B',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='3',name='C',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'SW_SPST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_SPST'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch lever', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_SPST\n\nswitch lever', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='B',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_SPST_LED', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_SPST_LED'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch SPST LED OFF-ON', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_SPST_LED', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_SPST_LED'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch SPST LED OFF-ON', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_SPST_LED\n\nswitch SPST LED OFF-ON', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE),
             Pin(num='2',name='2',func=Pin.types.PASSIVE),
             Pin(num='3',name='K',func=Pin.types.PASSIVE),
             Pin(num='4',name='A',func=Pin.types.PASSIVE)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_SPST_Lamp', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_SPST_Lamp'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch SPST LED OFF-ON lamp', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_SPST_Lamp', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_SPST_Lamp'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch SPST LED OFF-ON lamp', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_SPST_Lamp\n\nswitch SPST LED OFF-ON lamp', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE),
             Pin(num='2',name='2',func=Pin.types.PASSIVE),
             Pin(num='3',name='L',func=Pin.types.PASSIVE),
             Pin(num='4',name='L',func=Pin.types.PASSIVE)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_SPST_Temperature', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_SPST_Temperature'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'temperature switch', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_SPST_Temperature', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_SPST_Temperature'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'temperature switch', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_SPST_Temperature\n\ntemperature switch', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='B',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_Slide_DPDT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Slide_DPDT'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch dual-pole double-throw dpdt ON-ON', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SW_Slide_DPDT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Slide_DPDT'}), 'ref_prefix':'SW', 'fplist':[''], 'footprint':'', 'keywords':'switch dual-pole double-throw dpdt ON-ON', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_Slide_DPDT\n\nswitch dual-pole double-throw dpdt ON-ON', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='B',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='B',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='C',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CK_KMS2xxG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CK_KMS2xxG'}), 'ref_prefix':'SW', 'fplist':['', 'Button_Switch_SMD:SW_SPST_CK_KMS2xxGP'], 'footprint':'', 'keywords':'switch normally-open pushbutton push-button', 'description':'', 'datasheet':'https://www.ckswitches.com/media/1482/kms.pdf', 'pins':[
+        Part(**{ 'name':'CK_KMS2xxG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CK_KMS2xxG'}), 'ref_prefix':'SW', 'fplist':['', 'Button_Switch_SMD:SW_SPST_CK_KMS2xxGP'], 'footprint':'', 'keywords':'switch normally-open pushbutton push-button', 'description':'', 'datasheet':'https://www.ckswitches.com/media/1482/kms.pdf', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nCK_KMS2xxG\n\nswitch normally-open pushbutton push-button', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE),
             Pin(num='2',name='2',func=Pin.types.PASSIVE),
             Pin(num='SH',name='B',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CK_KMS2xxGP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CK_KMS2xxGP'}), 'ref_prefix':'SW', 'fplist':['', 'Button_Switch_SMD:SW_SPST_CK_KMS2xxGP', 'Button_Switch_SMD:SW_SPST_CK_KMS2xxGP'], 'footprint':'', 'keywords':'switch normally-open pushbutton push-button', 'description':'', 'datasheet':'https://www.ckswitches.com/media/1482/kms.pdf', 'pins':[
+        Part(**{ 'name':'CK_KMS2xxGP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CK_KMS2xxGP'}), 'ref_prefix':'SW', 'fplist':['', 'Button_Switch_SMD:SW_SPST_CK_KMS2xxGP', 'Button_Switch_SMD:SW_SPST_CK_KMS2xxGP'], 'footprint':'', 'keywords':'switch normally-open pushbutton push-button', 'description':'', 'datasheet':'https://www.ckswitches.com/media/1482/kms.pdf', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nCK_KMS2xxGP\n\nswitch normally-open pushbutton push-button', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE),
             Pin(num='2',name='2',func=Pin.types.PASSIVE),
             Pin(num='SH',name='B',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_Coded_SH-7030', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Coded_SH-7030'}), 'ref_prefix':'SW', 'fplist':['', ''], 'footprint':'', 'keywords':'rotary bcd Complementary', 'description':'', 'datasheet':'https://www.nidec-copal-electronics.com/e/catalog/switch/sh-7000.pdf', 'pins':[
+        Part(**{ 'name':'SW_Coded_SH-7030', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Coded_SH-7030'}), 'ref_prefix':'SW', 'fplist':['', ''], 'footprint':'', 'keywords':'rotary bcd Complementary', 'description':'', 'datasheet':'https://www.nidec-copal-electronics.com/e/catalog/switch/sh-7000.pdf', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_Coded_SH-7030\n\nrotary bcd Complementary', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='C',name='C',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_Coded_SH-7070', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Coded_SH-7070'}), 'ref_prefix':'SW', 'fplist':['', ''], 'footprint':'', 'keywords':'rotary hex Complementary', 'description':'', 'datasheet':'https://www.nidec-copal-electronics.com/e/catalog/switch/sh-7000.pdf', 'pins':[
+        Part(**{ 'name':'SW_Coded_SH-7070', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Coded_SH-7070'}), 'ref_prefix':'SW', 'fplist':['', ''], 'footprint':'', 'keywords':'rotary hex Complementary', 'description':'', 'datasheet':'https://www.nidec-copal-electronics.com/e/catalog/switch/sh-7000.pdf', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_Coded_SH-7070\n\nrotary hex Complementary', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='C',name='C',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_E3_SA3624', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_E3_SA3624'}), 'ref_prefix':'SW', 'fplist':['', ''], 'footprint':'', 'keywords':'switch normally-open pushbutton push-button LCD', 'description':'', 'datasheet':'http://www.e3-keys.com/files/SA%20Technical%20Datasheet%20v2.0.pdf', 'pins':[
+        Part(**{ 'name':'SW_E3_SA3624', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_E3_SA3624'}), 'ref_prefix':'SW', 'fplist':['', ''], 'footprint':'', 'keywords':'switch normally-open pushbutton push-button LCD', 'description':'', 'datasheet':'http://www.e3-keys.com/files/SA%20Technical%20Datasheet%20v2.0.pdf', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_E3_SA3624\n\nswitch normally-open pushbutton push-button LCD', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='2',name='5V',func=Pin.types.PWRIN),
             Pin(num='3',name='CLK',func=Pin.types.INPUT),
             Pin(num='4',name='DAT',func=Pin.types.INPUT),
             Pin(num='5',name='SW1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='SW2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_E3_SA6432', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_E3_SA6432'}), 'ref_prefix':'SW', 'fplist':['', '', ''], 'footprint':'', 'keywords':'switch normally-open pushbutton push-button LCD', 'description':'', 'datasheet':'http://www.e3-keys.com/files/SA%20Technical%20Datasheet%20v2.0.pdf', 'pins':[
+        Part(**{ 'name':'SW_E3_SA6432', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_E3_SA6432'}), 'ref_prefix':'SW', 'fplist':['', '', ''], 'footprint':'', 'keywords':'switch normally-open pushbutton push-button LCD', 'description':'', 'datasheet':'http://www.e3-keys.com/files/SA%20Technical%20Datasheet%20v2.0.pdf', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_E3_SA6432\n\nswitch normally-open pushbutton push-button LCD', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='2',name='5V',func=Pin.types.PWRIN),
             Pin(num='3',name='CLK',func=Pin.types.INPUT),
             Pin(num='4',name='DAT',func=Pin.types.INPUT),
             Pin(num='5',name='SW1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='SW2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_MMI_Q5-100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_MMI_Q5-100'}), 'ref_prefix':'SW', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'switch normally-open pushbutton push-button LCD', 'description':'', 'datasheet':'http://latest.ledswitches.co.uk/media/pdf/Q5-PCB-V1-withQ5data.pdf', 'pins':[
+        Part(**{ 'name':'SW_MMI_Q5-100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_MMI_Q5-100'}), 'ref_prefix':'SW', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'switch normally-open pushbutton push-button LCD', 'description':'', 'datasheet':'http://latest.ledswitches.co.uk/media/pdf/Q5-PCB-V1-withQ5data.pdf', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_MMI_Q5-100\n\nswitch normally-open pushbutton push-button LCD', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='2',name='5V',func=Pin.types.PWRIN),
             Pin(num='3',name='CLK',func=Pin.types.INPUT),
             Pin(num='4',name='DAT',func=Pin.types.INPUT),
             Pin(num='5',name='SW1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='SW2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_Nidec_CAS-120A1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Nidec_CAS-120A1'}), 'ref_prefix':'SW', 'fplist':['', 'Button_Switch_SMD:Nidec_Copal_CAS-120A'], 'footprint':'', 'keywords':'switch single-pole double-throw spdt ON-ON', 'description':'', 'datasheet':'https://www.nidec-components.com/e/catalog/switch/cas.pdf', 'pins':[
+        Part(**{ 'name':'SW_Nidec_CAS-120A1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Nidec_CAS-120A1'}), 'ref_prefix':'SW', 'fplist':['', 'Button_Switch_SMD:Nidec_Copal_CAS-120A'], 'footprint':'', 'keywords':'switch single-pole double-throw spdt ON-ON', 'description':'', 'datasheet':'https://www.nidec-components.com/e/catalog/switch/cas.pdf', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_Nidec_CAS-120A1\n\nswitch single-pole double-throw spdt ON-ON', 'pins':[
             Pin(num='1',name='C',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='B',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='A',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_Omron_B3FS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Omron_B3FS'}), 'ref_prefix':'SW', 'fplist':['', ''], 'footprint':'', 'keywords':'switch normally-open pushbutton push-button', 'description':'', 'datasheet':'https://omronfs.omron.com/en_US/ecb/products/pdf/en-b3fs.pdf', 'pins':[
+        Part(**{ 'name':'SW_Omron_B3FS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Omron_B3FS'}), 'ref_prefix':'SW', 'fplist':['', ''], 'footprint':'', 'keywords':'switch normally-open pushbutton push-button', 'description':'', 'datasheet':'https://omronfs.omron.com/en_US/ecb/products/pdf/en-b3fs.pdf', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_Omron_B3FS\n\nswitch normally-open pushbutton push-button', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE),
             Pin(num='2',name='2',func=Pin.types.PASSIVE)], 'unit_defs':[] }),
-        Part(**{ 'name':'SW_Wuerth_450301014042', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Wuerth_450301014042'}), 'ref_prefix':'SW', 'fplist':['', 'Button_Switch_THT:SW_Slide-03_Wuerth-WS-SLTV_10x2.5x6.4_P2.54mm'], 'footprint':'', 'keywords':'changeover single-pole opposite-side-connection double-throw spdt ON-ON', 'description':'', 'datasheet':'https://www.we-online.com/components/products/datasheet/450301014042.pdf', 'pins':[
+        Part(**{ 'name':'SW_Wuerth_450301014042', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SW_Wuerth_450301014042'}), 'ref_prefix':'SW', 'fplist':['', 'Button_Switch_THT:SW_Slide-03_Wuerth-WS-SLTV_10x2.5x6.4_P2.54mm'], 'footprint':'', 'keywords':'changeover single-pole opposite-side-connection double-throw spdt ON-ON', 'description':'', 'datasheet':'https://www.we-online.com/components/products/datasheet/450301014042.pdf', 'search_text':'/usr/share/kicad/symbols/Switch.kicad_sym\nSW_Wuerth_450301014042\n\nchangeover single-pole opposite-side-connection double-throw spdt ON-ON', 'pins':[
             Pin(num='1',name='B',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='C',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='A',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] })])

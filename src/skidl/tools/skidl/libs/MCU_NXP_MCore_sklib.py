@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 MCU_NXP_MCore = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'MMC2114CFCPU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MMC2114CFCPU'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'motorola/mmc2114.pdf', 'pins':[
+        Part(**{ 'name':'MMC2114CFCPU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MMC2114CFCPU'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'motorola/mmc2114.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_MCore.kicad_sym\nMMC2114CFCPU\n\n', 'pins':[
             Pin(num='1',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA7',func=Pin.types.BIDIR,unit=1),

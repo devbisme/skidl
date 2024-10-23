@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'PIC18F1220-SO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F1220-SO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm'], 'footprint':'Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm', 'keywords':'RAM ADC UART PWM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39605F.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F1220-SO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F1220-SO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm'], 'footprint':'Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm', 'keywords':'RAM ADC UART PWM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39605F.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F1220-SO\n\nRAM ADC UART PWM', 'pins':[
             Pin(num='1',name='RA0/AN0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='KBI0/DT/RX/AN6/RB4',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='KBI1/PGM/RB5',func=Pin.types.INPUT,unit=1),
@@ -23,7 +23,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA3/AN3/Vref+',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='INT0/AN4/RB0',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='INT1/CK/TX/AN5/RB1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F13K50-EP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F13K50-EP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'Flash-Based 8bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/41350c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F13K50-EP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F13K50-EP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'Flash-Based 8bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/41350c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F13K50-EP\n\nFlash-Based 8bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7/IOCB7/TX/CK',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6/IOCB6/SCK/SCL',func=Pin.types.BIDIR,unit=1),
@@ -44,7 +44,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PGM/C12IN3-/P1C/AN7/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='T1OSCI/T13CKI/SS/AN8/RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='T1OSCO/SDO/AN9/RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F13K50-ESO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F13K50-ESO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'Flash-Based 8bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/41350c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F13K50-ESO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F13K50-ESO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'Flash-Based 8bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/41350c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F13K50-ESO\n\nFlash-Based 8bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7/IOCB7/TX/CK',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6/IOCB6/SCK/SCL',func=Pin.types.BIDIR,unit=1),
@@ -65,7 +65,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PGM/C12IN3-/P1C/AN7/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='T1OSCI/T13CKI/SS/AN8/RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='T1OSCO/SDO/AN9/RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F13K50-ESS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F13K50-ESS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'Flash-Based 8bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/41350c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F13K50-ESS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F13K50-ESS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'Flash-Based 8bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/41350c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F13K50-ESS\n\nFlash-Based 8bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7/IOCB7/TX/CK',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6/IOCB6/SCK/SCL',func=Pin.types.BIDIR,unit=1),
@@ -86,7 +86,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PGM/C12IN3-/P1C/AN7/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='T1OSCI/T13CKI/SS/AN8/RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='T1OSCO/SDO/AN9/RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F2331-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F2331-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F2331-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F2331-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F2331-IML\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='RA2/AN2/Vref-/CAP1/INDX',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='~{FLTB}/CCP1/RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='INT0/T5CKI/T0CKI/RC3',func=Pin.types.BIDIR,unit=1),
@@ -115,7 +115,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA6/OSC2/CLKO',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='T1OSO/T1CKI/RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{FLTA}/T1OSI/CCP2/RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F2331-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F2331-ISO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F2331-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F2331-ISO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F2331-ISO\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='~{MCLR}/Vpp',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKO',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='T1OSO/T1CKI/RC0',func=Pin.types.BIDIR,unit=1),
@@ -144,7 +144,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='AVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1/CLKI',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F2331-ISP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F2331-ISP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F2331-ISP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F2331-ISP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F2331-ISP\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='~{MCLR}/Vpp',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKO',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='T1OSO/T1CKI/RC0',func=Pin.types.BIDIR,unit=1),
@@ -173,7 +173,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='AVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1/CLKI',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F23K20_ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F23K20_ISS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'microcontroller PIC18F flash XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001303H.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F23K20_ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F23K20_ISS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'microcontroller PIC18F flash XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001303H.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F23K20_ISS\n\nmicrocontroller PIC18F flash XLP', 'pins':[
             Pin(num='1',name='~{MCLR}/RE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKOUT',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='RC0',func=Pin.types.BIDIR,unit=1),
@@ -202,7 +202,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='Vss',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1/CLKIN',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F23K22-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F23K22-xSO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001412G.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F23K22-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F23K22-xSO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001412G.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F23K22-xSO\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='~{MCLR}/VPP/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2_CLKOUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC0/SOSCO',func=Pin.types.BIDIR,unit=1),
@@ -231,7 +231,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1_CLKIN',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F23K22-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F23K22-xSP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001412G.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F23K22-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F23K22-xSP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001412G.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F23K22-xSP\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='~{MCLR}/VPP/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2_CLKOUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC0/SOSCO',func=Pin.types.BIDIR,unit=1),
@@ -260,7 +260,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1_CLKIN',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F2420-xML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F2420-xML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'Flash-Based 8bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39631E.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F2420-xML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F2420-xML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'Flash-Based 8bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39631E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F2420-xML\n\nFlash-Based 8bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='RE3/~{MCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC0',func=Pin.types.BIDIR,unit=1),
@@ -290,7 +290,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F2420-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F2420-xSP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'Flash-Based 8bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39631E.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F2420-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F2420-xSP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'Flash-Based 8bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39631E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F2420-xSP\n\nFlash-Based 8bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='RE3/~{MCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC0',func=Pin.types.BIDIR,unit=1),
@@ -319,7 +319,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F2450-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F2450-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F2450-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F2450-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F2450-IML\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='RA2/AN2/Vref-',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='CCP1/RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VUSB',func=Pin.types.BIDIR,unit=1),
@@ -348,7 +348,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA6/OSC2/CLKO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='T1OSO/T1CKI/RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{UOE}/T1OSI/RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F2450-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F2450-ISO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F2450-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F2450-ISO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F2450-ISO\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='T1OSO/T1CKI/RC0',func=Pin.types.BIDIR,unit=1),
@@ -377,7 +377,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/HLVDIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OSC1/CLKI',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F2450-ISP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F2450-ISP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F2450-ISP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F2450-ISP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F2450-ISP\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='T1OSO/T1CKI/RC0',func=Pin.types.BIDIR,unit=1),
@@ -406,7 +406,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/HLVDIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OSC1/CLKI',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F2455-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F2455-ISO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/39632c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F2455-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F2455-ISO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/39632c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F2455-ISO\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='T1OSO/T13CKI/RC0',func=Pin.types.BIDIR,unit=1),
@@ -435,7 +435,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/~{SS}/HLVDIN/C2OUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OSC1/CLKI',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F2455-ISP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F2455-ISP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/39632c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F2455-ISP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F2455-ISP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/39632c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F2455-ISP\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='T1OSO/T13CKI/RC0',func=Pin.types.BIDIR,unit=1),
@@ -464,7 +464,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/~{SS}/HLVDIN/C2OUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OSC1/CLKI',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F24K50-xML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F24K50-xML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/30000684B.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F24K50-xML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F24K50-xML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/30000684B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F24K50-xML\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VUSB3V3/VDDCORE',func=Pin.types.BIDIR,unit=1),
@@ -493,7 +493,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA6/OSC2/CLKO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F24K50-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F24K50-xSO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/30000684B.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F24K50-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F24K50-xSO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/30000684B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F24K50-xSO\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='RE3/Vpp/~{MCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='RC0',func=Pin.types.BIDIR,unit=1),
@@ -522,7 +522,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1/CLKI',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F24K50-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F24K50-xSP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/30000684B.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F24K50-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F24K50-xSP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/30000684B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F24K50-xSP\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='RE3/Vpp/~{MCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='RC0',func=Pin.types.BIDIR,unit=1),
@@ -551,7 +551,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1/CLKI',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F24K50-xSS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F24K50-xSS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/30000684B.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F24K50-xSS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F24K50-xSS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/30000684B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F24K50-xSS\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='RE3/Vpp/~{MCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='RC0',func=Pin.types.BIDIR,unit=1),
@@ -580,7 +580,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1/CLKI',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F25K80_IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F25K80_IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'microcontroller PIC18 flash ECAN XLP nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39977f.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F25K80_IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F25K80_IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'microcontroller PIC18 flash ECAN XLP nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39977f.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F25K80_IML\n\nmicrocontroller PIC18 flash ECAN XLP nanoWatt', 'pins':[
             Pin(num='1',name='RA2/Vref-/AN2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='CCP2/RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SCL/SCK/RC3',func=Pin.types.BIDIR,unit=1),
@@ -610,7 +610,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OSC2/CLKOUT',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SOSCO/RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SOSCI/RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F25K80_ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F25K80_ISS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'microcontroller PIC18 flash ECAN XLP nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39977f.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F25K80_ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F25K80_ISS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'microcontroller PIC18 flash ECAN XLP nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39977f.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F25K80_ISS\n\nmicrocontroller PIC18 flash ECAN XLP nanoWatt', 'pins':[
             Pin(num='1',name='~{MCLR}/RE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='OSC2/CLKOUT',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SOSCO/RC0',func=Pin.types.BIDIR,unit=1),
@@ -639,7 +639,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='Vss',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OSC1/CLKIN',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F25K83-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F25K83-xSP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'microcontroller Microchip DMA WWDT DIA DCI XLP CLC CWG CCP NCO DSM CRC UART LIN DMX DALI SPI CAN I2C PPS SMT ADC2 CVD DAC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001943A.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F25K83-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F25K83-xSP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'microcontroller Microchip DMA WWDT DIA DCI XLP CLC CWG CCP NCO DSM CRC UART LIN DMX DALI SPI CAN I2C PPS SMT ADC2 CVD DAC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001943A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F25K83-xSP\n\nmicrocontroller Microchip DMA WWDT DIA DCI XLP CLC CWG CCP NCO DSM CRC UART LIN DMX DALI SPI CAN I2C PPS SMT ADC2 CVD DAC', 'pins':[
             Pin(num='1',name='VPP/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OSC2_CLKOUT/RA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC0/SOSCO',func=Pin.types.BIDIR,unit=1),
@@ -668,7 +668,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OSC1_CLKIN/RA7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F27J53_ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F27J53_ISS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'microcontroller PIC18 flash ECAN XLP nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30009964C.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F27J53_ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F27J53_ISS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'microcontroller PIC18 flash ECAN XLP nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30009964C.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F27J53_ISS\n\nmicrocontroller PIC18 flash ECAN XLP nanoWatt', 'pins':[
             Pin(num='1',name='~{MCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OSC2/CLKO/RA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC0/T1OSO',func=Pin.types.BIDIR,unit=1),
@@ -697,7 +697,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OSC1/CLKI/RA7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F4331-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4331-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F4331-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4331-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F4331-IML\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='RX/SDO/DT/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB1/PWM1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB2/PWM2',func=Pin.types.BIDIR,unit=1),
@@ -742,7 +742,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='AVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RB0/PWM0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F4331-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4331-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F4331-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4331-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F4331-IP\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='AN8/RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AVDD',func=Pin.types.PWRIN,unit=1),
@@ -783,7 +783,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN5/LVDIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='AN6/RE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='AN7/RE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F4331-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4331-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F4331-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4331-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F4331-IPT\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='RX/SDO/DT/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB2/PWM2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB3/PWM3',func=Pin.types.BIDIR,unit=1),
@@ -828,7 +828,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0/PWM0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1/PWM1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F442-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F442-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39564c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F442-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F442-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39564c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F442-IP\n\nFlash-Based 8-Bit Microcontroller', 'pins':[
             Pin(num='1',name='~{MCLR}/VPP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{CS}/AN7/RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -869,7 +869,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/~{SS}/LVDIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='~{RD}/AN5/RE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{WR}/AN6/RE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F442-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F442-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39564c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F442-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F442-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39564c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F442-IPT\n\nFlash-Based 8-Bit Microcontroller', 'pins':[
             Pin(num='1',name='DT/RX/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB2/INT2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB3/CCP2',func=Pin.types.BIDIR,unit=1),
@@ -914,7 +914,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0/INT0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1/INT1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F4420-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4420-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39631E.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F4420-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4420-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39631E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F4420-xP\n\nFlash-Based 8bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='RE3/~{MCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PASSIVE,unit=1),
@@ -955,7 +955,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F4450-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4450-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F4450-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4450-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F4450-IML\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='RX/DT/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB1/AN10/INT1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB2/AN8/INT2/VMO',func=Pin.types.BIDIR,unit=1),
@@ -1000,7 +1000,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RB0/AN12/INT0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F4450-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4450-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F4450-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4450-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F4450-IP\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='AN7/RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -1041,7 +1041,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/HLVDIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='AN5/RE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='AN6/RE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F4450-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4450-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F4450-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4450-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F4450-IPT\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='RX/DT/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB2/AN8/INT2/VMO',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB3/AN9/VPO',func=Pin.types.BIDIR,unit=1),
@@ -1086,7 +1086,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0/AN12/INT0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1/AN10/INT1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F4455-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4455-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F4455-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4455-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F4455-IML\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='SDO/RX/DT/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB1/AN10/INT1/SCK/SCL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB2/AN8/INT2/VMO',func=Pin.types.BIDIR,unit=1),
@@ -1131,7 +1131,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RB0/AN12/INT0/FLT0/SDI/SDA',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F4455-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4455-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F4455-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4455-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F4455-IP\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OESPP/AN7/RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -1172,7 +1172,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/~{SS}/HLVDIN/C2OUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='CK1SPP/AN5/RE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='CK2SPP/AN6/RE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F4455-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4455-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F4455-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4455-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F4455-IPT\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='SDO/RX/DT/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB2/AN8/INT2/VMO',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB3/AN9/CCP2/VPO',func=Pin.types.BIDIR,unit=1),
@@ -1217,7 +1217,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0/AN12/INT0/FLT0/SDI/SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1/AN10/INT1/SCK/SCL',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F4458-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4458-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39887c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F4458-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4458-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39887c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F4458-IML\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='SDO/RX/DT/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB1/AN10/INT1/SCK/SCL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB2/AN8/INT2/VMO',func=Pin.types.BIDIR,unit=1),
@@ -1263,7 +1263,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RB0/AN12/INT0/FLT0/SDI/SDA',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F4458-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4458-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39887c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F4458-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4458-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39887c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F4458-IP\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OESPP/AN7/RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -1304,7 +1304,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/~{SS}/HLVDIN/C2OUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='CK1SPP/AN5/RE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='CK2SPP/AN6/RE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F4458-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4458-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39887c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F4458-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4458-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39887c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F4458-IPT\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='SDO/RX/DT/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB2/AN8/INT2/VMO',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB3/AN9/CCP2/VPO',func=Pin.types.BIDIR,unit=1),
@@ -1349,7 +1349,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0/AN12/INT0/FLT0/SDI/SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1/AN10/INT1/SCK/SCL',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F448-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F448-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller CAN', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41159e.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F448-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F448-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller CAN', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41159e.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F448-IP\n\nFlash-Based 8-Bit Microcontroller CAN', 'pins':[
             Pin(num='1',name='~{MCLR}/VPP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='C2OUT/~{CS}/AN7/RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -1390,7 +1390,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/~{SS}/LVDIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='~{RD}/AN5/RE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='C1OUT/~{WR}/AN6/RE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F44J10-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F44J10-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39682E.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F44J10-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F44J10-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39682E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F44J10-IP\n\nFlash-Based 8-Bit Microcontroller', 'pins':[
             Pin(num='1',name='~{MCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{CS}/AN7/RE2',func=Pin.types.TRISTATE,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -1431,7 +1431,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/~{SS1}/C2OUT',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='~{RD}/AN5/RE0',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='~{WR}/AN6/RE1',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F4580-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4580-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller CAN', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39637d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F4580-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4580-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller CAN', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39637d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F4580-IP\n\nFlash-Based 8-Bit Microcontroller CAN', 'pins':[
             Pin(num='1',name='~{MCLR}/VPP/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='C2OUT/AN7/~{CS}/RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -1472,7 +1472,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/ANA4/~{SS}/HLVDIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='AN5/~{RD}/RE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='C1OUT/AN6/~{WR}/RE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F45K50_QFP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F45K50_QFP'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'microcontroller Flash EEPROM SPI I2C USB UART USART ADC TQFP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30000684B.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F45K50_QFP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F45K50_QFP'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'microcontroller Flash EEPROM SPI I2C USB UART USART ADC TQFP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30000684B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F45K50_QFP\n\nmicrocontroller Flash EEPROM SPI I2C USB UART USART ADC TQFP', 'pins':[
             Pin(num='1',name='RC7/AN19/RX/DT/IOCC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='AN8/CTED1/INT2/RB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AN9/C12IN2-/CTED2/CCP2/SDO/RB3',func=Pin.types.BIDIR,unit=1),
@@ -1517,7 +1517,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='AN12/SRI/~{FLT0}/SDI/SDA/INT0/RB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='AN10/C12IN3-/SCK/SCL/INT1/RB1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F45K80-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F45K80-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'microcontroller Flash EEPROM SPI I2C CAN UART USART ADC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC18F66K80%20FAMILY%20Enhanced%20Flash%20MCU%20with%20ECAN%20XLP%20Technology%2030009977G.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F45K80-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F45K80-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'microcontroller Flash EEPROM SPI I2C CAN UART USART ADC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC18F66K80%20FAMILY%20Enhanced%20Flash%20MCU%20with%20ECAN%20XLP%20Technology%2030009977G.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F45K80-IML\n\nmicrocontroller Flash EEPROM SPI I2C CAN UART USART ADC', 'pins':[
             Pin(num='1',name='CANRX/RX1/CCP4/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB2/CANTX/INT2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB3/CANRX/INT3',func=Pin.types.BIDIR,unit=1),
@@ -1563,7 +1563,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Vdd',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0/AN10/INT0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1/AN8/INT1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F45K80-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F45K80-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'microcontroller Flash EEPROM SPI I2C CAN UART USART ADC TQFP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39977f.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F45K80-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F45K80-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'microcontroller Flash EEPROM SPI I2C CAN UART USART ADC TQFP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39977f.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F45K80-IPT\n\nmicrocontroller Flash EEPROM SPI I2C CAN UART USART ADC TQFP', 'pins':[
             Pin(num='1',name='RC7/CANRX/RX1/DT1/CCP4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='CANTX/CTED1/INT2/RB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='CANRX/CTED2/INT3/RB3',func=Pin.types.BIDIR,unit=1),
@@ -1608,7 +1608,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='AN10/FLT0/INT0/RB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='AN8/CTDIN/INT1/RB1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F46K22-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F46K22-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'microchip microcontroller PIC18 flash XLP nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001412G.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F46K22-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F46K22-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'microchip microcontroller PIC18 flash XLP nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001412G.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F46K22-xPT\n\nmicrochip microcontroller PIC18 flash XLP nanoWatt', 'pins':[
             Pin(num='1',name='RC7/RX1/DT1/AN19',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='AN8/CTED1/INT2/RB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AN9/C12IN2-/CTED2/RB3',func=Pin.types.BIDIR,unit=1),
@@ -1653,7 +1653,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='AN12/FLT0/INT0/RB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='AN10/C12IN3-/CTDIN/INT1/RB1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F66J60-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F66J60-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'Flash Based 8-Bit Microcontroller Ethernet Controller PHY', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39762f.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F66J60-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F66J60-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'Flash Based 8-Bit Microcontroller Ethernet Controller PHY', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39762f.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F66J60-IPT\n\nFlash Based 8-Bit Microcontroller Ethernet Controller PHY', 'pins':[
             Pin(num='1',name='RE1/P2C',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDDCORE/VCAP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='RF7/~{SS1}',func=Pin.types.BIDIR,unit=1),
@@ -1718,7 +1718,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{MCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='RG4/CCP5/P1D',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F87K22-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F87K22-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-80_12x12mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-80_12x12mm_P0.5mm', 'keywords':'Flash Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39960d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F87K22-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F87K22-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-80_12x12mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-80_12x12mm_P0.5mm', 'keywords':'Flash Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39960d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F87K22-xPT\n\nFlash Based 8-Bit Microcontroller', 'pins':[
             Pin(num='1',name='RH2/AN21',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RG4/AN16',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VSS',func=Pin.types.PWRIN,unit=1),
@@ -1799,7 +1799,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='RG3/AN17',func=Pin.types.BIDIR,unit=1),
             Pin(num='80',name='RH1/AN22',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RG5/~{MCLR}',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F96J60-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F96J60-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-100_12x12mm_P0.4mm'], 'footprint':'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'keywords':'Flash Based 8-Bit Microcontroller Ethernet Controller PHY', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39762f.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F96J60-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F96J60-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-100_12x12mm_P0.4mm'], 'footprint':'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'keywords':'Flash Based 8-Bit Microcontroller Ethernet Controller PHY', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39762f.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F96J60-IPT\n\nFlash Based 8-Bit Microcontroller Ethernet Controller PHY', 'pins':[
             Pin(num='1',name='RH2/A18',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RG6',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='RH1/A17',func=Pin.types.BIDIR,unit=1),
@@ -1900,7 +1900,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='AD11/P3C/RE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='~{CS}/AD10/P2B/RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='RH0/A16',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F1320-SO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F1320-SO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm', 'Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm'], 'footprint':'Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm', 'keywords':'RAM ADC UART PWM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39605F.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F1320-SO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F1320-SO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm', 'Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm'], 'footprint':'Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm', 'keywords':'RAM ADC UART PWM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39605F.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F1320-SO\n\nRAM ADC UART PWM', 'pins':[
             Pin(num='1',name='RA0/AN0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='KBI0/DT/RX/AN6/RB4',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='KBI1/PGM/RB5',func=Pin.types.INPUT,unit=1),
@@ -1919,7 +1919,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA3/AN3/Vref+',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='INT0/AN4/RB0',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='INT1/CK/TX/AN5/RB1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F14K50-EP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F14K50-EP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'Flash-Based 8bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/41350c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F14K50-EP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F14K50-EP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'Flash-Based 8bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/41350c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F14K50-EP\n\nFlash-Based 8bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7/IOCB7/TX/CK',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6/IOCB6/SCK/SCL',func=Pin.types.BIDIR,unit=1),
@@ -1940,7 +1940,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PGM/C12IN3-/P1C/AN7/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='T1OSCI/T13CKI/SS/AN8/RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='T1OSCO/SDO/AN9/RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F14K50-ESO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F14K50-ESO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'Flash-Based 8bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/41350c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F14K50-ESO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F14K50-ESO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'Flash-Based 8bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/41350c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F14K50-ESO\n\nFlash-Based 8bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7/IOCB7/TX/CK',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6/IOCB6/SCK/SCL',func=Pin.types.BIDIR,unit=1),
@@ -1961,7 +1961,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PGM/C12IN3-/P1C/AN7/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='T1OSCI/T13CKI/SS/AN8/RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='T1OSCO/SDO/AN9/RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F14K50-ESS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F14K50-ESS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'Flash-Based 8bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/41350c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F14K50-ESS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F14K50-ESS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'Flash-Based 8bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/41350c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F14K50-ESS\n\nFlash-Based 8bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7/IOCB7/TX/CK',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6/IOCB6/SCK/SCL',func=Pin.types.BIDIR,unit=1),
@@ -1982,7 +1982,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PGM/C12IN3-/P1C/AN7/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='T1OSCI/T13CKI/SS/AN8/RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='T1OSCO/SDO/AN9/RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F2431-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F2431-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F2431-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F2431-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F2431-IML\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='RA2/AN2/Vref-/CAP1/INDX',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='~{FLTB}/CCP1/RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='INT0/T5CKI/T0CKI/RC3',func=Pin.types.BIDIR,unit=1),
@@ -2011,7 +2011,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA6/OSC2/CLKO',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='T1OSO/T1CKI/RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{FLTA}/T1OSI/CCP2/RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F2431-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F2431-ISO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F2431-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F2431-ISO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F2431-ISO\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='~{MCLR}/Vpp',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKO',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='T1OSO/T1CKI/RC0',func=Pin.types.BIDIR,unit=1),
@@ -2040,7 +2040,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='AVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1/CLKI',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F2431-ISP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F2431-ISP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F2431-ISP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F2431-ISP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F2431-ISP\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='~{MCLR}/Vpp',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKO',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='T1OSO/T1CKI/RC0',func=Pin.types.BIDIR,unit=1),
@@ -2069,7 +2069,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='AVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1/CLKI',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F24K20_ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F24K20_ISS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'microcontroller PIC18F flash XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001303H.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F24K20_ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F24K20_ISS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'microcontroller PIC18F flash XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001303H.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F24K20_ISS\n\nmicrocontroller PIC18F flash XLP', 'pins':[
             Pin(num='1',name='~{MCLR}/RE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKOUT',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='RC0',func=Pin.types.BIDIR,unit=1),
@@ -2098,7 +2098,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='Vss',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1/CLKIN',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F24K22-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F24K22-xSO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001412G.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F24K22-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F24K22-xSO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001412G.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F24K22-xSO\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='~{MCLR}/VPP/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2_CLKOUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC0/SOSCO',func=Pin.types.BIDIR,unit=1),
@@ -2127,7 +2127,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1_CLKIN',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F24K22-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F24K22-xSP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001412G.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F24K22-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F24K22-xSP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001412G.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F24K22-xSP\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='~{MCLR}/VPP/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2_CLKOUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC0/SOSCO',func=Pin.types.BIDIR,unit=1),
@@ -2156,7 +2156,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1_CLKIN',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F2520-xML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F2520-xML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'Flash-Based 8bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39631E.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F2520-xML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F2520-xML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'Flash-Based 8bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39631E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F2520-xML\n\nFlash-Based 8bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='RE3/~{MCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC0',func=Pin.types.BIDIR,unit=1),
@@ -2186,7 +2186,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F2520-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F2520-xSP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm', 'Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'Flash-Based 8bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39631E.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F2520-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F2520-xSP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm', 'Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'Flash-Based 8bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39631E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F2520-xSP\n\nFlash-Based 8bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='RE3/~{MCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC0',func=Pin.types.BIDIR,unit=1),
@@ -2215,7 +2215,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F2550-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F2550-ISO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/39632c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F2550-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F2550-ISO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/39632c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F2550-ISO\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='T1OSO/T13CKI/RC0',func=Pin.types.BIDIR,unit=1),
@@ -2244,7 +2244,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/~{SS}/HLVDIN/C2OUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OSC1/CLKI',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F2550-ISP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F2550-ISP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/39632c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F2550-ISP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F2550-ISP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/39632c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F2550-ISP\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='T1OSO/T13CKI/RC0',func=Pin.types.BIDIR,unit=1),
@@ -2273,7 +2273,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/~{SS}/HLVDIN/C2OUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OSC1/CLKI',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F25K20_ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F25K20_ISS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'microcontroller PIC18F flash XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001303H.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F25K20_ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F25K20_ISS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'microcontroller PIC18F flash XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001303H.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F25K20_ISS\n\nmicrocontroller PIC18F flash XLP', 'pins':[
             Pin(num='1',name='~{MCLR}/RE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKOUT',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='RC0',func=Pin.types.BIDIR,unit=1),
@@ -2302,7 +2302,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='Vss',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1/CLKIN',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F25K22-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F25K22-xSO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001412G.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F25K22-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F25K22-xSO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001412G.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F25K22-xSO\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='~{MCLR}/VPP/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2_CLKOUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC0/SOSCO',func=Pin.types.BIDIR,unit=1),
@@ -2331,7 +2331,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1_CLKIN',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F25K22-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F25K22-xSP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001412G.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F25K22-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F25K22-xSP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001412G.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F25K22-xSP\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='~{MCLR}/VPP/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2_CLKOUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC0/SOSCO',func=Pin.types.BIDIR,unit=1),
@@ -2360,7 +2360,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1_CLKIN',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F25K50-xML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F25K50-xML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/30000684B.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F25K50-xML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F25K50-xML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/30000684B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F25K50-xML\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VUSB3V3/VDDCORE',func=Pin.types.BIDIR,unit=1),
@@ -2389,7 +2389,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA6/OSC2/CLKO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F25K50-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F25K50-xSO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/30000684B.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F25K50-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F25K50-xSO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/30000684B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F25K50-xSO\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='RE3/Vpp/~{MCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='RC0',func=Pin.types.BIDIR,unit=1),
@@ -2418,7 +2418,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1/CLKI',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F25K50-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F25K50-xSP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/30000684B.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F25K50-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F25K50-xSP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/30000684B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F25K50-xSP\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='RE3/Vpp/~{MCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='RC0',func=Pin.types.BIDIR,unit=1),
@@ -2447,7 +2447,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1/CLKI',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F25K50-xSS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F25K50-xSS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/30000684B.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F25K50-xSS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F25K50-xSS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/30000684B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F25K50-xSS\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='RE3/Vpp/~{MCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='RC0',func=Pin.types.BIDIR,unit=1),
@@ -2476,7 +2476,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1/CLKI',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F26K20_ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F26K20_ISS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'microcontroller PIC18F flash XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001303H.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F26K20_ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F26K20_ISS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'microcontroller PIC18F flash XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001303H.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F26K20_ISS\n\nmicrocontroller PIC18F flash XLP', 'pins':[
             Pin(num='1',name='~{MCLR}/RE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKOUT',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='RC0',func=Pin.types.BIDIR,unit=1),
@@ -2505,7 +2505,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='Vss',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1/CLKIN',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F26K22-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F26K22-xSO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001412G.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F26K22-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F26K22-xSO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001412G.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F26K22-xSO\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='~{MCLR}/VPP/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2_CLKOUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC0/SOSCO',func=Pin.types.BIDIR,unit=1),
@@ -2534,7 +2534,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1_CLKIN',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F26K22-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F26K22-xSP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001412G.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F26K22-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F26K22-xSP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001412G.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F26K22-xSP\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='~{MCLR}/VPP/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2_CLKOUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC0/SOSCO',func=Pin.types.BIDIR,unit=1),
@@ -2563,7 +2563,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1_CLKIN',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F26K80_IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F26K80_IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'microcontroller PIC18 flash ECAN XLP nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39977f.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F26K80_IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F26K80_IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'microcontroller PIC18 flash ECAN XLP nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39977f.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F26K80_IML\n\nmicrocontroller PIC18 flash ECAN XLP nanoWatt', 'pins':[
             Pin(num='1',name='RA2/Vref-/AN2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='CCP2/RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SCL/SCK/RC3',func=Pin.types.BIDIR,unit=1),
@@ -2593,7 +2593,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OSC2/CLKOUT',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SOSCO/RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SOSCI/RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F26K80_ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F26K80_ISS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'microcontroller PIC18 flash ECAN XLP nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39977f.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F26K80_ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F26K80_ISS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'microcontroller PIC18 flash ECAN XLP nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39977f.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F26K80_ISS\n\nmicrocontroller PIC18 flash ECAN XLP nanoWatt', 'pins':[
             Pin(num='1',name='~{MCLR}/RE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='OSC2/CLKOUT',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SOSCO/RC0',func=Pin.types.BIDIR,unit=1),
@@ -2622,7 +2622,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='Vss',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OSC1/CLKIN',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F26K83-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F26K83-xSP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'microcontroller Microchip DMA WWDT DIA DCI XLP CLC CWG CCP NCO DSM CRC UART LIN DMX DALI SPI CAN I2C PPS SMT ADC2 CVD DAC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001943A.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F26K83-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F26K83-xSP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'microcontroller Microchip DMA WWDT DIA DCI XLP CLC CWG CCP NCO DSM CRC UART LIN DMX DALI SPI CAN I2C PPS SMT ADC2 CVD DAC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001943A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F26K83-xSP\n\nmicrocontroller Microchip DMA WWDT DIA DCI XLP CLC CWG CCP NCO DSM CRC UART LIN DMX DALI SPI CAN I2C PPS SMT ADC2 CVD DAC', 'pins':[
             Pin(num='1',name='VPP/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OSC2_CLKOUT/RA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC0/SOSCO',func=Pin.types.BIDIR,unit=1),
@@ -2651,7 +2651,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OSC1_CLKIN/RA7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F4431-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4431-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F4431-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4431-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F4431-IML\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='RX/SDO/DT/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB1/PWM1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB2/PWM2',func=Pin.types.BIDIR,unit=1),
@@ -2696,7 +2696,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='AVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RB0/PWM0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F4431-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4431-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F4431-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4431-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F4431-IP\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='AN8/RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AVDD',func=Pin.types.PWRIN,unit=1),
@@ -2737,7 +2737,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN5/LVDIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='AN6/RE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='AN7/RE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F4431-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4431-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F4431-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4431-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F4431-IPT\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='RX/SDO/DT/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB2/PWM2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB3/PWM3',func=Pin.types.BIDIR,unit=1),
@@ -2782,7 +2782,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0/PWM0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1/PWM1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F4480-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4480-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller CAN', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39637d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F4480-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4480-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller CAN', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39637d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F4480-IP\n\nFlash-Based 8-Bit Microcontroller CAN', 'pins':[
             Pin(num='1',name='~{MCLR}/VPP/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='C2OUT/AN7/~{CS}/RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -2823,7 +2823,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/ANA4/~{SS}/HLVDIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='AN5/~{RD}/RE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='C1OUT/AN6/~{WR}/RE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F452-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F452-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39564c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F452-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F452-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39564c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F452-IP\n\nFlash-Based 8-Bit Microcontroller', 'pins':[
             Pin(num='1',name='~{MCLR}/VPP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{CS}/AN7/RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -2864,7 +2864,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/~{SS}/LVDIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='~{RD}/AN5/RE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{WR}/AN6/RE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F452-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F452-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39564c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F452-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F452-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39564c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F452-IPT\n\nFlash-Based 8-Bit Microcontroller', 'pins':[
             Pin(num='1',name='DT/RX/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB2/INT2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB3/CCP2',func=Pin.types.BIDIR,unit=1),
@@ -2909,7 +2909,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0/INT0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1/INT1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F4520-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4520-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'32K Flash, 1536b SRAM, 256b EEPROM, ADC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39631E.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F4520-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4520-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'32K Flash, 1536b SRAM, 256b EEPROM, ADC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39631E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F4520-xP\n\n32K Flash, 1536b SRAM, 256b EEPROM, ADC', 'pins':[
             Pin(num='1',name='RE3/~{MCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PASSIVE,unit=1),
@@ -2950,7 +2950,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F4550-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4550-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F4550-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4550-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F4550-IML\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='SDO/RX/DT/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB1/AN10/INT1/SCK/SCL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB2/AN8/INT2/VMO',func=Pin.types.BIDIR,unit=1),
@@ -2995,7 +2995,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RB0/AN12/INT0/FLT0/SDI/SDA',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F4550-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4550-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F4550-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4550-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F4550-IP\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OESPP/AN7/RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -3036,7 +3036,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/~{SS}/HLVDIN/C2OUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='CK1SPP/AN5/RE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='CK2SPP/AN6/RE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F4550-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4550-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F4550-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4550-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F4550-IPT\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='SDO/RX/DT/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB2/AN8/INT2/VMO',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB3/AN9/CCP2/VPO',func=Pin.types.BIDIR,unit=1),
@@ -3081,7 +3081,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0/AN12/INT0/FLT0/SDI/SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1/AN10/INT1/SCK/SCL',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F4553-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4553-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39887c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F4553-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4553-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39887c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F4553-IML\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='SDO/RX/DT/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB1/AN10/INT1/SCK/SCL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB2/AN8/INT2/VMO',func=Pin.types.BIDIR,unit=1),
@@ -3127,7 +3127,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RB0/AN12/INT0/FLT0/SDI/SDA',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F4553-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4553-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39887c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F4553-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4553-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39887c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F4553-IP\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OESPP/AN7/RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -3168,7 +3168,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/~{SS}/HLVDIN/C2OUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='CK1SPP/AN5/RE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='CK2SPP/AN6/RE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F4553-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4553-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39887c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F4553-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F4553-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39887c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F4553-IPT\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='SDO/RX/DT/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB2/AN8/INT2/VMO',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB3/AN9/CCP2/VPO',func=Pin.types.BIDIR,unit=1),
@@ -3213,7 +3213,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0/AN12/INT0/FLT0/SDI/SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1/AN10/INT1/SCK/SCL',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F458-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F458-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller CAN', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41159e.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F458-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F458-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller CAN', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41159e.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F458-IP\n\nFlash-Based 8-Bit Microcontroller CAN', 'pins':[
             Pin(num='1',name='~{MCLR}/VPP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='C2OUT/~{CS}/AN7/RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -3254,7 +3254,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/~{SS}/LVDIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='~{RD}/AN5/RE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='C1OUT/~{WR}/AN6/RE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F45J10-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F45J10-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39682E.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F45J10-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F45J10-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39682E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F45J10-IP\n\nFlash-Based 8-Bit Microcontroller', 'pins':[
             Pin(num='1',name='~{MCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{CS}/AN7/RE2',func=Pin.types.TRISTATE,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -3295,7 +3295,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/~{SS1}/C2OUT',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='~{RD}/AN5/RE0',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='~{WR}/AN6/RE1',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F46K80-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F46K80-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'microcontroller PIC18 flash ECAN XLP nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39977f.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F46K80-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F46K80-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'microcontroller PIC18 flash ECAN XLP nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39977f.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F46K80-IML\n\nmicrocontroller PIC18 flash ECAN XLP nanoWatt', 'pins':[
             Pin(num='1',name='CANRX/RX1/CCP4/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB2/CANTX/INT2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB3/CANRX/INT3',func=Pin.types.BIDIR,unit=1),
@@ -3341,7 +3341,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Vdd',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0/AN10/INT0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1/AN8/INT1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F46K80-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F46K80-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'microchip microcontroller PIC18 flash ECAN XLP nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39977f.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F46K80-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F46K80-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'microchip microcontroller PIC18 flash ECAN XLP nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39977f.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F46K80-IPT\n\nmicrochip microcontroller PIC18 flash ECAN XLP nanoWatt', 'pins':[
             Pin(num='1',name='RC7/CANRX/RX1/DT1/CCP4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='CANTX/CTED1/INT2/RB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='CANRX/CTED2/INT3/RB3',func=Pin.types.BIDIR,unit=1),
@@ -3386,7 +3386,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='AN10/FLT0/INT0/RB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='AN8/CTDIN/INT1/RB1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F66J65-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F66J65-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'Flash Based 8-Bit Microcontroller Ethernet Controller PHY', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39762f.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F66J65-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F66J65-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'Flash Based 8-Bit Microcontroller Ethernet Controller PHY', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39762f.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F66J65-IPT\n\nFlash Based 8-Bit Microcontroller Ethernet Controller PHY', 'pins':[
             Pin(num='1',name='RE1/P2C',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDDCORE/VCAP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='RF7/~{SS1}',func=Pin.types.BIDIR,unit=1),
@@ -3451,7 +3451,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{MCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='RG4/CCP5/P1D',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F67J60-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F67J60-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'Flash Based 8-Bit Microcontroller Ethernet Controller PHY', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39762f.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F67J60-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F67J60-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'Flash Based 8-Bit Microcontroller Ethernet Controller PHY', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39762f.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F67J60-IPT\n\nFlash Based 8-Bit Microcontroller Ethernet Controller PHY', 'pins':[
             Pin(num='1',name='RE1/P2C',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDDCORE/VCAP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='RF7/~{SS1}',func=Pin.types.BIDIR,unit=1),
@@ -3516,7 +3516,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{MCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='RG4/CCP5/P1D',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F96J60-IPF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F96J60-IPF'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-100_12x12mm_P0.4mm', 'Package_QFP:TQFP-100_12x12mm_P0.4mm'], 'footprint':'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'keywords':'Flash Based 8-Bit Microcontroller Ethernet Controller PHY', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39762f.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F96J60-IPF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F96J60-IPF'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-100_12x12mm_P0.4mm', 'Package_QFP:TQFP-100_12x12mm_P0.4mm'], 'footprint':'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'keywords':'Flash Based 8-Bit Microcontroller Ethernet Controller PHY', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39762f.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F96J60-IPF\n\nFlash Based 8-Bit Microcontroller Ethernet Controller PHY', 'pins':[
             Pin(num='1',name='RH2/A18',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RG6',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='RH1/A17',func=Pin.types.BIDIR,unit=1),
@@ -3617,7 +3617,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='AD11/P3C/RE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='~{CS}/AD10/P2B/RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='RH0/A16',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F96J65-IPF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F96J65-IPF'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-100_12x12mm_P0.4mm', 'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'Package_QFP:TQFP-100_12x12mm_P0.4mm'], 'footprint':'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'keywords':'Flash Based 8-Bit Microcontroller Ethernet Controller PHY', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39762f.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F96J65-IPF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F96J65-IPF'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-100_12x12mm_P0.4mm', 'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'Package_QFP:TQFP-100_12x12mm_P0.4mm'], 'footprint':'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'keywords':'Flash Based 8-Bit Microcontroller Ethernet Controller PHY', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39762f.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F96J65-IPF\n\nFlash Based 8-Bit Microcontroller Ethernet Controller PHY', 'pins':[
             Pin(num='1',name='RH2/A18',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RG6',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='RH1/A17',func=Pin.types.BIDIR,unit=1),
@@ -3718,7 +3718,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='AD11/P3C/RE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='~{CS}/AD10/P2B/RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='RH0/A16',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F96J65-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F96J65-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-100_12x12mm_P0.4mm', 'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'Package_QFP:TQFP-100_12x12mm_P0.4mm'], 'footprint':'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'keywords':'Flash Based 8-Bit Microcontroller Ethernet Controller PHY', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39762f.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F96J65-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F96J65-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-100_12x12mm_P0.4mm', 'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'Package_QFP:TQFP-100_12x12mm_P0.4mm'], 'footprint':'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'keywords':'Flash Based 8-Bit Microcontroller Ethernet Controller PHY', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39762f.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F96J65-IPT\n\nFlash Based 8-Bit Microcontroller Ethernet Controller PHY', 'pins':[
             Pin(num='1',name='RH2/A18',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RG6',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='RH1/A17',func=Pin.types.BIDIR,unit=1),
@@ -3819,7 +3819,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='AD11/P3C/RE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='~{CS}/AD10/P2B/RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='RH0/A16',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F97J60-IPF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F97J60-IPF'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-100_12x12mm_P0.4mm', 'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'Package_QFP:TQFP-100_12x12mm_P0.4mm'], 'footprint':'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'keywords':'Flash Based 8-Bit Microcontroller Ethernet Controller PHY', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39762f.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F97J60-IPF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F97J60-IPF'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-100_12x12mm_P0.4mm', 'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'Package_QFP:TQFP-100_12x12mm_P0.4mm'], 'footprint':'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'keywords':'Flash Based 8-Bit Microcontroller Ethernet Controller PHY', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39762f.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F97J60-IPF\n\nFlash Based 8-Bit Microcontroller Ethernet Controller PHY', 'pins':[
             Pin(num='1',name='RH2/A18',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RG6',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='RH1/A17',func=Pin.types.BIDIR,unit=1),
@@ -3920,7 +3920,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='AD11/P3C/RE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='~{CS}/AD10/P2B/RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='RH0/A16',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18F97J60-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F97J60-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-100_12x12mm_P0.4mm', 'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'Package_QFP:TQFP-100_12x12mm_P0.4mm'], 'footprint':'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'keywords':'Flash Based 8-Bit Microcontroller Ethernet Controller PHY', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39762f.pdf', 'pins':[
+        Part(**{ 'name':'PIC18F97J60-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18F97J60-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-100_12x12mm_P0.4mm', 'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'Package_QFP:TQFP-100_12x12mm_P0.4mm'], 'footprint':'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'keywords':'Flash Based 8-Bit Microcontroller Ethernet Controller PHY', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39762f.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18F97J60-IPT\n\nFlash Based 8-Bit Microcontroller Ethernet Controller PHY', 'pins':[
             Pin(num='1',name='RH2/A18',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RG6',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='RH1/A17',func=Pin.types.BIDIR,unit=1),
@@ -4021,7 +4021,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='AD11/P3C/RE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='~{CS}/AD10/P2B/RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='RH0/A16',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF1220-SO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF1220-SO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm', 'Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm', 'Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm'], 'footprint':'Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm', 'keywords':'RAM ADC UART PWM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39605F.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF1220-SO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF1220-SO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm', 'Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm', 'Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm'], 'footprint':'Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm', 'keywords':'RAM ADC UART PWM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39605F.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF1220-SO\n\nRAM ADC UART PWM', 'pins':[
             Pin(num='1',name='RA0/AN0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='KBI0/DT/RX/AN6/RB4',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='KBI1/PGM/RB5',func=Pin.types.INPUT,unit=1),
@@ -4040,7 +4040,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA3/AN3/Vref+',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='INT0/AN4/RB0',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='INT1/CK/TX/AN5/RB1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF1320-SO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF1320-SO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm', 'Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm', 'Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm', 'Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm'], 'footprint':'Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm', 'keywords':'RAM ADC UART PWM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39605F.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF1320-SO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF1320-SO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm', 'Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm', 'Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm', 'Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm'], 'footprint':'Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm', 'keywords':'RAM ADC UART PWM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39605F.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF1320-SO\n\nRAM ADC UART PWM', 'pins':[
             Pin(num='1',name='RA0/AN0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='KBI0/DT/RX/AN6/RB4',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='KBI1/PGM/RB5',func=Pin.types.INPUT,unit=1),
@@ -4059,7 +4059,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA3/AN3/Vref+',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='INT0/AN4/RB0',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='INT1/CK/TX/AN5/RB1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF13K50-EP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF13K50-EP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'Flash-Based 8bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/41350c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF13K50-EP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF13K50-EP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'Flash-Based 8bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/41350c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF13K50-EP\n\nFlash-Based 8bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7/IOCB7/TX/CK',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6/IOCB6/SCK/SCL',func=Pin.types.BIDIR,unit=1),
@@ -4080,7 +4080,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PGM/C12IN3-/P1C/AN7/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='T1OSCI/T13CKI/SS/AN8/RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='T1OSCO/SDO/AN9/RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF13K50-ESO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF13K50-ESO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'Flash-Based 8bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/41350c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF13K50-ESO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF13K50-ESO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'Flash-Based 8bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/41350c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF13K50-ESO\n\nFlash-Based 8bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7/IOCB7/TX/CK',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6/IOCB6/SCK/SCL',func=Pin.types.BIDIR,unit=1),
@@ -4101,7 +4101,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PGM/C12IN3-/P1C/AN7/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='T1OSCI/T13CKI/SS/AN8/RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='T1OSCO/SDO/AN9/RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF13K50-ESS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF13K50-ESS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'Flash-Based 8bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/41350c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF13K50-ESS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF13K50-ESS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'Flash-Based 8bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/41350c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF13K50-ESS\n\nFlash-Based 8bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7/IOCB7/TX/CK',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6/IOCB6/SCK/SCL',func=Pin.types.BIDIR,unit=1),
@@ -4122,7 +4122,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PGM/C12IN3-/P1C/AN7/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='T1OSCI/T13CKI/SS/AN8/RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='T1OSCO/SDO/AN9/RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF14K50-EP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF14K50-EP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'Flash-Based 8bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/41350c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF14K50-EP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF14K50-EP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'Flash-Based 8bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/41350c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF14K50-EP\n\nFlash-Based 8bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7/IOCB7/TX/CK',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6/IOCB6/SCK/SCL',func=Pin.types.BIDIR,unit=1),
@@ -4143,7 +4143,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PGM/C12IN3-/P1C/AN7/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='T1OSCI/T13CKI/SS/AN8/RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='T1OSCO/SDO/AN9/RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF14K50-ESO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF14K50-ESO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'Flash-Based 8bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/41350c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF14K50-ESO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF14K50-ESO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'Flash-Based 8bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/41350c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF14K50-ESO\n\nFlash-Based 8bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7/IOCB7/TX/CK',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6/IOCB6/SCK/SCL',func=Pin.types.BIDIR,unit=1),
@@ -4164,7 +4164,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PGM/C12IN3-/P1C/AN7/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='T1OSCI/T13CKI/SS/AN8/RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='T1OSCO/SDO/AN9/RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF14K50-ESS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF14K50-ESS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'Flash-Based 8bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/41350c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF14K50-ESS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF14K50-ESS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'Flash-Based 8bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/41350c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF14K50-ESS\n\nFlash-Based 8bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7/IOCB7/TX/CK',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6/IOCB6/SCK/SCL',func=Pin.types.BIDIR,unit=1),
@@ -4185,7 +4185,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PGM/C12IN3-/P1C/AN7/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='T1OSCI/T13CKI/SS/AN8/RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='T1OSCO/SDO/AN9/RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF2331-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF2331-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF2331-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF2331-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF2331-IML\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='RA2/AN2/Vref-/CAP1/INDX',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='~{FLTB}/CCP1/RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='INT0/T5CKI/T0CKI/RC3',func=Pin.types.BIDIR,unit=1),
@@ -4214,7 +4214,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA6/OSC2/CLKO',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='T1OSO/T1CKI/RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{FLTA}/T1OSI/CCP2/RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF2331-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF2331-ISO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF2331-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF2331-ISO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF2331-ISO\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='~{MCLR}/Vpp',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKO',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='T1OSO/T1CKI/RC0',func=Pin.types.BIDIR,unit=1),
@@ -4243,7 +4243,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='AVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1/CLKI',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF2331-ISP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF2331-ISP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF2331-ISP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF2331-ISP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF2331-ISP\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='~{MCLR}/Vpp',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKO',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='T1OSO/T1CKI/RC0',func=Pin.types.BIDIR,unit=1),
@@ -4272,7 +4272,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='AVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1/CLKI',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF2431-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF2431-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF2431-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF2431-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF2431-IML\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='RA2/AN2/Vref-/CAP1/INDX',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='~{FLTB}/CCP1/RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='INT0/T5CKI/T0CKI/RC3',func=Pin.types.BIDIR,unit=1),
@@ -4301,7 +4301,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA6/OSC2/CLKO',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='T1OSO/T1CKI/RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{FLTA}/T1OSI/CCP2/RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF2431-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF2431-ISO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF2431-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF2431-ISO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF2431-ISO\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='~{MCLR}/Vpp',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKO',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='T1OSO/T1CKI/RC0',func=Pin.types.BIDIR,unit=1),
@@ -4330,7 +4330,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='AVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1/CLKI',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF2431-ISP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF2431-ISP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF2431-ISP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF2431-ISP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF2431-ISP\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='~{MCLR}/Vpp',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKO',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='T1OSO/T1CKI/RC0',func=Pin.types.BIDIR,unit=1),
@@ -4359,7 +4359,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='AVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1/CLKI',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF2450-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF2450-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF2450-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF2450-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF2450-IML\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='RA2/AN2/Vref-',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='CCP1/RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VUSB',func=Pin.types.BIDIR,unit=1),
@@ -4388,7 +4388,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA6/OSC2/CLKO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='T1OSO/T1CKI/RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{UOE}/T1OSI/RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF2450-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF2450-ISO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF2450-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF2450-ISO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF2450-ISO\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='T1OSO/T1CKI/RC0',func=Pin.types.BIDIR,unit=1),
@@ -4417,7 +4417,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/HLVDIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OSC1/CLKI',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF2450-ISP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF2450-ISP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF2450-ISP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF2450-ISP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF2450-ISP\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='T1OSO/T1CKI/RC0',func=Pin.types.BIDIR,unit=1),
@@ -4446,7 +4446,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/HLVDIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OSC1/CLKI',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF2455-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF2455-ISO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/39632c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF2455-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF2455-ISO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/39632c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF2455-ISO\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='T1OSO/T13CKI/RC0',func=Pin.types.BIDIR,unit=1),
@@ -4475,7 +4475,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/~{SS}/HLVDIN/C2OUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OSC1/CLKI',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF2455-ISP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF2455-ISP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/39632c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF2455-ISP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF2455-ISP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/39632c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF2455-ISP\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='T1OSO/T13CKI/RC0',func=Pin.types.BIDIR,unit=1),
@@ -4504,7 +4504,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/~{SS}/HLVDIN/C2OUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OSC1/CLKI',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF24K50-xML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF24K50-xML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/30000684B.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF24K50-xML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF24K50-xML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/30000684B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF24K50-xML\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VUSB3V3/VDDCORE',func=Pin.types.BIDIR,unit=1),
@@ -4533,7 +4533,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA6/OSC2/CLKO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF24K50-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF24K50-xSO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/30000684B.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF24K50-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF24K50-xSO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/30000684B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF24K50-xSO\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='RE3/Vpp/~{MCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='RC0',func=Pin.types.BIDIR,unit=1),
@@ -4562,7 +4562,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1/CLKI',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF24K50-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF24K50-xSP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/30000684B.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF24K50-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF24K50-xSP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/30000684B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF24K50-xSP\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='RE3/Vpp/~{MCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='RC0',func=Pin.types.BIDIR,unit=1),
@@ -4591,7 +4591,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1/CLKI',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF24K50-xSS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF24K50-xSS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/30000684B.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF24K50-xSS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF24K50-xSS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/30000684B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF24K50-xSS\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='RE3/Vpp/~{MCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='RC0',func=Pin.types.BIDIR,unit=1),
@@ -4620,7 +4620,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1/CLKI',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF2550-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF2550-ISO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/39632c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF2550-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF2550-ISO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/39632c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF2550-ISO\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='T1OSO/T13CKI/RC0',func=Pin.types.BIDIR,unit=1),
@@ -4649,7 +4649,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/~{SS}/HLVDIN/C2OUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OSC1/CLKI',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF2550-ISP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF2550-ISP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/39632c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF2550-ISP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF2550-ISP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/39632c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF2550-ISP\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='T1OSO/T13CKI/RC0',func=Pin.types.BIDIR,unit=1),
@@ -4678,7 +4678,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/~{SS}/HLVDIN/C2OUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OSC1/CLKI',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF25K50-xML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF25K50-xML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/30000684B.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF25K50-xML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF25K50-xML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/30000684B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF25K50-xML\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VUSB3V3/VDDCORE',func=Pin.types.BIDIR,unit=1),
@@ -4707,7 +4707,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA6/OSC2/CLKO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF25K50-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF25K50-xSO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/30000684B.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF25K50-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF25K50-xSO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/30000684B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF25K50-xSO\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='RE3/Vpp/~{MCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='RC0',func=Pin.types.BIDIR,unit=1),
@@ -4736,7 +4736,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1/CLKI',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF25K50-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF25K50-xSP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/30000684B.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF25K50-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF25K50-xSP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/30000684B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF25K50-xSP\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='RE3/Vpp/~{MCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='RC0',func=Pin.types.BIDIR,unit=1),
@@ -4765,7 +4765,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1/CLKI',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF25K50-xSS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF25K50-xSS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/30000684B.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF25K50-xSS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF25K50-xSS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/30000684B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF25K50-xSS\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='RE3/Vpp/~{MCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='RC0',func=Pin.types.BIDIR,unit=1),
@@ -4794,7 +4794,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1/CLKI',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF25K80_IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF25K80_IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'microcontroller microchip CAN USB UART QFN SPI I2C FLASH EEPROM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39977f.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF25K80_IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF25K80_IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'microcontroller microchip CAN USB UART QFN SPI I2C FLASH EEPROM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39977f.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF25K80_IML\n\nmicrocontroller microchip CAN USB UART QFN SPI I2C FLASH EEPROM', 'pins':[
             Pin(num='1',name='RA2/Vref-/AN2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='CCP2/RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SCL/SCK/RC3',func=Pin.types.BIDIR,unit=1),
@@ -4824,7 +4824,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OSC2/CLKOUT',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SOSCO/RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SOSCI/RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF25K80_ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF25K80_ISS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'microchip microcontroller PIC18 flash ECAN XLP nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39977f.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF25K80_ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF25K80_ISS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'microchip microcontroller PIC18 flash ECAN XLP nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39977f.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF25K80_ISS\n\nmicrochip microcontroller PIC18 flash ECAN XLP nanoWatt', 'pins':[
             Pin(num='1',name='~{MCLR}/RE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='OSC2/CLKOUT',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SOSCO/RC0',func=Pin.types.BIDIR,unit=1),
@@ -4853,7 +4853,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='Vss',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OSC1/CLKIN',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF25K83-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF25K83-xSP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'microcontroller Microchip DMA WWDT DIA DCI XLP CLC CWG CCP NCO DSM CRC UART LIN DMX DALI SPI CAN I2C PPS SMT ADC2 CVD DAC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001943A.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF25K83-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF25K83-xSP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'microcontroller Microchip DMA WWDT DIA DCI XLP CLC CWG CCP NCO DSM CRC UART LIN DMX DALI SPI CAN I2C PPS SMT ADC2 CVD DAC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001943A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF25K83-xSP\n\nmicrocontroller Microchip DMA WWDT DIA DCI XLP CLC CWG CCP NCO DSM CRC UART LIN DMX DALI SPI CAN I2C PPS SMT ADC2 CVD DAC', 'pins':[
             Pin(num='1',name='VPP/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OSC2_CLKOUT/RA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC0/SOSCO',func=Pin.types.BIDIR,unit=1),
@@ -4882,7 +4882,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OSC1_CLKIN/RA7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF26K80_IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF26K80_IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'microchip microcontroller PIC18 flash ECAN XLP nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39977f.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF26K80_IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF26K80_IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'microchip microcontroller PIC18 flash ECAN XLP nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39977f.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF26K80_IML\n\nmicrochip microcontroller PIC18 flash ECAN XLP nanoWatt', 'pins':[
             Pin(num='1',name='RA2/Vref-/AN2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='CCP2/RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SCL/SCK/RC3',func=Pin.types.BIDIR,unit=1),
@@ -4912,7 +4912,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OSC2/CLKOUT',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SOSCO/RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SOSCI/RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF26K80_ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF26K80_ISS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'microchip microcontroller PIC18 flash ECAN XLP nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39977f.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF26K80_ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF26K80_ISS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'microchip microcontroller PIC18 flash ECAN XLP nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39977f.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF26K80_ISS\n\nmicrochip microcontroller PIC18 flash ECAN XLP nanoWatt', 'pins':[
             Pin(num='1',name='~{MCLR}/RE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='OSC2/CLKOUT',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SOSCO/RC0',func=Pin.types.BIDIR,unit=1),
@@ -4941,7 +4941,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='Vss',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OSC1/CLKIN',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF26K83-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF26K83-xSP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'microcontroller Microchip DMA WWDT DIA DCI XLP CLC CWG CCP NCO DSM CRC UART LIN DMX DALI SPI CAN I2C PPS SMT ADC2 CVD DAC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001943A.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF26K83-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF26K83-xSP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'microcontroller Microchip DMA WWDT DIA DCI XLP CLC CWG CCP NCO DSM CRC UART LIN DMX DALI SPI CAN I2C PPS SMT ADC2 CVD DAC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001943A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF26K83-xSP\n\nmicrocontroller Microchip DMA WWDT DIA DCI XLP CLC CWG CCP NCO DSM CRC UART LIN DMX DALI SPI CAN I2C PPS SMT ADC2 CVD DAC', 'pins':[
             Pin(num='1',name='VPP/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OSC2_CLKOUT/RA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC0/SOSCO',func=Pin.types.BIDIR,unit=1),
@@ -4970,7 +4970,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OSC1_CLKIN/RA7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF4331-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4331-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF4331-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4331-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF4331-IML\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='RX/SDO/DT/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB1/PWM1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB2/PWM2',func=Pin.types.BIDIR,unit=1),
@@ -5015,7 +5015,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='AVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RB0/PWM0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF4331-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4331-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF4331-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4331-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF4331-IP\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='AN8/RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AVDD',func=Pin.types.PWRIN,unit=1),
@@ -5056,7 +5056,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN5/LVDIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='AN6/RE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='AN7/RE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF4331-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4331-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF4331-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4331-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF4331-IPT\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='RX/SDO/DT/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB2/PWM2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB3/PWM3',func=Pin.types.BIDIR,unit=1),
@@ -5101,7 +5101,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0/PWM0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1/PWM1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF442-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF442-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39564c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF442-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF442-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39564c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF442-IP\n\nFlash-Based 8-Bit Microcontroller', 'pins':[
             Pin(num='1',name='~{MCLR}/VPP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{CS}/AN7/RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -5142,7 +5142,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/~{SS}/LVDIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='~{RD}/AN5/RE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{WR}/AN6/RE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF442-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF442-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39564c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF442-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF442-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39564c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF442-IPT\n\nFlash-Based 8-Bit Microcontroller', 'pins':[
             Pin(num='1',name='DT/RX/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB2/INT2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB3/CCP2',func=Pin.types.BIDIR,unit=1),
@@ -5187,7 +5187,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0/INT0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1/INT1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF4431-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4431-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF4431-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4431-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF4431-IML\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='RX/SDO/DT/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB1/PWM1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB2/PWM2',func=Pin.types.BIDIR,unit=1),
@@ -5232,7 +5232,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='AVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RB0/PWM0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF4431-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4431-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF4431-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4431-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF4431-IP\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='AN8/RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AVDD',func=Pin.types.PWRIN,unit=1),
@@ -5273,7 +5273,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN5/LVDIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='AN6/RE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='AN7/RE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF4431-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4431-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF4431-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4431-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39616d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF4431-IPT\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='RX/SDO/DT/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB2/PWM2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB3/PWM3',func=Pin.types.BIDIR,unit=1),
@@ -5318,7 +5318,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0/PWM0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1/PWM1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF4450-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4450-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF4450-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4450-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF4450-IML\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='RX/DT/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB1/AN10/INT1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB2/AN8/INT2/VMO',func=Pin.types.BIDIR,unit=1),
@@ -5363,7 +5363,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RB0/AN12/INT0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF4450-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4450-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF4450-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4450-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF4450-IP\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='AN7/RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -5404,7 +5404,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/HLVDIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='AN5/RE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='AN6/RE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF4450-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4450-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF4450-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4450-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF4450-IPT\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='RX/DT/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB2/AN8/INT2/VMO',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB3/AN9/VPO',func=Pin.types.BIDIR,unit=1),
@@ -5449,7 +5449,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0/AN12/INT0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1/AN10/INT1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF4455-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4455-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF4455-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4455-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF4455-IML\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='SDO/RX/DT/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB1/AN10/INT1/SCK/SCL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB2/AN8/INT2/VMO',func=Pin.types.BIDIR,unit=1),
@@ -5494,7 +5494,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RB0/AN12/INT0/FLT0/SDI/SDA',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF4455-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4455-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF4455-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4455-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF4455-IP\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OESPP/AN7/RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -5535,7 +5535,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/~{SS}/HLVDIN/C2OUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='CK1SPP/AN5/RE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='CK2SPP/AN6/RE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF4455-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4455-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF4455-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4455-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF4455-IPT\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='SDO/RX/DT/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB2/AN8/INT2/VMO',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB3/AN9/CCP2/VPO',func=Pin.types.BIDIR,unit=1),
@@ -5580,7 +5580,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0/AN12/INT0/FLT0/SDI/SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1/AN10/INT1/SCK/SCL',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF4458-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4458-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39887c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF4458-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4458-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39887c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF4458-IML\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='SDO/RX/DT/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB1/AN10/INT1/SCK/SCL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB2/AN8/INT2/VMO',func=Pin.types.BIDIR,unit=1),
@@ -5626,7 +5626,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RB0/AN12/INT0/FLT0/SDI/SDA',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF4458-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4458-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39887c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF4458-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4458-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39887c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF4458-IP\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OESPP/AN7/RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -5667,7 +5667,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/~{SS}/HLVDIN/C2OUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='CK1SPP/AN5/RE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='CK2SPP/AN6/RE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF4458-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4458-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39887c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF4458-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4458-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39887c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF4458-IPT\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='SDO/RX/DT/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB2/AN8/INT2/VMO',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB3/AN9/CCP2/VPO',func=Pin.types.BIDIR,unit=1),
@@ -5712,7 +5712,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0/AN12/INT0/FLT0/SDI/SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1/AN10/INT1/SCK/SCL',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF448-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF448-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller CAN', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41159e.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF448-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF448-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller CAN', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41159e.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF448-IP\n\nFlash-Based 8-Bit Microcontroller CAN', 'pins':[
             Pin(num='1',name='~{MCLR}/VPP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='C2OUT/~{CS}/AN7/RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -5753,7 +5753,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/~{SS}/LVDIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='~{RD}/AN5/RE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='C1OUT/~{WR}/AN6/RE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF4480-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4480-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller CAN', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39637d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF4480-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4480-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller CAN', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39637d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF4480-IP\n\nFlash-Based 8-Bit Microcontroller CAN', 'pins':[
             Pin(num='1',name='~{MCLR}/VPP/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='C2OUT/AN7/~{CS}/RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -5794,7 +5794,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/ANA4/~{SS}/HLVDIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='AN5/~{RD}/RE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='C1OUT/AN6/~{WR}/RE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF44J10-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF44J10-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39682E.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF44J10-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF44J10-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39682E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF44J10-IP\n\nFlash-Based 8-Bit Microcontroller', 'pins':[
             Pin(num='1',name='~{MCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{CS}/AN7/RE2',func=Pin.types.TRISTATE,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -5835,7 +5835,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/~{SS1}/C2OUT',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='~{RD}/AN5/RE0',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='~{WR}/AN6/RE1',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF452-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF452-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39564c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF452-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF452-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39564c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF452-IP\n\nFlash-Based 8-Bit Microcontroller', 'pins':[
             Pin(num='1',name='~{MCLR}/VPP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{CS}/AN7/RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -5876,7 +5876,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/~{SS}/LVDIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='~{RD}/AN5/RE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{WR}/AN6/RE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF452-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF452-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39564c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF452-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF452-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39564c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF452-IPT\n\nFlash-Based 8-Bit Microcontroller', 'pins':[
             Pin(num='1',name='DT/RX/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB2/INT2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB3/CCP2',func=Pin.types.BIDIR,unit=1),
@@ -5921,7 +5921,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0/INT0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1/INT1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF4550-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4550-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF4550-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4550-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF4550-IML\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='SDO/RX/DT/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB1/AN10/INT1/SCK/SCL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB2/AN8/INT2/VMO',func=Pin.types.BIDIR,unit=1),
@@ -5966,7 +5966,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RB0/AN12/INT0/FLT0/SDI/SDA',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF4550-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4550-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF4550-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4550-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF4550-IP\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OESPP/AN7/RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -6007,7 +6007,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/~{SS}/HLVDIN/C2OUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='CK1SPP/AN5/RE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='CK2SPP/AN6/RE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF4550-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4550-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF4550-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4550-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39760d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF4550-IPT\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='SDO/RX/DT/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB2/AN8/INT2/VMO',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB3/AN9/CCP2/VPO',func=Pin.types.BIDIR,unit=1),
@@ -6052,7 +6052,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0/AN12/INT0/FLT0/SDI/SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1/AN10/INT1/SCK/SCL',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF4553-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4553-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39887c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF4553-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4553-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39887c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF4553-IML\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='SDO/RX/DT/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB1/AN10/INT1/SCK/SCL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB2/AN8/INT2/VMO',func=Pin.types.BIDIR,unit=1),
@@ -6098,7 +6098,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RB0/AN12/INT0/FLT0/SDI/SDA',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF4553-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4553-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39887c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF4553-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4553-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39887c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF4553-IP\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OESPP/AN7/RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -6139,7 +6139,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/~{SS}/HLVDIN/C2OUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='CK1SPP/AN5/RE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='CK2SPP/AN6/RE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF4553-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4553-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39887c.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF4553-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4553-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39887c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF4553-IPT\n\nFlash-Based 8-Bit Microcontroller XLP', 'pins':[
             Pin(num='1',name='SDO/RX/DT/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB2/AN8/INT2/VMO',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB3/AN9/CCP2/VPO',func=Pin.types.BIDIR,unit=1),
@@ -6184,7 +6184,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0/AN12/INT0/FLT0/SDI/SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1/AN10/INT1/SCK/SCL',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF458-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF458-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller CAN', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41159e.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF458-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF458-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller CAN', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41159e.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF458-IP\n\nFlash-Based 8-Bit Microcontroller CAN', 'pins':[
             Pin(num='1',name='~{MCLR}/VPP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='C2OUT/~{CS}/AN7/RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -6225,7 +6225,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/~{SS}/LVDIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='~{RD}/AN5/RE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='C1OUT/~{WR}/AN6/RE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF4580-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4580-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller CAN', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39637d.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF4580-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF4580-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller CAN', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39637d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF4580-IP\n\nFlash-Based 8-Bit Microcontroller CAN', 'pins':[
             Pin(num='1',name='~{MCLR}/VPP/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='C2OUT/AN7/~{CS}/RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -6266,7 +6266,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/ANA4/~{SS}/HLVDIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='AN5/~{RD}/RE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='C1OUT/AN6/~{WR}/RE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF45J10-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF45J10-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39682E.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF45J10-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF45J10-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39682E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF45J10-IP\n\nFlash-Based 8-Bit Microcontroller', 'pins':[
             Pin(num='1',name='~{MCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{CS}/AN7/RE2',func=Pin.types.TRISTATE,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -6307,7 +6307,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/~{SS1}/C2OUT',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='~{RD}/AN5/RE0',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='~{WR}/AN6/RE1',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF45K50_QFP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF45K50_QFP'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'microcontroller Flash EEPROM SPI I2C USB UART USART ADC TQFP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30000684B.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF45K50_QFP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF45K50_QFP'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'microcontroller Flash EEPROM SPI I2C USB UART USART ADC TQFP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30000684B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF45K50_QFP\n\nmicrocontroller Flash EEPROM SPI I2C USB UART USART ADC TQFP', 'pins':[
             Pin(num='1',name='RC7/AN19/RX/DT/IOCC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='AN8/CTED1/INT2/RB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AN9/C12IN2-/CTED2/CCP2/SDO/RB3',func=Pin.types.BIDIR,unit=1),
@@ -6352,7 +6352,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='AN12/SRI/~{FLT0}/SDI/SDA/INT0/RB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='AN10/C12IN3-/SCK/SCL/INT1/RB1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF45K80-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF45K80-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'microchip microcontroller PIC18 flash ECAN XLP nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39977f.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF45K80-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF45K80-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'microchip microcontroller PIC18 flash ECAN XLP nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39977f.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF45K80-IML\n\nmicrochip microcontroller PIC18 flash ECAN XLP nanoWatt', 'pins':[
             Pin(num='1',name='CANRX/RX1/CCP4/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB2/CANTX/INT2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB3/CANRX/INT3',func=Pin.types.BIDIR,unit=1),
@@ -6398,7 +6398,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Vdd',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0/AN10/INT0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1/AN8/INT1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF45K80-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF45K80-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'microchip microcontroller PIC18 flash ECAN XLP nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39977f.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF45K80-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF45K80-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'microchip microcontroller PIC18 flash ECAN XLP nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39977f.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF45K80-IPT\n\nmicrochip microcontroller PIC18 flash ECAN XLP nanoWatt', 'pins':[
             Pin(num='1',name='RC7/CANRX/RX1/DT1/CCP4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='CANTX/CTED1/INT2/RB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='CANRX/CTED2/INT3/RB3',func=Pin.types.BIDIR,unit=1),
@@ -6443,7 +6443,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='AN10/FLT0/INT0/RB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='AN8/CTDIN/INT1/RB1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF46K80-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF46K80-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'microchip microcontroller PIC18 flash ECAN XLP nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39977f.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF46K80-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF46K80-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'microchip microcontroller PIC18 flash ECAN XLP nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39977f.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF46K80-IML\n\nmicrochip microcontroller PIC18 flash ECAN XLP nanoWatt', 'pins':[
             Pin(num='1',name='CANRX/RX1/CCP4/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB2/CANTX/INT2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB3/CANRX/INT3',func=Pin.types.BIDIR,unit=1),
@@ -6489,7 +6489,7 @@ MCU_Microchip_PIC18 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Vdd',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0/AN10/INT0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1/AN8/INT1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC18LF46K80-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF46K80-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'microchip microcontroller PIC18 flash ECAN XLP nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39977f.pdf', 'pins':[
+        Part(**{ 'name':'PIC18LF46K80-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC18LF46K80-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'microchip microcontroller PIC18 flash ECAN XLP nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39977f.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC18.kicad_sym\nPIC18LF46K80-IPT\n\nmicrochip microcontroller PIC18 flash ECAN XLP nanoWatt', 'pins':[
             Pin(num='1',name='RC7/CANRX/RX1/DT1/CCP4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='CANTX/CTED1/INT2/RB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='CANRX/CTED2/INT3/RB3',func=Pin.types.BIDIR,unit=1),

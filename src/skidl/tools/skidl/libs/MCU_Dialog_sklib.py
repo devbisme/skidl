@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 MCU_Dialog = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'DA14691', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA14691'}), 'ref_prefix':'U', 'fplist':['Package_BGA:VFBGA-86_6x6mm_Layout10x10_P0.55mm_Ball0.25mm_Pad0.2mm'], 'footprint':'Package_BGA:VFBGA-86_6x6mm_Layout10x10_P0.55mm_Ball0.25mm_Pad0.2mm', 'keywords':'BLE MCU', 'description':'', 'datasheet':'https://www.dialog-semiconductor.com/sites/default/files/da1469x_datasheet_3v1.pdf', 'pins':[
+        Part(**{ 'name':'DA14691', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA14691'}), 'ref_prefix':'U', 'fplist':['Package_BGA:VFBGA-86_6x6mm_Layout10x10_P0.55mm_Ball0.25mm_Pad0.2mm'], 'footprint':'Package_BGA:VFBGA-86_6x6mm_Layout10x10_P0.55mm_Ball0.25mm_Pad0.2mm', 'keywords':'BLE MCU', 'description':'', 'datasheet':'https://www.dialog-semiconductor.com/sites/default/files/da1469x_datasheet_3v1.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Dialog.kicad_sym\nDA14691\n\nBLE MCU', 'pins':[
             Pin(num='A1',name='QSPIF_CLK',func=Pin.types.OUTPUT,unit=1),
             Pin(num='A10',name='RF_GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='A2',name='QSPIF_D0',func=Pin.types.BIDIR,unit=1),
@@ -91,7 +91,7 @@ MCU_Dialog = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='K7',name='P0_15/USB_M',func=Pin.types.BIDIR,unit=1),
             Pin(num='K8',name='P1_10',func=Pin.types.BIDIR,unit=1),
             Pin(num='K9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DA14695', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA14695'}), 'ref_prefix':'U', 'fplist':['Package_BGA:VFBGA-86_6x6mm_Layout10x10_P0.55mm_Ball0.25mm_Pad0.2mm', 'Package_BGA:VFBGA-86_6x6mm_Layout10x10_P0.55mm_Ball0.25mm_Pad0.2mm'], 'footprint':'Package_BGA:VFBGA-86_6x6mm_Layout10x10_P0.55mm_Ball0.25mm_Pad0.2mm', 'keywords':'BLE MCU', 'description':'', 'datasheet':'https://www.dialog-semiconductor.com/sites/default/files/da1469x_datasheet_3v1.pdf', 'pins':[
+        Part(**{ 'name':'DA14695', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA14695'}), 'ref_prefix':'U', 'fplist':['Package_BGA:VFBGA-86_6x6mm_Layout10x10_P0.55mm_Ball0.25mm_Pad0.2mm', 'Package_BGA:VFBGA-86_6x6mm_Layout10x10_P0.55mm_Ball0.25mm_Pad0.2mm'], 'footprint':'Package_BGA:VFBGA-86_6x6mm_Layout10x10_P0.55mm_Ball0.25mm_Pad0.2mm', 'keywords':'BLE MCU', 'description':'', 'datasheet':'https://www.dialog-semiconductor.com/sites/default/files/da1469x_datasheet_3v1.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Dialog.kicad_sym\nDA14695\n\nBLE MCU', 'pins':[
             Pin(num='A1',name='QSPIF_CLK',func=Pin.types.OUTPUT,unit=1),
             Pin(num='A10',name='RF_GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='A2',name='QSPIF_D0',func=Pin.types.BIDIR,unit=1),

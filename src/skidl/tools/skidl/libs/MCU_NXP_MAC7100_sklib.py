@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 MCU_NXP_MAC7100 = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'MAC7101', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAC7101'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'ARM7TDMI-S MCU', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MAC7100EC.pdf', 'pins':[
+        Part(**{ 'name':'MAC7101', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAC7101'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'ARM7TDMI-S MCU', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MAC7100EC.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_MAC7100.kicad_sym\nMAC7101\n\nARM7TDMI-S MCU', 'pins':[
             Pin(num='1',name='PG4/CANTXD_A',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PH6/AN6_B',func=Pin.types.BIDIR,unit=1),
@@ -148,7 +148,7 @@ MCU_NXP_MAC7100 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name="MDO1'/PE4/AN4_A",func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PH5/AN5_B',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name="MSEO'/PE5/AN5_A",func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAC7111', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAC7111'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'ARM7TDMI-S MCU', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MAC7100EC.pdf', 'pins':[
+        Part(**{ 'name':'MAC7111', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAC7111'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'ARM7TDMI-S MCU', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MAC7100EC.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_MAC7100.kicad_sym\nMAC7111\n\nARM7TDMI-S MCU', 'pins':[
             Pin(num='1',name='PG4/CANTXD_A',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC1/ADDR1',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name="PE1/EVTO'/AN1_A",func=Pin.types.BIDIR,unit=1),

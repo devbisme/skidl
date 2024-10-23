@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 MCU_Microchip_SAML = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'ATSAML21E15B-AUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21E15B-AUT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'pins':[
+        Part(**{ 'name':'ATSAML21E15B-AUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21E15B-AUT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_SAML.kicad_sym\nATSAML21E15B-AUT\n\n32-bit ARM Cortex-M0+ MCU Microcontroller', 'pins':[
             Pin(num='1',name='PA00',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='PA08',func=Pin.types.BIDIR,unit=1),
@@ -37,7 +37,7 @@ MCU_Microchip_SAML = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA06',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA07',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDANA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATSAML21E15B-MUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21E15B-MUT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'pins':[
+        Part(**{ 'name':'ATSAML21E15B-MUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21E15B-MUT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_SAML.kicad_sym\nATSAML21E15B-MUT\n\n32-bit ARM Cortex-M0+ MCU Microcontroller', 'pins':[
             Pin(num='1',name='PA00',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='PA08',func=Pin.types.BIDIR,unit=1),
@@ -71,7 +71,7 @@ MCU_Microchip_SAML = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA06',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA07',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDANA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATSAML21G16B-AUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21G16B-AUT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'pins':[
+        Part(**{ 'name':'ATSAML21G16B-AUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21G16B-AUT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_SAML.kicad_sym\nATSAML21G16B-AUT\n\n32-bit ARM Cortex-M0+ MCU Microcontroller', 'pins':[
             Pin(num='1',name='PA00',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PA05',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA06',func=Pin.types.BIDIR,unit=1),
@@ -120,7 +120,7 @@ MCU_Microchip_SAML = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB08',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB09',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA04',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATSAML21G16B-MUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21G16B-MUT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'pins':[
+        Part(**{ 'name':'ATSAML21G16B-MUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21G16B-MUT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_SAML.kicad_sym\nATSAML21G16B-MUT\n\n32-bit ARM Cortex-M0+ MCU Microcontroller', 'pins':[
             Pin(num='1',name='PA00',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PA05',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA06',func=Pin.types.BIDIR,unit=1),
@@ -170,7 +170,7 @@ MCU_Microchip_SAML = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB08',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB09',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA04',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATSAML21J16B-AUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21J16B-AUT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'pins':[
+        Part(**{ 'name':'ATSAML21J16B-AUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21J16B-AUT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_SAML.kicad_sym\nATSAML21J16B-AUT\n\n32-bit ARM Cortex-M0+ MCU Microcontroller', 'pins':[
             Pin(num='1',name='PA00',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB07',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB08',func=Pin.types.BIDIR,unit=1),
@@ -235,7 +235,7 @@ MCU_Microchip_SAML = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GNDANA',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDDANA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PB06',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATSAML21J16B-MUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21J16B-MUT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP4.7x4.7mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP4.7x4.7mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'pins':[
+        Part(**{ 'name':'ATSAML21J16B-MUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21J16B-MUT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP4.7x4.7mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP4.7x4.7mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_SAML.kicad_sym\nATSAML21J16B-MUT\n\n32-bit ARM Cortex-M0+ MCU Microcontroller', 'pins':[
             Pin(num='1',name='PA00',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB07',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB08',func=Pin.types.BIDIR,unit=1),
@@ -301,7 +301,7 @@ MCU_Microchip_SAML = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GNDANA',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDDANA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PB06',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATSAML21E16B-AUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21E16B-AUT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-32_7x7mm_P0.8mm', 'Package_QFP:TQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'pins':[
+        Part(**{ 'name':'ATSAML21E16B-AUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21E16B-AUT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-32_7x7mm_P0.8mm', 'Package_QFP:TQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_SAML.kicad_sym\nATSAML21E16B-AUT\n\n32-bit ARM Cortex-M0+ MCU Microcontroller', 'pins':[
             Pin(num='1',name='PA00',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='PA08',func=Pin.types.BIDIR,unit=1),
@@ -334,74 +334,7 @@ MCU_Microchip_SAML = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA06',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA07',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDANA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATSAML21E16B-MUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21E16B-MUT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'pins':[
-            Pin(num='1',name='PA00',func=Pin.types.BIDIR,unit=1),
-            Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
-            Pin(num='11',name='PA08',func=Pin.types.BIDIR,unit=1),
-            Pin(num='12',name='PA09',func=Pin.types.BIDIR,unit=1),
-            Pin(num='13',name='PA10',func=Pin.types.BIDIR,unit=1),
-            Pin(num='14',name='PA11',func=Pin.types.BIDIR,unit=1),
-            Pin(num='15',name='PA14',func=Pin.types.BIDIR,unit=1),
-            Pin(num='16',name='PA15',func=Pin.types.BIDIR,unit=1),
-            Pin(num='17',name='PA16',func=Pin.types.BIDIR,unit=1),
-            Pin(num='18',name='PA17',func=Pin.types.BIDIR,unit=1),
-            Pin(num='19',name='PA18',func=Pin.types.BIDIR,unit=1),
-            Pin(num='2',name='PA01',func=Pin.types.BIDIR,unit=1),
-            Pin(num='20',name='PA19',func=Pin.types.BIDIR,unit=1),
-            Pin(num='21',name='PA22',func=Pin.types.BIDIR,unit=1),
-            Pin(num='22',name='PA23',func=Pin.types.BIDIR,unit=1),
-            Pin(num='23',name='PA24',func=Pin.types.BIDIR,unit=1),
-            Pin(num='24',name='PA25',func=Pin.types.BIDIR,unit=1),
-            Pin(num='25',name='PA27',func=Pin.types.BIDIR,unit=1),
-            Pin(num='26',name='~{RESET}',func=Pin.types.INPUT,unit=1),
-            Pin(num='27',name='VDDCORE',func=Pin.types.PWRIN,unit=1),
-            Pin(num='28',name='GND',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='29',name='VSW',func=Pin.types.PWROUT,unit=1),
-            Pin(num='3',name='PA02',func=Pin.types.BIDIR,unit=1),
-            Pin(num='30',name='VDDIN',func=Pin.types.PWRIN,unit=1),
-            Pin(num='31',name='PA30',func=Pin.types.BIDIR,unit=1),
-            Pin(num='32',name='PA31',func=Pin.types.BIDIR,unit=1),
-            Pin(num='33',name='GND',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='4',name='PA03',func=Pin.types.BIDIR,unit=1),
-            Pin(num='5',name='PA04',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='PA05',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='PA06',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='PA07',func=Pin.types.BIDIR,unit=1),
-            Pin(num='9',name='VDDANA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATSAML21E17B-AUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21E17B-AUT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-32_7x7mm_P0.8mm', 'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'Package_QFP:TQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'pins':[
-            Pin(num='1',name='PA00',func=Pin.types.BIDIR,unit=1),
-            Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
-            Pin(num='11',name='PA08',func=Pin.types.BIDIR,unit=1),
-            Pin(num='12',name='PA09',func=Pin.types.BIDIR,unit=1),
-            Pin(num='13',name='PA10',func=Pin.types.BIDIR,unit=1),
-            Pin(num='14',name='PA11',func=Pin.types.BIDIR,unit=1),
-            Pin(num='15',name='PA14',func=Pin.types.BIDIR,unit=1),
-            Pin(num='16',name='PA15',func=Pin.types.BIDIR,unit=1),
-            Pin(num='17',name='PA16',func=Pin.types.BIDIR,unit=1),
-            Pin(num='18',name='PA17',func=Pin.types.BIDIR,unit=1),
-            Pin(num='19',name='PA18',func=Pin.types.BIDIR,unit=1),
-            Pin(num='2',name='PA01',func=Pin.types.BIDIR,unit=1),
-            Pin(num='20',name='PA19',func=Pin.types.BIDIR,unit=1),
-            Pin(num='21',name='PA22',func=Pin.types.BIDIR,unit=1),
-            Pin(num='22',name='PA23',func=Pin.types.BIDIR,unit=1),
-            Pin(num='23',name='PA24',func=Pin.types.BIDIR,unit=1),
-            Pin(num='24',name='PA25',func=Pin.types.BIDIR,unit=1),
-            Pin(num='25',name='PA27',func=Pin.types.BIDIR,unit=1),
-            Pin(num='26',name='~{RESET}',func=Pin.types.INPUT,unit=1),
-            Pin(num='27',name='VDDCORE',func=Pin.types.PWRIN,unit=1),
-            Pin(num='28',name='GND',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='29',name='VSW',func=Pin.types.PWROUT,unit=1),
-            Pin(num='3',name='PA02',func=Pin.types.BIDIR,unit=1),
-            Pin(num='30',name='VDDIN',func=Pin.types.PWRIN,unit=1),
-            Pin(num='31',name='PA30',func=Pin.types.BIDIR,unit=1),
-            Pin(num='32',name='PA31',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='PA03',func=Pin.types.BIDIR,unit=1),
-            Pin(num='5',name='PA04',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='PA05',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='PA06',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='PA07',func=Pin.types.BIDIR,unit=1),
-            Pin(num='9',name='VDDANA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATSAML21E17B-MUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21E17B-MUT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'pins':[
+        Part(**{ 'name':'ATSAML21E16B-MUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21E16B-MUT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_SAML.kicad_sym\nATSAML21E16B-MUT\n\n32-bit ARM Cortex-M0+ MCU Microcontroller', 'pins':[
             Pin(num='1',name='PA00',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='PA08',func=Pin.types.BIDIR,unit=1),
@@ -435,7 +368,7 @@ MCU_Microchip_SAML = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA06',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA07',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDANA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATSAML21E18B-AUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21E18B-AUT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-32_7x7mm_P0.8mm', 'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'Package_QFP:TQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'pins':[
+        Part(**{ 'name':'ATSAML21E17B-AUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21E17B-AUT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-32_7x7mm_P0.8mm', 'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'Package_QFP:TQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_SAML.kicad_sym\nATSAML21E17B-AUT\n\n32-bit ARM Cortex-M0+ MCU Microcontroller', 'pins':[
             Pin(num='1',name='PA00',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='PA08',func=Pin.types.BIDIR,unit=1),
@@ -468,7 +401,7 @@ MCU_Microchip_SAML = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA06',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA07',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDANA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATSAML21E18B-MUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21E18B-MUT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'pins':[
+        Part(**{ 'name':'ATSAML21E17B-MUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21E17B-MUT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_SAML.kicad_sym\nATSAML21E17B-MUT\n\n32-bit ARM Cortex-M0+ MCU Microcontroller', 'pins':[
             Pin(num='1',name='PA00',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='PA08',func=Pin.types.BIDIR,unit=1),
@@ -502,7 +435,74 @@ MCU_Microchip_SAML = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA06',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA07',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDANA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATSAML21G17B-AUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21G17B-AUT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'pins':[
+        Part(**{ 'name':'ATSAML21E18B-AUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21E18B-AUT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-32_7x7mm_P0.8mm', 'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'Package_QFP:TQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_SAML.kicad_sym\nATSAML21E18B-AUT\n\n32-bit ARM Cortex-M0+ MCU Microcontroller', 'pins':[
+            Pin(num='1',name='PA00',func=Pin.types.BIDIR,unit=1),
+            Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
+            Pin(num='11',name='PA08',func=Pin.types.BIDIR,unit=1),
+            Pin(num='12',name='PA09',func=Pin.types.BIDIR,unit=1),
+            Pin(num='13',name='PA10',func=Pin.types.BIDIR,unit=1),
+            Pin(num='14',name='PA11',func=Pin.types.BIDIR,unit=1),
+            Pin(num='15',name='PA14',func=Pin.types.BIDIR,unit=1),
+            Pin(num='16',name='PA15',func=Pin.types.BIDIR,unit=1),
+            Pin(num='17',name='PA16',func=Pin.types.BIDIR,unit=1),
+            Pin(num='18',name='PA17',func=Pin.types.BIDIR,unit=1),
+            Pin(num='19',name='PA18',func=Pin.types.BIDIR,unit=1),
+            Pin(num='2',name='PA01',func=Pin.types.BIDIR,unit=1),
+            Pin(num='20',name='PA19',func=Pin.types.BIDIR,unit=1),
+            Pin(num='21',name='PA22',func=Pin.types.BIDIR,unit=1),
+            Pin(num='22',name='PA23',func=Pin.types.BIDIR,unit=1),
+            Pin(num='23',name='PA24',func=Pin.types.BIDIR,unit=1),
+            Pin(num='24',name='PA25',func=Pin.types.BIDIR,unit=1),
+            Pin(num='25',name='PA27',func=Pin.types.BIDIR,unit=1),
+            Pin(num='26',name='~{RESET}',func=Pin.types.INPUT,unit=1),
+            Pin(num='27',name='VDDCORE',func=Pin.types.PWRIN,unit=1),
+            Pin(num='28',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='29',name='VSW',func=Pin.types.PWROUT,unit=1),
+            Pin(num='3',name='PA02',func=Pin.types.BIDIR,unit=1),
+            Pin(num='30',name='VDDIN',func=Pin.types.PWRIN,unit=1),
+            Pin(num='31',name='PA30',func=Pin.types.BIDIR,unit=1),
+            Pin(num='32',name='PA31',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='PA03',func=Pin.types.BIDIR,unit=1),
+            Pin(num='5',name='PA04',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='PA05',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='PA06',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='PA07',func=Pin.types.BIDIR,unit=1),
+            Pin(num='9',name='VDDANA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'ATSAML21E18B-MUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21E18B-MUT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_SAML.kicad_sym\nATSAML21E18B-MUT\n\n32-bit ARM Cortex-M0+ MCU Microcontroller', 'pins':[
+            Pin(num='1',name='PA00',func=Pin.types.BIDIR,unit=1),
+            Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
+            Pin(num='11',name='PA08',func=Pin.types.BIDIR,unit=1),
+            Pin(num='12',name='PA09',func=Pin.types.BIDIR,unit=1),
+            Pin(num='13',name='PA10',func=Pin.types.BIDIR,unit=1),
+            Pin(num='14',name='PA11',func=Pin.types.BIDIR,unit=1),
+            Pin(num='15',name='PA14',func=Pin.types.BIDIR,unit=1),
+            Pin(num='16',name='PA15',func=Pin.types.BIDIR,unit=1),
+            Pin(num='17',name='PA16',func=Pin.types.BIDIR,unit=1),
+            Pin(num='18',name='PA17',func=Pin.types.BIDIR,unit=1),
+            Pin(num='19',name='PA18',func=Pin.types.BIDIR,unit=1),
+            Pin(num='2',name='PA01',func=Pin.types.BIDIR,unit=1),
+            Pin(num='20',name='PA19',func=Pin.types.BIDIR,unit=1),
+            Pin(num='21',name='PA22',func=Pin.types.BIDIR,unit=1),
+            Pin(num='22',name='PA23',func=Pin.types.BIDIR,unit=1),
+            Pin(num='23',name='PA24',func=Pin.types.BIDIR,unit=1),
+            Pin(num='24',name='PA25',func=Pin.types.BIDIR,unit=1),
+            Pin(num='25',name='PA27',func=Pin.types.BIDIR,unit=1),
+            Pin(num='26',name='~{RESET}',func=Pin.types.INPUT,unit=1),
+            Pin(num='27',name='VDDCORE',func=Pin.types.PWRIN,unit=1),
+            Pin(num='28',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='29',name='VSW',func=Pin.types.PWROUT,unit=1),
+            Pin(num='3',name='PA02',func=Pin.types.BIDIR,unit=1),
+            Pin(num='30',name='VDDIN',func=Pin.types.PWRIN,unit=1),
+            Pin(num='31',name='PA30',func=Pin.types.BIDIR,unit=1),
+            Pin(num='32',name='PA31',func=Pin.types.BIDIR,unit=1),
+            Pin(num='33',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='4',name='PA03',func=Pin.types.BIDIR,unit=1),
+            Pin(num='5',name='PA04',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='PA05',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='PA06',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='PA07',func=Pin.types.BIDIR,unit=1),
+            Pin(num='9',name='VDDANA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'ATSAML21G17B-AUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21G17B-AUT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_SAML.kicad_sym\nATSAML21G17B-AUT\n\n32-bit ARM Cortex-M0+ MCU Microcontroller', 'pins':[
             Pin(num='1',name='PA00',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PA05',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA06',func=Pin.types.BIDIR,unit=1),
@@ -551,7 +551,7 @@ MCU_Microchip_SAML = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB08',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB09',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA04',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATSAML21G17B-MUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21G17B-MUT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'pins':[
+        Part(**{ 'name':'ATSAML21G17B-MUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21G17B-MUT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_SAML.kicad_sym\nATSAML21G17B-MUT\n\n32-bit ARM Cortex-M0+ MCU Microcontroller', 'pins':[
             Pin(num='1',name='PA00',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PA05',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA06',func=Pin.types.BIDIR,unit=1),
@@ -601,7 +601,7 @@ MCU_Microchip_SAML = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB08',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB09',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA04',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATSAML21G18B-AUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21G18B-AUT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'pins':[
+        Part(**{ 'name':'ATSAML21G18B-AUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21G18B-AUT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_SAML.kicad_sym\nATSAML21G18B-AUT\n\n32-bit ARM Cortex-M0+ MCU Microcontroller', 'pins':[
             Pin(num='1',name='PA00',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PA05',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA06',func=Pin.types.BIDIR,unit=1),
@@ -650,7 +650,7 @@ MCU_Microchip_SAML = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB08',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB09',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA04',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATSAML21G18B-MUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21G18B-MUT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'pins':[
+        Part(**{ 'name':'ATSAML21G18B-MUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21G18B-MUT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_SAML.kicad_sym\nATSAML21G18B-MUT\n\n32-bit ARM Cortex-M0+ MCU Microcontroller', 'pins':[
             Pin(num='1',name='PA00',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PA05',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA06',func=Pin.types.BIDIR,unit=1),
@@ -700,7 +700,7 @@ MCU_Microchip_SAML = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB08',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB09',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA04',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATSAML21J17B-AUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21J17B-AUT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'pins':[
+        Part(**{ 'name':'ATSAML21J17B-AUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21J17B-AUT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_SAML.kicad_sym\nATSAML21J17B-AUT\n\n32-bit ARM Cortex-M0+ MCU Microcontroller', 'pins':[
             Pin(num='1',name='PA00',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB07',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB08',func=Pin.types.BIDIR,unit=1),
@@ -765,7 +765,7 @@ MCU_Microchip_SAML = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GNDANA',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDDANA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PB06',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATSAML21J17B-MUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21J17B-MUT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP4.7x4.7mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP4.7x4.7mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP4.7x4.7mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'pins':[
+        Part(**{ 'name':'ATSAML21J17B-MUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21J17B-MUT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP4.7x4.7mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP4.7x4.7mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP4.7x4.7mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_SAML.kicad_sym\nATSAML21J17B-MUT\n\n32-bit ARM Cortex-M0+ MCU Microcontroller', 'pins':[
             Pin(num='1',name='PA00',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB07',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB08',func=Pin.types.BIDIR,unit=1),
@@ -831,7 +831,7 @@ MCU_Microchip_SAML = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GNDANA',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDDANA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PB06',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATSAML21J18B-AUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21J18B-AUT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'pins':[
+        Part(**{ 'name':'ATSAML21J18B-AUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21J18B-AUT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_SAML.kicad_sym\nATSAML21J18B-AUT\n\n32-bit ARM Cortex-M0+ MCU Microcontroller', 'pins':[
             Pin(num='1',name='PA00',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB07',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB08',func=Pin.types.BIDIR,unit=1),
@@ -896,7 +896,7 @@ MCU_Microchip_SAML = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GNDANA',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDDANA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PB06',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATSAML21J18B-MUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21J18B-MUT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP4.7x4.7mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP4.7x4.7mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP4.7x4.7mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP4.7x4.7mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'pins':[
+        Part(**{ 'name':'ATSAML21J18B-MUT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAML21J18B-MUT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP4.7x4.7mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP4.7x4.7mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP4.7x4.7mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP4.7x4.7mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/MCU32/ProductDocuments/DataSheets/SAM-L21-Family-Data-Sheet-DS60001477.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_SAML.kicad_sym\nATSAML21J18B-MUT\n\n32-bit ARM Cortex-M0+ MCU Microcontroller', 'pins':[
             Pin(num='1',name='PA00',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB07',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB08',func=Pin.types.BIDIR,unit=1),

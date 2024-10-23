@@ -4,13 +4,13 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Valve = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'CK6418', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CK6418'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Mini_Pentode_Linear'], 'footprint':'Valve:Valve_Mini_Pentode_Linear', 'keywords':'subminiature pentode valve', 'description':'', 'datasheet':'https://frank.pocnet.net/sheets/127/6/6418.pdf', 'pins':[
+        Part(**{ 'name':'CK6418', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CK6418'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Mini_Pentode_Linear'], 'footprint':'Valve:Valve_Mini_Pentode_Linear', 'keywords':'subminiature pentode valve', 'description':'', 'datasheet':'https://frank.pocnet.net/sheets/127/6/6418.pdf', 'search_text':'/usr/share/kicad/symbols/Valve.kicad_sym\nCK6418\n\nsubminiature pentode valve', 'pins':[
             Pin(num='3',name='F+,G3',func=Pin.types.PWRIN),
             Pin(num='1',name='P',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='G2',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='G1',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='F+,G3',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5']}] }),
-        Part(**{ 'name':'EABC80', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EABC80'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Noval_P'], 'footprint':'Valve:Valve_Noval_P', 'keywords':'diode triode valve', 'description':'', 'datasheet':'https://frank.pocnet.net/sheets/082/e/EABC80.pdf', 'pins':[
+            Pin(num='5',name='F+,G3',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3']}] }),
+        Part(**{ 'name':'EABC80', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EABC80'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Noval_P'], 'footprint':'Valve:Valve_Noval_P', 'keywords':'diode triode valve', 'description':'', 'datasheet':'https://frank.pocnet.net/sheets/082/e/EABC80.pdf', 'search_text':'/usr/share/kicad/symbols/Valve.kicad_sym\nEABC80\n\ndiode triode valve', 'pins':[
             Pin(num='2',name='A2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='K',func=Pin.types.INPUT,unit=1),
             Pin(num='1',name='A1',func=Pin.types.INPUT,unit=2),
@@ -20,14 +20,14 @@ Valve = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='G',func=Pin.types.INPUT,unit=3),
             Pin(num='9',name='A2',func=Pin.types.OUTPUT,unit=3),
             Pin(num='4',name='F1',func=Pin.types.INPUT,unit=4),
-            Pin(num='5',name='F2',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '1']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '7', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['4', '5']}] }),
-        Part(**{ 'name':'EC92', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EC92'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Mini_P'], 'footprint':'Valve:Valve_Mini_P', 'keywords':'triode valve', 'description':'', 'datasheet':'http://www.r-type.org/pdfs/ec92.pdf', 'pins':[
+            Pin(num='5',name='F2',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '1']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['5', '4']}] }),
+        Part(**{ 'name':'EC92', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EC92'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Mini_P'], 'footprint':'Valve:Valve_Mini_P', 'keywords':'triode valve', 'description':'', 'datasheet':'http://www.r-type.org/pdfs/ec92.pdf', 'search_text':'/usr/share/kicad/symbols/Valve.kicad_sym\nEC92\n\ntriode valve', 'pins':[
             Pin(num='1',name='A',func=Pin.types.OUTPUT,unit=1),
             Pin(num='6',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='K',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='F1',func=Pin.types.PWRIN,unit=2),
-            Pin(num='4',name='F2',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3']}] }),
-        Part(**{ 'name':'ECC81', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ECC81'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Noval_P'], 'footprint':'Valve:Valve_Noval_P', 'keywords':'triode valve', 'description':'', 'datasheet':'http://www.r-type.org/pdfs/ecc81.pdf', 'pins':[
+            Pin(num='4',name='F2',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '7', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3']}] }),
+        Part(**{ 'name':'ECC81', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ECC81'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Noval_P'], 'footprint':'Valve:Valve_Noval_P', 'keywords':'triode valve', 'description':'', 'datasheet':'http://www.r-type.org/pdfs/ecc81.pdf', 'search_text':'/usr/share/kicad/symbols/Valve.kicad_sym\nECC81\n\ntriode valve', 'pins':[
             Pin(num='6',name='A',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='K',func=Pin.types.BIDIR,unit=1),
@@ -36,8 +36,8 @@ Valve = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='K',func=Pin.types.BIDIR,unit=2),
             Pin(num='4',name='F1',func=Pin.types.PWRIN,unit=3),
             Pin(num='5',name='F1',func=Pin.types.PWRIN,unit=3),
-            Pin(num='9',name='F2',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '7', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '2', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '5', '9']}] }),
-        Part(**{ 'name':'ECC88', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ECC88'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Noval_P'], 'footprint':'Valve:Valve_Noval_P', 'keywords':'triode valve', 'description':'', 'datasheet':'http://www.r-type.org/pdfs/ecc88.pdf', 'pins':[
+            Pin(num='9',name='F2',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '7', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '3', '1']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '9', '5']}] }),
+        Part(**{ 'name':'ECC88', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ECC88'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Noval_P'], 'footprint':'Valve:Valve_Noval_P', 'keywords':'triode valve', 'description':'', 'datasheet':'http://www.r-type.org/pdfs/ecc88.pdf', 'search_text':'/usr/share/kicad/symbols/Valve.kicad_sym\nECC88\n\ntriode valve', 'pins':[
             Pin(num='1',name='A',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='K',func=Pin.types.BIDIR,unit=1),
@@ -45,8 +45,8 @@ Valve = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='G',func=Pin.types.INPUT,unit=2),
             Pin(num='8',name='K',func=Pin.types.BIDIR,unit=2),
             Pin(num='4',name='F1',func=Pin.types.PWRIN,unit=3),
-            Pin(num='5',name='F2',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '4']}] }),
-        Part(**{ 'name':'ECH81', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ECH81'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Noval_P'], 'footprint':'Valve:Valve_Noval_P', 'keywords':'triode heptode valve', 'description':'', 'datasheet':'http://www.r-type.org/pdfs/ech81.pdf', 'pins':[
+            Pin(num='5',name='F2',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '5']}] }),
+        Part(**{ 'name':'ECH81', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ECH81'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Noval_P'], 'footprint':'Valve:Valve_Noval_P', 'keywords':'triode heptode valve', 'description':'', 'datasheet':'http://www.r-type.org/pdfs/ech81.pdf', 'search_text':'/usr/share/kicad/symbols/Valve.kicad_sym\nECH81\n\ntriode heptode valve', 'pins':[
             Pin(num='3',name='K',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='A',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='G',func=Pin.types.INPUT,unit=1),
@@ -56,8 +56,8 @@ Valve = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='G3',func=Pin.types.INPUT,unit=2),
             Pin(num='~',name='K_G5',func=Pin.types.BIDIR,unit=2),
             Pin(num='4',name='F1',func=Pin.types.PWRIN,unit=3),
-            Pin(num='5',name='F2',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '8', '9']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '2', '1', '~', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '5']}] }),
-        Part(**{ 'name':'ECL82', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ECL82'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Noval_P'], 'footprint':'Valve:Valve_Noval_P', 'keywords':'triode pentode valve', 'description':'', 'datasheet':'http://www.r-type.org/pdfs/ecl82.pdf', 'pins':[
+            Pin(num='5',name='F2',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '3', '9']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '2', '~', '1']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '5']}] }),
+        Part(**{ 'name':'ECL82', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ECL82'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Noval_P'], 'footprint':'Valve:Valve_Noval_P', 'keywords':'triode pentode valve', 'description':'', 'datasheet':'http://www.r-type.org/pdfs/ecl82.pdf', 'search_text':'/usr/share/kicad/symbols/Valve.kicad_sym\nECL82\n\ntriode pentode valve', 'pins':[
             Pin(num='1',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='K',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='A',func=Pin.types.OUTPUT,unit=1),
@@ -66,8 +66,8 @@ Valve = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.OUTPUT,unit=2),
             Pin(num='7',name='G2',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='F1',func=Pin.types.PWRIN,unit=3),
-            Pin(num='5',name='F2',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '9', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '2', '6', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '5']}] }),
-        Part(**{ 'name':'ECL86', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ECL86'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Noval_P'], 'footprint':'Valve:Valve_Noval_P', 'keywords':'triode pentode valve', 'description':'', 'datasheet':'http://www.r-type.org/pdfs/ecl86.pdf', 'pins':[
+            Pin(num='5',name='F2',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '9', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '6', '3', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '4']}] }),
+        Part(**{ 'name':'ECL86', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ECL86'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Noval_P'], 'footprint':'Valve:Valve_Noval_P', 'keywords':'triode pentode valve', 'description':'', 'datasheet':'http://www.r-type.org/pdfs/ecl86.pdf', 'search_text':'/usr/share/kicad/symbols/Valve.kicad_sym\nECL86\n\ntriode pentode valve', 'pins':[
             Pin(num='1',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='K',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='A',func=Pin.types.OUTPUT,unit=1),
@@ -76,8 +76,8 @@ Valve = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='K_G3',func=Pin.types.BIDIR,unit=2),
             Pin(num='8',name='G1',func=Pin.types.INPUT,unit=2),
             Pin(num='4',name='F1',func=Pin.types.PWRIN,unit=3),
-            Pin(num='5',name='F2',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '9', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '8', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '5']}] }),
-        Part(**{ 'name':'EF80', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EF80'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Noval_P'], 'footprint':'Valve:Valve_Noval_P', 'keywords':'pentode valve', 'description':'', 'datasheet':'http://www.r-type.org/pdfs/ef80.pdf', 'pins':[
+            Pin(num='5',name='F2',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '9', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '7', '3', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '4']}] }),
+        Part(**{ 'name':'EF80', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EF80'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Noval_P'], 'footprint':'Valve:Valve_Noval_P', 'keywords':'pentode valve', 'description':'', 'datasheet':'http://www.r-type.org/pdfs/ef80.pdf', 'search_text':'/usr/share/kicad/symbols/Valve.kicad_sym\nEF80\n\npentode valve', 'pins':[
             Pin(num='2',name='G1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='F1',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='S',func=Pin.types.INPUT,unit=1),
@@ -85,8 +85,8 @@ Valve = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='G2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='G3',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='F1',func=Pin.types.PWRIN,unit=2),
-            Pin(num='5',name='F2',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '6', '8', '2', '7', '9']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5']}] }),
-        Part(**{ 'name':'EF83', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EF83'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Noval_P'], 'footprint':'Valve:Valve_Noval_P', 'keywords':'pentode valve', 'description':'', 'datasheet':'http://www.r-type.org/pdfs/ef83.pdf', 'pins':[
+            Pin(num='5',name='F2',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '9', '3', '6', '8', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5']}] }),
+        Part(**{ 'name':'EF83', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EF83'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Noval_P'], 'footprint':'Valve:Valve_Noval_P', 'keywords':'pentode valve', 'description':'', 'datasheet':'http://www.r-type.org/pdfs/ef83.pdf', 'search_text':'/usr/share/kicad/symbols/Valve.kicad_sym\nEF83\n\npentode valve', 'pins':[
             Pin(num='1',name='G2',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='K',func=Pin.types.BIDIR,unit=1),
             Pin(num='6',name='A',func=Pin.types.OUTPUT,unit=1),
@@ -94,23 +94,23 @@ Valve = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='G3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='G1',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='F1',func=Pin.types.PWRIN,unit=2),
-            Pin(num='5',name='F2',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '6', '8', '7', '9']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5']}] }),
-        Part(**{ 'name':'EL34', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EL34'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Octal'], 'footprint':'Valve:Valve_Octal', 'keywords':'pentode valve', 'description':'', 'datasheet':'http://www.r-type.org/pdfs/el34.pdf', 'pins':[
+            Pin(num='5',name='F2',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '9', '1', '3', '8', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5']}] }),
+        Part(**{ 'name':'EL34', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EL34'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Octal'], 'footprint':'Valve:Valve_Octal', 'keywords':'pentode valve', 'description':'', 'datasheet':'http://www.r-type.org/pdfs/el34.pdf', 'search_text':'/usr/share/kicad/symbols/Valve.kicad_sym\nEL34\n\npentode valve', 'pins':[
             Pin(num='1',name='G3',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A',func=Pin.types.OUTPUT,unit=1),
             Pin(num='4',name='G2',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='G1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='F1',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='F1',func=Pin.types.PWRIN,unit=2),
-            Pin(num='7',name='F2',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '5', '4', '1', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '7']}] }),
-        Part(**{ 'name':'EL84', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EL84'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Noval_P'], 'footprint':'Valve:Valve_Noval_P', 'keywords':'pentode valve', 'description':'', 'datasheet':'http://www.r-type.org/pdfs/el84.pdf', 'pins':[
+            Pin(num='7',name='F2',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '1', '8', '3', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '2']}] }),
+        Part(**{ 'name':'EL84', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EL84'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Noval_P'], 'footprint':'Valve:Valve_Noval_P', 'keywords':'pentode valve', 'description':'', 'datasheet':'http://www.r-type.org/pdfs/el84.pdf', 'search_text':'/usr/share/kicad/symbols/Valve.kicad_sym\nEL84\n\npentode valve', 'pins':[
             Pin(num='2',name='G1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='K_G3',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='A',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='G2',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='F1',func=Pin.types.PWRIN,unit=2),
-            Pin(num='5',name='F2',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '9', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5']}] }),
-        Part(**{ 'name':'EM84', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EM84'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Noval_P'], 'footprint':'Valve:Valve_Noval_P', 'keywords':'indicator tube valve magic eye', 'description':'', 'datasheet':'http://www.r-type.org/pdfs/em84.pdf', 'pins':[
+            Pin(num='5',name='F2',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '7', '9']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5']}] }),
+        Part(**{ 'name':'EM84', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EM84'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Noval_P'], 'footprint':'Valve:Valve_Noval_P', 'keywords':'indicator tube valve magic eye', 'description':'', 'datasheet':'http://www.r-type.org/pdfs/em84.pdf', 'search_text':'/usr/share/kicad/symbols/Valve.kicad_sym\nEM84\n\nindicator tube valve magic eye', 'pins':[
             Pin(num='2',name='K',func=Pin.types.BIDIR,unit=1),
             Pin(num='6',name='L',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='ST',func=Pin.types.INPUT,unit=1),
@@ -118,11 +118,11 @@ Valve = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='A',func=Pin.types.OUTPUT,unit=2),
             Pin(num='~',name='F1',func=Pin.types.PWRIN,unit=2),
             Pin(num='4',name='F1',func=Pin.types.PWRIN,unit=3),
-            Pin(num='5',name='F2',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '2', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '9', '~']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '4']}] }),
-        Part(**{ 'name':'STABI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STABI'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Glimm'], 'footprint':'Valve:Valve_Glimm', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='5',name='F2',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '6', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '9', '~']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '4']}] }),
+        Part(**{ 'name':'STABI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STABI'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Glimm'], 'footprint':'Valve:Valve_Glimm', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/Valve.kicad_sym\nSTABI\n\n', 'pins':[
             Pin(num='3',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='K',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'6AK8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'6AK8'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Noval_P', 'Valve:Valve_Noval_P'], 'footprint':'Valve:Valve_Noval_P', 'keywords':'diode triode valve', 'description':'', 'datasheet':'https://frank.pocnet.net/sheets/082/e/EABC80.pdf', 'pins':[
+        Part(**{ 'name':'6AK8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'6AK8'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Noval_P', 'Valve:Valve_Noval_P'], 'footprint':'Valve:Valve_Noval_P', 'keywords':'diode triode valve', 'description':'', 'datasheet':'https://frank.pocnet.net/sheets/082/e/EABC80.pdf', 'search_text':'/usr/share/kicad/symbols/Valve.kicad_sym\n6AK8\n\ndiode triode valve', 'pins':[
             Pin(num='2',name='A2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='K',func=Pin.types.INPUT,unit=1),
             Pin(num='1',name='A1',func=Pin.types.INPUT,unit=2),
@@ -132,8 +132,8 @@ Valve = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='G',func=Pin.types.INPUT,unit=3),
             Pin(num='9',name='A2',func=Pin.types.OUTPUT,unit=3),
             Pin(num='4',name='F1',func=Pin.types.INPUT,unit=4),
-            Pin(num='5',name='F2',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '8', '7']},{'label': 'uD', 'num': 4, 'pin_nums': ['5', '4']}] }),
-        Part(**{ 'name':'9AK8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'9AK8'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Noval_P', 'Valve:Valve_Noval_P', 'Valve:Valve_Noval_P'], 'footprint':'Valve:Valve_Noval_P', 'keywords':'diode triode valve', 'description':'', 'datasheet':'https://frank.pocnet.net/sheets/082/e/EABC80.pdf', 'pins':[
+            Pin(num='5',name='F2',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '8', '7']},{'label': 'uD', 'num': 4, 'pin_nums': ['4', '5']}] }),
+        Part(**{ 'name':'9AK8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'9AK8'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Noval_P', 'Valve:Valve_Noval_P', 'Valve:Valve_Noval_P'], 'footprint':'Valve:Valve_Noval_P', 'keywords':'diode triode valve', 'description':'', 'datasheet':'https://frank.pocnet.net/sheets/082/e/EABC80.pdf', 'search_text':'/usr/share/kicad/symbols/Valve.kicad_sym\n9AK8\n\ndiode triode valve', 'pins':[
             Pin(num='2',name='A2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='K',func=Pin.types.INPUT,unit=1),
             Pin(num='1',name='A1',func=Pin.types.INPUT,unit=2),
@@ -143,14 +143,14 @@ Valve = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='G',func=Pin.types.INPUT,unit=3),
             Pin(num='9',name='A2',func=Pin.types.OUTPUT,unit=3),
             Pin(num='4',name='F1',func=Pin.types.INPUT,unit=4),
-            Pin(num='5',name='F2',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '8', '7']},{'label': 'uD', 'num': 4, 'pin_nums': ['4', '5']}] }),
-        Part(**{ 'name':'CK548DX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CK548DX'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Mini_Pentode_Linear', 'Valve:Valve_Mini_Pentode_Linear'], 'footprint':'Valve:Valve_Mini_Pentode_Linear', 'keywords':'subminiature pentode valve', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='5',name='F2',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '1', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['5', '4']}] }),
+        Part(**{ 'name':'CK548DX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CK548DX'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Mini_Pentode_Linear', 'Valve:Valve_Mini_Pentode_Linear'], 'footprint':'Valve:Valve_Mini_Pentode_Linear', 'keywords':'subminiature pentode valve', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/Valve.kicad_sym\nCK548DX\n\nsubminiature pentode valve', 'pins':[
             Pin(num='3',name='F+,G3',func=Pin.types.PWRIN),
             Pin(num='1',name='P',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='G2',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='G1',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='F+,G3',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3']}] }),
-        Part(**{ 'name':'ECC83', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ECC83'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Noval_P', 'Valve:Valve_Noval_P'], 'footprint':'Valve:Valve_Noval_P', 'keywords':'triode valve', 'description':'', 'datasheet':'http://www.r-type.org/pdfs/ecc83.pdf', 'pins':[
+            Pin(num='5',name='F+,G3',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5']}] }),
+        Part(**{ 'name':'ECC83', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ECC83'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Noval_P', 'Valve:Valve_Noval_P'], 'footprint':'Valve:Valve_Noval_P', 'keywords':'triode valve', 'description':'', 'datasheet':'http://www.r-type.org/pdfs/ecc83.pdf', 'search_text':'/usr/share/kicad/symbols/Valve.kicad_sym\nECC83\n\ntriode valve', 'pins':[
             Pin(num='6',name='A',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='K',func=Pin.types.BIDIR,unit=1),
@@ -159,8 +159,8 @@ Valve = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='K',func=Pin.types.BIDIR,unit=2),
             Pin(num='4',name='F1',func=Pin.types.PWRIN,unit=3),
             Pin(num='5',name='F1',func=Pin.types.PWRIN,unit=3),
-            Pin(num='9',name='F2',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '7', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['2', '1', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '5', '9']}] }),
-        Part(**{ 'name':'EF85', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EF85'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Noval_P', 'Valve:Valve_Noval_P'], 'footprint':'Valve:Valve_Noval_P', 'keywords':'pentode valve', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='9',name='F2',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '7', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '2', '1']},{'label': 'uC', 'num': 3, 'pin_nums': ['4', '9', '5']}] }),
+        Part(**{ 'name':'EF85', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EF85'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Noval_P', 'Valve:Valve_Noval_P'], 'footprint':'Valve:Valve_Noval_P', 'keywords':'pentode valve', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/Valve.kicad_sym\nEF85\n\npentode valve', 'pins':[
             Pin(num='2',name='G1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='F1',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='S',func=Pin.types.INPUT,unit=1),
@@ -168,8 +168,8 @@ Valve = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='G2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='G3',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='F1',func=Pin.types.PWRIN,unit=2),
-            Pin(num='5',name='F2',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '9', '2', '7', '8', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5']}] }),
-        Part(**{ 'name':'EF86', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EF86'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Noval_P', 'Valve:Valve_Noval_P'], 'footprint':'Valve:Valve_Noval_P', 'keywords':'pentode valve', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='5',name='F2',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '7', '2', '9', '3', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5']}] }),
+        Part(**{ 'name':'EF86', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EF86'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Noval_P', 'Valve:Valve_Noval_P'], 'footprint':'Valve:Valve_Noval_P', 'keywords':'pentode valve', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/Valve.kicad_sym\nEF86\n\npentode valve', 'pins':[
             Pin(num='1',name='G2',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='K',func=Pin.types.BIDIR,unit=1),
             Pin(num='6',name='A',func=Pin.types.OUTPUT,unit=1),
@@ -177,20 +177,20 @@ Valve = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='G3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='G1',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='F1',func=Pin.types.PWRIN,unit=2),
-            Pin(num='5',name='F2',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '8', '1', '6', '7', '9']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5']}] }),
-        Part(**{ 'name':'JAN6418', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'JAN6418'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Mini_Pentode_Linear', 'Valve:Valve_Mini_Pentode_Linear', 'Valve:Valve_Mini_Pentode_Linear'], 'footprint':'Valve:Valve_Mini_Pentode_Linear', 'keywords':'subminiature pentode valve', 'description':'', 'datasheet':'https://frank.pocnet.net/sheets/127/6/6418.pdf', 'pins':[
+            Pin(num='5',name='F2',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '9', '8', '3', '1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5']}] }),
+        Part(**{ 'name':'JAN6418', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'JAN6418'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Mini_Pentode_Linear', 'Valve:Valve_Mini_Pentode_Linear', 'Valve:Valve_Mini_Pentode_Linear'], 'footprint':'Valve:Valve_Mini_Pentode_Linear', 'keywords':'subminiature pentode valve', 'description':'', 'datasheet':'https://frank.pocnet.net/sheets/127/6/6418.pdf', 'search_text':'/usr/share/kicad/symbols/Valve.kicad_sym\nJAN6418\n\nsubminiature pentode valve', 'pins':[
             Pin(num='3',name='F+,G3',func=Pin.types.PWRIN),
             Pin(num='1',name='P',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='G2',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='G1',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='F+,G3',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '4', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3']}] }),
-        Part(**{ 'name':'NOS-6418', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NOS-6418'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Mini_Pentode_Linear', 'Valve:Valve_Mini_Pentode_Linear', 'Valve:Valve_Mini_Pentode_Linear', 'Valve:Valve_Mini_Pentode_Linear'], 'footprint':'Valve:Valve_Mini_Pentode_Linear', 'keywords':'subminiature pentode valve', 'description':'', 'datasheet':'https://frank.pocnet.net/sheets/127/6/6418.pdf', 'pins':[
+            Pin(num='5',name='F+,G3',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5']}] }),
+        Part(**{ 'name':'NOS-6418', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NOS-6418'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Mini_Pentode_Linear', 'Valve:Valve_Mini_Pentode_Linear', 'Valve:Valve_Mini_Pentode_Linear', 'Valve:Valve_Mini_Pentode_Linear'], 'footprint':'Valve:Valve_Mini_Pentode_Linear', 'keywords':'subminiature pentode valve', 'description':'', 'datasheet':'https://frank.pocnet.net/sheets/127/6/6418.pdf', 'search_text':'/usr/share/kicad/symbols/Valve.kicad_sym\nNOS-6418\n\nsubminiature pentode valve', 'pins':[
             Pin(num='3',name='F+,G3',func=Pin.types.PWRIN),
             Pin(num='1',name='P',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='G2',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='G1',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='F+,G3',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5']}] }),
-        Part(**{ 'name':'PABC80', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PABC80'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Noval_P', 'Valve:Valve_Noval_P', 'Valve:Valve_Noval_P', 'Valve:Valve_Noval_P'], 'footprint':'Valve:Valve_Noval_P', 'keywords':'diode triode valve', 'description':'', 'datasheet':'https://frank.pocnet.net/sheets/082/e/EABC80.pdf', 'pins':[
+            Pin(num='5',name='F+,G3',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3']}] }),
+        Part(**{ 'name':'PABC80', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PABC80'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Noval_P', 'Valve:Valve_Noval_P', 'Valve:Valve_Noval_P', 'Valve:Valve_Noval_P'], 'footprint':'Valve:Valve_Noval_P', 'keywords':'diode triode valve', 'description':'', 'datasheet':'https://frank.pocnet.net/sheets/082/e/EABC80.pdf', 'search_text':'/usr/share/kicad/symbols/Valve.kicad_sym\nPABC80\n\ndiode triode valve', 'pins':[
             Pin(num='2',name='A2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='K',func=Pin.types.INPUT,unit=1),
             Pin(num='1',name='A1',func=Pin.types.INPUT,unit=2),
@@ -200,8 +200,8 @@ Valve = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='G',func=Pin.types.INPUT,unit=3),
             Pin(num='9',name='A2',func=Pin.types.OUTPUT,unit=3),
             Pin(num='4',name='F1',func=Pin.types.INPUT,unit=4),
-            Pin(num='5',name='F2',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '6', '1']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '9', '7']},{'label': 'uD', 'num': 4, 'pin_nums': ['5', '4']}] }),
-        Part(**{ 'name':'UABC80', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UABC80'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Noval_P', 'Valve:Valve_Noval_P', 'Valve:Valve_Noval_P', 'Valve:Valve_Noval_P', 'Valve:Valve_Noval_P'], 'footprint':'Valve:Valve_Noval_P', 'keywords':'diode triode valve', 'description':'', 'datasheet':'https://frank.pocnet.net/sheets/082/e/EABC80.pdf', 'pins':[
+            Pin(num='5',name='F2',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '1', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '8', '7']},{'label': 'uD', 'num': 4, 'pin_nums': ['4', '5']}] }),
+        Part(**{ 'name':'UABC80', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UABC80'}), 'ref_prefix':'U', 'fplist':['Valve:Valve_Noval_P', 'Valve:Valve_Noval_P', 'Valve:Valve_Noval_P', 'Valve:Valve_Noval_P', 'Valve:Valve_Noval_P'], 'footprint':'Valve:Valve_Noval_P', 'keywords':'diode triode valve', 'description':'', 'datasheet':'https://frank.pocnet.net/sheets/082/e/EABC80.pdf', 'search_text':'/usr/share/kicad/symbols/Valve.kicad_sym\nUABC80\n\ndiode triode valve', 'pins':[
             Pin(num='2',name='A2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='K',func=Pin.types.INPUT,unit=1),
             Pin(num='1',name='A1',func=Pin.types.INPUT,unit=2),
@@ -211,4 +211,4 @@ Valve = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='G',func=Pin.types.INPUT,unit=3),
             Pin(num='9',name='A2',func=Pin.types.OUTPUT,unit=3),
             Pin(num='4',name='F1',func=Pin.types.INPUT,unit=4),
-            Pin(num='5',name='F2',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '7', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '7', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['4', '5']}] })])
+            Pin(num='5',name='F2',func=Pin.types.INPUT,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '1', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '7', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['5', '4']}] })])

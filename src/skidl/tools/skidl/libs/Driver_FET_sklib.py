@@ -4,14 +4,14 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Driver_FET = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'1EDN7550B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'1EDN7550B'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'Driver, Dual MOSFET', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-1EDN7550B-DS-v02_00-EN.pdf?fileId=5546d46262b31d2e01635d9799ef264f', 'pins':[
+        Part(**{ 'name':'1EDN7550B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'1EDN7550B'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'Driver, Dual MOSFET', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-1EDN7550B-DS-v02_00-EN.pdf?fileId=5546d46262b31d2e01635d9799ef264f', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\n1EDN7550B\n\nDriver, Dual MOSFET', 'pins':[
             Pin(num='1',name='IN-',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='IN+',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='OUT_SRC',func=Pin.types.OUTPUT,unit=1),
             Pin(num='6',name='OUT_SNK',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'2ED1324S12P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'2ED1324S12P'}), 'ref_prefix':'U', 'fplist':['Package_SO:Infineon_PG-DSO-20-U03_7.5x12.8mm'], 'footprint':'Package_SO:Infineon_PG-DSO-20-U03_7.5x12.8mm', 'keywords':'Gate Driver MOSFET IGBT SiC', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-2ED1323S12P_2ED1324S12P-DataSheet-v01_01-EN.pdf?fileId=8ac78c8c869190210186e92f0f506d0c', 'pins':[
+        Part(**{ 'name':'2ED1324S12P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'2ED1324S12P'}), 'ref_prefix':'U', 'fplist':['Package_SO:Infineon_PG-DSO-20-U03_7.5x12.8mm'], 'footprint':'Package_SO:Infineon_PG-DSO-20-U03_7.5x12.8mm', 'keywords':'Gate Driver MOSFET IGBT SiC', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-2ED1323S12P_2ED1324S12P-DataSheet-v01_01-EN.pdf?fileId=8ac78c8c869190210186e92f0f506d0c', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\n2ED1324S12P\n\nGate Driver MOSFET IGBT SiC', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='LC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='LO',func=Pin.types.OUTPUT,unit=1),
@@ -32,7 +32,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='ITRIP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='COM',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'2ED21824S06J', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'2ED21824S06J'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'Gate Driver MOSFET IGBT', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-2ED2182-4-S06F-J-DataSheet-v02_10-EN.pdf?fileId=5546d4626cb27db2016cb8d7368a29e3', 'pins':[
+        Part(**{ 'name':'2ED21824S06J', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'2ED21824S06J'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'Gate Driver MOSFET IGBT', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-2ED2182-4-S06F-J-DataSheet-v02_10-EN.pdf?fileId=5546d4626cb27db2016cb8d7368a29e3', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\n2ED21824S06J\n\nGate Driver MOSFET IGBT', 'pins':[
             Pin(num='1',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='VS',func=Pin.types.PASSIVE,unit=1),
@@ -47,7 +47,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'2EDL23N06PJXUMA1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'2EDL23N06PJXUMA1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'Gate Driver MOSFET IGBT', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-2EDL23x06xx-DS-v02_01-EN.pdf?fileId=5546d46146d18cb4014738a20c5236f0', 'pins':[
+        Part(**{ 'name':'2EDL23N06PJXUMA1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'2EDL23N06PJXUMA1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'Gate Driver MOSFET IGBT', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-2EDL23x06xx-DS-v02_01-EN.pdf?fileId=5546d46146d18cb4014738a20c5236f0', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\n2EDL23N06PJXUMA1\n\nGate Driver MOSFET IGBT', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='HO',func=Pin.types.OUTPUT,unit=1),
@@ -62,7 +62,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='LO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ACPL-336J', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ACPL-336J'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'Gate Driver IGBT', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-4391EN', 'pins':[
+        Part(**{ 'name':'ACPL-336J', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ACPL-336J'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'Gate Driver IGBT', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-4391EN', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nACPL-336J\n\nGate Driver IGBT', 'pins':[
             Pin(num='1',name='VEE1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VCLAMP',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VOUT',func=Pin.types.OUTPUT,unit=1),
@@ -79,21 +79,21 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='ANODE',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='CATHODE',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='VEE2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ACPL-P343', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ACPL-P343'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSO-6_6.8x4.6mm_P1.27mm_Clearance7mm'], 'footprint':'Package_SO:SSO-6_6.8x4.6mm_P1.27mm_Clearance7mm', 'keywords':'MOSFET Driver IGBT Driver Optocoupler', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-2928EN', 'pins':[
+        Part(**{ 'name':'ACPL-P343', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ACPL-P343'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSO-6_6.8x4.6mm_P1.27mm_Clearance7mm'], 'footprint':'Package_SO:SSO-6_6.8x4.6mm_P1.27mm_Clearance7mm', 'keywords':'MOSFET Driver IGBT Driver Optocoupler', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-2928EN', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nACPL-P343\n\nMOSFET Driver IGBT Driver Optocoupler', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='3',name='C',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='VEE',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='VO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='6',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ACPL-W343', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ACPL-W343'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSO-6_6.8x4.6mm_P1.27mm_Clearance8mm'], 'footprint':'Package_SO:SSO-6_6.8x4.6mm_P1.27mm_Clearance8mm', 'keywords':'MOSFET Driver IGBT Driver Optocoupler', 'description':'', 'datasheet':'http://www.avagotech.com/docs/AV02-2928EN', 'pins':[
+        Part(**{ 'name':'ACPL-W343', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ACPL-W343'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSO-6_6.8x4.6mm_P1.27mm_Clearance8mm'], 'footprint':'Package_SO:SSO-6_6.8x4.6mm_P1.27mm_Clearance8mm', 'keywords':'MOSFET Driver IGBT Driver Optocoupler', 'description':'', 'datasheet':'http://www.avagotech.com/docs/AV02-2928EN', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nACPL-W343\n\nMOSFET Driver IGBT Driver Optocoupler', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='3',name='C',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='VEE',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='VO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='6',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AN34092B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AN34092B'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Panasonic_HQFN-16-1EP_4x4mm_P0.65mm_EP2.9x2.9mm'], 'footprint':'Package_DFN_QFN:Panasonic_HQFN-16-1EP_4x4mm_P0.65mm_EP2.9x2.9mm', 'keywords':'GaN Gate Driver', 'description':'', 'datasheet':'https://industrial.panasonic.com/content/data/SC/ds/ds4/AN34092B_E.pdf', 'pins':[
+        Part(**{ 'name':'AN34092B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AN34092B'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Panasonic_HQFN-16-1EP_4x4mm_P0.65mm_EP2.9x2.9mm'], 'footprint':'Package_DFN_QFN:Panasonic_HQFN-16-1EP_4x4mm_P0.65mm_EP2.9x2.9mm', 'keywords':'GaN Gate Driver', 'description':'', 'datasheet':'https://industrial.panasonic.com/content/data/SC/ds/ds4/AN34092B_E.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nAN34092B\n\nGaN Gate Driver', 'pins':[
             Pin(num='1',name='OUT1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='VREG',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='IGCNT',func=Pin.types.PASSIVE,unit=1),
@@ -111,17 +111,17 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='INP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='INN',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='TEST',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'BSP75N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BSP75N'}), 'ref_prefix':'Q', 'fplist':['Package_TO_SOT_SMD:SOT-223'], 'footprint':'Package_TO_SOT_SMD:SOT-223', 'keywords':'MOSFET ESD Overcurrent', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-BSP75N-DS-v01_04-en.pdf?fileId=db3a30431ed1d7b2011f471f5a0256d1', 'pins':[
+        Part(**{ 'name':'BSP75N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BSP75N'}), 'ref_prefix':'Q', 'fplist':['Package_TO_SOT_SMD:SOT-223'], 'footprint':'Package_TO_SOT_SMD:SOT-223', 'keywords':'MOSFET ESD Overcurrent', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-BSP75N-DS-v01_04-en.pdf?fileId=db3a30431ed1d7b2011f471f5a0256d1', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nBSP75N\n\nMOSFET ESD Overcurrent', 'pins':[
             Pin(num='1',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='D',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='S',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='S',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'BTS4140N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BTS4140N'}), 'ref_prefix':'Q', 'fplist':['Package_TO_SOT_SMD:SOT-223'], 'footprint':'Package_TO_SOT_SMD:SOT-223', 'keywords':'MOSFET ESD Overcurrent', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-BTS4140N-DS-v01_01-EN.pdf?fileId=5546d46259d9a4bf015a852aac8b7785', 'pins':[
+        Part(**{ 'name':'BTS4140N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BTS4140N'}), 'ref_prefix':'Q', 'fplist':['Package_TO_SOT_SMD:SOT-223'], 'footprint':'Package_TO_SOT_SMD:SOT-223', 'keywords':'MOSFET ESD Overcurrent', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-BTS4140N-DS-v01_01-EN.pdf?fileId=5546d46259d9a4bf015a852aac8b7785', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nBTS4140N\n\nMOSFET ESD Overcurrent', 'pins':[
             Pin(num='1',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='D',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='S',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='D',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EL7202CN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EL7202CN'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Driver, Dual MOSFET', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/el72/el7202-12-22.pdf', 'pins':[
+        Part(**{ 'name':'EL7202CN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EL7202CN'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Driver, Dual MOSFET', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/el72/el7202-12-22.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nEL7202CN\n\nDriver, Dual MOSFET', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='IN_A',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -130,7 +130,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='OUT_A',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EL7212CN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EL7212CN'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Driver, Dual MOSFET', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/el72/el7202-12-22.pdf', 'pins':[
+        Part(**{ 'name':'EL7212CN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EL7212CN'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Driver, Dual MOSFET', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/el72/el7202-12-22.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nEL7212CN\n\nDriver, Dual MOSFET', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='IN_A',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -139,7 +139,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='~{OUT_A}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EL7222CN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EL7222CN'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Driver, Dual MOSFET', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/el72/el7202-12-22.pdf', 'pins':[
+        Part(**{ 'name':'EL7222CN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EL7222CN'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Driver, Dual MOSFET', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/el72/el7202-12-22.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nEL7222CN\n\nDriver, Dual MOSFET', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='IN_A',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -148,19 +148,19 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='~{OUT_A}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FAN3111C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FAN3111C'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'MOSFET gate driver', 'description':'', 'datasheet':'https://www.onsemi.com/pdf/datasheet/fan3111c-d.pdf', 'pins':[
+        Part(**{ 'name':'FAN3111C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FAN3111C'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'MOSFET gate driver', 'description':'', 'datasheet':'https://www.onsemi.com/pdf/datasheet/fan3111c-d.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nFAN3111C\n\nMOSFET gate driver', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='IN+',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='~{IN-}',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='OUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FAN3111E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FAN3111E'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'MOSFET gate driver', 'description':'', 'datasheet':'https://www.onsemi.com/pdf/datasheet/fan3111c-d.pdf', 'pins':[
+        Part(**{ 'name':'FAN3111E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FAN3111E'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'MOSFET gate driver', 'description':'', 'datasheet':'https://www.onsemi.com/pdf/datasheet/fan3111c-d.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nFAN3111E\n\nMOSFET gate driver', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='IN+',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='XREF',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='OUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FAN3268', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FAN3268'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Driver MOSFET', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/FAN3268T_F085-D.PDF', 'pins':[
+        Part(**{ 'name':'FAN3268', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FAN3268'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Driver MOSFET', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/FAN3268T_F085-D.PDF', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nFAN3268\n\nDriver MOSFET', 'pins':[
             Pin(num='1',name='ENA',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='INA',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -169,7 +169,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='OUTA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='ENB',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FAN7371', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FAN7371'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'high-side gate driver', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/FAN7371-D.pdf', 'pins':[
+        Part(**{ 'name':'FAN7371', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FAN7371'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'high-side gate driver', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/FAN7371-D.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nFAN7371\n\nhigh-side gate driver', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -178,7 +178,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FAN7842', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FAN7842'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/FAN7842-D.pdf', 'pins':[
+        Part(**{ 'name':'FAN7842', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FAN7842'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/FAN7842-D.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nFAN7842\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='LIN',func=Pin.types.INPUT,unit=1),
@@ -187,7 +187,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FAN7888', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FAN7888'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'3 Phase Gate Driver', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/FAN7888-D.pdf', 'pins':[
+        Part(**{ 'name':'FAN7888', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FAN7888'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'3 Phase Gate Driver', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/FAN7888-D.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nFAN7888\n\n3 Phase Gate Driver', 'pins':[
             Pin(num='1',name='HIN1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VB3',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -208,7 +208,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='LO3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VS3',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='HO3',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FL5150MX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FL5150MX'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-10_3.9x4.9mm_P1.00mm'], 'footprint':'Package_SO:SSOP-10_3.9x4.9mm_P1.00mm', 'keywords':'dimmer', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/FL5150-D.pdf', 'pins':[
+        Part(**{ 'name':'FL5150MX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FL5150MX'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-10_3.9x4.9mm_P1.00mm'], 'footprint':'Package_SO:SSOP-10_3.9x4.9mm_P1.00mm', 'keywords':'dimmer', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/FL5150-D.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nFL5150MX\n\ndimmer', 'pins':[
             Pin(num='1',name='ZC_Monitor',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OC_Sense1',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='DIM_Control',func=Pin.types.INPUT,unit=1),
@@ -219,7 +219,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Low_Power',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='OC_Sense2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DRV_Gate',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HCPL-3120', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-3120'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'MOSFET Driver IGBT Driver Optocoupler', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0161EN', 'pins':[
+        Part(**{ 'name':'HCPL-3120', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-3120'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'MOSFET Driver IGBT Driver Optocoupler', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0161EN', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nHCPL-3120\n\nMOSFET Driver IGBT Driver Optocoupler', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C',func=Pin.types.PASSIVE,unit=1),
@@ -228,7 +228,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HCPL-314J', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-314J'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W-12_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W-12_7.5x10.3mm_P1.27mm', 'keywords':'MOSFET Driver IGBT Driver Optocoupler', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0169EN', 'pins':[
+        Part(**{ 'name':'HCPL-314J', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-314J'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W-12_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W-12_7.5x10.3mm_P1.27mm', 'keywords':'MOSFET Driver IGBT Driver Optocoupler', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0169EN', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nHCPL-314J\n\nMOSFET Driver IGBT Driver Optocoupler', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='14',name='VEE',func=Pin.types.PWRIN,unit=1),
             Pin(num='15',name='VO',func=Pin.types.OUTPUT,unit=1),
@@ -240,8 +240,8 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.PASSIVE,unit=2),
             Pin(num='7',name='C',func=Pin.types.PASSIVE,unit=2),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=2),
-            Pin(num='9',name='VEE',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '14', '3', '16', '1', '15']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '7', '6', '8', '11', '9']}] }),
-        Part(**{ 'name':'HIP2100_DFN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HIP2100_DFN'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-12-1EP_4x4mm_P0.5mm_EP2.66x3.38mm'], 'footprint':'Package_DFN_QFN:DFN-12-1EP_4x4mm_P0.5mm_EP2.66x3.38mm', 'keywords':'Half Bridge Gate Driver', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/hip2/hip2100.pdf', 'pins':[
+            Pin(num='9',name='VEE',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['14', '16', '15', '2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '6', '10', '8', '7', '11']}] }),
+        Part(**{ 'name':'HIP2100_DFN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HIP2100_DFN'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-12-1EP_4x4mm_P0.5mm_EP2.66x3.38mm'], 'footprint':'Package_DFN_QFN:DFN-12-1EP_4x4mm_P0.5mm_EP2.66x3.38mm', 'keywords':'Half Bridge Gate Driver', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/hip2/hip2100.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nHIP2100_DFN\n\nHalf Bridge Gate Driver', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='VSS',func=Pin.types.PWRIN,unit=1),
@@ -255,7 +255,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='HI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='LI',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HIP2100_EPSOIC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HIP2100_EPSOIC'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.514x3.2mm'], 'footprint':'Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.514x3.2mm', 'keywords':'Half Bridge Gate Driver', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/hip2/hip2100.pdf', 'pins':[
+        Part(**{ 'name':'HIP2100_EPSOIC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HIP2100_EPSOIC'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.514x3.2mm'], 'footprint':'Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.514x3.2mm', 'keywords':'Half Bridge Gate Driver', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/hip2/hip2100.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nHIP2100_EPSOIC\n\nHalf Bridge Gate Driver', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='HB',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='HO',func=Pin.types.OUTPUT,unit=1),
@@ -265,7 +265,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='LO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='EP',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HIP2100_QFN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HIP2100_QFN'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_5x5mm_P0.8mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_5x5mm_P0.8mm_EP2.7x2.7mm', 'keywords':'Half Bridge Gate Driver', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/hip2/hip2100.pdf', 'pins':[
+        Part(**{ 'name':'HIP2100_QFN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HIP2100_QFN'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_5x5mm_P0.8mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_5x5mm_P0.8mm_EP2.7x2.7mm', 'keywords':'Half Bridge Gate Driver', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/hip2/hip2100.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nHIP2100_QFN\n\nHalf Bridge Gate Driver', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='LI',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VSS',func=Pin.types.PWRIN,unit=1),
@@ -283,7 +283,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='HI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HIP2100_SOIC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HIP2100_SOIC'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Half Bridge Gate Driver', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/hip2/hip2100.pdf', 'pins':[
+        Part(**{ 'name':'HIP2100_SOIC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HIP2100_SOIC'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Half Bridge Gate Driver', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/hip2/hip2100.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nHIP2100_SOIC\n\nHalf Bridge Gate Driver', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='HB',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='HO',func=Pin.types.OUTPUT,unit=1),
@@ -292,7 +292,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='LI',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='LO',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HIP4080A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HIP4080A'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Half Bridge Gate Driver', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/hip4/hip4080a.pdf', 'pins':[
+        Part(**{ 'name':'HIP4080A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HIP4080A'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Half Bridge Gate Driver', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/hip4/hip4080a.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nHIP4080A\n\nHalf Bridge Gate Driver', 'pins':[
             Pin(num='1',name='BHB',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='AHB',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='AHO',func=Pin.types.OUTPUT,unit=1),
@@ -313,7 +313,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IN-',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='HDEL',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='LDEL',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HIP4081A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HIP4081A'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Half Bridge Gate Driver', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/hip4/hip4080a.pdf', 'pins':[
+        Part(**{ 'name':'HIP4081A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HIP4081A'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Half Bridge Gate Driver', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/hip4/hip4080a.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nHIP4081A\n\nHalf Bridge Gate Driver', 'pins':[
             Pin(num='1',name='BHB',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='AHB',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='AHO',func=Pin.types.OUTPUT,unit=1),
@@ -334,7 +334,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AHI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='HDEL',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='LDEL',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HIP4082xB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HIP4082xB'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'Driver H-bridge', 'description':'', 'datasheet':'https://www.renesas.com/www/doc/datasheet/hip4082.pdf', 'pins':[
+        Part(**{ 'name':'HIP4082xB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HIP4082xB'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'Driver H-bridge', 'description':'', 'datasheet':'https://www.renesas.com/www/doc/datasheet/hip4082.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nHIP4082xB\n\nDriver H-bridge', 'pins':[
             Pin(num='5',name='DEL',func=Pin.types.PASSIVE),
             Pin(num='1',name='BHB',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='AHO',func=Pin.types.OUTPUT,unit=1),
@@ -351,7 +351,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AHI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DIS',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='AHB',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HIP4082xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HIP4082xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'Driver H-bridge', 'description':'', 'datasheet':'https://www.renesas.com/www/doc/datasheet/hip4082.pdf', 'pins':[
+        Part(**{ 'name':'HIP4082xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HIP4082xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'Driver H-bridge', 'description':'', 'datasheet':'https://www.renesas.com/www/doc/datasheet/hip4082.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nHIP4082xP\n\nDriver H-bridge', 'pins':[
             Pin(num='5',name='DEL',func=Pin.types.PASSIVE),
             Pin(num='1',name='BHB',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='AHO',func=Pin.types.OUTPUT,unit=1),
@@ -368,7 +368,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AHI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DIS',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='AHB',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ICL7667', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICL7667'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'MOSFET driver array', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/icl7/icl7667.pdf', 'pins':[
+        Part(**{ 'name':'ICL7667', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICL7667'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'MOSFET driver array', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/icl7/icl7667.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nICL7667\n\nMOSFET driver array', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='INA',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='V-',func=Pin.types.PWRIN,unit=1),
@@ -377,7 +377,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='~{OUTA}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR2010', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2010'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2010.pdf?fileId=5546d462533600a4015355c48f901660', 'pins':[
+        Part(**{ 'name':'IR2010', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2010'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2010.pdf?fileId=5546d462533600a4015355c48f901660', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR2010\n\nGate Driver', 'pins':[
             Pin(num='1',name='LO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SD',func=Pin.types.INPUT,unit=1),
@@ -392,7 +392,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR2010S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2010S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2010.pdf?fileId=5546d462533600a4015355c48f901660', 'pins':[
+        Part(**{ 'name':'IR2010S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2010S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2010.pdf?fileId=5546d462533600a4015355c48f901660', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR2010S\n\nGate Driver', 'pins':[
             Pin(num='1',name='LO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -409,7 +409,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VB',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR2011', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2011'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2011.pdf?fileId=5546d462533600a4015355c49b831663', 'pins':[
+        Part(**{ 'name':'IR2011', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2011'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2011.pdf?fileId=5546d462533600a4015355c49b831663', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR2011\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VB',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='HO',func=Pin.types.OUTPUT,unit=1),
@@ -418,7 +418,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='LIN',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='COM',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='LO',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR2085S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2085S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Oscillating Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-IR2085S-DS-v01_02-EN.pdf?fileId=5546d4625b62cd8a015bb0f752184828', 'pins':[
+        Part(**{ 'name':'IR2085S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2085S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Oscillating Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-IR2085S-DS-v01_02-EN.pdf?fileId=5546d4625b62cd8a015bb0f752184828', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR2085S\n\nOscillating Gate Driver', 'pins':[
             Pin(num='1',name='CS',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='OSC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -427,7 +427,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR2101', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2101'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2101.pdf?fileId=5546d462533600a4015355c7a755166c', 'pins':[
+        Part(**{ 'name':'IR2101', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2101'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2101.pdf?fileId=5546d462533600a4015355c7a755166c', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR2101\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='LIN',func=Pin.types.INPUT,unit=1),
@@ -436,7 +436,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR2102', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2102'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2101.pdf?fileId=5546d462533600a4015355c7a755166c', 'pins':[
+        Part(**{ 'name':'IR2102', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2102'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2101.pdf?fileId=5546d462533600a4015355c7a755166c', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR2102\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='~{HIN}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~{LIN}',func=Pin.types.INPUT,unit=1),
@@ -445,7 +445,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR2103', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2103'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2103.pdf?fileId=5546d462533600a4015355c7b54b166f', 'pins':[
+        Part(**{ 'name':'IR2103', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2103'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2103.pdf?fileId=5546d462533600a4015355c7b54b166f', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR2103\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~{LIN}',func=Pin.types.INPUT,unit=1),
@@ -454,7 +454,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR2104', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2104'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2104.pdf?fileId=5546d462533600a4015355c7c1c31671', 'pins':[
+        Part(**{ 'name':'IR2104', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2104'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2104.pdf?fileId=5546d462533600a4015355c7c1c31671', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR2104\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~{SD}',func=Pin.types.INPUT,unit=1),
@@ -463,7 +463,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR21064', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR21064'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2106.pdf?fileId=5546d462533600a4015355c7cfc51673', 'pins':[
+        Part(**{ 'name':'IR21064', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR21064'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2106.pdf?fileId=5546d462533600a4015355c7cfc51673', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR21064\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='VS',func=Pin.types.PASSIVE,unit=1),
@@ -478,7 +478,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='LO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR21084', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR21084'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2108.pdf?fileId=5546d462533600a4015355c7dc321676', 'pins':[
+        Part(**{ 'name':'IR21084', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR21084'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2108.pdf?fileId=5546d462533600a4015355c7dc321676', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR21084\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='VS',func=Pin.types.PASSIVE,unit=1),
@@ -493,7 +493,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='LO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR21091', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR21091'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir21091.pdf?fileId=5546d462533600a4015355c7f66f167c', 'pins':[
+        Part(**{ 'name':'IR21091', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR21091'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir21091.pdf?fileId=5546d462533600a4015355c7f66f167c', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR21091\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DT/SD',func=Pin.types.INPUT,unit=1),
@@ -502,7 +502,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR21094', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR21094'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2109.pdf?fileId=5546d462533600a4015355c7e85b1679', 'pins':[
+        Part(**{ 'name':'IR21094', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR21094'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2109.pdf?fileId=5546d462533600a4015355c7e85b1679', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR21094\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='VS',func=Pin.types.PASSIVE,unit=1),
@@ -517,7 +517,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='LO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR2111', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2111'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2111.pdf?fileId=5546d462533600a4015355c810e51682', 'pins':[
+        Part(**{ 'name':'IR2111', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2111'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2111.pdf?fileId=5546d462533600a4015355c810e51682', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR2111\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='COM',func=Pin.types.PWRIN,unit=1),
@@ -526,7 +526,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR2114S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2114S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_5.3x8.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2114ss.pdf?fileId=5546d462533600a4015355c836cd168a', 'pins':[
+        Part(**{ 'name':'IR2114S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2114S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_5.3x8.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2114ss.pdf?fileId=5546d462533600a4015355c836cd168a', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR2114S\n\nGate Driver', 'pins':[
             Pin(num='1',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='LOP',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -551,7 +551,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SSDL',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='COM',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='LON',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR2133', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2133'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'3 Phase Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-IR2x33-IR2x35-DataSheet-v01_00-EN.pdf?fileId=5546d462533600a4015355c890ba169f', 'pins':[
+        Part(**{ 'name':'IR2133', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2133'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'3 Phase Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-IR2x33-IR2x35-DataSheet-v01_00-EN.pdf?fileId=5546d462533600a4015355c890ba169f', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR2133\n\n3 Phase Gate Driver', 'pins':[
             Pin(num='1',name='ITRIP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='LO2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='LO1',func=Pin.types.OUTPUT,unit=1),
@@ -580,7 +580,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='COM',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='LO3',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR2133S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2133S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'3 Phase Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-IR2x33-IR2x35-DataSheet-v01_00-EN.pdf?fileId=5546d462533600a4015355c890ba169f', 'pins':[
+        Part(**{ 'name':'IR2133S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2133S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'3 Phase Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-IR2x33-IR2x35-DataSheet-v01_00-EN.pdf?fileId=5546d462533600a4015355c890ba169f', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR2133S\n\n3 Phase Gate Driver', 'pins':[
             Pin(num='1',name='ITRIP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='LO2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='LO1',func=Pin.types.OUTPUT,unit=1),
@@ -609,7 +609,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='COM',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='LO3',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR2153', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2153'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Oscillating Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2153.pdf?fileId=5546d462533600a4015355c8c5fc16af', 'pins':[
+        Part(**{ 'name':'IR2153', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2153'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Oscillating Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2153.pdf?fileId=5546d462533600a4015355c8c5fc16af', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR2153\n\nOscillating Gate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='CT',func=Pin.types.PASSIVE,unit=1),
@@ -618,7 +618,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR2181', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2181'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2181.pdf?fileId=5546d462533600a4015355c93cdd16ce', 'pins':[
+        Part(**{ 'name':'IR2181', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2181'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2181.pdf?fileId=5546d462533600a4015355c93cdd16ce', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR2181\n\nGate Driver', 'pins':[
             Pin(num='1',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='LIN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='COM',func=Pin.types.PWRIN,unit=1),
@@ -627,7 +627,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR21814', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR21814'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2181.pdf?fileId=5546d462533600a4015355c93cdd16ce', 'pins':[
+        Part(**{ 'name':'IR21814', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR21814'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2181.pdf?fileId=5546d462533600a4015355c93cdd16ce', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR21814\n\nGate Driver', 'pins':[
             Pin(num='1',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='VS',func=Pin.types.PASSIVE,unit=1),
@@ -642,7 +642,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR2183', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2183'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2183.pdf?fileId=5546d462533600a4015355c9490e16d1', 'pins':[
+        Part(**{ 'name':'IR2183', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2183'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2183.pdf?fileId=5546d462533600a4015355c9490e16d1', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR2183\n\nGate Driver', 'pins':[
             Pin(num='1',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~{LIN}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='COM',func=Pin.types.PWRIN,unit=1),
@@ -651,7 +651,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR21834', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR21834'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2183.pdf?fileId=5546d462533600a4015355c9490e16d1', 'pins':[
+        Part(**{ 'name':'IR21834', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR21834'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2183.pdf?fileId=5546d462533600a4015355c9490e16d1', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR21834\n\nGate Driver', 'pins':[
             Pin(num='1',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='VS',func=Pin.types.PASSIVE,unit=1),
@@ -666,7 +666,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR2184', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2184'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2184.pdf?fileId=5546d462533600a4015355c955e616d4', 'pins':[
+        Part(**{ 'name':'IR2184', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2184'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2184.pdf?fileId=5546d462533600a4015355c955e616d4', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR2184\n\nGate Driver', 'pins':[
             Pin(num='1',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~{SD}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='COM',func=Pin.types.PWRIN,unit=1),
@@ -675,7 +675,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR21844', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR21844'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2184.pdf?fileId=5546d462533600a4015355c955e616d4', 'pins':[
+        Part(**{ 'name':'IR21844', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR21844'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2184.pdf?fileId=5546d462533600a4015355c955e616d4', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR21844\n\nGate Driver', 'pins':[
             Pin(num='1',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='VS',func=Pin.types.PASSIVE,unit=1),
@@ -690,7 +690,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR2304', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2304'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2304.pdf?fileId=5546d462533600a4015355c9954a16e0', 'pins':[
+        Part(**{ 'name':'IR2304', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2304'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2304.pdf?fileId=5546d462533600a4015355c9954a16e0', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR2304\n\nGate Driver', 'pins':[
             Pin(num='1',name='LIN',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -699,7 +699,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR25602S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR25602S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir25602.pdf?fileId=5546d462533600a4015355c9d6c216eb', 'pins':[
+        Part(**{ 'name':'IR25602S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR25602S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir25602.pdf?fileId=5546d462533600a4015355c9d6c216eb', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR25602S\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~{SD}',func=Pin.types.INPUT,unit=1),
@@ -708,7 +708,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR25603', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR25603'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Oscillating Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir25603.pdf?fileId=5546d462533600a4015355c9e46716ef', 'pins':[
+        Part(**{ 'name':'IR25603', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR25603'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Oscillating Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir25603.pdf?fileId=5546d462533600a4015355c9e46716ef', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR25603\n\nOscillating Gate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='CT',func=Pin.types.PASSIVE,unit=1),
@@ -717,7 +717,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR25604S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR25604S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir25604.pdf?fileId=5546d462533600a4015355c9f1ca16f1', 'pins':[
+        Part(**{ 'name':'IR25604S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR25604S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir25604.pdf?fileId=5546d462533600a4015355c9f1ca16f1', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR25604S\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='LIN',func=Pin.types.INPUT,unit=1),
@@ -726,7 +726,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR7184S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR7184S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir7184s.pdf?fileId=5546d462533600a4015355d62230182c', 'pins':[
+        Part(**{ 'name':'IR7184S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR7184S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir7184s.pdf?fileId=5546d462533600a4015355d62230182c', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR7184S\n\nGate Driver', 'pins':[
             Pin(num='1',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~{SD}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='COM',func=Pin.types.PWRIN,unit=1),
@@ -735,7 +735,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR7304S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR7304S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir7304s.pdf?fileId=5546d462533600a4015355d62a63182e', 'pins':[
+        Part(**{ 'name':'IR7304S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR7304S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir7304s.pdf?fileId=5546d462533600a4015355d62a63182e', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR7304S\n\nGate Driver', 'pins':[
             Pin(num='1',name='LIN',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -744,7 +744,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS2001M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2001M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Infineon_MLPQ-16-14-1EP_4x4mm_P0.5mm'], 'footprint':'Package_DFN_QFN:Infineon_MLPQ-16-14-1EP_4x4mm_P0.5mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2001mpbf.pdf?fileId=5546d462533600a4015356759e20277c', 'pins':[
+        Part(**{ 'name':'IRS2001M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2001M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Infineon_MLPQ-16-14-1EP_4x4mm_P0.5mm'], 'footprint':'Package_DFN_QFN:Infineon_MLPQ-16-14-1EP_4x4mm_P0.5mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2001mpbf.pdf?fileId=5546d462533600a4015356759e20277c', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS2001M\n\nGate Driver', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='12',name='HO',func=Pin.types.OUTPUT,unit=1),
@@ -760,7 +760,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='LO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS2113M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2113M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Infineon_MLPQ-16-14-1EP_4x4mm_P0.5mm'], 'footprint':'Package_DFN_QFN:Infineon_MLPQ-16-14-1EP_4x4mm_P0.5mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2113mpbf.pdf?fileId=5546d462533600a40153567676a227b7', 'pins':[
+        Part(**{ 'name':'IRS2113M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2113M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Infineon_MLPQ-16-14-1EP_4x4mm_P0.5mm'], 'footprint':'Package_DFN_QFN:Infineon_MLPQ-16-14-1EP_4x4mm_P0.5mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2113mpbf.pdf?fileId=5546d462533600a40153567676a227b7', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS2113M\n\nGate Driver', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='12',name='VS',func=Pin.types.PASSIVE,unit=1),
@@ -776,7 +776,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='COM',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS21814M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS21814M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Infineon_MLPQ-16-14-1EP_4x4mm_P0.5mm'], 'footprint':'Package_DFN_QFN:Infineon_MLPQ-16-14-1EP_4x4mm_P0.5mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs21814mpbf.pdf?fileId=5546d462533600a401535676c8a827d6', 'pins':[
+        Part(**{ 'name':'IRS21814M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS21814M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Infineon_MLPQ-16-14-1EP_4x4mm_P0.5mm'], 'footprint':'Package_DFN_QFN:Infineon_MLPQ-16-14-1EP_4x4mm_P0.5mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs21814mpbf.pdf?fileId=5546d462533600a401535676c8a827d6', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS21814M\n\nGate Driver', 'pins':[
             Pin(num='1',name='LIN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='12',name='HO',func=Pin.types.OUTPUT,unit=1),
@@ -792,7 +792,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS21844M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS21844M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Infineon_MLPQ-16-14-1EP_4x4mm_P0.5mm'], 'footprint':'Package_DFN_QFN:Infineon_MLPQ-16-14-1EP_4x4mm_P0.5mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs21844mpbf.pdf?fileId=5546d462533600a401535676dfb027de', 'pins':[
+        Part(**{ 'name':'IRS21844M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS21844M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Infineon_MLPQ-16-14-1EP_4x4mm_P0.5mm'], 'footprint':'Package_DFN_QFN:Infineon_MLPQ-16-14-1EP_4x4mm_P0.5mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs21844mpbf.pdf?fileId=5546d462533600a401535676dfb027de', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS21844M\n\nGate Driver', 'pins':[
             Pin(num='1',name='~{SD}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='12',name='HO',func=Pin.types.OUTPUT,unit=1),
@@ -808,7 +808,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS2890DS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2890DS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-IRS2890DS-DS-v01_00-EN.pdf?fileId=5546d4625a888733015aad6fbc8a4bf4', 'pins':[
+        Part(**{ 'name':'IRS2890DS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2890DS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-IRS2890DS-DS-v01_00-EN.pdf?fileId=5546d4625a888733015aad6fbc8a4bf4', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS2890DS\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -823,7 +823,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RFE',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='LO',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ITS724G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ITS724G'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'driver fet quad', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-ITS724G-DS-v01_01-en.pdf?fileId=db3a304412b407950112b428d6083e90', 'pins':[
+        Part(**{ 'name':'ITS724G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ITS724G'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'driver fet quad', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-ITS724G-DS-v01_01-en.pdf?fileId=db3a304412b407950112b428d6083e90', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nITS724G\n\ndriver fet quad', 'pins':[
             Pin(num='1',name='VBB',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VBB',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='VBB',func=Pin.types.PASSIVE,unit=1),
@@ -844,7 +844,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IN3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='ST3/4',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='IN4',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'L6491', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L6491'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-14_3.9x8.65mm_P1.27mm'], 'footprint':'Package_SO:SO-14_3.9x8.65mm_P1.27mm', 'keywords':'fet driver', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/l6491.pdf', 'pins':[
+        Part(**{ 'name':'L6491', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L6491'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-14_3.9x8.65mm_P1.27mm'], 'footprint':'Package_SO:SO-14_3.9x8.65mm_P1.27mm', 'keywords':'fet driver', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/l6491.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nL6491\n\nfet driver', 'pins':[
             Pin(num='1',name='~{LIN}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='CP+',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -859,7 +859,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='LVG',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='CP-',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LF2190N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LF2190N'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'ixys littelfuse boosted bootstrapped dual', 'description':'', 'datasheet':'https://www.littelfuse.com/media?resourcetype=datasheets&itemid=4c945cfe-ef54-4349-b2fb-9c1330d8240c&filename=littelfuse-gate-drivers-lf2190ntr-datasheet', 'pins':[
+        Part(**{ 'name':'LF2190N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LF2190N'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'ixys littelfuse boosted bootstrapped dual', 'description':'', 'datasheet':'https://www.littelfuse.com/media?resourcetype=datasheets&itemid=4c945cfe-ef54-4349-b2fb-9c1330d8240c&filename=littelfuse-gate-drivers-lf2190ntr-datasheet', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nLF2190N\n\nixys littelfuse boosted bootstrapped dual', 'pins':[
             Pin(num='1',name='HIN',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='LIN',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='COM',func=Pin.types.PWRIN,unit=1),
@@ -868,7 +868,26 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='V_{S}',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='V_{B}',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LM5109ASD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM5109ASD'}), 'ref_prefix':'U', 'fplist':['Package_SON:WSON-8-1EP_4x4mm_P0.8mm_EP2.6x3mm'], 'footprint':'Package_SON:WSON-8-1EP_4x4mm_P0.8mm_EP2.6x3mm', 'keywords':'Half-Bridge Gate Driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm5109a.pdf', 'pins':[
+        Part(**{ 'name':'LM2105D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM2105D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'gate driver bootstrap half bridge', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/lm2105.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nLM2105D\n\ngate driver bootstrap half bridge', 'pins':[
+            Pin(num='1',name='GVDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='INH',func=Pin.types.INPUT,unit=1),
+            Pin(num='3',name='INL',func=Pin.types.INPUT,unit=1),
+            Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=1),
+            Pin(num='5',name='GL',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='6',name='SH',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='7',name='GH',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='8',name='BST',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'LM2105DSG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM2105DSG'}), 'ref_prefix':'U', 'fplist':['Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm'], 'footprint':'Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm', 'keywords':'gate driver bootstrap half bridge', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/lm2105.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nLM2105DSG\n\ngate driver bootstrap half bridge', 'pins':[
+            Pin(num='1',name='GVDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='INH',func=Pin.types.INPUT,unit=1),
+            Pin(num='3',name='INL',func=Pin.types.INPUT,unit=1),
+            Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=1),
+            Pin(num='5',name='GL',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='6',name='SH',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='7',name='GH',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='8',name='BST',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'LM5109ASD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM5109ASD'}), 'ref_prefix':'U', 'fplist':['Package_SON:WSON-8-1EP_4x4mm_P0.8mm_EP2.6x3mm'], 'footprint':'Package_SON:WSON-8-1EP_4x4mm_P0.8mm_EP2.6x3mm', 'keywords':'Half-Bridge Gate Driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm5109a.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nLM5109ASD\n\nHalf-Bridge Gate Driver', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='HI',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='LI',func=Pin.types.INPUT,unit=1),
@@ -878,7 +897,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='HB',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LM5109MA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM5109MA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Half-Bridge Gate Driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm5109.pdf', 'pins':[
+        Part(**{ 'name':'LM5109MA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM5109MA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Half-Bridge Gate Driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm5109.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nLM5109MA\n\nHalf-Bridge Gate Driver', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='HI',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='LI',func=Pin.types.INPUT,unit=1),
@@ -887,14 +906,14 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='HS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='HB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LMG1020YFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LMG1020YFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-6_0.855x1.255mm_Layout2x3_P0.4mm_LevelB'], 'footprint':'Package_BGA:Texas_DSBGA-6_0.855x1.255mm_Layout2x3_P0.4mm_LevelB', 'keywords':'gan hemt gate driver low side fast rise time', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/lmg1020.pdf', 'pins':[
+        Part(**{ 'name':'LMG1020YFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LMG1020YFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-6_0.855x1.255mm_Layout2x3_P0.4mm_LevelB'], 'footprint':'Package_BGA:Texas_DSBGA-6_0.855x1.255mm_Layout2x3_P0.4mm_LevelB', 'keywords':'gan hemt gate driver low side fast rise time', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/lmg1020.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nLMG1020YFF\n\ngan hemt gate driver low side fast rise time', 'pins':[
             Pin(num='A1',name='V_{DD}',func=Pin.types.PWRIN,unit=1),
             Pin(num='A2',name='OUTH',func=Pin.types.OUTPUT,unit=1),
             Pin(num='B1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='B2',name='OUTL',func=Pin.types.OUTPUT,unit=1),
             Pin(num='C1',name='IN+',func=Pin.types.INPUT,unit=1),
             Pin(num='C2',name='IN-',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC4440EMS8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC4440EMS8'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8-1EP_3x3mm_P0.65mm_EP1.68x1.88mm'], 'footprint':'Package_SO:MSOP-8-1EP_3x3mm_P0.65mm_EP1.68x1.88mm', 'keywords':'high-side mosfet-driver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/4440fb.pdf', 'pins':[
+        Part(**{ 'name':'LTC4440EMS8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC4440EMS8'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8-1EP_3x3mm_P0.65mm_EP1.68x1.88mm'], 'footprint':'Package_SO:MSOP-8-1EP_3x3mm_P0.65mm_EP1.68x1.88mm', 'keywords':'high-side mosfet-driver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/4440fb.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nLTC4440EMS8\n\nhigh-side mosfet-driver', 'pins':[
             Pin(num='1',name='INP',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -904,14 +923,14 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TG',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='TS',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='PAD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC4440ES6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC4440ES6'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'high-side mosfet-driver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/4440fb.pdf', 'pins':[
+        Part(**{ 'name':'LTC4440ES6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC4440ES6'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'high-side mosfet-driver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/4440fb.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nLTC4440ES6\n\nhigh-side mosfet-driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='INP',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='TS',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='TG',func=Pin.types.OUTPUT,unit=1),
             Pin(num='6',name='BOOST',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX15012AxSA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX15012AxSA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Half Bridge Gate Driver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX15012-MAX15013B.pdf', 'pins':[
+        Part(**{ 'name':'MAX15012AxSA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX15012AxSA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Half Bridge Gate Driver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX15012-MAX15013B.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nMAX15012AxSA\n\nHalf Bridge Gate Driver', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='BST',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='DH',func=Pin.types.OUTPUT,unit=1),
@@ -920,7 +939,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='IN_L',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='DL',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX15012BxSA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX15012BxSA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Half Bridge Gate Driver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX15012-MAX15013B.pdf', 'pins':[
+        Part(**{ 'name':'MAX15012BxSA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX15012BxSA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Half Bridge Gate Driver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX15012-MAX15013B.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nMAX15012BxSA\n\nHalf Bridge Gate Driver', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='BST',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='DH',func=Pin.types.OUTPUT,unit=1),
@@ -929,7 +948,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~{IN_L}',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='DL',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX15012CxSA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX15012CxSA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.514x3.2mm'], 'footprint':'Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.514x3.2mm', 'keywords':'Half Bridge Gate Driver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX15012-MAX15013B.pdf', 'pins':[
+        Part(**{ 'name':'MAX15012CxSA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX15012CxSA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.514x3.2mm'], 'footprint':'Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.514x3.2mm', 'keywords':'Half Bridge Gate Driver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX15012-MAX15013B.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nMAX15012CxSA\n\nHalf Bridge Gate Driver', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='BST',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='DH',func=Pin.types.OUTPUT,unit=1),
@@ -939,7 +958,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='DL',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='EP',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX15012DxSA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX15012DxSA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.514x3.2mm'], 'footprint':'Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.514x3.2mm', 'keywords':'Half Bridge Gate Driver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX15012-MAX15013B.pdf', 'pins':[
+        Part(**{ 'name':'MAX15012DxSA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX15012DxSA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.514x3.2mm'], 'footprint':'Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.514x3.2mm', 'keywords':'Half Bridge Gate Driver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX15012-MAX15013B.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nMAX15012DxSA\n\nHalf Bridge Gate Driver', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='BST',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='DH',func=Pin.types.OUTPUT,unit=1),
@@ -949,31 +968,31 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='DL',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='EP',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP1415', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP1415'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'mosfet gate driver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20002092F.pdf', 'pins':[
+        Part(**{ 'name':'MCP1415', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP1415'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'mosfet gate driver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20002092F.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nMCP1415\n\nmosfet gate driver', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='Vdd',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='~{OUT}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP1415R', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP1415R'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'mosfet gate driver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20002092F.pdf', 'pins':[
+        Part(**{ 'name':'MCP1415R', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP1415R'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'mosfet gate driver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20002092F.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nMCP1415R\n\nmosfet gate driver', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='~{OUT}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='5',name='Vdd',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP1416', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP1416'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'mosfet gate driver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20002092F.pdf', 'pins':[
+        Part(**{ 'name':'MCP1416', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP1416'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'mosfet gate driver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20002092F.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nMCP1416\n\nmosfet gate driver', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='Vdd',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='OUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP1416R', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP1416R'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'mosfet gate driver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20002092F.pdf', 'pins':[
+        Part(**{ 'name':'MCP1416R', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP1416R'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'mosfet gate driver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20002092F.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nMCP1416R\n\nmosfet gate driver', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='5',name='Vdd',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP14A0303xMNY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP14A0303xMNY'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:WDFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.4mm'], 'footprint':'Package_DFN_QFN:WDFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.4mm', 'keywords':'Driver, Dual MOSFET', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/MCP14A0303_4_5-Data-Sheet-20006046A.pdf', 'pins':[
+        Part(**{ 'name':'MCP14A0303xMNY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP14A0303xMNY'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:WDFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.4mm'], 'footprint':'Package_DFN_QFN:WDFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.4mm', 'keywords':'Driver, Dual MOSFET', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/MCP14A0303_4_5-Data-Sheet-20006046A.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nMCP14A0303xMNY\n\nDriver, Dual MOSFET', 'pins':[
             Pin(num='1',name='ENA',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='INA',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -983,7 +1002,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{OUTA}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='ENB',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP14A0304xMNY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP14A0304xMNY'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:WDFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.4mm'], 'footprint':'Package_DFN_QFN:WDFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.4mm', 'keywords':'Driver, Dual MOSFET', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/MCP14A0303_4_5-Data-Sheet-20006046A.pdf', 'pins':[
+        Part(**{ 'name':'MCP14A0304xMNY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP14A0304xMNY'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:WDFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.4mm'], 'footprint':'Package_DFN_QFN:WDFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.4mm', 'keywords':'Driver, Dual MOSFET', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/MCP14A0303_4_5-Data-Sheet-20006046A.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nMCP14A0304xMNY\n\nDriver, Dual MOSFET', 'pins':[
             Pin(num='1',name='ENA',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='INA',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -993,7 +1012,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUTA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='ENB',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP14A0305xMNY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP14A0305xMNY'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:WDFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.4mm'], 'footprint':'Package_DFN_QFN:WDFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.4mm', 'keywords':'Driver, Dual MOSFET', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/MCP14A0303_4_5-Data-Sheet-20006046A.pdf', 'pins':[
+        Part(**{ 'name':'MCP14A0305xMNY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP14A0305xMNY'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:WDFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.4mm'], 'footprint':'Package_DFN_QFN:WDFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.4mm', 'keywords':'Driver, Dual MOSFET', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/MCP14A0303_4_5-Data-Sheet-20006046A.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nMCP14A0305xMNY\n\nDriver, Dual MOSFET', 'pins':[
             Pin(num='1',name='ENA',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='INA',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -1003,7 +1022,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{OUTA}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='ENB',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP14A0901xMNY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP14A0901xMNY'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TDFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.4mm'], 'footprint':'Package_DFN_QFN:TDFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.4mm', 'keywords':'Driver, Dual MOSFET', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/MCP14A0901_2-Data-Sheet-20006183A.pdf', 'pins':[
+        Part(**{ 'name':'MCP14A0901xMNY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP14A0901xMNY'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TDFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.4mm'], 'footprint':'Package_DFN_QFN:TDFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.4mm', 'keywords':'Driver, Dual MOSFET', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/MCP14A0901_2-Data-Sheet-20006183A.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nMCP14A0901xMNY\n\nDriver, Dual MOSFET', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='EN',func=Pin.types.INPUT,unit=1),
@@ -1013,7 +1032,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{OUT}',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP14A0902xMNY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP14A0902xMNY'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TDFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.4mm'], 'footprint':'Package_DFN_QFN:TDFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.4mm', 'keywords':'Driver, Dual MOSFET', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/MCP14A0901_2-Data-Sheet-20006183A.pdf', 'pins':[
+        Part(**{ 'name':'MCP14A0902xMNY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP14A0902xMNY'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TDFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.4mm'], 'footprint':'Package_DFN_QFN:TDFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.4mm', 'keywords':'Driver, Dual MOSFET', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/MCP14A0901_2-Data-Sheet-20006183A.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nMCP14A0902xMNY\n\nDriver, Dual MOSFET', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='EN',func=Pin.types.INPUT,unit=1),
@@ -1023,7 +1042,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MIC4426', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MIC4426'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Driver, Dual MOSFET', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/el72/el7202-12-22.pdf', 'pins':[
+        Part(**{ 'name':'MIC4426', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MIC4426'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Driver, Dual MOSFET', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/el72/el7202-12-22.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nMIC4426\n\nDriver, Dual MOSFET', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='IN_A',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -1032,7 +1051,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='~{OUT_A}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MIC4427', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MIC4427'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Driver, Dual MOSFET', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/mic4426.pdf', 'pins':[
+        Part(**{ 'name':'MIC4427', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MIC4427'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Driver, Dual MOSFET', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/mic4426.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nMIC4427\n\nDriver, Dual MOSFET', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='IN_A',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -1041,7 +1060,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='OUT_A',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MIC4428', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MIC4428'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Driver, Dual MOSFET', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/mic4426.pdf', 'pins':[
+        Part(**{ 'name':'MIC4428', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MIC4428'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Driver, Dual MOSFET', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/mic4426.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nMIC4428\n\nDriver, Dual MOSFET', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='IN_A',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -1050,7 +1069,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='~{OUT_A}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MIC4604YM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MIC4604YM'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Half-Bridge Gate Driver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005852A.pdf', 'pins':[
+        Part(**{ 'name':'MIC4604YM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MIC4604YM'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Half-Bridge Gate Driver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005852A.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nMIC4604YM\n\nHalf-Bridge Gate Driver', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='HB',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='HO',func=Pin.types.OUTPUT,unit=1),
@@ -1059,7 +1078,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='LI',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='LO',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCD5702', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCD5702'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'igbt gate driver', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/NCD5702-D.PDF', 'pins':[
+        Part(**{ 'name':'NCD5702', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCD5702'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'igbt gate driver', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/NCD5702-D.PDF', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nNCD5702\n\nigbt gate driver', 'pins':[
             Pin(num='1',name='EN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='VOH',func=Pin.types.OPENEMIT,unit=1),
@@ -1076,12 +1095,12 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RSVD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='DESAT',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCV8402xST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCV8402xST'}), 'ref_prefix':'Q', 'fplist':['Package_TO_SOT_SMD:SOT-223'], 'footprint':'Package_TO_SOT_SMD:SOT-223', 'keywords':'MOSFET ESD Overcurrent', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/NCV8402-D.PDF', 'pins':[
+        Part(**{ 'name':'NCV8402xST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCV8402xST'}), 'ref_prefix':'Q', 'fplist':['Package_TO_SOT_SMD:SOT-223'], 'footprint':'Package_TO_SOT_SMD:SOT-223', 'keywords':'MOSFET ESD Overcurrent', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/NCV8402-D.PDF', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nNCV8402xST\n\nMOSFET ESD Overcurrent', 'pins':[
             Pin(num='1',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='D',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='S',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='D',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PE29101', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PE29101'}), 'ref_prefix':'U', 'fplist':['Package_CSP:pSemi_CSP-16_1.64x2.04mm_P0.4mm'], 'footprint':'Package_CSP:pSemi_CSP-16_1.64x2.04mm_P0.4mm', 'keywords':'GaN Gate Driver', 'description':'', 'datasheet':'http://www.psemi.com/pdf/datasheets/pe29101ds.pdf', 'pins':[
+        Part(**{ 'name':'PE29101', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PE29101'}), 'ref_prefix':'U', 'fplist':['Package_CSP:pSemi_CSP-16_1.64x2.04mm_P0.4mm'], 'footprint':'Package_CSP:pSemi_CSP-16_1.64x2.04mm_P0.4mm', 'keywords':'GaN Gate Driver', 'description':'', 'datasheet':'http://www.psemi.com/pdf/datasheets/pe29101ds.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nPE29101\n\nGaN Gate Driver', 'pins':[
             Pin(num='1',name='HSGpd',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='LSO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -1098,7 +1117,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{EN}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='LSGpu',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PE29102', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PE29102'}), 'ref_prefix':'U', 'fplist':['Package_CSP:pSemi_CSP-16_1.64x2.04mm_P0.4mm'], 'footprint':'Package_CSP:pSemi_CSP-16_1.64x2.04mm_P0.4mm', 'keywords':'GaN Gate Driver', 'description':'', 'datasheet':'http://www.psemi.com/pdf/datasheets/pe29102ds.pdf', 'pins':[
+        Part(**{ 'name':'PE29102', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PE29102'}), 'ref_prefix':'U', 'fplist':['Package_CSP:pSemi_CSP-16_1.64x2.04mm_P0.4mm'], 'footprint':'Package_CSP:pSemi_CSP-16_1.64x2.04mm_P0.4mm', 'keywords':'GaN Gate Driver', 'description':'', 'datasheet':'http://www.psemi.com/pdf/datasheets/pe29102ds.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nPE29102\n\nGaN Gate Driver', 'pins':[
             Pin(num='1',name='HSGpd',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='PHCTL',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -1115,7 +1134,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{EN}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='LSGpu',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PM8834', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PM8834'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'mosfet driver', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/pm8834.pdf', 'pins':[
+        Part(**{ 'name':'PM8834', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PM8834'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'mosfet driver', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/pm8834.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nPM8834\n\nmosfet driver', 'pins':[
             Pin(num='1',name='EN1',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='PWM1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -1124,7 +1143,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='OUT1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='EN2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PM8834M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PM8834M'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8-1EP_3x3mm_P0.65mm_EP1.95x2.15mm'], 'footprint':'Package_SO:MSOP-8-1EP_3x3mm_P0.65mm_EP1.95x2.15mm', 'keywords':'mosfet driver', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/pm8834.pdf', 'pins':[
+        Part(**{ 'name':'PM8834M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PM8834M'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8-1EP_3x3mm_P0.65mm_EP1.95x2.15mm'], 'footprint':'Package_SO:MSOP-8-1EP_3x3mm_P0.65mm_EP1.95x2.15mm', 'keywords':'mosfet driver', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/pm8834.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nPM8834M\n\nmosfet driver', 'pins':[
             Pin(num='1',name='EN1',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='PWM1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -1134,7 +1153,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUT1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SM72295MA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SM72295MA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'Full Bridge Gate Driver', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sm72295', 'pins':[
+        Part(**{ 'name':'SM72295MA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SM72295MA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'Full Bridge Gate Driver', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sm72295', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nSM72295MA\n\nFull Bridge Gate Driver', 'pins':[
             Pin(num='1',name='SIA',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PGOOD',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='BOUT',func=Pin.types.OUTPUT,unit=1),
@@ -1163,7 +1182,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='HIA',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='HIB',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='LIB',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STGAP1AS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STGAP1AS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm'], 'footprint':'Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm', 'keywords':'isolated fet driver', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stgap1as.pdf', 'pins':[
+        Part(**{ 'name':'STGAP1AS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STGAP1AS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm'], 'footprint':'Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm', 'keywords':'isolated fet driver', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stgap1as.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nSTGAP1AS\n\nisolated fet driver', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DIAG1',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='~{SD}',func=Pin.types.INPUT,unit=1),
@@ -1188,7 +1207,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='IN-/DIAG2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='IN+',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STGAP2SCM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STGAP2SCM'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'isolated fet driver', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stgap2s.pdf', 'pins':[
+        Part(**{ 'name':'STGAP2SCM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STGAP2SCM'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'isolated fet driver', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stgap2s.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nSTGAP2SCM\n\nisolated fet driver', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN+',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='IN-',func=Pin.types.INPUT,unit=1),
@@ -1197,7 +1216,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='CLAMP',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GNDISO',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STGAP2SM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STGAP2SM'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'isolated fet driver', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stgap2s.pdf', 'pins':[
+        Part(**{ 'name':'STGAP2SM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STGAP2SM'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'isolated fet driver', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stgap2s.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nSTGAP2SM\n\nisolated fet driver', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN+',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='IN-',func=Pin.types.INPUT,unit=1),
@@ -1206,7 +1225,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GON',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='GOFF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GNDISO',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TC4421', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TC4421'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'MOSFET IGBT driver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001420F.pdf', 'pins':[
+        Part(**{ 'name':'TC4421', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TC4421'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'MOSFET IGBT driver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001420F.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nTC4421\n\nMOSFET IGBT driver', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='INPUT',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -1215,7 +1234,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~{OUTPUT}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='~{OUTPUT}',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TC4422', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TC4422'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'MOSFET IGBT driver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001420F.pdf', 'pins':[
+        Part(**{ 'name':'TC4422', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TC4422'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'MOSFET IGBT driver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001420F.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nTC4422\n\nMOSFET IGBT driver', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='INPUT',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -1224,7 +1243,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='OUTPUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='OUTPUT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLP250', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP250'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'MOSFET Driver IGBT Driver Optocoupler', 'description':'', 'datasheet':'http://toshiba.semicon-storage.com/info/docget.jsp?did=16821&prodName=TLP250', 'pins':[
+        Part(**{ 'name':'TLP250', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP250'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'MOSFET Driver IGBT Driver Optocoupler', 'description':'', 'datasheet':'http://toshiba.semicon-storage.com/info/docget.jsp?did=16821&prodName=TLP250', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nTLP250\n\nMOSFET Driver IGBT Driver Optocoupler', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C',func=Pin.types.PASSIVE,unit=1),
@@ -1233,7 +1252,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UCC21520DW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC21520DW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'Dual Isolated Gate Driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc21520.pdf', 'pins':[
+        Part(**{ 'name':'UCC21520DW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC21520DW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'Dual Isolated Gate Driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc21520.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nUCC21520DW\n\nDual Isolated Gate Driver', 'pins':[
             Pin(num='1',name='INA',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OUTB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='VDDB',func=Pin.types.PWRIN,unit=1),
@@ -1250,14 +1269,14 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='VCCI',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='VSSB',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UCC27511ADBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC27511ADBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'single channel low side gate drive dual input split output', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/ucc27511a.pdf', 'pins':[
+        Part(**{ 'name':'UCC27511ADBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC27511ADBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'single channel low side gate drive dual input split output', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/ucc27511a.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nUCC27511ADBV\n\nsingle channel low side gate drive dual input split output', 'pins':[
             Pin(num='1',name='V_{DD}',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='OUTH',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='OUTL',func=Pin.types.OUTPUT,unit=1),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='IN-',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='IN+',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UCC27714D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC27714D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'gate driver bootstrap', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc27714.pdf', 'pins':[
+        Part(**{ 'name':'UCC27714D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC27714D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'gate driver bootstrap', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc27714.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nUCC27714D\n\ngate driver bootstrap', 'pins':[
             Pin(num='1',name='HI',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='HS',func=Pin.types.PASSIVE,unit=1),
@@ -1272,35 +1291,35 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ZXGD3001E6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ZXGD3001E6'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'gate driver', 'description':'', 'datasheet':'http://www.diodes.com/_files/datasheets/ZXGD3001E6.pdf', 'pins':[
+        Part(**{ 'name':'ZXGD3001E6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ZXGD3001E6'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'gate driver', 'description':'', 'datasheet':'http://www.diodes.com/_files/datasheets/ZXGD3001E6.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nZXGD3001E6\n\ngate driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='SINK',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='5',name='IN2',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='SOURCE',func=Pin.types.OPENEMIT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ZXGD3006E6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ZXGD3006E6'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'mosfet igbt driver buffer', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/ZXGD3006E6.pdf', 'pins':[
+        Part(**{ 'name':'ZXGD3006E6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ZXGD3006E6'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'mosfet igbt driver buffer', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/ZXGD3006E6.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nZXGD3006E6\n\nmosfet igbt driver buffer', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='VEE',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='SINK',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='5',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='6',name='SRC',func=Pin.types.OPENEMIT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ZXGD3009E6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ZXGD3009E6'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'gate driver', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/ZXGD3009E6.pdf', 'pins':[
+        Part(**{ 'name':'ZXGD3009E6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ZXGD3009E6'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'gate driver', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/ZXGD3009E6.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nZXGD3009E6\n\ngate driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='VEE',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='SINK',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='5',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='6',name='SOURCE',func=Pin.types.OPENEMIT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'1EDN8550B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'1EDN8550B'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'Driver, Dual MOSFET', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-1EDN7550B-DS-v02_00-EN.pdf?fileId=5546d46262b31d2e01635d9799ef264f', 'pins':[
+        Part(**{ 'name':'1EDN8550B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'1EDN8550B'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'Driver, Dual MOSFET', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-1EDN7550B-DS-v02_00-EN.pdf?fileId=5546d46262b31d2e01635d9799ef264f', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\n1EDN8550B\n\nDriver, Dual MOSFET', 'pins':[
             Pin(num='1',name='IN-',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='IN+',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='OUT_SRC',func=Pin.types.OUTPUT,unit=1),
             Pin(num='6',name='OUT_SNK',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'2ED1323S12P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'2ED1323S12P'}), 'ref_prefix':'U', 'fplist':['Package_SO:Infineon_PG-DSO-20-U03_7.5x12.8mm', 'Package_SO:Infineon_PG-DSO-20-U03_7.5x12.8mm'], 'footprint':'Package_SO:Infineon_PG-DSO-20-U03_7.5x12.8mm', 'keywords':'Gate Driver MOSFET IGBT SiC', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-2ED1323S12P_2ED1324S12P-DataSheet-v01_01-EN.pdf?fileId=8ac78c8c869190210186e92f0f506d0c', 'pins':[
+        Part(**{ 'name':'2ED1323S12P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'2ED1323S12P'}), 'ref_prefix':'U', 'fplist':['Package_SO:Infineon_PG-DSO-20-U03_7.5x12.8mm', 'Package_SO:Infineon_PG-DSO-20-U03_7.5x12.8mm'], 'footprint':'Package_SO:Infineon_PG-DSO-20-U03_7.5x12.8mm', 'keywords':'Gate Driver MOSFET IGBT SiC', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-2ED1323S12P_2ED1324S12P-DataSheet-v01_01-EN.pdf?fileId=8ac78c8c869190210186e92f0f506d0c', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\n2ED1323S12P\n\nGate Driver MOSFET IGBT SiC', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='LC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='LO',func=Pin.types.OUTPUT,unit=1),
@@ -1321,7 +1340,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='ITRIP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='COM',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FAN3278', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FAN3278'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Driver MOSFET', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/FAN3278-D.pdf', 'pins':[
+        Part(**{ 'name':'FAN3278', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FAN3278'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Driver MOSFET', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/FAN3278-D.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nFAN3278\n\nDriver MOSFET', 'pins':[
             Pin(num='1',name='ENA',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='INA',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -1330,7 +1349,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='OUTA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='ENB',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FAN7388', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FAN7388'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'3 Phase Gate Driver', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/FAN7388-D.pdf', 'pins':[
+        Part(**{ 'name':'FAN7388', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FAN7388'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'3 Phase Gate Driver', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/FAN7388-D.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nFAN7388\n\n3 Phase Gate Driver', 'pins':[
             Pin(num='1',name='HIN1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VB3',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -1351,7 +1370,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='LO3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VS3',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='HO3',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FL5160MX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FL5160MX'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-10_3.9x4.9mm_P1.00mm', 'Package_SO:SSOP-10_3.9x4.9mm_P1.00mm'], 'footprint':'Package_SO:SSOP-10_3.9x4.9mm_P1.00mm', 'keywords':'dimmer', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/FL5150-D.pdf', 'pins':[
+        Part(**{ 'name':'FL5160MX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FL5160MX'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-10_3.9x4.9mm_P1.00mm', 'Package_SO:SSOP-10_3.9x4.9mm_P1.00mm'], 'footprint':'Package_SO:SSOP-10_3.9x4.9mm_P1.00mm', 'keywords':'dimmer', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/FL5150-D.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nFL5160MX\n\ndimmer', 'pins':[
             Pin(num='1',name='ZC_Monitor',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OC_Sense1',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='DIM_Control',func=Pin.types.INPUT,unit=1),
@@ -1362,7 +1381,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Low_Power',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='OC_Sense2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DRV_Gate',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HIP2101_DFN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HIP2101_DFN'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-12-1EP_4x4mm_P0.5mm_EP2.66x3.38mm', 'Package_DFN_QFN:DFN-12-1EP_4x4mm_P0.5mm_EP2.66x3.38mm'], 'footprint':'Package_DFN_QFN:DFN-12-1EP_4x4mm_P0.5mm_EP2.66x3.38mm', 'keywords':'Half Bridge Gate Driver', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/hip2/hip2101.pdf', 'pins':[
+        Part(**{ 'name':'HIP2101_DFN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HIP2101_DFN'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-12-1EP_4x4mm_P0.5mm_EP2.66x3.38mm', 'Package_DFN_QFN:DFN-12-1EP_4x4mm_P0.5mm_EP2.66x3.38mm'], 'footprint':'Package_DFN_QFN:DFN-12-1EP_4x4mm_P0.5mm_EP2.66x3.38mm', 'keywords':'Half Bridge Gate Driver', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/hip2/hip2101.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nHIP2101_DFN\n\nHalf Bridge Gate Driver', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='VSS',func=Pin.types.PWRIN,unit=1),
@@ -1376,7 +1395,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='HI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='LI',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HIP2101_EPSOIC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HIP2101_EPSOIC'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.514x3.2mm', 'Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.514x3.2mm'], 'footprint':'Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.514x3.2mm', 'keywords':'Half Bridge Gate Driver', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/hip2/hip2101.pdf', 'pins':[
+        Part(**{ 'name':'HIP2101_EPSOIC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HIP2101_EPSOIC'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.514x3.2mm', 'Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.514x3.2mm'], 'footprint':'Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.514x3.2mm', 'keywords':'Half Bridge Gate Driver', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/hip2/hip2101.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nHIP2101_EPSOIC\n\nHalf Bridge Gate Driver', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='HB',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='HO',func=Pin.types.OUTPUT,unit=1),
@@ -1386,7 +1405,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='LO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='EP',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HIP2101_QFN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HIP2101_QFN'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_5x5mm_P0.8mm_EP2.7x2.7mm', 'Package_DFN_QFN:QFN-16-1EP_5x5mm_P0.8mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_5x5mm_P0.8mm_EP2.7x2.7mm', 'keywords':'Half Bridge Gate Driver', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/hip2/hip2101.pdf', 'pins':[
+        Part(**{ 'name':'HIP2101_QFN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HIP2101_QFN'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_5x5mm_P0.8mm_EP2.7x2.7mm', 'Package_DFN_QFN:QFN-16-1EP_5x5mm_P0.8mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_5x5mm_P0.8mm_EP2.7x2.7mm', 'keywords':'Half Bridge Gate Driver', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/hip2/hip2101.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nHIP2101_QFN\n\nHalf Bridge Gate Driver', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='LI',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VSS',func=Pin.types.PWRIN,unit=1),
@@ -1404,7 +1423,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='HI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HIP2101_SOIC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HIP2101_SOIC'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Half Bridge Gate Driver', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/hip2/hip2101.pdf', 'pins':[
+        Part(**{ 'name':'HIP2101_SOIC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HIP2101_SOIC'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Half Bridge Gate Driver', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/hip2/hip2101.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nHIP2101_SOIC\n\nHalf Bridge Gate Driver', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='HB',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='HO',func=Pin.types.OUTPUT,unit=1),
@@ -1413,7 +1432,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='LI',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='LO',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR2106', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2106'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2106.pdf?fileId=5546d462533600a4015355c7cfc51673', 'pins':[
+        Part(**{ 'name':'IR2106', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2106'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2106.pdf?fileId=5546d462533600a4015355c7cfc51673', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR2106\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='LIN',func=Pin.types.INPUT,unit=1),
@@ -1422,7 +1441,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR2108', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2108'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2108.pdf?fileId=5546d462533600a4015355c7dc321676', 'pins':[
+        Part(**{ 'name':'IR2108', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2108'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2108.pdf?fileId=5546d462533600a4015355c7dc321676', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR2108\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~{LIN}',func=Pin.types.INPUT,unit=1),
@@ -1431,7 +1450,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR2109', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2109'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2109.pdf?fileId=5546d462533600a4015355c7e85b1679', 'pins':[
+        Part(**{ 'name':'IR2109', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2109'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2109.pdf?fileId=5546d462533600a4015355c7e85b1679', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR2109\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~{SD}',func=Pin.types.INPUT,unit=1),
@@ -1440,7 +1459,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR2110', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2110'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2110.pdf?fileId=5546d462533600a4015355c80333167e', 'pins':[
+        Part(**{ 'name':'IR2110', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2110'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2110.pdf?fileId=5546d462533600a4015355c80333167e', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR2110\n\nGate Driver', 'pins':[
             Pin(num='1',name='LO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SD',func=Pin.types.INPUT,unit=1),
@@ -1455,7 +1474,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR2110S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2110S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2110.pdf?fileId=5546d462533600a4015355c80333167e', 'pins':[
+        Part(**{ 'name':'IR2110S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2110S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2110.pdf?fileId=5546d462533600a4015355c80333167e', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR2110S\n\nGate Driver', 'pins':[
             Pin(num='1',name='LO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -1472,7 +1491,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VB',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR2112', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2112'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2112.pdf?fileId=5546d462533600a4015355c81cb71685', 'pins':[
+        Part(**{ 'name':'IR2112', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2112'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2112.pdf?fileId=5546d462533600a4015355c81cb71685', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR2112\n\nGate Driver', 'pins':[
             Pin(num='1',name='LO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SD',func=Pin.types.INPUT,unit=1),
@@ -1487,7 +1506,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR2112S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2112S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2112.pdf?fileId=5546d462533600a4015355c81cb71685', 'pins':[
+        Part(**{ 'name':'IR2112S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2112S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2112.pdf?fileId=5546d462533600a4015355c81cb71685', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR2112S\n\nGate Driver', 'pins':[
             Pin(num='1',name='LO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -1504,7 +1523,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VB',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR2113', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2113'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2110.pdf?fileId=5546d462533600a4015355c80333167e', 'pins':[
+        Part(**{ 'name':'IR2113', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2113'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2110.pdf?fileId=5546d462533600a4015355c80333167e', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR2113\n\nGate Driver', 'pins':[
             Pin(num='1',name='LO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SD',func=Pin.types.INPUT,unit=1),
@@ -1519,7 +1538,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR2113S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2113S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2110.pdf?fileId=5546d462533600a4015355c80333167e', 'pins':[
+        Part(**{ 'name':'IR2113S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2113S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2110.pdf?fileId=5546d462533600a4015355c80333167e', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR2113S\n\nGate Driver', 'pins':[
             Pin(num='1',name='LO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -1536,7 +1555,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VB',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR2135', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2135'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm', 'Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'3 Phase Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-IR2x33-IR2x35-DataSheet-v01_00-EN.pdf?fileId=5546d462533600a4015355c890ba169f', 'pins':[
+        Part(**{ 'name':'IR2135', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2135'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm', 'Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'3 Phase Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-IR2x33-IR2x35-DataSheet-v01_00-EN.pdf?fileId=5546d462533600a4015355c890ba169f', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR2135\n\n3 Phase Gate Driver', 'pins':[
             Pin(num='1',name='ITRIP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='LO2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='LO1',func=Pin.types.OUTPUT,unit=1),
@@ -1565,7 +1584,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='COM',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='LO3',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR2135S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2135S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'3 Phase Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-IR2x33-IR2x35-DataSheet-v01_00-EN.pdf?fileId=5546d462533600a4015355c890ba169f', 'pins':[
+        Part(**{ 'name':'IR2135S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2135S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'3 Phase Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-IR2x33-IR2x35-DataSheet-v01_00-EN.pdf?fileId=5546d462533600a4015355c890ba169f', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR2135S\n\n3 Phase Gate Driver', 'pins':[
             Pin(num='1',name='ITRIP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='LO2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='LO1',func=Pin.types.OUTPUT,unit=1),
@@ -1594,7 +1613,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='COM',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='LO3',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR21531', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR21531'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Oscillating Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir21531.pdf?fileId=5546d462533600a4015355c8d26316b3', 'pins':[
+        Part(**{ 'name':'IR21531', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR21531'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Oscillating Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir21531.pdf?fileId=5546d462533600a4015355c8d26316b3', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR21531\n\nOscillating Gate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='CT',func=Pin.types.PASSIVE,unit=1),
@@ -1603,7 +1622,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR2155', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2155'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'Oscillating Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2155.pdf?fileId=5546d462533600a4015355c8dec316b6', 'pins':[
+        Part(**{ 'name':'IR2155', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2155'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'Oscillating Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2155.pdf?fileId=5546d462533600a4015355c8dec316b6', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR2155\n\nOscillating Gate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='CT',func=Pin.types.PASSIVE,unit=1),
@@ -1612,7 +1631,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR2213', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2213'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-IR2213-DS-v00_02-EN.pdf?fileId=5546d462533600a4015355c9621716d8', 'pins':[
+        Part(**{ 'name':'IR2213', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2213'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-IR2213-DS-v00_02-EN.pdf?fileId=5546d462533600a4015355c9621716d8', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR2213\n\nGate Driver', 'pins':[
             Pin(num='1',name='LO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SD',func=Pin.types.INPUT,unit=1),
@@ -1627,7 +1646,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR2213S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2213S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-IR2213-DS-v00_02-EN.pdf?fileId=5546d462533600a4015355c9621716d8', 'pins':[
+        Part(**{ 'name':'IR2213S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2213S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-IR2213-DS-v00_02-EN.pdf?fileId=5546d462533600a4015355c9621716d8', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR2213S\n\nGate Driver', 'pins':[
             Pin(num='1',name='LO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -1644,7 +1663,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VB',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR2214S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2214S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2114ss.pdf?fileId=5546d462533600a4015355c836cd168a', 'pins':[
+        Part(**{ 'name':'IR2214S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2214S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2114ss.pdf?fileId=5546d462533600a4015355c836cd168a', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR2214S\n\nGate Driver', 'pins':[
             Pin(num='1',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='LOP',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -1669,7 +1688,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SSDL',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='COM',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='LON',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR2233', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2233'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm', 'Package_DIP:DIP-28_W15.24mm', 'Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'3 Phase Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-IR2x33-IR2x35-DataSheet-v01_00-EN.pdf?fileId=5546d462533600a4015355c890ba169f', 'pins':[
+        Part(**{ 'name':'IR2233', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2233'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm', 'Package_DIP:DIP-28_W15.24mm', 'Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'3 Phase Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-IR2x33-IR2x35-DataSheet-v01_00-EN.pdf?fileId=5546d462533600a4015355c890ba169f', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR2233\n\n3 Phase Gate Driver', 'pins':[
             Pin(num='1',name='ITRIP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='LO2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='LO1',func=Pin.types.OUTPUT,unit=1),
@@ -1698,7 +1717,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='COM',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='LO3',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR2233S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2233S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'3 Phase Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-IR2x33-IR2x35-DataSheet-v01_00-EN.pdf?fileId=5546d462533600a4015355c890ba169f', 'pins':[
+        Part(**{ 'name':'IR2233S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2233S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'3 Phase Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-IR2x33-IR2x35-DataSheet-v01_00-EN.pdf?fileId=5546d462533600a4015355c890ba169f', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR2233S\n\n3 Phase Gate Driver', 'pins':[
             Pin(num='1',name='ITRIP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='LO2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='LO1',func=Pin.types.OUTPUT,unit=1),
@@ -1727,7 +1746,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='COM',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='LO3',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR2235', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2235'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm', 'Package_DIP:DIP-28_W15.24mm', 'Package_DIP:DIP-28_W15.24mm', 'Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'3 Phase Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-IR2x33-IR2x35-DataSheet-v01_00-EN.pdf?fileId=5546d462533600a4015355c890ba169f', 'pins':[
+        Part(**{ 'name':'IR2235', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2235'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm', 'Package_DIP:DIP-28_W15.24mm', 'Package_DIP:DIP-28_W15.24mm', 'Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'3 Phase Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-IR2x33-IR2x35-DataSheet-v01_00-EN.pdf?fileId=5546d462533600a4015355c890ba169f', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR2235\n\n3 Phase Gate Driver', 'pins':[
             Pin(num='1',name='ITRIP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='LO2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='LO1',func=Pin.types.OUTPUT,unit=1),
@@ -1756,7 +1775,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='COM',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='LO3',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR2235S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2235S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'3 Phase Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-IR2x33-IR2x35-DataSheet-v01_00-EN.pdf?fileId=5546d462533600a4015355c890ba169f', 'pins':[
+        Part(**{ 'name':'IR2235S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2235S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'3 Phase Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-IR2x33-IR2x35-DataSheet-v01_00-EN.pdf?fileId=5546d462533600a4015355c890ba169f', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR2235S\n\n3 Phase Gate Driver', 'pins':[
             Pin(num='1',name='ITRIP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='LO2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='LO1',func=Pin.types.OUTPUT,unit=1),
@@ -1785,7 +1804,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='COM',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='LO3',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR2301', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2301'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2301.pdf?fileId=5546d462533600a4015355c97bb216dc', 'pins':[
+        Part(**{ 'name':'IR2301', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2301'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2301.pdf?fileId=5546d462533600a4015355c97bb216dc', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR2301\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='LIN',func=Pin.types.INPUT,unit=1),
@@ -1794,7 +1813,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR2302', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2302'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2302.pdf?fileId=5546d462533600a4015355c988b216de', 'pins':[
+        Part(**{ 'name':'IR2302', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2302'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2302.pdf?fileId=5546d462533600a4015355c988b216de', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR2302\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~{SD}',func=Pin.types.INPUT,unit=1),
@@ -1803,7 +1822,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR2308', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2308'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2308.pdf?fileId=5546d462533600a4015355c9a2b816e2', 'pins':[
+        Part(**{ 'name':'IR2308', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR2308'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2308.pdf?fileId=5546d462533600a4015355c9a2b816e2', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR2308\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='LIN',func=Pin.types.INPUT,unit=1),
@@ -1812,7 +1831,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR25607S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR25607S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir25607.pdf?fileId=5546d462533600a4015355ca0e7916f5', 'pins':[
+        Part(**{ 'name':'IR25607S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR25607S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir25607.pdf?fileId=5546d462533600a4015355ca0e7916f5', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR25607S\n\nGate Driver', 'pins':[
             Pin(num='1',name='LO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -1829,7 +1848,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VB',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR7106S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR7106S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir7106s.pdf?fileId=5546d462533600a4015355d61a06182a', 'pins':[
+        Part(**{ 'name':'IR7106S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR7106S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir7106s.pdf?fileId=5546d462533600a4015355d61a06182a', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIR7106S\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='LIN',func=Pin.types.INPUT,unit=1),
@@ -1838,7 +1857,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS2001', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2001'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2001pbf.pdf?fileId=5546d462533600a401535675a760277e', 'pins':[
+        Part(**{ 'name':'IRS2001', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2001'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2001pbf.pdf?fileId=5546d462533600a401535675a760277e', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS2001\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='LIN',func=Pin.types.INPUT,unit=1),
@@ -1847,7 +1866,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS2003', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2003'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2003pbf.pdf?fileId=5546d462533600a401535675afec2780', 'pins':[
+        Part(**{ 'name':'IRS2003', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2003'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2003pbf.pdf?fileId=5546d462533600a401535675afec2780', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS2003\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~{LIN}',func=Pin.types.INPUT,unit=1),
@@ -1856,7 +1875,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS2004', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2004'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2004pbf.pdf?fileId=5546d462533600a401535675b86b2782', 'pins':[
+        Part(**{ 'name':'IRS2004', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2004'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2004pbf.pdf?fileId=5546d462533600a401535675b86b2782', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS2004\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~{SD}',func=Pin.types.INPUT,unit=1),
@@ -1865,7 +1884,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS2005M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2005M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Infineon_MLPQ-16-14-1EP_4x4mm_P0.5mm', 'Package_DFN_QFN:Infineon_MLPQ-16-14-1EP_4x4mm_P0.5mm'], 'footprint':'Package_DFN_QFN:Infineon_MLPQ-16-14-1EP_4x4mm_P0.5mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-IRS2005S-DS-v02_00-EN.pdf?fileId=5546d462533600a4015364c4246229e1', 'pins':[
+        Part(**{ 'name':'IRS2005M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2005M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Infineon_MLPQ-16-14-1EP_4x4mm_P0.5mm', 'Package_DFN_QFN:Infineon_MLPQ-16-14-1EP_4x4mm_P0.5mm'], 'footprint':'Package_DFN_QFN:Infineon_MLPQ-16-14-1EP_4x4mm_P0.5mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-IRS2005S-DS-v02_00-EN.pdf?fileId=5546d462533600a4015364c4246229e1', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS2005M\n\nGate Driver', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='12',name='HO',func=Pin.types.OUTPUT,unit=1),
@@ -1881,7 +1900,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='LO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS2005S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2005S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-IRS2005S-DS-v02_00-EN.pdf?fileId=5546d462533600a4015364c4246229e1', 'pins':[
+        Part(**{ 'name':'IRS2005S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2005S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-IRS2005S-DS-v02_00-EN.pdf?fileId=5546d462533600a4015364c4246229e1', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS2005S\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='LIN',func=Pin.types.INPUT,unit=1),
@@ -1890,7 +1909,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS2008S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2008S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-IRS2008S-DS-v01_00-EN.pdf?fileId=5546d46259d9a4bf015a3e76b6361c1a', 'pins':[
+        Part(**{ 'name':'IRS2008S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2008S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-IRS2008S-DS-v01_00-EN.pdf?fileId=5546d46259d9a4bf015a3e76b6361c1a', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS2008S\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~{SD}',func=Pin.types.INPUT,unit=1),
@@ -1899,7 +1918,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS2011', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2011'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2011pbf.pdf?fileId=5546d462533600a401535675c19f2784', 'pins':[
+        Part(**{ 'name':'IRS2011', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2011'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2011pbf.pdf?fileId=5546d462533600a401535675c19f2784', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS2011\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VB',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='HO',func=Pin.types.OUTPUT,unit=1),
@@ -1908,7 +1927,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='LIN',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='COM',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='LO',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS2101', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2101'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2101.pdf?fileId=5546d462533600a4015355c7a755166c', 'pins':[
+        Part(**{ 'name':'IRS2101', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2101'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir2101.pdf?fileId=5546d462533600a4015355c7a755166c', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS2101\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='LIN',func=Pin.types.INPUT,unit=1),
@@ -1917,7 +1936,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS2103', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2103'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2103.pdf?fileId=5546d462533600a4015356762b71279f', 'pins':[
+        Part(**{ 'name':'IRS2103', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2103'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2103.pdf?fileId=5546d462533600a4015356762b71279f', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS2103\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~{LIN}',func=Pin.types.INPUT,unit=1),
@@ -1926,7 +1945,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS2104', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2104'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2104.pdf?fileId=5546d462533600a40153567633f727a1', 'pins':[
+        Part(**{ 'name':'IRS2104', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2104'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2104.pdf?fileId=5546d462533600a40153567633f727a1', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS2104\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~{SD}',func=Pin.types.INPUT,unit=1),
@@ -1935,7 +1954,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS2106', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2106'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2106.pdf?fileId=5546d462533600a4015356763aa527a3', 'pins':[
+        Part(**{ 'name':'IRS2106', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2106'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2106.pdf?fileId=5546d462533600a4015356763aa527a3', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS2106\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='LIN',func=Pin.types.INPUT,unit=1),
@@ -1944,7 +1963,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS21064', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS21064'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2106.pdf?fileId=5546d462533600a4015356763aa527a3', 'pins':[
+        Part(**{ 'name':'IRS21064', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS21064'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2106.pdf?fileId=5546d462533600a4015356763aa527a3', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS21064\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='VS',func=Pin.types.PASSIVE,unit=1),
@@ -1959,7 +1978,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='LO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS2108', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2108'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2108.pdf?fileId=5546d462533600a40153567649d627a8', 'pins':[
+        Part(**{ 'name':'IRS2108', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2108'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2108.pdf?fileId=5546d462533600a40153567649d627a8', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS2108\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~{LIN}',func=Pin.types.INPUT,unit=1),
@@ -1968,7 +1987,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS21084', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS21084'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2108.pdf?fileId=5546d462533600a40153567649d627a8', 'pins':[
+        Part(**{ 'name':'IRS21084', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS21084'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2108.pdf?fileId=5546d462533600a40153567649d627a8', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS21084\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='VS',func=Pin.types.PASSIVE,unit=1),
@@ -1983,7 +2002,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='LO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS2109', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2109'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2109.pdf?fileId=5546d462533600a401535676508f27ab', 'pins':[
+        Part(**{ 'name':'IRS2109', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2109'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2109.pdf?fileId=5546d462533600a401535676508f27ab', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS2109\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~{SD}',func=Pin.types.INPUT,unit=1),
@@ -1992,7 +2011,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS21091', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS21091'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs21091.pdf?fileId=5546d462533600a401535676573d27ae', 'pins':[
+        Part(**{ 'name':'IRS21091', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS21091'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs21091.pdf?fileId=5546d462533600a401535676573d27ae', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS21091\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DT/SD',func=Pin.types.INPUT,unit=1),
@@ -2001,7 +2020,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS21094', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS21094'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2109.pdf?fileId=5546d462533600a401535676508f27ab', 'pins':[
+        Part(**{ 'name':'IRS21094', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS21094'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2109.pdf?fileId=5546d462533600a401535676508f27ab', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS21094\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='VS',func=Pin.types.PASSIVE,unit=1),
@@ -2016,7 +2035,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='LO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS2110', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2110'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2110.pdf?fileId=5546d462533600a40153567660ff27b0', 'pins':[
+        Part(**{ 'name':'IRS2110', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2110'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2110.pdf?fileId=5546d462533600a40153567660ff27b0', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS2110\n\nGate Driver', 'pins':[
             Pin(num='1',name='LO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SD',func=Pin.types.INPUT,unit=1),
@@ -2031,7 +2050,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS2110S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2110S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2110.pdf?fileId=5546d462533600a40153567660ff27b0', 'pins':[
+        Part(**{ 'name':'IRS2110S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2110S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2110.pdf?fileId=5546d462533600a40153567660ff27b0', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS2110S\n\nGate Driver', 'pins':[
             Pin(num='1',name='LO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -2048,7 +2067,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VB',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS2111', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2111'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2111pbf.pdf?fileId=5546d462533600a401535676679b27b3', 'pins':[
+        Part(**{ 'name':'IRS2111', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2111'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2111pbf.pdf?fileId=5546d462533600a401535676679b27b3', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS2111\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='COM',func=Pin.types.PWRIN,unit=1),
@@ -2057,7 +2076,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS2112', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2112'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2112pbf.pdf?fileId=5546d462533600a401535676702827b5', 'pins':[
+        Part(**{ 'name':'IRS2112', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2112'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2112pbf.pdf?fileId=5546d462533600a401535676702827b5', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS2112\n\nGate Driver', 'pins':[
             Pin(num='1',name='LO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SD',func=Pin.types.INPUT,unit=1),
@@ -2072,7 +2091,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS2112S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2112S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2112pbf.pdf?fileId=5546d462533600a401535676702827b5', 'pins':[
+        Part(**{ 'name':'IRS2112S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2112S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2112pbf.pdf?fileId=5546d462533600a401535676702827b5', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS2112S\n\nGate Driver', 'pins':[
             Pin(num='1',name='LO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -2089,7 +2108,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VB',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS2113', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2113'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2110.pdf?fileId=5546d462533600a40153567660ff27b0', 'pins':[
+        Part(**{ 'name':'IRS2113', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2113'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2110.pdf?fileId=5546d462533600a40153567660ff27b0', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS2113\n\nGate Driver', 'pins':[
             Pin(num='1',name='LO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SD',func=Pin.types.INPUT,unit=1),
@@ -2104,7 +2123,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS2113S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2113S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2110.pdf?fileId=5546d462533600a40153567660ff27b0', 'pins':[
+        Part(**{ 'name':'IRS2113S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2113S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2110.pdf?fileId=5546d462533600a40153567660ff27b0', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS2113S\n\nGate Driver', 'pins':[
             Pin(num='1',name='LO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -2121,7 +2140,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VB',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS21531D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS21531D'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'Oscillating Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2153d.pdf?fileId=5546d462533600a401535676951e27c3', 'pins':[
+        Part(**{ 'name':'IRS21531D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS21531D'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'Oscillating Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2153d.pdf?fileId=5546d462533600a401535676951e27c3', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS21531D\n\nOscillating Gate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='CT',func=Pin.types.PASSIVE,unit=1),
@@ -2130,7 +2149,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS2153D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2153D'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'Oscillating Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2153d.pdf?fileId=5546d462533600a401535676951e27c3', 'pins':[
+        Part(**{ 'name':'IRS2153D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2153D'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'Oscillating Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2153d.pdf?fileId=5546d462533600a401535676951e27c3', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS2153D\n\nOscillating Gate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='CT',func=Pin.types.PASSIVE,unit=1),
@@ -2139,7 +2158,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS2181', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2181'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2181.pdf?fileId=5546d462533600a401535676c12b27d3', 'pins':[
+        Part(**{ 'name':'IRS2181', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2181'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2181.pdf?fileId=5546d462533600a401535676c12b27d3', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS2181\n\nGate Driver', 'pins':[
             Pin(num='1',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='LIN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='COM',func=Pin.types.PWRIN,unit=1),
@@ -2148,7 +2167,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS21814', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS21814'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2181.pdf?fileId=5546d462533600a401535676c12b27d3', 'pins':[
+        Part(**{ 'name':'IRS21814', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS21814'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2181.pdf?fileId=5546d462533600a401535676c12b27d3', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS21814\n\nGate Driver', 'pins':[
             Pin(num='1',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='VS',func=Pin.types.PASSIVE,unit=1),
@@ -2163,7 +2182,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS2183', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2183'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2183.pdf?fileId=5546d462533600a401535676d20c27d8', 'pins':[
+        Part(**{ 'name':'IRS2183', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2183'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2183.pdf?fileId=5546d462533600a401535676d20c27d8', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS2183\n\nGate Driver', 'pins':[
             Pin(num='1',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~{LIN}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='COM',func=Pin.types.PWRIN,unit=1),
@@ -2172,7 +2191,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS21834', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS21834'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2183.pdf?fileId=5546d462533600a401535676d20c27d8', 'pins':[
+        Part(**{ 'name':'IRS21834', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS21834'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2183.pdf?fileId=5546d462533600a401535676d20c27d8', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS21834\n\nGate Driver', 'pins':[
             Pin(num='1',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='VS',func=Pin.types.PASSIVE,unit=1),
@@ -2187,7 +2206,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS2184', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2184'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2184.pdf?fileId=5546d462533600a401535676d8da27db', 'pins':[
+        Part(**{ 'name':'IRS2184', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2184'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2184.pdf?fileId=5546d462533600a401535676d8da27db', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS2184\n\nGate Driver', 'pins':[
             Pin(num='1',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~{SD}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='COM',func=Pin.types.PWRIN,unit=1),
@@ -2196,7 +2215,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS21844', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS21844'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2184.pdf?fileId=5546d462533600a401535676d8da27db', 'pins':[
+        Part(**{ 'name':'IRS21844', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS21844'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2184.pdf?fileId=5546d462533600a401535676d8da27db', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS21844\n\nGate Driver', 'pins':[
             Pin(num='1',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='VS',func=Pin.types.PASSIVE,unit=1),
@@ -2211,7 +2230,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS2186', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2186'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'gate driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2186pbf.pdf?fileId=5546d462533600a40153567716c427ed', 'pins':[
+        Part(**{ 'name':'IRS2186', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2186'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'gate driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2186pbf.pdf?fileId=5546d462533600a40153567716c427ed', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS2186\n\ngate driver', 'pins':[
             Pin(num='1',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='LIN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='COM',func=Pin.types.PWRIN,unit=1),
@@ -2220,7 +2239,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS21864', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS21864'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'gate driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2186pbf.pdf?fileId=5546d462533600a40153567716c427ed', 'pins':[
+        Part(**{ 'name':'IRS21864', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS21864'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'gate driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2186pbf.pdf?fileId=5546d462533600a40153567716c427ed', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS21864\n\ngate driver', 'pins':[
             Pin(num='1',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='VS',func=Pin.types.PASSIVE,unit=1),
@@ -2235,7 +2254,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS21867S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS21867S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'http://www.infineon.com/dgdl/irs21867spbf.pdf?fileId=5546d462533600a4015356770e8327eb', 'pins':[
+        Part(**{ 'name':'IRS21867S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS21867S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'http://www.infineon.com/dgdl/irs21867spbf.pdf?fileId=5546d462533600a4015356770e8327eb', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS21867S\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='LIN',func=Pin.types.INPUT,unit=1),
@@ -2244,7 +2263,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS2301S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2301S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2301pbf.pdf?fileId=5546d462533600a40153567a7ec527fe', 'pins':[
+        Part(**{ 'name':'IRS2301S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2301S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2301pbf.pdf?fileId=5546d462533600a40153567a7ec527fe', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS2301S\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='LIN',func=Pin.types.INPUT,unit=1),
@@ -2253,7 +2272,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS2302S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2302S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-IRS2302-DS-v02_01-EN.pdf?fileId=5546d462533600a40153567a87382800', 'pins':[
+        Part(**{ 'name':'IRS2302S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2302S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-IRS2302-DS-v02_01-EN.pdf?fileId=5546d462533600a40153567a87382800', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS2302S\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~{SD}',func=Pin.types.INPUT,unit=1),
@@ -2262,7 +2281,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS2304', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2304'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2304spbf.pdf?fileId=5546d462533600a40153567a8fe72802', 'pins':[
+        Part(**{ 'name':'IRS2304', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2304'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2304spbf.pdf?fileId=5546d462533600a40153567a8fe72802', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS2304\n\nGate Driver', 'pins':[
             Pin(num='1',name='LIN',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -2271,7 +2290,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS2308', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2308'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2308.pdf?fileId=5546d462533600a40153567a98ac2804', 'pins':[
+        Part(**{ 'name':'IRS2308', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2308'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2308.pdf?fileId=5546d462533600a40153567a98ac2804', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS2308\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='LIN',func=Pin.types.INPUT,unit=1),
@@ -2280,7 +2299,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS25606S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS25606S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir25606.pdf?fileId=5546d462533600a4015355ca002316f3', 'pins':[
+        Part(**{ 'name':'IRS25606S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS25606S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Gate Driver', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir25606.pdf?fileId=5546d462533600a4015355ca002316f3', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nIRS25606S\n\nGate Driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='HIN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='LIN',func=Pin.types.INPUT,unit=1),
@@ -2289,7 +2308,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ITS711L1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ITS711L1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'driver fet quad', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-ITS711L1-DS-v01_03-en.pdf?fileId=db3a30432239cccd0122e560bae03c62', 'pins':[
+        Part(**{ 'name':'ITS711L1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ITS711L1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'driver fet quad', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-ITS711L1-DS-v01_03-en.pdf?fileId=db3a30432239cccd0122e560bae03c62', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nITS711L1\n\ndriver fet quad', 'pins':[
             Pin(num='1',name='VBB',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VBB',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='VBB',func=Pin.types.PASSIVE,unit=1),
@@ -2310,7 +2329,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IN3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='ST3/4',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='IN4',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ITS716G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ITS716G'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'driver fet quad', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-ITS716G-DS-v01_01-en.pdf?fileId=db3a304412b407950112b428c2cf3e6d', 'pins':[
+        Part(**{ 'name':'ITS716G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ITS716G'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'driver fet quad', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-ITS716G-DS-v01_01-en.pdf?fileId=db3a304412b407950112b428c2cf3e6d', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nITS716G\n\ndriver fet quad', 'pins':[
             Pin(num='1',name='VBB',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VBB',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='VBB',func=Pin.types.PASSIVE,unit=1),
@@ -2331,7 +2350,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IN3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='ST3/4',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='IN4',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LM5109AMA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM5109AMA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Half-Bridge Gate Driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm5109a.pdf', 'pins':[
+        Part(**{ 'name':'LM5109AMA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM5109AMA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Half-Bridge Gate Driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm5109a.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nLM5109AMA\n\nHalf-Bridge Gate Driver', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='HI',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='LI',func=Pin.types.INPUT,unit=1),
@@ -2340,7 +2359,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='HS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='HB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LM5109BMA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM5109BMA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Half-Bridge Gate Driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm5109b.pdf', 'pins':[
+        Part(**{ 'name':'LM5109BMA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM5109BMA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Half-Bridge Gate Driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm5109b.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nLM5109BMA\n\nHalf-Bridge Gate Driver', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='HI',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='LI',func=Pin.types.INPUT,unit=1),
@@ -2349,7 +2368,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='HS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='HB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LM5109BSD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM5109BSD'}), 'ref_prefix':'U', 'fplist':['Package_SON:WSON-8-1EP_4x4mm_P0.8mm_EP2.6x3mm', 'Package_SON:WSON-8-1EP_4x4mm_P0.8mm_EP2.6x3mm'], 'footprint':'Package_SON:WSON-8-1EP_4x4mm_P0.8mm_EP2.6x3mm', 'keywords':'Half-Bridge Gate Driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm5109b.pdf', 'pins':[
+        Part(**{ 'name':'LM5109BSD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM5109BSD'}), 'ref_prefix':'U', 'fplist':['Package_SON:WSON-8-1EP_4x4mm_P0.8mm_EP2.6x3mm', 'Package_SON:WSON-8-1EP_4x4mm_P0.8mm_EP2.6x3mm'], 'footprint':'Package_SON:WSON-8-1EP_4x4mm_P0.8mm_EP2.6x3mm', 'keywords':'Half-Bridge Gate Driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm5109b.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nLM5109BSD\n\nHalf-Bridge Gate Driver', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='HI',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='LI',func=Pin.types.INPUT,unit=1),
@@ -2359,7 +2378,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='HO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='HB',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC4440IMS8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC4440IMS8'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8-1EP_3x3mm_P0.65mm_EP1.68x1.88mm', 'Package_SO:MSOP-8-1EP_3x3mm_P0.65mm_EP1.68x1.88mm'], 'footprint':'Package_SO:MSOP-8-1EP_3x3mm_P0.65mm_EP1.68x1.88mm', 'keywords':'high-side mosfet-driver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/4440fb.pdf', 'pins':[
+        Part(**{ 'name':'LTC4440IMS8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC4440IMS8'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8-1EP_3x3mm_P0.65mm_EP1.68x1.88mm', 'Package_SO:MSOP-8-1EP_3x3mm_P0.65mm_EP1.68x1.88mm'], 'footprint':'Package_SO:MSOP-8-1EP_3x3mm_P0.65mm_EP1.68x1.88mm', 'keywords':'high-side mosfet-driver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/4440fb.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nLTC4440IMS8\n\nhigh-side mosfet-driver', 'pins':[
             Pin(num='1',name='INP',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -2369,14 +2388,14 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TG',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='TS',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='PAD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC4440IS6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC4440IS6'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'high-side mosfet-driver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/4440fb.pdf', 'pins':[
+        Part(**{ 'name':'LTC4440IS6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC4440IS6'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'high-side mosfet-driver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/4440fb.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nLTC4440IS6\n\nhigh-side mosfet-driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='INP',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='TS',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='TG',func=Pin.types.OUTPUT,unit=1),
             Pin(num='6',name='BOOST',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX15013AxSA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX15013AxSA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Half Bridge Gate Driver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX15012-MAX15013B.pdf', 'pins':[
+        Part(**{ 'name':'MAX15013AxSA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX15013AxSA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Half Bridge Gate Driver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX15012-MAX15013B.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nMAX15013AxSA\n\nHalf Bridge Gate Driver', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='BST',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='DH',func=Pin.types.OUTPUT,unit=1),
@@ -2385,7 +2404,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='IN_L',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='DL',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX15013BxSA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX15013BxSA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Half Bridge Gate Driver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX15012-MAX15013B.pdf', 'pins':[
+        Part(**{ 'name':'MAX15013BxSA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX15013BxSA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Half Bridge Gate Driver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX15012-MAX15013B.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nMAX15013BxSA\n\nHalf Bridge Gate Driver', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='BST',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='DH',func=Pin.types.OUTPUT,unit=1),
@@ -2394,7 +2413,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~{IN_L}',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='DL',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX15013CxSA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX15013CxSA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.514x3.2mm', 'Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.514x3.2mm'], 'footprint':'Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.514x3.2mm', 'keywords':'Half Bridge Gate Driver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX15012-MAX15013B.pdf', 'pins':[
+        Part(**{ 'name':'MAX15013CxSA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX15013CxSA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.514x3.2mm', 'Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.514x3.2mm'], 'footprint':'Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.514x3.2mm', 'keywords':'Half Bridge Gate Driver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX15012-MAX15013B.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nMAX15013CxSA\n\nHalf Bridge Gate Driver', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='BST',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='DH',func=Pin.types.OUTPUT,unit=1),
@@ -2404,7 +2423,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='DL',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='EP',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX15013DxSA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX15013DxSA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.514x3.2mm', 'Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.514x3.2mm'], 'footprint':'Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.514x3.2mm', 'keywords':'Half Bridge Gate Driver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX15012-MAX15013B.pdf', 'pins':[
+        Part(**{ 'name':'MAX15013DxSA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX15013DxSA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.514x3.2mm', 'Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.514x3.2mm'], 'footprint':'Package_SO:SOIC-8-1EP_3.9x4.9mm_P1.27mm_EP2.514x3.2mm', 'keywords':'Half Bridge Gate Driver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX15012-MAX15013B.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nMAX15013DxSA\n\nHalf Bridge Gate Driver', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='BST',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='DH',func=Pin.types.OUTPUT,unit=1),
@@ -2414,7 +2433,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='DL',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='EP',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC33152', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC33152'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Driver, Dual MOSFET', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/MC34152-D.PDF', 'pins':[
+        Part(**{ 'name':'MC33152', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC33152'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Driver, Dual MOSFET', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/MC34152-D.PDF', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nMC33152\n\nDriver, Dual MOSFET', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='IN_A',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -2423,7 +2442,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='OUT_A',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC34152', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC34152'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'Driver, Dual MOSFET', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/MC34152-D.PDF', 'pins':[
+        Part(**{ 'name':'MC34152', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC34152'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'Driver, Dual MOSFET', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/MC34152-D.PDF', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nMC34152\n\nDriver, Dual MOSFET', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='IN_A',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -2432,7 +2451,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='OUT_A',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP14A1201xMNY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP14A1201xMNY'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TDFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.4mm', 'Package_DFN_QFN:TDFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.4mm'], 'footprint':'Package_DFN_QFN:TDFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.4mm', 'keywords':'Driver, Dual MOSFET', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/MCP14A1201-Family-Data-Sheet-DS20006228A.pdf', 'pins':[
+        Part(**{ 'name':'MCP14A1201xMNY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP14A1201xMNY'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TDFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.4mm', 'Package_DFN_QFN:TDFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.4mm'], 'footprint':'Package_DFN_QFN:TDFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.4mm', 'keywords':'Driver, Dual MOSFET', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/MCP14A1201-Family-Data-Sheet-DS20006228A.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nMCP14A1201xMNY\n\nDriver, Dual MOSFET', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='EN',func=Pin.types.INPUT,unit=1),
@@ -2442,7 +2461,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{OUT}',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP14A1202xMNY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP14A1202xMNY'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TDFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.4mm', 'Package_DFN_QFN:TDFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.4mm'], 'footprint':'Package_DFN_QFN:TDFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.4mm', 'keywords':'Driver, Dual MOSFET', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/MCP14A1201-Family-Data-Sheet-DS20006228A.pdf', 'pins':[
+        Part(**{ 'name':'MCP14A1202xMNY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP14A1202xMNY'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TDFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.4mm', 'Package_DFN_QFN:TDFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.4mm'], 'footprint':'Package_DFN_QFN:TDFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.4mm', 'keywords':'Driver, Dual MOSFET', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/MCP14A1201-Family-Data-Sheet-DS20006228A.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nMCP14A1202xMNY\n\nDriver, Dual MOSFET', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='EN',func=Pin.types.INPUT,unit=1),
@@ -2452,7 +2471,7 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UCC21520ADW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC21520ADW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'Dual Isolated Gate Driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc21520.pdf', 'pins':[
+        Part(**{ 'name':'UCC21520ADW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC21520ADW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'Dual Isolated Gate Driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc21520.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nUCC21520ADW\n\nDual Isolated Gate Driver', 'pins':[
             Pin(num='1',name='INA',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OUTB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='VDDB',func=Pin.types.PWRIN,unit=1),
@@ -2469,21 +2488,21 @@ Driver_FET = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='VCCI',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='VSSB',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ZXGD3002E6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ZXGD3002E6'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'gate driver', 'description':'', 'datasheet':'http://www.diodes.com/_files/datasheets/ZXGD3002E6.pdf', 'pins':[
+        Part(**{ 'name':'ZXGD3002E6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ZXGD3002E6'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'gate driver', 'description':'', 'datasheet':'http://www.diodes.com/_files/datasheets/ZXGD3002E6.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nZXGD3002E6\n\ngate driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='SINK',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='5',name='IN2',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='SOURCE',func=Pin.types.OPENEMIT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ZXGD3003E6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ZXGD3003E6'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'gate driver', 'description':'', 'datasheet':'http://www.diodes.com/_files/datasheets/ZXGD3003E6.pdf', 'pins':[
+        Part(**{ 'name':'ZXGD3003E6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ZXGD3003E6'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'gate driver', 'description':'', 'datasheet':'http://www.diodes.com/_files/datasheets/ZXGD3003E6.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nZXGD3003E6\n\ngate driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='SINK',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='5',name='IN2',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='SOURCE',func=Pin.types.OPENEMIT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ZXGD3004E6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ZXGD3004E6'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'gate driver', 'description':'', 'datasheet':'http://www.diodes.com/_files/datasheets/ZXGD3004E6.pdf', 'pins':[
+        Part(**{ 'name':'ZXGD3004E6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ZXGD3004E6'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'gate driver', 'description':'', 'datasheet':'http://www.diodes.com/_files/datasheets/ZXGD3004E6.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_FET.kicad_sym\nZXGD3004E6\n\ngate driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),

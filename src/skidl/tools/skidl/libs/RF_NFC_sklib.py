@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 RF_NFC = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'PN5321A3HN_C1xx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PN5321A3HN_C1xx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:HVQFN-40-1EP_6x6mm_P0.5mm_EP4.1x4.1mm'], 'footprint':'Package_DFN_QFN:HVQFN-40-1EP_6x6mm_P0.5mm_EP4.1x4.1mm', 'keywords':'NFC', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/nxp/data-sheets/PN532_C1.pdf', 'pins':[
+        Part(**{ 'name':'PN5321A3HN_C1xx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PN5321A3HN_C1xx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:HVQFN-40-1EP_6x6mm_P0.5mm_EP4.1x4.1mm'], 'footprint':'Package_DFN_QFN:HVQFN-40-1EP_6x6mm_P0.5mm_EP4.1x4.1mm', 'keywords':'NFC', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/nxp/data-sheets/PN532_C1.pdf', 'search_text':'/usr/share/kicad/symbols/RF_NFC.kicad_sym\nPN5321A3HN_C1xx\n\nNFC', 'pins':[
             Pin(num='1',name='DVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RX',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='AVSS',func=Pin.types.PWRIN,unit=1),
@@ -46,7 +46,7 @@ RF_NFC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TVSS2',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='AVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VMID',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ST25DV04K-IER8C3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ST25DV04K-IER8C3'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.36x1.46mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.36x1.46mm', 'keywords':'NFC Tag', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/st25dv04k.pdf', 'pins':[
+        Part(**{ 'name':'ST25DV04K-IER8C3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ST25DV04K-IER8C3'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.36x1.46mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.36x1.46mm', 'keywords':'NFC Tag', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/st25dv04k.pdf', 'search_text':'/usr/share/kicad/symbols/RF_NFC.kicad_sym\nST25DV04K-IER8C3\n\nNFC Tag', 'pins':[
             Pin(num='1',name='V_EH',func=Pin.types.PWROUT,unit=1),
             Pin(num='2',name='AC0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='AC1',func=Pin.types.PASSIVE,unit=1),
@@ -56,7 +56,7 @@ RF_NFC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GPO',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ST25DV16K-JFR6D3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ST25DV16K-JFR6D3'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:ST_UFDFPN-12-1EP_3x3mm_P0.5mm_EP1.4x2.55mm'], 'footprint':'Package_DFN_QFN:ST_UFDFPN-12-1EP_3x3mm_P0.5mm_EP1.4x2.55mm', 'keywords':'NFC Tag', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/st25dv04k.pdf', 'pins':[
+        Part(**{ 'name':'ST25DV16K-JFR6D3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ST25DV16K-JFR6D3'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:ST_UFDFPN-12-1EP_3x3mm_P0.5mm_EP1.4x2.55mm'], 'footprint':'Package_DFN_QFN:ST_UFDFPN-12-1EP_3x3mm_P0.5mm_EP1.4x2.55mm', 'keywords':'NFC Tag', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/st25dv04k.pdf', 'search_text':'/usr/share/kicad/symbols/RF_NFC.kicad_sym\nST25DV16K-JFR6D3\n\nNFC Tag', 'pins':[
             Pin(num='1',name='LPD',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VDCG',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='GPO',func=Pin.types.OUTPUT,unit=1),
@@ -70,7 +70,7 @@ RF_NFC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ST25R3911B-AQW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ST25R3911B-AQW'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-32-1EP_5x5mm_P0.5mm_EP3.5x3.5mm_ThermalVias'], 'footprint':'Package_DFN_QFN:VQFN-32-1EP_5x5mm_P0.5mm_EP3.5x3.5mm_ThermalVias', 'keywords':'NFC', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/st25r3911b.pdf', 'pins':[
+        Part(**{ 'name':'ST25R3911B-AQW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ST25R3911B-AQW'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-32-1EP_5x5mm_P0.5mm_EP3.5x3.5mm_ThermalVias'], 'footprint':'Package_DFN_QFN:VQFN-32-1EP_5x5mm_P0.5mm_EP3.5x3.5mm_ThermalVias', 'keywords':'NFC', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/st25r3911b.pdf', 'search_text':'/usr/share/kicad/symbols/RF_NFC.kicad_sym\nST25R3911B-AQW\n\nNFC', 'pins':[
             Pin(num='1',name='VDD_IO',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RFO1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='RFO2',func=Pin.types.OUTPUT,unit=1),
@@ -104,7 +104,7 @@ RF_NFC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSP_A',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VSP_RF',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ST25DV04K-JFR6D3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ST25DV04K-JFR6D3'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:ST_UFDFPN-12-1EP_3x3mm_P0.5mm_EP1.4x2.55mm', 'Package_DFN_QFN:ST_UFDFPN-12-1EP_3x3mm_P0.5mm_EP1.4x2.55mm'], 'footprint':'Package_DFN_QFN:ST_UFDFPN-12-1EP_3x3mm_P0.5mm_EP1.4x2.55mm', 'keywords':'NFC Tag', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/st25dv04k.pdf', 'pins':[
+        Part(**{ 'name':'ST25DV04K-JFR6D3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ST25DV04K-JFR6D3'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:ST_UFDFPN-12-1EP_3x3mm_P0.5mm_EP1.4x2.55mm', 'Package_DFN_QFN:ST_UFDFPN-12-1EP_3x3mm_P0.5mm_EP1.4x2.55mm'], 'footprint':'Package_DFN_QFN:ST_UFDFPN-12-1EP_3x3mm_P0.5mm_EP1.4x2.55mm', 'keywords':'NFC Tag', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/st25dv04k.pdf', 'search_text':'/usr/share/kicad/symbols/RF_NFC.kicad_sym\nST25DV04K-JFR6D3\n\nNFC Tag', 'pins':[
             Pin(num='1',name='LPD',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VDCG',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='GPO',func=Pin.types.OUTPUT,unit=1),
@@ -118,7 +118,7 @@ RF_NFC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ST25DV16K-IER8C3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ST25DV16K-IER8C3'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.36x1.46mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.36x1.46mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.36x1.46mm', 'keywords':'NFC Tag', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/st25dv04k.pdf', 'pins':[
+        Part(**{ 'name':'ST25DV16K-IER8C3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ST25DV16K-IER8C3'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.36x1.46mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.36x1.46mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.36x1.46mm', 'keywords':'NFC Tag', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/st25dv04k.pdf', 'search_text':'/usr/share/kicad/symbols/RF_NFC.kicad_sym\nST25DV16K-IER8C3\n\nNFC Tag', 'pins':[
             Pin(num='1',name='V_EH',func=Pin.types.PWROUT,unit=1),
             Pin(num='2',name='AC0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='AC1',func=Pin.types.PASSIVE,unit=1),
@@ -128,7 +128,7 @@ RF_NFC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GPO',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ST25DV64K-IER8C3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ST25DV64K-IER8C3'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.36x1.46mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.36x1.46mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.36x1.46mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.36x1.46mm', 'keywords':'NFC Tag', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/st25dv04k.pdf', 'pins':[
+        Part(**{ 'name':'ST25DV64K-IER8C3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ST25DV64K-IER8C3'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.36x1.46mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.36x1.46mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.36x1.46mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.36x1.46mm', 'keywords':'NFC Tag', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/st25dv04k.pdf', 'search_text':'/usr/share/kicad/symbols/RF_NFC.kicad_sym\nST25DV64K-IER8C3\n\nNFC Tag', 'pins':[
             Pin(num='1',name='V_EH',func=Pin.types.PWROUT,unit=1),
             Pin(num='2',name='AC0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='AC1',func=Pin.types.PASSIVE,unit=1),
@@ -138,7 +138,7 @@ RF_NFC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GPO',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ST25DV64K-JFR6D3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ST25DV64K-JFR6D3'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:ST_UFDFPN-12-1EP_3x3mm_P0.5mm_EP1.4x2.55mm', 'Package_DFN_QFN:ST_UFDFPN-12-1EP_3x3mm_P0.5mm_EP1.4x2.55mm', 'Package_DFN_QFN:ST_UFDFPN-12-1EP_3x3mm_P0.5mm_EP1.4x2.55mm'], 'footprint':'Package_DFN_QFN:ST_UFDFPN-12-1EP_3x3mm_P0.5mm_EP1.4x2.55mm', 'keywords':'NFC Tag', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/st25dv04k.pdf', 'pins':[
+        Part(**{ 'name':'ST25DV64K-JFR6D3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ST25DV64K-JFR6D3'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:ST_UFDFPN-12-1EP_3x3mm_P0.5mm_EP1.4x2.55mm', 'Package_DFN_QFN:ST_UFDFPN-12-1EP_3x3mm_P0.5mm_EP1.4x2.55mm', 'Package_DFN_QFN:ST_UFDFPN-12-1EP_3x3mm_P0.5mm_EP1.4x2.55mm'], 'footprint':'Package_DFN_QFN:ST_UFDFPN-12-1EP_3x3mm_P0.5mm_EP1.4x2.55mm', 'keywords':'NFC Tag', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/st25dv04k.pdf', 'search_text':'/usr/share/kicad/symbols/RF_NFC.kicad_sym\nST25DV64K-JFR6D3\n\nNFC Tag', 'pins':[
             Pin(num='1',name='LPD',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VDCG',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='GPO',func=Pin.types.OUTPUT,unit=1),
@@ -152,7 +152,7 @@ RF_NFC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ST25R3911B-AQF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ST25R3911B-AQF'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-32-1EP_5x5mm_P0.5mm_EP3.5x3.5mm_ThermalVias', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.6x3.6mm_ThermalVias'], 'footprint':'Package_DFN_QFN:VQFN-32-1EP_5x5mm_P0.5mm_EP3.5x3.5mm_ThermalVias', 'keywords':'NFC', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/st25r3911b.pdf', 'pins':[
+        Part(**{ 'name':'ST25R3911B-AQF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ST25R3911B-AQF'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-32-1EP_5x5mm_P0.5mm_EP3.5x3.5mm_ThermalVias', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.6x3.6mm_ThermalVias'], 'footprint':'Package_DFN_QFN:VQFN-32-1EP_5x5mm_P0.5mm_EP3.5x3.5mm_ThermalVias', 'keywords':'NFC', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/st25r3911b.pdf', 'search_text':'/usr/share/kicad/symbols/RF_NFC.kicad_sym\nST25R3911B-AQF\n\nNFC', 'pins':[
             Pin(num='1',name='VDD_IO',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RFO1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='RFO2',func=Pin.types.OUTPUT,unit=1),

@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'AVR32DA28x-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR32DA28x-xSO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR32DA28-32-48-Data-Sheet-40002228B.pdf', 'pins':[
+        Part(**{ 'name':'AVR32DA28x-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR32DA28x-xSO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR32DA28-32-48-Data-Sheet-40002228B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR32DA28x-xSO\n\nAVR 8bit Microcontroller AVR-DA', 'pins':[
             Pin(num='1',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PD5',func=Pin.types.BIDIR,unit=1),
@@ -33,7 +33,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PD2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PD3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR32DA32x-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR32DA32x-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR32DA28-32-48-Data-Sheet-40002228B.pdf', 'pins':[
+        Part(**{ 'name':'AVR32DA32x-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR32DA32x-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR32DA28-32-48-Data-Sheet-40002228B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR32DA32x-xPT\n\nAVR 8bit Microcontroller AVR-DA', 'pins':[
             Pin(num='1',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PD0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PD1',func=Pin.types.BIDIR,unit=1),
@@ -66,7 +66,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR32DA32x-xRXB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR32DA32x-xRXB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR32DA28-32-48-Data-Sheet-40002228B.pdf', 'pins':[
+        Part(**{ 'name':'AVR32DA32x-xRXB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR32DA32x-xRXB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR32DA28-32-48-Data-Sheet-40002228B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR32DA32x-xRXB\n\nAVR 8bit Microcontroller AVR-DA', 'pins':[
             Pin(num='1',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PD0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PD1',func=Pin.types.BIDIR,unit=1),
@@ -100,7 +100,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR32DA48x-x6LX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR32DA48x-x6LX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR32DA28-32-48-Data-Sheet-40002228B.pdf', 'pins':[
+        Part(**{ 'name':'AVR32DA48x-x6LX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR32DA48x-x6LX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR32DA28-32-48-Data-Sheet-40002228B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR32DA48x-x6LX\n\nAVR 8bit Microcontroller AVR-DA', 'pins':[
             Pin(num='1',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC1',func=Pin.types.BIDIR,unit=1),
@@ -150,7 +150,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR32DA48x-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR32DA48x-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR32DA28-32-48-Data-Sheet-40002228B.pdf', 'pins':[
+        Part(**{ 'name':'AVR32DA48x-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR32DA48x-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR32DA28-32-48-Data-Sheet-40002228B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR32DA48x-xPT\n\nAVR 8bit Microcontroller AVR-DA', 'pins':[
             Pin(num='1',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC1',func=Pin.types.BIDIR,unit=1),
@@ -199,7 +199,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR32DB28x-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR32DB28x-xSO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR32DB28-32-48-DataSheet-DS40002301A.pdf', 'pins':[
+        Part(**{ 'name':'AVR32DB28x-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR32DB28x-xSO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR32DB28-32-48-DataSheet-DS40002301A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR32DB28x-xSO\n\nAVR 8bit Microcontroller AVR-DB', 'pins':[
             Pin(num='1',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PD5',func=Pin.types.BIDIR,unit=1),
@@ -228,7 +228,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PD2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PD3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR32DB32x-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR32DB32x-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR32DB28-32-48-DataSheet-DS40002301A.pdf', 'pins':[
+        Part(**{ 'name':'AVR32DB32x-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR32DB32x-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR32DB28-32-48-DataSheet-DS40002301A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR32DB32x-xPT\n\nAVR 8bit Microcontroller AVR-DB', 'pins':[
             Pin(num='1',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDDIO2',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='PD1',func=Pin.types.BIDIR,unit=1),
@@ -261,7 +261,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR32DB32x-xRXB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR32DB32x-xRXB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR32DB28-32-48-DataSheet-DS40002301A.pdf', 'pins':[
+        Part(**{ 'name':'AVR32DB32x-xRXB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR32DB32x-xRXB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR32DB28-32-48-DataSheet-DS40002301A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR32DB32x-xRXB\n\nAVR 8bit Microcontroller AVR-DB', 'pins':[
             Pin(num='1',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDDIO2',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='PD1',func=Pin.types.BIDIR,unit=1),
@@ -295,7 +295,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR32DB48x-x6LX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR32DB48x-x6LX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR32DB28-32-48-DataSheet-DS40002301A.pdf', 'pins':[
+        Part(**{ 'name':'AVR32DB48x-x6LX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR32DB48x-x6LX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR32DB28-32-48-DataSheet-DS40002301A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR32DB48x-x6LX\n\nAVR 8bit Microcontroller AVR-DB', 'pins':[
             Pin(num='1',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC1',func=Pin.types.BIDIR,unit=1),
@@ -345,7 +345,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR32DB48x-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR32DB48x-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR32DB28-32-48-DataSheet-DS40002301A.pdf', 'pins':[
+        Part(**{ 'name':'AVR32DB48x-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR32DB48x-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR32DB28-32-48-DataSheet-DS40002301A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR32DB48x-xPT\n\nAVR 8bit Microcontroller AVR-DB', 'pins':[
             Pin(num='1',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC1',func=Pin.types.BIDIR,unit=1),
@@ -394,7 +394,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR64DA64x-xMR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR64DA64x-xMR'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm'], 'footprint':'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR64DA28-32-48-64-Data-Sheet-40002233B.pdf', 'pins':[
+        Part(**{ 'name':'AVR64DA64x-xMR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR64DA64x-xMR'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm'], 'footprint':'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR64DA28-32-48-64-Data-Sheet-40002233B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR64DA64x-xMR\n\nAVR 8bit Microcontroller AVR-DA', 'pins':[
             Pin(num='1',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB3',func=Pin.types.BIDIR,unit=1),
@@ -460,7 +460,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR64DA64x-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR64DA64x-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR64DA28-32-48-64-Data-Sheet-40002233B.pdf', 'pins':[
+        Part(**{ 'name':'AVR64DA64x-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR64DA64x-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR64DA28-32-48-64-Data-Sheet-40002233B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR64DA64x-xPT\n\nAVR 8bit Microcontroller AVR-DA', 'pins':[
             Pin(num='1',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB3',func=Pin.types.BIDIR,unit=1),
@@ -525,7 +525,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR64DB64x-xMR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR64DB64x-xMR'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm'], 'footprint':'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR64DB28-32-48-64-DataSheet-DS40002300A.pdf', 'pins':[
+        Part(**{ 'name':'AVR64DB64x-xMR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR64DB64x-xMR'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm'], 'footprint':'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR64DB28-32-48-64-DataSheet-DS40002300A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR64DB64x-xMR\n\nAVR 8bit Microcontroller AVR-DB', 'pins':[
             Pin(num='1',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB3',func=Pin.types.BIDIR,unit=1),
@@ -591,7 +591,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR64DB64x-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR64DB64x-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR64DB28-32-48-64-DataSheet-DS40002300A.pdf', 'pins':[
+        Part(**{ 'name':'AVR64DB64x-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR64DB64x-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR64DB28-32-48-64-DataSheet-DS40002300A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR64DB64x-xPT\n\nAVR 8bit Microcontroller AVR-DB', 'pins':[
             Pin(num='1',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB3',func=Pin.types.BIDIR,unit=1),
@@ -656,7 +656,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR128DA28x-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR128DA28x-xSO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR128DA28-32-48-64-DataSheet-DS40002183B.pdf', 'pins':[
+        Part(**{ 'name':'AVR128DA28x-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR128DA28x-xSO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR128DA28-32-48-64-DataSheet-DS40002183B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR128DA28x-xSO\n\nAVR 8bit Microcontroller AVR-DA', 'pins':[
             Pin(num='1',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PD5',func=Pin.types.BIDIR,unit=1),
@@ -685,7 +685,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PD2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PD3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR128DA28x-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR128DA28x-xSP'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR128DA28-32-48-64-DataSheet-DS40002183B.pdf', 'pins':[
+        Part(**{ 'name':'AVR128DA28x-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR128DA28x-xSP'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR128DA28-32-48-64-DataSheet-DS40002183B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR128DA28x-xSP\n\nAVR 8bit Microcontroller AVR-DA', 'pins':[
             Pin(num='1',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PD5',func=Pin.types.BIDIR,unit=1),
@@ -714,7 +714,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PD2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PD3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR128DA28x-xSS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR128DA28x-xSS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR128DA28-32-48-64-DataSheet-DS40002183B.pdf', 'pins':[
+        Part(**{ 'name':'AVR128DA28x-xSS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR128DA28x-xSS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR128DA28-32-48-64-DataSheet-DS40002183B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR128DA28x-xSS\n\nAVR 8bit Microcontroller AVR-DA', 'pins':[
             Pin(num='1',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PD5',func=Pin.types.BIDIR,unit=1),
@@ -743,7 +743,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PD2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PD3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR128DA32x-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR128DA32x-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-32_7x7mm_P0.8mm', 'Package_QFP:TQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR128DA28-32-48-64-DataSheet-DS40002183B.pdf', 'pins':[
+        Part(**{ 'name':'AVR128DA32x-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR128DA32x-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-32_7x7mm_P0.8mm', 'Package_QFP:TQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR128DA28-32-48-64-DataSheet-DS40002183B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR128DA32x-xPT\n\nAVR 8bit Microcontroller AVR-DA', 'pins':[
             Pin(num='1',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PD0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PD1',func=Pin.types.BIDIR,unit=1),
@@ -776,7 +776,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR128DA32x-xRXB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR128DA32x-xRXB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR128DA28-32-48-64-DataSheet-DS40002183B.pdf', 'pins':[
+        Part(**{ 'name':'AVR128DA32x-xRXB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR128DA32x-xRXB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR128DA28-32-48-64-DataSheet-DS40002183B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR128DA32x-xRXB\n\nAVR 8bit Microcontroller AVR-DA', 'pins':[
             Pin(num='1',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PD0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PD1',func=Pin.types.BIDIR,unit=1),
@@ -810,7 +810,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR128DA48x-x6LX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR128DA48x-x6LX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm', 'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR128DA28-32-48-64-DataSheet-DS40002183B.pdf', 'pins':[
+        Part(**{ 'name':'AVR128DA48x-x6LX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR128DA48x-x6LX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm', 'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR128DA28-32-48-64-DataSheet-DS40002183B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR128DA48x-x6LX\n\nAVR 8bit Microcontroller AVR-DA', 'pins':[
             Pin(num='1',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC1',func=Pin.types.BIDIR,unit=1),
@@ -860,7 +860,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR128DA48x-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR128DA48x-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR128DA28-32-48-64-DataSheet-DS40002183B.pdf', 'pins':[
+        Part(**{ 'name':'AVR128DA48x-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR128DA48x-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR128DA28-32-48-64-DataSheet-DS40002183B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR128DA48x-xPT\n\nAVR 8bit Microcontroller AVR-DA', 'pins':[
             Pin(num='1',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC1',func=Pin.types.BIDIR,unit=1),
@@ -909,7 +909,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR128DA64x-xMR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR128DA64x-xMR'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm'], 'footprint':'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR128DA28-32-48-64-DataSheet-DS40002183B.pdf', 'pins':[
+        Part(**{ 'name':'AVR128DA64x-xMR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR128DA64x-xMR'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm'], 'footprint':'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR128DA28-32-48-64-DataSheet-DS40002183B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR128DA64x-xMR\n\nAVR 8bit Microcontroller AVR-DA', 'pins':[
             Pin(num='1',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB3',func=Pin.types.BIDIR,unit=1),
@@ -975,7 +975,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR128DA64x-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR128DA64x-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR128DA28-32-48-64-DataSheet-DS40002183B.pdf', 'pins':[
+        Part(**{ 'name':'AVR128DA64x-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR128DA64x-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR128DA28-32-48-64-DataSheet-DS40002183B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR128DA64x-xPT\n\nAVR 8bit Microcontroller AVR-DA', 'pins':[
             Pin(num='1',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB3',func=Pin.types.BIDIR,unit=1),
@@ -1040,7 +1040,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR128DB28x-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR128DB28x-xSO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR128DB28-32-48-64-DataSheet-DS40002247A.pdf', 'pins':[
+        Part(**{ 'name':'AVR128DB28x-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR128DB28x-xSO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR128DB28-32-48-64-DataSheet-DS40002247A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR128DB28x-xSO\n\nAVR 8bit Microcontroller AVR-DB', 'pins':[
             Pin(num='1',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PD5',func=Pin.types.BIDIR,unit=1),
@@ -1069,7 +1069,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PD2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PD3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR128DB28x-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR128DB28x-xSP'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR128DB28-32-48-64-DataSheet-DS40002247A.pdf', 'pins':[
+        Part(**{ 'name':'AVR128DB28x-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR128DB28x-xSP'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR128DB28-32-48-64-DataSheet-DS40002247A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR128DB28x-xSP\n\nAVR 8bit Microcontroller AVR-DB', 'pins':[
             Pin(num='1',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PD5',func=Pin.types.BIDIR,unit=1),
@@ -1098,7 +1098,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PD2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PD3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR128DB28x-xSS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR128DB28x-xSS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR128DB28-32-48-64-DataSheet-DS40002247A.pdf', 'pins':[
+        Part(**{ 'name':'AVR128DB28x-xSS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR128DB28x-xSS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR128DB28-32-48-64-DataSheet-DS40002247A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR128DB28x-xSS\n\nAVR 8bit Microcontroller AVR-DB', 'pins':[
             Pin(num='1',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PD5',func=Pin.types.BIDIR,unit=1),
@@ -1127,7 +1127,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PD2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PD3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR128DB32x-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR128DB32x-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-32_7x7mm_P0.8mm', 'Package_QFP:TQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR128DB28-32-48-64-DataSheet-DS40002247A.pdf', 'pins':[
+        Part(**{ 'name':'AVR128DB32x-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR128DB32x-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-32_7x7mm_P0.8mm', 'Package_QFP:TQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR128DB28-32-48-64-DataSheet-DS40002247A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR128DB32x-xPT\n\nAVR 8bit Microcontroller AVR-DB', 'pins':[
             Pin(num='1',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDDIO2',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='PD1',func=Pin.types.BIDIR,unit=1),
@@ -1160,7 +1160,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR128DB32x-xRXB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR128DB32x-xRXB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR128DB28-32-48-64-DataSheet-DS40002247A.pdf', 'pins':[
+        Part(**{ 'name':'AVR128DB32x-xRXB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR128DB32x-xRXB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR128DB28-32-48-64-DataSheet-DS40002247A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR128DB32x-xRXB\n\nAVR 8bit Microcontroller AVR-DB', 'pins':[
             Pin(num='1',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDDIO2',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='PD1',func=Pin.types.BIDIR,unit=1),
@@ -1194,7 +1194,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR128DB48x-x6LX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR128DB48x-x6LX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm', 'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR128DB28-32-48-64-DataSheet-DS40002247A.pdf', 'pins':[
+        Part(**{ 'name':'AVR128DB48x-x6LX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR128DB48x-x6LX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm', 'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR128DB28-32-48-64-DataSheet-DS40002247A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR128DB48x-x6LX\n\nAVR 8bit Microcontroller AVR-DB', 'pins':[
             Pin(num='1',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC1',func=Pin.types.BIDIR,unit=1),
@@ -1244,7 +1244,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR128DB48x-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR128DB48x-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR128DB28-32-48-64-DataSheet-DS40002247A.pdf', 'pins':[
+        Part(**{ 'name':'AVR128DB48x-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR128DB48x-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR128DB28-32-48-64-DataSheet-DS40002247A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR128DB48x-xPT\n\nAVR 8bit Microcontroller AVR-DB', 'pins':[
             Pin(num='1',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC1',func=Pin.types.BIDIR,unit=1),
@@ -1293,7 +1293,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR128DB64x-xMR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR128DB64x-xMR'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm'], 'footprint':'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR128DB28-32-48-64-DataSheet-DS40002247A.pdf', 'pins':[
+        Part(**{ 'name':'AVR128DB64x-xMR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR128DB64x-xMR'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm'], 'footprint':'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR128DB28-32-48-64-DataSheet-DS40002247A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR128DB64x-xMR\n\nAVR 8bit Microcontroller AVR-DB', 'pins':[
             Pin(num='1',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB3',func=Pin.types.BIDIR,unit=1),
@@ -1359,7 +1359,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR128DB64x-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR128DB64x-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR128DB28-32-48-64-DataSheet-DS40002247A.pdf', 'pins':[
+        Part(**{ 'name':'AVR128DB64x-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR128DB64x-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR128DB28-32-48-64-DataSheet-DS40002247A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR128DB64x-xPT\n\nAVR 8bit Microcontroller AVR-DB', 'pins':[
             Pin(num='1',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB3',func=Pin.types.BIDIR,unit=1),
@@ -1424,7 +1424,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR32DA28x-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR32DA28x-xSP'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR32DA28-32-48-Data-Sheet-40002228B.pdf', 'pins':[
+        Part(**{ 'name':'AVR32DA28x-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR32DA28x-xSP'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR32DA28-32-48-Data-Sheet-40002228B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR32DA28x-xSP\n\nAVR 8bit Microcontroller AVR-DA', 'pins':[
             Pin(num='1',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PD5',func=Pin.types.BIDIR,unit=1),
@@ -1453,7 +1453,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PD2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PD3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR32DA28x-xSS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR32DA28x-xSS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR32DA28-32-48-Data-Sheet-40002228B.pdf', 'pins':[
+        Part(**{ 'name':'AVR32DA28x-xSS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR32DA28x-xSS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR32DA28-32-48-Data-Sheet-40002228B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR32DA28x-xSS\n\nAVR 8bit Microcontroller AVR-DA', 'pins':[
             Pin(num='1',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PD5',func=Pin.types.BIDIR,unit=1),
@@ -1482,7 +1482,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PD2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PD3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR32DB28x-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR32DB28x-xSP'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR32DB28-32-48-DataSheet-DS40002301A.pdf', 'pins':[
+        Part(**{ 'name':'AVR32DB28x-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR32DB28x-xSP'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR32DB28-32-48-DataSheet-DS40002301A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR32DB28x-xSP\n\nAVR 8bit Microcontroller AVR-DB', 'pins':[
             Pin(num='1',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PD5',func=Pin.types.BIDIR,unit=1),
@@ -1511,7 +1511,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PD2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PD3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR32DB28x-xSS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR32DB28x-xSS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR32DB28-32-48-DataSheet-DS40002301A.pdf', 'pins':[
+        Part(**{ 'name':'AVR32DB28x-xSS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR32DB28x-xSS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR32DB28-32-48-DataSheet-DS40002301A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR32DB28x-xSS\n\nAVR 8bit Microcontroller AVR-DB', 'pins':[
             Pin(num='1',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PD5',func=Pin.types.BIDIR,unit=1),
@@ -1540,7 +1540,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PD2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PD3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR64DA28x-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR64DA28x-xSO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR64DA28-32-48-64-Data-Sheet-40002233B.pdf', 'pins':[
+        Part(**{ 'name':'AVR64DA28x-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR64DA28x-xSO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR64DA28-32-48-64-Data-Sheet-40002233B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR64DA28x-xSO\n\nAVR 8bit Microcontroller AVR-DA', 'pins':[
             Pin(num='1',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PD5',func=Pin.types.BIDIR,unit=1),
@@ -1569,7 +1569,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PD2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PD3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR64DA28x-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR64DA28x-xSP'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR64DA28-32-48-64-Data-Sheet-40002233B.pdf', 'pins':[
+        Part(**{ 'name':'AVR64DA28x-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR64DA28x-xSP'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR64DA28-32-48-64-Data-Sheet-40002233B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR64DA28x-xSP\n\nAVR 8bit Microcontroller AVR-DA', 'pins':[
             Pin(num='1',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PD5',func=Pin.types.BIDIR,unit=1),
@@ -1598,7 +1598,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PD2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PD3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR64DA28x-xSS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR64DA28x-xSS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR64DA28-32-48-64-Data-Sheet-40002233B.pdf', 'pins':[
+        Part(**{ 'name':'AVR64DA28x-xSS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR64DA28x-xSS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR64DA28-32-48-64-Data-Sheet-40002233B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR64DA28x-xSS\n\nAVR 8bit Microcontroller AVR-DA', 'pins':[
             Pin(num='1',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PD5',func=Pin.types.BIDIR,unit=1),
@@ -1627,7 +1627,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PD2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PD3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR64DA32x-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR64DA32x-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-32_7x7mm_P0.8mm', 'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'Package_QFP:TQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR64DA28-32-48-64-Data-Sheet-40002233B.pdf', 'pins':[
+        Part(**{ 'name':'AVR64DA32x-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR64DA32x-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-32_7x7mm_P0.8mm', 'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'Package_QFP:TQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR64DA28-32-48-64-Data-Sheet-40002233B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR64DA32x-xPT\n\nAVR 8bit Microcontroller AVR-DA', 'pins':[
             Pin(num='1',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PD0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PD1',func=Pin.types.BIDIR,unit=1),
@@ -1660,7 +1660,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR64DA32x-xRXB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR64DA32x-xRXB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR64DA28-32-48-64-Data-Sheet-40002233B.pdf', 'pins':[
+        Part(**{ 'name':'AVR64DA32x-xRXB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR64DA32x-xRXB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR64DA28-32-48-64-Data-Sheet-40002233B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR64DA32x-xRXB\n\nAVR 8bit Microcontroller AVR-DA', 'pins':[
             Pin(num='1',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PD0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PD1',func=Pin.types.BIDIR,unit=1),
@@ -1694,7 +1694,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR64DA48x-x6LX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR64DA48x-x6LX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm', 'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm', 'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR64DA28-32-48-64-Data-Sheet-40002233B.pdf', 'pins':[
+        Part(**{ 'name':'AVR64DA48x-x6LX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR64DA48x-x6LX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm', 'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm', 'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR64DA28-32-48-64-Data-Sheet-40002233B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR64DA48x-x6LX\n\nAVR 8bit Microcontroller AVR-DA', 'pins':[
             Pin(num='1',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC1',func=Pin.types.BIDIR,unit=1),
@@ -1744,7 +1744,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR64DA48x-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR64DA48x-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR64DA28-32-48-64-Data-Sheet-40002233B.pdf', 'pins':[
+        Part(**{ 'name':'AVR64DA48x-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR64DA48x-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'keywords':'AVR 8bit Microcontroller AVR-DA', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR64DA28-32-48-64-Data-Sheet-40002233B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR64DA48x-xPT\n\nAVR 8bit Microcontroller AVR-DA', 'pins':[
             Pin(num='1',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC1',func=Pin.types.BIDIR,unit=1),
@@ -1793,7 +1793,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR64DB28x-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR64DB28x-xSO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR64DB28-32-48-64-DataSheet-DS40002300A.pdf', 'pins':[
+        Part(**{ 'name':'AVR64DB28x-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR64DB28x-xSO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR64DB28-32-48-64-DataSheet-DS40002300A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR64DB28x-xSO\n\nAVR 8bit Microcontroller AVR-DB', 'pins':[
             Pin(num='1',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PD5',func=Pin.types.BIDIR,unit=1),
@@ -1822,7 +1822,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PD2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PD3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR64DB28x-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR64DB28x-xSP'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR64DB28-32-48-64-DataSheet-DS40002300A.pdf', 'pins':[
+        Part(**{ 'name':'AVR64DB28x-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR64DB28x-xSP'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR64DB28-32-48-64-DataSheet-DS40002300A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR64DB28x-xSP\n\nAVR 8bit Microcontroller AVR-DB', 'pins':[
             Pin(num='1',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PD5',func=Pin.types.BIDIR,unit=1),
@@ -1851,7 +1851,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PD2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PD3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR64DB28x-xSS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR64DB28x-xSS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR64DB28-32-48-64-DataSheet-DS40002300A.pdf', 'pins':[
+        Part(**{ 'name':'AVR64DB28x-xSS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR64DB28x-xSS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR64DB28-32-48-64-DataSheet-DS40002300A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR64DB28x-xSS\n\nAVR 8bit Microcontroller AVR-DB', 'pins':[
             Pin(num='1',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PD5',func=Pin.types.BIDIR,unit=1),
@@ -1880,7 +1880,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PD2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PD3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR64DB32x-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR64DB32x-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-32_7x7mm_P0.8mm', 'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'Package_QFP:TQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR64DB28-32-48-64-DataSheet-DS40002300A.pdf', 'pins':[
+        Part(**{ 'name':'AVR64DB32x-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR64DB32x-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-32_7x7mm_P0.8mm', 'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'Package_QFP:TQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR64DB28-32-48-64-DataSheet-DS40002300A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR64DB32x-xPT\n\nAVR 8bit Microcontroller AVR-DB', 'pins':[
             Pin(num='1',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDDIO2',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='PD1',func=Pin.types.BIDIR,unit=1),
@@ -1913,7 +1913,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR64DB32x-xRXB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR64DB32x-xRXB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR64DB28-32-48-64-DataSheet-DS40002300A.pdf', 'pins':[
+        Part(**{ 'name':'AVR64DB32x-xRXB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR64DB32x-xRXB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR64DB28-32-48-64-DataSheet-DS40002300A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR64DB32x-xRXB\n\nAVR 8bit Microcontroller AVR-DB', 'pins':[
             Pin(num='1',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDDIO2',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='PD1',func=Pin.types.BIDIR,unit=1),
@@ -1947,7 +1947,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR64DB48x-x6LX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR64DB48x-x6LX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm', 'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm', 'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR64DB28-32-48-64-DataSheet-DS40002300A.pdf', 'pins':[
+        Part(**{ 'name':'AVR64DB48x-x6LX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR64DB48x-x6LX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm', 'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm', 'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR64DB28-32-48-64-DataSheet-DS40002300A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR64DB48x-x6LX\n\nAVR 8bit Microcontroller AVR-DB', 'pins':[
             Pin(num='1',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC1',func=Pin.types.BIDIR,unit=1),
@@ -1997,7 +1997,7 @@ MCU_Microchip_AVR_Dx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR64DB48x-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR64DB48x-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR64DB28-32-48-64-DataSheet-DS40002300A.pdf', 'pins':[
+        Part(**{ 'name':'AVR64DB48x-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR64DB48x-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'keywords':'AVR 8bit Microcontroller AVR-DB', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/AVR64DB28-32-48-64-DataSheet-DS40002300A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_AVR_Dx.kicad_sym\nAVR64DB48x-xPT\n\nAVR 8bit Microcontroller AVR-DB', 'pins':[
             Pin(num='1',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC1',func=Pin.types.BIDIR,unit=1),

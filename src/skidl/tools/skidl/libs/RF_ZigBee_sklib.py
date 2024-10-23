@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 RF_ZigBee = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'CC2520', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CC2520'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_5x5mm_P0.5mm_EP3.35x3.35mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_5x5mm_P0.5mm_EP3.35x3.35mm', 'keywords':'2.4GHz rf transceiver ZigBee 802.15.4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/cc2520', 'pins':[
+        Part(**{ 'name':'CC2520', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CC2520'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_5x5mm_P0.5mm_EP3.35x3.35mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_5x5mm_P0.5mm_EP3.35x3.35mm', 'keywords':'2.4GHz rf transceiver ZigBee 802.15.4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/cc2520', 'search_text':'/usr/share/kicad/symbols/RF_ZigBee.kicad_sym\nCC2520\n\n2.4GHz rf transceiver ZigBee 802.15.4', 'pins':[
             Pin(num='1',name='SO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='GPIO0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AVDD5',func=Pin.types.PWRIN,unit=1),
@@ -33,7 +33,7 @@ RF_ZigBee = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GPIO2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GPIO1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC13192', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC13192'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'ZIGBEE', 'description':'', 'datasheet':'https://www.nxp.com/products/no-longer-manufactured/2.4-ghz-low-power-transceiver-for-802.15.4:MC13192', 'pins':[
+        Part(**{ 'name':'MC13192', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC13192'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'ZIGBEE', 'description':'', 'datasheet':'https://www.nxp.com/products/no-longer-manufactured/2.4-ghz-low-power-transceiver-for-802.15.4:MC13192', 'search_text':'/usr/share/kicad/symbols/RF_ZigBee.kicad_sym\nMC13192\n\nZIGBEE', 'pins':[
             Pin(num='1',name='RFIN-',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GPIO2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='GPIO1',func=Pin.types.BIDIR,unit=1),
@@ -67,7 +67,7 @@ RF_ZigBee = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SM',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GPIO4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='GPIO3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TWE-L-DP-W', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TWE-L-DP-W'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'TWELITE', 'description':'', 'datasheet':'https://www.mono-wireless.com/jp/products/TWE-Lite-DIP/MW-PDS-TWELITEDIP-JP.pdf', 'pins':[
+        Part(**{ 'name':'TWE-L-DP-W', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TWE-L-DP-W'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'TWELITE', 'description':'', 'datasheet':'https://www.mono-wireless.com/jp/products/TWE-Lite-DIP/MW-PDS-TWELITEDIP-JP.pdf', 'search_text':'/usr/share/kicad/symbols/RF_ZigBee.kicad_sym\nTWE-L-DP-W\n\nTWELITE', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DIO6/TX',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='DIO8/PWM4',func=Pin.types.BIDIR,unit=1),
@@ -96,7 +96,7 @@ RF_ZigBee = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DO1/PWM3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DIO19/DO2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='DIO4/DO3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TWE-L-WX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TWE-L-WX'}), 'ref_prefix':'U', 'fplist':['RF_Module:MonoWireless_TWE-L-WX'], 'footprint':'RF_Module:MonoWireless_TWE-L-WX', 'keywords':'TWELITE', 'description':'', 'datasheet':'https://www.mono-wireless.com/jp/products/TWE-LITE/MW-PDS-TWELITE-JP.pdf', 'pins':[
+        Part(**{ 'name':'TWE-L-WX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TWE-L-WX'}), 'ref_prefix':'U', 'fplist':['RF_Module:MonoWireless_TWE-L-WX'], 'footprint':'RF_Module:MonoWireless_TWE-L-WX', 'keywords':'TWELITE', 'description':'', 'datasheet':'https://www.mono-wireless.com/jp/products/TWE-LITE/MW-PDS-TWELITE-JP.pdf', 'search_text':'/usr/share/kicad/symbols/RF_ZigBee.kicad_sym\nTWE-L-WX\n\nTWELITE', 'pins':[
             Pin(num='1',name='DO0/PWM2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='DIO8/PWM4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='DIO9/DO4',func=Pin.types.BIDIR,unit=1),
@@ -129,7 +129,7 @@ RF_ZigBee = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIO5/PWM1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DIO6/TX',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='DIO7/RX',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XBee_SMT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XBee_SMT'}), 'ref_prefix':'U', 'fplist':['RF_Module:Digi_XBee_SMT'], 'footprint':'RF_Module:Digi_XBee_SMT', 'keywords':'Digi XBee', 'description':'', 'datasheet':'http://www.digi.com/resources/documentation/digidocs/pdfs/90002126.pdf', 'pins':[
+        Part(**{ 'name':'XBee_SMT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XBee_SMT'}), 'ref_prefix':'U', 'fplist':['RF_Module:Digi_XBee_SMT'], 'footprint':'RF_Module:Digi_XBee_SMT', 'keywords':'Digi XBee', 'description':'', 'datasheet':'http://www.digi.com/resources/documentation/digidocs/pdfs/90002126.pdf', 'search_text':'/usr/share/kicad/symbols/RF_ZigBee.kicad_sym\nXBee_SMT\n\nDigi XBee', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DIO8/SLEEP_REQUEST',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -167,7 +167,7 @@ RF_ZigBee = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIO10/RSSI/PWM0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DIO11/PWM1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MW-R-DP-W', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MW-R-DP-W'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm', 'Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'TWELITE', 'description':'', 'datasheet':'https://www.mono-wireless.com/jp/products/TWE-Lite-DIP/MW-PDS-TWELITEDIP-JP.pdf', 'pins':[
+        Part(**{ 'name':'MW-R-DP-W', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MW-R-DP-W'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm', 'Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'TWELITE', 'description':'', 'datasheet':'https://www.mono-wireless.com/jp/products/TWE-Lite-DIP/MW-PDS-TWELITEDIP-JP.pdf', 'search_text':'/usr/share/kicad/symbols/RF_ZigBee.kicad_sym\nMW-R-DP-W\n\nTWELITE', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DIO6/TX',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='DIO8/PWM4',func=Pin.types.BIDIR,unit=1),
@@ -196,7 +196,7 @@ RF_ZigBee = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DO1/PWM3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DIO19/DO2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='DIO4/DO3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MW-R-WX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MW-R-WX'}), 'ref_prefix':'U', 'fplist':['RF_Module:MonoWireless_TWE-L-WX', 'RF_Module:MonoWireless_TWE-L-WX'], 'footprint':'RF_Module:MonoWireless_TWE-L-WX', 'keywords':'TWELITE', 'description':'', 'datasheet':'https://www.mono-wireless.com/jp/products/TWE-LITE/MW-PDS-TWELITE-JP.pdf', 'pins':[
+        Part(**{ 'name':'MW-R-WX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MW-R-WX'}), 'ref_prefix':'U', 'fplist':['RF_Module:MonoWireless_TWE-L-WX', 'RF_Module:MonoWireless_TWE-L-WX'], 'footprint':'RF_Module:MonoWireless_TWE-L-WX', 'keywords':'TWELITE', 'description':'', 'datasheet':'https://www.mono-wireless.com/jp/products/TWE-LITE/MW-PDS-TWELITE-JP.pdf', 'search_text':'/usr/share/kicad/symbols/RF_ZigBee.kicad_sym\nMW-R-WX\n\nTWELITE', 'pins':[
             Pin(num='1',name='DO0/PWM2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='DIO8/PWM4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='DIO9/DO4',func=Pin.types.BIDIR,unit=1),

@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'PIC12C508-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C508-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'pins':[
+        Part(**{ 'name':'PIC12C508-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C508-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12C508-xP\n\n8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -13,7 +13,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12C508A-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C508A-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'pins':[
+        Part(**{ 'name':'PIC12C508A-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C508A-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12C508A-xP\n\n8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -22,7 +22,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12C509-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C509-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'pins':[
+        Part(**{ 'name':'PIC12C509-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C509-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12C509-xP\n\n8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -31,7 +31,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12C509A-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C509A-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'pins':[
+        Part(**{ 'name':'PIC12C509A-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C509A-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12C509A-xP\n\n8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -40,7 +40,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12C671-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C671-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/30561b.pdf', 'pins':[
+        Part(**{ 'name':'PIC12C671-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C671-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/30561b.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12C671-xP\n\n8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -49,7 +49,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12C672-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C672-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/30561b.pdf', 'pins':[
+        Part(**{ 'name':'PIC12C672-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C672-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/30561b.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12C672-xP\n\n8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -58,7 +58,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12CE518-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12CE518-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'pins':[
+        Part(**{ 'name':'PIC12CE518-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12CE518-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12CE518-xP\n\n8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -67,7 +67,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12CE519-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12CE519-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'pins':[
+        Part(**{ 'name':'PIC12CE519-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12CE519-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12CE519-xP\n\n8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -76,7 +76,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12CE673-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12CE673-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/30561b.pdf', 'pins':[
+        Part(**{ 'name':'PIC12CE673-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12CE673-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/30561b.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12CE673-xP\n\n8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -85,7 +85,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12CE674-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12CE674-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/30561b.pdf', 'pins':[
+        Part(**{ 'name':'PIC12CE674-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12CE674-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/30561b.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12CE674-xP\n\n8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -94,7 +94,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12CR509A-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12CR509A-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'pins':[
+        Part(**{ 'name':'PIC12CR509A-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12CR509A-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12CR509A-xP\n\n8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -103,7 +103,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F1501-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F1501-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41615A.pdf', 'pins':[
+        Part(**{ 'name':'PIC12F1501-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F1501-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41615A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F1501-xP\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='RA4',func=Pin.types.BIDIR,unit=1),
@@ -112,7 +112,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='RA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='RA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F1822-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F1822-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41413B.pdf', 'pins':[
+        Part(**{ 'name':'PIC12F1822-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F1822-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41413B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F1822-xP\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='RA4',func=Pin.types.BIDIR,unit=1),
@@ -121,7 +121,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='RA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='RA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F1840-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F1840-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41441B.pdf', 'pins':[
+        Part(**{ 'name':'PIC12F1840-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F1840-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41441B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F1840-xP\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='RA4',func=Pin.types.BIDIR,unit=1),
@@ -130,7 +130,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='RA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='RA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F508-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F508-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41236E.pdf', 'pins':[
+        Part(**{ 'name':'PIC12F508-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F508-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41236E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F508-xP\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -139,7 +139,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F509-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F509-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41236E.pdf', 'pins':[
+        Part(**{ 'name':'PIC12F509-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F509-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41236E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F509-xP\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -148,7 +148,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F510-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F510-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41268D.pdf', 'pins':[
+        Part(**{ 'name':'PIC12F510-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F510-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41268D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F510-xP\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -157,7 +157,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F519-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F519-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41319B.pdf', 'pins':[
+        Part(**{ 'name':'PIC12F519-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F519-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41319B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F519-xP\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -166,7 +166,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F609-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F609-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'pins':[
+        Part(**{ 'name':'PIC12F609-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F609-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F609-xP\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -175,7 +175,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F615-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F615-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'pins':[
+        Part(**{ 'name':'PIC12F615-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F615-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F615-xP\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -184,7 +184,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F617-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F617-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'pins':[
+        Part(**{ 'name':'PIC12F617-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F617-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F617-xP\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -193,7 +193,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F629-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F629-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41190G.pdf', 'pins':[
+        Part(**{ 'name':'PIC12F629-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F629-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41190G.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F629-xP\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -202,7 +202,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F635-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F635-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41232D.pdf', 'pins':[
+        Part(**{ 'name':'PIC12F635-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F635-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41232D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F635-xP\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -211,7 +211,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F675-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F675-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41190G.pdf', 'pins':[
+        Part(**{ 'name':'PIC12F675-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F675-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41190G.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F675-xP\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -220,7 +220,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F683-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F683-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41232D.pdf', 'pins':[
+        Part(**{ 'name':'PIC12F683-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F683-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41232D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F683-xP\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -229,7 +229,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F752-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F752-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41576B.pdf', 'pins':[
+        Part(**{ 'name':'PIC12F752-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F752-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41576B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F752-xP\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -238,7 +238,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12HV609-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12HV609-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller High Voltage', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'pins':[
+        Part(**{ 'name':'PIC12HV609-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12HV609-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller High Voltage', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12HV609-xP\n\nFLASH-Based 8-Bit CMOS Microcontroller High Voltage', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -247,7 +247,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12HV615-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12HV615-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller High Voltage', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'pins':[
+        Part(**{ 'name':'PIC12HV615-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12HV615-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller High Voltage', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12HV615-xP\n\nFLASH-Based 8-Bit CMOS Microcontroller High Voltage', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -256,7 +256,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12HV752-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12HV752-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller High Voltage', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41576B.pdf', 'pins':[
+        Part(**{ 'name':'PIC12HV752-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12HV752-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller High Voltage', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41576B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12HV752-xP\n\nFLASH-Based 8-Bit CMOS Microcontroller High Voltage', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -265,7 +265,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12LF1840T48-xST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12LF1840T48-xST'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP RF Transmitter', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/40001594C.pdf', 'pins':[
+        Part(**{ 'name':'PIC12LF1840T48-xST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12LF1840T48-xST'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP RF Transmitter', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/40001594C.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12LF1840T48-xST\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP RF Transmitter', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='XTAL',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='RA2',func=Pin.types.BIDIR,unit=1),
@@ -280,7 +280,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RFOUT',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSRF',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='DATA',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12C508-xJW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C508-xJW'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'pins':[
+        Part(**{ 'name':'PIC12C508-xJW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C508-xJW'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12C508-xJW\n\n8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -289,7 +289,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12C508-xSM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C508-xSM'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'pins':[
+        Part(**{ 'name':'PIC12C508-xSM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C508-xSM'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12C508-xSM\n\n8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -298,7 +298,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12C508A-xJW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C508A-xJW'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'pins':[
+        Part(**{ 'name':'PIC12C508A-xJW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C508A-xJW'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12C508A-xJW\n\n8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -307,7 +307,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12C508A-xSM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C508A-xSM'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'pins':[
+        Part(**{ 'name':'PIC12C508A-xSM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C508A-xSM'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12C508A-xSM\n\n8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -316,7 +316,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12C508A-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C508A-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'pins':[
+        Part(**{ 'name':'PIC12C508A-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C508A-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12C508A-xSN\n\n8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -325,7 +325,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12C509-xJW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C509-xJW'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'pins':[
+        Part(**{ 'name':'PIC12C509-xJW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C509-xJW'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12C509-xJW\n\n8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -334,7 +334,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12C509-xSM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C509-xSM'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'pins':[
+        Part(**{ 'name':'PIC12C509-xSM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C509-xSM'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12C509-xSM\n\n8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -343,7 +343,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12C509A-xJW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C509A-xJW'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'pins':[
+        Part(**{ 'name':'PIC12C509A-xJW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C509A-xJW'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12C509A-xJW\n\n8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -352,7 +352,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12C509A-xSM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C509A-xSM'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'pins':[
+        Part(**{ 'name':'PIC12C509A-xSM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C509A-xSM'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12C509A-xSM\n\n8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -361,7 +361,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12C509A-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C509A-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'pins':[
+        Part(**{ 'name':'PIC12C509A-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C509A-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12C509A-xSN\n\n8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -370,7 +370,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12C671-xJW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C671-xJW'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/30561b.pdf', 'pins':[
+        Part(**{ 'name':'PIC12C671-xJW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C671-xJW'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/30561b.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12C671-xJW\n\n8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -379,7 +379,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12C671-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C671-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/30561b.pdf', 'pins':[
+        Part(**{ 'name':'PIC12C671-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C671-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/30561b.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12C671-xSN\n\n8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -388,7 +388,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12C672-xJW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C672-xJW'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/30561b.pdf', 'pins':[
+        Part(**{ 'name':'PIC12C672-xJW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C672-xJW'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/30561b.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12C672-xJW\n\n8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -397,7 +397,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12C672-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C672-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/30561b.pdf', 'pins':[
+        Part(**{ 'name':'PIC12C672-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12C672-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/30561b.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12C672-xSN\n\n8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -406,7 +406,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12CE518-xJW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12CE518-xJW'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'pins':[
+        Part(**{ 'name':'PIC12CE518-xJW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12CE518-xJW'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12CE518-xJW\n\n8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -415,7 +415,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12CE518-xSM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12CE518-xSM'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'pins':[
+        Part(**{ 'name':'PIC12CE518-xSM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12CE518-xSM'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12CE518-xSM\n\n8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -424,7 +424,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12CE518-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12CE518-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'pins':[
+        Part(**{ 'name':'PIC12CE518-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12CE518-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12CE518-xSN\n\n8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -433,7 +433,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12CE519-xJW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12CE519-xJW'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'pins':[
+        Part(**{ 'name':'PIC12CE519-xJW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12CE519-xJW'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12CE519-xJW\n\n8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -442,7 +442,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12CE519-xSM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12CE519-xSM'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'pins':[
+        Part(**{ 'name':'PIC12CE519-xSM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12CE519-xSM'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12CE519-xSM\n\n8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -451,7 +451,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12CE519-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12CE519-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'pins':[
+        Part(**{ 'name':'PIC12CE519-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12CE519-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12CE519-xSN\n\n8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -460,7 +460,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12CE673-xJW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12CE673-xJW'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/30561b.pdf', 'pins':[
+        Part(**{ 'name':'PIC12CE673-xJW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12CE673-xJW'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/30561b.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12CE673-xJW\n\n8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -469,7 +469,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12CE674-xJW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12CE674-xJW'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/30561b.pdf', 'pins':[
+        Part(**{ 'name':'PIC12CE674-xJW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12CE674-xJW'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:CERDIP-8_W7.62mm_SideBrazed'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/30561b.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12CE674-xJW\n\n8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -478,7 +478,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12CR509A-xSM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12CR509A-xSM'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'pins':[
+        Part(**{ 'name':'PIC12CR509A-xSM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12CR509A-xSM'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12CR509A-xSM\n\n8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -487,7 +487,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12CR509A-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12CR509A-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'pins':[
+        Part(**{ 'name':'PIC12CR509A-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12CR509A-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/devicedoc/40139e.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12CR509A-xSN\n\n8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
@@ -496,16 +496,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F1501-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F1501-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41615A.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='RA5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='RA4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='RA3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='RA2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='RA1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='RA0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F1501-xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F1501-xMS'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41615A.pdf', 'pins':[
+        Part(**{ 'name':'PIC12F1501-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F1501-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41615A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F1501-xMC\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='RA4',func=Pin.types.BIDIR,unit=1),
@@ -514,7 +505,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='RA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='RA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F1501-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F1501-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41615A.pdf', 'pins':[
+        Part(**{ 'name':'PIC12F1501-xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F1501-xMS'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41615A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F1501-xMS\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='RA4',func=Pin.types.BIDIR,unit=1),
@@ -523,7 +514,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='RA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='RA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F1822-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F1822-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41413B.pdf', 'pins':[
+        Part(**{ 'name':'PIC12F1501-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F1501-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41615A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F1501-xSN\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='RA4',func=Pin.types.BIDIR,unit=1),
@@ -532,7 +523,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='RA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='RA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F1822-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F1822-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41413B.pdf', 'pins':[
+        Part(**{ 'name':'PIC12F1822-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F1822-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41413B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F1822-xMC\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='RA4',func=Pin.types.BIDIR,unit=1),
@@ -541,7 +532,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='RA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='RA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F1840-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F1840-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41441B.pdf', 'pins':[
+        Part(**{ 'name':'PIC12F1822-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F1822-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41413B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F1822-xSN\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='RA4',func=Pin.types.BIDIR,unit=1),
@@ -550,7 +541,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='RA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='RA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F1840-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F1840-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41441B.pdf', 'pins':[
+        Part(**{ 'name':'PIC12F1840-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F1840-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41441B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F1840-xMC\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='RA4',func=Pin.types.BIDIR,unit=1),
@@ -559,394 +550,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='RA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='RA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F508-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F508-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41236E.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F508-xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F508-xMS'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41236E.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F508-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F508-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41236E.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F509-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F509-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41236E.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F509-xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F509-xMS'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41236E.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F509-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F509-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41236E.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F510-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F510-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41268D.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F510-xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F510-xMS'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41268D.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F510-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F510-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41268D.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F519-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F519-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41319B.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F519-xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F519-xMS'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41319B.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F519-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F519-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41319B.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F609-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F609-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F609-xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F609-xMS'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F609-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F609-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F615-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F615-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F615-xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F615-xMS'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F615-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F615-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F617-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F617-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F617-xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F617-xMS'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F617-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F617-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F629-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F629-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41190G.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F629-xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F629-xMS'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41190G.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F629-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F629-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41190G.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F635-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F635-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41232D.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F635-xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F635-xMS'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41232D.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F635-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F635-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41232D.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F675-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F675-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41190G.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F675-xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F675-xMS'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41190G.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F675-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F675-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41190G.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F683-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F683-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41211D_.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F683-xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F683-xMS'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41232D.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F683-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F683-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41211D_.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F752-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F752-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41576B.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12F752-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F752-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41576B.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12HV609-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12HV609-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller High Voltage', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12HV609-xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12HV609-xMS'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller High Voltage', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12HV609-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12HV609-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller High Voltage', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12HV615-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12HV615-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller High Voltage', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12HV615-xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12HV615-xMS'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller High Voltage', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12HV615-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12HV615-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller High Voltage', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12HV752-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12HV752-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller High Voltage', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41576B.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12HV752-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12HV752-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller High Voltage', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41576B.pdf', 'pins':[
-            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12LF1501-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12LF1501-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41615A.pdf', 'pins':[
+        Part(**{ 'name':'PIC12F1840-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F1840-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41441B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F1840-xSN\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='RA4',func=Pin.types.BIDIR,unit=1),
@@ -955,7 +559,394 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='RA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='RA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12LF1501-xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12LF1501-xMS'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41615A.pdf', 'pins':[
+        Part(**{ 'name':'PIC12F508-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F508-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41236E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F508-xMC\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12F508-xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F508-xMS'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41236E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F508-xMS\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12F508-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F508-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41236E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F508-xSN\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12F509-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F509-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41236E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F509-xMC\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12F509-xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F509-xMS'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41236E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F509-xMS\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12F509-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F509-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41236E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F509-xSN\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12F510-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F510-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41268D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F510-xMC\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12F510-xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F510-xMS'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41268D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F510-xMS\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12F510-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F510-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41268D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F510-xSN\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12F519-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F519-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41319B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F519-xMC\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12F519-xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F519-xMS'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41319B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F519-xMS\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12F519-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F519-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41319B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F519-xSN\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12F609-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F609-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F609-xMC\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12F609-xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F609-xMS'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F609-xMS\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12F609-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F609-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F609-xSN\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12F615-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F615-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F615-xMC\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12F615-xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F615-xMS'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F615-xMS\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12F615-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F615-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F615-xSN\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12F617-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F617-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F617-xMC\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12F617-xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F617-xMS'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F617-xMS\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12F617-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F617-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F617-xSN\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12F629-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F629-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41190G.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F629-xMC\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12F629-xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F629-xMS'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41190G.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F629-xMS\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12F629-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F629-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41190G.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F629-xSN\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12F635-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F635-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41232D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F635-xMC\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12F635-xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F635-xMS'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41232D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F635-xMS\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12F635-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F635-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41232D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F635-xSN\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12F675-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F675-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41190G.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F675-xMC\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12F675-xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F675-xMS'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41190G.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F675-xMS\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12F675-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F675-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41190G.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F675-xSN\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12F683-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F683-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41211D_.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F683-xMC\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12F683-xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F683-xMS'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41232D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F683-xMS\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12F683-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F683-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41211D_.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F683-xSN\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12F752-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F752-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41576B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F752-xMC\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12F752-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12F752-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41576B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12F752-xSN\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12HV609-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12HV609-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller High Voltage', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12HV609-xMC\n\nFLASH-Based 8-Bit CMOS Microcontroller High Voltage', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12HV609-xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12HV609-xMS'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller High Voltage', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12HV609-xMS\n\nFLASH-Based 8-Bit CMOS Microcontroller High Voltage', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12HV609-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12HV609-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller High Voltage', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12HV609-xSN\n\nFLASH-Based 8-Bit CMOS Microcontroller High Voltage', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12HV615-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12HV615-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller High Voltage', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12HV615-xMC\n\nFLASH-Based 8-Bit CMOS Microcontroller High Voltage', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12HV615-xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12HV615-xMS'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller High Voltage', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12HV615-xMS\n\nFLASH-Based 8-Bit CMOS Microcontroller High Voltage', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12HV615-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12HV615-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller High Voltage', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41302D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12HV615-xSN\n\nFLASH-Based 8-Bit CMOS Microcontroller High Voltage', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12HV752-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12HV752-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller High Voltage', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41576B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12HV752-xMC\n\nFLASH-Based 8-Bit CMOS Microcontroller High Voltage', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12HV752-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12HV752-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller High Voltage', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41576B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12HV752-xSN\n\nFLASH-Based 8-Bit CMOS Microcontroller High Voltage', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GP5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='GP4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='GP3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='GP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='GP0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12LF1501-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12LF1501-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41615A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12LF1501-xMC\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='RA4',func=Pin.types.BIDIR,unit=1),
@@ -964,7 +955,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='RA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='RA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12LF1501-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12LF1501-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41615A.pdf', 'pins':[
+        Part(**{ 'name':'PIC12LF1501-xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12LF1501-xMS'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41615A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12LF1501-xMS\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='RA4',func=Pin.types.BIDIR,unit=1),
@@ -973,7 +964,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='RA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='RA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12LF1501-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12LF1501-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41615A.pdf', 'pins':[
+        Part(**{ 'name':'PIC12LF1501-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12LF1501-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41615A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12LF1501-xP\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='RA4',func=Pin.types.BIDIR,unit=1),
@@ -982,7 +973,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='RA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='RA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12LF1822-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12LF1822-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41413B.pdf', 'pins':[
+        Part(**{ 'name':'PIC12LF1501-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12LF1501-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41615A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12LF1501-xSN\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='RA4',func=Pin.types.BIDIR,unit=1),
@@ -991,7 +982,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='RA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='RA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12LF1822-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12LF1822-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41413B.pdf', 'pins':[
+        Part(**{ 'name':'PIC12LF1822-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12LF1822-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41413B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12LF1822-xMC\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='RA4',func=Pin.types.BIDIR,unit=1),
@@ -1000,7 +991,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='RA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='RA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12LF1822-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12LF1822-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41413B.pdf', 'pins':[
+        Part(**{ 'name':'PIC12LF1822-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12LF1822-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41413B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12LF1822-xP\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='RA4',func=Pin.types.BIDIR,unit=1),
@@ -1009,7 +1000,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='RA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='RA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12LF1840-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12LF1840-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41441B.pdf', 'pins':[
+        Part(**{ 'name':'PIC12LF1822-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12LF1822-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41413B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12LF1822-xSN\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='RA4',func=Pin.types.BIDIR,unit=1),
@@ -1018,7 +1009,7 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='RA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='RA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12LF1840-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12LF1840-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41441B.pdf', 'pins':[
+        Part(**{ 'name':'PIC12LF1840-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12LF1840-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41441B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12LF1840-xMC\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='RA4',func=Pin.types.BIDIR,unit=1),
@@ -1027,7 +1018,16 @@ MCU_Microchip_PIC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='RA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='RA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC12LF1840-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12LF1840-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41441B.pdf', 'pins':[
+        Part(**{ 'name':'PIC12LF1840-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12LF1840-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41441B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12LF1840-xP\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='RA5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='RA4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='RA3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='RA2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='RA1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='RA0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC12LF1840-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC12LF1840-xSN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/41441B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC12.kicad_sym\nPIC12LF1840-xSN\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='RA4',func=Pin.types.BIDIR,unit=1),

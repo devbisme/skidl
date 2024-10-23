@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 MCU_Renesas_Synergy_S1 = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'R7FS12878xA01CFL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'R7FS12878xA01CFL'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://www.renesas.com/us/en/doc/products/renesas-synergy/doc/r01ds0309eu0100-synergy-s128.pdf', 'pins':[
+        Part(**{ 'name':'R7FS12878xA01CFL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'R7FS12878xA01CFL'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'32-bit ARM Cortex-M0+ MCU Microcontroller', 'description':'', 'datasheet':'https://www.renesas.com/us/en/doc/products/renesas-synergy/doc/r01ds0309eu0100-synergy-s128.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Renesas_Synergy_S1.kicad_sym\nR7FS12878xA01CFL\n\n32-bit ARM Cortex-M0+ MCU Microcontroller', 'pins':[
             Pin(num='1',name='P400',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P409',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P408',func=Pin.types.BIDIR,unit=1),

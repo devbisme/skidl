@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 MCU_Microchip_SAMV = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'ATSAMV71Q21B-A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAMV71Q21B-A'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'32-bit ARM Cortex-M7 MCU Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/SAM-E70-S70-V70-V71-Family-Data-Sheet-DS60001527D.pdf', 'pins':[
+        Part(**{ 'name':'ATSAMV71Q21B-A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAMV71Q21B-A'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'32-bit ARM Cortex-M7 MCU Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/SAM-E70-S70-V70-V71-Family-Data-Sheet-DS60001527D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_SAMV.kicad_sym\nATSAMV71Q21B-A\n\n32-bit ARM Cortex-M7 MCU Microcontroller', 'pins':[
             Pin(num='1',name='PD0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PC16',func=Pin.types.BIDIR,unit=1),
@@ -149,7 +149,7 @@ MCU_Microchip_SAMV = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC14',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PD11',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PA1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATSAMV71Q19B-A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAMV71Q19B-A'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'32-bit ARM Cortex-M7 MCU Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/SAM-E70-S70-V70-V71-Family-Data-Sheet-DS60001527D.pdf', 'pins':[
+        Part(**{ 'name':'ATSAMV71Q19B-A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAMV71Q19B-A'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'32-bit ARM Cortex-M7 MCU Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/SAM-E70-S70-V70-V71-Family-Data-Sheet-DS60001527D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_SAMV.kicad_sym\nATSAMV71Q19B-A\n\n32-bit ARM Cortex-M7 MCU Microcontroller', 'pins':[
             Pin(num='1',name='PD0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PC16',func=Pin.types.BIDIR,unit=1),
@@ -294,7 +294,7 @@ MCU_Microchip_SAMV = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC14',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PD11',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PA1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATSAMV71Q20B-A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAMV71Q20B-A'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'32-bit ARM Cortex-M7 MCU Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/SAM-E70-S70-V70-V71-Family-Data-Sheet-DS60001527D.pdf', 'pins':[
+        Part(**{ 'name':'ATSAMV71Q20B-A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAMV71Q20B-A'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'32-bit ARM Cortex-M7 MCU Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/SAM-E70-S70-V70-V71-Family-Data-Sheet-DS60001527D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_SAMV.kicad_sym\nATSAMV71Q20B-A\n\n32-bit ARM Cortex-M7 MCU Microcontroller', 'pins':[
             Pin(num='1',name='PD0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PC16',func=Pin.types.BIDIR,unit=1),

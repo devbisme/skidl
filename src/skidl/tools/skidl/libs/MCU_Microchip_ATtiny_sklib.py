@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'ATtiny102-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny102-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-42505-8-bit-AVR-Microcontrollers-ATtiny102-ATtiny104_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny102-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny102-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-42505-8-bit-AVR-Microcontrollers-ATtiny102-ATtiny104_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny102-M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -14,7 +14,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny102-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny102-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-42505-8-bit-AVR-Microcontrollers-ATtiny102-ATtiny104_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny102-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny102-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-42505-8-bit-AVR-Microcontrollers-ATtiny102-ATtiny104_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny102-SS\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -23,7 +23,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny104-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny104-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-42505-8-bit-AVR-Microcontrollers-ATtiny102-ATtiny104_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny104-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny104-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-42505-8-bit-AVR-Microcontrollers-ATtiny102-ATtiny104_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny104-SS\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB1',func=Pin.types.BIDIR,unit=1),
@@ -38,7 +38,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny13V-10M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny13V-10M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc2535.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny13V-10M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny13V-10M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc2535.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny13V-10M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='~{RESET}/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='PB0',func=Pin.types.BIDIR,unit=1),
@@ -60,7 +60,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny13V-10MM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny13V-10MM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.75x2.7mm'], 'footprint':'Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.75x2.7mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc2535.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny13V-10MM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny13V-10MM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.75x2.7mm'], 'footprint':'Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.75x2.7mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc2535.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny13V-10MM\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='~{RESET}/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -72,7 +72,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='PB2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny13V-10P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny13V-10P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc2535.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny13V-10P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny13V-10P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc2535.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny13V-10P\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='~{RESET}/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='PB4',func=Pin.types.BIDIR,unit=1),
@@ -81,7 +81,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny13V-10S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny13V-10S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc2535.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny13V-10S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny13V-10S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc2535.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny13V-10S\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='~{RESET}/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='PB4',func=Pin.types.BIDIR,unit=1),
@@ -90,7 +90,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny13V-10SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny13V-10SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc2535.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny13V-10SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny13V-10SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc2535.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny13V-10SS\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='~{RESET}/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='PB4',func=Pin.types.BIDIR,unit=1),
@@ -99,7 +99,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny1634-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny1634-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8303-8-bit-AVR-Microcontroller-tinyAVR-ATtiny1634_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny1634-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny1634-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8303-8-bit-AVR-Microcontroller-tinyAVR-ATtiny1634_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny1634-M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='XTAL1/PC5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='XTAL2/PC4',func=Pin.types.BIDIR,unit=1),
@@ -121,7 +121,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AREF/PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny1634-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny1634-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8303-8-bit-AVR-Microcontroller-tinyAVR-ATtiny1634_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny1634-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny1634-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8303-8-bit-AVR-Microcontroller-tinyAVR-ATtiny1634_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny1634-S\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -142,7 +142,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='AREF/PA0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny20-CC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny20-CC'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-15_3.0x3.0mm_Layout4x4_P0.65mm'], 'footprint':'Package_BGA:UFBGA-15_3.0x3.0mm_Layout4x4_P0.65mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-8235-8-bit-avr-microcontroller-attiny20_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny20-CC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny20-CC'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-15_3.0x3.0mm_Layout4x4_P0.65mm'], 'footprint':'Package_BGA:UFBGA-15_3.0x3.0mm_Layout4x4_P0.65mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-8235-8-bit-avr-microcontroller-attiny20_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny20-CC\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='A2',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='A4',name='PB2',func=Pin.types.BIDIR,unit=1),
@@ -158,7 +158,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='D2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='D3',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='D4',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny20-MM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny20-MM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.45mm_EP1.6x1.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.45mm_EP1.6x1.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-8235-8-bit-avr-microcontroller-attiny20_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny20-MM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny20-MM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.45mm_EP1.6x1.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.45mm_EP1.6x1.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-8235-8-bit-avr-microcontroller-attiny20_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny20-MM\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='PB0',func=Pin.types.BIDIR,unit=1),
@@ -180,7 +180,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny20-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny20-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-8235-8-bit-avr-microcontroller-attiny20_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny20-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny20-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-8235-8-bit-avr-microcontroller-attiny20_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny20-SS\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA2',func=Pin.types.BIDIR,unit=1),
@@ -195,7 +195,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny20-U', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny20-U'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-12_1.403x1.555mm_P0.4mm_Stagger'], 'footprint':'Package_CSP:WLCSP-12_1.403x1.555mm_P0.4mm_Stagger', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-8235-8-bit-avr-microcontroller-attiny20_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny20-U', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny20-U'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-12_1.403x1.555mm_P0.4mm_Stagger'], 'footprint':'Package_CSP:WLCSP-12_1.403x1.555mm_P0.4mm_Stagger', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-8235-8-bit-avr-microcontroller-attiny20_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny20-U\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='A1',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='A5',name='PA2',func=Pin.types.BIDIR,unit=1),
@@ -208,7 +208,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='D2',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='D4',name='~{RESET}/PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='D6',name='PB0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny20-X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny20-X'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-8235-8-bit-avr-microcontroller-attiny20_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny20-X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny20-X'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-8235-8-bit-avr-microcontroller-attiny20_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny20-X\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA2',func=Pin.types.BIDIR,unit=1),
@@ -223,7 +223,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny202-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny202-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny202-402-AVR-MCU-with-Core-Independent-Peripherals_and-picoPower-40001969A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny202-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny202-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny202-402-AVR-MCU-with-Core-Independent-Peripherals_and-picoPower-40001969A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny202-SS\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='PA7',func=Pin.types.BIDIR,unit=1),
@@ -232,7 +232,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~{RESET}/PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny204-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny204-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/50002687A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny204-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny204-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/50002687A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny204-SS\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RESET}/PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -247,7 +247,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny2313A-MM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny2313A-MM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.45mm_EP1.55x1.55mm'], 'footprint':'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.45mm_EP1.55x1.55mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8246.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny2313A-MM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny2313A-MM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.45mm_EP1.55x1.55mm'], 'footprint':'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.45mm_EP1.55x1.55mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8246.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny2313A-MM\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB1',func=Pin.types.BIDIR,unit=1),
@@ -269,7 +269,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PD5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PD6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny2313V-10M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny2313V-10M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:MLF-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:MLF-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-2543-AVR-ATtiny2313_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny2313V-10M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny2313V-10M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:MLF-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:MLF-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-2543-AVR-ATtiny2313_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny2313V-10M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB1',func=Pin.types.BIDIR,unit=1),
@@ -291,7 +291,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PD5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PD6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny2313V-10P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny2313V-10P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-2543-AVR-ATtiny2313_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny2313V-10P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny2313V-10P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-2543-AVR-ATtiny2313_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny2313V-10P\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA2/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='PD6',func=Pin.types.BIDIR,unit=1),
@@ -312,7 +312,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PD3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PD5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny2313V-10S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny2313V-10S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-2543-AVR-ATtiny2313_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny2313V-10S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny2313V-10S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-2543-AVR-ATtiny2313_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny2313V-10S\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA2/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='PD6',func=Pin.types.BIDIR,unit=1),
@@ -333,7 +333,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PD3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PD5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny24A-CC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny24A-CC'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-15_3.0x3.0mm_Layout4x4_P0.65mm'], 'footprint':'Package_BGA:UFBGA-15_3.0x3.0mm_Layout4x4_P0.65mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8183.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny24A-CC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny24A-CC'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-15_3.0x3.0mm_Layout4x4_P0.65mm'], 'footprint':'Package_BGA:UFBGA-15_3.0x3.0mm_Layout4x4_P0.65mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8183.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny24A-CC\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='A2',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='A4',name='PB2',func=Pin.types.BIDIR,unit=1),
@@ -349,7 +349,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='D2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='D3',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='D4',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny24A-MM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny24A-MM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.45mm_EP1.6x1.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.45mm_EP1.6x1.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8183.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny24A-MM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny24A-MM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.45mm_EP1.6x1.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.45mm_EP1.6x1.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8183.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny24A-MM\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='XTAL1/PB0',func=Pin.types.BIDIR,unit=1),
@@ -371,7 +371,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny24V-10M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny24V-10M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8006.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny24V-10M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny24V-10M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8006.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny24V-10M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='XTAL1/PB0',func=Pin.types.BIDIR,unit=1),
@@ -393,7 +393,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny24V-10P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny24V-10P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8006.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny24V-10P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny24V-10P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8006.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny24V-10P\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA2',func=Pin.types.BIDIR,unit=1),
@@ -408,7 +408,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny24V-10SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny24V-10SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8006.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny24V-10SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny24V-10SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8006.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny24V-10SS\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA2',func=Pin.types.BIDIR,unit=1),
@@ -423,7 +423,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny25V-10M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny25V-10M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny25V-10M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny25V-10M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny25V-10M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='~{RESET}/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='AREF/PB0',func=Pin.types.BIDIR,unit=1),
@@ -445,7 +445,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny25V-10P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny25V-10P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny25V-10P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny25V-10P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny25V-10P\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='~{RESET}/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='XTAL1/PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='XTAL2/PB4',func=Pin.types.BIDIR,unit=1),
@@ -454,7 +454,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny25V-10S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny25V-10S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny25V-10S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny25V-10S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny25V-10S\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='~{RESET}/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='XTAL1/PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='XTAL2/PB4',func=Pin.types.BIDIR,unit=1),
@@ -463,7 +463,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny25V-10SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny25V-10SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny25V-10SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny25V-10SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny25V-10SS\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='~{RESET}/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='XTAL1/PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='XTAL2/PB4',func=Pin.types.BIDIR,unit=1),
@@ -472,7 +472,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny261A-X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny261A-X'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8197.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny261A-X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny261A-X'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8197.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny261A-X\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='~{RESET}/PB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA7',func=Pin.types.BIDIR,unit=1),
@@ -493,7 +493,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTAL1/PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='XTAL2/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny26L-8M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny26L-8M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc1477.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny26L-8M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny26L-8M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc1477.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny26L-8M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='~{RESET}/PB7',func=Pin.types.BIDIR,unit=1),
@@ -527,7 +527,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTAL1/PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='XTAL2/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny26L-8P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny26L-8P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc1477.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny26L-8P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny26L-8P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc1477.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny26L-8P\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='~{RESET}/PB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA7',func=Pin.types.BIDIR,unit=1),
@@ -548,7 +548,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTAL1/PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='XTAL2/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny26L-8S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny26L-8S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc1477.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny26L-8S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny26L-8S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc1477.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny26L-8S\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='~{RESET}/PB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA7',func=Pin.types.BIDIR,unit=1),
@@ -569,7 +569,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTAL1/PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='XTAL2/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny28V-1A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny28V-1A'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'keywords':'AVR 8bit Microcontroller tinyAVR IR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc1062.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny28V-1A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny28V-1A'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'keywords':'AVR 8bit Microcontroller tinyAVR IR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc1062.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny28V-1A\n\nAVR 8bit Microcontroller tinyAVR IR', 'pins':[
             Pin(num='1',name='PD3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PD6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -602,7 +602,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTAL1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='XTAL2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='PD5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny28V-1M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny28V-1M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller tinyAVR IR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc1062.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny28V-1M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny28V-1M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller tinyAVR IR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc1062.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny28V-1M\n\nAVR 8bit Microcontroller tinyAVR IR', 'pins':[
             Pin(num='1',name='PD3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PD6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -636,7 +636,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTAL1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='XTAL2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='PD5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny28V-1P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny28V-1P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR IR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc1062.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny28V-1P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny28V-1P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR IR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc1062.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny28V-1P\n\nAVR 8bit Microcontroller tinyAVR IR', 'pins':[
             Pin(num='1',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='XTAL2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='PD5',func=Pin.types.BIDIR,unit=1),
@@ -665,7 +665,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='XTAL1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny4-MA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny4-MA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8127-AVR-8-bit-Microcontroller-ATtiny4-ATtiny5-ATtiny9-ATtiny10_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny4-MA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny4-MA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8127-AVR-8-bit-Microcontroller-ATtiny4-ATtiny5-ATtiny9-ATtiny10_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny4-MA\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -674,14 +674,14 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~{RESET}/PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='PB2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny4-TS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny4-TS'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8127-AVR-8-bit-Microcontroller-ATtiny4-ATtiny5-ATtiny9-ATtiny10_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny4-TS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny4-TS'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8127-AVR-8-bit-Microcontroller-ATtiny4-ATtiny5-ATtiny9-ATtiny10_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny4-TS\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='~{RESET}/PB3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny40-MM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny40-MM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.45mm_EP1.6x1.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.45mm_EP1.6x1.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-8263-8-bit-avr-microcontroller-tinyavr-attiny40_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny40-MM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny40-MM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.45mm_EP1.6x1.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.45mm_EP1.6x1.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-8263-8-bit-avr-microcontroller-tinyavr-attiny40_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny40-MM\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC4',func=Pin.types.BIDIR,unit=1),
@@ -703,7 +703,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny40-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny40-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-8263-8-bit-avr-microcontroller-tinyavr-attiny40_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny40-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny40-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-8263-8-bit-avr-microcontroller-tinyavr-attiny40_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny40-S\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -724,7 +724,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny40-X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny40-X'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-8263-8-bit-avr-microcontroller-tinyavr-attiny40_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny40-X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny40-X'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-8263-8-bit-avr-microcontroller-tinyavr-attiny40_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny40-X\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -745,7 +745,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny406-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny406-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm'], 'footprint':'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Microchip%208bit%20mcu%20AVR%20ATtiny406%20data%20sheet%2040001976A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny406-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny406-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm'], 'footprint':'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Microchip%208bit%20mcu%20AVR%20ATtiny406%20data%20sheet%2040001976A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny406-M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB3',func=Pin.types.BIDIR,unit=1),
@@ -767,7 +767,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny406-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny406-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Microchip%208bit%20mcu%20AVR%20ATtiny406%20data%20sheet%2040001976A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny406-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny406-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Microchip%208bit%20mcu%20AVR%20ATtiny406%20data%20sheet%2040001976A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny406-S\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB0',func=Pin.types.BIDIR,unit=1),
@@ -788,7 +788,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny43U-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny43U-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR Battery Boost', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8048.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny43U-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny43U-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR Battery Boost', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8048.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny43U-M\n\nAVR 8bit Microcontroller tinyAVR Battery Boost', 'pins':[
             Pin(num='1',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='PA0',func=Pin.types.BIDIR,unit=1),
@@ -810,7 +810,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='LSW',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny43U-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny43U-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR Battery Boost', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8048.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny43U-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny43U-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR Battery Boost', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8048.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny43U-S\n\nAVR 8bit Microcontroller tinyAVR Battery Boost', 'pins':[
             Pin(num='1',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='LSW',func=Pin.types.PASSIVE,unit=1),
@@ -831,7 +831,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny441-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny441-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8495-8-bit-AVR-Microcontrollers-ATtiny441-ATtiny841_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny441-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny441-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8495-8-bit-AVR-Microcontrollers-ATtiny441-ATtiny841_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny441-M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='XTAL1/PB0',func=Pin.types.BIDIR,unit=1),
@@ -853,7 +853,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny441-MM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny441-MM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.45mm_EP1.6x1.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.45mm_EP1.6x1.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8495-8-bit-AVR-Microcontrollers-ATtiny441-ATtiny841_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny441-MM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny441-MM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.45mm_EP1.6x1.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.45mm_EP1.6x1.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8495-8-bit-AVR-Microcontrollers-ATtiny441-ATtiny841_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny441-MM\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='XTAL1/PB0',func=Pin.types.BIDIR,unit=1),
@@ -875,7 +875,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny441-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny441-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8495-8-bit-AVR-Microcontrollers-ATtiny441-ATtiny841_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny441-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny441-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8495-8-bit-AVR-Microcontrollers-ATtiny441-ATtiny841_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny441-SS\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA2',func=Pin.types.BIDIR,unit=1),
@@ -890,7 +890,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny45V-10X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny45V-10X'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_4.4x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny45V-10X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny45V-10X'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_4.4x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny45V-10X\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='~{RESET}/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='XTAL1/PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='XTAL2/PB4',func=Pin.types.BIDIR,unit=1),
@@ -899,7 +899,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny461V-10M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny461V-10M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2588-8-bit-avr-microcontrollers-tinyavr-attiny261-attiny461-attiny861_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny461V-10M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny461V-10M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2588-8-bit-avr-microcontrollers-tinyavr-attiny261-attiny461-attiny861_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny461V-10M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='~{RESET}/PB7',func=Pin.types.BIDIR,unit=1),
@@ -933,7 +933,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTAL1/PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='XTAL2/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny461V-10P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny461V-10P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2588-8-bit-avr-microcontrollers-tinyavr-attiny261-attiny461-attiny861_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny461V-10P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny461V-10P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2588-8-bit-avr-microcontrollers-tinyavr-attiny261-attiny461-attiny861_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny461V-10P\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='~{RESET}/PB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA7',func=Pin.types.BIDIR,unit=1),
@@ -954,7 +954,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTAL1/PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='XTAL2/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny461V-10S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny461V-10S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2588-8-bit-avr-microcontrollers-tinyavr-attiny261-attiny461-attiny861_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny461V-10S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny461V-10S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2588-8-bit-avr-microcontrollers-tinyavr-attiny261-attiny461-attiny861_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny461V-10S\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='~{RESET}/PB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA7',func=Pin.types.BIDIR,unit=1),
@@ -975,7 +975,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTAL1/PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='XTAL2/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny48-A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny48-A'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8008.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny48-A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny48-A'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8008.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny48-A\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PD3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PD6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -1008,7 +1008,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PD5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny48-CC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny48-CC'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-32_4.0x4.0mm_Layout6x6_P0.5mm'], 'footprint':'Package_BGA:UFBGA-32_4.0x4.0mm_Layout6x6_P0.5mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8008.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny48-CC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny48-CC'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-32_4.0x4.0mm_Layout6x6_P0.5mm'], 'footprint':'Package_BGA:UFBGA-32_4.0x4.0mm_Layout6x6_P0.5mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8008.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny48-CC\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='A1',name='PD2',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='PD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='~{RESET}/PC6',func=Pin.types.BIDIR,unit=1),
@@ -1041,7 +1041,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='F4',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='F5',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='F6',name='PB4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny48-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny48-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8008.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny48-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny48-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8008.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny48-M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PD3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PD6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -1075,7 +1075,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PD5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny48-MM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny48-MM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_4x4mm_P0.45mm_EP2.4x2.4mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_4x4mm_P0.45mm_EP2.4x2.4mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8008.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny48-MM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny48-MM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_4x4mm_P0.45mm_EP2.4x2.4mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_4x4mm_P0.45mm_EP2.4x2.4mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8008.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny48-MM\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PD3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB1',func=Pin.types.BIDIR,unit=1),
@@ -1105,7 +1105,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PD5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PD6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PD7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny48-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny48-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8008.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny48-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny48-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8008.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny48-P\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='~{RESET}/PC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PD5',func=Pin.types.BIDIR,unit=1),
@@ -1134,7 +1134,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PB6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny807-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny807-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny807_1607-Data-Sheet-40002030A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny807-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny807-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny807_1607-Data-Sheet-40002030A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny807-M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB5',func=Pin.types.BIDIR,unit=1),
@@ -1160,7 +1160,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny828-A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny828-A'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8371.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny828-A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny828-A'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8371.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny828-A\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA2',func=Pin.types.BIDIR,unit=1),
@@ -1193,7 +1193,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny828-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny828-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8371.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny828-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny828-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8371.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny828-M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA2',func=Pin.types.BIDIR,unit=1),
@@ -1227,7 +1227,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny87-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny87-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller tinyAVR Automotive', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8265-8-bit-AVR-Microcontroller-tinyAVR-ATtiny87-ATtiny167_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny87-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny87-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller tinyAVR Automotive', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8265-8-bit-AVR-Microcontroller-tinyAVR-ATtiny87-ATtiny167_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny87-M\n\nAVR 8bit Microcontroller tinyAVR Automotive', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA6',func=Pin.types.BIDIR,unit=1),
@@ -1261,7 +1261,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='PA4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny87-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny87-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR Automotive', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8265-8-bit-AVR-Microcontroller-tinyAVR-ATtiny87-ATtiny167_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny87-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny87-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR Automotive', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8265-8-bit-AVR-Microcontroller-tinyAVR-ATtiny87-ATtiny167_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny87-S\n\nAVR 8bit Microcontroller tinyAVR Automotive', 'pins':[
             Pin(num='1',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='AREF/PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='~{RESET}/PB7',func=Pin.types.BIDIR,unit=1),
@@ -1282,7 +1282,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny87-X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny87-X'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'AVR 8bit Microcontroller tinyAVR Automotive', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8265-8-bit-AVR-Microcontroller-tinyAVR-ATtiny87-ATtiny167_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny87-X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny87-X'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'AVR 8bit Microcontroller tinyAVR Automotive', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8265-8-bit-AVR-Microcontroller-tinyAVR-ATtiny87-ATtiny167_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny87-X\n\nAVR 8bit Microcontroller tinyAVR Automotive', 'pins':[
             Pin(num='1',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='AREF/PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='~{RESET}/PB7',func=Pin.types.BIDIR,unit=1),
@@ -1303,7 +1303,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny10-MA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny10-MA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm', 'Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8127-AVR-8-bit-Microcontroller-ATtiny4-ATtiny5-ATtiny9-ATtiny10_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny10-MA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny10-MA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm', 'Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8127-AVR-8-bit-Microcontroller-ATtiny4-ATtiny5-ATtiny9-ATtiny10_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny10-MA\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -1312,14 +1312,14 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~{RESET}/PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='PB2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny10-TS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny10-TS'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8127-AVR-8-bit-Microcontroller-ATtiny4-ATtiny5-ATtiny9-ATtiny10_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny10-TS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny10-TS'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8127-AVR-8-bit-Microcontroller-ATtiny4-ATtiny5-ATtiny9-ATtiny10_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny10-TS\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='~{RESET}/PB3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny13-20M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny13-20M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc2535.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny13-20M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny13-20M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc2535.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny13-20M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='~{RESET}/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='PB0',func=Pin.types.BIDIR,unit=1),
@@ -1341,7 +1341,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny13-20MM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny13-20MM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.75x2.7mm', 'Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.75x2.7mm'], 'footprint':'Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.75x2.7mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc2535.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny13-20MM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny13-20MM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.75x2.7mm', 'Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.75x2.7mm'], 'footprint':'Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.75x2.7mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc2535.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny13-20MM\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='~{RESET}/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -1353,7 +1353,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='PB2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny13-20P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny13-20P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc2535.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny13-20P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny13-20P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc2535.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny13-20P\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='~{RESET}/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='PB4',func=Pin.types.BIDIR,unit=1),
@@ -1362,7 +1362,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny13-20S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny13-20S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc2535.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny13-20S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny13-20S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc2535.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny13-20S\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='~{RESET}/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='PB4',func=Pin.types.BIDIR,unit=1),
@@ -1371,7 +1371,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny13-20SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny13-20SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc2535.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny13-20SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny13-20SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc2535.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny13-20SS\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='~{RESET}/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='PB4',func=Pin.types.BIDIR,unit=1),
@@ -1380,7 +1380,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny13A-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny13A-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8126.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny13A-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny13A-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8126.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny13A-M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='~{RESET}/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='PB0',func=Pin.types.BIDIR,unit=1),
@@ -1402,7 +1402,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny13A-MM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny13A-MM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.75x2.7mm', 'Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.75x2.7mm', 'Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.75x2.7mm'], 'footprint':'Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.75x2.7mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8126.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny13A-MM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny13A-MM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.75x2.7mm', 'Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.75x2.7mm', 'Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.75x2.7mm'], 'footprint':'Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.75x2.7mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8126.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny13A-MM\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='~{RESET}/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -1414,7 +1414,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='PB2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny13A-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny13A-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8126.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny13A-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny13A-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8126.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny13A-P\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='~{RESET}/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='PB4',func=Pin.types.BIDIR,unit=1),
@@ -1423,7 +1423,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny13A-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny13A-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8126.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny13A-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny13A-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8126.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny13A-S\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='~{RESET}/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='PB4',func=Pin.types.BIDIR,unit=1),
@@ -1432,7 +1432,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny13A-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny13A-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8126.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny13A-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny13A-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8126.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny13A-SS\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='~{RESET}/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='PB4',func=Pin.types.BIDIR,unit=1),
@@ -1441,7 +1441,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny1604-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny1604-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny804_1604-Data-Sheet-40002028A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny1604-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny1604-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny804_1604-Data-Sheet-40002028A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny1604-SS\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RESET}/PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -1456,7 +1456,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny1606-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny1606-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm'], 'footprint':'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny806_1606_Data_Sheet_40002029A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny1606-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny1606-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm'], 'footprint':'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny806_1606_Data_Sheet_40002029A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny1606-M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB3',func=Pin.types.BIDIR,unit=1),
@@ -1478,7 +1478,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny1606-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny1606-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny806_1606_Data_Sheet_40002029A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny1606-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny1606-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny806_1606_Data_Sheet_40002029A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny1606-S\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB0',func=Pin.types.BIDIR,unit=1),
@@ -1499,7 +1499,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny1607-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny1607-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny807_1607-Data-Sheet-40002030A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny1607-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny1607-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny807_1607-Data-Sheet-40002030A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny1607-M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB5',func=Pin.types.BIDIR,unit=1),
@@ -1525,7 +1525,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny1614-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny1614-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny1614-data-sheet-40001995A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny1614-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny1614-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny1614-data-sheet-40001995A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny1614-SS\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RESET}/PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -1540,7 +1540,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny1616-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny1616-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm'], 'footprint':'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny3216_ATtiny1616-data-sheet-40001997B.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny1616-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny1616-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm'], 'footprint':'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny3216_ATtiny1616-data-sheet-40001997B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny1616-M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB3',func=Pin.types.BIDIR,unit=1),
@@ -1562,7 +1562,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny1616-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny1616-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny3216_ATtiny1616-data-sheet-40001997B.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny1616-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny1616-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny3216_ATtiny1616-data-sheet-40001997B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny1616-S\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB0',func=Pin.types.BIDIR,unit=1),
@@ -1583,7 +1583,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny1617-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny1617-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny3217_1617-Data-Sheet-40001999B.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny1617-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny1617-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny3217_1617-Data-Sheet-40001999B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny1617-M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB5',func=Pin.types.BIDIR,unit=1),
@@ -1609,7 +1609,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny1624-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny1624-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny1624-26-27-DataSheet-DS40002234A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny1624-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny1624-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny1624-26-27-DataSheet-DS40002234A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny1624-SS\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RESET}/PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -1624,7 +1624,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny1624-X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny1624-X'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny1624-26-27-DataSheet-DS40002234A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny1624-X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny1624-X'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny1624-26-27-DataSheet-DS40002234A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny1624-X\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RESET}/PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -1639,7 +1639,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny1626-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny1626-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm'], 'footprint':'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny1624-26-27-DataSheet-DS40002234A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny1626-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny1626-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm'], 'footprint':'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny1624-26-27-DataSheet-DS40002234A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny1626-M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB3',func=Pin.types.BIDIR,unit=1),
@@ -1661,7 +1661,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny1626-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny1626-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny1624-26-27-DataSheet-DS40002234A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny1626-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny1626-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny1624-26-27-DataSheet-DS40002234A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny1626-S\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB0',func=Pin.types.BIDIR,unit=1),
@@ -1682,7 +1682,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny1626-X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny1626-X'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny1624-26-27-DataSheet-DS40002234A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny1626-X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny1626-X'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny1624-26-27-DataSheet-DS40002234A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny1626-X\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB0',func=Pin.types.BIDIR,unit=1),
@@ -1703,7 +1703,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny1627-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny1627-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny1624-26-27-DataSheet-DS40002234A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny1627-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny1627-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny1624-26-27-DataSheet-DS40002234A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny1627-M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB5',func=Pin.types.BIDIR,unit=1),
@@ -1729,7 +1729,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny167-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny167-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller tinyAVR Automotive', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8265-8-bit-AVR-Microcontroller-tinyAVR-ATtiny87-ATtiny167_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny167-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny167-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller tinyAVR Automotive', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8265-8-bit-AVR-Microcontroller-tinyAVR-ATtiny87-ATtiny167_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny167-M\n\nAVR 8bit Microcontroller tinyAVR Automotive', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA6',func=Pin.types.BIDIR,unit=1),
@@ -1763,7 +1763,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='PA4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny167-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny167-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR Automotive', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8265-8-bit-AVR-Microcontroller-tinyAVR-ATtiny87-ATtiny167_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny167-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny167-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR Automotive', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8265-8-bit-AVR-Microcontroller-tinyAVR-ATtiny87-ATtiny167_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny167-S\n\nAVR 8bit Microcontroller tinyAVR Automotive', 'pins':[
             Pin(num='1',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='AREF/PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='~{RESET}/PB7',func=Pin.types.BIDIR,unit=1),
@@ -1784,7 +1784,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny167-X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny167-X'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'AVR 8bit Microcontroller tinyAVR Automotive', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8265-8-bit-AVR-Microcontroller-tinyAVR-ATtiny87-ATtiny167_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny167-X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny167-X'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'AVR 8bit Microcontroller tinyAVR Automotive', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8265-8-bit-AVR-Microcontroller-tinyAVR-ATtiny87-ATtiny167_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny167-X\n\nAVR 8bit Microcontroller tinyAVR Automotive', 'pins':[
             Pin(num='1',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='AREF/PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='~{RESET}/PB7',func=Pin.types.BIDIR,unit=1),
@@ -1805,7 +1805,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny212-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny212-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001911A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny212-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny212-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001911A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny212-SS\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='PA7',func=Pin.types.BIDIR,unit=1),
@@ -1814,7 +1814,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~{RESET}/PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny214-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny214-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001912A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny214-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny214-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001912A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny214-SS\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RESET}/PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -1829,7 +1829,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny2313-20M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny2313-20M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:MLF-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:MLF-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:MLF-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-2543-AVR-ATtiny2313_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny2313-20M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny2313-20M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:MLF-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:MLF-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:MLF-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-2543-AVR-ATtiny2313_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny2313-20M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB1',func=Pin.types.BIDIR,unit=1),
@@ -1851,7 +1851,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PD5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PD6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny2313-20P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny2313-20P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-2543-AVR-ATtiny2313_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny2313-20P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny2313-20P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-2543-AVR-ATtiny2313_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny2313-20P\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA2/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='PD6',func=Pin.types.BIDIR,unit=1),
@@ -1872,7 +1872,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PD3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PD5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny2313-20S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny2313-20S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-2543-AVR-ATtiny2313_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny2313-20S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny2313-20S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-2543-AVR-ATtiny2313_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny2313-20S\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA2/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='PD6',func=Pin.types.BIDIR,unit=1),
@@ -1893,7 +1893,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PD3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PD5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny2313A-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny2313A-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:MLF-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:MLF-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:MLF-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:MLF-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8246.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny2313A-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny2313A-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:MLF-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:MLF-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:MLF-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:MLF-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8246.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny2313A-M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB1',func=Pin.types.BIDIR,unit=1),
@@ -1915,7 +1915,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PD5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PD6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny2313A-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny2313A-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8246.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny2313A-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny2313A-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8246.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny2313A-P\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA2/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='PD6',func=Pin.types.BIDIR,unit=1),
@@ -1936,7 +1936,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PD3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PD5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny2313A-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny2313A-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8246.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny2313A-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny2313A-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8246.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny2313A-S\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA2/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='PD6',func=Pin.types.BIDIR,unit=1),
@@ -1957,7 +1957,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PD3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PD5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny24-20M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny24-20M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8006.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny24-20M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny24-20M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8006.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny24-20M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='XTAL1/PB0',func=Pin.types.BIDIR,unit=1),
@@ -1979,7 +1979,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny24-20P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny24-20P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8006.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny24-20P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny24-20P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8006.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny24-20P\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA2',func=Pin.types.BIDIR,unit=1),
@@ -1994,7 +1994,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny24-20SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny24-20SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8006.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny24-20SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny24-20SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8006.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny24-20SS\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA2',func=Pin.types.BIDIR,unit=1),
@@ -2009,7 +2009,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny24A-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny24A-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8183.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny24A-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny24A-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8183.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny24A-M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='XTAL1/PB0',func=Pin.types.BIDIR,unit=1),
@@ -2031,7 +2031,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny24A-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny24A-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8183.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny24A-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny24A-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8183.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny24A-P\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA2',func=Pin.types.BIDIR,unit=1),
@@ -2046,7 +2046,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny24A-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny24A-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8183.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny24A-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny24A-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8183.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny24A-SS\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA2',func=Pin.types.BIDIR,unit=1),
@@ -2061,7 +2061,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny25-20M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny25-20M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny25-20M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny25-20M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny25-20M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='~{RESET}/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='AREF/PB0',func=Pin.types.BIDIR,unit=1),
@@ -2083,7 +2083,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny25-20P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny25-20P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny25-20P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny25-20P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny25-20P\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='~{RESET}/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='XTAL1/PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='XTAL2/PB4',func=Pin.types.BIDIR,unit=1),
@@ -2092,7 +2092,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny25-20S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny25-20S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny25-20S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny25-20S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny25-20S\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='~{RESET}/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='XTAL1/PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='XTAL2/PB4',func=Pin.types.BIDIR,unit=1),
@@ -2101,7 +2101,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny25-20SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny25-20SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny25-20SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny25-20SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny25-20SS\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='~{RESET}/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='XTAL1/PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='XTAL2/PB4',func=Pin.types.BIDIR,unit=1),
@@ -2110,7 +2110,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny26-16M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny26-16M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc1477.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny26-16M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny26-16M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc1477.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny26-16M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='~{RESET}/PB7',func=Pin.types.BIDIR,unit=1),
@@ -2144,7 +2144,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTAL1/PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='XTAL2/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny26-16P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny26-16P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc1477.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny26-16P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny26-16P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc1477.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny26-16P\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='~{RESET}/PB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA7',func=Pin.types.BIDIR,unit=1),
@@ -2165,7 +2165,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTAL1/PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='XTAL2/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny26-16S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny26-16S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc1477.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny26-16S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny26-16S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc1477.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny26-16S\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='~{RESET}/PB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA7',func=Pin.types.BIDIR,unit=1),
@@ -2186,7 +2186,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTAL1/PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='XTAL2/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny261A-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny261A-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8197.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny261A-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny261A-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8197.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny261A-M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='~{RESET}/PB7',func=Pin.types.BIDIR,unit=1),
@@ -2220,7 +2220,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTAL1/PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='XTAL2/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny261A-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny261A-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8197.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny261A-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny261A-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8197.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny261A-P\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='~{RESET}/PB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA7',func=Pin.types.BIDIR,unit=1),
@@ -2241,7 +2241,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTAL1/PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='XTAL2/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny261A-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny261A-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8197.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny261A-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny261A-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8197.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny261A-S\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='~{RESET}/PB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA7',func=Pin.types.BIDIR,unit=1),
@@ -2262,7 +2262,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTAL1/PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='XTAL2/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny28L-4A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny28L-4A'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-32_7x7mm_P0.8mm', 'Package_QFP:TQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'keywords':'AVR 8bit Microcontroller tinyAVR IR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc1062.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny28L-4A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny28L-4A'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-32_7x7mm_P0.8mm', 'Package_QFP:TQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'keywords':'AVR 8bit Microcontroller tinyAVR IR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc1062.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny28L-4A\n\nAVR 8bit Microcontroller tinyAVR IR', 'pins':[
             Pin(num='1',name='PD3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PD6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -2295,7 +2295,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTAL1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='XTAL2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='PD5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny28L-4M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny28L-4M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller tinyAVR IR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc1062.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny28L-4M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny28L-4M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller tinyAVR IR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc1062.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny28L-4M\n\nAVR 8bit Microcontroller tinyAVR IR', 'pins':[
             Pin(num='1',name='PD3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PD6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -2329,7 +2329,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTAL1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='XTAL2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='PD5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny28L-4P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny28L-4P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR IR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc1062.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny28L-4P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny28L-4P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR IR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc1062.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny28L-4P\n\nAVR 8bit Microcontroller tinyAVR IR', 'pins':[
             Pin(num='1',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='XTAL2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='PD5',func=Pin.types.BIDIR,unit=1),
@@ -2358,7 +2358,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='XTAL1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny3216-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny3216-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm'], 'footprint':'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny3216_ATtiny1616-data-sheet-40001997B.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny3216-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny3216-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm'], 'footprint':'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny3216_ATtiny1616-data-sheet-40001997B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny3216-M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB3',func=Pin.types.BIDIR,unit=1),
@@ -2380,7 +2380,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny3216-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny3216-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny3216_ATtiny1616-data-sheet-40001997B.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny3216-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny3216-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny3216_ATtiny1616-data-sheet-40001997B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny3216-S\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB0',func=Pin.types.BIDIR,unit=1),
@@ -2401,7 +2401,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny3217-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny3217-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny3217_1617-Data-Sheet-40001999B.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny3217-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny3217-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny3217_1617-Data-Sheet-40001999B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny3217-M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB5',func=Pin.types.BIDIR,unit=1),
@@ -2427,7 +2427,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny3224-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny3224-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny3224-3226-3227-Data-Sheet-DS40002345A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny3224-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny3224-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny3224-3226-3227-Data-Sheet-DS40002345A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny3224-SS\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RESET}/PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -2442,7 +2442,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny3224-X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny3224-X'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny3224-3226-3227-Data-Sheet-DS40002345A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny3224-X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny3224-X'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny3224-3226-3227-Data-Sheet-DS40002345A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny3224-X\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RESET}/PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -2457,7 +2457,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny3226-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny3226-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm'], 'footprint':'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny3224-3226-3227-Data-Sheet-DS40002345A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny3226-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny3226-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm'], 'footprint':'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny3224-3226-3227-Data-Sheet-DS40002345A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny3226-M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB3',func=Pin.types.BIDIR,unit=1),
@@ -2479,7 +2479,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny3226-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny3226-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny3224-3226-3227-Data-Sheet-DS40002345A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny3226-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny3226-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny3224-3226-3227-Data-Sheet-DS40002345A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny3226-S\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB0',func=Pin.types.BIDIR,unit=1),
@@ -2500,7 +2500,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny3226-X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny3226-X'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny3224-3226-3227-Data-Sheet-DS40002345A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny3226-X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny3226-X'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny3224-3226-3227-Data-Sheet-DS40002345A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny3226-X\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB0',func=Pin.types.BIDIR,unit=1),
@@ -2521,7 +2521,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny3227-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny3227-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny3224-3226-3227-Data-Sheet-DS40002345A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny3227-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny3227-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny3224-3226-3227-Data-Sheet-DS40002345A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny3227-M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB5',func=Pin.types.BIDIR,unit=1),
@@ -2547,7 +2547,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny402-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny402-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny202-402-AVR-MCU-with-Core-Independent-Peripherals_and-picoPower-40001969A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny402-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny402-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny202-402-AVR-MCU-with-Core-Independent-Peripherals_and-picoPower-40001969A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny402-SS\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='PA7',func=Pin.types.BIDIR,unit=1),
@@ -2556,7 +2556,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~{RESET}/PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny404-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny404-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/50002687A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny404-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny404-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/50002687A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny404-SS\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RESET}/PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -2571,7 +2571,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny412-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny412-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001911A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny412-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny412-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001911A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny412-SS\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='PA7',func=Pin.types.BIDIR,unit=1),
@@ -2580,7 +2580,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~{RESET}/PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny414-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny414-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001912A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny414-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny414-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001912A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny414-SS\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RESET}/PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -2595,7 +2595,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny416-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny416-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm'], 'footprint':'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001913A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny416-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny416-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm'], 'footprint':'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001913A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny416-M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB3',func=Pin.types.BIDIR,unit=1),
@@ -2617,7 +2617,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny416-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny416-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001913A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny416-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny416-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001913A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny416-S\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB0',func=Pin.types.BIDIR,unit=1),
@@ -2638,7 +2638,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny417-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny417-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001901B.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny417-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny417-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001901B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny417-M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB5',func=Pin.types.BIDIR,unit=1),
@@ -2664,7 +2664,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny424-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny424-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny424-426-427-824-826-827-DataSheet-DS40002311A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny424-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny424-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny424-426-427-824-826-827-DataSheet-DS40002311A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny424-SS\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RESET}/PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -2679,7 +2679,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny424-X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny424-X'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny424-426-427-824-826-827-DataSheet-DS40002311A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny424-X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny424-X'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny424-426-427-824-826-827-DataSheet-DS40002311A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny424-X\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RESET}/PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -2694,7 +2694,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny426-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny426-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm'], 'footprint':'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny424-426-427-824-826-827-DataSheet-DS40002311A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny426-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny426-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm'], 'footprint':'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny424-426-427-824-826-827-DataSheet-DS40002311A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny426-M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB3',func=Pin.types.BIDIR,unit=1),
@@ -2716,7 +2716,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny426-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny426-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny424-426-427-824-826-827-DataSheet-DS40002311A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny426-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny426-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny424-426-427-824-826-827-DataSheet-DS40002311A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny426-S\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB0',func=Pin.types.BIDIR,unit=1),
@@ -2737,7 +2737,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny426-X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny426-X'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny424-426-427-824-826-827-DataSheet-DS40002311A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny426-X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny426-X'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny424-426-427-824-826-827-DataSheet-DS40002311A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny426-X\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB0',func=Pin.types.BIDIR,unit=1),
@@ -2758,7 +2758,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny427-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny427-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny424-426-427-824-826-827-DataSheet-DS40002311A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny427-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny427-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny424-426-427-824-826-827-DataSheet-DS40002311A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny427-M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB5',func=Pin.types.BIDIR,unit=1),
@@ -2784,7 +2784,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny4313-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny4313-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:MLF-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:MLF-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:MLF-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:MLF-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:MLF-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8246.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny4313-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny4313-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:MLF-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:MLF-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:MLF-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:MLF-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:MLF-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8246.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny4313-M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB1',func=Pin.types.BIDIR,unit=1),
@@ -2806,7 +2806,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PD5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PD6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny4313-MM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny4313-MM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.45mm_EP1.55x1.55mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.45mm_EP1.55x1.55mm'], 'footprint':'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.45mm_EP1.55x1.55mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8246.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny4313-MM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny4313-MM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.45mm_EP1.55x1.55mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.45mm_EP1.55x1.55mm'], 'footprint':'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.45mm_EP1.55x1.55mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8246.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny4313-MM\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB1',func=Pin.types.BIDIR,unit=1),
@@ -2828,7 +2828,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PD5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PD6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny4313-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny4313-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8246.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny4313-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny4313-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8246.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny4313-P\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA2/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='PD6',func=Pin.types.BIDIR,unit=1),
@@ -2849,7 +2849,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PD3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PD5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny4313-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny4313-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8246.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny4313-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny4313-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8246.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny4313-S\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA2/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='PD6',func=Pin.types.BIDIR,unit=1),
@@ -2870,7 +2870,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PD3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PD5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny44-20M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny44-20M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8006.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny44-20M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny44-20M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8006.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny44-20M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='XTAL1/PB0',func=Pin.types.BIDIR,unit=1),
@@ -2892,7 +2892,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny44-20P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny44-20P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8006.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny44-20P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny44-20P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8006.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny44-20P\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA2',func=Pin.types.BIDIR,unit=1),
@@ -2907,7 +2907,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny44-20SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny44-20SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8006.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny44-20SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny44-20SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8006.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny44-20SS\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA2',func=Pin.types.BIDIR,unit=1),
@@ -2922,7 +2922,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny44A-CC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny44A-CC'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-15_3.0x3.0mm_Layout4x4_P0.65mm', 'Package_BGA:UFBGA-15_3.0x3.0mm_Layout4x4_P0.65mm'], 'footprint':'Package_BGA:UFBGA-15_3.0x3.0mm_Layout4x4_P0.65mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8183.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny44A-CC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny44A-CC'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-15_3.0x3.0mm_Layout4x4_P0.65mm', 'Package_BGA:UFBGA-15_3.0x3.0mm_Layout4x4_P0.65mm'], 'footprint':'Package_BGA:UFBGA-15_3.0x3.0mm_Layout4x4_P0.65mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8183.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny44A-CC\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='A2',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='A4',name='PB2',func=Pin.types.BIDIR,unit=1),
@@ -2938,7 +2938,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='D2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='D3',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='D4',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny44A-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny44A-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8183.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny44A-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny44A-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8183.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny44A-M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='XTAL1/PB0',func=Pin.types.BIDIR,unit=1),
@@ -2960,7 +2960,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny44A-MM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny44A-MM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.45mm_EP1.6x1.6mm', 'Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.45mm_EP1.6x1.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.45mm_EP1.6x1.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8183.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny44A-MM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny44A-MM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.45mm_EP1.6x1.6mm', 'Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.45mm_EP1.6x1.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.45mm_EP1.6x1.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8183.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny44A-MM\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='XTAL1/PB0',func=Pin.types.BIDIR,unit=1),
@@ -2982,7 +2982,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny44A-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny44A-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8183.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny44A-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny44A-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8183.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny44A-P\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA2',func=Pin.types.BIDIR,unit=1),
@@ -2997,7 +2997,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny44A-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny44A-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8183.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny44A-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny44A-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8183.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny44A-SS\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA2',func=Pin.types.BIDIR,unit=1),
@@ -3012,7 +3012,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny44V-10M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny44V-10M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8006.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny44V-10M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny44V-10M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8006.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny44V-10M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='XTAL1/PB0',func=Pin.types.BIDIR,unit=1),
@@ -3034,7 +3034,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny44V-10P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny44V-10P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8006.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny44V-10P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny44V-10P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8006.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny44V-10P\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA2',func=Pin.types.BIDIR,unit=1),
@@ -3049,7 +3049,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny44V-10SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny44V-10SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8006.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny44V-10SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny44V-10SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8006.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny44V-10SS\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA2',func=Pin.types.BIDIR,unit=1),
@@ -3064,7 +3064,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny45-20M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny45-20M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny45-20M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny45-20M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny45-20M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='~{RESET}/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='AREF/PB0',func=Pin.types.BIDIR,unit=1),
@@ -3086,7 +3086,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny45-20P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny45-20P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny45-20P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny45-20P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny45-20P\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='~{RESET}/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='XTAL1/PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='XTAL2/PB4',func=Pin.types.BIDIR,unit=1),
@@ -3095,7 +3095,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny45-20S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny45-20S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny45-20S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny45-20S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny45-20S\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='~{RESET}/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='XTAL1/PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='XTAL2/PB4',func=Pin.types.BIDIR,unit=1),
@@ -3104,7 +3104,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny45-20X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny45-20X'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'Package_SO:TSSOP-8_4.4x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny45-20X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny45-20X'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'Package_SO:TSSOP-8_4.4x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny45-20X\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='~{RESET}/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='XTAL1/PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='XTAL2/PB4',func=Pin.types.BIDIR,unit=1),
@@ -3113,7 +3113,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny45V-10M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny45V-10M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny45V-10M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny45V-10M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny45V-10M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='~{RESET}/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='AREF/PB0',func=Pin.types.BIDIR,unit=1),
@@ -3135,7 +3135,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny45V-10P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny45V-10P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny45V-10P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny45V-10P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny45V-10P\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='~{RESET}/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='XTAL1/PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='XTAL2/PB4',func=Pin.types.BIDIR,unit=1),
@@ -3144,7 +3144,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny45V-10S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny45V-10S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny45V-10S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny45V-10S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny45V-10S\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='~{RESET}/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='XTAL1/PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='XTAL2/PB4',func=Pin.types.BIDIR,unit=1),
@@ -3153,7 +3153,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny461-20M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny461-20M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2588-8-bit-avr-microcontrollers-tinyavr-attiny261-attiny461-attiny861_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny461-20M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny461-20M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2588-8-bit-avr-microcontrollers-tinyavr-attiny261-attiny461-attiny861_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny461-20M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='~{RESET}/PB7',func=Pin.types.BIDIR,unit=1),
@@ -3187,7 +3187,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTAL1/PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='XTAL2/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny461-20P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny461-20P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2588-8-bit-avr-microcontrollers-tinyavr-attiny261-attiny461-attiny861_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny461-20P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny461-20P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2588-8-bit-avr-microcontrollers-tinyavr-attiny261-attiny461-attiny861_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny461-20P\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='~{RESET}/PB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA7',func=Pin.types.BIDIR,unit=1),
@@ -3208,7 +3208,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTAL1/PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='XTAL2/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny461-20S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny461-20S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2588-8-bit-avr-microcontrollers-tinyavr-attiny261-attiny461-attiny861_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny461-20S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny461-20S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2588-8-bit-avr-microcontrollers-tinyavr-attiny261-attiny461-attiny861_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny461-20S\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='~{RESET}/PB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA7',func=Pin.types.BIDIR,unit=1),
@@ -3229,7 +3229,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTAL1/PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='XTAL2/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny461A-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny461A-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8197.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny461A-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny461A-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8197.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny461A-M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='~{RESET}/PB7',func=Pin.types.BIDIR,unit=1),
@@ -3263,7 +3263,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTAL1/PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='XTAL2/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny461A-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny461A-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8197.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny461A-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny461A-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8197.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny461A-P\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='~{RESET}/PB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA7',func=Pin.types.BIDIR,unit=1),
@@ -3284,7 +3284,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTAL1/PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='XTAL2/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny461A-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny461A-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8197.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny461A-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny461A-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8197.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny461A-S\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='~{RESET}/PB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA7',func=Pin.types.BIDIR,unit=1),
@@ -3305,7 +3305,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTAL1/PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='XTAL2/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny461A-X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny461A-X'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8197.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny461A-X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny461A-X'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8197.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny461A-X\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='~{RESET}/PB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA7',func=Pin.types.BIDIR,unit=1),
@@ -3326,7 +3326,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTAL1/PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='XTAL2/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny5-MA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny5-MA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm', 'Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm', 'Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8127-AVR-8-bit-Microcontroller-ATtiny4-ATtiny5-ATtiny9-ATtiny10_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny5-MA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny5-MA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm', 'Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm', 'Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8127-AVR-8-bit-Microcontroller-ATtiny4-ATtiny5-ATtiny9-ATtiny10_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny5-MA\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -3335,14 +3335,14 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~{RESET}/PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='PB2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny5-TS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny5-TS'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8127-AVR-8-bit-Microcontroller-ATtiny4-ATtiny5-ATtiny9-ATtiny10_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny5-TS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny5-TS'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8127-AVR-8-bit-Microcontroller-ATtiny4-ATtiny5-ATtiny9-ATtiny10_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny5-TS\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='~{RESET}/PB3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny804-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny804-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny804_1604-Data-Sheet-40002028A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny804-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny804-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny804_1604-Data-Sheet-40002028A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny804-SS\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RESET}/PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -3357,7 +3357,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny806-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny806-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm'], 'footprint':'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny806_1606_Data_Sheet_40002029A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny806-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny806-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm'], 'footprint':'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny806_1606_Data_Sheet_40002029A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny806-M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB3',func=Pin.types.BIDIR,unit=1),
@@ -3379,7 +3379,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny806-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny806-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny806_1606_Data_Sheet_40002029A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny806-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny806-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny806_1606_Data_Sheet_40002029A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny806-S\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB0',func=Pin.types.BIDIR,unit=1),
@@ -3400,7 +3400,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny814-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny814-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001912A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny814-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny814-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001912A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny814-SS\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RESET}/PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -3415,7 +3415,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny816-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny816-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm'], 'footprint':'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001913A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny816-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny816-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm'], 'footprint':'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001913A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny816-M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB3',func=Pin.types.BIDIR,unit=1),
@@ -3437,7 +3437,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny816-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny816-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001913A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny816-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny816-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001913A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny816-S\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB0',func=Pin.types.BIDIR,unit=1),
@@ -3458,7 +3458,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny817-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny817-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001901B.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny817-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny817-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001901B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny817-M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB5',func=Pin.types.BIDIR,unit=1),
@@ -3484,7 +3484,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny824-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny824-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny424-426-427-824-826-827-DataSheet-DS40002311A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny824-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny824-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny424-426-427-824-826-827-DataSheet-DS40002311A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny824-SS\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RESET}/PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -3499,7 +3499,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny824-X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny824-X'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny424-426-427-824-826-827-DataSheet-DS40002311A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny824-X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny824-X'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny424-426-427-824-826-827-DataSheet-DS40002311A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny824-X\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RESET}/PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -3514,7 +3514,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny826-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny826-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm'], 'footprint':'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny424-426-427-824-826-827-DataSheet-DS40002311A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny826-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny826-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm'], 'footprint':'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.4mm_EP1.7x1.7mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny424-426-427-824-826-827-DataSheet-DS40002311A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny826-M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB3',func=Pin.types.BIDIR,unit=1),
@@ -3536,7 +3536,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny826-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny826-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny424-426-427-824-826-827-DataSheet-DS40002311A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny826-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny826-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny424-426-427-824-826-827-DataSheet-DS40002311A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny826-S\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB0',func=Pin.types.BIDIR,unit=1),
@@ -3557,7 +3557,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny826-X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny826-X'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny424-426-427-824-826-827-DataSheet-DS40002311A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny826-X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny826-X'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny424-426-427-824-826-827-DataSheet-DS40002311A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny826-X\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB0',func=Pin.types.BIDIR,unit=1),
@@ -3578,7 +3578,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny827-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny827-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny424-426-427-824-826-827-DataSheet-DS40002311A.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny827-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny827-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny424-426-427-824-826-827-DataSheet-DS40002311A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny827-M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB5',func=Pin.types.BIDIR,unit=1),
@@ -3604,7 +3604,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny84-20M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny84-20M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8006.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny84-20M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny84-20M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8006.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny84-20M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='XTAL1/PB0',func=Pin.types.BIDIR,unit=1),
@@ -3626,7 +3626,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny84-20P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny84-20P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8006.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny84-20P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny84-20P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8006.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny84-20P\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA2',func=Pin.types.BIDIR,unit=1),
@@ -3641,7 +3641,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny84-20SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny84-20SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8006.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny84-20SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny84-20SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8006.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny84-20SS\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA2',func=Pin.types.BIDIR,unit=1),
@@ -3656,7 +3656,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny841-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny841-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8495-8-bit-AVR-Microcontrollers-ATtiny441-ATtiny841_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny841-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny841-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8495-8-bit-AVR-Microcontrollers-ATtiny441-ATtiny841_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny841-M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='XTAL1/PB0',func=Pin.types.BIDIR,unit=1),
@@ -3678,7 +3678,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny841-MM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny841-MM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.45mm_EP1.6x1.6mm', 'Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.45mm_EP1.6x1.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.45mm_EP1.6x1.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8495-8-bit-AVR-Microcontrollers-ATtiny441-ATtiny841_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny841-MM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny841-MM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.45mm_EP1.6x1.6mm', 'Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.45mm_EP1.6x1.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.45mm_EP1.6x1.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8495-8-bit-AVR-Microcontrollers-ATtiny441-ATtiny841_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny841-MM\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='XTAL1/PB0',func=Pin.types.BIDIR,unit=1),
@@ -3700,7 +3700,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny841-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny841-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8495-8-bit-AVR-Microcontrollers-ATtiny441-ATtiny841_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny841-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny841-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8495-8-bit-AVR-Microcontrollers-ATtiny441-ATtiny841_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny841-SS\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA2',func=Pin.types.BIDIR,unit=1),
@@ -3715,7 +3715,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny84A-CC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny84A-CC'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-15_3.0x3.0mm_Layout4x4_P0.65mm', 'Package_BGA:UFBGA-15_3.0x3.0mm_Layout4x4_P0.65mm', 'Package_BGA:UFBGA-15_3.0x3.0mm_Layout4x4_P0.65mm'], 'footprint':'Package_BGA:UFBGA-15_3.0x3.0mm_Layout4x4_P0.65mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8183.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny84A-CC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny84A-CC'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-15_3.0x3.0mm_Layout4x4_P0.65mm', 'Package_BGA:UFBGA-15_3.0x3.0mm_Layout4x4_P0.65mm', 'Package_BGA:UFBGA-15_3.0x3.0mm_Layout4x4_P0.65mm'], 'footprint':'Package_BGA:UFBGA-15_3.0x3.0mm_Layout4x4_P0.65mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8183.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny84A-CC\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='A2',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='A4',name='PB2',func=Pin.types.BIDIR,unit=1),
@@ -3731,7 +3731,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='D2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='D3',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='D4',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny84A-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny84A-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8183.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny84A-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny84A-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8183.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny84A-M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='XTAL1/PB0',func=Pin.types.BIDIR,unit=1),
@@ -3753,7 +3753,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny84A-MM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny84A-MM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.45mm_EP1.6x1.6mm', 'Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.45mm_EP1.6x1.6mm', 'Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.45mm_EP1.6x1.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.45mm_EP1.6x1.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8183.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny84A-MM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny84A-MM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.45mm_EP1.6x1.6mm', 'Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.45mm_EP1.6x1.6mm', 'Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.45mm_EP1.6x1.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.45mm_EP1.6x1.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8183.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny84A-MM\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='XTAL1/PB0',func=Pin.types.BIDIR,unit=1),
@@ -3775,7 +3775,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny84A-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny84A-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8183.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny84A-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny84A-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8183.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny84A-P\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA2',func=Pin.types.BIDIR,unit=1),
@@ -3790,7 +3790,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny84A-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny84A-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8183.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny84A-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny84A-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8183.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny84A-SS\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA2',func=Pin.types.BIDIR,unit=1),
@@ -3805,7 +3805,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny84V-10M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny84V-10M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8006.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny84V-10M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny84V-10M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8006.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny84V-10M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='XTAL1/PB0',func=Pin.types.BIDIR,unit=1),
@@ -3827,7 +3827,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny84V-10P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny84V-10P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8006.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny84V-10P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny84V-10P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8006.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny84V-10P\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA2',func=Pin.types.BIDIR,unit=1),
@@ -3842,7 +3842,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny84V-10SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny84V-10SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8006.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny84V-10SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny84V-10SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8006.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny84V-10SS\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA2',func=Pin.types.BIDIR,unit=1),
@@ -3857,7 +3857,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny85-20M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny85-20M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny85-20M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny85-20M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny85-20M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='~{RESET}/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='AREF/PB0',func=Pin.types.BIDIR,unit=1),
@@ -3879,7 +3879,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny85-20P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny85-20P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny85-20P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny85-20P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny85-20P\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='~{RESET}/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='XTAL1/PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='XTAL2/PB4',func=Pin.types.BIDIR,unit=1),
@@ -3888,7 +3888,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny85-20S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny85-20S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny85-20S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny85-20S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny85-20S\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='~{RESET}/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='XTAL1/PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='XTAL2/PB4',func=Pin.types.BIDIR,unit=1),
@@ -3897,7 +3897,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny85V-10M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny85V-10M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny85V-10M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny85V-10M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny85V-10M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='~{RESET}/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='AREF/PB0',func=Pin.types.BIDIR,unit=1),
@@ -3919,7 +3919,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny85V-10P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny85V-10P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny85V-10P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny85V-10P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny85V-10P\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='~{RESET}/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='XTAL1/PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='XTAL2/PB4',func=Pin.types.BIDIR,unit=1),
@@ -3928,7 +3928,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny85V-10S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny85V-10S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny85V-10S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny85V-10S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8W_5.3x5.3mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny85V-10S\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='~{RESET}/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='XTAL1/PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='XTAL2/PB4',func=Pin.types.BIDIR,unit=1),
@@ -3937,7 +3937,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny861-20M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny861-20M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2588-8-bit-avr-microcontrollers-tinyavr-attiny261-attiny461-attiny861_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny861-20M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny861-20M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2588-8-bit-avr-microcontrollers-tinyavr-attiny261-attiny461-attiny861_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny861-20M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='~{RESET}/PB7',func=Pin.types.BIDIR,unit=1),
@@ -3971,7 +3971,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTAL1/PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='XTAL2/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny861-20P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny861-20P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2588-8-bit-avr-microcontrollers-tinyavr-attiny261-attiny461-attiny861_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny861-20P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny861-20P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2588-8-bit-avr-microcontrollers-tinyavr-attiny261-attiny461-attiny861_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny861-20P\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='~{RESET}/PB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA7',func=Pin.types.BIDIR,unit=1),
@@ -3992,7 +3992,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTAL1/PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='XTAL2/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny861-20S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny861-20S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2588-8-bit-avr-microcontrollers-tinyavr-attiny261-attiny461-attiny861_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny861-20S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny861-20S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2588-8-bit-avr-microcontrollers-tinyavr-attiny261-attiny461-attiny861_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny861-20S\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='~{RESET}/PB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA7',func=Pin.types.BIDIR,unit=1),
@@ -4013,7 +4013,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTAL1/PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='XTAL2/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny861A-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny861A-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8197.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny861A-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny861A-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8197.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny861A-M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='~{RESET}/PB7',func=Pin.types.BIDIR,unit=1),
@@ -4047,7 +4047,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTAL1/PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='XTAL2/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny861A-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny861A-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8197.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny861A-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny861A-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8197.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny861A-P\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='~{RESET}/PB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA7',func=Pin.types.BIDIR,unit=1),
@@ -4068,7 +4068,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTAL1/PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='XTAL2/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny861A-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny861A-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8197.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny861A-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny861A-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8197.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny861A-S\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='~{RESET}/PB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA7',func=Pin.types.BIDIR,unit=1),
@@ -4089,7 +4089,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTAL1/PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='XTAL2/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny861A-X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny861A-X'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8197.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny861A-X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny861A-X'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8197.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny861A-X\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='~{RESET}/PB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA7',func=Pin.types.BIDIR,unit=1),
@@ -4110,7 +4110,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTAL1/PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='XTAL2/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny861V-10M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny861V-10M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2588-8-bit-avr-microcontrollers-tinyavr-attiny261-attiny461-attiny861_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny861V-10M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny861V-10M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2588-8-bit-avr-microcontrollers-tinyavr-attiny261-attiny461-attiny861_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny861V-10M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='~{RESET}/PB7',func=Pin.types.BIDIR,unit=1),
@@ -4144,7 +4144,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTAL1/PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='XTAL2/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny861V-10P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny861V-10P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2588-8-bit-avr-microcontrollers-tinyavr-attiny261-attiny461-attiny861_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny861V-10P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny861V-10P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2588-8-bit-avr-microcontrollers-tinyavr-attiny261-attiny461-attiny861_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny861V-10P\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='~{RESET}/PB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA7',func=Pin.types.BIDIR,unit=1),
@@ -4165,7 +4165,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTAL1/PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='XTAL2/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny861V-10S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny861V-10S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2588-8-bit-avr-microcontrollers-tinyavr-attiny261-attiny461-attiny861_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny861V-10S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny861V-10S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2588-8-bit-avr-microcontrollers-tinyavr-attiny261-attiny461-attiny861_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny861V-10S\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='~{RESET}/PB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA7',func=Pin.types.BIDIR,unit=1),
@@ -4186,7 +4186,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTAL1/PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='XTAL2/PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny88-A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny88-A'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-32_7x7mm_P0.8mm', 'Package_QFP:TQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8008.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny88-A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny88-A'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-32_7x7mm_P0.8mm', 'Package_QFP:TQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-32_7x7mm_P0.8mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8008.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny88-A\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PD3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PD6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -4219,7 +4219,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PD5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny88-CC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny88-CC'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-32_4.0x4.0mm_Layout6x6_P0.5mm', 'Package_BGA:UFBGA-32_4.0x4.0mm_Layout6x6_P0.5mm'], 'footprint':'Package_BGA:UFBGA-32_4.0x4.0mm_Layout6x6_P0.5mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8008.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny88-CC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny88-CC'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-32_4.0x4.0mm_Layout6x6_P0.5mm', 'Package_BGA:UFBGA-32_4.0x4.0mm_Layout6x6_P0.5mm'], 'footprint':'Package_BGA:UFBGA-32_4.0x4.0mm_Layout6x6_P0.5mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8008.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny88-CC\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='A1',name='PD2',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='PD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='~{RESET}/PC6',func=Pin.types.BIDIR,unit=1),
@@ -4252,7 +4252,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='F4',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='F5',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='F6',name='PB4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny88-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny88-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8008.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny88-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny88-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8008.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny88-M\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PD3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PD6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -4286,7 +4286,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PD5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny88-MM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny88-MM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_4x4mm_P0.45mm_EP2.4x2.4mm', 'Package_DFN_QFN:QFN-28-1EP_4x4mm_P0.45mm_EP2.4x2.4mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_4x4mm_P0.45mm_EP2.4x2.4mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8008.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny88-MM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny88-MM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_4x4mm_P0.45mm_EP2.4x2.4mm', 'Package_DFN_QFN:QFN-28-1EP_4x4mm_P0.45mm_EP2.4x2.4mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_4x4mm_P0.45mm_EP2.4x2.4mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8008.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny88-MM\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PD3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB1',func=Pin.types.BIDIR,unit=1),
@@ -4316,7 +4316,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PD5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PD6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PD7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny88-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny88-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8008.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny88-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny88-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc8008.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny88-P\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='~{RESET}/PC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PD5',func=Pin.types.BIDIR,unit=1),
@@ -4345,7 +4345,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PB6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny9-MA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny9-MA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm', 'Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm', 'Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm', 'Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8127-AVR-8-bit-Microcontroller-ATtiny4-ATtiny5-ATtiny9-ATtiny10_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny9-MA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny9-MA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm', 'Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm', 'Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm', 'Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8127-AVR-8-bit-Microcontroller-ATtiny4-ATtiny5-ATtiny9-ATtiny10_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny9-MA\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -4354,7 +4354,7 @@ MCU_Microchip_ATtiny = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~{RESET}/PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='PB2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATtiny9-TS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny9-TS'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8127-AVR-8-bit-Microcontroller-ATtiny4-ATtiny5-ATtiny9-ATtiny10_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATtiny9-TS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATtiny9-TS'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'AVR 8bit Microcontroller tinyAVR', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-8127-AVR-8-bit-Microcontroller-ATtiny4-ATtiny5-ATtiny9-ATtiny10_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_ATtiny.kicad_sym\nATtiny9-TS\n\nAVR 8bit Microcontroller tinyAVR', 'pins':[
             Pin(num='1',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='PB1',func=Pin.types.BIDIR,unit=1),

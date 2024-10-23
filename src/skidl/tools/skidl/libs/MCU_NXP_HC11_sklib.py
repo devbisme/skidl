@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 MCU_NXP_HC11 = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'68HC11', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'68HC11'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'MCU Microcontroller HC11', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'68HC11', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'68HC11'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'MCU Microcontroller HC11', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_HC11.kicad_sym\n68HC11\n\nMCU Microcontroller HC11', 'pins':[
             Pin(num='1',name='PAI/PA7',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PB6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='PB5',func=Pin.types.OUTPUT,unit=1),
@@ -53,7 +53,7 @@ MCU_NXP_HC11 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IC2/PA1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='IC3/PA0',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A15/PB7',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'68HC11F1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'68HC11F1'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'MCU Microcontroller HC11', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC68HC11FTS.pdf', 'pins':[
+        Part(**{ 'name':'68HC11F1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'68HC11F1'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'MCU Microcontroller HC11', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC68HC11FTS.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_HC11.kicad_sym\n68HC11F1\n\nMCU Microcontroller HC11', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC2',func=Pin.types.BIDIR,unit=1),
@@ -122,7 +122,7 @@ MCU_NXP_HC11 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTAL',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='4XOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='D0/PC0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'68HC11_PLCC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'68HC11_PLCC'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'MCU Microcontroller HC11', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'68HC11_PLCC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'68HC11_PLCC'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'MCU Microcontroller HC11', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_HC11.kicad_sym\n68HC11_PLCC\n\nMCU Microcontroller HC11', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='AD1/PC1',func=Pin.types.TRISTATE,unit=1),
             Pin(num='11',name='AD2/PC2',func=Pin.types.TRISTATE,unit=1),
@@ -175,7 +175,7 @@ MCU_NXP_HC11 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EXTAL',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='XTAL',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='AD0/PC0',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'68HC711_PLCC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'68HC711_PLCC'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'MCU Microcontroller HC11', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'68HC711_PLCC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'68HC711_PLCC'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'MCU Microcontroller HC11', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_HC11.kicad_sym\n68HC711_PLCC\n\nMCU Microcontroller HC11', 'pins':[
             Pin(num='1',name='EVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC7',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='XIRQ/VPP',func=Pin.types.INPUT,unit=1),
@@ -219,7 +219,7 @@ MCU_NXP_HC11 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PC4',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC5',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='PC6',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC68HC11A8CC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68HC11A8CC'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'HC11 MCU Microcotroller', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'MC68HC11A8CC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68HC11A8CC'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'HC11 MCU Microcotroller', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_HC11.kicad_sym\nMC68HC11A8CC\n\nHC11 MCU Microcotroller', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='AD1/PC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AD2/PC2',func=Pin.types.BIDIR,unit=1),
@@ -272,7 +272,7 @@ MCU_NXP_HC11 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EXTAL',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='XTAL',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='AD0/PC0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC68HC11F1CC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68HC11F1CC'}), 'ref_prefix':'U', 'fplist':['Package_LCC:PLCC-68'], 'footprint':'Package_LCC:PLCC-68', 'keywords':'HC11 MCU Microcontroller', 'description':'', 'datasheet':'http://cache.freescale.com/files/microcontrollers/doc/data_sheet/MC68HC11F1.pdf', 'pins':[
+        Part(**{ 'name':'MC68HC11F1CC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68HC11F1CC'}), 'ref_prefix':'U', 'fplist':['Package_LCC:PLCC-68'], 'footprint':'Package_LCC:PLCC-68', 'keywords':'HC11 MCU Microcontroller', 'description':'', 'datasheet':'http://cache.freescale.com/files/microcontrollers/doc/data_sheet/MC68HC11F1.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_HC11.kicad_sym\nMC68HC11F1CC\n\nHC11 MCU Microcontroller', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='D1/PC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='D2/PC2',func=Pin.types.BIDIR,unit=1),
@@ -341,7 +341,7 @@ MCU_NXP_HC11 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTAL',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='4XOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='D0/PC0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'68HC11A8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'68HC11A8'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'MCU Microcontroller HC11', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'68HC11A8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'68HC11A8'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'MCU Microcontroller HC11', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_HC11.kicad_sym\n68HC11A8\n\nMCU Microcontroller HC11', 'pins':[
             Pin(num='1',name='PAI/PA7',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PB6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='PB5',func=Pin.types.OUTPUT,unit=1),
@@ -390,7 +390,7 @@ MCU_NXP_HC11 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IC2/PA1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='IC3/PA0',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A15/PB7',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC68HC11A0CC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68HC11A0CC'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'HC11 MCU Microcotroller', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'MC68HC11A0CC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68HC11A0CC'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'HC11 MCU Microcotroller', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_HC11.kicad_sym\nMC68HC11A0CC\n\nHC11 MCU Microcotroller', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='AD1/PC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AD2/PC2',func=Pin.types.BIDIR,unit=1),
@@ -443,7 +443,7 @@ MCU_NXP_HC11 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EXTAL',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='XTAL',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='AD0/PC0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC68HC11A1CC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68HC11A1CC'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'HC11 MCU Microcotroller', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'MC68HC11A1CC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68HC11A1CC'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'HC11 MCU Microcotroller', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_HC11.kicad_sym\nMC68HC11A1CC\n\nHC11 MCU Microcotroller', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='AD1/PC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AD2/PC2',func=Pin.types.BIDIR,unit=1),
@@ -496,7 +496,7 @@ MCU_NXP_HC11 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EXTAL',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='XTAL',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='AD0/PC0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC68HC11A7CC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68HC11A7CC'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'HC11 MCU Microcotroller', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'MC68HC11A7CC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68HC11A7CC'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'HC11 MCU Microcotroller', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_HC11.kicad_sym\nMC68HC11A7CC\n\nHC11 MCU Microcotroller', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='AD1/PC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AD2/PC2',func=Pin.types.BIDIR,unit=1),

@@ -4,50 +4,50 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Connector = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'4P2C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4P2C'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'4P2C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'4P2C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4P2C'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'4P2C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\n4P2C\n\n4P2C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'4P2C_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4P2C_Shielded'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'4P2C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'4P2C_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4P2C_Shielded'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'4P2C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\n4P2C_Shielded\n\n4P2C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'4P4C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4P4C'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'4P4C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'4P4C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4P4C'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'4P4C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\n4P4C\n\n4P4C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'4P4C_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4P4C_Shielded'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'4P4C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'4P4C_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4P4C_Shielded'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'4P4C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\n4P4C_Shielded\n\n4P4C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'6P2C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'6P2C'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'6P2C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'6P2C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'6P2C'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'6P2C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\n6P2C\n\n6P2C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'6P2C_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'6P2C_Shielded'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'6P2C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'6P2C_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'6P2C_Shielded'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'6P2C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\n6P2C_Shielded\n\n6P2C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'6P4C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'6P4C'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'6P4C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'6P4C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'6P4C'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'6P4C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\n6P4C\n\n6P4C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'6P4C_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'6P4C_Shielded'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'6P4C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'6P4C_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'6P4C_Shielded'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'6P4C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\n6P4C_Shielded\n\n6P4C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'6P6C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'6P6C'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'6P6C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'6P6C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'6P6C'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'6P6C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\n6P6C\n\n6P6C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'6P6C_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'6P6C_Shielded'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'6P6C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'6P6C_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'6P6C_Shielded'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'6P6C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\n6P6C_Shielded\n\n6P6C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -55,18 +55,18 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'8P4C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8P4C'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'8P4C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'8P4C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8P4C'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'8P4C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\n8P4C\n\n8P4C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'8P4C_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8P4C_Shielded'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'8P4C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'8P4C_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8P4C_Shielded'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'8P4C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\n8P4C_Shielded\n\n8P4C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'8P8C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8P8C'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'8P8C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'8P8C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8P8C'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'8P8C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\n8P8C\n\n8P8C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -75,7 +75,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'8P8C_LED', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8P8C_LED'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'8P8C RJ socket connector led', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'8P8C_LED', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8P8C_LED'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'8P8C RJ socket connector led', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\n8P8C_LED\n\n8P8C RJ socket connector led', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -88,7 +88,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'8P8C_LED_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8P8C_LED_Shielded'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'8P8C RJ socket connector led', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'8P8C_LED_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8P8C_LED_Shielded'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'8P8C RJ socket connector led', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\n8P8C_LED_Shielded\n\n8P8C RJ socket connector led', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -102,7 +102,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'8P8C_LED_Shielded_x2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8P8C_LED_Shielded_x2'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'8P8C RJ socket connector led dual', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'8P8C_LED_Shielded_x2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8P8C_LED_Shielded_x2'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'8P8C RJ socket connector led dual', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\n8P8C_LED_Shielded_x2\n\n8P8C RJ socket connector led dual', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -128,8 +128,8 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='22',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='23',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='24',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['12', '3', '5', '1', '11', '2', '8', 'SH', '4', '6', '7', '9', '10']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '15', '17', '19', '21', '23', 'SH', '16', '14', '18', '20', '22', '24']}] }),
-        Part(**{ 'name':'8P8C_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8P8C_Shielded'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'8P8C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+            Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '8', '11', '6', '2', '7', '9', '4', '5', '1', '12', '10', 'SH']},{'label': 'uB', 'num': 2, 'pin_nums': ['17', '20', '23', '21', '15', '16', '18', '19', '14', '13', 'SH', '24', '22']}] }),
+        Part(**{ 'name':'8P8C_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8P8C_Shielded'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'8P8C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\n8P8C_Shielded\n\n8P8C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -139,7 +139,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATX-20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATX-20'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'ATX PSU', 'description':'', 'datasheet':'https://web.aub.edu.lb/pub/docs/atx_201.pdf#page=20', 'pins':[
+        Part(**{ 'name':'ATX-20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATX-20'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'ATX PSU', 'description':'', 'datasheet':'https://web.aub.edu.lb/pub/docs/atx_201.pdf#page=20', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nATX-20\n\nATX PSU', 'pins':[
             Pin(num='1',name='+3.3V',func=Pin.types.PWROUT,unit=1),
             Pin(num='10',name='+12V',func=Pin.types.PWROUT,unit=1),
             Pin(num='11',name='+3.3V',func=Pin.types.PASSIVE,unit=1),
@@ -160,7 +160,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='PWR_OK',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='+5VSB',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATX-24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATX-24'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'ATX PSU', 'description':'', 'datasheet':'https://www.intel.com/content/dam/www/public/us/en/documents/guides/power-supply-design-guide-june.pdf#page=33', 'pins':[
+        Part(**{ 'name':'ATX-24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATX-24'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'ATX PSU', 'description':'', 'datasheet':'https://www.intel.com/content/dam/www/public/us/en/documents/guides/power-supply-design-guide-june.pdf#page=33', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nATX-24\n\nATX PSU', 'pins':[
             Pin(num='1',name='+3.3V',func=Pin.types.PWROUT,unit=1),
             Pin(num='10',name='+12V',func=Pin.types.PWROUT,unit=1),
             Pin(num='11',name='+12V',func=Pin.types.PASSIVE,unit=1),
@@ -185,7 +185,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='PWR_OK',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='+5VSB',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR-ISP-10', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR-ISP-10'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'AVR ISP Connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'AVR-ISP-10', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR-ISP-10'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'AVR ISP Connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nAVR-ISP-10\n\nAVR ISP Connector', 'pins':[
             Pin(num='1',name='MOSI',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='VCC',func=Pin.types.PASSIVE,unit=1),
@@ -196,14 +196,14 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SCK',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='MISO',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR-ISP-6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR-ISP-6'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'AVR ISP Connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'AVR-ISP-6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR-ISP-6'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'AVR ISP Connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nAVR-ISP-6\n\nAVR ISP Connector', 'pins':[
             Pin(num='1',name='MISO',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='VCC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='SCK',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='MOSI',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='~{RST}',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR-JTAG-10', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR-JTAG-10'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'AVR JTAG Connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'AVR-JTAG-10', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR-JTAG-10'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'AVR JTAG Connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nAVR-JTAG-10\n\nAVR JTAG Connector', 'pins':[
             Pin(num='1',name='TCK',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -214,48 +214,48 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~{TRST}',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='TDI',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR-PDI-6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR-PDI-6'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'AVR PDI Connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'AVR-PDI-6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR-PDI-6'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'AVR PDI Connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nAVR-PDI-6\n\nAVR PDI Connector', 'pins':[
             Pin(num='1',name='DATA',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='VCC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='4',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='5',name='CLOCK',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR-TPI-6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR-TPI-6'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'AVR TPI Connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'AVR-TPI-6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR-TPI-6'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'AVR TPI Connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nAVR-TPI-6\n\nAVR TPI Connector', 'pins':[
             Pin(num='1',name='DATA',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='VCC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='CLOCK',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='5',name='~{RST}',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AVR-UPDI-6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR-UPDI-6'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'AVR UPDI Connector', 'description':'', 'datasheet':'https://www.microchip.com/webdoc/GUID-9D10622A-5C16-4405-B092-1BDD437B4976/index.html?GUID-9B349315-2842-4189-B88C-49F4E1055D7F', 'pins':[
+        Part(**{ 'name':'AVR-UPDI-6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AVR-UPDI-6'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'AVR UPDI Connector', 'description':'', 'datasheet':'https://www.microchip.com/webdoc/GUID-9D10622A-5C16-4405-B092-1BDD437B4976/index.html?GUID-9B349315-2842-4189-B88C-49F4E1055D7F', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nAVR-UPDI-6\n\nAVR UPDI Connector', 'pins':[
             Pin(num='1',name='DATA',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='VCC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='4',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='5',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='6',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Barrel_Jack', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Barrel_Jack'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'DC power barrel jack connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Barrel_Jack', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Barrel_Jack'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'DC power barrel jack connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nBarrel_Jack\n\nDC power barrel jack connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Barrel_Jack_MountingPin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Barrel_Jack_MountingPin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'DC power barrel jack connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Barrel_Jack_MountingPin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Barrel_Jack_MountingPin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'DC power barrel jack connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nBarrel_Jack_MountingPin\n\nDC power barrel jack connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='MP',name='MountPin',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Barrel_Jack_Switch', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Barrel_Jack_Switch'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'DC power barrel jack connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Barrel_Jack_Switch', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Barrel_Jack_Switch'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'DC power barrel jack connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nBarrel_Jack_Switch\n\nDC power barrel jack connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Barrel_Jack_Switch_MountingPin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Barrel_Jack_Switch_MountingPin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'DC power barrel jack connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Barrel_Jack_Switch_MountingPin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Barrel_Jack_Switch_MountingPin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'DC power barrel jack connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nBarrel_Jack_Switch_MountingPin\n\nDC power barrel jack connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='MP',name='MountPin',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Barrel_Jack_Switch_Pin3Ring', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Barrel_Jack_Switch_Pin3Ring'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'DC power barrel jack connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Barrel_Jack_Switch_Pin3Ring', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Barrel_Jack_Switch_Pin3Ring'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'DC power barrel jack connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nBarrel_Jack_Switch_Pin3Ring\n\nDC power barrel jack connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Bus_ISA_16bit', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Bus_ISA_16bit'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'ISA', 'description':'', 'datasheet':'https://en.wikipedia.org/wiki/Industry_Standard_Architecture', 'pins':[
+        Part(**{ 'name':'Bus_ISA_16bit', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Bus_ISA_16bit'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'ISA', 'description':'', 'datasheet':'https://en.wikipedia.org/wiki/Industry_Standard_Architecture', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nBus_ISA_16bit\n\nISA', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='~{SMEMW}',func=Pin.types.OUTPUT,unit=1),
@@ -354,7 +354,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='96',name='D13',func=Pin.types.TRISTATE,unit=1),
             Pin(num='97',name='D14',func=Pin.types.TRISTATE,unit=1),
             Pin(num='98',name='D15',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Bus_ISA_8bit', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Bus_ISA_8bit'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'ISA', 'description':'', 'datasheet':'https://en.wikipedia.org/wiki/Industry_Standard_Architecture', 'pins':[
+        Part(**{ 'name':'Bus_ISA_8bit', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Bus_ISA_8bit'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'ISA', 'description':'', 'datasheet':'https://en.wikipedia.org/wiki/Industry_Standard_Architecture', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nBus_ISA_8bit\n\nISA', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='~{SMEMW}',func=Pin.types.OUTPUT,unit=1),
@@ -417,7 +417,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='-12V',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='UNUSED',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='+12V',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Bus_M.2_Socket_A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Bus_M.2_Socket_A'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'M2 NGNF PCI-E', 'description':'', 'datasheet':'http://read.pudn.com/downloads794/doc/project/3133918/PCIe_M.2_Electromechanical_Spec_Rev1.0_Final_11012013_RS_Clean.pdf#page=148', 'pins':[
+        Part(**{ 'name':'Bus_M.2_Socket_A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Bus_M.2_Socket_A'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'M2 NGNF PCI-E', 'description':'', 'datasheet':'https://web.archive.org/web/20200613074028/http://read.pudn.com/downloads794/doc/project/3133918/PCIe_M.2_Electromechanical_Spec_Rev1.0_Final_11012013_RS_Clean.pdf#page=148', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nBus_M.2_Socket_A\n\nM2 NGNF PCI-E', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='16',name='~{LED_2}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='17',name='MLDIR_Sense',func=Pin.types.INPUT,unit=1),
@@ -485,7 +485,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='73',name='REFCLKn1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='74',name='3.3V',func=Pin.types.PASSIVE,unit=1),
             Pin(num='75',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Bus_M.2_Socket_B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Bus_M.2_Socket_B'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'M2 NGNF PCI-E', 'description':'', 'datasheet':'http://read.pudn.com/downloads794/doc/project/3133918/PCIe_M.2_Electromechanical_Spec_Rev1.0_Final_11012013_RS_Clean.pdf#page=154', 'pins':[
+        Part(**{ 'name':'Bus_M.2_Socket_B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Bus_M.2_Socket_B'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'M2 NGNF PCI-E', 'description':'', 'datasheet':'https://web.archive.org/web/20200613074028/http://read.pudn.com/downloads794/doc/project/3133918/PCIe_M.2_Electromechanical_Spec_Rev1.0_Final_11012013_RS_Clean.pdf#page=154', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nBus_M.2_Socket_B\n\nM2 NGNF PCI-E', 'pins':[
             Pin(num='1',name='CONFIG_3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GPIO_9/DAS/~{DSS}/~{LED1}',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -553,7 +553,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='75',name='CONFIG_2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{W_DISABLE1}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='USB_D-',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Bus_M.2_Socket_E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Bus_M.2_Socket_E'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'M2 NGNF PCI-E', 'description':'', 'datasheet':'http://read.pudn.com/downloads794/doc/project/3133918/PCIe_M.2_Electromechanical_Spec_Rev1.0_Final_11012013_RS_Clean.pdf#page=150', 'pins':[
+        Part(**{ 'name':'Bus_M.2_Socket_E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Bus_M.2_Socket_E'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'M2 NGNF PCI-E', 'description':'', 'datasheet':'https://web.archive.org/web/20200613074028/http://read.pudn.com/downloads794/doc/project/3133918/PCIe_M.2_Electromechanical_Spec_Rev1.0_Final_11012013_RS_Clean.pdf#page=150', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nBus_M.2_Socket_E\n\nM2 NGNF PCI-E', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PCM_SYNC/I2S_WS',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SDIO_CMD',func=Pin.types.BIDIR,unit=1),
@@ -621,7 +621,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='75',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='PCM_CLK/I2S_SCK',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SDIO_CLK',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Bus_M.2_Socket_M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Bus_M.2_Socket_M'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'M2 NGNF PCI-E', 'description':'', 'datasheet':'http://read.pudn.com/downloads794/doc/project/3133918/PCIe_M.2_Electromechanical_Spec_Rev1.0_Final_11012013_RS_Clean.pdf#page=155', 'pins':[
+        Part(**{ 'name':'Bus_M.2_Socket_M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Bus_M.2_Socket_M'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'M2 NGNF PCI-E', 'description':'', 'datasheet':'https://web.archive.org/web/20200613074028/http://read.pudn.com/downloads794/doc/project/3133918/PCIe_M.2_Electromechanical_Spec_Rev1.0_Final_11012013_RS_Clean.pdf#page=155', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nBus_M.2_Socket_M\n\nM2 NGNF PCI-E', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DAS/~{DSS}/~{LED1}',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PETn3',func=Pin.types.OUTPUT,unit=1),
@@ -689,7 +689,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='75',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Bus_PCI_32bit_5V', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Bus_PCI_32bit_5V'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'PCI 5V', 'description':'', 'datasheet':'http://pinouts.ru/Slots/PCI_pinout.shtml', 'pins':[
+        Part(**{ 'name':'Bus_PCI_32bit_5V', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Bus_PCI_32bit_5V'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'PCI 5V', 'description':'', 'datasheet':'http://pinouts.ru/Slots/PCI_pinout.shtml', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nBus_PCI_32bit_5V\n\nPCI 5V', 'pins':[
             Pin(num='A1',name='TRST#',func=Pin.types.OUTPUT,unit=1),
             Pin(num='A10',name='+5V',func=Pin.types.PWRIN,unit=1),
             Pin(num='A11',name='RESERVED',func=Pin.types.PASSIVE,unit=1),
@@ -810,7 +810,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='B7',name='INTB#',func=Pin.types.INPUT,unit=1),
             Pin(num='B8',name='INTD#',func=Pin.types.INPUT,unit=1),
             Pin(num='B9',name='PRSNT1#',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Bus_PCI_32bit_Universal', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Bus_PCI_32bit_Universal'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'PCI 5V 3.3V 3V3', 'description':'', 'datasheet':'http://pinouts.ru/Slots/PCI_pinout.shtml', 'pins':[
+        Part(**{ 'name':'Bus_PCI_32bit_Universal', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Bus_PCI_32bit_Universal'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'PCI 5V 3.3V 3V3', 'description':'', 'datasheet':'http://pinouts.ru/Slots/PCI_pinout.shtml', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nBus_PCI_32bit_Universal\n\nPCI 5V 3.3V 3V3', 'pins':[
             Pin(num='A1',name='~{TRST#}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='A10',name='VIO',func=Pin.types.PWRIN,unit=1),
             Pin(num='A11',name='RESERVED',func=Pin.types.PASSIVE,unit=1),
@@ -927,7 +927,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='B7',name='~{INTB#}',func=Pin.types.INPUT,unit=1),
             Pin(num='B8',name='~{INTD#}',func=Pin.types.INPUT,unit=1),
             Pin(num='B9',name='~{PRSNT1#}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Bus_PCI_Express_Mini', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Bus_PCI_Express_Mini'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'mini pcie', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Bus_PCI_Express_Mini', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Bus_PCI_Express_Mini'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'mini pcie', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nBus_PCI_Express_Mini\n\nmini pcie', 'pins':[
             Pin(num='1',name='~{WAKE}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='10',name='UIM_DATA',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='REFCLK-',func=Pin.types.INPUT,unit=1),
@@ -981,7 +981,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='UIM_PWR',func=Pin.types.PWROUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='MP',name='MP',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Bus_PCI_Express_x1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Bus_PCI_Express_x1'}), 'ref_prefix':'J', 'fplist':['Connector_PCBEdge:BUS_PCIexpress_x1'], 'footprint':'Connector_PCBEdge:BUS_PCIexpress_x1', 'keywords':'pcie', 'description':'', 'datasheet':'http://www.ritrontek.com/uploadfile/2016/1026/20161026105231124.pdf#page=63', 'pins':[
+        Part(**{ 'name':'Bus_PCI_Express_x1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Bus_PCI_Express_x1'}), 'ref_prefix':'J', 'fplist':['Connector_PCBEdge:BUS_PCIexpress_x1'], 'footprint':'Connector_PCBEdge:BUS_PCIexpress_x1', 'keywords':'pcie', 'description':'', 'datasheet':'http://www.ritrontek.com/uploadfile/2016/1026/20161026105231124.pdf#page=63', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nBus_PCI_Express_x1\n\npcie', 'pins':[
             Pin(num='A1',name='~{PRSNT1}',func=Pin.types.PASSIVE,unit=1),
             Pin(num='A10',name='+3.3V',func=Pin.types.PASSIVE,unit=1),
             Pin(num='A11',name='~{PERST}',func=Pin.types.INPUT,unit=1),
@@ -1018,7 +1018,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='B7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='B8',name='+3.3V',func=Pin.types.PWRIN,unit=1),
             Pin(num='B9',name='JTAG1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Bus_PCI_Express_x16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Bus_PCI_Express_x16'}), 'ref_prefix':'J', 'fplist':['Connector_PCBEdge:BUS_PCIexpress_x16'], 'footprint':'Connector_PCBEdge:BUS_PCIexpress_x16', 'keywords':'pcie', 'description':'', 'datasheet':'http://www.ritrontek.com/uploadfile/2016/1026/20161026105231124.pdf#page=63', 'pins':[
+        Part(**{ 'name':'Bus_PCI_Express_x16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Bus_PCI_Express_x16'}), 'ref_prefix':'J', 'fplist':['Connector_PCBEdge:BUS_PCIexpress_x16'], 'footprint':'Connector_PCBEdge:BUS_PCIexpress_x16', 'keywords':'pcie', 'description':'', 'datasheet':'http://www.ritrontek.com/uploadfile/2016/1026/20161026105231124.pdf#page=63', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nBus_PCI_Express_x16\n\npcie', 'pins':[
             Pin(num='A1',name='~{PRSNT1}',func=Pin.types.PASSIVE,unit=1),
             Pin(num='A10',name='+3.3V',func=Pin.types.PASSIVE,unit=1),
             Pin(num='A11',name='~{PERST}',func=Pin.types.INPUT,unit=1),
@@ -1183,7 +1183,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='B81',name='~{PRSNT2}',func=Pin.types.PASSIVE,unit=1),
             Pin(num='B82',name='RSVD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='B9',name='JTAG1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Bus_PCI_Express_x4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Bus_PCI_Express_x4'}), 'ref_prefix':'J', 'fplist':['Connector_PCBEdge:BUS_PCIexpress_x4'], 'footprint':'Connector_PCBEdge:BUS_PCIexpress_x4', 'keywords':'pcie', 'description':'', 'datasheet':'http://www.ritrontek.com/uploadfile/2016/1026/20161026105231124.pdf#page=63', 'pins':[
+        Part(**{ 'name':'Bus_PCI_Express_x4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Bus_PCI_Express_x4'}), 'ref_prefix':'J', 'fplist':['Connector_PCBEdge:BUS_PCIexpress_x4'], 'footprint':'Connector_PCBEdge:BUS_PCIexpress_x4', 'keywords':'pcie', 'description':'', 'datasheet':'http://www.ritrontek.com/uploadfile/2016/1026/20161026105231124.pdf#page=63', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nBus_PCI_Express_x4\n\npcie', 'pins':[
             Pin(num='A1',name='~{PRSNT1}',func=Pin.types.PASSIVE,unit=1),
             Pin(num='A10',name='+3.3V',func=Pin.types.PASSIVE,unit=1),
             Pin(num='A11',name='~{PERST}',func=Pin.types.INPUT,unit=1),
@@ -1248,7 +1248,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='B7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='B8',name='+3.3V',func=Pin.types.PWRIN,unit=1),
             Pin(num='B9',name='JTAG1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Bus_PCI_Express_x8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Bus_PCI_Express_x8'}), 'ref_prefix':'J', 'fplist':['Connector_PCBEdge:BUS_PCIexpress_x8'], 'footprint':'Connector_PCBEdge:BUS_PCIexpress_x8', 'keywords':'pcie', 'description':'', 'datasheet':'http://www.ritrontek.com/uploadfile/2016/1026/20161026105231124.pdf#page=63', 'pins':[
+        Part(**{ 'name':'Bus_PCI_Express_x8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Bus_PCI_Express_x8'}), 'ref_prefix':'J', 'fplist':['Connector_PCBEdge:BUS_PCIexpress_x8'], 'footprint':'Connector_PCBEdge:BUS_PCIexpress_x8', 'keywords':'pcie', 'description':'', 'datasheet':'http://www.ritrontek.com/uploadfile/2016/1026/20161026105231124.pdf#page=63', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nBus_PCI_Express_x8\n\npcie', 'pins':[
             Pin(num='A1',name='~{PRSNT1}',func=Pin.types.PASSIVE,unit=1),
             Pin(num='A10',name='+3.3V',func=Pin.types.PASSIVE,unit=1),
             Pin(num='A11',name='~{PERST}',func=Pin.types.INPUT,unit=1),
@@ -1347,76 +1347,76 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='B7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='B8',name='+3.3V',func=Pin.types.PWRIN,unit=1),
             Pin(num='B9',name='JTAG1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CUI_PD-30', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CUI_PD-30'}), 'ref_prefix':'J', 'fplist':['Connector:CUI_PD-30'], 'footprint':'Connector:CUI_PD-30', 'keywords':'connector 3-pin PD-30 power DIN', 'description':'', 'datasheet':'http://www.cui.com/product/resource/pd-30.pdf', 'pins':[
+        Part(**{ 'name':'CUI_PD-30', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CUI_PD-30'}), 'ref_prefix':'J', 'fplist':['Connector:CUI_PD-30'], 'footprint':'Connector:CUI_PD-30', 'keywords':'connector 3-pin PD-30 power DIN', 'description':'', 'datasheet':'http://www.cui.com/product/resource/pd-30.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nCUI_PD-30\n\nconnector 3-pin PD-30 power DIN', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='3',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='Shield',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CUI_PD-30S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CUI_PD-30S'}), 'ref_prefix':'J', 'fplist':['Connector:CUI_PD-30S'], 'footprint':'Connector:CUI_PD-30S', 'keywords':'connector 3-pin PD-30S power DIN', 'description':'', 'datasheet':'http://www.cui.com/product/resource/pd-30.pdf', 'pins':[
+        Part(**{ 'name':'CUI_PD-30S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CUI_PD-30S'}), 'ref_prefix':'J', 'fplist':['Connector:CUI_PD-30S'], 'footprint':'Connector:CUI_PD-30S', 'keywords':'connector 3-pin PD-30S power DIN', 'description':'', 'datasheet':'http://www.cui.com/product/resource/pd-30.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nCUI_PD-30S\n\nconnector 3-pin PD-30S power DIN', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='3',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='Shield',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='Shield',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CoaxialSwitch_Testpoint', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CoaxialSwitch_Testpoint'}), 'ref_prefix':'TP', 'fplist':[''], 'footprint':'', 'keywords':'Coaxial Switch RF testpoint', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'CoaxialSwitch_Testpoint', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CoaxialSwitch_Testpoint'}), 'ref_prefix':'TP', 'fplist':[''], 'footprint':'', 'keywords':'Coaxial Switch RF testpoint', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nCoaxialSwitch_Testpoint\n\nCoaxial Switch RF testpoint', 'pins':[
             Pin(num='A',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='C',name='C',func=Pin.types.PASSIVE,unit=1),
             Pin(num='G',name='G',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x01_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x01_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x01_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x01_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x01_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x01_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x01_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x01_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x01_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x01_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x02_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x02_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x02_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x02_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x02_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='Pin_2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x02_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x02_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x02_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x02_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x02_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='Pin_2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x03_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x03_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x03_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x03_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x03_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='Pin_2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Pin_3',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x03_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x03_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x03_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x03_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x03_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='Pin_2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Pin_3',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x04_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x04_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x04_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x04_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x04_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='Pin_2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Pin_3',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='Pin_4',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x04_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x04_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x04_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x04_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x04_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='Pin_2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Pin_3',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='Pin_4',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x05_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x05_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x05_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x05_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x05_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='Pin_2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Pin_3',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='Pin_4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='Pin_5',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x05_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x05_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x05_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x05_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x05_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='Pin_2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Pin_3',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='Pin_4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='Pin_5',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x06_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x06_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x06_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x06_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x06_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='Pin_2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Pin_3',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='Pin_4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='Pin_5',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='Pin_6',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x06_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x06_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x06_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x06_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x06_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='Pin_2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Pin_3',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='Pin_4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='Pin_5',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='Pin_6',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x07_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x07_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x07_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x07_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x07_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='Pin_2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Pin_3',func=Pin.types.PASSIVE,unit=1),
@@ -1424,7 +1424,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='Pin_5',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='Pin_6',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x07_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x07_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x07_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x07_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x07_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='Pin_2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Pin_3',func=Pin.types.PASSIVE,unit=1),
@@ -1432,7 +1432,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='Pin_5',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='Pin_6',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x08_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x08_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x08_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x08_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x08_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='Pin_2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Pin_3',func=Pin.types.PASSIVE,unit=1),
@@ -1441,7 +1441,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Pin_6',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x08_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x08_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x08_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x08_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x08_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='Pin_2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Pin_3',func=Pin.types.PASSIVE,unit=1),
@@ -1450,7 +1450,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Pin_6',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x09_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x09_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x09_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x09_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x09_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='Pin_2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Pin_3',func=Pin.types.PASSIVE,unit=1),
@@ -1460,7 +1460,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x09_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x09_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x09_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x09_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x09_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='Pin_2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Pin_3',func=Pin.types.PASSIVE,unit=1),
@@ -1470,7 +1470,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x10_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x10_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x10_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x10_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x10_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='Pin_2',func=Pin.types.PASSIVE,unit=1),
@@ -1481,7 +1481,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x10_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x10_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x10_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x10_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x10_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='Pin_2',func=Pin.types.PASSIVE,unit=1),
@@ -1492,7 +1492,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x11_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x11_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x11_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x11_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x11_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -1504,7 +1504,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x11_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x11_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x11_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x11_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x11_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -1516,7 +1516,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x12_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x12_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x12_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x12_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x12_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -1529,7 +1529,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x12_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x12_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x12_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x12_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x12_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -1542,7 +1542,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x13_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x13_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x13_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x13_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x13_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -1556,7 +1556,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x13_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x13_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x13_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x13_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x13_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -1570,7 +1570,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x14_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x14_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x14_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x14_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x14_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -1585,7 +1585,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x14_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x14_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x14_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x14_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x14_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -1600,7 +1600,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x15_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x15_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x15_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x15_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x15_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -1616,7 +1616,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x15_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x15_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x15_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x15_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x15_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -1632,7 +1632,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x16_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x16_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x16_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x16_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x16_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -1649,7 +1649,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x16_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x16_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x16_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x16_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x16_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -1666,7 +1666,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x17_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x17_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x17_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x17_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x17_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -1684,7 +1684,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x17_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x17_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x17_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x17_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x17_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -1702,7 +1702,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x18_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x18_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x18_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x18_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x18_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -1721,7 +1721,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x18_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x18_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x18_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x18_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x18_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -1740,7 +1740,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x19_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x19_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x19_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x19_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x19_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -1760,7 +1760,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x19_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x19_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x19_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x19_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x19_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -1780,7 +1780,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x20_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x20_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x20_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x20_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x20_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -1801,7 +1801,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x20_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x20_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x20_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x20_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x20_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -1822,7 +1822,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x21_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x21_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x21_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x21_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x21_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -1844,7 +1844,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x21_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x21_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x21_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x21_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x21_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -1866,7 +1866,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x22_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x22_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x22_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x22_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x22_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -1889,7 +1889,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x22_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x22_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x22_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x22_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x22_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -1912,7 +1912,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x23_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x23_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x23_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x23_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x23_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -1936,7 +1936,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x23_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x23_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x23_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x23_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x23_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -1960,7 +1960,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x24_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x24_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x24_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x24_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x24_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -1985,7 +1985,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x24_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x24_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x24_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x24_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x24_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -2010,7 +2010,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x25_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x25_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x25_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x25_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x25_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -2036,7 +2036,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x25_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x25_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x25_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x25_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x25_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -2062,7 +2062,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x26_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x26_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x26_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x26_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x26_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -2089,7 +2089,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x26_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x26_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x26_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x26_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x26_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -2116,7 +2116,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x27_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x27_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x27_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x27_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x27_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -2144,7 +2144,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x27_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x27_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x27_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x27_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x27_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -2172,7 +2172,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x28_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x28_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x28_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x28_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x28_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -2201,7 +2201,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x28_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x28_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x28_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x28_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x28_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -2230,7 +2230,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x29_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x29_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x29_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x29_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x29_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -2260,7 +2260,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x29_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x29_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x29_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x29_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x29_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -2290,7 +2290,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x30_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x30_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x30_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x30_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x30_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -2321,7 +2321,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x30_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x30_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x30_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x30_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x30_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -2352,7 +2352,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x31_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x31_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x31_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x31_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x31_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -2384,7 +2384,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x31_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x31_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x31_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x31_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x31_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -2416,7 +2416,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x32_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x32_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x32_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x32_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x32_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -2449,7 +2449,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x32_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x32_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x32_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x32_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x32_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -2482,7 +2482,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x33_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x33_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x33_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x33_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x33_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -2516,7 +2516,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x33_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x33_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x33_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x33_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x33_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -2550,7 +2550,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x34_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x34_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x34_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x34_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x34_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -2585,7 +2585,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x34_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x34_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x34_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x34_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x34_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -2620,7 +2620,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x35_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x35_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x35_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x35_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x35_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -2656,7 +2656,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x35_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x35_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x35_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x35_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x35_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -2692,7 +2692,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x36_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x36_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x36_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x36_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x36_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -2729,7 +2729,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x36_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x36_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x36_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x36_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x36_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -2766,7 +2766,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x37_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x37_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x37_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x37_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x37_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -2804,7 +2804,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x37_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x37_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x37_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x37_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x37_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -2842,7 +2842,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x38_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x38_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x38_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x38_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x38_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -2881,7 +2881,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x38_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x38_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x38_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x38_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x38_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -2920,7 +2920,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x39_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x39_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x39_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x39_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x39_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -2960,7 +2960,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x39_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x39_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x39_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x39_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x39_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -3000,7 +3000,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x40_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x40_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x40_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x40_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x40_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -3041,7 +3041,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x40_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x40_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x40_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x40_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x40_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -3082,7 +3082,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x41_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x41_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x41_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x41_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x41_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -3124,7 +3124,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x41_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x41_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x41_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x41_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x41_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -3166,7 +3166,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x42_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x42_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x42_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x42_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x42_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -3209,7 +3209,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x42_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x42_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x42_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x42_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x42_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -3252,7 +3252,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x43_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x43_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x43_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x43_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x43_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -3296,7 +3296,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x43_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x43_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x43_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x43_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x43_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -3340,7 +3340,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x44_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x44_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x44_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x44_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x44_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -3385,7 +3385,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x44_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x44_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x44_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x44_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x44_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -3430,7 +3430,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x45_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x45_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x45_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x45_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x45_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -3476,7 +3476,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x45_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x45_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x45_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x45_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x45_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -3522,7 +3522,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x46_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x46_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x46_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x46_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x46_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -3569,7 +3569,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x46_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x46_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x46_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x46_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x46_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -3616,7 +3616,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x47_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x47_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x47_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x47_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x47_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -3664,7 +3664,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x47_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x47_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x47_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x47_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x47_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -3712,7 +3712,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x48_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x48_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x48_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x48_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x48_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -3761,7 +3761,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x48_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x48_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x48_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x48_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x48_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -3810,7 +3810,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x49_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x49_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x49_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x49_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x49_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -3860,7 +3860,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x49_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x49_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x49_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x49_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x49_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -3910,7 +3910,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x50_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x50_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x50_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x50_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x50_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -3961,7 +3961,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x50_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x50_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x50_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x50_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x50_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -4012,7 +4012,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x51_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x51_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x51_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x51_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x51_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -4064,7 +4064,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x51_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x51_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x51_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x51_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x51_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -4116,7 +4116,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x52_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x52_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x52_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x52_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x52_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -4169,7 +4169,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x52_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x52_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x52_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x52_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x52_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -4222,7 +4222,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x53_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x53_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x53_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x53_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x53_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -4276,7 +4276,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x53_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x53_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x53_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x53_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x53_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -4330,7 +4330,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x54_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x54_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x54_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x54_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x54_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -4385,7 +4385,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x54_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x54_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x54_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x54_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x54_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -4440,7 +4440,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x55_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x55_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x55_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x55_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x55_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -4496,7 +4496,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x55_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x55_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x55_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x55_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x55_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -4552,7 +4552,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x56_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x56_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x56_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x56_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x56_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -4609,7 +4609,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x56_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x56_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x56_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x56_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x56_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -4666,7 +4666,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x57_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x57_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x57_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x57_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x57_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -4724,7 +4724,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x57_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x57_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x57_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x57_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x57_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -4782,7 +4782,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x58_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x58_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x58_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x58_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x58_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -4841,7 +4841,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x58_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x58_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x58_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x58_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x58_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -4900,7 +4900,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x59_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x59_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x59_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x59_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x59_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -4960,7 +4960,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x59_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x59_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x59_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x59_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x59_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -5020,7 +5020,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x60_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x60_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x60_Pin', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x60_Pin'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x60_Pin\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -5081,7 +5081,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_01x60_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x60_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_01x60_Socket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_01x60_Socket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_01x60_Socket\n\nconnector', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -5142,7 +5142,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_15X4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_15X4'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_15X4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_15X4'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_15X4\n\nconnector', 'pins':[
             Pin(num='A1',name='1A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='A10',name='10A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='A11',name='11A',func=Pin.types.PASSIVE,unit=1),
@@ -5203,7 +5203,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='D7',name='7D',func=Pin.types.PASSIVE,unit=1),
             Pin(num='D8',name='8D',func=Pin.types.PASSIVE,unit=1),
             Pin(num='D9',name='9D',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_ARM_JTAG_SWD_10', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_ARM_JTAG_SWD_10'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'Cortex Debug Connector ARM SWD JTAG', 'description':'', 'datasheet':'http://infocenter.arm.com/help/topic/com.arm.doc.ddi0314h/DDI0314H_coresight_components_trm.pdf', 'pins':[
+        Part(**{ 'name':'Conn_ARM_JTAG_SWD_10', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_ARM_JTAG_SWD_10'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'Cortex Debug Connector ARM SWD JTAG', 'description':'', 'datasheet':'http://infocenter.arm.com/help/topic/com.arm.doc.ddi0314h/DDI0314H_coresight_components_trm.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_ARM_JTAG_SWD_10\n\nCortex Debug Connector ARM SWD JTAG', 'pins':[
             Pin(num='1',name='VTref',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RESET}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='2',name='SWDIO/TMS',func=Pin.types.BIDIR,unit=1),
@@ -5214,7 +5214,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='KEY',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='NC/TDI',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='GNDDetect',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_ARM_JTAG_SWD_20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_ARM_JTAG_SWD_20'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'IDC20 Pinheader Pins Connector ARM JTAG SWD', 'description':'', 'datasheet':'http://infocenter.arm.com/help/topic/com.arm.doc.dui0499b/DUI0499B_system_design_reference.pdf', 'pins':[
+        Part(**{ 'name':'Conn_ARM_JTAG_SWD_20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_ARM_JTAG_SWD_20'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'IDC20 Pinheader Pins Connector ARM JTAG SWD', 'description':'', 'datasheet':'http://infocenter.arm.com/help/topic/com.arm.doc.dui0499b/DUI0499B_system_design_reference.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_ARM_JTAG_SWD_20\n\nIDC20 Pinheader Pins Connector ARM JTAG SWD', 'pins':[
             Pin(num='1',name='VTREF',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='RTCK',func=Pin.types.INPUT,unit=1),
@@ -5235,39 +5235,53 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SWDIO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='TCK/SWCLK',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_ARM_SWD_TagConnect_TC2030', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_ARM_SWD_TagConnect_TC2030'}), 'ref_prefix':'J', 'fplist':['Connector:Tag-Connect_TC2030-IDC-FP_2x03_P1.27mm_Vertical'], 'footprint':'Connector:Tag-Connect_TC2030-IDC-FP_2x03_P1.27mm_Vertical', 'keywords':'Cortex Debug Connector ARM SWD JTAG', 'description':'', 'datasheet':'https://www.tag-connect.com/wp-content/uploads/bsk-pdf-manager/TC2030-CTX_1.pdf', 'pins':[
+        Part(**{ 'name':'Conn_ARM_SWD_TagConnect_TC2030', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_ARM_SWD_TagConnect_TC2030'}), 'ref_prefix':'J', 'fplist':['Connector:Tag-Connect_TC2030-IDC-FP_2x03_P1.27mm_Vertical'], 'footprint':'Connector:Tag-Connect_TC2030-IDC-FP_2x03_P1.27mm_Vertical', 'keywords':'Cortex Debug Connector ARM SWD JTAG', 'description':'', 'datasheet':'https://www.tag-connect.com/wp-content/uploads/bsk-pdf-manager/TC2030-CTX_1.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_ARM_SWD_TagConnect_TC2030\n\nCortex Debug Connector ARM SWD JTAG', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN),
             Pin(num='2',name='SWDIO',func=Pin.types.BIDIR),
             Pin(num='3',name='~{RESET}',func=Pin.types.OPENCOLL),
             Pin(num='4',name='SWCLK',func=Pin.types.OUTPUT),
             Pin(num='5',name='GND',func=Pin.types.PWRIN),
             Pin(num='6',name='SWO',func=Pin.types.INPUT)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_Coaxial', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_Coaxial'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'BNC SMA SMB SMC LEMO coaxial connector CINCH RCA MCX MMCX U.FL UMRF', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_Coaxial', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_Coaxial'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'BNC SMA SMB SMC LEMO coaxial connector CINCH RCA MCX MMCX U.FL UMRF', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_Coaxial\n\nBNC SMA SMB SMC LEMO coaxial connector CINCH RCA MCX MMCX U.FL UMRF', 'pins':[
             Pin(num='1',name='In',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='Ext',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_Coaxial_Power', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_Coaxial_Power'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'BNC SMA SMB SMC LEMO coaxial connector CINCH RCA', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_Coaxial_Power', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_Coaxial_Power'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'BNC SMA SMB SMC LEMO coaxial connector CINCH RCA', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_Coaxial_Power\n\nBNC SMA SMB SMC LEMO coaxial connector CINCH RCA', 'pins':[
             Pin(num='1',name='In',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='Ext',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_Coaxial_Small', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_Coaxial_Small'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'BNC SMA SMB SMC LEMO coaxial connector CINCH RCA MCX MMCX U.FL UMRF', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_Coaxial_Small', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_Coaxial_Small'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'BNC SMA SMB SMC LEMO coaxial connector CINCH RCA MCX MMCX U.FL UMRF', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_Coaxial_Small\n\nBNC SMA SMB SMC LEMO coaxial connector CINCH RCA MCX MMCX U.FL UMRF', 'pins':[
             Pin(num='1',name='In',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='Ext',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_Coaxial_x2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_Coaxial_x2'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'BNC SMA SMB SMC LEMO coaxial connector CINCH RCA', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_Coaxial_x2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_Coaxial_x2'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'BNC SMA SMB SMC LEMO coaxial connector CINCH RCA', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_Coaxial_x2\n\nBNC SMA SMB SMC LEMO coaxial connector CINCH RCA', 'pins':[
             Pin(num='1',name='IN1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='IN2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='EXT',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_Coaxial_x2_Isolated', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_Coaxial_x2_Isolated'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'BNC SMA SMB SMC LEMO coaxial connector CINCH RCA', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_Coaxial_x2_Isolated', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_Coaxial_x2_Isolated'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'BNC SMA SMB SMC LEMO coaxial connector CINCH RCA', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_Coaxial_x2_Isolated\n\nBNC SMA SMB SMC LEMO coaxial connector CINCH RCA', 'pins':[
             Pin(num='1',name='In1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='Ext1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='In2',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='4',name='Ext2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3']}] }),
-        Part(**{ 'name':'Conn_PIC_ICSP_ICD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_PIC_ICSP_ICD'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'icsp icd pic microchip', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/30277d.pdf', 'pins':[
+            Pin(num='4',name='Ext2',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3']}] }),
+        Part(**{ 'name':'Conn_PIC_ICSP_ICD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_PIC_ICSP_ICD'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'icsp icd pic microchip', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/30277d.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_PIC_ICSP_ICD\n\nicsp icd pic microchip', 'pins':[
             Pin(num='1',name='~{MCLR}/VPP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='VDD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='PGD/ICSPDAT',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='PGC/ICSPCLK',func=Pin.types.OUTPUT,unit=1),
             Pin(num='6',name='PGM/LVP',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_ST_STDC14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_ST_STDC14'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'ST STM32 Cortex Debug Connector ARM SWD JTAG', 'description':'', 'datasheet':'https://www.st.com/content/ccc/resource/technical/document/user_manual/group1/99/49/91/b6/b2/3a/46/e5/DM00526767/files/DM00526767.pdf/jcr:content/translations/en.DM00526767.pdf', 'pins':[
+        Part(**{ 'name':'Conn_Plug_2P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_Plug_2P'}), 'ref_prefix':'P', 'fplist':[''], 'footprint':'', 'keywords':'2P mains plug wall', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_Plug_2P\n\n2P mains plug wall', 'pins':[
+            Pin(num='1',name='L',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='N',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'Conn_Plug_3P_Protected', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_Plug_3P_Protected'}), 'ref_prefix':'P', 'fplist':[''], 'footprint':'', 'keywords':'3P mains plug protected wall', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_Plug_3P_Protected\n\n3P mains plug protected wall', 'pins':[
+            Pin(num='1',name='L',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='N',func=Pin.types.PWROUT,unit=1),
+            Pin(num='3',name='PE',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'Conn_Receptacle_2P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_Receptacle_2P'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'2P mains receptacle wall', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_Receptacle_2P\n\n2P mains receptacle wall', 'pins':[
+            Pin(num='1',name='L',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='N',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'Conn_Receptacle_3P_Protected', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_Receptacle_3P_Protected'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'3P mains receptacle protected wall', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_Receptacle_3P_Protected\n\n3P mains receptacle protected wall', 'pins':[
+            Pin(num='1',name='N',func=Pin.types.PWROUT,unit=1),
+            Pin(num='2',name='L',func=Pin.types.PWRIN,unit=1),
+            Pin(num='3',name='PE',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'Conn_ST_STDC14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_ST_STDC14'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'ST STM32 Cortex Debug Connector ARM SWD JTAG', 'description':'', 'datasheet':'https://www.st.com/content/ccc/resource/technical/document/user_manual/group1/99/49/91/b6/b2/3a/46/e5/DM00526767/files/DM00526767.pdf/jcr:content/translations/en.DM00526767.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_ST_STDC14\n\nST STM32 Cortex Debug Connector ARM SWD JTAG', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='JTDI/NC',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='GNDDetect',func=Pin.types.PASSIVE,unit=1),
@@ -5282,25 +5296,11 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='JTDO/SWO',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='JRCLK/NC',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_Triaxial', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_Triaxial'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'LEMO triaxial connector differential LVDS', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Conn_Triaxial', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_Triaxial'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'LEMO triaxial connector differential LVDS', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_Triaxial\n\nLEMO triaxial connector differential LVDS', 'pins':[
             Pin(num='1',name='In1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='In2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Ext',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_WallPlug', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_WallPlug'}), 'ref_prefix':'P', 'fplist':[''], 'footprint':'', 'keywords':'wall plug 110VAC 220VAC', 'description':'', 'datasheet':'~', 'pins':[
-            Pin(num='1',name='AC_P',func=Pin.types.PWROUT,unit=1),
-            Pin(num='2',name='AC_N',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_WallPlug_Earth', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_WallPlug_Earth'}), 'ref_prefix':'P', 'fplist':[''], 'footprint':'', 'keywords':'wall plug 110VAC 220VAC', 'description':'', 'datasheet':'~', 'pins':[
-            Pin(num='1',name='AC_P',func=Pin.types.PWROUT,unit=1),
-            Pin(num='2',name='AC_N',func=Pin.types.PWROUT,unit=1),
-            Pin(num='3',name='EARTH',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_WallSocket', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_WallSocket'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'wall socket 110VAC 220VAC', 'description':'', 'datasheet':'~', 'pins':[
-            Pin(num='1',name='AC_P',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='AC_N',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_WallSocket_Earth', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_WallSocket_Earth'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'wall socket 110VAC 220VAC', 'description':'', 'datasheet':'~', 'pins':[
-            Pin(num='1',name='AC_P',func=Pin.types.PWRIN,unit=1),
-            Pin(num='2',name='AC_N',func=Pin.types.PWRIN,unit=1),
-            Pin(num='3',name='EARTH',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DA15_Plug', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA15_Plug'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'male plug D-SUB connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DA15_Plug', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA15_Plug'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'male plug D-SUB connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDA15_Plug\n\nmale plug D-SUB connector', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='P10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='P111',func=Pin.types.PASSIVE,unit=1),
@@ -5316,7 +5316,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='P9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DA15_Plug_MountingHoles', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA15_Plug_MountingHoles'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'male plug D-SUB connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DA15_Plug_MountingHoles', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA15_Plug_MountingHoles'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'male plug D-SUB connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDA15_Plug_MountingHoles\n\nmale plug D-SUB connector', 'pins':[
             Pin(num='0',name='PAD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='P10',func=Pin.types.PASSIVE,unit=1),
@@ -5333,7 +5333,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='P9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DA15_Receptacle', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA15_Receptacle'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'female receptacle D-SUB connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DA15_Receptacle', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA15_Receptacle'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'female receptacle D-SUB connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDA15_Receptacle\n\nfemale receptacle D-SUB connector', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='P10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='P111',func=Pin.types.PASSIVE,unit=1),
@@ -5349,7 +5349,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='P9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DA15_Receptacle_MountingHoles', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA15_Receptacle_MountingHoles'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'female receptacle D-SUB connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DA15_Receptacle_MountingHoles', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA15_Receptacle_MountingHoles'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'female receptacle D-SUB connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDA15_Receptacle_MountingHoles\n\nfemale receptacle D-SUB connector', 'pins':[
             Pin(num='0',name='PAD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='P10',func=Pin.types.PASSIVE,unit=1),
@@ -5366,7 +5366,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='P9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DB25_Plug', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DB25_Plug'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'male plug D-SUB connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DB25_Plug', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DB25_Plug'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'male plug D-SUB connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDB25_Plug\n\nmale plug D-SUB connector', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='11',func=Pin.types.PASSIVE,unit=1),
@@ -5392,7 +5392,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DB25_Plug_MountingHoles', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DB25_Plug_MountingHoles'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'male plug D-SUB connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DB25_Plug_MountingHoles', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DB25_Plug_MountingHoles'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'male plug D-SUB connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDB25_Plug_MountingHoles\n\nmale plug D-SUB connector', 'pins':[
             Pin(num='0',name='PAD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='10',func=Pin.types.PASSIVE,unit=1),
@@ -5419,7 +5419,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DB25_Receptacle', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DB25_Receptacle'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'female receptacle D-SUB connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DB25_Receptacle', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DB25_Receptacle'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'female receptacle D-SUB connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDB25_Receptacle\n\nfemale receptacle D-SUB connector', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='11',func=Pin.types.PASSIVE,unit=1),
@@ -5445,7 +5445,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DB25_Receptacle_MountingHoles', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DB25_Receptacle_MountingHoles'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'female receptacle D-SUB connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DB25_Receptacle_MountingHoles', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DB25_Receptacle_MountingHoles'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'female receptacle D-SUB connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDB25_Receptacle_MountingHoles\n\nfemale receptacle D-SUB connector', 'pins':[
             Pin(num='0',name='PAD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='10',func=Pin.types.PASSIVE,unit=1),
@@ -5472,7 +5472,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DC37_Plug', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DC37_Plug'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'male plug D-SUB connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DC37_Plug', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DC37_Plug'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'male plug D-SUB connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDC37_Plug\n\nmale plug D-SUB connector', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='11',func=Pin.types.PASSIVE,unit=1),
@@ -5510,84 +5510,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DC37_Plug_MountingHoles', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DC37_Plug_MountingHoles'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'male plug D-SUB connector', 'description':'', 'datasheet':'~', 'pins':[
-            Pin(num='0',name='PAD',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='10',name='10',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='11',name='11',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='12',name='12',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='13',name='13',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='14',name='14',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='15',name='15',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='16',name='16',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='17',name='17',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='18',name='18',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='19',name='19',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='2',name='2',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='20',name='20',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='21',name='21',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='22',name='22',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='23',name='23',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='24',name='24',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='25',name='25',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='26',name='26',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='27',name='27',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='28',name='28',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='29',name='29',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='3',name='3',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='30',name='30',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='31',name='31',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='32',name='32',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='33',name='33',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='34',name='34',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='35',name='35',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='36',name='36',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='37',name='37',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='4',name='4',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='5',name='5',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='6',name='6',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='7',name='7',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='8',name='8',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='9',name='9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DC37_Receptacle', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DC37_Receptacle'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'female receptacle D-SUB connector', 'description':'', 'datasheet':'~', 'pins':[
-            Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='10',name='10',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='11',name='11',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='12',name='12',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='13',name='13',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='14',name='14',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='15',name='15',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='16',name='16',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='17',name='17',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='18',name='18',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='19',name='19',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='2',name='2',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='20',name='20',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='21',name='21',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='22',name='22',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='23',name='23',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='24',name='24',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='25',name='25',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='26',name='26',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='27',name='27',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='28',name='28',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='29',name='29',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='3',name='3',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='30',name='30',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='31',name='31',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='32',name='32',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='33',name='33',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='34',name='34',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='35',name='35',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='36',name='36',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='37',name='37',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='4',name='4',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='5',name='5',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='6',name='6',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='7',name='7',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='8',name='8',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='9',name='9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DC37_Receptacle_MountingHoles', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DC37_Receptacle_MountingHoles'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'female receptacle D-SUB connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DC37_Plug_MountingHoles', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DC37_Plug_MountingHoles'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'male plug D-SUB connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDC37_Plug_MountingHoles\n\nmale plug D-SUB connector', 'pins':[
             Pin(num='0',name='PAD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='10',func=Pin.types.PASSIVE,unit=1),
@@ -5626,7 +5549,84 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DE15_Plug_HighDensity', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DE15_Plug_HighDensity'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector plug male VGA D-SUB', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DC37_Receptacle', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DC37_Receptacle'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'female receptacle D-SUB connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDC37_Receptacle\n\nfemale receptacle D-SUB connector', 'pins':[
+            Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='10',name='10',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='11',name='11',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='12',name='12',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='13',name='13',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='14',name='14',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='15',name='15',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='16',name='16',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='17',name='17',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='18',name='18',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='19',name='19',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='2',name='2',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='20',name='20',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='21',name='21',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='22',name='22',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='23',name='23',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='24',name='24',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='25',name='25',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='26',name='26',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='27',name='27',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='28',name='28',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='29',name='29',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='3',name='3',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='30',name='30',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='31',name='31',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='32',name='32',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='33',name='33',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='34',name='34',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='35',name='35',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='36',name='36',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='37',name='37',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='4',name='4',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='5',name='5',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='6',name='6',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='7',name='7',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='8',name='8',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='9',name='9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'DC37_Receptacle_MountingHoles', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DC37_Receptacle_MountingHoles'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'female receptacle D-SUB connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDC37_Receptacle_MountingHoles\n\nfemale receptacle D-SUB connector', 'pins':[
+            Pin(num='0',name='PAD',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='10',name='10',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='11',name='11',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='12',name='12',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='13',name='13',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='14',name='14',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='15',name='15',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='16',name='16',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='17',name='17',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='18',name='18',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='19',name='19',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='2',name='2',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='20',name='20',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='21',name='21',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='22',name='22',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='23',name='23',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='24',name='24',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='25',name='25',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='26',name='26',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='27',name='27',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='28',name='28',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='29',name='29',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='3',name='3',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='30',name='30',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='31',name='31',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='32',name='32',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='33',name='33',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='34',name='34',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='35',name='35',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='36',name='36',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='37',name='37',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='4',name='4',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='5',name='5',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='6',name='6',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='7',name='7',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='8',name='8',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='9',name='9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'DE15_Plug_HighDensity', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DE15_Plug_HighDensity'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector plug male VGA D-SUB', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDE15_Plug_HighDensity\n\nconnector plug male VGA D-SUB', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -5642,7 +5642,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DE15_Plug_HighDensity_MountingHoles', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DE15_Plug_HighDensity_MountingHoles'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector plug male D-SUB VGA', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DE15_Plug_HighDensity_MountingHoles', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DE15_Plug_HighDensity_MountingHoles'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector plug male D-SUB VGA', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDE15_Plug_HighDensity_MountingHoles\n\nconnector plug male D-SUB VGA', 'pins':[
             Pin(num='0',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -5659,7 +5659,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DE15_Receptacle_HighDensity', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DE15_Receptacle_HighDensity'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector  receptacle de15 VGA female D-SUB', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DE15_Receptacle_HighDensity', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DE15_Receptacle_HighDensity'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector  receptacle de15 VGA female D-SUB', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDE15_Receptacle_HighDensity\n\nconnector  receptacle de15 VGA female D-SUB', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -5675,7 +5675,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DE15_Receptacle_HighDensity_MountingHoles', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DE15_Receptacle_HighDensity_MountingHoles'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector receptacle de15 female D-SUB VGA', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DE15_Receptacle_HighDensity_MountingHoles', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DE15_Receptacle_HighDensity_MountingHoles'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector receptacle de15 female D-SUB VGA', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDE15_Receptacle_HighDensity_MountingHoles\n\nconnector receptacle de15 female D-SUB VGA', 'pins':[
             Pin(num='0',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -5692,7 +5692,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DE9_Plug', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DE9_Plug'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector male plug D-SUB DB9', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DE9_Plug', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DE9_Plug'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector male plug D-SUB DB9', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDE9_Plug\n\nconnector male plug D-SUB DB9', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='3',func=Pin.types.PASSIVE,unit=1),
@@ -5702,7 +5702,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DE9_Plug_MountingHoles', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DE9_Plug_MountingHoles'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector plug male D-SUB DB9', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DE9_Plug_MountingHoles', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DE9_Plug_MountingHoles'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector plug male D-SUB DB9', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDE9_Plug_MountingHoles\n\nconnector plug male D-SUB DB9', 'pins':[
             Pin(num='0',name='PAD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='2',func=Pin.types.PASSIVE,unit=1),
@@ -5713,7 +5713,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DE9_Receptacle', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DE9_Receptacle'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector receptacle female D-SUB DB9', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DE9_Receptacle', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DE9_Receptacle'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector receptacle female D-SUB DB9', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDE9_Receptacle\n\nconnector receptacle female D-SUB DB9', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='3',func=Pin.types.PASSIVE,unit=1),
@@ -5723,7 +5723,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DE9_Receptacle_MountingHoles', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DE9_Receptacle_MountingHoles'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector receptacle female D-SUB DB9', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DE9_Receptacle_MountingHoles', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DE9_Receptacle_MountingHoles'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector receptacle female D-SUB DB9', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDE9_Receptacle_MountingHoles\n\nconnector receptacle female D-SUB DB9', 'pins':[
             Pin(num='0',name='PAD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='2',func=Pin.types.PASSIVE,unit=1),
@@ -5734,35 +5734,35 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DIN-3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN-3'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'circular DIN connector', 'description':'', 'datasheet':'http://www.mouser.com/ds/2/18/40_c091_abd_e-75918.pdf', 'pins':[
+        Part(**{ 'name':'DIN-3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN-3'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'circular DIN connector', 'description':'', 'datasheet':'http://www.mouser.com/ds/2/18/40_c091_abd_e-75918.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDIN-3\n\ncircular DIN connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DIN-4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN-4'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'circular DIN connector', 'description':'', 'datasheet':'http://www.mouser.com/ds/2/18/40_c091_abd_e-75918.pdf', 'pins':[
+        Part(**{ 'name':'DIN-4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN-4'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'circular DIN connector', 'description':'', 'datasheet':'http://www.mouser.com/ds/2/18/40_c091_abd_e-75918.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDIN-4\n\ncircular DIN connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DIN-5', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN-5'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'circular DIN connector', 'description':'', 'datasheet':'http://www.mouser.com/ds/2/18/40_c091_abd_e-75918.pdf', 'pins':[
+        Part(**{ 'name':'DIN-5', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN-5'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'circular DIN connector', 'description':'', 'datasheet':'http://www.mouser.com/ds/2/18/40_c091_abd_e-75918.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDIN-5\n\ncircular DIN connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DIN-5_180degree', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN-5_180degree'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'circular DIN connector stereo audio', 'description':'', 'datasheet':'http://www.mouser.com/ds/2/18/40_c091_abd_e-75918.pdf', 'pins':[
+        Part(**{ 'name':'DIN-5_180degree', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN-5_180degree'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'circular DIN connector stereo audio', 'description':'', 'datasheet':'http://www.mouser.com/ds/2/18/40_c091_abd_e-75918.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDIN-5_180degree\n\ncircular DIN connector stereo audio', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DIN-6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN-6'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'circular DIN connector', 'description':'', 'datasheet':'http://www.mouser.com/ds/2/18/40_c091_abd_e-75918.pdf', 'pins':[
+        Part(**{ 'name':'DIN-6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN-6'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'circular DIN connector', 'description':'', 'datasheet':'http://www.mouser.com/ds/2/18/40_c091_abd_e-75918.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDIN-6\n\ncircular DIN connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DIN-7', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN-7'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'circular DIN connector', 'description':'', 'datasheet':'http://www.mouser.com/ds/2/18/40_c091_abd_e-75918.pdf', 'pins':[
+        Part(**{ 'name':'DIN-7', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN-7'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'circular DIN connector', 'description':'', 'datasheet':'http://www.mouser.com/ds/2/18/40_c091_abd_e-75918.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDIN-7\n\ncircular DIN connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -5770,7 +5770,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DIN-7_CenterPin7', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN-7_CenterPin7'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'circular DIN connector', 'description':'', 'datasheet':'http://www.mouser.com/ds/2/18/40_c091_abd_e-75918.pdf', 'pins':[
+        Part(**{ 'name':'DIN-7_CenterPin7', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN-7_CenterPin7'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'circular DIN connector', 'description':'', 'datasheet':'http://www.mouser.com/ds/2/18/40_c091_abd_e-75918.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDIN-7_CenterPin7\n\ncircular DIN connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -5778,7 +5778,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DIN-8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN-8'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'circular DIN connector', 'description':'', 'datasheet':'http://www.mouser.com/ds/2/18/40_c091_abd_e-75918.pdf', 'pins':[
+        Part(**{ 'name':'DIN-8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN-8'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'circular DIN connector', 'description':'', 'datasheet':'http://www.mouser.com/ds/2/18/40_c091_abd_e-75918.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDIN-8\n\ncircular DIN connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -5787,7 +5787,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DIN41612_01x32_A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_01x32_A'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DIN41612_01x32_A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_01x32_A'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDIN41612_01x32_A\n\nconnector', 'pins':[
             Pin(num='a1',name='Pin_a1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a10',name='Pin_a10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a11',name='Pin_a11',func=Pin.types.PASSIVE,unit=1),
@@ -5820,7 +5820,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='a7',name='Pin_a7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a8',name='Pin_a8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a9',name='Pin_a9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DIN41612_02x05_AB_EvenPins', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x05_AB_EvenPins'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DIN41612_02x05_AB_EvenPins', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x05_AB_EvenPins'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDIN41612_02x05_AB_EvenPins\n\nconnector', 'pins':[
             Pin(num='a10',name='Pin_a10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a2',name='Pin_a2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a4',name='Pin_a4',func=Pin.types.PASSIVE,unit=1),
@@ -5831,7 +5831,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='b4',name='Pin_b4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='b6',name='Pin_b6',func=Pin.types.PASSIVE,unit=1),
             Pin(num='b8',name='Pin_b8',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DIN41612_02x05_AC_EvenPins', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x05_AC_EvenPins'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DIN41612_02x05_AC_EvenPins', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x05_AC_EvenPins'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDIN41612_02x05_AC_EvenPins\n\nconnector', 'pins':[
             Pin(num='a10',name='Pin_a10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a2',name='Pin_a2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a4',name='Pin_a4',func=Pin.types.PASSIVE,unit=1),
@@ -5842,7 +5842,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='c4',name='Pin_c4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='c6',name='Pin_c6',func=Pin.types.PASSIVE,unit=1),
             Pin(num='c8',name='Pin_c8',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DIN41612_02x05_AE_EvenPins', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x05_AE_EvenPins'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DIN41612_02x05_AE_EvenPins', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x05_AE_EvenPins'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDIN41612_02x05_AE_EvenPins\n\nconnector', 'pins':[
             Pin(num='a10',name='Pin_a10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a2',name='Pin_a2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a4',name='Pin_a4',func=Pin.types.PASSIVE,unit=1),
@@ -5853,7 +5853,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='e4',name='Pin_e4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='e6',name='Pin_e6',func=Pin.types.PASSIVE,unit=1),
             Pin(num='e8',name='Pin_e8',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DIN41612_02x05_ZB_EvenPins', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x05_ZB_EvenPins'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DIN41612_02x05_ZB_EvenPins', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x05_ZB_EvenPins'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDIN41612_02x05_ZB_EvenPins\n\nconnector', 'pins':[
             Pin(num='b10',name='Pin_b10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='b2',name='Pin_b2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='b4',name='Pin_b4',func=Pin.types.PASSIVE,unit=1),
@@ -5864,7 +5864,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='z4',name='Pin_z4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='z6',name='Pin_z6',func=Pin.types.PASSIVE,unit=1),
             Pin(num='z8',name='Pin_z8',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DIN41612_02x08_AB_EvenPins', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x08_AB_EvenPins'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DIN41612_02x08_AB_EvenPins', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x08_AB_EvenPins'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDIN41612_02x08_AB_EvenPins\n\nconnector', 'pins':[
             Pin(num='a10',name='Pin_a10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a12',name='Pin_a12',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a14',name='Pin_a14',func=Pin.types.PASSIVE,unit=1),
@@ -5881,7 +5881,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='b4',name='Pin_b4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='b6',name='Pin_b6',func=Pin.types.PASSIVE,unit=1),
             Pin(num='b8',name='Pin_b8',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DIN41612_02x08_AC_EvenPins', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x08_AC_EvenPins'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DIN41612_02x08_AC_EvenPins', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x08_AC_EvenPins'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDIN41612_02x08_AC_EvenPins\n\nconnector', 'pins':[
             Pin(num='a10',name='Pin_a10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a12',name='Pin_a12',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a14',name='Pin_a14',func=Pin.types.PASSIVE,unit=1),
@@ -5898,7 +5898,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='c4',name='Pin_c4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='c6',name='Pin_c6',func=Pin.types.PASSIVE,unit=1),
             Pin(num='c8',name='Pin_c8',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DIN41612_02x08_AE_EvenPins', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x08_AE_EvenPins'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DIN41612_02x08_AE_EvenPins', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x08_AE_EvenPins'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDIN41612_02x08_AE_EvenPins\n\nconnector', 'pins':[
             Pin(num='a10',name='Pin_a10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a12',name='Pin_a12',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a14',name='Pin_a14',func=Pin.types.PASSIVE,unit=1),
@@ -5915,7 +5915,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='e4',name='Pin_e4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='e6',name='Pin_e6',func=Pin.types.PASSIVE,unit=1),
             Pin(num='e8',name='Pin_e8',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DIN41612_02x08_ZB_EvenPins', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x08_ZB_EvenPins'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DIN41612_02x08_ZB_EvenPins', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x08_ZB_EvenPins'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDIN41612_02x08_ZB_EvenPins\n\nconnector', 'pins':[
             Pin(num='b10',name='Pin_b10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='b12',name='Pin_b12',func=Pin.types.PASSIVE,unit=1),
             Pin(num='b14',name='Pin_b14',func=Pin.types.PASSIVE,unit=1),
@@ -5932,7 +5932,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='z4',name='Pin_z4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='z6',name='Pin_z6',func=Pin.types.PASSIVE,unit=1),
             Pin(num='z8',name='Pin_z8',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DIN41612_02x10_AB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x10_AB'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DIN41612_02x10_AB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x10_AB'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDIN41612_02x10_AB\n\nconnector', 'pins':[
             Pin(num='a1',name='Pin_a1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a10',name='Pin_a10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a2',name='Pin_a2',func=Pin.types.PASSIVE,unit=1),
@@ -5953,7 +5953,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='b7',name='Pin_b7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='b8',name='Pin_b8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='b9',name='Pin_b9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DIN41612_02x10_AC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x10_AC'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DIN41612_02x10_AC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x10_AC'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDIN41612_02x10_AC\n\nconnector', 'pins':[
             Pin(num='a1',name='Pin_a1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a10',name='Pin_a10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a2',name='Pin_a2',func=Pin.types.PASSIVE,unit=1),
@@ -5974,7 +5974,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='c7',name='Pin_c7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='c8',name='Pin_c8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='c9',name='Pin_c9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DIN41612_02x10_AE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x10_AE'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DIN41612_02x10_AE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x10_AE'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDIN41612_02x10_AE\n\nconnector', 'pins':[
             Pin(num='a1',name='Pin_a1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a10',name='Pin_a10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a2',name='Pin_a2',func=Pin.types.PASSIVE,unit=1),
@@ -5995,7 +5995,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='e7',name='Pin_e7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='e8',name='Pin_e8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='e9',name='Pin_e9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DIN41612_02x10_ZB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x10_ZB'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DIN41612_02x10_ZB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x10_ZB'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDIN41612_02x10_ZB\n\nconnector', 'pins':[
             Pin(num='b1',name='Pin_b1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='b10',name='Pin_b10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='b2',name='Pin_b2',func=Pin.types.PASSIVE,unit=1),
@@ -6016,7 +6016,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='z7',name='Pin_z7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='z8',name='Pin_z8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='z9',name='Pin_z9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DIN41612_02x16_AB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x16_AB'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DIN41612_02x16_AB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x16_AB'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDIN41612_02x16_AB\n\nconnector', 'pins':[
             Pin(num='a1',name='Pin_a1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a10',name='Pin_a10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a11',name='Pin_a11',func=Pin.types.PASSIVE,unit=1),
@@ -6049,7 +6049,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='b7',name='Pin_b7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='b8',name='Pin_b8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='b9',name='Pin_b9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DIN41612_02x16_AB_EvenPins', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x16_AB_EvenPins'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DIN41612_02x16_AB_EvenPins', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x16_AB_EvenPins'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDIN41612_02x16_AB_EvenPins\n\nconnector', 'pins':[
             Pin(num='a10',name='Pin_a10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a12',name='Pin_a12',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a14',name='Pin_a14',func=Pin.types.PASSIVE,unit=1),
@@ -6082,7 +6082,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='b4',name='Pin_b4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='b6',name='Pin_b6',func=Pin.types.PASSIVE,unit=1),
             Pin(num='b8',name='Pin_b8',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DIN41612_02x16_AC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x16_AC'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DIN41612_02x16_AC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x16_AC'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDIN41612_02x16_AC\n\nconnector', 'pins':[
             Pin(num='a1',name='Pin_a1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a10',name='Pin_a10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a11',name='Pin_a11',func=Pin.types.PASSIVE,unit=1),
@@ -6115,7 +6115,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='c7',name='Pin_c7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='c8',name='Pin_c8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='c9',name='Pin_c9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DIN41612_02x16_AC_EvenPins', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x16_AC_EvenPins'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DIN41612_02x16_AC_EvenPins', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x16_AC_EvenPins'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDIN41612_02x16_AC_EvenPins\n\nconnector', 'pins':[
             Pin(num='a10',name='Pin_a10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a12',name='Pin_a12',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a14',name='Pin_a14',func=Pin.types.PASSIVE,unit=1),
@@ -6148,7 +6148,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='c4',name='Pin_c4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='c6',name='Pin_c6',func=Pin.types.PASSIVE,unit=1),
             Pin(num='c8',name='Pin_c8',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DIN41612_02x16_AE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x16_AE'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DIN41612_02x16_AE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x16_AE'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDIN41612_02x16_AE\n\nconnector', 'pins':[
             Pin(num='a1',name='Pin_a1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a10',name='Pin_a10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a11',name='Pin_a11',func=Pin.types.PASSIVE,unit=1),
@@ -6181,7 +6181,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='e7',name='Pin_e7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='e8',name='Pin_e8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='e9',name='Pin_e9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DIN41612_02x16_AE_EvenPins', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x16_AE_EvenPins'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DIN41612_02x16_AE_EvenPins', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x16_AE_EvenPins'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDIN41612_02x16_AE_EvenPins\n\nconnector', 'pins':[
             Pin(num='a10',name='Pin_a10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a12',name='Pin_a12',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a14',name='Pin_a14',func=Pin.types.PASSIVE,unit=1),
@@ -6214,7 +6214,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='e4',name='Pin_e4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='e6',name='Pin_e6',func=Pin.types.PASSIVE,unit=1),
             Pin(num='e8',name='Pin_e8',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DIN41612_02x16_ZB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x16_ZB'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DIN41612_02x16_ZB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x16_ZB'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDIN41612_02x16_ZB\n\nconnector', 'pins':[
             Pin(num='b1',name='Pin_b1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='b10',name='Pin_b10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='b11',name='Pin_b11',func=Pin.types.PASSIVE,unit=1),
@@ -6247,7 +6247,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='z7',name='Pin_z7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='z8',name='Pin_z8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='z9',name='Pin_z9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DIN41612_02x16_ZB_EvenPins', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x16_ZB_EvenPins'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DIN41612_02x16_ZB_EvenPins', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x16_ZB_EvenPins'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDIN41612_02x16_ZB_EvenPins\n\nconnector', 'pins':[
             Pin(num='b10',name='Pin_b10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='b12',name='Pin_b12',func=Pin.types.PASSIVE,unit=1),
             Pin(num='b14',name='Pin_b14',func=Pin.types.PASSIVE,unit=1),
@@ -6280,7 +6280,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='z4',name='Pin_z4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='z6',name='Pin_z6',func=Pin.types.PASSIVE,unit=1),
             Pin(num='z8',name='Pin_z8',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DIN41612_02x32_AB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x32_AB'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DIN41612_02x32_AB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x32_AB'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDIN41612_02x32_AB\n\nconnector', 'pins':[
             Pin(num='a1',name='Pin_a1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a10',name='Pin_a10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a11',name='Pin_a11',func=Pin.types.PASSIVE,unit=1),
@@ -6345,7 +6345,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='b7',name='Pin_b7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='b8',name='Pin_b8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='b9',name='Pin_b9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DIN41612_02x32_AC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x32_AC'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DIN41612_02x32_AC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x32_AC'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDIN41612_02x32_AC\n\nconnector', 'pins':[
             Pin(num='a1',name='Pin_a1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a10',name='Pin_a10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a11',name='Pin_a11',func=Pin.types.PASSIVE,unit=1),
@@ -6410,7 +6410,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='c7',name='Pin_c7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='c8',name='Pin_c8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='c9',name='Pin_c9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DIN41612_02x32_AE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x32_AE'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DIN41612_02x32_AE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x32_AE'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDIN41612_02x32_AE\n\nconnector', 'pins':[
             Pin(num='a1',name='Pin_a1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a10',name='Pin_a10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='a11',name='Pin_a11',func=Pin.types.PASSIVE,unit=1),
@@ -6475,7 +6475,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='e7',name='Pin_e7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='e8',name='Pin_e8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='e9',name='Pin_e9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DIN41612_02x32_ZB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x32_ZB'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'DIN41612_02x32_ZB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIN41612_02x32_ZB'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDIN41612_02x32_ZB\n\nconnector', 'pins':[
             Pin(num='b1',name='Pin_b1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='b10',name='Pin_b10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='b11',name='Pin_b11',func=Pin.types.PASSIVE,unit=1),
@@ -6540,7 +6540,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='z7',name='Pin_z7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='z8',name='Pin_z8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='z9',name='Pin_z9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DVI-D_Dual_Link', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DVI-D_Dual_Link'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'dvi digital visual interface', 'description':'', 'datasheet':'https://www.molex.com/content/dam/molex/molex-dot-com/products/automated/en-us/salesdrawingpdf/743/74320/743204004_sd.pdf?inline', 'pins':[
+        Part(**{ 'name':'DVI-D_Dual_Link', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DVI-D_Dual_Link'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'dvi digital visual interface', 'description':'', 'datasheet':'https://www.molex.com/content/dam/molex/molex-dot-com/products/automated/en-us/salesdrawingpdf/743/74320/743204004_sd.pdf?inline', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDVI-D_Dual_Link\n\ndvi digital visual interface', 'pins':[
             Pin(num='1',name='D2-',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='D1+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='D1/3S',func=Pin.types.PASSIVE,unit=1),
@@ -6566,7 +6566,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='D1-',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='SH',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DVI-I_Dual_Link', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DVI-I_Dual_Link'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'dvi digital visual interface', 'description':'', 'datasheet':'https://www.molex.com/content/dam/molex/molex-dot-com/products/automated/en-us/salesdrawingpdf/743/74320/743201004_sd.pdf?inline', 'pins':[
+        Part(**{ 'name':'DVI-I_Dual_Link', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DVI-I_Dual_Link'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'dvi digital visual interface', 'description':'', 'datasheet':'https://www.molex.com/content/dam/molex/molex-dot-com/products/automated/en-us/salesdrawingpdf/743/74320/743201004_sd.pdf?inline', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nDVI-I_Dual_Link\n\ndvi digital visual interface', 'pins':[
             Pin(num='1',name='D2-',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='D1+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='D1/3S',func=Pin.types.PASSIVE,unit=1),
@@ -6597,7 +6597,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='C4',name='HSYNC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='C5',name='GNDA',func=Pin.types.PWRIN,unit=1),
             Pin(num='SH',name='SH',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ExpressCard', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ExpressCard'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'expresscard pci express', 'description':'', 'datasheet':'https://web.archive.org/web/20180809060653/http://www.usb.org/developers/expresscard/EC_specifications/ExpressCard_2_0_FINAL.pdf', 'pins':[
+        Part(**{ 'name':'ExpressCard', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ExpressCard'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'expresscard pci express', 'description':'', 'datasheet':'https://web.archive.org/web/20180809060653/http://www.usb.org/developers/expresscard/EC_specifications/ExpressCard_2_0_FINAL.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nExpressCard\n\nexpresscard pci express', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWROUT,unit=1),
             Pin(num='10',name='1V5',func=Pin.types.PWROUT,unit=1),
             Pin(num='11',name='~{WAKE}',func=Pin.types.INPUT,unit=1),
@@ -6624,7 +6624,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SMBCLK',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='SMDDATA',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='1V5',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HDMI_A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDMI_A'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'hdmi conn', 'description':'', 'datasheet':'https://en.wikipedia.org/wiki/HDMI', 'pins':[
+        Part(**{ 'name':'HDMI_A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDMI_A'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'hdmi conn', 'description':'', 'datasheet':'https://en.wikipedia.org/wiki/HDMI', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nHDMI_A\n\nhdmi conn', 'pins':[
             Pin(num='1',name='D2+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='CK+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='CKS',func=Pin.types.PWRIN,unit=1),
@@ -6645,7 +6645,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='D0S',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='D0-',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='SH',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HDMI_A_1.4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDMI_A_1.4'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'hdmi conn', 'description':'', 'datasheet':'https://en.wikipedia.org/wiki/HDMI', 'pins':[
+        Part(**{ 'name':'HDMI_A_1.4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDMI_A_1.4'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'hdmi conn', 'description':'', 'datasheet':'https://en.wikipedia.org/wiki/HDMI', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nHDMI_A_1.4\n\nhdmi conn', 'pins':[
             Pin(num='1',name='D2+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='CK+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='CKS',func=Pin.types.PWRIN,unit=1),
@@ -6666,7 +6666,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='D0S',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='D0-',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='SH',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HDMI_B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDMI_B'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'hdmi conn', 'description':'', 'datasheet':'http://pinouts.ru/Video/hdmi_pinout.shtml', 'pins':[
+        Part(**{ 'name':'HDMI_B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDMI_B'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'hdmi conn', 'description':'', 'datasheet':'http://pinouts.ru/Video/hdmi_pinout.shtml', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nHDMI_B\n\nhdmi conn', 'pins':[
             Pin(num='1',name='D2+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='CK+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='CKS',func=Pin.types.PWRIN,unit=1),
@@ -6697,7 +6697,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='D0S',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='D0-',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='SH',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HDMI_C_1.3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDMI_C_1.3'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'hdmi conn', 'description':'', 'datasheet':'http://pinoutguide.com/PortableDevices/mini_hdmi_pinout.shtml', 'pins':[
+        Part(**{ 'name':'HDMI_C_1.3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDMI_C_1.3'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'hdmi conn', 'description':'', 'datasheet':'http://pinoutguide.com/PortableDevices/mini_hdmi_pinout.shtml', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nHDMI_C_1.3\n\nhdmi conn', 'pins':[
             Pin(num='1',name='D2S',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='CKS',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='CK+',func=Pin.types.PASSIVE,unit=1),
@@ -6718,7 +6718,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='D0+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='D0-',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='SH',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HDMI_C_1.4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDMI_C_1.4'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'hdmi conn', 'description':'', 'datasheet':'http://pinoutguide.com/PortableDevices/mini_hdmi_pinout.shtml', 'pins':[
+        Part(**{ 'name':'HDMI_C_1.4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDMI_C_1.4'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'hdmi conn', 'description':'', 'datasheet':'http://pinoutguide.com/PortableDevices/mini_hdmi_pinout.shtml', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nHDMI_C_1.4\n\nhdmi conn', 'pins':[
             Pin(num='1',name='D2S',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='CKS',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='CK+',func=Pin.types.PASSIVE,unit=1),
@@ -6739,7 +6739,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='D0+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='D0-',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='SH',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HDMI_D_1.4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDMI_D_1.4'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'hdmi conn', 'description':'', 'datasheet':'http://pinoutguide.com/PortableDevices/micro_hdmi_type_d_pinout.shtml', 'pins':[
+        Part(**{ 'name':'HDMI_D_1.4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDMI_D_1.4'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'hdmi conn', 'description':'', 'datasheet':'http://pinoutguide.com/PortableDevices/micro_hdmi_type_d_pinout.shtml', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nHDMI_D_1.4\n\nhdmi conn', 'pins':[
             Pin(num='1',name='HPD/HEAC-',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='D0S',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='D0-',func=Pin.types.PASSIVE,unit=1),
@@ -6760,7 +6760,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='D1-',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='D0+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='SH',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HDMI_E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDMI_E'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'hdmi conn', 'description':'', 'datasheet':'https://www.hdmi.org/manufacturer/specification.aspx', 'pins':[
+        Part(**{ 'name':'HDMI_E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDMI_E'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'hdmi conn', 'description':'', 'datasheet':'https://www.hdmi.org/manufacturer/specification.aspx', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nHDMI_E\n\nhdmi conn', 'pins':[
             Pin(num='1',name='D2+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='CK+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='CKS',func=Pin.types.PWRIN,unit=1),
@@ -6781,29 +6781,51 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='D0S',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='D0-',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='SH',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IEC61076-2_M8_A-coding_01x03_Plug_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IEC61076-2_M8_A-coding_01x03_Plug_Shielded'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'M8', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'IEC61076-2_M8_A-coding_01x03_Plug_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IEC61076-2_M8_A-coding_01x03_Plug_Shielded'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'M8', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nIEC61076-2_M8_A-coding_01x03_Plug_Shielded\n\nM8', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IEC61076-2_M8_A-coding_01x03_Receptacle_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IEC61076-2_M8_A-coding_01x03_Receptacle_Shielded'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'M8', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'IEC61076-2_M8_A-coding_01x03_Receptacle_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IEC61076-2_M8_A-coding_01x03_Receptacle_Shielded'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'M8', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nIEC61076-2_M8_A-coding_01x03_Receptacle_Shielded\n\nM8', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IEC61076-2_M8_A-coding_01x04_Plug_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IEC61076-2_M8_A-coding_01x04_Plug_Shielded'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'M8 connector', 'description':'', 'datasheet':'', 'pins':[
-            Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IEC61076-2_M8_A-coding_01x04_Receptacle_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IEC61076-2_M8_A-coding_01x04_Receptacle_Shielded'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'M8 connector', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'IEC61076-2_M8_A-coding_01x04_Plug_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IEC61076-2_M8_A-coding_01x04_Plug_Shielded'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'M8 connector', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nIEC61076-2_M8_A-coding_01x04_Plug_Shielded\n\nM8 connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IEEE1394a', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IEEE1394a'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector IEEE1394a FireWire', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'IEC61076-2_M8_A-coding_01x04_Receptacle_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IEC61076-2_M8_A-coding_01x04_Receptacle_Shielded'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'M8 connector', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nIEC61076-2_M8_A-coding_01x04_Receptacle_Shielded\n\nM8 connector', 'pins':[
+            Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'IEC_60320_C13_Plug', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IEC_60320_C13_Plug'}), 'ref_prefix':'P', 'fplist':[''], 'footprint':'', 'keywords':'Receptacle C13 IEC320', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nIEC_60320_C13_Plug\n\nReceptacle C13 IEC320', 'pins':[
+            Pin(num='1',name='N',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='L',func=Pin.types.PWRIN,unit=1),
+            Pin(num='3',name='PE',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'IEC_60320_C14_Receptacle', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IEC_60320_C14_Receptacle'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'Plug C14 IEC320', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nIEC_60320_C14_Receptacle\n\nPlug C14 IEC320', 'pins':[
+            Pin(num='1',name='L',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='N',func=Pin.types.PWRIN,unit=1),
+            Pin(num='3',name='PE',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'IEC_60320_C5_Plug', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IEC_60320_C5_Plug'}), 'ref_prefix':'P', 'fplist':[''], 'footprint':'', 'keywords':'C5 IEC 60320', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nIEC_60320_C5_Plug\n\nC5 IEC 60320', 'pins':[
+            Pin(num='1',name='N',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='L',func=Pin.types.PWRIN,unit=1),
+            Pin(num='3',name='PE',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'IEC_60320_C6_Receptacle', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IEC_60320_C6_Receptacle'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'IEC 60320 C6', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nIEC_60320_C6_Receptacle\n\nIEC 60320 C6', 'pins':[
+            Pin(num='1',name='L',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='N',func=Pin.types.PWRIN,unit=1),
+            Pin(num='3',name='PE',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'IEC_60320_C7_Plug', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IEC_60320_C7_Plug'}), 'ref_prefix':'P', 'fplist':[''], 'footprint':'', 'keywords':'C7 Plug  IEC 60320', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nIEC_60320_C7_Plug\n\nC7 Plug  IEC 60320', 'pins':[
+            Pin(num='1',name='N',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='L',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'IEC_60320_C8_Receptacle', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IEC_60320_C8_Receptacle'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'C8 Receptacle  IEC 60320', 'description':'', 'datasheet':'~ ', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nIEC_60320_C8_Receptacle\n\nC8 Receptacle  IEC 60320', 'pins':[
+            Pin(num='1',name='L',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='N',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'IEEE1394a', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IEEE1394a'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector IEEE1394a FireWire', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nIEEE1394a\n\nconnector IEEE1394a FireWire', 'pins':[
             Pin(num='1',name='PWR',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='TPB-',func=Pin.types.BIDIR,unit=1),
@@ -6812,7 +6834,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='TPA+',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='SH',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='SH',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'JAE_SIM_Card_SF72S006', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'JAE_SIM_Card_SF72S006'}), 'ref_prefix':'J', 'fplist':['Connector_JAE:JAE_SIM_Card_SF72S006'], 'footprint':'Connector_JAE:JAE_SIM_Card_SF72S006', 'keywords':'SIM card UICC 4FF', 'description':'', 'datasheet':'https://www.jae.com/direct/topics/topics_file_download/topics_id=68892&ext_no=06&index=0&_lang=en&v=202003111511468456809', 'pins':[
+        Part(**{ 'name':'JAE_SIM_Card_SF72S006', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'JAE_SIM_Card_SF72S006'}), 'ref_prefix':'J', 'fplist':['Connector_JAE:JAE_SIM_Card_SF72S006'], 'footprint':'Connector_JAE:JAE_SIM_Card_SF72S006', 'keywords':'SIM card UICC 4FF', 'description':'', 'datasheet':'https://www.jae.com/direct/topics/topics_file_download/topics_id=68892&ext_no=06&index=0&_lang=en&v=202003111511468456809', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nJAE_SIM_Card_SF72S006\n\nSIM card UICC 4FF', 'pins':[
             Pin(num='C1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='C2',name='RST',func=Pin.types.INPUT,unit=1),
             Pin(num='C3',name='CLK',func=Pin.types.INPUT,unit=1),
@@ -6822,28 +6844,28 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='CSW',name='CSW',func=Pin.types.PASSIVE,unit=1),
             Pin(num='DSW',name='DSW',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='SH',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LEMO2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LEMO2'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'LEMO connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'LEMO2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LEMO2'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'LEMO connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nLEMO2\n\nLEMO connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LEMO4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LEMO4'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'LEMO connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'LEMO4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LEMO4'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'LEMO connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nLEMO4\n\nLEMO connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LEMO5', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LEMO5'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'LEMO connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'LEMO5', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LEMO5'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'LEMO connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nLEMO5\n\nLEMO connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LEMO6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LEMO6'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'LEMO connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'LEMO6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LEMO6'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'LEMO connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nLEMO6\n\nLEMO connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MXM3.0', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MXM3.0'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'MXM connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'MXM3.0', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MXM3.0'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'MXM connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nMXM3.0\n\nMXM connector', 'pins':[
             Pin(num='1',name='5V',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RSVD',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -7122,7 +7144,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='E2',name='PWR_SRC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='E3',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='E4',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Micro_SD_Card', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Micro_SD_Card'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector SD microsd', 'description':'', 'datasheet':'http://katalog.we-online.de/em/datasheet/693072010801.pdf', 'pins':[
+        Part(**{ 'name':'Micro_SD_Card', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Micro_SD_Card'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector SD microsd', 'description':'', 'datasheet':'https://www.we-online.com/components/products/datasheet/693072010801.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nMicro_SD_Card\n\nconnector SD microsd', 'pins':[
             Pin(num='1',name='DAT2',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='DAT3/CD',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='CMD',func=Pin.types.INPUT,unit=1),
@@ -7132,7 +7154,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DAT0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DAT1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SHIELD',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Micro_SD_Card_Det1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Micro_SD_Card_Det1'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector SD microsd', 'description':'', 'datasheet':'https://datasheet.lcsc.com/lcsc/2110151630_XKB-Connectivity-XKTF-015-N_C381082.pdf', 'pins':[
+        Part(**{ 'name':'Micro_SD_Card_Det1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Micro_SD_Card_Det1'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector SD microsd', 'description':'', 'datasheet':'https://datasheet.lcsc.com/lcsc/2110151630_XKB-Connectivity-XKTF-015-N_C381082.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nMicro_SD_Card_Det1\n\nconnector SD microsd', 'pins':[
             Pin(num='1',name='DAT2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SHIELD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='DAT3/CD',func=Pin.types.BIDIR,unit=1),
@@ -7143,7 +7165,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DAT0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DAT1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='DET',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Micro_SD_Card_Det2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Micro_SD_Card_Det2'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector SD microsd', 'description':'', 'datasheet':'https://www.hirose.com/en/product/document?clcode=&productname=&series=DM3&documenttype=Catalog&lang=en&documentid=D49662_en', 'pins':[
+        Part(**{ 'name':'Micro_SD_Card_Det2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Micro_SD_Card_Det2'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector SD microsd', 'description':'', 'datasheet':'https://www.hirose.com/en/product/document?clcode=&productname=&series=DM3&documenttype=Catalog&lang=en&documentid=D49662_en', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nMicro_SD_Card_Det2\n\nconnector SD microsd', 'pins':[
             Pin(num='1',name='DAT2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='DET_A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='SHIELD',func=Pin.types.PASSIVE,unit=1),
@@ -7155,7 +7177,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DAT0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DAT1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='DET_B',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Microsemi_FlashPro-JTAG-10', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Microsemi_FlashPro-JTAG-10'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'JTAG IDC10 Pinheader Pins Connector', 'description':'', 'datasheet':'https://www.microsemi.com/document-portal/doc_view/129973-lpf-ac386-an', 'pins':[
+        Part(**{ 'name':'Microsemi_FlashPro-JTAG-10', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Microsemi_FlashPro-JTAG-10'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'JTAG IDC10 Pinheader Pins Connector', 'description':'', 'datasheet':'https://www.microsemi.com/document-portal/doc_view/129973-lpf-ac386-an', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nMicrosemi_FlashPro-JTAG-10\n\nJTAG IDC10 Pinheader Pins Connector', 'pins':[
             Pin(num='1',name='TCK',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -7166,29 +7188,29 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VPUMP',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='~{TRST}',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='TDI',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Mini-DIN-3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Mini-DIN-3'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'Mini-DIN', 'description':'', 'datasheet':'http://www.assmann-wsw.com/fileadmin/catalogue/10_MiniDIN_rev4-0.pdf', 'pins':[
+        Part(**{ 'name':'Mini-DIN-3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Mini-DIN-3'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'Mini-DIN', 'description':'', 'datasheet':'http://www.assmann-wsw.com/fileadmin/catalogue/10_MiniDIN_rev4-0.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nMini-DIN-3\n\nMini-DIN', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Mini-DIN-4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Mini-DIN-4'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'Mini-DIN', 'description':'', 'datasheet':'http://service.powerdynamics.com/ec/Catalog17/Section%2011.pdf', 'pins':[
+        Part(**{ 'name':'Mini-DIN-4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Mini-DIN-4'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'Mini-DIN', 'description':'', 'datasheet':'http://service.powerdynamics.com/ec/Catalog17/Section%2011.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nMini-DIN-4\n\nMini-DIN', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Mini-DIN-5', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Mini-DIN-5'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'Mini-DIN', 'description':'', 'datasheet':'http://service.powerdynamics.com/ec/Catalog17/Section%2011.pdf', 'pins':[
+        Part(**{ 'name':'Mini-DIN-5', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Mini-DIN-5'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'Mini-DIN', 'description':'', 'datasheet':'http://service.powerdynamics.com/ec/Catalog17/Section%2011.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nMini-DIN-5\n\nMini-DIN', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Mini-DIN-6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Mini-DIN-6'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'Mini-DIN', 'description':'', 'datasheet':'http://service.powerdynamics.com/ec/Catalog17/Section%2011.pdf', 'pins':[
+        Part(**{ 'name':'Mini-DIN-6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Mini-DIN-6'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'Mini-DIN', 'description':'', 'datasheet':'http://service.powerdynamics.com/ec/Catalog17/Section%2011.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nMini-DIN-6\n\nMini-DIN', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Mini-DIN-7', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Mini-DIN-7'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'Mini-DIN', 'description':'', 'datasheet':'http://service.powerdynamics.com/ec/Catalog17/Section%2011.pdf', 'pins':[
+        Part(**{ 'name':'Mini-DIN-7', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Mini-DIN-7'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'Mini-DIN', 'description':'', 'datasheet':'http://service.powerdynamics.com/ec/Catalog17/Section%2011.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nMini-DIN-7\n\nMini-DIN', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -7196,7 +7218,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Mini-DIN-8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Mini-DIN-8'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'Mini-DIN', 'description':'', 'datasheet':'http://service.powerdynamics.com/ec/Catalog17/Section%2011.pdf', 'pins':[
+        Part(**{ 'name':'Mini-DIN-8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Mini-DIN-8'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'Mini-DIN', 'description':'', 'datasheet':'http://service.powerdynamics.com/ec/Catalog17/Section%2011.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nMini-DIN-8\n\nMini-DIN', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -7205,7 +7227,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ45_Abracon_ARJP11A-MASA-B-A-EMU2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_Abracon_ARJP11A-MASA-B-A-EMU2'}), 'ref_prefix':'J', 'fplist':['Connector_RJ:RJ45_Abracon_ARJP11A-MA_Horizontal'], 'footprint':'Connector_RJ:RJ45_Abracon_ARJP11A-MA_Horizontal', 'keywords':'single port ethernet transformer socket poe center-tap', 'description':'', 'datasheet':'https://abracon.com/Magnetics/lan/ARJP11A.PDF', 'pins':[
+        Part(**{ 'name':'RJ45_Abracon_ARJP11A-MASA-B-A-EMU2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_Abracon_ARJP11A-MASA-B-A-EMU2'}), 'ref_prefix':'J', 'fplist':['Connector_RJ:RJ45_Abracon_ARJP11A-MA_Horizontal'], 'footprint':'Connector_RJ:RJ45_Abracon_ARJP11A-MA_Horizontal', 'keywords':'single port ethernet transformer socket poe center-tap', 'description':'', 'datasheet':'https://abracon.com/Magnetics/lan/ARJP11A.PDF', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ45_Abracon_ARJP11A-MASA-B-A-EMU2\n\nsingle port ethernet transformer socket poe center-tap', 'pins':[
             Pin(num='1',name='TD+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='V-',func=Pin.types.PWROUT,unit=1),
             Pin(num='11',func=Pin.types.PASSIVE,unit=1),
@@ -7221,7 +7243,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='V+',func=Pin.types.PWROUT,unit=1),
             Pin(num='SH',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ45_Amphenol_RJMG1BD3B8K1ANR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_Amphenol_RJMG1BD3B8K1ANR'}), 'ref_prefix':'J', 'fplist':['Connector_RJ:RJ45_Amphenol_RJMG1BD3B8K1ANR'], 'footprint':'Connector_RJ:RJ45_Amphenol_RJMG1BD3B8K1ANR', 'keywords':'RJ45 Magjack Socket', 'description':'', 'datasheet':'https://www.amphenol-cs.com/media/wysiwyg/files/drawing/rjmg1bd3b8k1anr.pdf', 'pins':[
+        Part(**{ 'name':'RJ45_Amphenol_RJMG1BD3B8K1ANR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_Amphenol_RJMG1BD3B8K1ANR'}), 'ref_prefix':'J', 'fplist':['Connector_RJ:RJ45_Amphenol_RJMG1BD3B8K1ANR'], 'footprint':'Connector_RJ:RJ45_Amphenol_RJMG1BD3B8K1ANR', 'keywords':'RJ45 Magjack Socket', 'description':'', 'datasheet':'https://www.amphenol-cs.com/media/wysiwyg/files/drawing/rjmg1bd3b8k1anr.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ45_Amphenol_RJMG1BD3B8K1ANR\n\nRJ45 Magjack Socket', 'pins':[
             Pin(num='L1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='L2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='L3',func=Pin.types.PASSIVE,unit=1),
@@ -7235,7 +7257,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='R8',func=Pin.types.PWRIN,unit=1),
             Pin(num='SH',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ45_Bel_SI-60062-F', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_Bel_SI-60062-F'}), 'ref_prefix':'J', 'fplist':['Connector_RJ:RJ45_Bel_SI-60062-F'], 'footprint':'Connector_RJ:RJ45_Bel_SI-60062-F', 'keywords':'RJ45 Magjack Socket', 'description':'', 'datasheet':'https://belfuse.com/resources/drawings/magneticsolutions/dr-mag-si-60062-f.pdf', 'pins':[
+        Part(**{ 'name':'RJ45_Bel_SI-60062-F', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_Bel_SI-60062-F'}), 'ref_prefix':'J', 'fplist':['Connector_RJ:RJ45_Bel_SI-60062-F'], 'footprint':'Connector_RJ:RJ45_Bel_SI-60062-F', 'keywords':'RJ45 Magjack Socket', 'description':'', 'datasheet':'https://belfuse.com/resources/drawings/magneticsolutions/dr-mag-si-60062-f.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ45_Bel_SI-60062-F\n\nRJ45 Magjack Socket', 'pins':[
             Pin(num='1',name='TD+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='TCT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='TD-',func=Pin.types.PASSIVE,unit=1),
@@ -7249,7 +7271,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='L3',func=Pin.types.PASSIVE,unit=1),
             Pin(num='L4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ45_Bel_V895-1001-AW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_Bel_V895-1001-AW'}), 'ref_prefix':'J', 'fplist':['Connector_RJ:RJ45_Bel_V895-1001-AW_Vertical'], 'footprint':'Connector_RJ:RJ45_Bel_V895-1001-AW_Vertical', 'keywords':'single port ethernet transformer socket poe center-tap', 'description':'', 'datasheet':'https://www.belfuse.com/resources/drawings/magneticsolutions/dr-mag-v895-1001-aw.pdf', 'pins':[
+        Part(**{ 'name':'RJ45_Bel_V895-1001-AW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_Bel_V895-1001-AW'}), 'ref_prefix':'J', 'fplist':['Connector_RJ:RJ45_Bel_V895-1001-AW_Vertical'], 'footprint':'Connector_RJ:RJ45_Bel_V895-1001-AW_Vertical', 'keywords':'single port ethernet transformer socket poe center-tap', 'description':'', 'datasheet':'https://www.belfuse.com/resources/drawings/magneticsolutions/dr-mag-v895-1001-aw.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ45_Bel_V895-1001-AW\n\nsingle port ethernet transformer socket poe center-tap', 'pins':[
             Pin(num='1',name='TD+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Vc4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='TD-',func=Pin.types.PASSIVE,unit=1),
@@ -7260,7 +7282,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Vc1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Vc2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Vc3',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ45_Halo_HFJ11-x2450E-LxxRL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_Halo_HFJ11-x2450E-LxxRL'}), 'ref_prefix':'J', 'fplist':['Connector_RJ:RJ45_HALO_HFJ11-x2450E-LxxRL_Horizontal'], 'footprint':'Connector_RJ:RJ45_HALO_HFJ11-x2450E-LxxRL_Horizontal', 'keywords':'FastJack socket', 'description':'', 'datasheet':'https://www.haloelectronics.com/pdf/fastjack-100baset.pdf', 'pins':[
+        Part(**{ 'name':'RJ45_Halo_HFJ11-x2450E-LxxRL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_Halo_HFJ11-x2450E-LxxRL'}), 'ref_prefix':'J', 'fplist':['Connector_RJ:RJ45_HALO_HFJ11-x2450E-LxxRL_Horizontal'], 'footprint':'Connector_RJ:RJ45_HALO_HFJ11-x2450E-LxxRL_Horizontal', 'keywords':'FastJack socket', 'description':'', 'datasheet':'https://www.haloelectronics.com/pdf/fastjack-100baset.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ45_Halo_HFJ11-x2450E-LxxRL\n\nFastJack socket', 'pins':[
             Pin(num='1',name='TD+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',func=Pin.types.PASSIVE,unit=1),
@@ -7274,7 +7296,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ45_Halo_HFJ11-x2450ERL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_Halo_HFJ11-x2450ERL'}), 'ref_prefix':'J', 'fplist':['Connector_RJ:RJ45_HALO_HFJ11-x2450ERL_Horizontal'], 'footprint':'Connector_RJ:RJ45_HALO_HFJ11-x2450ERL_Horizontal', 'keywords':'FastJack socket', 'description':'', 'datasheet':'https://www.haloelectronics.com/pdf/fastjack-100baset.pdf', 'pins':[
+        Part(**{ 'name':'RJ45_Halo_HFJ11-x2450ERL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_Halo_HFJ11-x2450ERL'}), 'ref_prefix':'J', 'fplist':['Connector_RJ:RJ45_HALO_HFJ11-x2450ERL_Horizontal'], 'footprint':'Connector_RJ:RJ45_HALO_HFJ11-x2450ERL_Horizontal', 'keywords':'FastJack socket', 'description':'', 'datasheet':'https://www.haloelectronics.com/pdf/fastjack-100baset.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ45_Halo_HFJ11-x2450ERL\n\nFastJack socket', 'pins':[
             Pin(num='1',name='TD+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='TD-',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='RD+',func=Pin.types.PASSIVE,unit=1),
@@ -7284,7 +7306,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',func=Pin.types.PWRIN,unit=1),
             Pin(num='SH',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ45_Halo_HFJ11-x2450HRL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_Halo_HFJ11-x2450HRL'}), 'ref_prefix':'J', 'fplist':['Connector_RJ:RJ45_HALO_HFJ11-x2450HRL_Horizontal'], 'footprint':'Connector_RJ:RJ45_HALO_HFJ11-x2450HRL_Horizontal', 'keywords':'FastJack socket', 'description':'', 'datasheet':'https://www.haloelectronics.com/pdf/fastjack-100baset.pdf', 'pins':[
+        Part(**{ 'name':'RJ45_Halo_HFJ11-x2450HRL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_Halo_HFJ11-x2450HRL'}), 'ref_prefix':'J', 'fplist':['Connector_RJ:RJ45_HALO_HFJ11-x2450HRL_Horizontal'], 'footprint':'Connector_RJ:RJ45_HALO_HFJ11-x2450HRL_Horizontal', 'keywords':'FastJack socket', 'description':'', 'datasheet':'https://www.haloelectronics.com/pdf/fastjack-100baset.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ45_Halo_HFJ11-x2450HRL\n\nFastJack socket', 'pins':[
             Pin(num='1',name='TD+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='TD-',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='RD+',func=Pin.types.PASSIVE,unit=1),
@@ -7294,7 +7316,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',func=Pin.types.PWRIN,unit=1),
             Pin(num='SH',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ45_Hanrun_HR911105A_Horizontal', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_Hanrun_HR911105A_Horizontal'}), 'ref_prefix':'J', 'fplist':['Connector_RJ:RJ45_Hanrun_HR911105A_Horizontal'], 'footprint':'Connector_RJ:RJ45_Hanrun_HR911105A_Horizontal', 'keywords':'RJ45 Magjack Socket', 'description':'', 'datasheet':'https://datasheet.lcsc.com/lcsc/1811141815_HANRUN-Zhongshan-HanRun-Elec-HR911105A_C12074.pdf', 'pins':[
+        Part(**{ 'name':'RJ45_Hanrun_HR911105A_Horizontal', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_Hanrun_HR911105A_Horizontal'}), 'ref_prefix':'J', 'fplist':['Connector_RJ:RJ45_Hanrun_HR911105A_Horizontal'], 'footprint':'Connector_RJ:RJ45_Hanrun_HR911105A_Horizontal', 'keywords':'RJ45 Magjack Socket', 'description':'', 'datasheet':'https://datasheet.lcsc.com/lcsc/1811141815_HANRUN-Zhongshan-HanRun-Elec-HR911105A_C12074.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ45_Hanrun_HR911105A_Horizontal\n\nRJ45 Magjack Socket', 'pins':[
             Pin(num='1',name='TD+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',func=Pin.types.PASSIVE,unit=1),
@@ -7308,7 +7330,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ45_JK00177', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_JK00177'}), 'ref_prefix':'J', 'fplist':['Connector_RJ:RJ45_Pulse_JK00177NL_Horizontal'], 'footprint':'Connector_RJ:RJ45_Pulse_JK00177NL_Horizontal', 'keywords':'8P8C RJ socket jack connector POE', 'description':'', 'datasheet':'https://productfinder.pulseeng.com/doc_type/WEB301/doc_num/J432/doc_part/J432.pdf', 'pins':[
+        Part(**{ 'name':'RJ45_JK00177', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_JK00177'}), 'ref_prefix':'J', 'fplist':['Connector_RJ:RJ45_Pulse_JK00177NL_Horizontal'], 'footprint':'Connector_RJ:RJ45_Pulse_JK00177NL_Horizontal', 'keywords':'8P8C RJ socket jack connector POE', 'description':'', 'datasheet':'https://productfinder.pulseeng.com/doc_type/WEB301/doc_num/J432/doc_part/J432.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ45_JK00177\n\n8P8C RJ socket jack connector POE', 'pins':[
             Pin(num='1',name='MXCT3',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='MX1-',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='MX1+',func=Pin.types.PASSIVE,unit=1),
@@ -7330,7 +7352,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='MX4+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='MX4-',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ45_JK0654219', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_JK0654219'}), 'ref_prefix':'J', 'fplist':['Connector_RJ:RJ45_Pulse_JK0654219NL_Horizontal'], 'footprint':'Connector_RJ:RJ45_Pulse_JK0654219NL_Horizontal', 'keywords':'8P8C RJ socket jack connector', 'description':'', 'datasheet':'https://media.digikey.com/pdf/Data%20Sheets/Pulse%20PDFs/JK%20Series.pdf', 'pins':[
+        Part(**{ 'name':'RJ45_JK0654219', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_JK0654219'}), 'ref_prefix':'J', 'fplist':['Connector_RJ:RJ45_Pulse_JK0654219NL_Horizontal'], 'footprint':'Connector_RJ:RJ45_Pulse_JK0654219NL_Horizontal', 'keywords':'8P8C RJ socket jack connector', 'description':'', 'datasheet':'https://media.digikey.com/pdf/Data%20Sheets/Pulse%20PDFs/JK%20Series.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ45_JK0654219\n\n8P8C RJ socket jack connector', 'pins':[
             Pin(num='1',name='MXCT3',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='MX1-',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='MX1+',func=Pin.types.PASSIVE,unit=1),
@@ -7348,7 +7370,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='MX4+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='MX4-',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ45_Kycon_G7LX-A88S7-BP-GY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_Kycon_G7LX-A88S7-BP-GY'}), 'ref_prefix':'J', 'fplist':['Connector_RJ:RJ45_Kycon_G7LX-A88S7-BP-xx_Horizontal'], 'footprint':'Connector_RJ:RJ45_Kycon_G7LX-A88S7-BP-xx_Horizontal', 'keywords':'RJ45 Magjack', 'description':'', 'datasheet':'http://www.kycon.com/Pub_Eng_Draw/G7LX-A88S7-BP-GY.pdf', 'pins':[
+        Part(**{ 'name':'RJ45_Kycon_G7LX-A88S7-BP-GY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_Kycon_G7LX-A88S7-BP-GY'}), 'ref_prefix':'J', 'fplist':['Connector_RJ:RJ45_Kycon_G7LX-A88S7-BP-xx_Horizontal'], 'footprint':'Connector_RJ:RJ45_Kycon_G7LX-A88S7-BP-xx_Horizontal', 'keywords':'RJ45 Magjack', 'description':'', 'datasheet':'http://www.kycon.com/Pub_Eng_Draw/G7LX-A88S7-BP-GY.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ45_Kycon_G7LX-A88S7-BP-GY\n\nRJ45 Magjack', 'pins':[
             Pin(num='1',name='TD+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='R3',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='LEDY_K',func=Pin.types.PASSIVE,unit=1),
@@ -7364,7 +7386,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='R2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='R4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='SHIELD',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ45_Pulse_JXD6-0001NL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_Pulse_JXD6-0001NL'}), 'ref_prefix':'J', 'fplist':['Connector_RJ:RJ45_Pulse_JXD6-0001NL_Horizontal'], 'footprint':'Connector_RJ:RJ45_Pulse_JXD6-0001NL_Horizontal', 'keywords':'lan jack socket transformer', 'description':'', 'datasheet':'https://productfinder.pulseeng.com/doc_type/WEB301/doc_num/JXD6-0001NL/doc_part/JXD6-0001NL.pdf', 'pins':[
+        Part(**{ 'name':'RJ45_Pulse_JXD6-0001NL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_Pulse_JXD6-0001NL'}), 'ref_prefix':'J', 'fplist':['Connector_RJ:RJ45_Pulse_JXD6-0001NL_Horizontal'], 'footprint':'Connector_RJ:RJ45_Pulse_JXD6-0001NL_Horizontal', 'keywords':'lan jack socket transformer', 'description':'', 'datasheet':'https://productfinder.pulseeng.com/doc_type/WEB301/doc_num/JXD6-0001NL/doc_part/JXD6-0001NL.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ45_Pulse_JXD6-0001NL\n\nlan jack socket transformer', 'pins':[
             Pin(num='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',func=Pin.types.PASSIVE,unit=1),
@@ -7376,7 +7398,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='RCT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ45_RB1-125B8G1A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_RB1-125B8G1A'}), 'ref_prefix':'J', 'fplist':['Connector_RJ:RJ45_UDE_RB1-125B8G1A'], 'footprint':'Connector_RJ:RJ45_UDE_RB1-125B8G1A', 'keywords':'lan jack socket transformer ethernet gigabit 10 100 1000 baset', 'description':'', 'datasheet':'https://datasheet.lcsc.com/szlcsc/1901091107_UDE-Corp-RB1-125B8G1A_C363353.pdf', 'pins':[
+        Part(**{ 'name':'RJ45_RB1-125B8G1A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_RB1-125B8G1A'}), 'ref_prefix':'J', 'fplist':['Connector_RJ:RJ45_UDE_RB1-125B8G1A'], 'footprint':'Connector_RJ:RJ45_UDE_RB1-125B8G1A', 'keywords':'lan jack socket transformer ethernet gigabit 10 100 1000 baset', 'description':'', 'datasheet':'https://datasheet.lcsc.com/szlcsc/1901091107_UDE-Corp-RB1-125B8G1A_C363353.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ45_RB1-125B8G1A\n\nlan jack socket transformer ethernet gigabit 10 100 1000 baset', 'pins':[
             Pin(num='R10',name='GND',func=Pin.types.PWRIN),
             Pin(num='L1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='L2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -7392,7 +7414,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R8',name='TD4+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='R9',name='TD4-',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='SH',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ45_Wuerth_74980111211', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_Wuerth_74980111211'}), 'ref_prefix':'J', 'fplist':['Connector_RJ:RJ45_Wuerth_74980111211_Horizontal'], 'footprint':'Connector_RJ:RJ45_Wuerth_74980111211_Horizontal', 'keywords':'lan jack socket transformer smt', 'description':'', 'datasheet':'https://www.we-online.de/katalog/datasheet/74980111211.pdf', 'pins':[
+        Part(**{ 'name':'RJ45_Wuerth_74980111211', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_Wuerth_74980111211'}), 'ref_prefix':'J', 'fplist':['Connector_RJ:RJ45_Wuerth_74980111211_Horizontal'], 'footprint':'Connector_RJ:RJ45_Wuerth_74980111211_Horizontal', 'keywords':'lan jack socket transformer smt', 'description':'', 'datasheet':'https://www.we-online.de/katalog/datasheet/74980111211.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ45_Wuerth_74980111211\n\nlan jack socket transformer smt', 'pins':[
             Pin(num='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',func=Pin.types.PASSIVE,unit=1),
@@ -7406,7 +7428,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='RD-',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='SH',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ45_Wuerth_7499010121A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_Wuerth_7499010121A'}), 'ref_prefix':'J', 'fplist':['Connector_RJ:RJ45_Wuerth_7499010121A_Horizontal'], 'footprint':'Connector_RJ:RJ45_Wuerth_7499010121A_Horizontal', 'keywords':'lan jack socket transformer', 'description':'', 'datasheet':'http://katalog.we-online.de/pbs/datasheet/7499010121A.pdf', 'pins':[
+        Part(**{ 'name':'RJ45_Wuerth_7499010121A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_Wuerth_7499010121A'}), 'ref_prefix':'J', 'fplist':['Connector_RJ:RJ45_Wuerth_7499010121A_Horizontal'], 'footprint':'Connector_RJ:RJ45_Wuerth_7499010121A_Horizontal', 'keywords':'lan jack socket transformer', 'description':'', 'datasheet':'http://katalog.we-online.de/pbs/datasheet/7499010121A.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ45_Wuerth_7499010121A\n\nlan jack socket transformer', 'pins':[
             Pin(num='1',name='TD+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',func=Pin.types.PASSIVE,unit=1),
@@ -7420,7 +7442,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ45_Wuerth_7499151120', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_Wuerth_7499151120'}), 'ref_prefix':'J', 'fplist':['Connector_RJ:RJ45_Wuerth_7499151120_Horizontal'], 'footprint':'Connector_RJ:RJ45_Wuerth_7499151120_Horizontal', 'keywords':'dual lan jack socket transformer', 'description':'', 'datasheet':'http://katalog.we-online.de/pbs/datasheet/7499151120.pdf', 'pins':[
+        Part(**{ 'name':'RJ45_Wuerth_7499151120', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_Wuerth_7499151120'}), 'ref_prefix':'J', 'fplist':['Connector_RJ:RJ45_Wuerth_7499151120_Horizontal'], 'footprint':'Connector_RJ:RJ45_Wuerth_7499151120_Horizontal', 'keywords':'dual lan jack socket transformer', 'description':'', 'datasheet':'http://katalog.we-online.de/pbs/datasheet/7499151120.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ45_Wuerth_7499151120\n\ndual lan jack socket transformer', 'pins':[
             Pin(num='SH',name='~',func=Pin.types.PWRIN),
             Pin(num='10U',name='~',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11U',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -7449,8 +7471,8 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6D',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='7D',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='8D',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='9D',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['12U', '1U', '11U', '3U', '6U', '8U', '4U', '2U', '10U', '5U', '7U', '9U', '14U', 'SH', '13U']},{'label': 'uB', 'num': 2, 'pin_nums': ['13D', '1D', '3D', '10D', '11D', '6D', '8D', '12D', '14D', '2D', '4D', 'SH', '5D', '9D', '7D']}] }),
-        Part(**{ 'name':'Raspberry_Pi_2_3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Raspberry_Pi_2_3'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'raspberrypi gpio', 'description':'', 'datasheet':'https://www.raspberrypi.org/documentation/hardware/raspberrypi/schematics/rpi_SCH_3bplus_1p0_reduced.pdf', 'pins':[
+            Pin(num='9D',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['13U', '8U', '12U', '1U', '10U', '6U', '11U', 'SH', '5U', '2U', '7U', '9U', '3U', '14U', '4U']},{'label': 'uB', 'num': 2, 'pin_nums': ['5D', '13D', '10D', '3D', '9D', '12D', '7D', 'SH', '14D', '1D', '4D', '6D', '2D', '8D', '11D']}] }),
+        Part(**{ 'name':'Raspberry_Pi_2_3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Raspberry_Pi_2_3'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'raspberrypi gpio', 'description':'', 'datasheet':'https://www.raspberrypi.org/documentation/hardware/raspberrypi/schematics/rpi_SCH_3bplus_1p0_reduced.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRaspberry_Pi_2_3\n\nraspberrypi gpio', 'pins':[
             Pin(num='1',name='3V3',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GPIO15/RXD',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='GPIO17',func=Pin.types.BIDIR,unit=1),
@@ -7491,7 +7513,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GCLK0/GPIO4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GPIO14/TXD',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SCART-F', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SCART-F'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SCART-F', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SCART-F'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nSCART-F\n\nconnector', 'pins':[
             Pin(num='1',name='P1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='P10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='P11',func=Pin.types.PASSIVE,unit=1),
@@ -7513,7 +7535,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='P8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='P9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SD_Card_Device', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SD_Card_Device'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector SD', 'description':'', 'datasheet':'http://www.convict.lu/pdf/ProdManualSDCardv1.9.pdf', 'pins':[
+        Part(**{ 'name':'SD_Card_Device', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SD_Card_Device'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector SD', 'description':'', 'datasheet':'http://www.convict.lu/pdf/ProdManualSDCardv1.9.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nSD_Card_Device\n\nconnector SD', 'pins':[
             Pin(num='1',name='CD/DAT3',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='CMD',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='VSS',func=Pin.types.PWRIN,unit=1),
@@ -7523,7 +7545,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DAT0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DAT1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='DAT2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SD_Card_Receptacle', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SD_Card_Receptacle'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector SD', 'description':'', 'datasheet':'http://portal.fciconnect.com/Comergent//fci/drawing/10067847.pdf', 'pins':[
+        Part(**{ 'name':'SD_Card_Receptacle', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SD_Card_Receptacle'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector SD', 'description':'', 'datasheet':'http://portal.fciconnect.com/Comergent//fci/drawing/10067847.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nSD_Card_Receptacle\n\nconnector SD', 'pins':[
             Pin(num='1',name='CD/DAT3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='CARD_DETECT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='WRITE_PROTECT',func=Pin.types.OUTPUT,unit=1),
@@ -7537,14 +7559,14 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DAT0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DAT1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='DAT2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SIM_Card', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SIM_Card'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'SIM card UICC', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SIM_Card', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SIM_Card'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'SIM card UICC', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nSIM_Card\n\nSIM card UICC', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RST',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CLK',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='VPP',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='I/O',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SIM_Card_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SIM_Card_Shielded'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'SIM card UICC', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SIM_Card_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SIM_Card_Shielded'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'SIM card UICC', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nSIM_Card_Shielded\n\nSIM card UICC', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RST',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CLK',func=Pin.types.INPUT,unit=1),
@@ -7552,7 +7574,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VPP',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='I/O',func=Pin.types.BIDIR,unit=1),
             Pin(num='SH',name='SH',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SODIMM-200', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SODIMM-200'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'SODIMM SO-DIMM DDR1 DDR2', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'SODIMM-200', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SODIMM-200'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'SODIMM SO-DIMM DDR1 DDR2', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nSODIMM-200\n\nSODIMM SO-DIMM DDR1 DDR2', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='11',func=Pin.types.PASSIVE,unit=1),
@@ -7752,8 +7774,8 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='96',name='96',func=Pin.types.PASSIVE,unit=2),
             Pin(num='97',name='97',func=Pin.types.PASSIVE,unit=2),
             Pin(num='98',name='98',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='99',name='99',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['38', '10', '20', '34', '19', '15', '27', '39', '16', '26', '4', '14', '12', '17', '29', '31', '1', '18', '40', '28', '33', '5', '11', '22', '30', '35', '8', '2', '23', '32', '6', '9', '3', '7', '24', '36', '25', '37', '13', '21']},{'label': 'uB', 'num': 2, 'pin_nums': ['79', '158', '190', '127', '159', '191', '128', '160', '192', '129', '161', '89', '193', '130', '162', '194', '54', '131', '163', '195', '55', '132', '164', '196', '56', '133', '165', '197', '90', '57', '134', '166', '58', '135', '167', '91', '59', '200', '80', '136', '168', '92', '100', '60', '64', '81', '137', '169', '93', '61', '82', '138', '170', '94', '62', '83', '139', '171', '95', '104', '63', '84', '172', '140', '96', '105', '85', '141', '173', '41', '97', '106', '42', '86', '142', '174', '98', '107', '43', '66', '44', '87', '143', '175', '99', '108', '78', '45', '109', '144', '176', '118', '110', '145', '177', '47', '146', '178', '111', '48', '88', '198', '46', '147', '179', '112', '67', '115', '49', '101', '148', '180', '68', '113', '116', '50', '199', '103', '149', '181', '69', '114', '51', '117', '150', '182', '70', '52', '119', '151', '183', '71', '120', '72', '152', '184', '121', '153', '185', '73', '122', '65', '154', '186', '74', '123', '155', '187', '77', '75', '124', '126', '156', '188', '102', '76', '125', '157', '189', '53']}] }),
-        Part(**{ 'name':'SODIMM-200_Split', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SODIMM-200_Split'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'SODIMM SO-DIMM DDR1 DDR2', 'description':'', 'datasheet':'~', 'pins':[
+            Pin(num='99',name='99',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['12', '26', '1', '34', '33', '5', '29', '27', '35', '6', '14', '28', '36', '7', '16', '20', '15', '37', '13', '25', '3', '8', '2', '10', '30', '38', '9', '22', '31', '39', '21', '23', '19', '32', '4', '11', '18', '17', '24', '40']},{'label': 'uB', 'num': 2, 'pin_nums': ['176', '126', '158', '161', '162', '43', '76', '127', '159', '44', '128', '163', '160', '45', '129', '78', '46', '165', '79', '130', '167', '166', '41', '47', '164', '80', '131', '48', '177', '81', '100', '132', '178', '49', '82', '101', '133', '50', '179', '83', '102', '134', '180', '53', '51', '84', '103', '135', '181', '52', '85', '104', '136', '182', '190', '86', '105', '137', '191', '87', '106', '138', '184', '192', '88', '107', '139', '77', '183', '193', '89', '108', '140', '186', '188', '194', '90', '109', '141', '55', '185', '195', '187', '91', '110', '142', '196', '92', '111', '143', '197', '54', '93', '112', '144', '198', '94', '113', '145', '95', '114', '146', '199', '56', '57', '96', '115', '147', '200', '169', '58', '97', '116', '148', '175', '59', '98', '117', '149', '60', '99', '118', '150', '66', '69', '61', '67', '119', '151', '68', '168', '120', '152', '71', '170', '63', '121', '153', '70', '171', '65', '42', '62', '73', '122', '154', '172', '64', '173', '189', '72', '123', '155', '174', '75', '124', '156', '74', '125', '157']}] }),
+        Part(**{ 'name':'SODIMM-200_Split', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SODIMM-200_Split'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'SODIMM SO-DIMM DDR1 DDR2', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nSODIMM-200_Split\n\nSODIMM SO-DIMM DDR1 DDR2', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='11',func=Pin.types.PASSIVE,unit=1),
@@ -7953,8 +7975,8 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='197',name='197',func=Pin.types.PASSIVE,unit=5),
             Pin(num='198',name='198',func=Pin.types.PASSIVE,unit=5),
             Pin(num='199',name='199',func=Pin.types.PASSIVE,unit=5),
-            Pin(num='200',name='200',func=Pin.types.PASSIVE,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['10', '27', '2', '34', '12', '5', '20', '28', '35', '6', '1', '13', '21', '29', '36', '7', '14', '22', '3', '37', '8', '15', '23', '30', '38', '9', '16', '24', '31', '39', '17', '18', '11', '25', '32', '4', '19', '26', '33', '40']},{'label': 'uB', 'num': 2, 'pin_nums': ['44', '52', '76', '60', '68', '61', '69', '77', '53', '45', '46', '54', '62', '70', '78', '55', '63', '47', '71', '79', '48', '56', '64', '72', '80', '41', '49', '57', '65', '73', '51', '42', '50', '58', '66', '67', '74', '75', '43', '59']},{'label': 'uC', 'num': 3, 'pin_nums': ['94', '110', '111', '103', '119', '118', '86', '87', '95', '104', '112', '120', '88', '96', '105', '113', '81', '89', '97', '106', '114', '82', '90', '98', '107', '115', '83', '91', '99', '100', '108', '116', '84', '92', '101', '109', '117', '85', '93', '102']},{'label': 'uD', 'num': 4, 'pin_nums': ['155', '139', '147', '123', '131', '124', '132', '140', '148', '156', '125', '133', '141', '149', '157', '126', '134', '142', '150', '158', '127', '135', '143', '151', '159', '128', '136', '144', '152', '160', '121', '129', '137', '145', '153', '122', '130', '138', '146', '154']},{'label': 'uE', 'num': 5, 'pin_nums': ['163', '171', '187', '179', '195', '164', '180', '188', '172', '196', '165', '173', '181', '189', '197', '166', '162', '174', '182', '190', '198', '194', '167', '175', '183', '191', '199', '168', '176', '184', '192', '200', '161', '169', '177', '185', '193', '178', '170', '186']}] }),
-        Part(**{ 'name':'Samtec_ASP-134602-01', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Samtec_ASP-134602-01'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'FPGA Mezzanine Card FMC Terminal Connector Header', 'description':'', 'datasheet':'http://suddendocs.samtec.com/prints/asp-134602-01-mkt.pdf', 'pins':[
+            Pin(num='200',name='200',func=Pin.types.PASSIVE,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '29', '36', '13', '21', '7', '14', '3', '37', '22', '8', '15', '23', '30', '38', '9', '16', '24', '31', '39', '17', '11', '18', '20', '25', '32', '35', '4', '6', '19', '26', '33', '40', '10', '2', '27', '34', '12', '5', '28']},{'label': 'uB', 'num': 2, 'pin_nums': ['77', '53', '69', '45', '61', '46', '54', '62', '70', '78', '47', '55', '63', '71', '79', '48', '56', '64', '72', '80', '41', '49', '57', '65', '73', '42', '50', '58', '66', '74', '43', '51', '59', '67', '75', '44', '52', '60', '68', '76']},{'label': 'uC', 'num': 3, 'pin_nums': ['104', '112', '96', '120', '88', '103', '105', '113', '97', '81', '89', '119', '106', '114', '82', '90', '98', '87', '107', '115', '83', '91', '99', '100', '108', '116', '84', '92', '101', '109', '117', '85', '93', '102', '110', '118', '86', '94', '111', '95']},{'label': 'uD', 'num': 4, 'pin_nums': ['124', '140', '156', '148', '132', '125', '133', '141', '149', '157', '126', '134', '142', '150', '158', '127', '135', '143', '151', '159', '128', '136', '144', '152', '160', '121', '129', '137', '145', '153', '122', '130', '138', '146', '154', '123', '131', '139', '147', '155']},{'label': 'uE', 'num': 5, 'pin_nums': ['171', '179', '172', '180', '164', '188', '195', '196', '173', '181', '189', '197', '165', '166', '174', '182', '190', '198', '175', '167', '183', '191', '199', '168', '176', '184', '192', '200', '161', '169', '177', '185', '193', '162', '170', '178', '186', '194', '163', '187']}] }),
+        Part(**{ 'name':'Samtec_ASP-134602-01', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Samtec_ASP-134602-01'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'FPGA Mezzanine Card FMC Terminal Connector Header', 'description':'', 'datasheet':'http://suddendocs.samtec.com/prints/asp-134602-01-mkt.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nSamtec_ASP-134602-01\n\nFPGA Mezzanine Card FMC Terminal Connector Header', 'pins':[
             Pin(num='A1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='A10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='A11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -8354,35 +8376,35 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='K6',name='Pin_6',func=Pin.types.PASSIVE,unit=10),
             Pin(num='K7',name='Pin_7',func=Pin.types.PASSIVE,unit=10),
             Pin(num='K8',name='Pin_8',func=Pin.types.PASSIVE,unit=10),
-            Pin(num='K9',name='Pin_9',func=Pin.types.PASSIVE,unit=10)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['A32', 'A34', 'A3', 'A36', 'A17', 'A4', 'A19', 'A26', 'A22', 'A23', 'A39', 'A40', 'A24', 'A1', 'A8', 'A18', 'A2', 'A7', 'A14', 'A28', 'A5', 'A21', 'A15', 'A11', 'A29', 'A6', 'A10', 'A20', 'A27', 'A30', 'A35', 'A12', 'A31', 'A33', 'A13', 'A16', 'A25', 'A37', 'A38', 'A9']},{'label': 'uB', 'num': 2, 'pin_nums': ['B35', 'B16', 'B12', 'B9', 'B11', 'B26', 'B36', 'B15', 'B17', 'B27', 'B37', 'B13', 'B18', 'B28', 'B38', 'B19', 'B29', 'B39', 'B2', 'B3', 'B10', 'B4', 'B20', 'B30', 'B40', 'B21', 'B31', 'B5', 'B22', 'B32', 'B6', 'B23', 'B33', 'B1', 'B14', 'B7', 'B24', 'B34', 'B8', 'B25']},{'label': 'uC', 'num': 3, 'pin_nums': ['C16', 'C23', 'C38', 'C30', 'C9', 'C1', 'C31', 'C39', 'C24', 'C17', 'C10', 'C18', 'C25', 'C32', 'C4', 'C11', 'C26', 'C33', 'C19', 'C40', 'C12', 'C2', 'C27', 'C34', 'C5', 'C13', 'C20', 'C28', 'C35', 'C6', 'C22', 'C14', 'C21', 'C29', 'C36', 'C37', 'C7', 'C8', 'C15', 'C3']},{'label': 'uD', 'num': 4, 'pin_nums': ['D8', 'D15', 'D22', 'D23', 'D16', 'D30', 'D37', 'D38', 'D9', 'D1', 'D17', 'D24', 'D31', 'D39', 'D10', 'D18', 'D25', 'D32', 'D4', 'D19', 'D26', 'D11', 'D33', 'D40', 'D12', 'D2', 'D27', 'D34', 'D5', 'D13', 'D20', 'D28', 'D35', 'D6', 'D14', 'D21', 'D29', 'D36', 'D7', 'D3']},{'label': 'uE', 'num': 5, 'pin_nums': ['E37', 'E3', 'E8', 'E15', 'E22', 'E16', 'E23', 'E30', 'E38', 'E9', 'E1', 'E17', 'E24', 'E31', 'E39', 'E10', 'E18', 'E25', 'E32', 'E4', 'E11', 'E19', 'E26', 'E33', 'E40', 'E12', 'E2', 'E27', 'E34', 'E5', 'E13', 'E20', 'E28', 'E35', 'E6', 'E14', 'E21', 'E29', 'E36', 'E7']},{'label': 'uF', 'num': 6, 'pin_nums': ['F29', 'F7', 'F36', 'F15', 'F22', 'F3', 'F37', 'F8', 'F16', 'F23', 'F30', 'F38', 'F9', 'F1', 'F17', 'F24', 'F31', 'F39', 'F18', 'F10', 'F25', 'F32', 'F4', 'F11', 'F19', 'F14', 'F26', 'F33', 'F40', 'F12', 'F2', 'F27', 'F34', 'F5', 'F20', 'F13', 'F28', 'F35', 'F6', 'F21']},{'label': 'uG', 'num': 7, 'pin_nums': ['G29', 'G36', 'G14', 'G21', 'G7', 'G15', 'G22', 'G3', 'G37', 'G8', 'G16', 'G23', 'G30', 'G38', 'G9', 'G1', 'G17', 'G24', 'G31', 'G39', 'G10', 'G18', 'G25', 'G32', 'G4', 'G11', 'G19', 'G26', 'G33', 'G40', 'G12', 'G2', 'G27', 'G34', 'G5', 'G13', 'G20', 'G28', 'G35', 'G6']},{'label': 'uH', 'num': 8, 'pin_nums': ['H36', 'H21', 'H7', 'H14', 'H29', 'H37', 'H8', 'H22', 'H15', 'H3', 'H23', 'H16', 'H30', 'H38', 'H9', 'H1', 'H24', 'H17', 'H31', 'H39', 'H25', 'H10', 'H18', 'H32', 'H4', 'H20', 'H11', 'H19', 'H26', 'H28', 'H33', 'H35', 'H40', 'H6', 'H12', 'H2', 'H27', 'H34', 'H5', 'H13']},{'label': 'uI', 'num': 9, 'pin_nums': ['J13', 'J20', 'J6', 'J35', 'J14', 'J21', 'J29', 'J36', 'J7', 'J15', 'J22', 'J3', 'J37', 'J8', 'J16', 'J23', 'J30', 'J38', 'J9', 'J1', 'J17', 'J24', 'J31', 'J39', 'J10', 'J18', 'J25', 'J32', 'J4', 'J11', 'J19', 'J26', 'J28', 'J33', 'J40', 'J12', 'J2', 'J27', 'J34', 'J5']},{'label': 'uJ', 'num': 10, 'pin_nums': ['K6', 'K20', 'K35', 'K13', 'K28', 'K14', 'K21', 'K29', 'K36', 'K7', 'K15', 'K22', 'K3', 'K37', 'K8', 'K16', 'K23', 'K30', 'K38', 'K9', 'K1', 'K17', 'K24', 'K31', 'K39', 'K10', 'K18', 'K25', 'K32', 'K4', 'K11', 'K19', 'K26', 'K33', 'K40', 'K12', 'K2', 'K27', 'K34', 'K5']}] }),
-        Part(**{ 'name':'Screw_Terminal_01x01', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x01'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'pins':[
+            Pin(num='K9',name='Pin_9',func=Pin.types.PASSIVE,unit=10)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['A10', 'A25', 'A32', 'A4', 'A11', 'A19', 'A26', 'A40', 'A33', 'A12', 'A2', 'A27', 'A34', 'A5', 'A13', 'A20', 'A28', 'A35', 'A6', 'A21', 'A29', 'A14', 'A36', 'A7', 'A22', 'A3', 'A17', 'A15', 'A1', 'A37', 'A8', 'A23', 'A30', 'A16', 'A38', 'A9', 'A24', 'A31', 'A39', 'A18']},{'label': 'uB', 'num': 2, 'pin_nums': ['B32', 'B25', 'B4', 'B10', 'B18', 'B1', 'B26', 'B33', 'B40', 'B11', 'B17', 'B19', 'B24', 'B39', 'B12', 'B2', 'B27', 'B34', 'B5', 'B13', 'B20', 'B28', 'B35', 'B6', 'B14', 'B21', 'B29', 'B36', 'B7', 'B22', 'B15', 'B3', 'B37', 'B8', 'B16', 'B23', 'B30', 'B38', 'B9', 'B31']},{'label': 'uC', 'num': 3, 'pin_nums': ['C1', 'C27', 'C3', 'C38', 'C10', 'C29', 'C30', 'C18', 'C39', 'C22', 'C11', 'C28', 'C4', 'C19', 'C24', 'C40', 'C12', 'C2', 'C26', 'C32', 'C34', 'C5', 'C13', 'C20', 'C33', 'C6', 'C14', 'C7', 'C21', 'C31', 'C8', 'C15', 'C23', 'C17', 'C35', 'C9', 'C16', 'C25', 'C36', 'C37']},{'label': 'uD', 'num': 4, 'pin_nums': ['D10', 'D28', 'D20', 'D6', 'D11', 'D29', 'D36', 'D7', 'D21', 'D12', 'D3', 'D37', 'D8', 'D22', 'D13', 'D23', 'D30', 'D38', 'D9', 'D14', 'D15', 'D24', 'D31', 'D39', 'D16', 'D25', 'D32', 'D4', 'D17', 'D26', 'D33', 'D40', 'D18', 'D19', 'D27', 'D34', 'D5', 'D1', 'D2', 'D35']},{'label': 'uE', 'num': 5, 'pin_nums': ['E13', 'E35', 'E28', 'E6', 'E14', 'E21', 'E29', 'E36', 'E7', 'E15', 'E22', 'E3', 'E37', 'E8', 'E16', 'E23', 'E30', 'E38', 'E9', 'E1', 'E17', 'E24', 'E31', 'E39', 'E10', 'E18', 'E25', 'E32', 'E4', 'E11', 'E19', 'E20', 'E26', 'E33', 'E40', 'E12', 'E2', 'E27', 'E34', 'E5']},{'label': 'uF', 'num': 6, 'pin_nums': ['F28', 'F13', 'F20', 'F35', 'F6', 'F21', 'F29', 'F36', 'F14', 'F7', 'F15', 'F22', 'F3', 'F37', 'F8', 'F16', 'F23', 'F30', 'F38', 'F9', 'F1', 'F17', 'F24', 'F31', 'F39', 'F18', 'F25', 'F10', 'F32', 'F4', 'F12', 'F27', 'F11', 'F19', 'F26', 'F33', 'F34', 'F40', 'F5', 'F2']},{'label': 'uG', 'num': 7, 'pin_nums': ['G5', 'G2', 'G12', 'G27', 'G34', 'G13', 'G20', 'G28', 'G35', 'G6', 'G14', 'G21', 'G29', 'G36', 'G7', 'G15', 'G22', 'G3', 'G37', 'G8', 'G16', 'G23', 'G30', 'G38', 'G9', 'G1', 'G17', 'G24', 'G31', 'G39', 'G10', 'G18', 'G25', 'G32', 'G4', 'G11', 'G19', 'G26', 'G33', 'G40']},{'label': 'uH', 'num': 8, 'pin_nums': ['H12', 'H2', 'H5', 'H27', 'H34', 'H33', 'H13', 'H20', 'H28', 'H35', 'H6', 'H14', 'H21', 'H29', 'H36', 'H7', 'H15', 'H22', 'H19', 'H26', 'H3', 'H37', 'H8', 'H16', 'H23', 'H30', 'H38', 'H9', 'H17', 'H1', 'H24', 'H31', 'H39', 'H10', 'H18', 'H25', 'H32', 'H4', 'H11', 'H40']},{'label': 'uI', 'num': 9, 'pin_nums': ['J40', 'J11', 'J26', 'J33', 'J19', 'J12', 'J2', 'J27', 'J34', 'J5', 'J13', 'J20', 'J28', 'J35', 'J6', 'J14', 'J21', 'J29', 'J36', 'J7', 'J15', 'J22', 'J3', 'J37', 'J8', 'J16', 'J23', 'J30', 'J38', 'J9', 'J1', 'J17', 'J24', 'J31', 'J39', 'J10', 'J18', 'J25', 'J32', 'J4']},{'label': 'uJ', 'num': 10, 'pin_nums': ['K26', 'K40', 'K19', 'K33', 'K12', 'K2', 'K27', 'K34', 'K5', 'K13', 'K20', 'K28', 'K35', 'K6', 'K14', 'K21', 'K29', 'K36', 'K7', 'K15', 'K22', 'K3', 'K37', 'K8', 'K16', 'K23', 'K30', 'K38', 'K9', 'K1', 'K11', 'K17', 'K24', 'K31', 'K39', 'K10', 'K18', 'K25', 'K32', 'K4']}] }),
+        Part(**{ 'name':'Screw_Terminal_01x01', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x01'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nScrew_Terminal_01x01\n\nscrew terminal', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Screw_Terminal_01x02', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x02'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Screw_Terminal_01x02', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x02'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nScrew_Terminal_01x02\n\nscrew terminal', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='Pin_2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Screw_Terminal_01x03', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x03'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Screw_Terminal_01x03', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x03'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nScrew_Terminal_01x03\n\nscrew terminal', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='Pin_2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Pin_3',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Screw_Terminal_01x04', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x04'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Screw_Terminal_01x04', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x04'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nScrew_Terminal_01x04\n\nscrew terminal', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='Pin_2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Pin_3',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='Pin_4',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Screw_Terminal_01x05', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x05'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Screw_Terminal_01x05', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x05'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nScrew_Terminal_01x05\n\nscrew terminal', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='Pin_2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Pin_3',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='Pin_4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='Pin_5',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Screw_Terminal_01x06', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x06'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Screw_Terminal_01x06', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x06'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nScrew_Terminal_01x06\n\nscrew terminal', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='Pin_2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Pin_3',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='Pin_4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='Pin_5',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='Pin_6',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Screw_Terminal_01x07', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x07'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Screw_Terminal_01x07', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x07'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nScrew_Terminal_01x07\n\nscrew terminal', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='Pin_2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Pin_3',func=Pin.types.PASSIVE,unit=1),
@@ -8390,7 +8412,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='Pin_5',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='Pin_6',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Screw_Terminal_01x08', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x08'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Screw_Terminal_01x08', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x08'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nScrew_Terminal_01x08\n\nscrew terminal', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='Pin_2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Pin_3',func=Pin.types.PASSIVE,unit=1),
@@ -8399,7 +8421,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Pin_6',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Screw_Terminal_01x09', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x09'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Screw_Terminal_01x09', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x09'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nScrew_Terminal_01x09\n\nscrew terminal', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='Pin_2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Pin_3',func=Pin.types.PASSIVE,unit=1),
@@ -8409,7 +8431,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Screw_Terminal_01x10', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x10'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Screw_Terminal_01x10', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x10'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nScrew_Terminal_01x10\n\nscrew terminal', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='Pin_2',func=Pin.types.PASSIVE,unit=1),
@@ -8420,7 +8442,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Screw_Terminal_01x11', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x11'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Screw_Terminal_01x11', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x11'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nScrew_Terminal_01x11\n\nscrew terminal', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -8432,7 +8454,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Screw_Terminal_01x12', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x12'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Screw_Terminal_01x12', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x12'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nScrew_Terminal_01x12\n\nscrew terminal', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -8445,7 +8467,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Screw_Terminal_01x13', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x13'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Screw_Terminal_01x13', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x13'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nScrew_Terminal_01x13\n\nscrew terminal', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -8459,7 +8481,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Screw_Terminal_01x14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x14'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Screw_Terminal_01x14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x14'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nScrew_Terminal_01x14\n\nscrew terminal', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -8474,7 +8496,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Screw_Terminal_01x15', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x15'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Screw_Terminal_01x15', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x15'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nScrew_Terminal_01x15\n\nscrew terminal', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -8490,7 +8512,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Screw_Terminal_01x16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x16'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Screw_Terminal_01x16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x16'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nScrew_Terminal_01x16\n\nscrew terminal', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -8507,7 +8529,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Screw_Terminal_01x17', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x17'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Screw_Terminal_01x17', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x17'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nScrew_Terminal_01x17\n\nscrew terminal', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -8525,7 +8547,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Screw_Terminal_01x18', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x18'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Screw_Terminal_01x18', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x18'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nScrew_Terminal_01x18\n\nscrew terminal', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -8544,7 +8566,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Screw_Terminal_01x19', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x19'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Screw_Terminal_01x19', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x19'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nScrew_Terminal_01x19\n\nscrew terminal', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -8564,7 +8586,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Screw_Terminal_01x20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x20'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Screw_Terminal_01x20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Screw_Terminal_01x20'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'screw terminal', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nScrew_Terminal_01x20\n\nscrew terminal', 'pins':[
             Pin(num='1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -8585,20 +8607,20 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Pin_7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Pin_8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Pin_9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TestPoint', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TestPoint'}), 'ref_prefix':'TP', 'fplist':[''], 'footprint':'', 'keywords':'test point tp', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'TestPoint', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TestPoint'}), 'ref_prefix':'TP', 'fplist':[''], 'footprint':'', 'keywords':'test point tp', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nTestPoint\n\ntest point tp', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TestPoint_2Pole', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TestPoint_2Pole'}), 'ref_prefix':'TP', 'fplist':[''], 'footprint':'', 'keywords':'point tp', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'TestPoint_2Pole', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TestPoint_2Pole'}), 'ref_prefix':'TP', 'fplist':[''], 'footprint':'', 'keywords':'point tp', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nTestPoint_2Pole\n\npoint tp', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE),
             Pin(num='2',name='2',func=Pin.types.PASSIVE)], 'unit_defs':[] }),
-        Part(**{ 'name':'TestPoint_Alt', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TestPoint_Alt'}), 'ref_prefix':'TP', 'fplist':[''], 'footprint':'', 'keywords':'test point tp', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'TestPoint_Alt', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TestPoint_Alt'}), 'ref_prefix':'TP', 'fplist':[''], 'footprint':'', 'keywords':'test point tp', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nTestPoint_Alt\n\ntest point tp', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TestPoint_Flag', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TestPoint_Flag'}), 'ref_prefix':'TP', 'fplist':[''], 'footprint':'', 'keywords':'test point tp', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'TestPoint_Flag', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TestPoint_Flag'}), 'ref_prefix':'TP', 'fplist':[''], 'footprint':'', 'keywords':'test point tp', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nTestPoint_Flag\n\ntest point tp', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TestPoint_Probe', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TestPoint_Probe'}), 'ref_prefix':'TP', 'fplist':[''], 'footprint':'', 'keywords':'test point tp', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'TestPoint_Probe', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TestPoint_Probe'}), 'ref_prefix':'TP', 'fplist':[''], 'footprint':'', 'keywords':'test point tp', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nTestPoint_Probe\n\ntest point tp', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TestPoint_Small', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TestPoint_Small'}), 'ref_prefix':'TP', 'fplist':[''], 'footprint':'', 'keywords':'test point tp', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'TestPoint_Small', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TestPoint_Small'}), 'ref_prefix':'TP', 'fplist':[''], 'footprint':'', 'keywords':'test point tp', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nTestPoint_Small\n\ntest point tp', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UEXT_Host', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UEXT_Host'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'UEXT, SPI, UART, I2C', 'description':'', 'datasheet':'https://www.olimex.com/Products/Modules/UEXT/resources/UEXT_rev_B.pdf', 'pins':[
+        Part(**{ 'name':'UEXT_Host', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UEXT_Host'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'UEXT, SPI, UART, I2C', 'description':'', 'datasheet':'https://www.olimex.com/Products/Modules/UEXT/resources/UEXT_rev_B.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nUEXT_Host\n\nUEXT, SPI, UART, I2C', 'pins':[
             Pin(num='1',name='3V3',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{SSEL}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -8609,7 +8631,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='MISO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='MOSI',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='SCK',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UEXT_Slave', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UEXT_Slave'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'UEXT, SPI, UART, I2C', 'description':'', 'datasheet':'https://www.olimex.com/Products/Modules/UEXT/resources/UEXT_rev_B.pdf', 'pins':[
+        Part(**{ 'name':'UEXT_Slave', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UEXT_Slave'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'UEXT, SPI, UART, I2C', 'description':'', 'datasheet':'https://www.olimex.com/Products/Modules/UEXT/resources/UEXT_rev_B.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nUEXT_Slave\n\nUEXT, SPI, UART, I2C', 'pins':[
             Pin(num='1',name='3V3',func=Pin.types.PWROUT,unit=1),
             Pin(num='10',name='~{SSEL}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -8620,7 +8642,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='MISO',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='MOSI',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='SCK',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'USB3_A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB3_A'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'usb universal serial bus', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'USB3_A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB3_A'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'usb universal serial bus', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nUSB3_A\n\nusb universal serial bus', 'pins':[
             Pin(num='1',name='VBUS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='SHIELD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='D-',func=Pin.types.BIDIR,unit=1),
@@ -8631,7 +8653,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DRAIN',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='SSTX-',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='SSTX+',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'USB3_A_Stacked', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB3_A_Stacked'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'usb universal serial bus', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'USB3_A_Stacked', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB3_A_Stacked'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'usb universal serial bus', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nUSB3_A_Stacked\n\nusb universal serial bus', 'pins':[
             Pin(num='19',name='SHIELD',func=Pin.types.PASSIVE),
             Pin(num='1',name='VBUS1',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='D1-',func=Pin.types.BIDIR,unit=1),
@@ -8650,8 +8672,8 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='15',name='SSRX2+',func=Pin.types.OUTPUT,unit=2),
             Pin(num='16',name='DRAIN2',func=Pin.types.PASSIVE,unit=2),
             Pin(num='17',name='SSTX2-',func=Pin.types.INPUT,unit=2),
-            Pin(num='18',name='SSTX2+',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['19', '1', '7', '2', '3', '5', '4', '8', '6', '9']},{'label': 'uB', 'num': 2, 'pin_nums': ['19', '12', '17', '15', '13', '11', '14', '16', '18', '10']}] }),
-        Part(**{ 'name':'USB3_B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB3_B'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'usb universal serial bus', 'description':'', 'datasheet':'~', 'pins':[
+            Pin(num='18',name='SSTX2+',func=Pin.types.INPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '8', '9', '7', '1', '2', '5', '19', '3', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '18', '16', '15', '14', '11', '12', '19', '17', '13']}] }),
+        Part(**{ 'name':'USB3_B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB3_B'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'usb universal serial bus', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nUSB3_B\n\nusb universal serial bus', 'pins':[
             Pin(num='1',name='VBUS',func=Pin.types.PWROUT,unit=1),
             Pin(num='10',name='SHIELD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='D-',func=Pin.types.BIDIR,unit=1),
@@ -8662,7 +8684,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DRAIN',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='SSRX-',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='SSRX+',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'USB3_B_Micro', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB3_B_Micro'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'usb universal serial bus', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'USB3_B_Micro', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB3_B_Micro'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'usb universal serial bus', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nUSB3_B_Micro\n\nusb universal serial bus', 'pins':[
             Pin(num='1',name='VBUS',func=Pin.types.PWROUT,unit=1),
             Pin(num='10',name='SSRX+',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SHIELD',func=Pin.types.PASSIVE,unit=1),
@@ -8674,13 +8696,13 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SSTX+',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='DRAIN',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='SSRX-',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'USB_A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB_A'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector USB', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'USB_A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB_A'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector USB', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nUSB_A\n\nconnector USB', 'pins':[
             Pin(num='1',name='VBUS',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='D-',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='D+',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='Shield',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'USB_A_Stacked', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB_A_Stacked'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector USB', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'USB_A_Stacked', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB_A_Stacked'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector USB', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nUSB_A_Stacked\n\nconnector USB', 'pins':[
             Pin(num='1',name='VBUS1',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='D1-',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='D1+',func=Pin.types.BIDIR,unit=1),
@@ -8690,20 +8712,20 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D2+',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND2',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Shield',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'USB_B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB_B'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector USB', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'USB_B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB_B'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector USB', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nUSB_B\n\nconnector USB', 'pins':[
             Pin(num='1',name='VBUS',func=Pin.types.PWROUT,unit=1),
             Pin(num='2',name='D-',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='D+',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='GND',func=Pin.types.PWROUT,unit=1),
             Pin(num='5',name='Shield',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'USB_B_Micro', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB_B_Micro'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector USB micro', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'USB_B_Micro', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB_B_Micro'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector USB micro', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nUSB_B_Micro\n\nconnector USB micro', 'pins':[
             Pin(num='1',name='VBUS',func=Pin.types.PWROUT,unit=1),
             Pin(num='2',name='D-',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='D+',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='ID',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='GND',func=Pin.types.PWROUT,unit=1),
             Pin(num='6',name='Shield',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'USB_C_Plug', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB_C_Plug'}), 'ref_prefix':'P', 'fplist':[''], 'footprint':'', 'keywords':'usb universal serial bus', 'description':'', 'datasheet':'https://www.usb.org/sites/default/files/documents/usb_type-c.zip', 'pins':[
+        Part(**{ 'name':'USB_C_Plug', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB_C_Plug'}), 'ref_prefix':'P', 'fplist':[''], 'footprint':'', 'keywords':'usb universal serial bus', 'description':'', 'datasheet':'https://www.usb.org/sites/default/files/documents/usb_type-c.zip', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nUSB_C_Plug\n\nusb universal serial bus', 'pins':[
             Pin(num='A1',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='A10',name='RX2-',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='RX2+',func=Pin.types.BIDIR,unit=1),
@@ -8727,7 +8749,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='B8',name='SBU2',func=Pin.types.BIDIR,unit=1),
             Pin(num='B9',name='VBUS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='S1',name='SHIELD',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'USB_C_Plug_USB2.0', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB_C_Plug_USB2.0'}), 'ref_prefix':'P', 'fplist':[''], 'footprint':'', 'keywords':'usb universal serial bus type-C USB2.0', 'description':'', 'datasheet':'https://www.usb.org/sites/default/files/documents/usb_type-c.zip', 'pins':[
+        Part(**{ 'name':'USB_C_Plug_USB2.0', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB_C_Plug_USB2.0'}), 'ref_prefix':'P', 'fplist':[''], 'footprint':'', 'keywords':'usb universal serial bus type-C USB2.0', 'description':'', 'datasheet':'https://www.usb.org/sites/default/files/documents/usb_type-c.zip', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nUSB_C_Plug_USB2.0\n\nusb universal serial bus type-C USB2.0', 'pins':[
             Pin(num='A1',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='A12',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='A4',name='VBUS',func=Pin.types.PASSIVE,unit=1),
@@ -8741,7 +8763,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='B5',name='VCONN',func=Pin.types.BIDIR,unit=1),
             Pin(num='B9',name='VBUS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='S1',name='SHIELD',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'USB_C_Receptacle', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB_C_Receptacle'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'usb universal serial bus type-C full-featured', 'description':'', 'datasheet':'https://www.usb.org/sites/default/files/documents/usb_type-c.zip', 'pins':[
+        Part(**{ 'name':'USB_C_Receptacle', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB_C_Receptacle'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'usb universal serial bus type-C full-featured', 'description':'', 'datasheet':'https://www.usb.org/sites/default/files/documents/usb_type-c.zip', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nUSB_C_Receptacle\n\nusb universal serial bus type-C full-featured', 'pins':[
             Pin(num='A1',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='A10',name='RX2-',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='RX2+',func=Pin.types.BIDIR,unit=1),
@@ -8767,7 +8789,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='B8',name='SBU2',func=Pin.types.BIDIR,unit=1),
             Pin(num='B9',name='VBUS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='S1',name='SHIELD',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'USB_C_Receptacle_PowerOnly_24P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB_C_Receptacle_PowerOnly_24P'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'usb universal serial bus type-C power-only charging-only 24P 24C', 'description':'', 'datasheet':'https://www.usb.org/sites/default/files/documents/usb_type-c.zip', 'pins':[
+        Part(**{ 'name':'USB_C_Receptacle_PowerOnly_24P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB_C_Receptacle_PowerOnly_24P'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'usb universal serial bus type-C power-only charging-only 24P 24C', 'description':'', 'datasheet':'https://www.usb.org/sites/default/files/documents/usb_type-c.zip', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nUSB_C_Receptacle_PowerOnly_24P\n\nusb universal serial bus type-C power-only charging-only 24P 24C', 'pins':[
             Pin(num='A1',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='A12',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='A4',name='VBUS',func=Pin.types.PASSIVE,unit=1),
@@ -8779,7 +8801,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='B5',name='CC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='B9',name='VBUS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='S1',name='SHIELD',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'USB_C_Receptacle_PowerOnly_6P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB_C_Receptacle_PowerOnly_6P'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'usb universal serial bus type-C power-only charging-only 6P 6C', 'description':'', 'datasheet':'https://www.usb.org/sites/default/files/documents/usb_type-c.zip', 'pins':[
+        Part(**{ 'name':'USB_C_Receptacle_PowerOnly_6P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB_C_Receptacle_PowerOnly_6P'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'usb universal serial bus type-C power-only charging-only 6P 6C', 'description':'', 'datasheet':'https://www.usb.org/sites/default/files/documents/usb_type-c.zip', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nUSB_C_Receptacle_PowerOnly_6P\n\nusb universal serial bus type-C power-only charging-only 6P 6C', 'pins':[
             Pin(num='A12',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='A5',name='CC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='A9',name='VBUS',func=Pin.types.PASSIVE,unit=1),
@@ -8787,7 +8809,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='B5',name='CC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='B9',name='VBUS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='S1',name='SHIELD',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'USB_C_Receptacle_USB2.0_14P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB_C_Receptacle_USB2.0_14P'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'usb universal serial bus type-C USB2.0', 'description':'', 'datasheet':'https://www.usb.org/sites/default/files/documents/usb_type-c.zip', 'pins':[
+        Part(**{ 'name':'USB_C_Receptacle_USB2.0_14P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB_C_Receptacle_USB2.0_14P'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'usb universal serial bus type-C USB2.0', 'description':'', 'datasheet':'https://www.usb.org/sites/default/files/documents/usb_type-c.zip', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nUSB_C_Receptacle_USB2.0_14P\n\nusb universal serial bus type-C USB2.0', 'pins':[
             Pin(num='A1',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='A12',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='A4',name='VBUS',func=Pin.types.PASSIVE,unit=1),
@@ -8803,7 +8825,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='B7',name='D-',func=Pin.types.BIDIR,unit=1),
             Pin(num='B9',name='VBUS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='S1',name='SHIELD',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'USB_C_Receptacle_USB2.0_16P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB_C_Receptacle_USB2.0_16P'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'usb universal serial bus type-C USB2.0', 'description':'', 'datasheet':'https://www.usb.org/sites/default/files/documents/usb_type-c.zip', 'pins':[
+        Part(**{ 'name':'USB_C_Receptacle_USB2.0_16P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB_C_Receptacle_USB2.0_16P'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'usb universal serial bus type-C USB2.0', 'description':'', 'datasheet':'https://www.usb.org/sites/default/files/documents/usb_type-c.zip', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nUSB_C_Receptacle_USB2.0_16P\n\nusb universal serial bus type-C USB2.0', 'pins':[
             Pin(num='A1',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='A12',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='A4',name='VBUS',func=Pin.types.PASSIVE,unit=1),
@@ -8821,24 +8843,24 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='B8',name='SBU2',func=Pin.types.BIDIR,unit=1),
             Pin(num='B9',name='VBUS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='S1',name='SHIELD',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'USB_OTG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB_OTG'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector USB', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'USB_OTG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB_OTG'}), 'ref_prefix':'J', 'fplist':[''], 'footprint':'', 'keywords':'connector USB', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nUSB_OTG\n\nconnector USB', 'pins':[
             Pin(num='1',name='VBUS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='D-',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='D+',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='ID',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='Shield',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Conn_ARM_SWD_TagConnect_TC2030-NL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_ARM_SWD_TagConnect_TC2030-NL'}), 'ref_prefix':'J', 'fplist':['Connector:Tag-Connect_TC2030-IDC-FP_2x03_P1.27mm_Vertical', 'Connector:Tag-Connect_TC2030-IDC-NL_2x03_P1.27mm_Vertical'], 'footprint':'Connector:Tag-Connect_TC2030-IDC-FP_2x03_P1.27mm_Vertical', 'keywords':'Cortex Debug Connector ARM SWD JTAG', 'description':'', 'datasheet':'https://www.tag-connect.com/wp-content/uploads/bsk-pdf-manager/TC2030-CTX_1.pdf', 'pins':[
+        Part(**{ 'name':'Conn_ARM_SWD_TagConnect_TC2030-NL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Conn_ARM_SWD_TagConnect_TC2030-NL'}), 'ref_prefix':'J', 'fplist':['Connector:Tag-Connect_TC2030-IDC-FP_2x03_P1.27mm_Vertical', 'Connector:Tag-Connect_TC2030-IDC-NL_2x03_P1.27mm_Vertical'], 'footprint':'Connector:Tag-Connect_TC2030-IDC-FP_2x03_P1.27mm_Vertical', 'keywords':'Cortex Debug Connector ARM SWD JTAG', 'description':'', 'datasheet':'https://www.tag-connect.com/wp-content/uploads/bsk-pdf-manager/TC2030-CTX_1.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nConn_ARM_SWD_TagConnect_TC2030-NL\n\nCortex Debug Connector ARM SWD JTAG', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN),
             Pin(num='2',name='SWDIO',func=Pin.types.BIDIR),
             Pin(num='3',name='~{RESET}',func=Pin.types.OPENCOLL),
             Pin(num='4',name='SWCLK',func=Pin.types.OUTPUT),
             Pin(num='5',name='GND',func=Pin.types.PWRIN),
             Pin(num='6',name='SWO',func=Pin.types.INPUT)], 'unit_defs':[] }),
-        Part(**{ 'name':'Jack-DC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Jack-DC'}), 'ref_prefix':'J', 'fplist':['', ''], 'footprint':'', 'keywords':'DC power barrel jack connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Jack-DC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Jack-DC'}), 'ref_prefix':'J', 'fplist':['', ''], 'footprint':'', 'keywords':'DC power barrel jack connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nJack-DC\n\nDC power barrel jack connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Micro_SD_Card_Det_Hirose_DM3AT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Micro_SD_Card_Det_Hirose_DM3AT'}), 'ref_prefix':'J', 'fplist':['', ''], 'footprint':'', 'keywords':'connector SD microsd', 'description':'', 'datasheet':'https://www.hirose.com/product/en/download_file/key_name/DM3/category/Catalog/doc_file_id/49662/?file_category_id=4&item_id=195&is_series=1', 'pins':[
+        Part(**{ 'name':'Micro_SD_Card_Det_Hirose_DM3AT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Micro_SD_Card_Det_Hirose_DM3AT'}), 'ref_prefix':'J', 'fplist':['', ''], 'footprint':'', 'keywords':'connector SD microsd', 'description':'', 'datasheet':'https://www.hirose.com/product/en/download_file/key_name/DM3/category/Catalog/doc_file_id/49662/?file_category_id=4&item_id=195&is_series=1', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nMicro_SD_Card_Det_Hirose_DM3AT\n\nconnector SD microsd', 'pins':[
             Pin(num='1',name='DAT2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='DET_A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='SHIELD',func=Pin.types.PASSIVE,unit=1),
@@ -8850,32 +8872,32 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DAT0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DAT1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='DET_B',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ10', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ10'}), 'ref_prefix':'J', 'fplist':['', ''], 'footprint':'', 'keywords':'4P4C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ10', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ10'}), 'ref_prefix':'J', 'fplist':['', ''], 'footprint':'', 'keywords':'4P4C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ10\n\n4P4C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ10_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ10_Shielded'}), 'ref_prefix':'J', 'fplist':['', ''], 'footprint':'', 'keywords':'4P4C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ10_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ10_Shielded'}), 'ref_prefix':'J', 'fplist':['', ''], 'footprint':'', 'keywords':'4P4C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ10_Shielded\n\n4P4C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ11', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ11'}), 'ref_prefix':'J', 'fplist':['', ''], 'footprint':'', 'keywords':'6P2C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ11', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ11'}), 'ref_prefix':'J', 'fplist':['', ''], 'footprint':'', 'keywords':'6P2C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ11\n\n6P2C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ11_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ11_Shielded'}), 'ref_prefix':'J', 'fplist':['', ''], 'footprint':'', 'keywords':'6P2C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ11_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ11_Shielded'}), 'ref_prefix':'J', 'fplist':['', ''], 'footprint':'', 'keywords':'6P2C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ11_Shielded\n\n6P2C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ12', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ12'}), 'ref_prefix':'J', 'fplist':['', ''], 'footprint':'', 'keywords':'6P6C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ12', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ12'}), 'ref_prefix':'J', 'fplist':['', ''], 'footprint':'', 'keywords':'6P6C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ12\n\n6P6C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ12_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ12_Shielded'}), 'ref_prefix':'J', 'fplist':['', ''], 'footprint':'', 'keywords':'6P6C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ12_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ12_Shielded'}), 'ref_prefix':'J', 'fplist':['', ''], 'footprint':'', 'keywords':'6P6C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ12_Shielded\n\n6P6C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -8883,36 +8905,36 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ13', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ13'}), 'ref_prefix':'J', 'fplist':['', ''], 'footprint':'', 'keywords':'6P4C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ13', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ13'}), 'ref_prefix':'J', 'fplist':['', ''], 'footprint':'', 'keywords':'6P4C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ13\n\n6P4C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ13_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ13_Shielded'}), 'ref_prefix':'J', 'fplist':['', ''], 'footprint':'', 'keywords':'6P4C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ13_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ13_Shielded'}), 'ref_prefix':'J', 'fplist':['', ''], 'footprint':'', 'keywords':'6P4C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ13_Shielded\n\n6P4C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ14'}), 'ref_prefix':'J', 'fplist':['', '', ''], 'footprint':'', 'keywords':'6P4C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ14'}), 'ref_prefix':'J', 'fplist':['', '', ''], 'footprint':'', 'keywords':'6P4C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ14\n\n6P4C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ14_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ14_Shielded'}), 'ref_prefix':'J', 'fplist':['', '', ''], 'footprint':'', 'keywords':'6P4C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ14_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ14_Shielded'}), 'ref_prefix':'J', 'fplist':['', '', ''], 'footprint':'', 'keywords':'6P4C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ14_Shielded\n\n6P4C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ18', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ18'}), 'ref_prefix':'J', 'fplist':['', '', ''], 'footprint':'', 'keywords':'6P6C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ18', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ18'}), 'ref_prefix':'J', 'fplist':['', '', ''], 'footprint':'', 'keywords':'6P6C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ18\n\n6P6C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ18_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ18_Shielded'}), 'ref_prefix':'J', 'fplist':['', '', ''], 'footprint':'', 'keywords':'6P6C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ18_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ18_Shielded'}), 'ref_prefix':'J', 'fplist':['', '', ''], 'footprint':'', 'keywords':'6P6C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ18_Shielded\n\n6P6C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -8920,25 +8942,25 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ22', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ22'}), 'ref_prefix':'J', 'fplist':['', '', ''], 'footprint':'', 'keywords':'4P4C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ22', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ22'}), 'ref_prefix':'J', 'fplist':['', '', ''], 'footprint':'', 'keywords':'4P4C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ22\n\n4P4C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ22_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ22_Shielded'}), 'ref_prefix':'J', 'fplist':['', '', ''], 'footprint':'', 'keywords':'4P4C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ22_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ22_Shielded'}), 'ref_prefix':'J', 'fplist':['', '', ''], 'footprint':'', 'keywords':'4P4C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ22_Shielded\n\n4P4C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ25', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ25'}), 'ref_prefix':'J', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'6P6C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ25', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ25'}), 'ref_prefix':'J', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'6P6C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ25\n\n6P6C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ25_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ25_Shielded'}), 'ref_prefix':'J', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'6P6C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ25_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ25_Shielded'}), 'ref_prefix':'J', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'6P6C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ25_Shielded\n\n6P6C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -8946,7 +8968,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ31', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ31'}), 'ref_prefix':'J', 'fplist':['', ''], 'footprint':'', 'keywords':'8P8C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ31', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ31'}), 'ref_prefix':'J', 'fplist':['', ''], 'footprint':'', 'keywords':'8P8C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ31\n\n8P8C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -8955,7 +8977,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ31_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ31_Shielded'}), 'ref_prefix':'J', 'fplist':['', ''], 'footprint':'', 'keywords':'8P8C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ31_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ31_Shielded'}), 'ref_prefix':'J', 'fplist':['', ''], 'footprint':'', 'keywords':'8P8C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ31_Shielded\n\n8P8C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -8965,7 +8987,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ32'}), 'ref_prefix':'J', 'fplist':['', '', ''], 'footprint':'', 'keywords':'8P8C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ32'}), 'ref_prefix':'J', 'fplist':['', '', ''], 'footprint':'', 'keywords':'8P8C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ32\n\n8P8C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -8974,7 +8996,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ32_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ32_Shielded'}), 'ref_prefix':'J', 'fplist':['', '', ''], 'footprint':'', 'keywords':'8P8C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ32_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ32_Shielded'}), 'ref_prefix':'J', 'fplist':['', '', ''], 'footprint':'', 'keywords':'8P8C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ32_Shielded\n\n8P8C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -8984,7 +9006,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ33', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ33'}), 'ref_prefix':'J', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'8P8C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ33', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ33'}), 'ref_prefix':'J', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'8P8C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ33\n\n8P8C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -8993,7 +9015,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ33_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ33_Shielded'}), 'ref_prefix':'J', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'8P8C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ33_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ33_Shielded'}), 'ref_prefix':'J', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'8P8C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ33_Shielded\n\n8P8C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -9003,7 +9025,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ34', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ34'}), 'ref_prefix':'J', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'8P8C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ34', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ34'}), 'ref_prefix':'J', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'8P8C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ34\n\n8P8C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -9012,7 +9034,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ34_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ34_Shielded'}), 'ref_prefix':'J', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'8P8C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ34_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ34_Shielded'}), 'ref_prefix':'J', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'8P8C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ34_Shielded\n\n8P8C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -9022,7 +9044,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ35', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ35'}), 'ref_prefix':'J', 'fplist':['', '', '', '', '', ''], 'footprint':'', 'keywords':'8P8C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ35', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ35'}), 'ref_prefix':'J', 'fplist':['', '', '', '', '', ''], 'footprint':'', 'keywords':'8P8C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ35\n\n8P8C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -9031,7 +9053,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ35_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ35_Shielded'}), 'ref_prefix':'J', 'fplist':['', '', '', '', '', ''], 'footprint':'', 'keywords':'8P8C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ35_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ35_Shielded'}), 'ref_prefix':'J', 'fplist':['', '', '', '', '', ''], 'footprint':'', 'keywords':'8P8C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ35_Shielded\n\n8P8C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -9041,18 +9063,18 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ38', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ38'}), 'ref_prefix':'J', 'fplist':['', ''], 'footprint':'', 'keywords':'8P4C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ38', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ38'}), 'ref_prefix':'J', 'fplist':['', ''], 'footprint':'', 'keywords':'8P4C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ38\n\n8P4C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ38_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ38_Shielded'}), 'ref_prefix':'J', 'fplist':['', ''], 'footprint':'', 'keywords':'8P4C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ38_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ38_Shielded'}), 'ref_prefix':'J', 'fplist':['', ''], 'footprint':'', 'keywords':'8P4C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ38_Shielded\n\n8P4C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ41', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ41'}), 'ref_prefix':'J', 'fplist':['', '', '', '', '', '', ''], 'footprint':'', 'keywords':'8P8C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ41', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ41'}), 'ref_prefix':'J', 'fplist':['', '', '', '', '', '', ''], 'footprint':'', 'keywords':'8P8C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ41\n\n8P8C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -9061,7 +9083,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ41_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ41_Shielded'}), 'ref_prefix':'J', 'fplist':['', '', '', '', '', '', ''], 'footprint':'', 'keywords':'8P8C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ41_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ41_Shielded'}), 'ref_prefix':'J', 'fplist':['', '', '', '', '', '', ''], 'footprint':'', 'keywords':'8P8C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ41_Shielded\n\n8P8C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -9071,7 +9093,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ45', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45'}), 'ref_prefix':'J', 'fplist':['', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'8P8C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ45', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45'}), 'ref_prefix':'J', 'fplist':['', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'8P8C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ45\n\n8P8C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -9080,7 +9102,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ45_LED', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_LED'}), 'ref_prefix':'J', 'fplist':['', ''], 'footprint':'', 'keywords':'8P8C RJ socket jack connector led', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ45_LED', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_LED'}), 'ref_prefix':'J', 'fplist':['', ''], 'footprint':'', 'keywords':'8P8C RJ socket jack connector led', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ45_LED\n\n8P8C RJ socket jack connector led', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -9093,7 +9115,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ45_LED_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_LED_Shielded'}), 'ref_prefix':'J', 'fplist':['', ''], 'footprint':'', 'keywords':'8P8C RJ socket jack connector led', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ45_LED_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_LED_Shielded'}), 'ref_prefix':'J', 'fplist':['', ''], 'footprint':'', 'keywords':'8P8C RJ socket jack connector led', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ45_LED_Shielded\n\n8P8C RJ socket jack connector led', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -9107,7 +9129,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ45_LED_Shielded_x2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_LED_Shielded_x2'}), 'ref_prefix':'J', 'fplist':['', ''], 'footprint':'', 'keywords':'8P8C RJ socket jack connector led', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ45_LED_Shielded_x2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_LED_Shielded_x2'}), 'ref_prefix':'J', 'fplist':['', ''], 'footprint':'', 'keywords':'8P8C RJ socket jack connector led', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ45_LED_Shielded_x2\n\n8P8C RJ socket jack connector led', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -9133,8 +9155,8 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='22',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='23',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='24',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['12', '7', '10', '5', '3', '8', '1', '4', '6', '11', '2', '9', 'SH']},{'label': 'uB', 'num': 2, 'pin_nums': ['24', '14', '15', '19', '21', '16', '20', '22', '18', '13', 'SH', '17', '23']}] }),
-        Part(**{ 'name':'RJ45_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_Shielded'}), 'ref_prefix':'J', 'fplist':['', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'8P8C RJ jack socket connector', 'description':'', 'datasheet':'~', 'pins':[
+            Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '11', '8', '6', '9', '4', '7', '1', '12', '10', '3', '5', 'SH']},{'label': 'uB', 'num': 2, 'pin_nums': ['15', '19', '22', '21', '14', 'SH', '23', '17', '16', '24', '18', '20', '13']}] }),
+        Part(**{ 'name':'RJ45_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ45_Shielded'}), 'ref_prefix':'J', 'fplist':['', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'8P8C RJ jack socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ45_Shielded\n\n8P8C RJ jack socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -9144,18 +9166,18 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ48', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ48'}), 'ref_prefix':'J', 'fplist':['', '', ''], 'footprint':'', 'keywords':'8P4C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ48', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ48'}), 'ref_prefix':'J', 'fplist':['', '', ''], 'footprint':'', 'keywords':'8P4C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ48\n\n8P4C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ48_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ48_Shielded'}), 'ref_prefix':'J', 'fplist':['', '', ''], 'footprint':'', 'keywords':'8P4C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ48_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ48_Shielded'}), 'ref_prefix':'J', 'fplist':['', '', ''], 'footprint':'', 'keywords':'8P4C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ48_Shielded\n\n8P4C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ49', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ49'}), 'ref_prefix':'J', 'fplist':['', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'8P8C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ49', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ49'}), 'ref_prefix':'J', 'fplist':['', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'8P8C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ49\n\n8P8C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -9164,7 +9186,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ49_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ49_Shielded'}), 'ref_prefix':'J', 'fplist':['', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'8P8C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ49_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ49_Shielded'}), 'ref_prefix':'J', 'fplist':['', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'8P8C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ49_Shielded\n\n8P8C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -9174,7 +9196,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ61', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ61'}), 'ref_prefix':'J', 'fplist':['', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'8P8C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ61', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ61'}), 'ref_prefix':'J', 'fplist':['', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'8P8C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ61\n\n8P8C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -9183,7 +9205,7 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ61_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ61_Shielded'}), 'ref_prefix':'J', 'fplist':['', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'8P8C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ61_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ61_Shielded'}), 'ref_prefix':'J', 'fplist':['', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'8P8C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ61_Shielded\n\n8P8C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -9193,18 +9215,18 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ9', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ9'}), 'ref_prefix':'J', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'4P4C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ9', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ9'}), 'ref_prefix':'J', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'4P4C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ9\n\n4P4C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RJ9_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ9_Shielded'}), 'ref_prefix':'J', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'4P4C RJ socket connector', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'RJ9_Shielded', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RJ9_Shielded'}), 'ref_prefix':'J', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'4P4C RJ socket connector', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nRJ9_Shielded\n\n4P4C RJ socket connector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='SH',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Samtec_ASP-134486-01', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Samtec_ASP-134486-01'}), 'ref_prefix':'J', 'fplist':['', ''], 'footprint':'', 'keywords':'FPGA Mezzanine Card FMC Terminal Connector Header', 'description':'', 'datasheet':'http://suddendocs.samtec.com/prints/asp-134486-01-mkt.pdf', 'pins':[
+        Part(**{ 'name':'Samtec_ASP-134486-01', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Samtec_ASP-134486-01'}), 'ref_prefix':'J', 'fplist':['', ''], 'footprint':'', 'keywords':'FPGA Mezzanine Card FMC Terminal Connector Header', 'description':'', 'datasheet':'http://suddendocs.samtec.com/prints/asp-134486-01-mkt.pdf', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nSamtec_ASP-134486-01\n\nFPGA Mezzanine Card FMC Terminal Connector Header', 'pins':[
             Pin(num='A1',name='Pin_1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='A10',name='Pin_10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='A11',name='Pin_11',func=Pin.types.PASSIVE,unit=1),
@@ -9604,8 +9626,8 @@ Connector = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='K6',name='Pin_6',func=Pin.types.PASSIVE,unit=10),
             Pin(num='K7',name='Pin_7',func=Pin.types.PASSIVE,unit=10),
             Pin(num='K8',name='Pin_8',func=Pin.types.PASSIVE,unit=10),
-            Pin(num='K9',name='Pin_9',func=Pin.types.PASSIVE,unit=10)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['A3', 'A20', 'A11', 'A16', 'A6', 'A7', 'A17', 'A1', 'A21', 'A23', 'A18', 'A26', 'A29', 'A22', 'A34', 'A4', 'A30', 'A19', 'A15', 'A27', 'A37', 'A28', 'A2', 'A35', 'A31', 'A24', 'A14', 'A38', 'A40', 'A36', 'A32', 'A13', 'A25', 'A39', 'A8', 'A33', 'A5', 'A12', 'A9', 'A10']},{'label': 'uB', 'num': 2, 'pin_nums': ['B2', 'B26', 'B6', 'B4', 'B21', 'B14', 'B19', 'B30', 'B13', 'B7', 'B25', 'B16', 'B18', 'B20', 'B3', 'B12', 'B1', 'B10', 'B40', 'B24', 'B11', 'B34', 'B17', 'B29', 'B32', 'B35', 'B38', 'B28', 'B23', 'B33', 'B36', 'B37', 'B39', 'B31', 'B8', 'B27', 'B5', 'B22', 'B9', 'B15']},{'label': 'uC', 'num': 3, 'pin_nums': ['C21', 'C36', 'C2', 'C23', 'C14', 'C10', 'C9', 'C32', 'C28', 'C22', 'C20', 'C1', 'C11', 'C33', 'C29', 'C18', 'C25', 'C4', 'C34', 'C6', 'C26', 'C17', 'C15', 'C39', 'C31', 'C7', 'C16', 'C37', 'C40', 'C38', 'C30', 'C24', 'C5', 'C35', 'C8', 'C3', 'C19', 'C12', 'C13', 'C27']},{'label': 'uD', 'num': 4, 'pin_nums': ['D16', 'D7', 'D21', 'D30', 'D23', 'D22', 'D8', 'D26', 'D25', 'D2', 'D9', 'D27', 'D32', 'D31', 'D39', 'D33', 'D20', 'D1', 'D11', 'D17', 'D4', 'D34', 'D12', 'D35', 'D14', 'D18', 'D37', 'D15', 'D13', 'D5', 'D24', 'D19', 'D36', 'D38', 'D10', 'D28', 'D6', 'D40', 'D29', 'D3']},{'label': 'uE', 'num': 5, 'pin_nums': ['E15', 'E39', 'E13', 'E31', 'E23', 'E16', 'E4', 'E32', 'E40', 'E24', 'E22', 'E37', 'E17', 'E33', 'E1', 'E18', 'E26', 'E5', 'E14', 'E34', 'E19', 'E27', 'E6', 'E10', 'E35', 'E2', 'E28', 'E7', 'E12', 'E29', 'E8', 'E20', 'E25', 'E3', 'E21', 'E9', 'E38', 'E11', 'E30', 'E36']},{'label': 'uF', 'num': 6, 'pin_nums': ['F11', 'F38', 'F15', 'F35', 'F27', 'F34', 'F18', 'F9', 'F10', 'F39', 'F33', 'F4', 'F24', 'F17', 'F29', 'F25', 'F28', 'F2', 'F3', 'F5', 'F6', 'F23', 'F37', 'F12', 'F19', 'F1', 'F30', 'F31', 'F21', 'F14', 'F40', 'F7', 'F20', 'F36', 'F32', 'F13', 'F22', 'F8', 'F16', 'F26']},{'label': 'uG', 'num': 7, 'pin_nums': ['G17', 'G25', 'G12', 'G5', 'G29', 'G2', 'G34', 'G26', 'G11', 'G28', 'G35', 'G1', 'G15', 'G20', 'G30', 'G36', 'G14', 'G22', 'G3', 'G9', 'G32', 'G37', 'G31', 'G19', 'G13', 'G6', 'G38', 'G24', 'G27', 'G23', 'G8', 'G39', 'G7', 'G21', 'G10', 'G16', 'G18', 'G4', 'G40', 'G33']},{'label': 'uH', 'num': 8, 'pin_nums': ['H30', 'H40', 'H21', 'H38', 'H13', 'H5', 'H28', 'H31', 'H18', 'H19', 'H14', 'H39', 'H22', 'H17', 'H32', 'H6', 'H29', 'H23', 'H7', 'H15', 'H2', 'H4', 'H33', 'H24', 'H16', 'H8', 'H1', 'H34', 'H25', 'H9', 'H10', 'H35', 'H26', 'H36', 'H11', 'H27', 'H3', 'H12', 'H37', 'H20']},{'label': 'uI', 'num': 9, 'pin_nums': ['J39', 'J11', 'J38', 'J31', 'J21', 'J28', 'J22', 'J8', 'J12', 'J32', 'J23', 'J33', 'J7', 'J30', 'J24', 'J14', 'J6', 'J35', 'J18', 'J25', 'J19', 'J29', 'J26', 'J34', 'J5', 'J16', 'J1', 'J4', 'J3', 'J2', 'J13', 'J37', 'J20', 'J15', 'J10', 'J40', 'J17', 'J27', 'J9', 'J36']},{'label': 'uJ', 'num': 10, 'pin_nums': ['K21', 'K38', 'K9', 'K15', 'K31', 'K30', 'K12', 'K29', 'K19', 'K39', 'K23', 'K37', 'K14', 'K24', 'K4', 'K2', 'K22', 'K11', 'K32', 'K40', 'K25', 'K10', 'K3', 'K26', 'K34', 'K5', 'K13', 'K33', 'K6', 'K35', 'K1', 'K16', 'K27', 'K18', 'K28', 'K36', 'K7', 'K17', 'K20', 'K8']}] }),
-        Part(**{ 'name':'USB_B_Mini', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB_B_Mini'}), 'ref_prefix':'J', 'fplist':['', ''], 'footprint':'', 'keywords':'connector USB mini', 'description':'', 'datasheet':'~', 'pins':[
+            Pin(num='K9',name='Pin_9',func=Pin.types.PASSIVE,unit=10)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['A1', 'A17', 'A8', 'A10', 'A23', 'A18', 'A14', 'A29', 'A7', 'A22', 'A3', 'A31', 'A15', 'A20', 'A32', 'A24', 'A40', 'A27', 'A38', 'A34', 'A21', 'A13', 'A5', 'A28', 'A30', 'A39', 'A26', 'A4', 'A19', 'A33', 'A35', 'A6', 'A37', 'A2', 'A25', 'A11', 'A36', 'A12', 'A16', 'A9']},{'label': 'uB', 'num': 2, 'pin_nums': ['B19', 'B38', 'B14', 'B33', 'B17', 'B21', 'B7', 'B2', 'B13', 'B18', 'B4', 'B40', 'B22', 'B24', 'B12', 'B20', 'B8', 'B23', 'B37', 'B25', 'B26', 'B27', 'B30', 'B3', 'B10', 'B32', 'B5', 'B28', 'B29', 'B34', 'B36', 'B16', 'B1', 'B6', 'B31', 'B39', 'B11', 'B15', 'B35', 'B9']},{'label': 'uC', 'num': 3, 'pin_nums': ['C16', 'C30', 'C34', 'C22', 'C1', 'C13', 'C20', 'C8', 'C31', 'C23', 'C2', 'C35', 'C26', 'C18', 'C14', 'C17', 'C4', 'C19', 'C7', 'C21', 'C36', 'C40', 'C3', 'C10', 'C32', 'C33', 'C6', 'C39', 'C29', 'C38', 'C37', 'C27', 'C5', 'C28', 'C11', 'C24', 'C25', 'C15', 'C12', 'C9']},{'label': 'uD', 'num': 4, 'pin_nums': ['D18', 'D23', 'D27', 'D25', 'D33', 'D12', 'D34', 'D17', 'D40', 'D21', 'D22', 'D11', 'D5', 'D35', 'D16', 'D36', 'D20', 'D6', 'D10', 'D26', 'D15', 'D7', 'D37', 'D2', 'D28', 'D8', 'D38', 'D4', 'D29', 'D14', 'D3', 'D1', 'D19', 'D30', 'D9', 'D24', 'D31', 'D39', 'D13', 'D32']},{'label': 'uE', 'num': 5, 'pin_nums': ['E39', 'E34', 'E37', 'E27', 'E2', 'E10', 'E28', 'E6', 'E24', 'E20', 'E11', 'E29', 'E8', 'E14', 'E21', 'E12', 'E7', 'E3', 'E1', 'E13', 'E22', 'E30', 'E35', 'E16', 'E23', 'E9', 'E31', 'E15', 'E36', 'E17', 'E38', 'E32', 'E40', 'E25', 'E18', 'E4', 'E33', 'E26', 'E5', 'E19']},{'label': 'uF', 'num': 6, 'pin_nums': ['F17', 'F18', 'F4', 'F29', 'F25', 'F6', 'F39', 'F3', 'F19', 'F5', 'F2', 'F30', 'F23', 'F8', 'F38', 'F20', 'F31', 'F28', 'F1', 'F24', 'F21', 'F14', 'F7', 'F32', 'F13', 'F33', 'F36', 'F26', 'F11', 'F22', 'F16', 'F9', 'F12', 'F37', 'F27', 'F34', 'F15', 'F10', 'F40', 'F35']},{'label': 'uG', 'num': 7, 'pin_nums': ['G34', 'G10', 'G15', 'G21', 'G12', 'G35', 'G9', 'G6', 'G22', 'G5', 'G23', 'G29', 'G28', 'G11', 'G38', 'G31', 'G24', 'G40', 'G20', 'G39', 'G32', 'G18', 'G25', 'G1', 'G4', 'G3', 'G19', 'G26', 'G13', 'G7', 'G16', 'G2', 'G37', 'G30', 'G33', 'G27', 'G14', 'G8', 'G17', 'G36']},{'label': 'uH', 'num': 8, 'pin_nums': ['H21', 'H9', 'H11', 'H32', 'H19', 'H26', 'H28', 'H23', 'H35', 'H18', 'H14', 'H29', 'H34', 'H24', 'H17', 'H15', 'H27', 'H37', 'H3', 'H22', 'H6', 'H36', 'H38', 'H1', 'H2', 'H31', 'H7', 'H39', 'H10', 'H4', 'H13', 'H20', 'H30', 'H8', 'H5', 'H12', 'H33', 'H25', 'H40', 'H16']},{'label': 'uI', 'num': 9, 'pin_nums': ['J35', 'J27', 'J14', 'J15', 'J2', 'J1', 'J40', 'J20', 'J36', 'J5', 'J10', 'J3', 'J37', 'J21', 'J11', 'J6', 'J30', 'J7', 'J38', 'J39', 'J22', 'J12', 'J4', 'J8', 'J28', 'J16', 'J23', 'J13', 'J32', 'J9', 'J33', 'J29', 'J17', 'J24', 'J31', 'J26', 'J18', 'J25', 'J34', 'J19']},{'label': 'uJ', 'num': 10, 'pin_nums': ['K36', 'K10', 'K22', 'K8', 'K26', 'K3', 'K37', 'K9', 'K11', 'K39', 'K30', 'K23', 'K16', 'K12', 'K27', 'K17', 'K24', 'K31', 'K13', 'K18', 'K32', 'K19', 'K40', 'K33', 'K14', 'K15', 'K2', 'K5', 'K25', 'K34', 'K20', 'K38', 'K6', 'K28', 'K35', 'K1', 'K7', 'K21', 'K4', 'K29']}] }),
+        Part(**{ 'name':'USB_B_Mini', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB_B_Mini'}), 'ref_prefix':'J', 'fplist':['', ''], 'footprint':'', 'keywords':'connector USB mini', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Connector.kicad_sym\nUSB_B_Mini\n\nconnector USB mini', 'pins':[
             Pin(num='1',name='VBUS',func=Pin.types.PWROUT,unit=1),
             Pin(num='2',name='D-',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='D+',func=Pin.types.BIDIR,unit=1),

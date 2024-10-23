@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'MC9S08AC128xFDE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC128xFDE'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC128.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AC128xFDE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC128xFDE'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC128.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AC128xFDE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE2',func=Pin.types.BIDIR,unit=1),
@@ -53,7 +53,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTF6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AC128xFGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC128xFGE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC128.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AC128xFGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC128xFGE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC128.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AC128xFGE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE3',func=Pin.types.BIDIR,unit=1),
@@ -98,7 +98,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AC128xFUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC128xFUE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_14x14mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC128.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AC128xFUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC128xFUE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_14x14mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC128.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AC128xFUE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTF7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTF5',func=Pin.types.BIDIR,unit=1),
@@ -163,7 +163,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTF4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AC128xLKE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC128xLKE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-80_12x12mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-80_12x12mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC128.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AC128xLKE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC128xLKE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-80_12x12mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-80_12x12mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC128.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AC128xLKE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTF7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTF5',func=Pin.types.BIDIR,unit=1),
@@ -244,7 +244,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='PTF4',func=Pin.types.BIDIR,unit=1),
             Pin(num='80',name='PTC5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AC128xPUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC128xPUE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC128.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AC128xPUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC128xPUE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC128.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AC128xPUE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTF7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTF5',func=Pin.types.BIDIR,unit=1),
@@ -309,7 +309,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTF4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AC60xFJE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC60xFJE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AC60xFJE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC60xFJE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AC60xFJE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='IRQ/TPMCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PTE5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE6',func=Pin.types.BIDIR,unit=1),
@@ -342,7 +342,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08DZ128xLF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DZ128xLF'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ128.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08DZ128xLF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DZ128xLF'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ128.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08DZ128xLF\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE0',func=Pin.types.BIDIR,unit=1),
@@ -391,7 +391,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTG1/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='PTF4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08DZ128xLH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DZ128xLH'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ128.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08DZ128xLH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DZ128xLH'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ128.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08DZ128xLH\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTG1/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='~{RESET}',func=Pin.types.INPUT,unit=1),
@@ -456,7 +456,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTG0/EXTAL',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08DZ128xLL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DZ128xLL'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ128.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08DZ128xLL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DZ128xLL'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ128.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08DZ128xLL\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='PTA6',func=Pin.types.BIDIR,unit=1),
@@ -557,7 +557,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PTA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PTB5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08DZ60xLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DZ60xLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08DZ60xLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DZ60xLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08DZ60xLC\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE4',func=Pin.types.BIDIR,unit=1),
@@ -590,7 +590,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08EL32xTJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08EL32xTJ'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08EL32.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08EL32xTJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08EL32xTJ'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08EL32.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08EL32xTJ\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PTC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTC1',func=Pin.types.BIDIR,unit=1),
@@ -611,7 +611,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08EL32xTL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08EL32xTL'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08EL32.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08EL32xTL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08EL32xTL'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08EL32.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08EL32xTL\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB6/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB5',func=Pin.types.BIDIR,unit=1),
@@ -640,7 +640,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSSA/VREFL',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTB7/EXTAL',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08FL16xLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08FL16xLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08FL16RM.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08FL16xLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08FL16xLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08FL16RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08FL16xLC\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA4/BKGD/MS',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTC3',func=Pin.types.BIDIR,unit=1),
@@ -673,7 +673,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB6/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTD3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08JM16xLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08JM16xLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08JM16.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08JM16xLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08JM16xLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08JM16.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08JM16xLC\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='IRQ/TPMCLK',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE6',func=Pin.types.BIDIR,unit=1),
@@ -706,7 +706,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08JM60xGT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08JM60xGT'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08JM60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08JM60xGT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08JM60xGT'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08JM60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08JM60xGT\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE2',func=Pin.types.BIDIR,unit=1),
@@ -755,7 +755,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTF6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08JM60xLD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08JM60xLD'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08JM60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08JM60xLD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08JM60xLD'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08JM60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08JM60xLD\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE3',func=Pin.types.BIDIR,unit=1),
@@ -800,7 +800,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08JM60xLH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08JM60xLH'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08JM60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08JM60xLH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08JM60xLH'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08JM60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08JM60xLH\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTF7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTF5',func=Pin.types.BIDIR,unit=1),
@@ -865,7 +865,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTF4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08JS16CFK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08JS16CFK'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08JS16RM.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08JS16CFK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08JS16CFK'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08JS16RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08JS16CFK\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTB0/IRQ/TCLK',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA4/KBIP4/~{SS}',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -886,7 +886,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA1/KBIP1/MISO',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA2/KBIP2/MOSI',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTA3/KBIP3/SPSCK',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08JS16CWJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08JS16CWJ'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08JS16RM.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08JS16CWJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08JS16CWJ'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08JS16RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08JS16CWJ\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTB4/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA2/KBIP2/MOSI',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTA3/KBIP3/SPSCK',func=Pin.types.BIDIR,unit=1),
@@ -907,7 +907,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB3/~{BLMS}',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA0/KBIP0/PTMCH0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTA1/KBIP1/MISO',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08LG32J0xLF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08LG32J0xLF'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm'], 'footprint':'Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/files-static/microcontrollers/doc/ref_manual/MC9S08LG32RM.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08LG32J0xLF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08LG32J0xLF'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm'], 'footprint':'Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/files-static/microcontrollers/doc/ref_manual/MC9S08LG32RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08LG32J0xLF\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTD7/LCD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VCAP2',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='VLL1',func=Pin.types.PWRIN,unit=1),
@@ -956,7 +956,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTD1/LCD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTD0/LCD0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VCAP1',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08LG32J0xLH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08LG32J0xLH'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/files-static/microcontrollers/doc/ref_manual/MC9S08LG32RM.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08LG32J0xLH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08LG32J0xLH'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/files-static/microcontrollers/doc/ref_manual/MC9S08LG32RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08LG32J0xLH\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTD7/LCD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB0/LCD29',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTD1/LCD1',func=Pin.types.BIDIR,unit=1),
@@ -1021,7 +1021,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB3/LCD32',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB2/LCD31',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTB1/LCD30',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08LG32J0xLK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08LG32J0xLK'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:TQFP-80_14x14mm_P0.65mm'], 'footprint':'Package_QFP:TQFP-80_14x14mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/files-static/microcontrollers/doc/ref_manual/MC9S08LG32RM.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08LG32J0xLK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08LG32J0xLK'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:TQFP-80_14x14mm_P0.65mm'], 'footprint':'Package_QFP:TQFP-80_14x14mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/files-static/microcontrollers/doc/ref_manual/MC9S08LG32RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08LG32J0xLK\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTD7/LCD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB6/LCD39',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB5/LCD38',func=Pin.types.BIDIR,unit=1),
@@ -1102,7 +1102,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='PTB2/LCD31',func=Pin.types.BIDIR,unit=1),
             Pin(num='80',name='PTE0/LCD8',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTB7/LCD40',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08MP16xLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08MP16xLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08MP16RM.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08MP16xLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08MP16xLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08MP16RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08MP16xLC\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTA3',func=Pin.types.BIDIR,unit=1),
@@ -1135,7 +1135,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='PTA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTA1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08MP16xLF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08MP16xLF'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08MP16RM.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08MP16xLF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08MP16xLF'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08MP16RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08MP16xLF\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='PTA0',func=Pin.types.BIDIR,unit=1),
@@ -1184,7 +1184,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTD2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTD3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08MP16xWL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08MP16xWL'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08MP16RM.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08MP16xWL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08MP16xWL'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08MP16RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08MP16xWL\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTA1',func=Pin.types.BIDIR,unit=1),
@@ -1213,7 +1213,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08QA4CDNE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QA4CDNE'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08QA4RM.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08QA4CDNE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QA4CDNE'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08QA4RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08QA4CDNE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA5/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='PTA4/BKGD/MS',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -1222,7 +1222,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PTA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PTA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08QA4CFQE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QA4CFQE'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:DFN-8-1EP_4x4mm_P0.8mm_EP2.5x3.6mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_4x4mm_P0.8mm_EP2.5x3.6mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08QA4RM.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08QA4CFQE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QA4CFQE'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:DFN-8-1EP_4x4mm_P0.8mm_EP2.5x3.6mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_4x4mm_P0.8mm_EP2.5x3.6mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08QA4RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08QA4CFQE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA5/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='PTA4/BKGD/MS',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -1231,7 +1231,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PTA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PTA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08QA4CPAE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QA4CPAE'}), 'ref_prefix':'IC', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08QA4RM.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08QA4CPAE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QA4CPAE'}), 'ref_prefix':'IC', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08QA4RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08QA4CPAE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA5/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='PTA4/BKGD/MS',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -1240,7 +1240,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PTA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PTA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08QB8xGK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QB8xGK'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08QB8RM.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08QB8xGK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QB8xGK'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08QB8RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08QB8xGK\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PTC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB3',func=Pin.types.BIDIR,unit=1),
@@ -1265,7 +1265,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08QB8xTG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QB8xTG'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08QB8RM.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08QB8xTG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QB8xTG'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08QB8RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08QB8xTG\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA5/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB1',func=Pin.types.BIDIR,unit=1),
@@ -1282,7 +1282,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTB3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08QB8xWL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QB8xWL'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08QB8RM.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08QB8xWL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QB8xWL'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08QB8RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08QB8xWL\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB6/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB5',func=Pin.types.BIDIR,unit=1),
@@ -1311,7 +1311,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSSA/VREFL',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTB7/EXTAL',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08QD4xPC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QD4xPC'}), 'ref_prefix':'IC', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08QD4.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08QD4xPC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QD4xPC'}), 'ref_prefix':'IC', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08QD4.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08QD4xPC\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA5/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='PTA4/BKGD/MS',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -1320,7 +1320,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PTA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PTA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08QD4xSC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QD4xSC'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08QD4.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08QD4xSC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QD4xSC'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08QD4.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08QD4xSC\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA5/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='PTA4/BKGD/MS',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -1329,7 +1329,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PTA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PTA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08QG4xPAE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QG4xPAE'}), 'ref_prefix':'IC', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08QG8.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08QG4xPAE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QG4xPAE'}), 'ref_prefix':'IC', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08QG8.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08QG4xPAE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA5/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='13',name='PTA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='14',name='PTA2',func=Pin.types.BIDIR,unit=1),
@@ -1338,7 +1338,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='2',name='PTA4/BKGD/MS',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08QG8xDNE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QG8xDNE'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08QG8.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08QG8xDNE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QG8xDNE'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08QG8.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08QG8xDNE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA5/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='13',name='PTA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='14',name='PTA2',func=Pin.types.BIDIR,unit=1),
@@ -1347,7 +1347,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='2',name='PTA4/BKGD/MS',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08QG8xDTE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QG8xDTE'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08QG8.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08QG8xDTE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QG8xDTE'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08QG8.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08QG8xDTE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA5/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB1',func=Pin.types.BIDIR,unit=1),
@@ -1364,7 +1364,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTB3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08QG8xFKE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QG8xFKE'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08QG8.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08QG8xFKE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QG8xFKE'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08QG8.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08QG8xFKE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA4/BKGD/MS',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='12',name='PTB3',func=Pin.types.BIDIR,unit=1),
@@ -1381,7 +1381,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='4',name='PTB7/EXTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='PTB6/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='6',name='PTB5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08QG8xFQE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QG8xFQE'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:DFN-8-1EP_4x4mm_P0.8mm_EP2.5x3.6mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_4x4mm_P0.8mm_EP2.5x3.6mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08QG8.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08QG8xFQE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QG8xFQE'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:DFN-8-1EP_4x4mm_P0.8mm_EP2.5x3.6mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_4x4mm_P0.8mm_EP2.5x3.6mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08QG8.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08QG8xFQE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA5/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='13',name='PTA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='14',name='PTA2',func=Pin.types.BIDIR,unit=1),
@@ -1390,7 +1390,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='2',name='PTA4/BKGD/MS',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08QG8xPBE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QG8xPBE'}), 'ref_prefix':'IC', 'fplist':['Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08QG8.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08QG8xPBE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QG8xPBE'}), 'ref_prefix':'IC', 'fplist':['Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08QG8.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08QG8xPBE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA5/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB1',func=Pin.types.BIDIR,unit=1),
@@ -1407,7 +1407,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTB3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SC4xTG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SC4xTG'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SC4.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SC4xTG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SC4xTG'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SC4.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SC4xTG\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PTB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB1',func=Pin.types.BIDIR,unit=1),
@@ -1424,7 +1424,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTB3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SE8xRL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SE8xRL'}), 'ref_prefix':'IC', 'fplist':['Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08SE8RM.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SE8xRL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SE8xRL'}), 'ref_prefix':'IC', 'fplist':['Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08SE8RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SE8xRL\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB6/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB5',func=Pin.types.BIDIR,unit=1),
@@ -1453,7 +1453,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSSA/VREFL',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTB7/EXTAL',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SE8xTG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SE8xTG'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08SE8RM.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SE8xTG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SE8xTG'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08SE8RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SE8xTG\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA5/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB1',func=Pin.types.BIDIR,unit=1),
@@ -1470,7 +1470,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTB3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SE8xWL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SE8xWL'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08SE8RM.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SE8xWL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SE8xWL'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08SE8RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SE8xWL\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB6/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB5',func=Pin.types.BIDIR,unit=1),
@@ -1499,7 +1499,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSSA/VREFL',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTB7/EXTAL',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SF4xTG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SF4xTG'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08SF4RM.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SF4xTG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SF4xTG'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08SF4RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SF4xTG\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PTB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB3',func=Pin.types.BIDIR,unit=1),
@@ -1516,7 +1516,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTB1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SF4xTJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SF4xTJ'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08SF4RM.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SF4xTJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SF4xTJ'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08SF4RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SF4xTJ\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PTB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB1',func=Pin.types.BIDIR,unit=1),
@@ -1537,7 +1537,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTA7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SG32xTG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SG32xTG'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SG32.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SG32xTG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SG32xTG'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SG32.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SG32xTG\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PTB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB1',func=Pin.types.BIDIR,unit=1),
@@ -1554,7 +1554,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTB3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SG32xTJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SG32xTJ'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SG32.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SG32xTJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SG32xTJ'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SG32.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SG32xTJ\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PTC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTC1',func=Pin.types.BIDIR,unit=1),
@@ -1575,7 +1575,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SG32xTL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SG32xTL'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SG32.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SG32xTL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SG32xTL'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SG32.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SG32xTL\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB6/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB5',func=Pin.types.BIDIR,unit=1),
@@ -1604,7 +1604,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSSA/VREFL',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTB7/EXTAL',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SG8xSC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SG8xSC'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SG8.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SG8xSC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SG8xSC'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SG8.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SG8xSC\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='BKGD/MS',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -1613,7 +1613,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PTA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PTA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SH32xTG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH32xTG'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH32.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SH32xTG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH32xTG'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH32.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SH32xTG\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA5/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB1',func=Pin.types.BIDIR,unit=1),
@@ -1630,7 +1630,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTB3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SH32xTJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH32xTJ'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH32.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SH32xTJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH32xTJ'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH32.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SH32xTJ\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA5/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTC1',func=Pin.types.BIDIR,unit=1),
@@ -1651,7 +1651,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SH32xTL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH32xTL'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH32.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SH32xTL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH32xTL'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH32.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SH32xTL\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB6/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB5',func=Pin.types.BIDIR,unit=1),
@@ -1680,7 +1680,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSSA/VREFL',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTB7/EXTAL',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SH32xWL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH32xWL'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH32.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SH32xWL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH32xWL'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH32.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SH32xWL\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB6/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB5',func=Pin.types.BIDIR,unit=1),
@@ -1709,7 +1709,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSSA/VREFL',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTB7/EXTAL',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SH8xFK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH8xFK'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH8.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SH8xFK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH8xFK'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH8.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SH8xFK\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PTC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTC0',func=Pin.types.BIDIR,unit=1),
@@ -1730,7 +1730,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SH8xPJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH8xPJ'}), 'ref_prefix':'IC', 'fplist':['Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH8.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SH8xPJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH8xPJ'}), 'ref_prefix':'IC', 'fplist':['Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH8.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SH8xPJ\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA5/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTC1',func=Pin.types.BIDIR,unit=1),
@@ -1751,7 +1751,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SH8xSC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH8xSC'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH8.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SH8xSC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH8xSC'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH8.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SH8xSC\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA5/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='PTA4/BKGD/MS',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -1760,7 +1760,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PTA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PTA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SH8xWJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH8xWJ'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH8.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SH8xWJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH8xWJ'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH8.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SH8xWJ\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA5/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTC1',func=Pin.types.BIDIR,unit=1),
@@ -1781,7 +1781,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SV16CLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SV16CLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08SV16RM.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SV16CLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SV16CLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08SV16RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SV16CLC\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA4/BKGD/MS',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTC3',func=Pin.types.BIDIR,unit=1),
@@ -1814,7 +1814,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB6/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTD3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AC16xFDE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC16xFDE'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC16.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AC16xFDE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC16xFDE'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC16.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AC16xFDE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE2',func=Pin.types.BIDIR,unit=1),
@@ -1863,7 +1863,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTF6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AC16xFGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC16xFGE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC16.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AC16xFGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC16xFGE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC16.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AC16xFGE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE3',func=Pin.types.BIDIR,unit=1),
@@ -1908,7 +1908,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AC16xFJE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC16xFJE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC16.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AC16xFJE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC16xFJE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC16.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AC16xFJE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='IRQ/TPMCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PTE5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE6',func=Pin.types.BIDIR,unit=1),
@@ -1941,7 +1941,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AC32xFDE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC32xFDE'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AC32xFDE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC32xFDE'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AC32xFDE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE2',func=Pin.types.BIDIR,unit=1),
@@ -1990,7 +1990,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTF6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AC32xFGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC32xFGE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AC32xFGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC32xFGE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AC32xFGE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE3',func=Pin.types.BIDIR,unit=1),
@@ -2035,7 +2035,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AC32xFJE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC32xFJE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AC32xFJE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC32xFJE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AC32xFJE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='IRQ/TPMCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PTE5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE6',func=Pin.types.BIDIR,unit=1),
@@ -2068,7 +2068,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AC32xFUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC32xFUE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AC32xFUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC32xFUE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AC32xFUE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTF7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTF5',func=Pin.types.BIDIR,unit=1),
@@ -2133,7 +2133,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTF4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AC32xPUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC32xPUE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AC32xPUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC32xPUE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AC32xPUE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTF7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTF5',func=Pin.types.BIDIR,unit=1),
@@ -2198,7 +2198,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTF4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AC48xFDE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC48xFDE'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AC48xFDE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC48xFDE'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AC48xFDE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE2',func=Pin.types.BIDIR,unit=1),
@@ -2247,7 +2247,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTF6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AC48xFGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC48xFGE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AC48xFGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC48xFGE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AC48xFGE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE3',func=Pin.types.BIDIR,unit=1),
@@ -2292,7 +2292,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AC48xFJE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC48xFJE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AC48xFJE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC48xFJE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AC48xFJE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='IRQ/TPMCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PTE5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE6',func=Pin.types.BIDIR,unit=1),
@@ -2325,7 +2325,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AC48xFUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC48xFUE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AC48xFUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC48xFUE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AC48xFUE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTF7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTF5',func=Pin.types.BIDIR,unit=1),
@@ -2390,7 +2390,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTF4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AC48xPUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC48xPUE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AC48xPUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC48xPUE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AC48xPUE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTF7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTF5',func=Pin.types.BIDIR,unit=1),
@@ -2455,7 +2455,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTF4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AC60xFDE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC60xFDE'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AC60xFDE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC60xFDE'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AC60xFDE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE2',func=Pin.types.BIDIR,unit=1),
@@ -2504,7 +2504,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTF6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AC60xFGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC60xFGE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AC60xFGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC60xFGE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AC60xFGE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE3',func=Pin.types.BIDIR,unit=1),
@@ -2549,7 +2549,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AC60xFUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC60xFUE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AC60xFUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC60xFUE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AC60xFUE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTF7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTF5',func=Pin.types.BIDIR,unit=1),
@@ -2614,7 +2614,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTF4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AC60xPUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC60xPUE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AC60xPUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC60xPUE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AC60xPUE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTF7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTF5',func=Pin.types.BIDIR,unit=1),
@@ -2679,7 +2679,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTF4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AC8xFDE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC8xFDE'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC16.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AC8xFDE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC8xFDE'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC16.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AC8xFDE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE2',func=Pin.types.BIDIR,unit=1),
@@ -2728,7 +2728,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTF6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AC8xFGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC8xFGE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC16.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AC8xFGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC8xFGE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC16.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AC8xFGE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE3',func=Pin.types.BIDIR,unit=1),
@@ -2773,7 +2773,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AC8xFJE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC8xFJE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC16.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AC8xFJE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC8xFJE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC16.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AC8xFJE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='IRQ/TPMCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PTE5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE6',func=Pin.types.BIDIR,unit=1),
@@ -2806,7 +2806,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AC96xFDE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC96xFDE'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC128.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AC96xFDE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC96xFDE'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC128.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AC96xFDE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE2',func=Pin.types.BIDIR,unit=1),
@@ -2855,7 +2855,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTF6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AC96xFGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC96xFGE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC128.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AC96xFGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC96xFGE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC128.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AC96xFGE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE3',func=Pin.types.BIDIR,unit=1),
@@ -2900,7 +2900,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AC96xFUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC96xFUE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC128.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AC96xFUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC96xFUE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC128.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AC96xFUE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTF7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTF5',func=Pin.types.BIDIR,unit=1),
@@ -2965,7 +2965,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTF4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AC96xLKE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC96xLKE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-80_12x12mm_P0.5mm', 'Package_QFP:LQFP-80_12x12mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-80_12x12mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC128.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AC96xLKE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC96xLKE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-80_12x12mm_P0.5mm', 'Package_QFP:LQFP-80_12x12mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-80_12x12mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC128.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AC96xLKE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTF7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTF5',func=Pin.types.BIDIR,unit=1),
@@ -3046,7 +3046,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='PTF4',func=Pin.types.BIDIR,unit=1),
             Pin(num='80',name='PTC5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AC96xPUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC96xPUE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC128.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AC96xPUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AC96xPUE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC128.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AC96xPUE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTF7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTF5',func=Pin.types.BIDIR,unit=1),
@@ -3111,7 +3111,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTF4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AW16AE0xLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AW16AE0xLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AW16AE0xLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AW16AE0xLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AW16AE0xLC\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='IRQ/TPMCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PTE5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE6',func=Pin.types.BIDIR,unit=1),
@@ -3144,7 +3144,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AW16xFDE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AW16xFDE'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AW60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AW16xFDE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AW16xFDE'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AW60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AW16xFDE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE2',func=Pin.types.BIDIR,unit=1),
@@ -3193,7 +3193,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTF6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AW16xFGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AW16xFGE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AW60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AW16xFGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AW16xFGE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AW60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AW16xFGE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE3',func=Pin.types.BIDIR,unit=1),
@@ -3238,7 +3238,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AW16xFUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AW16xFUE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AW60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AW16xFUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AW16xFUE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AW60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AW16xFUE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTF7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTF5',func=Pin.types.BIDIR,unit=1),
@@ -3303,7 +3303,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTF4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AW16xPUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AW16xPUE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AW60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AW16xPUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AW16xPUE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AW60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AW16xPUE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTF7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTF5',func=Pin.types.BIDIR,unit=1),
@@ -3368,7 +3368,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTF4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AW32xFDE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AW32xFDE'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AW60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AW32xFDE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AW32xFDE'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AW60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AW32xFDE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE2',func=Pin.types.BIDIR,unit=1),
@@ -3417,7 +3417,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTF6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AW32xFGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AW32xFGE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AW60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AW32xFGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AW32xFGE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AW60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AW32xFGE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE3',func=Pin.types.BIDIR,unit=1),
@@ -3462,7 +3462,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AW32xFUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AW32xFUE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AW60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AW32xFUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AW32xFUE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AW60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AW32xFUE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTF7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTF5',func=Pin.types.BIDIR,unit=1),
@@ -3527,7 +3527,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTF4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AW32xPUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AW32xPUE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AW60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AW32xPUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AW32xPUE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AW60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AW32xPUE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTF7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTF5',func=Pin.types.BIDIR,unit=1),
@@ -3592,7 +3592,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTF4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AW48xFDE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AW48xFDE'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AW60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AW48xFDE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AW48xFDE'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AW60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AW48xFDE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE2',func=Pin.types.BIDIR,unit=1),
@@ -3641,7 +3641,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTF6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AW48xFGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AW48xFGE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AW60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AW48xFGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AW48xFGE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AW60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AW48xFGE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE3',func=Pin.types.BIDIR,unit=1),
@@ -3686,7 +3686,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AW48xFUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AW48xFUE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AW60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AW48xFUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AW48xFUE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AW60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AW48xFUE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTF7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTF5',func=Pin.types.BIDIR,unit=1),
@@ -3751,7 +3751,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTF4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AW48xPUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AW48xPUE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AW60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AW48xPUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AW48xPUE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AW60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AW48xPUE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTF7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTF5',func=Pin.types.BIDIR,unit=1),
@@ -3816,7 +3816,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTF4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AW60xFDE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AW60xFDE'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AW60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AW60xFDE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AW60xFDE'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AW60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AW60xFDE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE2',func=Pin.types.BIDIR,unit=1),
@@ -3865,7 +3865,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTF6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AW60xFGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AW60xFGE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AW60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AW60xFGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AW60xFGE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AW60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AW60xFGE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE3',func=Pin.types.BIDIR,unit=1),
@@ -3910,7 +3910,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AW60xFUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AW60xFUE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AW60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AW60xFUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AW60xFUE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'Package_QFP:LQFP-64_14x14mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-64_14x14mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AW60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AW60xFUE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTF7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTF5',func=Pin.types.BIDIR,unit=1),
@@ -3975,7 +3975,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTF4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AW60xPUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AW60xPUE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AW60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AW60xPUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AW60xPUE'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AW60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AW60xPUE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTF7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTF5',func=Pin.types.BIDIR,unit=1),
@@ -4040,7 +4040,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTF4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08AW8AE0xLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AW8AE0xLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08AW8AE0xLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08AW8AE0xLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08AC60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08AW8AE0xLC\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='IRQ/TPMCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PTE5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE6',func=Pin.types.BIDIR,unit=1),
@@ -4073,7 +4073,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08DN16xLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DN16xLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08DN16xLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DN16xLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08DN16xLC\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE4',func=Pin.types.BIDIR,unit=1),
@@ -4106,7 +4106,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08DN16xLF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DN16xLF'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08DN16xLF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DN16xLF'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08DN16xLF\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE0',func=Pin.types.BIDIR,unit=1),
@@ -4155,7 +4155,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTG1/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='PTF4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08DN32xLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DN32xLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08DN32xLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DN32xLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08DN32xLC\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE4',func=Pin.types.BIDIR,unit=1),
@@ -4188,7 +4188,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08DN32xLF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DN32xLF'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08DN32xLF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DN32xLF'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08DN32xLF\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE0',func=Pin.types.BIDIR,unit=1),
@@ -4237,7 +4237,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTG1/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='PTF4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08DN32xLH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DN32xLH'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DN60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08DN32xLH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DN32xLH'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DN60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08DN32xLH\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTG1/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='~{RESET}',func=Pin.types.INPUT,unit=1),
@@ -4302,7 +4302,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTG0/EXTAL',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08DN48xLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DN48xLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08DN48xLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DN48xLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08DN48xLC\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE4',func=Pin.types.BIDIR,unit=1),
@@ -4335,7 +4335,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08DN48xLF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DN48xLF'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08DN48xLF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DN48xLF'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08DN48xLF\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE0',func=Pin.types.BIDIR,unit=1),
@@ -4384,7 +4384,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTG1/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='PTF4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08DN48xLH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DN48xLH'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DN60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08DN48xLH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DN48xLH'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DN60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08DN48xLH\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTG1/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='~{RESET}',func=Pin.types.INPUT,unit=1),
@@ -4449,7 +4449,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTG0/EXTAL',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08DN60xLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DN60xLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08DN60xLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DN60xLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08DN60xLC\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE4',func=Pin.types.BIDIR,unit=1),
@@ -4482,7 +4482,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08DN60xLF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DN60xLF'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08DN60xLF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DN60xLF'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08DN60xLF\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE0',func=Pin.types.BIDIR,unit=1),
@@ -4531,7 +4531,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTG1/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='PTF4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08DN60xLH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DN60xLH'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DN60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08DN60xLH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DN60xLH'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DN60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08DN60xLH\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTG1/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='~{RESET}',func=Pin.types.INPUT,unit=1),
@@ -4596,7 +4596,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTG0/EXTAL',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08DV16xLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DV16xLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08DV16xLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DV16xLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08DV16xLC\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE4',func=Pin.types.BIDIR,unit=1),
@@ -4629,7 +4629,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08DV16xLF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DV16xLF'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08DV16xLF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DV16xLF'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08DV16xLF\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE0',func=Pin.types.BIDIR,unit=1),
@@ -4678,7 +4678,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTG1/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='PTF4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08DV32xLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DV32xLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08DV32xLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DV32xLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08DV32xLC\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE4',func=Pin.types.BIDIR,unit=1),
@@ -4711,7 +4711,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08DV32xLF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DV32xLF'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08DV32xLF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DV32xLF'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08DV32xLF\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE0',func=Pin.types.BIDIR,unit=1),
@@ -4760,7 +4760,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTG1/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='PTF4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08DV32xLH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DV32xLH'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DV60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08DV32xLH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DV32xLH'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DV60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08DV32xLH\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTG1/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='~{RESET}',func=Pin.types.INPUT,unit=1),
@@ -4825,7 +4825,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTG0/EXTAL',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08DV48xLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DV48xLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08DV48xLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DV48xLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08DV48xLC\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE4',func=Pin.types.BIDIR,unit=1),
@@ -4858,7 +4858,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08DV48xLF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DV48xLF'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08DV48xLF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DV48xLF'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08DV48xLF\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE0',func=Pin.types.BIDIR,unit=1),
@@ -4907,7 +4907,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTG1/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='PTF4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08DV48xLH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DV48xLH'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DV60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08DV48xLH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DV48xLH'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DV60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08DV48xLH\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTG1/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='~{RESET}',func=Pin.types.INPUT,unit=1),
@@ -4972,7 +4972,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTG0/EXTAL',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08DV60xLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DV60xLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08DV60xLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DV60xLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08DV60xLC\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE4',func=Pin.types.BIDIR,unit=1),
@@ -5005,7 +5005,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08DV60xLF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DV60xLF'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08DV60xLF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DV60xLF'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08DV60xLF\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE0',func=Pin.types.BIDIR,unit=1),
@@ -5054,7 +5054,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTG1/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='PTF4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08DV60xLH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DV60xLH'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DV60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08DV60xLH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DV60xLH'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DV60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08DV60xLH\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTG1/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='~{RESET}',func=Pin.types.INPUT,unit=1),
@@ -5119,7 +5119,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTG0/EXTAL',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08DZ16xLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DZ16xLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08DZ16xLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DZ16xLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08DZ16xLC\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE4',func=Pin.types.BIDIR,unit=1),
@@ -5152,7 +5152,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08DZ16xLF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DZ16xLF'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08DZ16xLF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DZ16xLF'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08DZ16xLF\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE0',func=Pin.types.BIDIR,unit=1),
@@ -5201,7 +5201,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTG1/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='PTF4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08DZ32xLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DZ32xLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08DZ32xLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DZ32xLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08DZ32xLC\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE4',func=Pin.types.BIDIR,unit=1),
@@ -5234,7 +5234,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08DZ32xLF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DZ32xLF'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08DZ32xLF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DZ32xLF'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08DZ32xLF\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE0',func=Pin.types.BIDIR,unit=1),
@@ -5283,7 +5283,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTG1/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='PTF4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08DZ32xLH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DZ32xLH'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08DZ32xLH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DZ32xLH'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08DZ32xLH\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTG1/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='~{RESET}',func=Pin.types.INPUT,unit=1),
@@ -5348,7 +5348,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTG0/EXTAL',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08DZ48xLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DZ48xLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08DZ48xLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DZ48xLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08DZ48xLC\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE4',func=Pin.types.BIDIR,unit=1),
@@ -5381,7 +5381,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08DZ48xLF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DZ48xLF'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08DZ48xLF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DZ48xLF'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08DZ48xLF\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE0',func=Pin.types.BIDIR,unit=1),
@@ -5430,7 +5430,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTG1/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='PTF4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08DZ48xLH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DZ48xLH'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08DZ48xLH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DZ48xLH'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08DZ48xLH\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTG1/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='~{RESET}',func=Pin.types.INPUT,unit=1),
@@ -5495,7 +5495,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTG0/EXTAL',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08DZ60xLF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DZ60xLF'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08DZ60xLF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DZ60xLF'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08DZ60xLF\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE0',func=Pin.types.BIDIR,unit=1),
@@ -5544,7 +5544,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTG1/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='PTF4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08DZ60xLH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DZ60xLH'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08DZ60xLH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DZ60xLH'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08DZ60xLH\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTG1/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='~{RESET}',func=Pin.types.INPUT,unit=1),
@@ -5609,7 +5609,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTG0/EXTAL',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08DZ96xLF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DZ96xLF'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ128.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08DZ96xLF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DZ96xLF'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ128.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08DZ96xLF\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE0',func=Pin.types.BIDIR,unit=1),
@@ -5658,7 +5658,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTG1/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='PTF4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08DZ96xLH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DZ96xLH'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ128.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08DZ96xLH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DZ96xLH'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ128.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08DZ96xLH\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTG1/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='~{RESET}',func=Pin.types.INPUT,unit=1),
@@ -5723,7 +5723,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTG0/EXTAL',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08DZ96xLL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DZ96xLL'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ128.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08DZ96xLL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08DZ96xLL'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08DZ128.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08DZ96xLL\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='PTA6',func=Pin.types.BIDIR,unit=1),
@@ -5824,7 +5824,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PTA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PTB5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08EL16xTJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08EL16xTJ'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08EL32.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08EL16xTJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08EL16xTJ'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08EL32.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08EL16xTJ\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PTC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTC1',func=Pin.types.BIDIR,unit=1),
@@ -5845,7 +5845,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08EL16xTL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08EL16xTL'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08EL32.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08EL16xTL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08EL16xTL'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08EL32.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08EL16xTL\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB6/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB5',func=Pin.types.BIDIR,unit=1),
@@ -5874,7 +5874,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSSA/VREFL',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTB7/EXTAL',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08FL8xLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08FL8xLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08FL16RM.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08FL8xLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08FL8xLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08FL16RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08FL8xLC\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA4/BKGD/MS',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTC3',func=Pin.types.BIDIR,unit=1),
@@ -5907,7 +5907,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB6/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTD3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08JM16xGT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08JM16xGT'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08JM16.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08JM16xGT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08JM16xGT'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08JM16.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08JM16xGT\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE2',func=Pin.types.BIDIR,unit=1),
@@ -5956,7 +5956,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTF6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08JM16xLD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08JM16xLD'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08JM16.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08JM16xLD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08JM16xLD'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08JM16.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08JM16xLD\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE3',func=Pin.types.BIDIR,unit=1),
@@ -6001,7 +6001,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08JM32xGT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08JM32xGT'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08JM60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08JM32xGT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08JM32xGT'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08JM60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08JM32xGT\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE2',func=Pin.types.BIDIR,unit=1),
@@ -6050,7 +6050,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTF6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08JM32xLD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08JM32xLD'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08JM60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08JM32xLD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08JM32xLD'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08JM60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08JM32xLD\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE3',func=Pin.types.BIDIR,unit=1),
@@ -6095,7 +6095,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08JM32xLH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08JM32xLH'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08JM60.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08JM32xLH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08JM32xLH'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08JM60.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08JM32xLH\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTF7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTF5',func=Pin.types.BIDIR,unit=1),
@@ -6160,7 +6160,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTF4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08JM8xGT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08JM8xGT'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08JM16.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08JM8xGT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08JM8xGT'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08JM16.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08JM8xGT\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE2',func=Pin.types.BIDIR,unit=1),
@@ -6209,7 +6209,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTF6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08JM8xLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08JM8xLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08JM16.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08JM8xLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08JM8xLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08JM16.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08JM8xLC\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='IRQ/TPMCLK',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE6',func=Pin.types.BIDIR,unit=1),
@@ -6242,7 +6242,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08JM8xLD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08JM8xLD'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08JM16.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08JM8xLD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08JM8xLD'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08JM16.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08JM8xLD\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE3',func=Pin.types.BIDIR,unit=1),
@@ -6287,7 +6287,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08JS8CFK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08JS8CFK'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08JS16RM.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08JS8CFK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08JS8CFK'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08JS16RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08JS8CFK\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTB0/IRQ/TCLK',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA4/KBIP4/~{SS}',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -6308,7 +6308,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA1/KBIP1/MISO',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA2/KBIP2/MOSI',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTA3/KBIP3/SPSCK',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08JS8CWJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08JS8CWJ'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08JS16RM.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08JS8CWJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08JS8CWJ'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08JS16RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08JS8CWJ\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTB4/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA2/KBIP2/MOSI',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTA3/KBIP3/SPSCK',func=Pin.types.BIDIR,unit=1),
@@ -6329,7 +6329,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB3/~{BLMS}',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA0/KBIP0/PTMCH0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTA1/KBIP1/MISO',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08QA2CDNE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QA2CDNE'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08QA4RM.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08QA2CDNE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QA2CDNE'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08QA4RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08QA2CDNE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA5/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='PTA4/BKGD/MS',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -6338,7 +6338,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PTA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PTA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08QA2CFQE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QA2CFQE'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:DFN-8-1EP_4x4mm_P0.8mm_EP2.5x3.6mm', 'Package_DFN_QFN:DFN-8-1EP_4x4mm_P0.8mm_EP2.5x3.6mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_4x4mm_P0.8mm_EP2.5x3.6mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08QA4RM.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08QA2CFQE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QA2CFQE'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:DFN-8-1EP_4x4mm_P0.8mm_EP2.5x3.6mm', 'Package_DFN_QFN:DFN-8-1EP_4x4mm_P0.8mm_EP2.5x3.6mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_4x4mm_P0.8mm_EP2.5x3.6mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08QA4RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08QA2CFQE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA5/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='PTA4/BKGD/MS',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -6347,7 +6347,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PTA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PTA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08QA2CPAE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QA2CPAE'}), 'ref_prefix':'IC', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08QA4RM.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08QA2CPAE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QA2CPAE'}), 'ref_prefix':'IC', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08QA4RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08QA2CPAE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA5/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='PTA4/BKGD/MS',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -6356,7 +6356,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PTA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PTA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08QB4xGK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QB4xGK'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08QB8RM.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08QB4xGK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QB4xGK'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08QB8RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08QB4xGK\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PTC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB3',func=Pin.types.BIDIR,unit=1),
@@ -6381,7 +6381,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08QB4xTG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QB4xTG'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08QB8RM.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08QB4xTG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QB4xTG'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08QB8RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08QB4xTG\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA5/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB1',func=Pin.types.BIDIR,unit=1),
@@ -6398,7 +6398,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTB3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08QB4xWL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QB4xWL'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08QB8RM.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08QB4xWL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QB4xWL'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08QB8RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08QB4xWL\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB6/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB5',func=Pin.types.BIDIR,unit=1),
@@ -6427,7 +6427,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSSA/VREFL',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTB7/EXTAL',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08QD2xPC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QD2xPC'}), 'ref_prefix':'IC', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08QD4.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08QD2xPC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QD2xPC'}), 'ref_prefix':'IC', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08QD4.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08QD2xPC\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA5/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='PTA4/BKGD/MS',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -6436,7 +6436,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PTA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PTA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08QD2xSC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QD2xSC'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08QD4.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08QD2xSC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QD2xSC'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08QD4.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08QD2xSC\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA5/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='PTA4/BKGD/MS',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -6445,7 +6445,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PTA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PTA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08QG4xDNE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QG4xDNE'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08QG8.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08QG4xDNE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QG4xDNE'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08QG8.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08QG4xDNE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA5/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='13',name='PTA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='14',name='PTA2',func=Pin.types.BIDIR,unit=1),
@@ -6454,7 +6454,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='2',name='PTA4/BKGD/MS',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08QG4xDTE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QG4xDTE'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08QG8.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08QG4xDTE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QG4xDTE'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08QG8.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08QG4xDTE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA5/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB1',func=Pin.types.BIDIR,unit=1),
@@ -6471,7 +6471,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTB3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08QG4xFKE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QG4xFKE'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08QG8.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08QG4xFKE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QG4xFKE'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08QG8.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08QG4xFKE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA4/BKGD/MS',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='12',name='PTB3',func=Pin.types.BIDIR,unit=1),
@@ -6488,7 +6488,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='4',name='PTB7/EXTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='PTB6/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='6',name='PTB5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08QG4xFQE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QG4xFQE'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:DFN-8-1EP_4x4mm_P0.8mm_EP2.5x3.6mm', 'Package_DFN_QFN:DFN-8-1EP_4x4mm_P0.8mm_EP2.5x3.6mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_4x4mm_P0.8mm_EP2.5x3.6mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08QG8.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08QG4xFQE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08QG4xFQE'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:DFN-8-1EP_4x4mm_P0.8mm_EP2.5x3.6mm', 'Package_DFN_QFN:DFN-8-1EP_4x4mm_P0.8mm_EP2.5x3.6mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_4x4mm_P0.8mm_EP2.5x3.6mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08QG8.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08QG4xFQE\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA5/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='13',name='PTA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='14',name='PTA2',func=Pin.types.BIDIR,unit=1),
@@ -6497,7 +6497,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='2',name='PTA4/BKGD/MS',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SE4xRL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SE4xRL'}), 'ref_prefix':'IC', 'fplist':['Package_DIP:DIP-28_W15.24mm', 'Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08SE8RM.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SE4xRL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SE4xRL'}), 'ref_prefix':'IC', 'fplist':['Package_DIP:DIP-28_W15.24mm', 'Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08SE8RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SE4xRL\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB6/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB5',func=Pin.types.BIDIR,unit=1),
@@ -6526,7 +6526,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSSA/VREFL',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTB7/EXTAL',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SE4xTG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SE4xTG'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08SE8RM.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SE4xTG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SE4xTG'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08SE8RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SE4xTG\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA5/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB1',func=Pin.types.BIDIR,unit=1),
@@ -6543,7 +6543,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTB3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SE4xWL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SE4xWL'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08SE8RM.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SE4xWL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SE4xWL'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08SE8RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SE4xWL\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB6/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB5',func=Pin.types.BIDIR,unit=1),
@@ -6572,7 +6572,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSSA/VREFL',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTB7/EXTAL',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SG16xTG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SG16xTG'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SG32.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SG16xTG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SG16xTG'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SG32.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SG16xTG\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PTB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB1',func=Pin.types.BIDIR,unit=1),
@@ -6589,7 +6589,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTB3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SG16xTJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SG16xTJ'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SG32.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SG16xTJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SG16xTJ'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SG32.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SG16xTJ\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PTC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTC1',func=Pin.types.BIDIR,unit=1),
@@ -6610,7 +6610,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SG16xTL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SG16xTL'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SG32.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SG16xTL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SG16xTL'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SG32.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SG16xTL\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB6/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB5',func=Pin.types.BIDIR,unit=1),
@@ -6639,7 +6639,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSSA/VREFL',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTB7/EXTAL',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SG4xSC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SG4xSC'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SG8.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SG4xSC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SG4xSC'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SG8.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SG4xSC\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='BKGD/MS',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -6648,7 +6648,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PTA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PTA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SG4xTG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SG4xTG'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SG8.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SG4xTG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SG4xTG'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SG8.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SG4xTG\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PTB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB1',func=Pin.types.BIDIR,unit=1),
@@ -6665,7 +6665,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTB3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SG4xTJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SG4xTJ'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SG8.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SG4xTJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SG4xTJ'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SG8.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SG4xTJ\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PTC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTC1',func=Pin.types.BIDIR,unit=1),
@@ -6686,7 +6686,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SG8xTG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SG8xTG'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SG8.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SG8xTG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SG8xTG'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SG8.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SG8xTG\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PTB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB1',func=Pin.types.BIDIR,unit=1),
@@ -6703,7 +6703,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTB3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SG8xTJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SG8xTJ'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SG8.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SG8xTJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SG8xTJ'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SG8.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SG8xTJ\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PTC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTC1',func=Pin.types.BIDIR,unit=1),
@@ -6724,7 +6724,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SH16xTG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH16xTG'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH32.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SH16xTG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH16xTG'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH32.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SH16xTG\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA5/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB1',func=Pin.types.BIDIR,unit=1),
@@ -6741,7 +6741,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTB3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SH16xTJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH16xTJ'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH32.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SH16xTJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH16xTJ'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH32.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SH16xTJ\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA5/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTC1',func=Pin.types.BIDIR,unit=1),
@@ -6762,7 +6762,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SH16xTL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH16xTL'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH32.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SH16xTL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH16xTL'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH32.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SH16xTL\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB6/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB5',func=Pin.types.BIDIR,unit=1),
@@ -6791,7 +6791,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSSA/VREFL',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTB7/EXTAL',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SH16xWL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH16xWL'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH32.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SH16xWL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH16xWL'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH32.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SH16xWL\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB6/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB5',func=Pin.types.BIDIR,unit=1),
@@ -6820,7 +6820,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSSA/VREFL',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTB7/EXTAL',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SH4xFK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH4xFK'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH8.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SH4xFK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH4xFK'}), 'ref_prefix':'IC', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH8.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SH4xFK\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PTC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTC0',func=Pin.types.BIDIR,unit=1),
@@ -6841,7 +6841,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SH4xPJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH4xPJ'}), 'ref_prefix':'IC', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH8.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SH4xPJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH4xPJ'}), 'ref_prefix':'IC', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH8.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SH4xPJ\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA5/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTC1',func=Pin.types.BIDIR,unit=1),
@@ -6862,7 +6862,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SH4xSC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH4xSC'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH8.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SH4xSC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH4xSC'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH8.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SH4xSC\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA5/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='PTA4/BKGD/MS',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -6871,7 +6871,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PTA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PTA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SH4xTG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH4xTG'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH8.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SH4xTG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH4xTG'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH8.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SH4xTG\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA5/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB1',func=Pin.types.BIDIR,unit=1),
@@ -6888,7 +6888,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTB3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SH4xTJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH4xTJ'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH8.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SH4xTJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH4xTJ'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH8.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SH4xTJ\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA5/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTC1',func=Pin.types.BIDIR,unit=1),
@@ -6909,7 +6909,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SH4xWJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH4xWJ'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH8.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SH4xWJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH4xWJ'}), 'ref_prefix':'IC', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH8.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SH4xWJ\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA5/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTC1',func=Pin.types.BIDIR,unit=1),
@@ -6930,7 +6930,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SH8xTG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH8xTG'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH8.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SH8xTG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH8xTG'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH8.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SH8xTG\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA5/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB1',func=Pin.types.BIDIR,unit=1),
@@ -6947,7 +6947,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTB3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SH8xTJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH8xTJ'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH8.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SH8xTJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SH8xTJ'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08SH8.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SH8xTJ\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA5/~{RESET}',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTC1',func=Pin.types.BIDIR,unit=1),
@@ -6968,7 +6968,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SL16xTJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SL16xTJ'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08EL32.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SL16xTJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SL16xTJ'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08EL32.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SL16xTJ\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PTC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTC1',func=Pin.types.BIDIR,unit=1),
@@ -6989,7 +6989,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SL16xTL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SL16xTL'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08EL32.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SL16xTL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SL16xTL'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08EL32.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SL16xTL\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB6/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB5',func=Pin.types.BIDIR,unit=1),
@@ -7018,7 +7018,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSSA/VREFL',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTB7/EXTAL',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SL32xTJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SL32xTJ'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08EL32.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SL32xTJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SL32xTJ'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08EL32.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SL32xTJ\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PTC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTC1',func=Pin.types.BIDIR,unit=1),
@@ -7039,7 +7039,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTC3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SL32xTL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SL32xTL'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08EL32.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SL32xTL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SL32xTL'}), 'ref_prefix':'IC', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MC9S08EL32.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SL32xTL\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTC5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB6/XTAL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB5',func=Pin.types.BIDIR,unit=1),
@@ -7068,7 +7068,7 @@ MCU_NXP_S08 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSSA/VREFL',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTB7/EXTAL',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC9S08SV8CLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SV8CLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08SV16RM.pdf', 'pins':[
+        Part(**{ 'name':'MC9S08SV8CLC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S08SV8CLC'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP S08 Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/reference-manual/MC9S08SV16RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_S08.kicad_sym\nMC9S08SV8CLC\n\nNXP S08 Microcontroller', 'pins':[
             Pin(num='1',name='PTA4/BKGD/MS',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTC3',func=Pin.types.BIDIR,unit=1),

@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Sensor_Proximity = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'AD7150BRMZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7150BRMZ'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'Analog ADI CDC dual', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7150.pdf', 'pins':[
+        Part(**{ 'name':'AD7150BRMZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7150BRMZ'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'Analog ADI CDC dual', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7150.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Proximity.kicad_sym\nAD7150BRMZ\n\nAnalog ADI CDC dual', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='10',name='SDA',func=Pin.types.BIDIR),
             Pin(num='2',name='VDD',func=Pin.types.PWRIN),
@@ -15,7 +15,7 @@ Sensor_Proximity = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUT1',func=Pin.types.OUTPUT),
             Pin(num='8',name='OUT2',func=Pin.types.OUTPUT),
             Pin(num='9',name='SCL',func=Pin.types.INPUT)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7151BRMZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7151BRMZ'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'Analog ADI CDC single', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7151.pdf', 'pins':[
+        Part(**{ 'name':'AD7151BRMZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7151BRMZ'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'Analog ADI CDC single', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7151.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Proximity.kicad_sym\nAD7151BRMZ\n\nAnalog ADI CDC single', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='10',name='SDA',func=Pin.types.BIDIR),
             Pin(num='2',name='VDD',func=Pin.types.PWRIN),
@@ -26,7 +26,7 @@ Sensor_Proximity = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='EXC',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'APDS-9160-003', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'APDS-9160-003'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Broadcom_APDS-9160-003'], 'footprint':'OptoDevice:Broadcom_APDS-9160-003', 'keywords':'opto proximity sensor avago broadcom', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/APDS-9160-003-DS', 'pins':[
+        Part(**{ 'name':'APDS-9160-003', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'APDS-9160-003'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Broadcom_APDS-9160-003'], 'footprint':'OptoDevice:Broadcom_APDS-9160-003', 'keywords':'opto proximity sensor avago broadcom', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/APDS-9160-003-DS', 'search_text':'/usr/share/kicad/symbols/Sensor_Proximity.kicad_sym\nAPDS-9160-003\n\nopto proximity sensor avago broadcom', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='INT',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='3',name='LDR',func=Pin.types.INPUT,unit=1),
@@ -35,47 +35,47 @@ Sensor_Proximity = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SCL',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'BPR-205', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BPR-205'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Everlight_ITR8307'], 'footprint':'OptoDevice:Everlight_ITR8307', 'keywords':'Reflective Optical Sensor Opto', 'description':'', 'datasheet':'http://www.ystone.com.tw/en/data/goods/IRPT/Photo%20Interrupters-Reflective%20Type.pdf', 'pins':[
+        Part(**{ 'name':'BPR-205', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BPR-205'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Everlight_ITR8307'], 'footprint':'OptoDevice:Everlight_ITR8307', 'keywords':'Reflective Optical Sensor Opto', 'description':'', 'datasheet':'http://www.ystone.com.tw/en/data/goods/IRPT/Photo%20Interrupters-Reflective%20Type.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Proximity.kicad_sym\nBPR-205\n\nReflective Optical Sensor Opto', 'pins':[
             Pin(num='1',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='4',name='E',func=Pin.types.OPENEMIT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CNY70', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CNY70'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Vishay_CNY70'], 'footprint':'OptoDevice:Vishay_CNY70', 'keywords':'Reflective Optical Sensor Opto', 'description':'', 'datasheet':'https://www.vishay.com/docs/83751/cny70.pdf', 'pins':[
+        Part(**{ 'name':'CNY70', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CNY70'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Vishay_CNY70'], 'footprint':'OptoDevice:Vishay_CNY70', 'keywords':'Reflective Optical Sensor Opto', 'description':'', 'datasheet':'https://www.vishay.com/docs/83751/cny70.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Proximity.kicad_sym\nCNY70\n\nReflective Optical Sensor Opto', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='4',name='E',func=Pin.types.OPENEMIT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'GP2S700HCP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'GP2S700HCP'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Sharp_GP2S700HCP'], 'footprint':'OptoDevice:Sharp_GP2S700HCP', 'keywords':'Reflective Optical Sensor Opto reflex coupler', 'description':'', 'datasheet':'https://www.sharpsde.com/fileadmin/products/Optoelectronics/Isolation%20Devices/Specs_Photointerrupter/GP2S700HCP_03Oct05_DS_D3-A02201FEN.pdf', 'pins':[
+        Part(**{ 'name':'GP2S700HCP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'GP2S700HCP'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Sharp_GP2S700HCP'], 'footprint':'OptoDevice:Sharp_GP2S700HCP', 'keywords':'Reflective Optical Sensor Opto reflex coupler', 'description':'', 'datasheet':'https://www.sharpsde.com/fileadmin/products/Optoelectronics/Isolation%20Devices/Specs_Photointerrupter/GP2S700HCP_03Oct05_DS_D3-A02201FEN.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Proximity.kicad_sym\nGP2S700HCP\n\nReflective Optical Sensor Opto reflex coupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OPENEMIT,unit=1),
             Pin(num='2',name='~',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='3',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='A',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ITR1201SR10AR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ITR1201SR10AR'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Everlight_ITR1201SR10AR'], 'footprint':'OptoDevice:Everlight_ITR1201SR10AR', 'keywords':'Reflective Optical Sensor Opto reflex coupler', 'description':'', 'datasheet':'http://www.everlight.com/file/ProductFile/ITR1201SR10AR-TR.pdf', 'pins':[
+        Part(**{ 'name':'ITR1201SR10AR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ITR1201SR10AR'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Everlight_ITR1201SR10AR'], 'footprint':'OptoDevice:Everlight_ITR1201SR10AR', 'keywords':'Reflective Optical Sensor Opto reflex coupler', 'description':'', 'datasheet':'http://www.everlight.com/file/ProductFile/ITR1201SR10AR-TR.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Proximity.kicad_sym\nITR1201SR10AR\n\nReflective Optical Sensor Opto reflex coupler', 'pins':[
             Pin(num='1',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='4',name='~',func=Pin.types.OPENEMIT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ITR8307', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ITR8307'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Everlight_ITR8307'], 'footprint':'OptoDevice:Everlight_ITR8307', 'keywords':'Reflective Optical Sensor Opto', 'description':'', 'datasheet':'http://www.everlight.com/file/ProductFile/ITR8307.pdf', 'pins':[
+        Part(**{ 'name':'ITR8307', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ITR8307'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Everlight_ITR8307'], 'footprint':'OptoDevice:Everlight_ITR8307', 'keywords':'Reflective Optical Sensor Opto', 'description':'', 'datasheet':'http://www.everlight.com/file/ProductFile/ITR8307.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Proximity.kicad_sym\nITR8307\n\nReflective Optical Sensor Opto', 'pins':[
             Pin(num='1',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='4',name='E',func=Pin.types.OPENEMIT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ITR8307-F43', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ITR8307-F43'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Everlight_ITR8307F43'], 'footprint':'OptoDevice:Everlight_ITR8307F43', 'keywords':'Reflective Optical Sensor Opto', 'description':'', 'datasheet':'https://everlighteurope.com/index.php?controller=attachment&id_attachment=5385', 'pins':[
+        Part(**{ 'name':'ITR8307-F43', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ITR8307-F43'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Everlight_ITR8307F43'], 'footprint':'OptoDevice:Everlight_ITR8307F43', 'keywords':'Reflective Optical Sensor Opto', 'description':'', 'datasheet':'https://everlighteurope.com/index.php?controller=attachment&id_attachment=5385', 'search_text':'/usr/share/kicad/symbols/Sensor_Proximity.kicad_sym\nITR8307-F43\n\nReflective Optical Sensor Opto', 'pins':[
             Pin(num='1',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='4',name='E',func=Pin.types.OPENEMIT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ITR9608-F', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ITR9608-F'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Everlight_ITR9608-F'], 'footprint':'OptoDevice:Everlight_ITR9608-F', 'keywords':'Photointerrupter opto interrupter infrared LED fast response time infrared 940nm 5mm gap', 'description':'', 'datasheet':'https://www.everlighteurope.com/custom/files/datasheets/DRX-0000076.pdf', 'pins':[
+        Part(**{ 'name':'ITR9608-F', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ITR9608-F'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Everlight_ITR9608-F'], 'footprint':'OptoDevice:Everlight_ITR9608-F', 'keywords':'Photointerrupter opto interrupter infrared LED fast response time infrared 940nm 5mm gap', 'description':'', 'datasheet':'https://www.everlighteurope.com/custom/files/datasheets/DRX-0000076.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Proximity.kicad_sym\nITR9608-F\n\nPhotointerrupter opto interrupter infrared LED fast response time infrared 940nm 5mm gap', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='4',name='~',func=Pin.types.OPENEMIT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'KRC011', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KRC011'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Kingbright_KRC011_Vertical'], 'footprint':'OptoDevice:Kingbright_KRC011_Vertical', 'keywords':'Reflective Optical Sensor Opto', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/KRC011(Ver.15).pdf', 'pins':[
+        Part(**{ 'name':'KRC011', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KRC011'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Kingbright_KRC011_Vertical'], 'footprint':'OptoDevice:Kingbright_KRC011_Vertical', 'keywords':'Reflective Optical Sensor Opto', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/KRC011(Ver.15).pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Proximity.kicad_sym\nKRC011\n\nReflective Optical Sensor Opto', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='4',name='E',func=Pin.types.OPENEMIT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LDC1312', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LDC1312'}), 'ref_prefix':'U', 'fplist':['Package_SON:WSON-12-1EP_4x4mm_P0.5mm_EP2.6x3mm_ThermalVias'], 'footprint':'Package_SON:WSON-12-1EP_4x4mm_P0.5mm_EP2.6x3mm_ThermalVias', 'keywords':'inductance sensor', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ldc1312.pdf', 'pins':[
+        Part(**{ 'name':'LDC1312', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LDC1312'}), 'ref_prefix':'U', 'fplist':['Package_SON:WSON-12-1EP_4x4mm_P0.5mm_EP2.6x3mm_ThermalVias'], 'footprint':'Package_SON:WSON-12-1EP_4x4mm_P0.5mm_EP2.6x3mm_ThermalVias', 'keywords':'inductance sensor', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ldc1312.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Proximity.kicad_sym\nLDC1312\n\ninductance sensor', 'pins':[
             Pin(num='1',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='IN0B',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='IN1A',func=Pin.types.INPUT,unit=1),
@@ -89,7 +89,7 @@ Sensor_Proximity = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='IN0A',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LDC1314', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LDC1314'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:WQFN-16-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias'], 'footprint':'Package_DFN_QFN:WQFN-16-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias', 'keywords':'inductance sensor', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ldc1312.pdf', 'pins':[
+        Part(**{ 'name':'LDC1314', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LDC1314'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:WQFN-16-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias'], 'footprint':'Package_DFN_QFN:WQFN-16-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias', 'keywords':'inductance sensor', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ldc1312.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Proximity.kicad_sym\nLDC1314\n\ninductance sensor', 'pins':[
             Pin(num='1',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='IN0B',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='IN1A',func=Pin.types.INPUT,unit=1),
@@ -107,81 +107,81 @@ Sensor_Proximity = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='IN0A',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LG206D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LG206D'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Kodenshi_LG206D'], 'footprint':'OptoDevice:Kodenshi_LG206D', 'keywords':'Photointerrupter infrared LED with photo IC, non-inverting output, -0.5V to 17V VDD, -20 to +85 degree Celsius, LG206D', 'description':'', 'datasheet':'http://kodenshi.co.jp/products/pdf/sensor/photointerrupter_ic/LG206D.pdf', 'pins':[
+        Part(**{ 'name':'LG206D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LG206D'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Kodenshi_LG206D'], 'footprint':'OptoDevice:Kodenshi_LG206D', 'keywords':'Photointerrupter infrared LED with photo IC, non-inverting output, -0.5V to 17V VDD, -20 to +85 degree Celsius, LG206D', 'description':'', 'datasheet':'http://kodenshi.co.jp/products/pdf/sensor/photointerrupter_ic/LG206D.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Proximity.kicad_sym\nLG206D\n\nPhotointerrupter infrared LED with photo IC, non-inverting output, -0.5V to 17V VDD, -20 to +85 degree Celsius, LG206D', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VOUT',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='K',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LG206L', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LG206L'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Kodenshi_LG206L'], 'footprint':'OptoDevice:Kodenshi_LG206L', 'keywords':'Photointerrupter infrared LED with photo IC, inverting output, -0.5V to 17V VDD, -20 to +85 degree Celsius, LG206X', 'description':'', 'datasheet':'http://kodenshi.co.jp/products/pdf/sensor/photointerrupter_ic/LG206L.pdf', 'pins':[
+        Part(**{ 'name':'LG206L', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LG206L'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Kodenshi_LG206L'], 'footprint':'OptoDevice:Kodenshi_LG206L', 'keywords':'Photointerrupter infrared LED with photo IC, inverting output, -0.5V to 17V VDD, -20 to +85 degree Celsius, LG206X', 'description':'', 'datasheet':'http://kodenshi.co.jp/products/pdf/sensor/photointerrupter_ic/LG206L.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Proximity.kicad_sym\nLG206L\n\nPhotointerrupter infrared LED with photo IC, inverting output, -0.5V to 17V VDD, -20 to +85 degree Celsius, LG206X', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VOUT',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='K',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'QRE1113', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'QRE1113'}), 'ref_prefix':'U', 'fplist':['OptoDevice:OnSemi_CASE100AQ'], 'footprint':'OptoDevice:OnSemi_CASE100AQ', 'keywords':'Reflective Optical Sensor Opto reflex coupler', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/QRE1113-D.PDF', 'pins':[
+        Part(**{ 'name':'QRE1113', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'QRE1113'}), 'ref_prefix':'U', 'fplist':['OptoDevice:OnSemi_CASE100AQ'], 'footprint':'OptoDevice:OnSemi_CASE100AQ', 'keywords':'Reflective Optical Sensor Opto reflex coupler', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/QRE1113-D.PDF', 'search_text':'/usr/share/kicad/symbols/Sensor_Proximity.kicad_sym\nQRE1113\n\nReflective Optical Sensor Opto reflex coupler', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='4',name='~',func=Pin.types.OPENEMIT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'QRE1113GR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'QRE1113GR'}), 'ref_prefix':'U', 'fplist':['OptoDevice:OnSemi_CASE100CY'], 'footprint':'OptoDevice:OnSemi_CASE100CY', 'keywords':'Reflective Optical Sensor Opto reflex coupler', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/QRE1113-D.PDF', 'pins':[
+        Part(**{ 'name':'QRE1113GR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'QRE1113GR'}), 'ref_prefix':'U', 'fplist':['OptoDevice:OnSemi_CASE100CY'], 'footprint':'OptoDevice:OnSemi_CASE100CY', 'keywords':'Reflective Optical Sensor Opto reflex coupler', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/QRE1113-D.PDF', 'search_text':'/usr/share/kicad/symbols/Sensor_Proximity.kicad_sym\nQRE1113GR\n\nReflective Optical Sensor Opto reflex coupler', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='4',name='~',func=Pin.types.OPENEMIT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RPR-0720', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RPR-0720'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Rohm_RPR-0720'], 'footprint':'OptoDevice:Rohm_RPR-0720', 'keywords':'opto rohm', 'description':'', 'datasheet':'https://fscdn.rohm.com/en/products/databook/datasheet/opto/optical_sensor/photosensor/rpr-0720-e.pdf', 'pins':[
+        Part(**{ 'name':'RPR-0720', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RPR-0720'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Rohm_RPR-0720'], 'footprint':'OptoDevice:Rohm_RPR-0720', 'keywords':'opto rohm', 'description':'', 'datasheet':'https://fscdn.rohm.com/en/products/databook/datasheet/opto/optical_sensor/photosensor/rpr-0720-e.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Proximity.kicad_sym\nRPR-0720\n\nopto rohm', 'pins':[
             Pin(num='1',name='VCSELA',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='INT',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='5',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH900', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH900'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Siemens_SFH900'], 'footprint':'OptoDevice:Siemens_SFH900', 'keywords':'Reflective Optical Sensor Opto', 'description':'', 'datasheet':'https://www.batronix.com/pdf/sfh900.pdf', 'pins':[
+        Part(**{ 'name':'SFH900', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH900'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Siemens_SFH900'], 'footprint':'OptoDevice:Siemens_SFH900', 'keywords':'Reflective Optical Sensor Opto', 'description':'', 'datasheet':'https://www.batronix.com/pdf/sfh900.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Proximity.kicad_sym\nSFH900\n\nReflective Optical Sensor Opto', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH9206', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH9206'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Osram_SFH9x0x'], 'footprint':'OptoDevice:Osram_SFH9x0x', 'keywords':'Reflective Opto Interrupter Coupler', 'description':'', 'datasheet':'http://www.osram-os.com/Graphics/XPic6/00200860_0.pdf', 'pins':[
+        Part(**{ 'name':'SFH9206', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH9206'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Osram_SFH9x0x'], 'footprint':'OptoDevice:Osram_SFH9x0x', 'keywords':'Reflective Opto Interrupter Coupler', 'description':'', 'datasheet':'http://www.osram-os.com/Graphics/XPic6/00200860_0.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Proximity.kicad_sym\nSFH9206\n\nReflective Opto Interrupter Coupler', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='3',name='E',func=Pin.types.OPENEMIT,unit=1),
             Pin(num='4',name='C',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='5',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='6',name='K',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SG-105', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SG-105'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Kodenshi_SG105'], 'footprint':'OptoDevice:Kodenshi_SG105', 'keywords':'Reflective Optical Sensor Opto', 'description':'', 'datasheet':'http://www.kodenshi.co.jp/products/pdf/sensor/photointerrupter_ref/SG-105.pdf', 'pins':[
+        Part(**{ 'name':'SG-105', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SG-105'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Kodenshi_SG105'], 'footprint':'OptoDevice:Kodenshi_SG105', 'keywords':'Reflective Optical Sensor Opto', 'description':'', 'datasheet':'http://www.kodenshi.co.jp/products/pdf/sensor/photointerrupter_ref/SG-105.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Proximity.kicad_sym\nSG-105\n\nReflective Optical Sensor Opto', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='4',name='E',func=Pin.types.OPENEMIT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SG-105F', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SG-105F'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Kodenshi_SG105F'], 'footprint':'OptoDevice:Kodenshi_SG105F', 'keywords':'Reflective Optical Sensor Opto', 'description':'', 'datasheet':'http://www.kodenshi.co.jp/products/pdf/sensor/photointerrupter_ref/SG-105F.pdf', 'pins':[
+        Part(**{ 'name':'SG-105F', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SG-105F'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Kodenshi_SG105F'], 'footprint':'OptoDevice:Kodenshi_SG105F', 'keywords':'Reflective Optical Sensor Opto', 'description':'', 'datasheet':'http://www.kodenshi.co.jp/products/pdf/sensor/photointerrupter_ref/SG-105F.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Proximity.kicad_sym\nSG-105F\n\nReflective Optical Sensor Opto', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='4',name='E',func=Pin.types.OPENEMIT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TSSP58P38', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TSSP58P38'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Vishay_MINICAST-3Pin'], 'footprint':'OptoDevice:Vishay_MINICAST-3Pin', 'keywords':'opto IR receiver', 'description':'', 'datasheet':'http://www.vishay.com/docs/82462/tsop581.pdf', 'pins':[
+        Part(**{ 'name':'TSSP58P38', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TSSP58P38'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Vishay_MINICAST-3Pin'], 'footprint':'OptoDevice:Vishay_MINICAST-3Pin', 'keywords':'opto IR receiver', 'description':'', 'datasheet':'http://www.vishay.com/docs/82462/tsop581.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Proximity.kicad_sym\nTSSP58P38\n\nopto IR receiver', 'pins':[
             Pin(num='1',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='Vs',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'BPR-105', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BPR-105'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Everlight_ITR8307', 'OptoDevice:Everlight_ITR8307'], 'footprint':'OptoDevice:Everlight_ITR8307', 'keywords':'Reflective Optical Sensor Opto', 'description':'', 'datasheet':'http://www.ystone.com.tw/en/data/goods/IRPT/Photo%20Interrupters-Reflective%20Type.pdf', 'pins':[
+        Part(**{ 'name':'BPR-105', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BPR-105'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Everlight_ITR8307', 'OptoDevice:Everlight_ITR8307'], 'footprint':'OptoDevice:Everlight_ITR8307', 'keywords':'Reflective Optical Sensor Opto', 'description':'', 'datasheet':'http://www.ystone.com.tw/en/data/goods/IRPT/Photo%20Interrupters-Reflective%20Type.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Proximity.kicad_sym\nBPR-105\n\nReflective Optical Sensor Opto', 'pins':[
             Pin(num='1',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='4',name='E',func=Pin.types.OPENEMIT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'BPR-105F', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BPR-105F'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Everlight_ITR8307F43', 'OptoDevice:Everlight_ITR8307F43'], 'footprint':'OptoDevice:Everlight_ITR8307F43', 'keywords':'Reflective Optical Sensor Opto', 'description':'', 'datasheet':'http://www.ystone.com.tw/en/data/goods/IRPT/Photo%20Interrupters-Reflective%20Type.pdf', 'pins':[
+        Part(**{ 'name':'BPR-105F', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BPR-105F'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Everlight_ITR8307F43', 'OptoDevice:Everlight_ITR8307F43'], 'footprint':'OptoDevice:Everlight_ITR8307F43', 'keywords':'Reflective Optical Sensor Opto', 'description':'', 'datasheet':'http://www.ystone.com.tw/en/data/goods/IRPT/Photo%20Interrupters-Reflective%20Type.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Proximity.kicad_sym\nBPR-105F\n\nReflective Optical Sensor Opto', 'pins':[
             Pin(num='1',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='4',name='E',func=Pin.types.OPENEMIT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ITR8307-L24-TR8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ITR8307-L24-TR8'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Everlight_ITR1201SR10AR', 'OptoDevice:Everlight_ITR1201SR10AR'], 'footprint':'OptoDevice:Everlight_ITR1201SR10AR', 'keywords':'Reflective Optical Sensor Opto reflex coupler', 'description':'', 'datasheet':'https://www.everlight.com/file/ProductFile/ITR8307-L24-TR8.pdf', 'pins':[
+        Part(**{ 'name':'ITR8307-L24-TR8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ITR8307-L24-TR8'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Everlight_ITR1201SR10AR', 'OptoDevice:Everlight_ITR1201SR10AR'], 'footprint':'OptoDevice:Everlight_ITR1201SR10AR', 'keywords':'Reflective Optical Sensor Opto reflex coupler', 'description':'', 'datasheet':'https://www.everlight.com/file/ProductFile/ITR8307-L24-TR8.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Proximity.kicad_sym\nITR8307-L24-TR8\n\nReflective Optical Sensor Opto reflex coupler', 'pins':[
             Pin(num='1',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='4',name='~',func=Pin.types.OPENEMIT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ITR8307-S17-TR8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ITR8307-S17-TR8'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Everlight_ITR1201SR10AR', 'OptoDevice:Everlight_ITR1201SR10AR', 'OptoDevice:Everlight_ITR1201SR10AR'], 'footprint':'OptoDevice:Everlight_ITR1201SR10AR', 'keywords':'Reflective Optical Sensor Opto reflex coupler', 'description':'', 'datasheet':'https://datasheet.lcsc.com/szlcsc/1810010232_Everlight-Elec-ITR8307-S17-TR8-B_C81632.pdf', 'pins':[
+        Part(**{ 'name':'ITR8307-S17-TR8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ITR8307-S17-TR8'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Everlight_ITR1201SR10AR', 'OptoDevice:Everlight_ITR1201SR10AR', 'OptoDevice:Everlight_ITR1201SR10AR'], 'footprint':'OptoDevice:Everlight_ITR1201SR10AR', 'keywords':'Reflective Optical Sensor Opto reflex coupler', 'description':'', 'datasheet':'https://datasheet.lcsc.com/szlcsc/1810010232_Everlight-Elec-ITR8307-S17-TR8-B_C81632.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Proximity.kicad_sym\nITR8307-S17-TR8\n\nReflective Optical Sensor Opto reflex coupler', 'pins':[
             Pin(num='1',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='4',name='~',func=Pin.types.OPENEMIT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LDC1612', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LDC1612'}), 'ref_prefix':'U', 'fplist':['Package_SON:WSON-12-1EP_4x4mm_P0.5mm_EP2.6x3mm_ThermalVias', 'Package_SON:WSON-12-1EP_4x4mm_P0.5mm_EP2.6x3mm_ThermalVias'], 'footprint':'Package_SON:WSON-12-1EP_4x4mm_P0.5mm_EP2.6x3mm_ThermalVias', 'keywords':'inductance sensor', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ldc1612.pdf', 'pins':[
+        Part(**{ 'name':'LDC1612', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LDC1612'}), 'ref_prefix':'U', 'fplist':['Package_SON:WSON-12-1EP_4x4mm_P0.5mm_EP2.6x3mm_ThermalVias', 'Package_SON:WSON-12-1EP_4x4mm_P0.5mm_EP2.6x3mm_ThermalVias'], 'footprint':'Package_SON:WSON-12-1EP_4x4mm_P0.5mm_EP2.6x3mm_ThermalVias', 'keywords':'inductance sensor', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ldc1612.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Proximity.kicad_sym\nLDC1612\n\ninductance sensor', 'pins':[
             Pin(num='1',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='IN0B',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='IN1A',func=Pin.types.INPUT,unit=1),
@@ -195,7 +195,7 @@ Sensor_Proximity = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='IN0A',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LDC1614', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LDC1614'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:WQFN-16-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias', 'Package_DFN_QFN:WQFN-16-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias'], 'footprint':'Package_DFN_QFN:WQFN-16-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias', 'keywords':'inductance sensor', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ldc1612.pdf', 'pins':[
+        Part(**{ 'name':'LDC1614', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LDC1614'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:WQFN-16-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias', 'Package_DFN_QFN:WQFN-16-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias'], 'footprint':'Package_DFN_QFN:WQFN-16-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias', 'keywords':'inductance sensor', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ldc1612.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Proximity.kicad_sym\nLDC1614\n\ninductance sensor', 'pins':[
             Pin(num='1',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='IN0B',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='IN1A',func=Pin.types.INPUT,unit=1),
@@ -213,35 +213,35 @@ Sensor_Proximity = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='IN0A',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH9201', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH9201'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Osram_SFH9x0x', 'OptoDevice:Osram_SFH9x0x'], 'footprint':'OptoDevice:Osram_SFH9x0x', 'keywords':'Reflective Opto Interrupter Coupler', 'description':'', 'datasheet':'https://media.digikey.com/pdf/Data%20Sheets/Osram%20PDFs/SFH_9201.pdf', 'pins':[
+        Part(**{ 'name':'SFH9201', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH9201'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Osram_SFH9x0x', 'OptoDevice:Osram_SFH9x0x'], 'footprint':'OptoDevice:Osram_SFH9x0x', 'keywords':'Reflective Opto Interrupter Coupler', 'description':'', 'datasheet':'https://media.digikey.com/pdf/Data%20Sheets/Osram%20PDFs/SFH_9201.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Proximity.kicad_sym\nSFH9201\n\nReflective Opto Interrupter Coupler', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='3',name='E',func=Pin.types.OPENEMIT,unit=1),
             Pin(num='4',name='C',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='5',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='6',name='K',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH9202', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH9202'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Osram_SFH9x0x', 'OptoDevice:Osram_SFH9x0x', 'OptoDevice:Osram_SFH9x0x'], 'footprint':'OptoDevice:Osram_SFH9x0x', 'keywords':'Reflective Opto Interrupter Coupler', 'description':'', 'datasheet':'http://www.osram-os.com/Graphics/XPic0/00083379_0.pdf/SFH%209202,%20Lead%20%28Pb%29%20Free%20Product%20-%20RoHS%20Compliant.pdf', 'pins':[
+        Part(**{ 'name':'SFH9202', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH9202'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Osram_SFH9x0x', 'OptoDevice:Osram_SFH9x0x', 'OptoDevice:Osram_SFH9x0x'], 'footprint':'OptoDevice:Osram_SFH9x0x', 'keywords':'Reflective Opto Interrupter Coupler', 'description':'', 'datasheet':'http://www.osram-os.com/Graphics/XPic0/00083379_0.pdf/SFH%209202,%20Lead%20%28Pb%29%20Free%20Product%20-%20RoHS%20Compliant.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Proximity.kicad_sym\nSFH9202\n\nReflective Opto Interrupter Coupler', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='3',name='E',func=Pin.types.OPENEMIT,unit=1),
             Pin(num='4',name='C',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='5',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='6',name='K',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SG-107', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SG-107'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Kodenshi_SG105', 'OptoDevice:Kodenshi_SG105'], 'footprint':'OptoDevice:Kodenshi_SG105', 'keywords':'Reflective Optical Sensor Opto', 'description':'', 'datasheet':'http://www.kodenshi.co.jp/products/pdf/sensor/photointerrupter_ref/SG-107.pdf', 'pins':[
+        Part(**{ 'name':'SG-107', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SG-107'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Kodenshi_SG105', 'OptoDevice:Kodenshi_SG105'], 'footprint':'OptoDevice:Kodenshi_SG105', 'keywords':'Reflective Optical Sensor Opto', 'description':'', 'datasheet':'http://www.kodenshi.co.jp/products/pdf/sensor/photointerrupter_ref/SG-107.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Proximity.kicad_sym\nSG-107\n\nReflective Optical Sensor Opto', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='4',name='E',func=Pin.types.OPENEMIT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SG-107F', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SG-107F'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Kodenshi_SG105F', 'OptoDevice:Kodenshi_SG105F'], 'footprint':'OptoDevice:Kodenshi_SG105F', 'keywords':'Reflective Optical Sensor Opto', 'description':'', 'datasheet':'https://www.pacer.co.uk/Assets/User/1055-SG-107F.pdf', 'pins':[
+        Part(**{ 'name':'SG-107F', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SG-107F'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Kodenshi_SG105F', 'OptoDevice:Kodenshi_SG105F'], 'footprint':'OptoDevice:Kodenshi_SG105F', 'keywords':'Reflective Optical Sensor Opto', 'description':'', 'datasheet':'https://www.pacer.co.uk/Assets/User/1055-SG-107F.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Proximity.kicad_sym\nSG-107F\n\nReflective Optical Sensor Opto', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='4',name='E',func=Pin.types.OPENEMIT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TSSP58038', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TSSP58038'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Vishay_MINICAST-3Pin', 'OptoDevice:Vishay_MINICAST-3Pin'], 'footprint':'OptoDevice:Vishay_MINICAST-3Pin', 'keywords':'opto IR receiver proximity sensor', 'description':'', 'datasheet':'http://www.vishay.com/docs/82476/tssp58p38.pdf', 'pins':[
+        Part(**{ 'name':'TSSP58038', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TSSP58038'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Vishay_MINICAST-3Pin', 'OptoDevice:Vishay_MINICAST-3Pin'], 'footprint':'OptoDevice:Vishay_MINICAST-3Pin', 'keywords':'opto IR receiver proximity sensor', 'description':'', 'datasheet':'http://www.vishay.com/docs/82476/tssp58p38.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Proximity.kicad_sym\nTSSP58038\n\nopto IR receiver proximity sensor', 'pins':[
             Pin(num='1',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='Vs',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TSSP58038SS1XB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TSSP58038SS1XB'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Vishay_MINICAST-3Pin', 'OptoDevice:Vishay_MINICAST-3Pin', 'OptoDevice:Vishay_MINICAST-3Pin'], 'footprint':'OptoDevice:Vishay_MINICAST-3Pin', 'keywords':'opto IR receiver light barrier', 'description':'', 'datasheet':'http://www.vishay.com/docs/82740/tssp58038ss1xb.pdf', 'pins':[
+        Part(**{ 'name':'TSSP58038SS1XB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TSSP58038SS1XB'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Vishay_MINICAST-3Pin', 'OptoDevice:Vishay_MINICAST-3Pin', 'OptoDevice:Vishay_MINICAST-3Pin'], 'footprint':'OptoDevice:Vishay_MINICAST-3Pin', 'keywords':'opto IR receiver light barrier', 'description':'', 'datasheet':'http://www.vishay.com/docs/82740/tssp58038ss1xb.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Proximity.kicad_sym\nTSSP58038SS1XB\n\nopto IR receiver light barrier', 'pins':[
             Pin(num='1',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='Vs',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] })])

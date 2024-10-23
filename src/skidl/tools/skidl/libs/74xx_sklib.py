@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 _74xx = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'74469', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74469'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'counter', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74469', 'pins':[
+        Part(**{ 'name':'74469', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74469'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'counter', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74469', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74469\n\ncounter', 'pins':[
             Pin(num='1',name='CLK',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='D7',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='UD',func=Pin.types.INPUT,unit=1),
@@ -29,7 +29,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D4',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D5',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='D6',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74ALVC164245', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74ALVC164245'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'keywords':'transceiver', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74ALVC164245.pdf', 'pins':[
+        Part(**{ 'name':'74ALVC164245', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74ALVC164245'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'keywords':'transceiver', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74ALVC164245.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74ALVC164245\n\ntransceiver', 'pins':[
             Pin(num='1',name='1DIR',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='1B6',func=Pin.types.BIDIR,unit=1),
@@ -78,7 +78,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='V_{CC(B)}',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='1B4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='1B5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74CB3Q16210DGG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74CB3Q16210DGG'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'keywords':'bus transmission gates fet switch bidirectional', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74cb3q16210.pdf', 'pins':[
+        Part(**{ 'name':'74CB3Q16210DGG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74CB3Q16210DGG'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'keywords':'bus transmission gates fet switch bidirectional', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74cb3q16210.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74CB3Q16210DGG\n\nbus transmission gates fet switch bidirectional', 'pins':[
             Pin(num='10',name='1A8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='1A9',func=Pin.types.PASSIVE,unit=1),
             Pin(num='12',name='1A10',func=Pin.types.PASSIVE,unit=1),
@@ -127,7 +127,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='1A7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74CBTLV16212', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74CBTLV16212'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'bus', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74cbtlv16212.pdf', 'pins':[
+        Part(**{ 'name':'74CBTLV16212', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74CBTLV16212'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'bus', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74cbtlv16212.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74CBTLV16212\n\nbus', 'pins':[
             Pin(num='10',name='4A2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='5A1',func=Pin.types.BIDIR,unit=1),
             Pin(num='12',name='5A2',func=Pin.types.BIDIR,unit=1),
@@ -184,7 +184,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='4A1',func=Pin.types.BIDIR,unit=1),
             Pin(num='1',name='S0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74CBTLV3257', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74CBTLV3257'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'mux demux low-voltage', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74cbtlv3257.pdf', 'pins':[
+        Part(**{ 'name':'74CBTLV3257', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74CBTLV3257'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'mux demux low-voltage', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74cbtlv3257.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74CBTLV3257\n\nmux demux low-voltage', 'pins':[
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -200,8 +200,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='1',name='S',func=Pin.types.INPUT,unit=5),
             Pin(num='15',name='~{OE}',func=Pin.types.INPUT,unit=5),
             Pin(num='16',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '11', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '13', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['15', '16', '8', '1']}] }),
-        Part(**{ 'name':'74CBTLV3861', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74CBTLV3861'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'bus', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74cbtlv3861', 'pins':[
+            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '4', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '11', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '14', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['1', '16', '8', '15']}] }),
+        Part(**{ 'name':'74CBTLV3861', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74CBTLV3861'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'bus', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74cbtlv3861', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74CBTLV3861\n\nbus', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='A9',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='A10',func=Pin.types.PASSIVE,unit=1),
@@ -226,7 +226,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='A7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='A8',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HC137', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC137'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'demux', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cd74hc237.pdf', 'pins':[
+        Part(**{ 'name':'74HC137', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC137'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'demux', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cd74hc237.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HC137\n\ndemux', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{Y5}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='~{Y4}',func=Pin.types.OUTPUT,unit=1),
@@ -243,7 +243,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{Y7}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='~{Y6}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HC138', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC138'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'demux', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cd74hc238.pdf', 'pins':[
+        Part(**{ 'name':'74HC138', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC138'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'demux', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cd74hc238.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HC138\n\ndemux', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{Y5}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='~{Y4}',func=Pin.types.OUTPUT,unit=1),
@@ -260,7 +260,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{Y7}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='~{Y6}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HC14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC14'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'HCMOS not inverter', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74HC14', 'pins':[
+        Part(**{ 'name':'74HC14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC14'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'HCMOS not inverter', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74HC14', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HC14\n\nHCMOS not inverter', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=2),
@@ -274,8 +274,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.OUTPUT,unit=6),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=6),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=7),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74HC164', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC164'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8-bit shift register', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT164.pdf', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['9', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '10']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74HC164', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC164'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8-bit shift register', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT164.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HC164\n\n8-bit shift register', 'pins':[
             Pin(num='1',name='DSA',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Q4',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='Q5',func=Pin.types.OUTPUT,unit=1),
@@ -290,7 +290,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='CP',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{MR}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HC237', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC237'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'demux', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cd74hc237.pdf', 'pins':[
+        Part(**{ 'name':'74HC237', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC237'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'demux', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cd74hc237.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HC237\n\ndemux', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Y5',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='Y4',func=Pin.types.OUTPUT,unit=1),
@@ -307,7 +307,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Y7',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Y6',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HC238', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC238'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'demux', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/cd74hc238.pdf', 'pins':[
+        Part(**{ 'name':'74HC238', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC238'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'demux', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/cd74hc238.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HC238\n\ndemux', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Y5',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='Y4',func=Pin.types.OUTPUT,unit=1),
@@ -324,7 +324,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Y7',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Y6',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HC240', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC240'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'HCMOS BUFFER 3State inv', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT240.pdf', 'pins':[
+        Part(**{ 'name':'74HC240', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC240'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'HCMOS BUFFER 3State inv', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT240.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HC240\n\nHCMOS BUFFER 3State inv', 'pins':[
             Pin(num='1',name='1OE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='2A3',func=Pin.types.INPUT,unit=1),
@@ -345,7 +345,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='2Y2',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='1A3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='2Y3',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HC244', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC244'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'HCMOS BUFFER 3State', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT244.pdf', 'pins':[
+        Part(**{ 'name':'74HC244', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC244'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'HCMOS BUFFER 3State', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT244.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HC244\n\nHCMOS BUFFER 3State', 'pins':[
             Pin(num='1',name='1OE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='2A3',func=Pin.types.INPUT,unit=1),
@@ -366,7 +366,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='2Y2',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='1A3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='2Y3',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HC4024', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC4024'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'binary counter', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC4024.pdf', 'pins':[
+        Part(**{ 'name':'74HC4024', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC4024'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'binary counter', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC4024.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HC4024\n\nbinary counter', 'pins':[
             Pin(num='1',name='~{CP}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='Q1',func=Pin.types.OUTPUT,unit=1),
@@ -381,7 +381,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='~',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='Q2',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HC4051', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC4051'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'HCMOS Multiplexer Demultiplexer Analog', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cd74hc4051.pdf', 'pins':[
+        Part(**{ 'name':'74HC4051', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC4051'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'HCMOS Multiplexer Demultiplexer Analog', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cd74hc4051.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HC4051\n\nHCMOS Multiplexer Demultiplexer Analog', 'pins':[
             Pin(num='1',name='A4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='S1',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='S0',func=Pin.types.INPUT,unit=1),
@@ -398,7 +398,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VEE',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='S2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HC4060', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC4060'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'binary counter oscillator', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/m74hc4060.pdf', 'pins':[
+        Part(**{ 'name':'74HC4060', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC4060'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'binary counter oscillator', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/m74hc4060.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HC4060\n\nbinary counter oscillator', 'pins':[
             Pin(num='1',name='Q12',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='Î¦0',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~{Î¦1}',func=Pin.types.INPUT,unit=1),
@@ -415,7 +415,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Q4',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='~{Î¦0}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HC590', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC590'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'HCMOS Counter 3State', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC590.pdf', 'pins':[
+        Part(**{ 'name':'74HC590', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC590'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'HCMOS Counter 3State', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC590.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HC590\n\nHCMOS Counter 3State', 'pins':[
             Pin(num='1',name='Q1',func=Pin.types.TRISTATE,unit=1),
             Pin(num='10',name='~{MRC}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='CPC',func=Pin.types.INPUT,unit=1),
@@ -432,7 +432,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Q7',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='~{RCO}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HC594', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC594'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'HCMOS SR', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74hc594.pdf', 'pins':[
+        Part(**{ 'name':'74HC594', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC594'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'HCMOS SR', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74hc594.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HC594\n\nHCMOS SR', 'pins':[
             Pin(num='1',name='QB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='~{SRCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SRCLK',func=Pin.types.INPUT,unit=1),
@@ -449,7 +449,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='QH',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name="QH'",func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HC595', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC595'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'HCMOS SR 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74hc595.pdf', 'pins':[
+        Part(**{ 'name':'74HC595', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC595'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'HCMOS SR 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74hc595.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HC595\n\nHCMOS SR 3State', 'pins':[
             Pin(num='1',name='QB',func=Pin.types.TRISTATE,unit=1),
             Pin(num='10',name='~{SRCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SRCLK',func=Pin.types.INPUT,unit=1),
@@ -466,7 +466,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='QH',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name="QH'",func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HC596', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC596'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'HCMOS SR OpenCollector', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT595.pdf', 'pins':[
+        Part(**{ 'name':'74HC596', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC596'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'HCMOS SR OpenCollector', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT595.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HC596\n\nHCMOS SR OpenCollector', 'pins':[
             Pin(num='1',name='QB',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='10',name='~{SRCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SRCLK',func=Pin.types.INPUT,unit=1),
@@ -483,7 +483,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='QH',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name="QH'",func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HC7014', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC7014'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'Hex non-inverting Schmitt buffer', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC7014.pdf', 'pins':[
+        Part(**{ 'name':'74HC7014', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC7014'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'Hex non-inverting Schmitt buffer', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC7014.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HC7014\n\nHex non-inverting Schmitt buffer', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=2),
@@ -497,8 +497,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.OUTPUT,unit=6),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=6),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=7),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '10']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['7', '14']}] }),
-        Part(**{ 'name':'74LCX07', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LCX07'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS hex buffer', 'description':'', 'datasheet':'www.st.com/resource/en/datasheet/74lcx07.pdf', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['9', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['7', '14']}] }),
+        Part(**{ 'name':'74LCX07', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LCX07'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS hex buffer', 'description':'', 'datasheet':'www.st.com/resource/en/datasheet/74lcx07.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LCX07\n\nCMOS hex buffer', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=2),
@@ -513,7 +513,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=6),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=7),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '10']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74LS00', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS00'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL nand 2-input', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74ls00', 'pins':[
+        Part(**{ 'name':'74LS00', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS00'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL nand 2-input', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74ls00', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS00\n\nTTL nand 2-input', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -527,8 +527,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '9', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '11', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
-        Part(**{ 'name':'74LS01', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS01'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL nand 2-input open collector', 'description':'', 'datasheet':'http://www.nteinc.com/specs/7400to7499/pdf/nte74LS01.pdf', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74LS01', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS01'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL nand 2-input open collector', 'description':'', 'datasheet':'http://www.nteinc.com/specs/7400to7499/pdf/nte74LS01.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS01\n\nTTL nand 2-input open collector', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=1),
@@ -542,8 +542,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.OPENCOLL,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '11', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74LS02', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS02'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Nor2', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74ls02', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '13', '11']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74LS02', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS02'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Nor2', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74ls02', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS02\n\nTTL Nor2', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=1),
@@ -557,8 +557,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
-        Part(**{ 'name':'74LS03', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS03'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Nand2 OpenColl', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS03', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '9', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74LS03', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS03'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Nand2 OpenColl', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS03', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS03\n\nTTL Nand2 OpenColl', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.OPENCOLL,unit=1),
@@ -572,8 +572,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
-        Part(**{ 'name':'74LS04', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS04'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL not inv', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS04', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '10', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '13', '11']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74LS04', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS04'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL not inv', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS04', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS04\n\nTTL not inv', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=2),
@@ -587,8 +587,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.OUTPUT,unit=6),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=6),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=7),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '10']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74LS05', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS05'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL not inv OpenCol', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS05', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['9', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['13', '12']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74LS05', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS05'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL not inv OpenCol', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS05', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS05\n\nTTL not inv OpenCol', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=2),
@@ -602,8 +602,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.OPENCOLL,unit=6),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=6),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=7),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74LS08', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS08'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL and2', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS08', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['9', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['13', '12']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74LS08', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS08'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL and2', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS08', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS08\n\nTTL and2', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -617,8 +617,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '10', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '12', '11']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74LS09', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS09'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL and2 OpenCol', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS09', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '11', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74LS09', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS09'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL and2 OpenCol', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS09', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS09\n\nTTL and2 OpenCol', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.OPENCOLL,unit=1),
@@ -632,8 +632,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '4', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '8', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '11', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74LS10', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS10'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Nand3', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS10', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '11', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74LS10', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS10'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Nand3', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS10', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS10\n\nTTL Nand3', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='12',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=1),
@@ -647,8 +647,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=3),
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=4),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['13', '2', '12', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '4', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '11', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74LS107', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS107'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL JK', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS107', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '12', '13']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '11', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74LS107', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS107'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL JK', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS107', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS107\n\nTTL JK', 'pins':[
             Pin(num='1',name='J',func=Pin.types.INPUT,unit=1),
             Pin(num='12',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='13',name='~{R}',func=Pin.types.INPUT,unit=1),
@@ -662,8 +662,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='J',func=Pin.types.INPUT,unit=2),
             Pin(num='9',name='C',func=Pin.types.INPUT,unit=2),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1', '4', '12', '13']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '6', '10', '8', '11', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '14']}] }),
-        Part(**{ 'name':'74LS109', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS109'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL JK', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS109', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['12', '4', '3', '2', '13', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '8', '5', '9', '6', '10']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74LS109', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS109'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL JK', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS109', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS109\n\nTTL JK', 'pins':[
             Pin(num='1',name='~{R}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='J',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~{K}',func=Pin.types.INPUT,unit=1),
@@ -679,8 +679,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='15',name='~{R}',func=Pin.types.INPUT,unit=2),
             Pin(num='9',name='~{Q}',func=Pin.types.OUTPUT,unit=2),
             Pin(num='16',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '2', '7', '3', '4', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '11', '15', '14', '9', '12', '13']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '8']}] }),
-        Part(**{ 'name':'74LS11', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS11'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL And3', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS11', 'pins':[
+            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '6', '3', '2', '1', '7', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '12', '14', '13', '15', '11', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '8']}] }),
+        Part(**{ 'name':'74LS11', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS11'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL And3', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS11', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS11\n\nTTL And3', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='12',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=1),
@@ -694,8 +694,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=3),
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=4),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['12', '2', '1', '13']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '11', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74LS112', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS112'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL JK', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS112', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '13', '2', '12']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74LS112', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS112'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL JK', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS112', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS112\n\nTTL JK', 'pins':[
             Pin(num='1',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='15',name='~{R}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='K',func=Pin.types.INPUT,unit=1),
@@ -711,8 +711,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{Q}',func=Pin.types.OUTPUT,unit=2),
             Pin(num='9',name='Q',func=Pin.types.OUTPUT,unit=2),
             Pin(num='16',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '6', '1', '3', '2', '4', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '9', '14', '12', '7', '13', '10']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '8']}] }),
-        Part(**{ 'name':'74LS113', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS113'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL JK', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS113', 'pins':[
+            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '4', '6', '15', '3', '1', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '7', '13', '14', '11', '9', '12']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '8']}] }),
+        Part(**{ 'name':'74LS113', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS113'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL JK', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS113', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS113\n\nTTL JK', 'pins':[
             Pin(num='1',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='K',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='J',func=Pin.types.INPUT,unit=1),
@@ -726,8 +726,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~{Q}',func=Pin.types.OUTPUT,unit=2),
             Pin(num='9',name='Q',func=Pin.types.OUTPUT,unit=2),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '4', '3', '6', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '10', '11', '8', '12', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74LS114', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS114'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL JK', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS114', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '6', '5', '4', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '13', '11', '9', '8', '12']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '14']}] }),
+        Part(**{ 'name':'74LS114', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS114'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL JK', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS114', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS114\n\nTTL JK', 'pins':[
             Pin(num='1',name='~{R}',func=Pin.types.INPUT,unit=1),
             Pin(num='13',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='K',func=Pin.types.INPUT,unit=1),
@@ -741,8 +741,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~{Q}',func=Pin.types.OUTPUT,unit=2),
             Pin(num='9',name='Q',func=Pin.types.OUTPUT,unit=2),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '4', '2', '13', '5', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '10', '9', '12', '11']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74LS12', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS12'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Nand3 OpenCol', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS12', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '5', '2', '6', '1', '4', '13']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '11', '9', '12', '10']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74LS12', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS12'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Nand3 OpenCol', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS12', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS12\n\nTTL Nand3 OpenCol', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='12',name='~',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=1),
@@ -756,8 +756,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~',func=Pin.types.OPENCOLL,unit=3),
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=4),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '12', '13']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '6', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '11', '9', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '14']}] }),
-        Part(**{ 'name':'74LS121', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS121'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'monostable', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74121', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['12', '2', '13', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '11', '8', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74LS121', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS121'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'monostable', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74121', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS121\n\nmonostable', 'pins':[
             Pin(num='1',name='~{Q}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='Cext',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='R/Cext',func=Pin.types.INPUT,unit=1),
@@ -768,7 +768,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Q',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Rint',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS122', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS122'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL monostable', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS122', 'pins':[
+        Part(**{ 'name':'74LS122', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS122'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL monostable', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS122', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS122\n\nTTL monostable', 'pins':[
             Pin(num='1',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='Cext',func=Pin.types.INPUT,unit=1),
             Pin(num='13',name='R/Cext',func=Pin.types.INPUT,unit=1),
@@ -781,7 +781,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Q',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='Rint',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS123', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS123'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL monostable', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS123', 'pins':[
+        Part(**{ 'name':'74LS123', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS123'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL monostable', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS123', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS123\n\nTTL monostable', 'pins':[
             Pin(num='1',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='13',name='Q',func=Pin.types.OUTPUT,unit=1),
             Pin(num='14',name='Cext',func=Pin.types.INPUT,unit=1),
@@ -797,8 +797,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RCext',func=Pin.types.INPUT,unit=2),
             Pin(num='9',name='A',func=Pin.types.INPUT,unit=2),
             Pin(num='16',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '14', '4', '13', '15', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '9', '10', '5', '7', '11', '12']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '8']}] }),
-        Part(**{ 'name':'74LS125', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS125'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL buffer 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS125', 'pins':[
+            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '14', '4', '15', '13', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '11', '12', '6', '9', '10']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '8']}] }),
+        Part(**{ 'name':'74LS125', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS125'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL buffer 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS125', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS125\n\nTTL buffer 3State', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.TRISTATE,unit=1),
@@ -812,8 +812,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74LS126', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS126'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Buffer 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS126', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74LS126', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS126'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Buffer 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS126', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS126\n\nTTL Buffer 3State', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.TRISTATE,unit=1),
@@ -827,8 +827,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '10', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '11', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
-        Part(**{ 'name':'74LS13', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS13'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Nand4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS13', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
+        Part(**{ 'name':'74LS13', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS13'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Nand4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS13', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS13\n\nTTL Nand4', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='~',func=Pin.types.INPUT,unit=1),
@@ -840,8 +840,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '6', '4', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '10', '8', '12', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '14']}] }),
-        Part(**{ 'name':'74LS132', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS132'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Nand2', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS132', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '2', '4', '1', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['12', '9', '8', '13', '10']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74LS132', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS132'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Nand2', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS132', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS132\n\nTTL Nand2', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -855,8 +855,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
-        Part(**{ 'name':'74LS133', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS133'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Nand13', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS133', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '4', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '8', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74LS133', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS133'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Nand13', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS133', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS133\n\nTTL Nand13', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~',func=Pin.types.INPUT,unit=1),
@@ -872,8 +872,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='16',name='VCC',func=Pin.types.PWRIN,unit=2),
-            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '12', '3', '13', '5', '7', '2', '9', '10', '4', '1', '11', '14', '15']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '16']}] }),
-        Part(**{ 'name':'74LS136', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS136'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL XOR2 OpenCol', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn54ls136.pdf', 'pins':[
+            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '12', '3', '15', '10', '13', '11', '14', '6', '9', '4', '7', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['16', '8']}] }),
+        Part(**{ 'name':'74LS136', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS136'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL XOR2 OpenCol', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn54ls136.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS136\n\nTTL XOR2 OpenCol', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.OPENCOLL,unit=1),
@@ -887,8 +887,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '13', '11']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74LS137', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS137'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DECOD8 DECOD', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS137', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '4', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '10', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '13', '11']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74LS137', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS137'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DECOD8 DECOD', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS137', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS137\n\nTTL DECOD8 DECOD', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Y5',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='Y4',func=Pin.types.OUTPUT,unit=1),
@@ -905,7 +905,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Y7',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Y6',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS138', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS138'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DECOD DECOD8', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS138', 'pins':[
+        Part(**{ 'name':'74LS138', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS138'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DECOD DECOD8', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS138', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS138\n\nTTL DECOD DECOD8', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='O5',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='O4',func=Pin.types.OUTPUT,unit=1),
@@ -922,7 +922,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='O7',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='O6',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS139', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS139'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DECOD4', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74ls139a.pdf', 'pins':[
+        Part(**{ 'name':'74LS139', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS139'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DECOD4', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74ls139a.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS139\n\nTTL DECOD4', 'pins':[
             Pin(num='1',name='E',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='A1',func=Pin.types.INPUT,unit=1),
@@ -938,8 +938,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='15',name='E',func=Pin.types.INPUT,unit=2),
             Pin(num='9',name='O3',func=Pin.types.OUTPUT,unit=2),
             Pin(num='16',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '2', '4', '7', '1', '5', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '9', '10', '13', '15', '11', '12']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '16']}] }),
-        Part(**{ 'name':'74LS145', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS145'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DECOD10 OpenColl', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS145', 'pins':[
+            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1', '2', '4', '7', '5', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '9', '10', '13', '15', '11', '12']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '8']}] }),
+        Part(**{ 'name':'74LS145', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS145'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DECOD10 OpenColl', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS145', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS145\n\nTTL DECOD10 OpenColl', 'pins':[
             Pin(num='1',name='Q0',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='10',name='Q8',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='Q9',func=Pin.types.OPENCOLL,unit=1),
@@ -956,7 +956,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Q6',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Q7',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS147', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS147'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL ENCOD', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS147', 'pins':[
+        Part(**{ 'name':'74LS147', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS147'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL ENCOD', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS147', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS147\n\nTTL ENCOD', 'pins':[
             Pin(num='1',name='E4',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='E9',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='E1',func=Pin.types.INPUT,unit=1),
@@ -972,7 +972,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='S1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='S0',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS148', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS148'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL ENCOD', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS148', 'pins':[
+        Part(**{ 'name':'74LS148', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS148'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL ENCOD', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS148', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS148\n\nTTL ENCOD', 'pins':[
             Pin(num='1',name='I4',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='IO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='I1',func=Pin.types.INPUT,unit=1),
@@ -989,7 +989,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='S1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='S0',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS15', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS15'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL And3', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS15', 'pins':[
+        Part(**{ 'name':'74LS15', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS15'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL And3', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS15', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS15\n\nTTL And3', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='12',name='~',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=1),
@@ -1003,8 +1003,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~',func=Pin.types.OPENCOLL,unit=3),
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=4),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '13', '1', '12']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '6', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '9', '10', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74LS151', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS151'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL MUX8', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS151', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '13', '12']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '11', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74LS151', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS151'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL MUX8', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS151', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS151\n\nTTL MUX8', 'pins':[
             Pin(num='1',name='I3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='S1',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='S0',func=Pin.types.INPUT,unit=1),
@@ -1021,7 +1021,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{E}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='S2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS153', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS153'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Mux4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS153', 'pins':[
+        Part(**{ 'name':'74LS153', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS153'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Mux4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS153', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS153\n\nTTL Mux4', 'pins':[
             Pin(num='1',name='Ea',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='I0b',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='I1b',func=Pin.types.INPUT,unit=1),
@@ -1038,7 +1038,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Za',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Zb',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS154', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS154'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DECOD16 DECOD', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS154', 'pins':[
+        Part(**{ 'name':'74LS154', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS154'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DECOD16 DECOD', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS154', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS154\n\nTTL DECOD16 DECOD', 'pins':[
             Pin(num='1',name='S0',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='S9',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='S10',func=Pin.types.OUTPUT,unit=1),
@@ -1063,7 +1063,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='S6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='S7',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='S8',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS155', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS155'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DECOD8 DECOD4 DEMUX4 DEMUX8 DEMUX DECOD', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS155', 'pins':[
+        Part(**{ 'name':'74LS155', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS155'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DECOD8 DECOD4 DEMUX4 DEMUX8 DEMUX DECOD', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS155', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS155\n\nTTL DECOD8 DECOD4 DEMUX4 DEMUX8 DEMUX DECOD', 'pins':[
             Pin(num='1',name='Ea1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Q1b',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='Q2b',func=Pin.types.OUTPUT,unit=1),
@@ -1080,7 +1080,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Q0a',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Q0b',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS157', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS157'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL MUX MUX2', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS157', 'pins':[
+        Part(**{ 'name':'74LS157', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS157'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL MUX MUX2', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS157', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS157\n\nTTL MUX MUX2', 'pins':[
             Pin(num='1',name='S',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='I1c',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='I0c',func=Pin.types.INPUT,unit=1),
@@ -1097,7 +1097,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Zb',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Zc',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS158', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS158'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Mux MUX2', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS158', 'pins':[
+        Part(**{ 'name':'74LS158', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS158'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Mux MUX2', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS158', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS158\n\nTTL Mux MUX2', 'pins':[
             Pin(num='1',name='S',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='I1d',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='I0d',func=Pin.types.INPUT,unit=1),
@@ -1114,7 +1114,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Zb',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Zd',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS161', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS161'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS161', 'pins':[
+        Part(**{ 'name':'74LS161', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS161'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS161', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS161\n\nTTL CNT CNT4', 'pins':[
             Pin(num='1',name='~{MR}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='CET',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='Q3',func=Pin.types.OUTPUT,unit=1),
@@ -1131,7 +1131,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CEP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='~{PE}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS165', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS165'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL SR SR8', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74ls165a.pdf', 'pins':[
+        Part(**{ 'name':'74LS165', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS165'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL SR SR8', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74ls165a.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS165\n\nTTL SR SR8', 'pins':[
             Pin(num='1',name='~{PL}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DS',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='D0',func=Pin.types.INPUT,unit=1),
@@ -1148,7 +1148,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{Q7}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Q7',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS166', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS166'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL SR SR8', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS166', 'pins':[
+        Part(**{ 'name':'74LS166', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS166'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL SR SR8', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS166', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS166\n\nTTL SR SR8', 'pins':[
             Pin(num='1',name='Ds',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='E',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='F',func=Pin.types.INPUT,unit=1),
@@ -1165,7 +1165,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Clk',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Clr',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS168', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS168'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS168', 'pins':[
+        Part(**{ 'name':'74LS168', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS168'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS168', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS168\n\nTTL CNT CNT4', 'pins':[
             Pin(num='1',name='U/~{D}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{CET}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='Q3',func=Pin.types.OUTPUT,unit=1),
@@ -1182,7 +1182,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{CEP}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='~{PE}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS170', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS170'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Register OpenCol', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS170', 'pins':[
+        Part(**{ 'name':'74LS170', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS170'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Register OpenCol', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS170', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS170\n\nTTL Register OpenCol', 'pins':[
             Pin(num='1',name='D2',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Q1',func=Pin.types.TRISTATE,unit=1),
             Pin(num='11',name='~{Er}',func=Pin.types.INPUT,unit=1),
@@ -1199,7 +1199,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Q3',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Q2',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS173', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS173'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL REG REG4 3State DFF', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS173', 'pins':[
+        Part(**{ 'name':'74LS173', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS173'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL REG REG4 3State DFF', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS173', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS173\n\nTTL REG REG4 3State DFF', 'pins':[
             Pin(num='1',name='Oe1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='E2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='D3',func=Pin.types.INPUT,unit=1),
@@ -1216,7 +1216,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Cp',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='E1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS174', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS174'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL REG REG6 DFF', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS174', 'pins':[
+        Part(**{ 'name':'74LS174', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS174'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL REG REG6 DFF', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS174', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS174\n\nTTL REG REG6 DFF', 'pins':[
             Pin(num='1',name='~{Mr}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Q3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='D3',func=Pin.types.INPUT,unit=1),
@@ -1233,7 +1233,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Q2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Cp',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS175', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS175'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL REG REG4 DFF', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS175', 'pins':[
+        Part(**{ 'name':'74LS175', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS175'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL REG REG4 DFF', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS175', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS175\n\nTTL REG REG4 DFF', 'pins':[
             Pin(num='1',name='~{Mr}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Q2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='~{Q2}',func=Pin.types.OUTPUT,unit=1),
@@ -1250,7 +1250,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Q1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Cp',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS181', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS181'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL ALU ARITH', 'description':'', 'datasheet':'74xx/74F181.pdf', 'pins':[
+        Part(**{ 'name':'74LS181', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS181'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL ALU ARITH', 'description':'', 'datasheet':'74xx/74F181.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS181\n\nTTL ALU ARITH', 'pins':[
             Pin(num='1',name='B0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='F1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='F2',func=Pin.types.OUTPUT,unit=1),
@@ -1275,7 +1275,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Cn',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='M',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='F0',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS182', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS182'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL ALU ARITH', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS182', 'pins':[
+        Part(**{ 'name':'74LS182', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS182'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL ALU ARITH', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS182', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS182\n\nTTL ALU ARITH', 'pins':[
             Pin(num='1',name='G1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='G',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='Cn+y',func=Pin.types.OUTPUT,unit=1),
@@ -1292,7 +1292,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Cn+z',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS190', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS190'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS190', 'pins':[
+        Part(**{ 'name':'74LS190', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS190'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS190', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS190\n\nTTL CNT CNT4', 'pins':[
             Pin(num='1',name='P1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='Pl',func=Pin.types.INPUT,unit=1),
@@ -1309,7 +1309,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Q3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='P3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS192', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS192'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74ls193.pdf', 'pins':[
+        Part(**{ 'name':'74LS192', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS192'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74ls193.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS192\n\nTTL CNT CNT4', 'pins':[
             Pin(num='1',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~{LOAD}',func=Pin.types.INPUT,unit=1),
@@ -1326,7 +1326,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='QD',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='D',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS194', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS194'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL RS SR4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS194', 'pins':[
+        Part(**{ 'name':'74LS194', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS194'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL RS SR4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS194', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS194\n\nTTL RS SR4', 'pins':[
             Pin(num='1',name='Mr',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='S1',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='Cp',func=Pin.types.INPUT,unit=1),
@@ -1343,7 +1343,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Dsl',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='S0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS195', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS195'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL SR SR4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS195', 'pins':[
+        Part(**{ 'name':'74LS195', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS195'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL SR SR4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS195', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS195\n\nTTL SR SR4', 'pins':[
             Pin(num='1',name='~{MR}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='CP',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~{Q3}',func=Pin.types.OUTPUT,unit=1),
@@ -1360,7 +1360,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='~{PE}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS196', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS196'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS196', 'pins':[
+        Part(**{ 'name':'74LS196', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS196'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS196', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS196\n\nTTL CNT CNT4', 'pins':[
             Pin(num='1',name='Pl',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P1',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='P3',func=Pin.types.INPUT,unit=1),
@@ -1375,7 +1375,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Cp0',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='Q1',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS20'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Nand4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS20', 'pins':[
+        Part(**{ 'name':'74LS20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS20'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Nand4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS20', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS20\n\nTTL Nand4', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='~',func=Pin.types.INPUT,unit=1),
@@ -1387,8 +1387,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '2', '4', '1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '12', '9', '13', '10']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74LS21', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS21'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL And4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS21', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '2', '4', '6', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '12', '9', '10', '13']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74LS21', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS21'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL And4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS21', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS21\n\nTTL And4', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='~',func=Pin.types.INPUT,unit=1),
@@ -1400,8 +1400,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '4', '6', '5', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '9', '12', '13', '10']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74LS221', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS221'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Monostable', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS221', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '2', '6', '4', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '10', '8', '12', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74LS221', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS221'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Monostable', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS221', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS221\n\nTTL Monostable', 'pins':[
             Pin(num='1',name='~{A}',func=Pin.types.INPUT,unit=1),
             Pin(num='13',name='Q',func=Pin.types.OUTPUT,unit=1),
             Pin(num='14',name='Cext',func=Pin.types.INPUT,unit=1),
@@ -1417,8 +1417,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RCext',func=Pin.types.INPUT,unit=2),
             Pin(num='9',name='~{A}',func=Pin.types.INPUT,unit=2),
             Pin(num='16',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['14', '3', '2', '1', '15', '13', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '9', '10', '6', '11', '12', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '8']}] }),
-        Part(**{ 'name':'74LS240', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS240'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'7400 logic ttl low power schottky', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74ls240.pdf', 'pins':[
+            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '15', '13', '4', '2', '14', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '12', '7', '10', '11', '9', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '8']}] }),
+        Part(**{ 'name':'74LS240', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS240'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'7400 logic ttl low power schottky', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74ls240.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS240\n\n7400 logic ttl low power schottky', 'pins':[
             Pin(num='1',name='OEa',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='I0b',func=Pin.types.INPUT,unit=1),
@@ -1439,7 +1439,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='O1b',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='I3a',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='O0b',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS240_Split', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS240_Split'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'7400 logic ttl low power schottky', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74ls240.pdf', 'pins':[
+        Part(**{ 'name':'74LS240_Split', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS240_Split'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'7400 logic ttl low power schottky', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74ls240.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS240_Split\n\n7400 logic ttl low power schottky', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='18',name='~',func=Pin.types.TRISTATE,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -1459,8 +1459,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='17',name='~',func=Pin.types.INPUT,unit=8),
             Pin(num='3',name='~',func=Pin.types.TRISTATE,unit=8),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=9),
-            Pin(num='20',name='VCC',func=Pin.types.PWRIN,unit=9)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['18', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '16']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '19', '9']},{'label': 'uF', 'num': 6, 'pin_nums': ['13', '7']},{'label': 'uG', 'num': 7, 'pin_nums': ['15', '5']},{'label': 'uH', 'num': 8, 'pin_nums': ['17', '3']},{'label': 'uI', 'num': 9, 'pin_nums': ['20', '10']}] }),
-        Part(**{ 'name':'74LS241', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS241'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'7400 logic ttl low power schottky', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74ls241.pdf', 'pins':[
+            Pin(num='20',name='VCC',func=Pin.types.PWRIN,unit=9)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '18']},{'label': 'uB', 'num': 2, 'pin_nums': ['16', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '19', '9']},{'label': 'uF', 'num': 6, 'pin_nums': ['13', '7']},{'label': 'uG', 'num': 7, 'pin_nums': ['15', '5']},{'label': 'uH', 'num': 8, 'pin_nums': ['17', '3']},{'label': 'uI', 'num': 9, 'pin_nums': ['20', '10']}] }),
+        Part(**{ 'name':'74LS241', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS241'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'7400 logic ttl low power schottky', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74ls241.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS241\n\n7400 logic ttl low power schottky', 'pins':[
             Pin(num='1',name='OEa',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='I0b',func=Pin.types.INPUT,unit=1),
@@ -1481,7 +1481,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='O1b',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='I3a',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='O0b',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS241_Split', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS241_Split'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'7400 logic ttl low power schottky', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74ls241.pdf', 'pins':[
+        Part(**{ 'name':'74LS241_Split', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS241_Split'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'7400 logic ttl low power schottky', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74ls241.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS241_Split\n\n7400 logic ttl low power schottky', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='18',name='~',func=Pin.types.TRISTATE,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -1501,8 +1501,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='17',name='~',func=Pin.types.INPUT,unit=8),
             Pin(num='3',name='~',func=Pin.types.TRISTATE,unit=8),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=9),
-            Pin(num='20',name='VCC',func=Pin.types.PWRIN,unit=9)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['18', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '16']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '9', '19']},{'label': 'uF', 'num': 6, 'pin_nums': ['13', '7']},{'label': 'uG', 'num': 7, 'pin_nums': ['15', '5']},{'label': 'uH', 'num': 8, 'pin_nums': ['17', '3']},{'label': 'uI', 'num': 9, 'pin_nums': ['10', '20']}] }),
-        Part(**{ 'name':'74LS242', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS242'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'bus 3state', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS242', 'pins':[
+            Pin(num='20',name='VCC',func=Pin.types.PWRIN,unit=9)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '18']},{'label': 'uB', 'num': 2, 'pin_nums': ['16', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '14']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '19', '9']},{'label': 'uF', 'num': 6, 'pin_nums': ['13', '7']},{'label': 'uG', 'num': 7, 'pin_nums': ['15', '5']},{'label': 'uH', 'num': 8, 'pin_nums': ['17', '3']},{'label': 'uI', 'num': 9, 'pin_nums': ['10', '20']}] }),
+        Part(**{ 'name':'74LS242', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS242'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'bus 3state', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS242', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS242\n\nbus 3state', 'pins':[
             Pin(num='1',name='OEa',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='B1',func=Pin.types.TRISTATE,unit=1),
             Pin(num='11',name='B0',func=Pin.types.TRISTATE,unit=1),
@@ -1515,7 +1515,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='B3',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='B2',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS243', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS243'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Buffer 3State BUS BIDI', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS243', 'pins':[
+        Part(**{ 'name':'74LS243', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS243'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Buffer 3State BUS BIDI', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS243', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS243\n\nTTL Buffer 3State BUS BIDI', 'pins':[
             Pin(num='1',name='OEa',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='B1',func=Pin.types.TRISTATE,unit=1),
             Pin(num='11',name='B0',func=Pin.types.TRISTATE,unit=1),
@@ -1528,7 +1528,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='B3',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='B2',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS244', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS244'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'7400 logic ttl low power schottky', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74ls244.pdf', 'pins':[
+        Part(**{ 'name':'74LS244', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS244'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'7400 logic ttl low power schottky', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74ls244.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS244\n\n7400 logic ttl low power schottky', 'pins':[
             Pin(num='1',name='OEa',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='I0b',func=Pin.types.INPUT,unit=1),
@@ -1549,7 +1549,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='O1b',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='I3a',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='O0b',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS244_Split', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS244_Split'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'7400 logic ttl low power schottky', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74ls241.pdf', 'pins':[
+        Part(**{ 'name':'74LS244_Split', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS244_Split'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'7400 logic ttl low power schottky', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74ls241.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS244_Split\n\n7400 logic ttl low power schottky', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='18',name='~',func=Pin.types.TRISTATE,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
@@ -1569,8 +1569,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='17',name='~',func=Pin.types.INPUT,unit=8),
             Pin(num='3',name='~',func=Pin.types.TRISTATE,unit=8),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=9),
-            Pin(num='20',name='VCC',func=Pin.types.PWRIN,unit=9)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '18', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '16']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '19', '9']},{'label': 'uF', 'num': 6, 'pin_nums': ['13', '7']},{'label': 'uG', 'num': 7, 'pin_nums': ['15', '5']},{'label': 'uH', 'num': 8, 'pin_nums': ['3', '17']},{'label': 'uI', 'num': 9, 'pin_nums': ['10', '20']}] }),
-        Part(**{ 'name':'74LS245', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS245'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL BUS 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS245', 'pins':[
+            Pin(num='20',name='VCC',func=Pin.types.PWRIN,unit=9)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '18']},{'label': 'uB', 'num': 2, 'pin_nums': ['16', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '14']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '19', '9']},{'label': 'uF', 'num': 6, 'pin_nums': ['13', '7']},{'label': 'uG', 'num': 7, 'pin_nums': ['15', '5']},{'label': 'uH', 'num': 8, 'pin_nums': ['17', '3']},{'label': 'uI', 'num': 9, 'pin_nums': ['10', '20']}] }),
+        Part(**{ 'name':'74LS245', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS245'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL BUS 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS245', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS245\n\nTTL BUS 3State', 'pins':[
             Pin(num='1',name='A->B',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='B7',func=Pin.types.TRISTATE,unit=1),
@@ -1591,7 +1591,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A5',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='A6',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='A7',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS247', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS247'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DECOD', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS247', 'pins':[
+        Part(**{ 'name':'74LS247', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS247'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DECOD', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS247', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS247\n\nTTL DECOD', 'pins':[
             Pin(num='1',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='d',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='c',func=Pin.types.OPENCOLL,unit=1),
@@ -1608,7 +1608,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='e',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS248', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS248'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DECOD', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS248', 'pins':[
+        Part(**{ 'name':'74LS248', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS248'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DECOD', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS248', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS248\n\nTTL DECOD', 'pins':[
             Pin(num='1',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='d',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='c',func=Pin.types.OPENCOLL,unit=1),
@@ -1625,7 +1625,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='e',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS251', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS251'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL MUX MUX8 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS251', 'pins':[
+        Part(**{ 'name':'74LS251', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS251'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL MUX MUX8 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS251', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS251\n\nTTL MUX MUX8 3State', 'pins':[
             Pin(num='1',name='I3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='S1',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='S0',func=Pin.types.INPUT,unit=1),
@@ -1642,7 +1642,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{OE}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='S2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS253', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS253'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL MUX MUX4 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS253', 'pins':[
+        Part(**{ 'name':'74LS253', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS253'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL MUX MUX4 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS253', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS253\n\nTTL MUX MUX4 3State', 'pins':[
             Pin(num='1',name='OEa',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='I0b',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='I1b',func=Pin.types.INPUT,unit=1),
@@ -1659,7 +1659,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Za',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Zb',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS256', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS256'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'latch', 'description':'', 'datasheet':'https://alfter.us/wp-content/uploads/2022/12/74LS256.pdf', 'pins':[
+        Part(**{ 'name':'74LS256', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS256'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'latch', 'description':'', 'datasheet':'https://alfter.us/wp-content/uploads/2022/12/74LS256.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS256\n\nlatch', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Q_{1b}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='Q_{2b}',func=Pin.types.OUTPUT,unit=1),
@@ -1676,7 +1676,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Q_{3a}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Q_{0b}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS257', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS257'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL MUX MUX2', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS257', 'pins':[
+        Part(**{ 'name':'74LS257', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS257'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL MUX MUX2', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS257', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS257\n\nTTL MUX MUX2', 'pins':[
             Pin(num='1',name='S',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='I1d',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='I0d',func=Pin.types.INPUT,unit=1),
@@ -1693,7 +1693,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Zb',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Zd',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS258', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS258'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL MUX MUX2', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS258', 'pins':[
+        Part(**{ 'name':'74LS258', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS258'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL MUX MUX2', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS258', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS258\n\nTTL MUX MUX2', 'pins':[
             Pin(num='1',name='S',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='I1d',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='I0d',func=Pin.types.INPUT,unit=1),
@@ -1710,7 +1710,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Zb',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Zd',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS259', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS259'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL REG DFF', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS259', 'pins':[
+        Part(**{ 'name':'74LS259', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS259'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL REG DFF', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS259', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS259\n\nTTL REG DFF', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Q5',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='Q6',func=Pin.types.OUTPUT,unit=1),
@@ -1727,7 +1727,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Q3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Q4',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS26', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS26'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Nand2 OpenCol', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS26', 'pins':[
+        Part(**{ 'name':'74LS26', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS26'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Nand2 OpenCol', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS26', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS26\n\nTTL Nand2 OpenCol', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.OPENCOLL,unit=1),
@@ -1741,8 +1741,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74LS27', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS27'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Nor3', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS27', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '11', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74LS27', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS27'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Nor3', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS27', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS27\n\nTTL Nor3', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='12',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=1),
@@ -1756,8 +1756,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=3),
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=4),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '12', '13', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '3', '5', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '11', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74LS273', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS273'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DFF DFF8', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS273', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '12', '2', '13']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '4', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '14']}] }),
+        Part(**{ 'name':'74LS273', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS273'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DFF DFF8', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS273', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS273\n\nTTL DFF DFF8', 'pins':[
             Pin(num='1',name='~{Mr}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='Cp',func=Pin.types.INPUT,unit=1),
@@ -1778,7 +1778,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='Q3',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS279', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS279'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL latch set reset srs flip flop flipflop rs-flipflop', 'description':'', 'datasheet':'https://www.ti.com/lit/gpn/sn54ls279a', 'pins':[
+        Part(**{ 'name':'74LS279', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS279'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL latch set reset srs flip flop flipflop rs-flipflop', 'description':'', 'datasheet':'https://www.ti.com/lit/gpn/sn54ls279a', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS279\n\nTTL latch set reset srs flip flop flipflop rs-flipflop', 'pins':[
             Pin(num='1',name='~{R}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~{S}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~{S}',func=Pin.types.INPUT,unit=1),
@@ -1794,8 +1794,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='14',name='~{R}',func=Pin.types.INPUT,unit=4),
             Pin(num='15',name='~{S}',func=Pin.types.INPUT,unit=4),
             Pin(num='16',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '4', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '11', '12']},{'label': 'uD', 'num': 4, 'pin_nums': ['15', '13', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['16', '8']}] }),
-        Part(**{ 'name':'74LS280', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS280'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL ALU Arith', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS280', 'pins':[
+            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '4', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '12', '9', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['15', '13', '14']},{'label': 'uE', 'num': 5, 'pin_nums': ['16', '8']}] }),
+        Part(**{ 'name':'74LS280', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS280'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL ALU Arith', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS280', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS280\n\nTTL ALU Arith', 'pins':[
             Pin(num='1',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='D',func=Pin.types.INPUT,unit=1),
@@ -1810,7 +1810,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS283', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS283'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL ADD Arith ALU', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS283', 'pins':[
+        Part(**{ 'name':'74LS283', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS283'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL ADD Arith ALU', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS283', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS283\n\nTTL ADD Arith ALU', 'pins':[
             Pin(num='1',name='S2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='S4',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.INPUT,unit=1),
@@ -1827,7 +1827,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='C0',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='C4',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS290', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS290'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS290', 'pins':[
+        Part(**{ 'name':'74LS290', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS290'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS290', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS290\n\nTTL CNT CNT4', 'pins':[
             Pin(num='1',name='Ms1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Cp0',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='Cp1',func=Pin.types.INPUT,unit=1),
@@ -1840,7 +1840,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Q3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='Q0',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS295', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS295'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'register', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS295', 'pins':[
+        Part(**{ 'name':'74LS295', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS295'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'register', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS295', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS295\n\nregister', 'pins':[
             Pin(num='1',name='Ds',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Q3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='Q2',func=Pin.types.OUTPUT,unit=1),
@@ -1855,7 +1855,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='OE',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='Cp',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS298', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS298'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL MUX MUX2', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS298', 'pins':[
+        Part(**{ 'name':'74LS298', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS298'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL MUX MUX2', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS298', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS298\n\nTTL MUX MUX2', 'pins':[
             Pin(num='1',name='I1b',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='S',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='Cp',func=Pin.types.INPUT,unit=1),
@@ -1872,7 +1872,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I0d',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='I0c',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS299', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS299'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL REG SR SR8', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS299', 'pins':[
+        Part(**{ 'name':'74LS299', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS299'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL REG SR SR8', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS299', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS299\n\nTTL REG SR SR8', 'pins':[
             Pin(num='1',name='S0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='Ds0',func=Pin.types.INPUT,unit=1),
@@ -1893,7 +1893,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IO0',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='Q0',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='Mr',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS30', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS30'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Nand8', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS30', 'pins':[
+        Part(**{ 'name':'74LS30', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS30'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Nand8', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS30', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS30\n\nTTL Nand8', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=1),
@@ -1904,8 +1904,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=2),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '12', '6', '11', '1', '4', '2', '8', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '14']}] }),
-        Part(**{ 'name':'74LS32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS32'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Or2', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS32', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['12', '6', '4', '8', '2', '5', '3', '1', '11']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74LS32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS32'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Or2', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS32', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS32\n\nTTL Or2', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -1919,8 +1919,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '10', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74LS322', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS322'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'register', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS322', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '11', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74LS322', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS322'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'register', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS322', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS322\n\nregister', 'pins':[
             Pin(num='1',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='Clk',func=Pin.types.INPUT,unit=1),
@@ -1941,7 +1941,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='G/Qg',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='OE',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='Clr',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS323', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS323'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL REG SR SR8', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS323', 'pins':[
+        Part(**{ 'name':'74LS323', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS323'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL REG SR SR8', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS323', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS323\n\nTTL REG SR SR8', 'pins':[
             Pin(num='1',name='S0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DS0',func=Pin.types.INPUT,unit=1),
@@ -1962,7 +1962,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IO0',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='Q0',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='SR',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS33', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS33'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Nor2 OpenColl', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS33', 'pins':[
+        Part(**{ 'name':'74LS33', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS33'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Nor2 OpenColl', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS33', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS33\n\nTTL Nor2 OpenColl', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=1),
@@ -1976,8 +1976,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.OPENCOLL,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74LS348', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS348'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL ENCOD Arith', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS348', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '10', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74LS348', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS348'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL ENCOD Arith', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS348', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS348\n\nTTL ENCOD Arith', 'pins':[
             Pin(num='1',name='4',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='0',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='1',func=Pin.types.INPUT,unit=1),
@@ -1994,7 +1994,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A1',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='A0',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS352', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS352'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Mux MUX4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS352', 'pins':[
+        Part(**{ 'name':'74LS352', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS352'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Mux MUX4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS352', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS352\n\nTTL Mux MUX4', 'pins':[
             Pin(num='1',name='Ea',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='I0b',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='I1b',func=Pin.types.INPUT,unit=1),
@@ -2011,7 +2011,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Za',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Zb',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS353', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS353'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL MUX MUX2', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS353', 'pins':[
+        Part(**{ 'name':'74LS353', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS353'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL MUX MUX2', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS353', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS353\n\nTTL MUX MUX2', 'pins':[
             Pin(num='1',name='OEa',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='I0b',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='I1b',func=Pin.types.INPUT,unit=1),
@@ -2028,7 +2028,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Za',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Zb',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS365', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS365'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Buffer BUS 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS365', 'pins':[
+        Part(**{ 'name':'74LS365', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS365'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Buffer BUS 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS365', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS365\n\nTTL Buffer BUS 3State', 'pins':[
             Pin(num='1',name='E1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='I4',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='O5',func=Pin.types.TRISTATE,unit=1),
@@ -2045,7 +2045,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='O3',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='O4',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS366', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS366'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Buffer BUS 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS366', 'pins':[
+        Part(**{ 'name':'74LS366', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS366'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Buffer BUS 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS366', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS366\n\nTTL Buffer BUS 3State', 'pins':[
             Pin(num='1',name='E1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='I4',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='O5',func=Pin.types.TRISTATE,unit=1),
@@ -2062,7 +2062,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='O3',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='O4',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS367', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS367'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Buffer BUS 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS367', 'pins':[
+        Part(**{ 'name':'74LS367', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS367'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Buffer BUS 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS367', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS367\n\nTTL Buffer BUS 3State', 'pins':[
             Pin(num='1',name='OEa',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='I4',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='O5b',func=Pin.types.TRISTATE,unit=1),
@@ -2079,7 +2079,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='O3a',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='O4a',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS368', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS368'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Buffer BUS 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS368', 'pins':[
+        Part(**{ 'name':'74LS368', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS368'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL Buffer BUS 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS368', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS368\n\nTTL Buffer BUS 3State', 'pins':[
             Pin(num='1',name='OEa',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='I4',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='O5b',func=Pin.types.TRISTATE,unit=1),
@@ -2096,7 +2096,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='O3a',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='O4a',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS373', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS373'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL REG DFF DFF8 LATCH', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS373', 'pins':[
+        Part(**{ 'name':'74LS373', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS373'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL REG DFF DFF8 LATCH', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS373', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS373\n\nTTL REG DFF DFF8 LATCH', 'pins':[
             Pin(num='1',name='OE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='LE',func=Pin.types.INPUT,unit=1),
@@ -2117,7 +2117,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='O3',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS374', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS374'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DFF DFF8 REG 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS374', 'pins':[
+        Part(**{ 'name':'74LS374', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS374'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DFF DFF8 REG 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS374', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS374\n\nTTL DFF DFF8 REG 3State', 'pins':[
             Pin(num='1',name='OE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='Cp',func=Pin.types.INPUT,unit=1),
@@ -2138,7 +2138,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='O3',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS375', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS375'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DFF DFF4 Latch', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS375', 'pins':[
+        Part(**{ 'name':'74LS375', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS375'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DFF DFF4 Latch', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS375', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS375\n\nTTL DFF DFF4 Latch', 'pins':[
             Pin(num='1',name='D0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{Q2}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='Q2',func=Pin.types.OUTPUT,unit=1),
@@ -2155,7 +2155,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='D2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS377', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS377'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL REG DFF DFF8', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS377', 'pins':[
+        Part(**{ 'name':'74LS377', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS377'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL REG DFF DFF8', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS377', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS377\n\nTTL REG DFF DFF8', 'pins':[
             Pin(num='1',name='~{E}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='CP',func=Pin.types.INPUT,unit=1),
@@ -2176,7 +2176,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='Q3',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS378', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS378'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL REG DFF DFF6', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS378', 'pins':[
+        Part(**{ 'name':'74LS378', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS378'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL REG DFF DFF6', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS378', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS378\n\nTTL REG DFF DFF6', 'pins':[
             Pin(num='1',name='~{E}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Q3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='D3',func=Pin.types.INPUT,unit=1),
@@ -2193,7 +2193,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Q2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='C',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS379', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS379'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL REG DFF DFF4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS379', 'pins':[
+        Part(**{ 'name':'74LS379', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS379'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL REG DFF DFF4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS379', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS379\n\nTTL REG DFF DFF4', 'pins':[
             Pin(num='1',name='~{E}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Q2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='~{Q2}',func=Pin.types.OUTPUT,unit=1),
@@ -2210,7 +2210,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Q1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='CP',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS385', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS385'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL ADD Arith ALU', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS385', 'pins':[
+        Part(**{ 'name':'74LS385', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS385'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL ADD Arith ALU', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS385', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS385\n\nTTL ADD Arith ALU', 'pins':[
             Pin(num='1',name='Clk',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='Clr',func=Pin.types.INPUT,unit=1),
@@ -2231,7 +2231,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='2B',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='2S/A',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='2S',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS386', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS386'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL XOR2', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS386', 'pins':[
+        Part(**{ 'name':'74LS386', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS386'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL XOR2', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS386', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS386\n\nTTL XOR2', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -2245,8 +2245,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74LS390', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS390'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS390', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '13', '11']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74LS390', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS390'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS390', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS390\n\nTTL CNT CNT4', 'pins':[
             Pin(num='1',name='~{CP0}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='MR',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='Q0',func=Pin.types.OUTPUT,unit=1),
@@ -2262,8 +2262,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='15',name='~{CP0}',func=Pin.types.INPUT,unit=2),
             Pin(num='9',name='Q3',func=Pin.types.OUTPUT,unit=2),
             Pin(num='16',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '4', '3', '2', '5', '7', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '14', '12', '15', '13', '11', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '8']}] }),
-        Part(**{ 'name':'74LS393', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS393'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'74xx\\74LS393.pdf', 'pins':[
+            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '5', '6', '4', '3', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['15', '13', '10', '11', '14', '9', '12']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '8']}] }),
+        Part(**{ 'name':'74LS393', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS393'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'74xx\\74LS393.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS393\n\nTTL CNT CNT4', 'pins':[
             Pin(num='1',name='CP',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='MR',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='Q0',func=Pin.types.OUTPUT,unit=1),
@@ -2277,8 +2277,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='Q3',func=Pin.types.OUTPUT,unit=2),
             Pin(num='9',name='Q2',func=Pin.types.OUTPUT,unit=2),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '4', '1', '3', '2', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '8', '9', '12', '13', '10']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74LS395', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS395'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL SR SR4 REG 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS395', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '6', '5', '4', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '12', '8', '10', '9', '13']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74LS395', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS395'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL SR SR4 REG 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS395', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS395\n\nTTL SR SR4 REG 3State', 'pins':[
             Pin(num='1',name='~{MR}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{CP}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name="Q'3",func=Pin.types.OUTPUT,unit=1),
@@ -2295,7 +2295,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='LD/~{SH}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='~{OE}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS398', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS398'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL MUX MUX2 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS398', 'pins':[
+        Part(**{ 'name':'74LS398', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS398'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL MUX MUX2 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS398', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS398\n\nTTL MUX MUX2 3State', 'pins':[
             Pin(num='1',name='S',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='CP',func=Pin.types.INPUT,unit=1),
@@ -2316,7 +2316,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I0b',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{Qb}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='Qb',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS399', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS399'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL MUX MUX2', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS399', 'pins':[
+        Part(**{ 'name':'74LS399', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS399'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL MUX MUX2', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS399', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS399\n\nTTL MUX MUX2', 'pins':[
             Pin(num='1',name='S',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Qc',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='I0c',func=Pin.types.INPUT,unit=1),
@@ -2333,7 +2333,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Qb',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='CP',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS42', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS42'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DECOD DECOD10', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS42', 'pins':[
+        Part(**{ 'name':'74LS42', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS42'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DECOD DECOD10', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS42', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS42\n\nTTL DECOD DECOD10', 'pins':[
             Pin(num='1',name='0',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='8',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='9',func=Pin.types.OUTPUT,unit=1),
@@ -2350,7 +2350,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='7',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS47', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS47'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DECOD DECOD7 OpenCol', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS47', 'pins':[
+        Part(**{ 'name':'74LS47', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS47'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DECOD DECOD7 OpenCol', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS47', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS47\n\nTTL DECOD DECOD7 OpenCol', 'pins':[
             Pin(num='1',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='d',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='c',func=Pin.types.OPENCOLL,unit=1),
@@ -2367,7 +2367,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='e',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS48', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS48'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DECOD DECOD7', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS48', 'pins':[
+        Part(**{ 'name':'74LS48', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS48'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DECOD DECOD7', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS48', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS48\n\nTTL DECOD DECOD7', 'pins':[
             Pin(num='1',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='d',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='c',func=Pin.types.OPENCOLL,unit=1),
@@ -2384,7 +2384,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='e',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS49', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS49'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DECOD DECOD7 OpenCol', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74ls47', 'pins':[
+        Part(**{ 'name':'74LS49', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS49'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DECOD DECOD7 OpenCol', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74ls47', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS49\n\nTTL DECOD DECOD7 OpenCol', 'pins':[
             Pin(num='1',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='b',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='a',func=Pin.types.OPENCOLL,unit=1),
@@ -2399,7 +2399,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='d',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='c',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS51', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS51'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL ANDNOR', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74ls51.pdf', 'pins':[
+        Part(**{ 'name':'74LS51', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS51'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL ANDNOR', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74ls51.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS51\n\nTTL ANDNOR', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~',func=Pin.types.INPUT,unit=1),
@@ -2413,8 +2413,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='6',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['11', '8', '10', '12', '1', '9', '13']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '4', '3', '6', '2']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74LS54', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS54'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL ANDNOR', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS54', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['13', '1', '11', '12', '8', '10', '9']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '2', '4', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74LS54', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS54'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL ANDNOR', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS54', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS54\n\nTTL ANDNOR', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=1),
@@ -2425,8 +2425,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=2),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['9', '3', '10', '1', '5', '4', '8', '13', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74LS540', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS540'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'BUFFER BUS TTL 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS540', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['10', '2', '5', '13', '8', '3', '1', '4', '9']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74LS540', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS540'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'BUFFER BUS TTL 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS540', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS540\n\nBUFFER BUS TTL 3State', 'pins':[
             Pin(num='1',name='G1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='Y7',func=Pin.types.TRISTATE,unit=1),
@@ -2447,7 +2447,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A5',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A6',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A7',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS541', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS541'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL BUFFER 3State BUS', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS541', 'pins':[
+        Part(**{ 'name':'74LS541', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS541'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL BUFFER 3State BUS', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS541', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS541\n\nTTL BUFFER 3State BUS', 'pins':[
             Pin(num='1',name='G1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='Y7',func=Pin.types.TRISTATE,unit=1),
@@ -2468,7 +2468,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A5',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A6',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A7',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS55', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS55'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL ANDNOR', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS55', 'pins':[
+        Part(**{ 'name':'74LS55', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS55'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL ANDNOR', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS55', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS55\n\nTTL ANDNOR', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~',func=Pin.types.INPUT,unit=1),
@@ -2479,8 +2479,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='4',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=2),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '10', '4', '2', '12', '11', '8', '13']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74LS573', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS573'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DFF DFF8 LATCH 3State', 'description':'', 'datasheet':'74xx/74hc573.pdf', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '11', '2', '12', '3', '8', '13', '1', '10']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74LS573', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS573'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DFF DFF8 LATCH 3State', 'description':'', 'datasheet':'74xx/74hc573.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS573\n\nTTL DFF DFF8 LATCH 3State', 'pins':[
             Pin(num='1',name='OE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='Load',func=Pin.types.INPUT,unit=1),
@@ -2501,7 +2501,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D5',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D6',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='D7',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS574', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS574'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL REG DFF DFF8 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS574', 'pins':[
+        Part(**{ 'name':'74LS574', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS574'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL REG DFF DFF8 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS574', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS574\n\nTTL REG DFF DFF8 3State', 'pins':[
             Pin(num='1',name='OE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='Cp',func=Pin.types.INPUT,unit=1),
@@ -2522,7 +2522,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D5',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D6',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='D7',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS629', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS629'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'VCO', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS629', 'pins':[
+        Part(**{ 'name':'74LS629', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS629'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'VCO', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS629', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS629\n\nVCO', 'pins':[
             Pin(num='15',name='OSC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='FC',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='RNG',func=Pin.types.INPUT,unit=1),
@@ -2538,8 +2538,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='14',name='RNG',func=Pin.types.INPUT,unit=2),
             Pin(num='8',name='OSC',func=Pin.types.PASSIVE,unit=2),
             Pin(num='16',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '3', '15', '6', '4', '2', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['12', '10', '14', '11', '13', '1', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '9']}] }),
-        Part(**{ 'name':'74LS688', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS688'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DECOD Arith', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS688', 'pins':[
+            Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '6', '2', '4', '7', '5', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '13', '1', '12', '14', '10', '11']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '9']}] }),
+        Part(**{ 'name':'74LS688', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS688'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DECOD Arith', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS688', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS688\n\nTTL DECOD Arith', 'pins':[
             Pin(num='1',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='P4',func=Pin.types.INPUT,unit=1),
@@ -2560,7 +2560,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='R2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='P3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='R3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS73', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS73'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL JK JKFF', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS73', 'pins':[
+        Part(**{ 'name':'74LS73', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS73'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL JK JKFF', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS73', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS73\n\nTTL JK JKFF', 'pins':[
             Pin(num='10',name='K',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='~{R}',func=Pin.types.INPUT,unit=1),
@@ -2574,8 +2574,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='2',name='~{R}',func=Pin.types.INPUT,unit=2),
             Pin(num='3',name='K',func=Pin.types.INPUT,unit=2),
             Pin(num='11',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='4',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '9', '8', '10', '6', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['12', '14', '2', '13', '1', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '4']}] }),
-        Part(**{ 'name':'74LS74', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS74'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DFF', 'description':'', 'datasheet':'74xx/74hc_hct74.pdf', 'pins':[
+            Pin(num='4',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '9', '7', '6', '8', '10']},{'label': 'uB', 'num': 2, 'pin_nums': ['1', '14', '2', '12', '3', '13']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '4']}] }),
+        Part(**{ 'name':'74LS74', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS74'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DFF', 'description':'', 'datasheet':'74xx/74hc_hct74.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS74\n\nTTL DFF', 'pins':[
             Pin(num='1',name='~{R}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='D',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='C',func=Pin.types.INPUT,unit=1),
@@ -2589,8 +2589,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~{Q}',func=Pin.types.OUTPUT,unit=2),
             Pin(num='9',name='Q',func=Pin.types.OUTPUT,unit=2),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '4', '3', '5', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '11', '8', '10', '12', '13']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74LS75', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS75'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DFF Latch', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS75', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '5', '3', '2', '4', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '10', '12', '13', '9', '11']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74LS75', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS75'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DFF Latch', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS75', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS75\n\nTTL DFF Latch', 'pins':[
             Pin(num='1',name='~{Q0}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='Q2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='~{Q2}',func=Pin.types.OUTPUT,unit=1),
@@ -2607,7 +2607,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{Q3}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='Q3',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS76', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS76'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL JK JKFF', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS76', 'pins':[
+        Part(**{ 'name':'74LS76', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS76'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL JK JKFF', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS76', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS76\n\nTTL JK JKFF', 'pins':[
             Pin(num='1',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='14',name='~{Q}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='15',name='Q',func=Pin.types.OUTPUT,unit=1),
@@ -2623,8 +2623,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~{R}',func=Pin.types.INPUT,unit=2),
             Pin(num='9',name='J',func=Pin.types.INPUT,unit=2),
             Pin(num='13',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='5',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '16', '4', '3', '2', '14', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '10', '12', '11', '6', '8', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['13', '5']}] }),
-        Part(**{ 'name':'74LS77', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS77'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DFF Latch', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS77', 'pins':[
+            Pin(num='5',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '1', '4', '2', '16', '3', '14']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '6', '11', '12', '7', '9', '10']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '13']}] }),
+        Part(**{ 'name':'74LS77', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS77'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL DFF Latch', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS77', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS77\n\nTTL DFF Latch', 'pins':[
             Pin(num='1',name='D0',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='12',name='E01',func=Pin.types.INPUT,unit=1),
@@ -2637,7 +2637,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='D3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='Q3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='Q2',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS78', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS78'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL JK JKFF', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS78', 'pins':[
+        Part(**{ 'name':'74LS78', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS78'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL JK JKFF', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS78', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS78\n\nTTL JK JKFF', 'pins':[
             Pin(num='1',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='12',name='~{Q}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='13',name='Q',func=Pin.types.OUTPUT,unit=1),
@@ -2653,8 +2653,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='Q',func=Pin.types.OUTPUT,unit=2),
             Pin(num='9',name='~{Q}',func=Pin.types.OUTPUT,unit=2),
             Pin(num='11',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='4',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '14', '12', '5', '1', '2', '13']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '7', '1', '8', '6', '10', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '4']}] }),
-        Part(**{ 'name':'74LS83', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS83'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL ADD ARITH ALU', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS83', 'pins':[
+            Pin(num='4',name='VCC',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['13', '12', '3', '1', '14', '5', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '9', '7', '1', '6', '8', '10']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '4']}] }),
+        Part(**{ 'name':'74LS83', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS83'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL ADD ARITH ALU', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS83', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS83\n\nTTL ADD ARITH ALU', 'pins':[
             Pin(num='1',name='A4',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B1',func=Pin.types.INPUT,unit=1),
@@ -2671,7 +2671,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='B2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='S1',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS85', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS85'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL COMP ARITH', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS85', 'pins':[
+        Part(**{ 'name':'74LS85', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS85'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL COMP ARITH', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS85', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS85\n\nTTL COMP ARITH', 'pins':[
             Pin(num='1',name='B3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B1',func=Pin.types.INPUT,unit=1),
@@ -2688,7 +2688,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Oa<b',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='B0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS86', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS86'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL XOR2', 'description':'', 'datasheet':'74xx/74ls86.pdf', 'pins':[
+        Part(**{ 'name':'74LS86', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS86'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL XOR2', 'description':'', 'datasheet':'74xx/74ls86.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS86\n\nTTL XOR2', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -2702,8 +2702,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '8', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
-        Part(**{ 'name':'74LS90', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS90'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS90', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '8', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74LS90', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS90'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS90', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS90\n\nTTL CNT CNT4', 'pins':[
             Pin(num='1',name='CP1..3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='Q3',func=Pin.types.OUTPUT,unit=1),
@@ -2716,7 +2716,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='R9(2)',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='Q2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='Q1',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS91', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS91'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL SR SR8', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS91', 'pins':[
+        Part(**{ 'name':'74LS91', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS91'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL SR SR8', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS91', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS91\n\nTTL SR SR8', 'pins':[
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='12',name='A',func=Pin.types.INPUT,unit=1),
@@ -2724,7 +2724,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='14',name='~{Qh}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='5',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='CLK',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS92', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS92'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS92', 'pins':[
+        Part(**{ 'name':'74LS92', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS92'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS92', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS92\n\nTTL CNT CNT4', 'pins':[
             Pin(num='1',name='CP1..3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='Q1',func=Pin.types.OUTPUT,unit=1),
@@ -2735,7 +2735,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='R0(2)',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='Q3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='Q2',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS93', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS93'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS93', 'pins':[
+        Part(**{ 'name':'74LS93', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS93'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS93', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS93\n\nTTL CNT CNT4', 'pins':[
             Pin(num='1',name='CP1..3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='Q3',func=Pin.types.OUTPUT,unit=1),
@@ -2746,7 +2746,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Q2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='Q1',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS95', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS95'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL SR SR4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS95', 'pins':[
+        Part(**{ 'name':'74LS95', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS95'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL SR SR4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS95', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS95\n\nTTL SR SR4', 'pins':[
             Pin(num='1',name='Ds',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Q3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='Q2',func=Pin.types.OUTPUT,unit=1),
@@ -2761,7 +2761,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Cp2.Lshift',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='Cp1.Rshift',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LV14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LV14'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL not inv', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LV14', 'pins':[
+        Part(**{ 'name':'74LV14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LV14'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'TTL not inv', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LV14', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LV14\n\nTTL not inv', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=2),
@@ -2775,8 +2775,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.OUTPUT,unit=6),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=6),
             Pin(num='14',name='3.3V',func=Pin.types.PWRIN,unit=7),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['9', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74LV8154', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LV8154'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'counter binary', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74lv8154.pdf', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74LV8154', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LV8154'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'counter binary', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74lv8154.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LV8154\n\ncounter binary', 'pins':[
             Pin(num='1',name='CKLA',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='~{CCLR}',func=Pin.types.INPUT,unit=1),
@@ -2797,7 +2797,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{RCOA}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='~{CLKBEN}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74VHC9164FT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74VHC9164FT'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'shift register universal serial parallel', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=15655&prodName=74VHC9164FT', 'pins':[
+        Part(**{ 'name':'74VHC9164FT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74VHC9164FT'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'shift register universal serial parallel', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=15655&prodName=74VHC9164FT', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74VHC9164FT\n\nshift register universal serial parallel', 'pins':[
             Pin(num='1',name='P/S_CONT',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Q/D5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='Q/D6',func=Pin.types.BIDIR,unit=1),
@@ -2814,7 +2814,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Q/D3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Q/D4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CD74HC4067M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CD74HC4067M'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm'], 'footprint':'Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm', 'keywords':'multiplexer demultiplexer mux demux', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cd74hc4067.pdf', 'pins':[
+        Part(**{ 'name':'CD74HC4067M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CD74HC4067M'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm'], 'footprint':'Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm', 'keywords':'multiplexer demultiplexer mux demux', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cd74hc4067.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\nCD74HC4067M\n\nmultiplexer demultiplexer mux demux', 'pins':[
             Pin(num='1',name='COM',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='S0',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='S1',func=Pin.types.INPUT,unit=1),
@@ -2839,7 +2839,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='I1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='I0',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CD74HC4067SM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CD74HC4067SM'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_5.3x8.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'keywords':'multiplexer demultiplexer mux demux', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cd74hc4067.pdf', 'pins':[
+        Part(**{ 'name':'CD74HC4067SM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CD74HC4067SM'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_5.3x8.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'keywords':'multiplexer demultiplexer mux demux', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cd74hc4067.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\nCD74HC4067SM\n\nmultiplexer demultiplexer mux demux', 'pins':[
             Pin(num='1',name='COM',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='S0',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='S1',func=Pin.types.INPUT,unit=1),
@@ -2864,7 +2864,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='I1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='I0',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC74LCX16245DT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC74LCX16245DT'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'keywords':'transceiver', 'description':'', 'datasheet':'https://www.onsemi.com/pdf/datasheet/mc74lcx16245-d.pdf', 'pins':[
+        Part(**{ 'name':'MC74LCX16245DT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC74LCX16245DT'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'keywords':'transceiver', 'description':'', 'datasheet':'https://www.onsemi.com/pdf/datasheet/mc74lcx16245-d.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\nMC74LCX16245DT\n\ntransceiver', 'pins':[
             Pin(num='1',name='T/~{R}1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='B6',func=Pin.types.BIDIR,unit=1),
@@ -2913,7 +2913,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='B4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='B5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MM74C923', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MM74C923'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'encoder', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/snMM74C923', 'pins':[
+        Part(**{ 'name':'MM74C923', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MM74C923'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'encoder', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/snMM74C923', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\nMM74C923\n\nencoder', 'pins':[
             Pin(num='1',name='Y1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='X2',func=Pin.types.OUTPUT,unit=1),
@@ -2934,7 +2934,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='KBM',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='X4',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='X3',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SN74AVC16827DGGR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN74AVC16827DGGR'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-56_6.1x14mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-56_6.1x14mm_P0.5mm', 'keywords':'Buffer Driver 3-State', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74avc16827.pdf', 'pins':[
+        Part(**{ 'name':'SN74AVC16827DGGR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN74AVC16827DGGR'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-56_6.1x14mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-56_6.1x14mm_P0.5mm', 'keywords':'Buffer Driver 3-State', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74avc16827.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\nSN74AVC16827DGGR\n\nBuffer Driver 3-State', 'pins':[
             Pin(num='1',name='1OE1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='1Y7',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -2991,7 +2991,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='1Y5',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='1Y6',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SN74CB3Q3384ADBQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN74CB3Q3384ADBQ'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:SSOP-24_3.9x8.7mm_P0.635mm', 'keywords':'low voltage high bandwidth', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74cb3q3384a.pdf?ts=1634790233466', 'pins':[
+        Part(**{ 'name':'SN74CB3Q3384ADBQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN74CB3Q3384ADBQ'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:SSOP-24_3.9x8.7mm_P0.635mm', 'keywords':'low voltage high bandwidth', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74cb3q3384a.pdf?ts=1634790233466', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\nSN74CB3Q3384ADBQ\n\nlow voltage high bandwidth', 'pins':[
             Pin(num='1',name='~{1OE}',func=Pin.types.INPUT),
             Pin(num='10',name='1B5',func=Pin.types.TRISTATE),
             Pin(num='11',name='1A5',func=Pin.types.TRISTATE),
@@ -3016,7 +3016,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='1A3',func=Pin.types.TRISTATE),
             Pin(num='8',name='1A4',func=Pin.types.TRISTATE),
             Pin(num='9',name='1B4',func=Pin.types.TRISTATE)], 'unit_defs':[] }),
-        Part(**{ 'name':'7400', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7400'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL nand 2-input', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn7400', 'pins':[
+        Part(**{ 'name':'7400', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7400'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL nand 2-input', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn7400', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n7400\n\nTTL nand 2-input', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -3030,8 +3030,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '10', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '11', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
-        Part(**{ 'name':'7402', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7402'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL Nor2', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn7402', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'7402', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'7402'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL Nor2', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn7402', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n7402\n\nTTL Nor2', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=1),
@@ -3045,8 +3045,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
-        Part(**{ 'name':'74AHC04', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHC04'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'AHCMOS not inv', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74AHC_AHCT04.pdf', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '10', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '13', '11']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74AHC04', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHC04'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'AHCMOS not inv', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74AHC_AHCT04.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74AHC04\n\nAHCMOS not inv', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=2),
@@ -3060,8 +3060,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.OUTPUT,unit=6),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=6),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=7),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '10']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74AHC240', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHC240'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'AHCMOS BUFFER 3State inv', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn54ahc240.pdf', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['9', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '10']},{'label': 'uF', 'num': 6, 'pin_nums': ['13', '12']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74AHC240', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHC240'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'AHCMOS BUFFER 3State inv', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn54ahc240.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74AHC240\n\nAHCMOS BUFFER 3State inv', 'pins':[
             Pin(num='1',name='1OE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='2A3',func=Pin.types.INPUT,unit=1),
@@ -3082,7 +3082,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='2Y2',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='1A3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='2Y3',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74AHC244', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHC244'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'AHCMOS BUFFER 3State', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74AHC_AHCT244.pdf', 'pins':[
+        Part(**{ 'name':'74AHC244', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHC244'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'AHCMOS BUFFER 3State', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74AHC_AHCT244.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74AHC244\n\nAHCMOS BUFFER 3State', 'pins':[
             Pin(num='1',name='1OE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='2A3',func=Pin.types.INPUT,unit=1),
@@ -3103,7 +3103,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='2Y2',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='1A3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='2Y3',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74AHC273', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHC273'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'AHCMOS DFF DFF8', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74AHC_AHCT273.pdf', 'pins':[
+        Part(**{ 'name':'74AHC273', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHC273'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'AHCMOS DFF DFF8', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74AHC_AHCT273.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74AHC273\n\nAHCMOS DFF DFF8', 'pins':[
             Pin(num='1',name='~{Mr}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='Cp',func=Pin.types.INPUT,unit=1),
@@ -3124,7 +3124,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='Q3',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74AHC373', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHC373'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'AHCMOS REG DFF DFF8 LATCH', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74AHC373.pdf', 'pins':[
+        Part(**{ 'name':'74AHC373', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHC373'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'AHCMOS REG DFF DFF8 LATCH', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74AHC373.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74AHC373\n\nAHCMOS REG DFF DFF8 LATCH', 'pins':[
             Pin(num='1',name='OE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='LE',func=Pin.types.INPUT,unit=1),
@@ -3145,7 +3145,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='O3',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74AHC374', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHC374'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'AHCMOS DFF DFF8 REG 3State', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74AHC_AHCT374.pdf', 'pins':[
+        Part(**{ 'name':'74AHC374', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHC374'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'AHCMOS DFF DFF8 REG 3State', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74AHC_AHCT374.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74AHC374\n\nAHCMOS DFF DFF8 REG 3State', 'pins':[
             Pin(num='1',name='OE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='Cp',func=Pin.types.INPUT,unit=1),
@@ -3166,7 +3166,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='O3',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74AHC541', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHC541'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL BUFFER 3State BUS', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74ahc541.pdf', 'pins':[
+        Part(**{ 'name':'74AHC541', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHC541'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL BUFFER 3State BUS', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74ahc541.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74AHC541\n\nTTL BUFFER 3State BUS', 'pins':[
             Pin(num='1',name='G1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='Y7',func=Pin.types.TRISTATE,unit=1),
@@ -3187,7 +3187,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A5',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A6',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A7',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74AHC595', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHC595'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'AHCMOS SR 3State', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74AHC_AHCT595.pdf', 'pins':[
+        Part(**{ 'name':'74AHC595', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHC595'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'AHCMOS SR 3State', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74AHC_AHCT595.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74AHC595\n\nAHCMOS SR 3State', 'pins':[
             Pin(num='1',name='QB',func=Pin.types.TRISTATE,unit=1),
             Pin(num='10',name='~{SRCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SRCLK',func=Pin.types.INPUT,unit=1),
@@ -3204,7 +3204,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='QH',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name="QH'",func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74AHCT04', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHCT04'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'AHCTMOS not inv', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74AHC_AHCT04.pdf', 'pins':[
+        Part(**{ 'name':'74AHCT04', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHCT04'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'AHCTMOS not inv', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74AHC_AHCT04.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74AHCT04\n\nAHCTMOS not inv', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=2),
@@ -3218,8 +3218,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.OUTPUT,unit=6),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=6),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=7),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '10']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74AHCT123', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHCT123'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL monostable, multivibrator', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74ahct123a', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['9', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '10']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74AHCT123', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHCT123'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL monostable, multivibrator', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74ahct123a', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74AHCT123\n\nTTL monostable, multivibrator', 'pins':[
             Pin(num='1',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='13',name='Q',func=Pin.types.OUTPUT,unit=1),
             Pin(num='14',name='Cext',func=Pin.types.INPUT,unit=1),
@@ -3235,8 +3235,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RCext',func=Pin.types.INPUT,unit=2),
             Pin(num='9',name='A',func=Pin.types.INPUT,unit=2),
             Pin(num='16',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '2', '13', '1', '3', '14', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '5', '6', '9', '12', '10', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '8']}] }),
-        Part(**{ 'name':'74AHCT125', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHCT125'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'buffer 3State', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74ahct125.pdf', 'pins':[
+            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['14', '1', '3', '4', '15', '2', '13']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '7', '11', '6', '12', '9', '10']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '8']}] }),
+        Part(**{ 'name':'74AHCT125', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHCT125'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'buffer 3State', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74ahct125.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74AHCT125\n\nbuffer 3State', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.TRISTATE,unit=1),
@@ -3250,8 +3250,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74AHCT240', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHCT240'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'AHCTMOS BUFFER 3State inv', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74AHCT240.pdf', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '4', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '8', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74AHCT240', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHCT240'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'AHCTMOS BUFFER 3State inv', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74AHCT240.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74AHCT240\n\nAHCTMOS BUFFER 3State inv', 'pins':[
             Pin(num='1',name='1OE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='2A3',func=Pin.types.INPUT,unit=1),
@@ -3272,7 +3272,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='2Y2',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='1A3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='2Y3',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74AHCT244', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHCT244'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'AHCTMOS BUFFER 3State', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74AHC_AHCT244.pdf', 'pins':[
+        Part(**{ 'name':'74AHCT244', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHCT244'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'AHCTMOS BUFFER 3State', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74AHC_AHCT244.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74AHCT244\n\nAHCTMOS BUFFER 3State', 'pins':[
             Pin(num='1',name='1OE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='2A3',func=Pin.types.INPUT,unit=1),
@@ -3293,7 +3293,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='2Y2',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='1A3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='2Y3',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74AHCT273', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHCT273'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'AHCTMOS DFF DFF8', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74AHC_AHCT273.pdf', 'pins':[
+        Part(**{ 'name':'74AHCT273', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHCT273'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'AHCTMOS DFF DFF8', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74AHC_AHCT273.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74AHCT273\n\nAHCTMOS DFF DFF8', 'pins':[
             Pin(num='1',name='~{Mr}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='Cp',func=Pin.types.INPUT,unit=1),
@@ -3314,7 +3314,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='Q3',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74AHCT373', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHCT373'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'AHCTMOS REG DFF DFF8 LATCH', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74ahct373.pdf', 'pins':[
+        Part(**{ 'name':'74AHCT373', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHCT373'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'AHCTMOS REG DFF DFF8 LATCH', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74ahct373.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74AHCT373\n\nAHCTMOS REG DFF DFF8 LATCH', 'pins':[
             Pin(num='1',name='OE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='LE',func=Pin.types.INPUT,unit=1),
@@ -3335,7 +3335,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='O3',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74AHCT374', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHCT374'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'AHCTMOS DFF DFF8 REG 3State', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74AHC_AHCT374.pdf', 'pins':[
+        Part(**{ 'name':'74AHCT374', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHCT374'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'AHCTMOS DFF DFF8 REG 3State', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74AHC_AHCT374.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74AHCT374\n\nAHCTMOS DFF DFF8 REG 3State', 'pins':[
             Pin(num='1',name='OE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='Cp',func=Pin.types.INPUT,unit=1),
@@ -3356,7 +3356,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='O3',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74AHCT541', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHCT541'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'TTL BUFFER 3State BUS', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74ahct541.pdf', 'pins':[
+        Part(**{ 'name':'74AHCT541', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHCT541'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'TTL BUFFER 3State BUS', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74ahct541.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74AHCT541\n\nTTL BUFFER 3State BUS', 'pins':[
             Pin(num='1',name='G1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='Y7',func=Pin.types.TRISTATE,unit=1),
@@ -3377,7 +3377,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A5',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A6',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A7',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74AHCT595', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHCT595'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'AHCTMOS SR 3State', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74AHC_AHCT595.pdf', 'pins':[
+        Part(**{ 'name':'74AHCT595', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74AHCT595'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'AHCTMOS SR 3State', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74AHC_AHCT595.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74AHCT595\n\nAHCTMOS SR 3State', 'pins':[
             Pin(num='1',name='QB',func=Pin.types.TRISTATE,unit=1),
             Pin(num='10',name='~{SRCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SRCLK',func=Pin.types.INPUT,unit=1),
@@ -3394,7 +3394,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='QH',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name="QH'",func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74CB3Q16210DGV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74CB3Q16210DGV'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm'], 'footprint':'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'keywords':'bus transmission gates fet switch bidirectional', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74cb3q16210.pdf', 'pins':[
+        Part(**{ 'name':'74CB3Q16210DGV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74CB3Q16210DGV'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm'], 'footprint':'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'keywords':'bus transmission gates fet switch bidirectional', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74cb3q16210.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74CB3Q16210DGV\n\nbus transmission gates fet switch bidirectional', 'pins':[
             Pin(num='10',name='1A8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='1A9',func=Pin.types.PASSIVE,unit=1),
             Pin(num='12',name='1A10',func=Pin.types.PASSIVE,unit=1),
@@ -3443,7 +3443,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='1A7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74CB3Q16210DL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74CB3Q16210DL'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:SSOP-48_7.5x15.9mm_P0.635mm'], 'footprint':'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'keywords':'bus transmission gates fet switch bidirectional', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74cb3q16210.pdf', 'pins':[
+        Part(**{ 'name':'74CB3Q16210DL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74CB3Q16210DL'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:SSOP-48_7.5x15.9mm_P0.635mm'], 'footprint':'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'keywords':'bus transmission gates fet switch bidirectional', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74cb3q16210.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74CB3Q16210DL\n\nbus transmission gates fet switch bidirectional', 'pins':[
             Pin(num='10',name='1A8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='1A9',func=Pin.types.PASSIVE,unit=1),
             Pin(num='12',name='1A10',func=Pin.types.PASSIVE,unit=1),
@@ -3492,7 +3492,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='1A7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74CB3T16210DGG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74CB3T16210DGG'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:SSOP-48_7.5x15.9mm_P0.635mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'keywords':'bus transmission gates fet switch bidirectional', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74cb3t16210.pdf', 'pins':[
+        Part(**{ 'name':'74CB3T16210DGG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74CB3T16210DGG'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:SSOP-48_7.5x15.9mm_P0.635mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'keywords':'bus transmission gates fet switch bidirectional', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74cb3t16210.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74CB3T16210DGG\n\nbus transmission gates fet switch bidirectional', 'pins':[
             Pin(num='10',name='1A8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='1A9',func=Pin.types.PASSIVE,unit=1),
             Pin(num='12',name='1A10',func=Pin.types.PASSIVE,unit=1),
@@ -3541,7 +3541,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='1A7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74CB3T16210DGV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74CB3T16210DGV'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:SSOP-48_7.5x15.9mm_P0.635mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm'], 'footprint':'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'keywords':'bus transmission gates fet switch bidirectional', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74cb3t16210.pdf', 'pins':[
+        Part(**{ 'name':'74CB3T16210DGV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74CB3T16210DGV'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:SSOP-48_7.5x15.9mm_P0.635mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm'], 'footprint':'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'keywords':'bus transmission gates fet switch bidirectional', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74cb3t16210.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74CB3T16210DGV\n\nbus transmission gates fet switch bidirectional', 'pins':[
             Pin(num='10',name='1A8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='1A9',func=Pin.types.PASSIVE,unit=1),
             Pin(num='12',name='1A10',func=Pin.types.PASSIVE,unit=1),
@@ -3590,7 +3590,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='1A7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74CBT16210CDGG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74CBT16210CDGG'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:SSOP-48_7.5x15.9mm_P0.635mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'keywords':'bus transmission gates fet switch bidirectional', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74cbt16210c.pdf', 'pins':[
+        Part(**{ 'name':'74CBT16210CDGG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74CBT16210CDGG'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:SSOP-48_7.5x15.9mm_P0.635mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'keywords':'bus transmission gates fet switch bidirectional', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74cbt16210c.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74CBT16210CDGG\n\nbus transmission gates fet switch bidirectional', 'pins':[
             Pin(num='10',name='1A8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='1A9',func=Pin.types.PASSIVE,unit=1),
             Pin(num='12',name='1A10',func=Pin.types.PASSIVE,unit=1),
@@ -3639,7 +3639,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='1A7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74CBT16210CDGV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74CBT16210CDGV'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:SSOP-48_7.5x15.9mm_P0.635mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm'], 'footprint':'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'keywords':'bus transmission gates fet switch bidirectional', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74cbt16210c.pdf', 'pins':[
+        Part(**{ 'name':'74CBT16210CDGV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74CBT16210CDGV'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:SSOP-48_7.5x15.9mm_P0.635mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm'], 'footprint':'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'keywords':'bus transmission gates fet switch bidirectional', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74cbt16210c.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74CBT16210CDGV\n\nbus transmission gates fet switch bidirectional', 'pins':[
             Pin(num='10',name='1A8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='1A9',func=Pin.types.PASSIVE,unit=1),
             Pin(num='12',name='1A10',func=Pin.types.PASSIVE,unit=1),
@@ -3688,7 +3688,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='1A7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74CBT16210CDL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74CBT16210CDL'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:SSOP-48_7.5x15.9mm_P0.635mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:SSOP-48_7.5x15.9mm_P0.635mm'], 'footprint':'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'keywords':'bus transmission gates fet switch bidirectional', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74cbt16210c.pdf', 'pins':[
+        Part(**{ 'name':'74CBT16210CDL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74CBT16210CDL'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:SSOP-48_7.5x15.9mm_P0.635mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:SSOP-48_7.5x15.9mm_P0.635mm'], 'footprint':'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'keywords':'bus transmission gates fet switch bidirectional', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74cbt16210c.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74CBT16210CDL\n\nbus transmission gates fet switch bidirectional', 'pins':[
             Pin(num='10',name='1A8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='1A9',func=Pin.types.PASSIVE,unit=1),
             Pin(num='12',name='1A10',func=Pin.types.PASSIVE,unit=1),
@@ -3737,7 +3737,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='1A7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74CBT3861', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74CBT3861'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'bus', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74cbt3861.pdf', 'pins':[
+        Part(**{ 'name':'74CBT3861', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74CBT3861'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'bus', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74cbt3861.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74CBT3861\n\nbus', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='A9',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='A10',func=Pin.types.PASSIVE,unit=1),
@@ -3762,7 +3762,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='A7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='A8',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74CBTD16210DGG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74CBTD16210DGG'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:SSOP-48_7.5x15.9mm_P0.635mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:SSOP-48_7.5x15.9mm_P0.635mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'keywords':'bus transmission gates fet switch bidirectional', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74cbtd16210.pdf', 'pins':[
+        Part(**{ 'name':'74CBTD16210DGG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74CBTD16210DGG'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:SSOP-48_7.5x15.9mm_P0.635mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:SSOP-48_7.5x15.9mm_P0.635mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'keywords':'bus transmission gates fet switch bidirectional', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74cbtd16210.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74CBTD16210DGG\n\nbus transmission gates fet switch bidirectional', 'pins':[
             Pin(num='10',name='1A8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='1A9',func=Pin.types.PASSIVE,unit=1),
             Pin(num='12',name='1A10',func=Pin.types.PASSIVE,unit=1),
@@ -3811,7 +3811,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='1A7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74CBTD16210DGV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74CBTD16210DGV'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:SSOP-48_7.5x15.9mm_P0.635mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:SSOP-48_7.5x15.9mm_P0.635mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm'], 'footprint':'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'keywords':'bus transmission gates fet switch bidirectional', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74cbtd16210.pdf', 'pins':[
+        Part(**{ 'name':'74CBTD16210DGV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74CBTD16210DGV'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:SSOP-48_7.5x15.9mm_P0.635mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:SSOP-48_7.5x15.9mm_P0.635mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm'], 'footprint':'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'keywords':'bus transmission gates fet switch bidirectional', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74cbtd16210.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74CBTD16210DGV\n\nbus transmission gates fet switch bidirectional', 'pins':[
             Pin(num='10',name='1A8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='1A9',func=Pin.types.PASSIVE,unit=1),
             Pin(num='12',name='1A10',func=Pin.types.PASSIVE,unit=1),
@@ -3860,7 +3860,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='1A7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74CBTD16210DL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74CBTD16210DL'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:SSOP-48_7.5x15.9mm_P0.635mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:SSOP-48_7.5x15.9mm_P0.635mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:SSOP-48_7.5x15.9mm_P0.635mm'], 'footprint':'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'keywords':'bus transmission gates fet switch bidirectional', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74cbtd16210.pdf', 'pins':[
+        Part(**{ 'name':'74CBTD16210DL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74CBTD16210DL'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:SSOP-48_7.5x15.9mm_P0.635mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:SSOP-48_7.5x15.9mm_P0.635mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_4.4x9.7mm_P0.4mm', 'Package_SO:SSOP-48_7.5x15.9mm_P0.635mm'], 'footprint':'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'keywords':'bus transmission gates fet switch bidirectional', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74cbtd16210.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74CBTD16210DL\n\nbus transmission gates fet switch bidirectional', 'pins':[
             Pin(num='10',name='1A8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='1A9',func=Pin.types.PASSIVE,unit=1),
             Pin(num='12',name='1A10',func=Pin.types.PASSIVE,unit=1),
@@ -3909,7 +3909,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='1A7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74CBTD3861', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74CBTD3861'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'bus', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74cbtd3861.pdf', 'pins':[
+        Part(**{ 'name':'74CBTD3861', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74CBTD3861'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'bus', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74cbtd3861.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74CBTD3861\n\nbus', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='A9',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='A10',func=Pin.types.PASSIVE,unit=1),
@@ -3934,7 +3934,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='A7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='A8',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HC00', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC00'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'HCMOS nand 2-input', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74hc00', 'pins':[
+        Part(**{ 'name':'74HC00', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC00'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'HCMOS nand 2-input', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74hc00', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HC00\n\nHCMOS nand 2-input', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -3948,8 +3948,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '9', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '12', '11']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
-        Part(**{ 'name':'74HC02', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC02'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'HCMOS Nor2', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74hc02', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '11', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74HC02', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC02'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'HCMOS Nor2', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74hc02', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HC02\n\nHCMOS Nor2', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=1),
@@ -3963,8 +3963,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '11', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
-        Part(**{ 'name':'74HC04', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC04'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'HCMOS not inv', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '9', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
+        Part(**{ 'name':'74HC04', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC04'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'HCMOS not inv', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HC04\n\nHCMOS not inv', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=2),
@@ -3978,8 +3978,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.OUTPUT,unit=6),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=6),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=7),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74HC123', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC123'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'TTL monostable, multivibrator', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT123.pdf', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['9', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '10']},{'label': 'uF', 'num': 6, 'pin_nums': ['13', '12']},{'label': 'uG', 'num': 7, 'pin_nums': ['7', '14']}] }),
+        Part(**{ 'name':'74HC123', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC123'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'TTL monostable, multivibrator', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT123.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HC123\n\nTTL monostable, multivibrator', 'pins':[
             Pin(num='1',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='13',name='Q',func=Pin.types.OUTPUT,unit=1),
             Pin(num='14',name='Cext',func=Pin.types.INPUT,unit=1),
@@ -3995,8 +3995,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RCext',func=Pin.types.INPUT,unit=2),
             Pin(num='9',name='A',func=Pin.types.INPUT,unit=2),
             Pin(num='16',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '13', '14', '3', '4', '15', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '12', '5', '9', '6', '10', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '8']}] }),
-        Part(**{ 'name':'74HC165', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC165'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'8 bit shift register parallel load cmos', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT165.pdf', 'pins':[
+            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '2', '1', '14', '13', '3', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '10', '7', '11', '12', '5', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '16']}] }),
+        Part(**{ 'name':'74HC165', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC165'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'8 bit shift register parallel load cmos', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT165.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HC165\n\n8 bit shift register parallel load cmos', 'pins':[
             Pin(num='1',name='~{PL}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DS',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='D0',func=Pin.types.INPUT,unit=1),
@@ -4013,7 +4013,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{Q7}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Q7',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HC173', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC173'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL REG REG4 3State DFF', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/cd74hc173.pdf', 'pins':[
+        Part(**{ 'name':'74HC173', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC173'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL REG REG4 3State DFF', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/cd74hc173.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HC173\n\nTTL REG REG4 3State DFF', 'pins':[
             Pin(num='1',name='Oe1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='E2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='D3',func=Pin.types.INPUT,unit=1),
@@ -4030,7 +4030,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Cp',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='E1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HC192', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC192'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/cd74hc192.pdf', 'pins':[
+        Part(**{ 'name':'74HC192', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC192'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/cd74hc192.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HC192\n\nTTL CNT CNT4', 'pins':[
             Pin(num='1',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~{LOAD}',func=Pin.types.INPUT,unit=1),
@@ -4047,7 +4047,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='QD',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='D',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HC193', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC193'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT193.pdf', 'pins':[
+        Part(**{ 'name':'74HC193', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC193'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT193.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HC193\n\nTTL CNT CNT4', 'pins':[
             Pin(num='1',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~{LOAD}',func=Pin.types.INPUT,unit=1),
@@ -4064,7 +4064,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='QD',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='D',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HC245', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC245'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'HCMOS BUS 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74HC245', 'pins':[
+        Part(**{ 'name':'74HC245', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC245'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'HCMOS BUS 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74HC245', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HC245\n\nHCMOS BUS 3State', 'pins':[
             Pin(num='1',name='A->B',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='B7',func=Pin.types.TRISTATE,unit=1),
@@ -4085,7 +4085,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A5',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='A6',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='A7',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HC273', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC273'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'HCMOS DFF DFF8', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT273.pdf', 'pins':[
+        Part(**{ 'name':'74HC273', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC273'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'HCMOS DFF DFF8', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT273.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HC273\n\nHCMOS DFF DFF8', 'pins':[
             Pin(num='1',name='~{Mr}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='Cp',func=Pin.types.INPUT,unit=1),
@@ -4106,7 +4106,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='Q3',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HC373', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC373'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'HCMOS REG DFF DFF8 LATCH', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/cd54hc373.pdf', 'pins':[
+        Part(**{ 'name':'74HC373', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC373'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'HCMOS REG DFF DFF8 LATCH', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/cd54hc373.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HC373\n\nHCMOS REG DFF DFF8 LATCH', 'pins':[
             Pin(num='1',name='OE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='LE',func=Pin.types.INPUT,unit=1),
@@ -4127,7 +4127,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='O3',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HC374', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC374'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'HCMOS DFF DFF8 REG 3State', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/cd74hct374.pdf', 'pins':[
+        Part(**{ 'name':'74HC374', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC374'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'HCMOS DFF DFF8 REG 3State', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/cd74hct374.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HC374\n\nHCMOS DFF DFF8 REG 3State', 'pins':[
             Pin(num='1',name='OE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='Cp',func=Pin.types.INPUT,unit=1),
@@ -4148,7 +4148,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='O3',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HC590A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC590A'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'HCMOS Counter 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74hc590a.pdf', 'pins':[
+        Part(**{ 'name':'74HC590A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC590A'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'HCMOS Counter 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74hc590a.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HC590A\n\nHCMOS Counter 3State', 'pins':[
             Pin(num='1',name='Q1',func=Pin.types.TRISTATE,unit=1),
             Pin(num='10',name='~{MRC}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='CPC',func=Pin.types.INPUT,unit=1),
@@ -4165,7 +4165,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Q7',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='~{RCO}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HC688', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC688'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'HCMOS DECOD Arith', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/cd54hc688.pdf', 'pins':[
+        Part(**{ 'name':'74HC688', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC688'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'HCMOS DECOD Arith', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/cd54hc688.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HC688\n\nHCMOS DECOD Arith', 'pins':[
             Pin(num='1',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='P4',func=Pin.types.INPUT,unit=1),
@@ -4186,7 +4186,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='R2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='P3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='R3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HC74', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC74'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL DFF', 'description':'', 'datasheet':'74xx/74hc_hct74.pdf', 'pins':[
+        Part(**{ 'name':'74HC74', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC74'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL DFF', 'description':'', 'datasheet':'74xx/74hc_hct74.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HC74\n\nTTL DFF', 'pins':[
             Pin(num='1',name='~{R}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='D',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='C',func=Pin.types.INPUT,unit=1),
@@ -4200,8 +4200,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~{Q}',func=Pin.types.OUTPUT,unit=2),
             Pin(num='9',name='Q',func=Pin.types.OUTPUT,unit=2),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '6', '1', '3', '5', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '11', '8', '9', '12', '10']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74HC85', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC85'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL COMP ARITH', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT85.pdf', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '6', '1', '3', '5', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '8', '10', '13', '12', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74HC85', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC85'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL COMP ARITH', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT85.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HC85\n\nTTL COMP ARITH', 'pins':[
             Pin(num='1',name='B3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B1',func=Pin.types.INPUT,unit=1),
@@ -4218,7 +4218,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Oa<b',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='B0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HC86', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC86'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL XOR2', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74HC86', 'pins':[
+        Part(**{ 'name':'74HC86', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HC86'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL XOR2', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74HC86', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HC86\n\nTTL XOR2', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -4232,8 +4232,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
-        Part(**{ 'name':'74HCT00', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT00'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'HCTMOS nand 2-input', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74hct00', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '10', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74HCT00', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT00'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'HCTMOS nand 2-input', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74hct00', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HCT00\n\nHCTMOS nand 2-input', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -4247,8 +4247,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '4', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '9', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '11', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74HCT02', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT02'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'HCTMOS Nor2', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74hct02', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '10', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
+        Part(**{ 'name':'74HCT02', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT02'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'HCTMOS Nor2', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74hct02', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HCT02\n\nHCTMOS Nor2', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=1),
@@ -4262,8 +4262,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '12', '11']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
-        Part(**{ 'name':'74HCT04', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT04'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'HCTMOS not inv', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '9', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '12', '11']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
+        Part(**{ 'name':'74HCT04', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT04'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'HCTMOS not inv', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HCT04\n\nHCTMOS not inv', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=2),
@@ -4277,8 +4277,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.OUTPUT,unit=6),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=6),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=7),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74HCT123', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT123'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'TTL monostable, multivibrator', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT123.pdf', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['9', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74HCT123', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT123'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'TTL monostable, multivibrator', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT123.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HCT123\n\nTTL monostable, multivibrator', 'pins':[
             Pin(num='1',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='13',name='Q',func=Pin.types.OUTPUT,unit=1),
             Pin(num='14',name='Cext',func=Pin.types.INPUT,unit=1),
@@ -4294,8 +4294,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RCext',func=Pin.types.INPUT,unit=2),
             Pin(num='9',name='A',func=Pin.types.INPUT,unit=2),
             Pin(num='16',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['13', '3', '14', '1', '4', '15', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '12', '5', '9', '6', '10', '7']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '8']}] }),
-        Part(**{ 'name':'74HCT137', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT137'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'demux', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cd74hc237.pdf', 'pins':[
+            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '1', '15', '2', '14', '13', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '10', '7', '11', '12', '5', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '8']}] }),
+        Part(**{ 'name':'74HCT137', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT137'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'demux', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cd74hc237.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HCT137\n\ndemux', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{Y5}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='~{Y4}',func=Pin.types.OUTPUT,unit=1),
@@ -4312,7 +4312,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{Y7}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='~{Y6}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HCT138', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT138'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'demux', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cd74hc238.pdf', 'pins':[
+        Part(**{ 'name':'74HCT138', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT138'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'demux', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cd74hc238.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HCT138\n\ndemux', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{Y5}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='~{Y4}',func=Pin.types.OUTPUT,unit=1),
@@ -4329,7 +4329,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{Y7}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='~{Y6}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HCT164', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT164'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'8-bit shift register', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT164.pdf', 'pins':[
+        Part(**{ 'name':'74HCT164', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT164'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'8-bit shift register', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT164.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HCT164\n\n8-bit shift register', 'pins':[
             Pin(num='1',name='DSA',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Q4',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='Q5',func=Pin.types.OUTPUT,unit=1),
@@ -4344,7 +4344,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='CP',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{MR}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HCT193', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT193'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT193.pdf', 'pins':[
+        Part(**{ 'name':'74HCT193', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT193'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT193.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HCT193\n\nTTL CNT CNT4', 'pins':[
             Pin(num='1',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~{LOAD}',func=Pin.types.INPUT,unit=1),
@@ -4361,7 +4361,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='QD',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='D',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HCT173', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT173'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'TTL REG REG4 3State DFF', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/cd74hc173.pdf', 'pins':[
+        Part(**{ 'name':'74HCT173', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT173'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'TTL REG REG4 3State DFF', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/cd74hc173.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HCT173\n\nTTL REG REG4 3State DFF', 'pins':[
             Pin(num='1',name='Oe1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='E2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='D3',func=Pin.types.INPUT,unit=1),
@@ -4378,7 +4378,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Cp',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='E1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HCT237', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT237'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'demux', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cd74hc237.pdf', 'pins':[
+        Part(**{ 'name':'74HCT237', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT237'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'demux', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cd74hc237.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HCT237\n\ndemux', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Y5',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='Y4',func=Pin.types.OUTPUT,unit=1),
@@ -4395,7 +4395,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Y7',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Y6',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HCT238', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT238'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'demux', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/cd74hc238.pdf', 'pins':[
+        Part(**{ 'name':'74HCT238', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT238'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'demux', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/cd74hc238.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HCT238\n\ndemux', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Y5',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='Y4',func=Pin.types.OUTPUT,unit=1),
@@ -4412,7 +4412,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Y7',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Y6',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HCT240', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT240'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'HCTMOS BUFFER 3State inv', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT240.pdf', 'pins':[
+        Part(**{ 'name':'74HCT240', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT240'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'HCTMOS BUFFER 3State inv', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT240.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HCT240\n\nHCTMOS BUFFER 3State inv', 'pins':[
             Pin(num='1',name='1OE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='2A3',func=Pin.types.INPUT,unit=1),
@@ -4433,7 +4433,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='2Y2',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='1A3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='2Y3',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HCT244', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT244'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'HCTMOS BUFFER 3State', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT244.pdf', 'pins':[
+        Part(**{ 'name':'74HCT244', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT244'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'HCTMOS BUFFER 3State', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT244.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HCT244\n\nHCTMOS BUFFER 3State', 'pins':[
             Pin(num='1',name='1OE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='2A3',func=Pin.types.INPUT,unit=1),
@@ -4454,7 +4454,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='2Y2',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='1A3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='2Y3',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HCT273', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT273'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'HCTMOS DFF DFF8', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT273.pdf', 'pins':[
+        Part(**{ 'name':'74HCT273', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT273'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'HCTMOS DFF DFF8', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT273.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HCT273\n\nHCTMOS DFF DFF8', 'pins':[
             Pin(num='1',name='~{Mr}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='Cp',func=Pin.types.INPUT,unit=1),
@@ -4475,7 +4475,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='Q3',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HCT373', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT373'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'HCTMOS REG DFF DFF8 LATCH', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74hct373.pdf', 'pins':[
+        Part(**{ 'name':'74HCT373', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT373'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'HCTMOS REG DFF DFF8 LATCH', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74hct373.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HCT373\n\nHCTMOS REG DFF DFF8 LATCH', 'pins':[
             Pin(num='1',name='OE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='LE',func=Pin.types.INPUT,unit=1),
@@ -4496,7 +4496,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='O3',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HCT374', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT374'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'HCTMOS DFF DFF8 REG 3State', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/cd74hct374.pdf', 'pins':[
+        Part(**{ 'name':'74HCT374', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT374'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'HCTMOS DFF DFF8 REG 3State', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/cd74hct374.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HCT374\n\nHCTMOS DFF DFF8 REG 3State', 'pins':[
             Pin(num='1',name='OE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='Cp',func=Pin.types.INPUT,unit=1),
@@ -4517,7 +4517,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='O3',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HCT4051', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT4051'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL Multiplexer Demultiplexer Analog', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cd74hct4051.pdf', 'pins':[
+        Part(**{ 'name':'74HCT4051', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT4051'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL Multiplexer Demultiplexer Analog', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cd74hct4051.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HCT4051\n\nTTL Multiplexer Demultiplexer Analog', 'pins':[
             Pin(num='1',name='A4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='S1',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='S0',func=Pin.types.INPUT,unit=1),
@@ -4534,7 +4534,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VEE',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='S2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HCT541', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT541'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'TTL BUFFER 3State BUS', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74HCT541', 'pins':[
+        Part(**{ 'name':'74HCT541', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT541'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'TTL BUFFER 3State BUS', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74HCT541', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HCT541\n\nTTL BUFFER 3State BUS', 'pins':[
             Pin(num='1',name='G1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='Y7',func=Pin.types.TRISTATE,unit=1),
@@ -4555,7 +4555,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A5',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A6',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A7',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HCT574', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT574'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL REG DFF DFF8 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74HCT574', 'pins':[
+        Part(**{ 'name':'74HCT574', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT574'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL REG DFF DFF8 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74HCT574', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HCT574\n\nTTL REG DFF DFF8 3State', 'pins':[
             Pin(num='1',name='OE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='Cp',func=Pin.types.INPUT,unit=1),
@@ -4576,7 +4576,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D5',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D6',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='D7',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HCT595', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT595'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'HCTMOS SR 3State', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT595.pdf', 'pins':[
+        Part(**{ 'name':'74HCT595', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT595'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'HCTMOS SR 3State', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT595.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HCT595\n\nHCTMOS SR 3State', 'pins':[
             Pin(num='1',name='QB',func=Pin.types.TRISTATE,unit=1),
             Pin(num='10',name='~{SRCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SRCLK',func=Pin.types.INPUT,unit=1),
@@ -4593,7 +4593,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='QH',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name="QH'",func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HCT596', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT596'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'HCTMOS SR OpenCollector', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT595.pdf', 'pins':[
+        Part(**{ 'name':'74HCT596', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT596'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'HCTMOS SR OpenCollector', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT595.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HCT596\n\nHCTMOS SR OpenCollector', 'pins':[
             Pin(num='1',name='QB',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='10',name='~{SRCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SRCLK',func=Pin.types.INPUT,unit=1),
@@ -4610,7 +4610,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='QH',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name="QH'",func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HCT688', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT688'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'HCTMOS DECOD Arith', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/cd54hc688.pdf', 'pins':[
+        Part(**{ 'name':'74HCT688', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT688'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'HCTMOS DECOD Arith', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/cd54hc688.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HCT688\n\nHCTMOS DECOD Arith', 'pins':[
             Pin(num='1',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='P4',func=Pin.types.INPUT,unit=1),
@@ -4631,7 +4631,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='R2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='P3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='R3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74HCT74', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT74'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'TTL DFF', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf', 'pins':[
+        Part(**{ 'name':'74HCT74', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT74'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'TTL DFF', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HCT74\n\nTTL DFF', 'pins':[
             Pin(num='1',name='~{R}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='D',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='C',func=Pin.types.INPUT,unit=1),
@@ -4645,8 +4645,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~{Q}',func=Pin.types.OUTPUT,unit=2),
             Pin(num='9',name='Q',func=Pin.types.OUTPUT,unit=2),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '3', '6', '2', '5', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '12', '13', '10', '8', '11']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '14']}] }),
-        Part(**{ 'name':'74HCT85', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT85'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'TTL COMP ARITH', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT85.pdf', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['4', '3', '2', '5', '6', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '9', '12', '10', '8', '11']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74HCT85', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74HCT85'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'TTL COMP ARITH', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/74HC_HCT85.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74HCT85\n\nTTL COMP ARITH', 'pins':[
             Pin(num='1',name='B3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B1',func=Pin.types.INPUT,unit=1),
@@ -4663,7 +4663,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Oa<b',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='B0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS06', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS06'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL not inv OpenCol', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS06', 'pins':[
+        Part(**{ 'name':'74LS06', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS06'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL not inv OpenCol', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS06', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS06\n\nTTL not inv OpenCol', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=2),
@@ -4677,8 +4677,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.OPENCOLL,unit=6),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=6),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=7),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['13', '12']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74LS06N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS06N'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'TTL not inv OpenCol', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS06N', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['9', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['13', '12']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74LS06N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS06N'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'TTL not inv OpenCol', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS06N', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS06N\n\nTTL not inv OpenCol', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=2),
@@ -4692,8 +4692,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.OPENCOLL,unit=6),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=6),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=7),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '10']},{'label': 'uF', 'num': 6, 'pin_nums': ['13', '12']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74LS07', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS07'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL hex buffer OpenCol', 'description':'', 'datasheet':'www.ti.com/lit/ds/symlink/sn74ls07.pdf', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '10']},{'label': 'uF', 'num': 6, 'pin_nums': ['13', '12']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74LS07', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS07'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL hex buffer OpenCol', 'description':'', 'datasheet':'www.ti.com/lit/ds/symlink/sn74ls07.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS07\n\nTTL hex buffer OpenCol', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=2),
@@ -4707,8 +4707,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.OPENCOLL,unit=6),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=6),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=7),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['9', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74LS14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS14'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL not inverter', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS14', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '10']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74LS14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS14'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL not inverter', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS14', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS14\n\nTTL not inverter', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=2),
@@ -4722,8 +4722,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.OUTPUT,unit=6),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=6),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=7),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['9', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74LS156', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS156'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL DECOD8 DECOD4 DEMUX4 DEMUX8 OpenCol', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS156', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['9', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['7', '14']}] }),
+        Part(**{ 'name':'74LS156', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS156'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL DECOD8 DECOD4 DEMUX4 DEMUX8 OpenCol', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS156', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS156\n\nTTL DECOD8 DECOD4 DEMUX4 DEMUX8 OpenCol', 'pins':[
             Pin(num='1',name='Ea1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Q1b',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='Q2b',func=Pin.types.OUTPUT,unit=1),
@@ -4740,7 +4740,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Q0a',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Q0b',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS160', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS160'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS160', 'pins':[
+        Part(**{ 'name':'74LS160', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS160'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS160', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS160\n\nTTL CNT CNT4', 'pins':[
             Pin(num='1',name='~{MR}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='CET',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='Q3',func=Pin.types.OUTPUT,unit=1),
@@ -4757,7 +4757,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CEP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='~{PE}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS162', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS162'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS162', 'pins':[
+        Part(**{ 'name':'74LS162', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS162'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS162', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS162\n\nTTL CNT CNT4', 'pins':[
             Pin(num='1',name='~{MR}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='CET',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='Q3',func=Pin.types.OUTPUT,unit=1),
@@ -4774,7 +4774,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CEP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='~{PE}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS163', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS163'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS163', 'pins':[
+        Part(**{ 'name':'74LS163', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS163'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS163', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS163\n\nTTL CNT CNT4', 'pins':[
             Pin(num='1',name='~{MR}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='CET',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='Q3',func=Pin.types.OUTPUT,unit=1),
@@ -4791,7 +4791,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CEP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='~{PE}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS169', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS169'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS169', 'pins':[
+        Part(**{ 'name':'74LS169', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS169'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS169', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS169\n\nTTL CNT CNT4', 'pins':[
             Pin(num='1',name='U/~{D}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{CET}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='Q3',func=Pin.types.OUTPUT,unit=1),
@@ -4808,7 +4808,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{CEP}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='~{PE}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS191', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS191'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS191', 'pins':[
+        Part(**{ 'name':'74LS191', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS191'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS191', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS191\n\nTTL CNT CNT4', 'pins':[
             Pin(num='1',name='P1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='Pl',func=Pin.types.INPUT,unit=1),
@@ -4825,7 +4825,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Q3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='P3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS193', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS193'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74ls193.pdf', 'pins':[
+        Part(**{ 'name':'74LS193', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS193'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn74ls193.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS193\n\nTTL CNT CNT4', 'pins':[
             Pin(num='1',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~{LOAD}',func=Pin.types.INPUT,unit=1),
@@ -4842,7 +4842,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='QD',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='D',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS197', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS197'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS197', 'pins':[
+        Part(**{ 'name':'74LS197', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS197'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS197', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS197\n\nTTL CNT CNT4', 'pins':[
             Pin(num='1',name='Pl',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P1',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='P3',func=Pin.types.INPUT,unit=1),
@@ -4857,7 +4857,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Cp0',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='Q1',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS22', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS22'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL Nand4 OpenColl', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS22', 'pins':[
+        Part(**{ 'name':'74LS22', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS22'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL Nand4 OpenColl', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS22', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS22\n\nTTL Nand4 OpenColl', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='~',func=Pin.types.INPUT,unit=1),
@@ -4869,8 +4869,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '6', '5', '1', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '12', '9', '13', '10']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74LS246', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS246'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL DECOD', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS246', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '1', '4', '6', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '13', '10', '8', '12']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74LS246', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS246'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL DECOD', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS246', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS246\n\nTTL DECOD', 'pins':[
             Pin(num='1',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='d',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='c',func=Pin.types.OPENCOLL,unit=1),
@@ -4887,7 +4887,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='e',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS249', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS249'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL DECOD OpenCol', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS249', 'pins':[
+        Part(**{ 'name':'74LS249', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS249'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL DECOD OpenCol', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS249', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS249\n\nTTL DECOD OpenCol', 'pins':[
             Pin(num='1',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='d',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='c',func=Pin.types.OPENCOLL,unit=1),
@@ -4904,7 +4904,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='e',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS28', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS28'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'TTL Nor2 Buffer', 'description':'', 'datasheet':'http://eeshop.unl.edu/pdf/74ls28.pdf', 'pins':[
+        Part(**{ 'name':'74LS28', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS28'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'TTL Nor2 Buffer', 'description':'', 'datasheet':'http://eeshop.unl.edu/pdf/74ls28.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS28\n\nTTL Nor2 Buffer', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=1),
@@ -4918,8 +4918,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.OUTPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '11', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
-        Part(**{ 'name':'74LS293', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS293'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS293', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '9', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74LS293', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS293'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL CNT CNT4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS293', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS293\n\nTTL CNT CNT4', 'pins':[
             Pin(num='1',name='Ms1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Cp0',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='Cp1',func=Pin.types.INPUT,unit=1),
@@ -4932,7 +4932,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Q3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='Q0',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS37', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS37'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'TTL nand 2-input buffer', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74ls37', 'pins':[
+        Part(**{ 'name':'74LS37', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS37'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'TTL nand 2-input buffer', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74ls37', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS37\n\nTTL nand 2-input buffer', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -4946,8 +4946,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '9', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '12', '11']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74LS38', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS38'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL Nand2 OpenCol Buffer', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS38', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '11', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
+        Part(**{ 'name':'74LS38', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS38'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL Nand2 OpenCol Buffer', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS38', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS38\n\nTTL Nand2 OpenCol Buffer', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.OPENCOLL,unit=1),
@@ -4961,8 +4961,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '8', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '11', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74LS40', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS40'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'TTL Nand4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS40', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '9', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '11', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'74LS40', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS40'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'TTL Nand4', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS40', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS40\n\nTTL Nand4', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='~',func=Pin.types.INPUT,unit=1),
@@ -4974,8 +4974,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=3),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '6', '4', '1', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '9', '8', '10', '12']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'74LS46', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS46'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL DECOD DECOD7 OpenCol', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS46', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '1', '2', '6', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '8', '9', '10', '12']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '14']}] }),
+        Part(**{ 'name':'74LS46', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS46'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL DECOD DECOD7 OpenCol', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS46', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS46\n\nTTL DECOD DECOD7 OpenCol', 'pins':[
             Pin(num='1',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='d',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='c',func=Pin.types.OPENCOLL,unit=1),
@@ -4992,7 +4992,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='e',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS590', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS590'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'TTL Counter 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74ls590', 'pins':[
+        Part(**{ 'name':'74LS590', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS590'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'TTL Counter 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74ls590', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS590\n\nTTL Counter 3State', 'pins':[
             Pin(num='1',name='Q1',func=Pin.types.TRISTATE,unit=1),
             Pin(num='10',name='~{MRC}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='CPC',func=Pin.types.INPUT,unit=1),
@@ -5009,7 +5009,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Q7',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='~{RCO}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS595', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS595'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'TTL SR 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74ls595', 'pins':[
+        Part(**{ 'name':'74LS595', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS595'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'TTL SR 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74ls595', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS595\n\nTTL SR 3State', 'pins':[
             Pin(num='1',name='QB',func=Pin.types.TRISTATE,unit=1),
             Pin(num='10',name='~{SRCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SRCLK',func=Pin.types.INPUT,unit=1),
@@ -5026,7 +5026,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='QH',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name="QH'",func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS596', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS596'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'HCMOS SR OpenCollector', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74ls596', 'pins':[
+        Part(**{ 'name':'74LS596', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS596'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'HCMOS SR OpenCollector', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74ls596', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS596\n\nHCMOS SR OpenCollector', 'pins':[
             Pin(num='1',name='QB',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='10',name='~{SRCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SRCLK',func=Pin.types.INPUT,unit=1),
@@ -5043,7 +5043,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='QH',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name="QH'",func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LS670', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS670'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL Register 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS670', 'pins':[
+        Part(**{ 'name':'74LS670', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LS670'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'TTL Register 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LS670', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LS670\n\nTTL Register 3State', 'pins':[
             Pin(num='1',name='D2',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Q1',func=Pin.types.TRISTATE,unit=1),
             Pin(num='11',name='~{Er}',func=Pin.types.INPUT,unit=1),
@@ -5060,7 +5060,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Q3',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Q2',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'74LVC125', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LVC125'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'TTL buffer 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LVC125', 'pins':[
+        Part(**{ 'name':'74LVC125', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'74LVC125'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'TTL buffer 3State', 'description':'', 'datasheet':'http://www.ti.com/lit/gpn/sn74LVC125', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\n74LVC125\n\nTTL buffer 3State', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.TRISTATE,unit=1),
@@ -5074,8 +5074,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '4', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'CD74AC238', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CD74AC238'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'demux', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/cd74ac238.pdf', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '4', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
+        Part(**{ 'name':'CD74AC238', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CD74AC238'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'demux', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/cd74ac238.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\nCD74AC238\n\ndemux', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Y5',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='Y4',func=Pin.types.OUTPUT,unit=1),
@@ -5092,7 +5092,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Y7',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Y6',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SN74ALVC164245DGG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN74ALVC164245DGG'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'keywords':'transceiver', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74alvc164245.pdf', 'pins':[
+        Part(**{ 'name':'SN74ALVC164245DGG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN74ALVC164245DGG'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'keywords':'transceiver', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74alvc164245.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\nSN74ALVC164245DGG\n\ntransceiver', 'pins':[
             Pin(num='1',name='1DIR',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='1B6',func=Pin.types.BIDIR,unit=1),
@@ -5141,7 +5141,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='V_{CC(B)}',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='1B4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='1B5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SN74ALVC164245DL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN74ALVC164245DL'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:SSOP-48_7.5x15.9mm_P0.635mm'], 'footprint':'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'keywords':'transceiver', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74alvc164245.pdf', 'pins':[
+        Part(**{ 'name':'SN74ALVC164245DL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN74ALVC164245DL'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:SSOP-48_7.5x15.9mm_P0.635mm'], 'footprint':'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'keywords':'transceiver', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74alvc164245.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\nSN74ALVC164245DL\n\ntransceiver', 'pins':[
             Pin(num='1',name='1DIR',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='1B6',func=Pin.types.BIDIR,unit=1),
@@ -5190,7 +5190,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='V_{CC(B)}',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='1B4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='1B5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SN74CB3Q3384APW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN74CB3Q3384APW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_3.9x8.7mm_P0.635mm', 'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:SSOP-24_3.9x8.7mm_P0.635mm', 'keywords':'low voltage high bandwidth', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74cb3q3384a.pdf?ts=1634790233466', 'pins':[
+        Part(**{ 'name':'SN74CB3Q3384APW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN74CB3Q3384APW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_3.9x8.7mm_P0.635mm', 'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:SSOP-24_3.9x8.7mm_P0.635mm', 'keywords':'low voltage high bandwidth', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74cb3q3384a.pdf?ts=1634790233466', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\nSN74CB3Q3384APW\n\nlow voltage high bandwidth', 'pins':[
             Pin(num='1',name='~{1OE}',func=Pin.types.INPUT),
             Pin(num='10',name='1B5',func=Pin.types.TRISTATE),
             Pin(num='11',name='1A5',func=Pin.types.TRISTATE),
@@ -5215,7 +5215,7 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='1A3',func=Pin.types.TRISTATE),
             Pin(num='8',name='1A4',func=Pin.types.TRISTATE),
             Pin(num='9',name='1B4',func=Pin.types.TRISTATE)], 'unit_defs':[] }),
-        Part(**{ 'name':'SN74LS07', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN74LS07'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'TTL hex buffer OpenCol', 'description':'', 'datasheet':'www.ti.com/lit/ds/symlink/sn74ls07.pdf', 'pins':[
+        Part(**{ 'name':'SN74LS07', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN74LS07'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'TTL hex buffer OpenCol', 'description':'', 'datasheet':'www.ti.com/lit/ds/symlink/sn74ls07.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\nSN74LS07\n\nTTL hex buffer OpenCol', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=2),
@@ -5229,8 +5229,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.OPENCOLL,unit=6),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=6),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=7),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['9', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '10']},{'label': 'uF', 'num': 6, 'pin_nums': ['13', '12']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'SN74LS07N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN74LS07N'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'TTL hex buffer OpenCol', 'description':'', 'datasheet':'www.ti.com/lit/ds/symlink/sn74ls07.pdf', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['13', '12']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'SN74LS07N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN74LS07N'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'TTL hex buffer OpenCol', 'description':'', 'datasheet':'www.ti.com/lit/ds/symlink/sn74ls07.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\nSN74LS07N\n\nTTL hex buffer OpenCol', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=2),
@@ -5244,8 +5244,8 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.OPENCOLL,unit=6),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=6),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=7),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'SN74LV4T125', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN74LV4T125'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'3State CMOS shifter translator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74lv4t125.pdf', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'SN74LV4T125', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN74LV4T125'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'3State CMOS shifter translator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn74lv4t125.pdf', 'search_text':'/usr/share/kicad/symbols/74xx.kicad_sym\nSN74LV4T125\n\n3State CMOS shifter translator', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.TRISTATE,unit=1),
@@ -5259,4 +5259,4 @@ _74xx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] })])
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] })])

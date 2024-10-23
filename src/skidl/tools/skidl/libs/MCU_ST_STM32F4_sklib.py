@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'STM32F401CCFx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401CCFx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-49_Die423'], 'footprint':'Package_CSP:ST_WLCSP-49_Die423', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401cc.pdf', 'pins':[
+        Part(**{ 'name':'STM32F401CCFx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401CCFx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-49_Die423'], 'footprint':'Package_CSP:ST_WLCSP-49_Die423', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401cc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F401CCFx\n\nArm Cortex-M4 STM32F4 STM32F401', 'pins':[
             Pin(num='A1',name='PA14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PB3',func=Pin.types.BIDIR,unit=1),
@@ -54,7 +54,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G5',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='G6',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='G7',name='PA1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F401C_B-C_Ux', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401C_B-C_Ux'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401cb.pdf', 'pins':[
+        Part(**{ 'name':'STM32F401C_B-C_Ux', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401C_B-C_Ux'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401cb.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F401C_B-C_Ux\n\nArm Cortex-M4 STM32F4 STM32F401', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -104,7 +104,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VREF+',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F401C_B-C_Yx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401C_B-C_Yx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-49_Die423'], 'footprint':'Package_CSP:ST_WLCSP-49_Die423', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401cb.pdf', 'pins':[
+        Part(**{ 'name':'STM32F401C_B-C_Yx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401C_B-C_Yx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-49_Die423'], 'footprint':'Package_CSP:ST_WLCSP-49_Die423', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401cb.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F401C_B-C_Yx\n\nArm Cortex-M4 STM32F4 STM32F401', 'pins':[
             Pin(num='A1',name='PA14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PB3',func=Pin.types.BIDIR,unit=1),
@@ -154,7 +154,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G5',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='G6',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='G7',name='PA1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F401C_D-E_Ux', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401C_D-E_Ux'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401cd.pdf', 'pins':[
+        Part(**{ 'name':'STM32F401C_D-E_Ux', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401C_D-E_Ux'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401cd.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F401C_D-E_Ux\n\nArm Cortex-M4 STM32F4 STM32F401', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -204,7 +204,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VREF+',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F401C_D-E_Yx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401C_D-E_Yx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-49_Die433'], 'footprint':'Package_CSP:ST_WLCSP-49_Die433', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401cd.pdf', 'pins':[
+        Part(**{ 'name':'STM32F401C_D-E_Yx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401C_D-E_Yx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-49_Die433'], 'footprint':'Package_CSP:ST_WLCSP-49_Die433', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401cd.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F401C_D-E_Yx\n\nArm Cortex-M4 STM32F4 STM32F401', 'pins':[
             Pin(num='A1',name='PA14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PB3',func=Pin.types.BIDIR,unit=1),
@@ -254,7 +254,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G5',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='G6',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='G7',name='PA1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F401R_B-C_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401R_B-C_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401rb.pdf', 'pins':[
+        Part(**{ 'name':'STM32F401R_B-C_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401R_B-C_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401rb.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F401R_B-C_Tx\n\nArm Cortex-M4 STM32F4 STM32F401', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -319,7 +319,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F401R_D-E_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401R_D-E_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401rd.pdf', 'pins':[
+        Part(**{ 'name':'STM32F401R_D-E_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401R_D-E_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401rd.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F401R_D-E_Tx\n\nArm Cortex-M4 STM32F4 STM32F401', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -384,7 +384,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F401V_B-C_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401V_B-C_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401vb.pdf', 'pins':[
+        Part(**{ 'name':'STM32F401V_B-C_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401V_B-C_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401vb.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F401V_B-C_Hx\n\nArm Cortex-M4 STM32F4 STM32F401', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA13',func=Pin.types.BIDIR,unit=1),
@@ -485,7 +485,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE9',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PE11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F401V_B-C_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401V_B-C_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401vb.pdf', 'pins':[
+        Part(**{ 'name':'STM32F401V_B-C_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401V_B-C_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401vb.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F401V_B-C_Tx\n\nArm Cortex-M4 STM32F4 STM32F401', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -586,7 +586,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F401V_D-E_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401V_D-E_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401vd.pdf', 'pins':[
+        Part(**{ 'name':'STM32F401V_D-E_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401V_D-E_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401vd.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F401V_D-E_Hx\n\nArm Cortex-M4 STM32F4 STM32F401', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA13',func=Pin.types.BIDIR,unit=1),
@@ -687,7 +687,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE9',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PE11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F401V_D-E_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401V_D-E_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401vd.pdf', 'pins':[
+        Part(**{ 'name':'STM32F401V_D-E_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401V_D-E_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401vd.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F401V_D-E_Tx\n\nArm Cortex-M4 STM32F4 STM32F401', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -788,7 +788,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F405O_E-G_Yx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F405O_E-G_Yx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-90_Die413'], 'footprint':'Package_CSP:ST_WLCSP-90_Die413', 'keywords':'Arm Cortex-M4 STM32F4 STM32F405/415', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f405oe.pdf', 'pins':[
+        Part(**{ 'name':'STM32F405O_E-G_Yx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F405O_E-G_Yx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-90_Die413'], 'footprint':'Package_CSP:ST_WLCSP-90_Die413', 'keywords':'Arm Cortex-M4 STM32F4 STM32F405/415', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f405oe.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F405O_E-G_Yx\n\nArm Cortex-M4 STM32F4 STM32F405/415', 'pins':[
             Pin(num='A1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A10',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='A2',name='PA14',func=Pin.types.BIDIR,unit=1),
@@ -879,7 +879,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='J7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='J8',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='J9',name='PA4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F405RGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F405RGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F405/415', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f405rg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F405RGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F405RGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F405/415', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f405rg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F405RGTx\n\nArm Cortex-M4 STM32F4 STM32F405/415', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -944,7 +944,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F405VGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F405VGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F405/415', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f405vg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F405VGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F405VGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F405/415', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f405vg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F405VGTx\n\nArm Cortex-M4 STM32F4 STM32F405/415', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -1045,7 +1045,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F405ZGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F405ZGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F405/415', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f405zg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F405ZGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F405ZGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F405/415', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f405zg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F405ZGTx\n\nArm Cortex-M4 STM32F4 STM32F405/415', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -1190,7 +1190,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F407I_E-G_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F407I_E-G_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f407ie.pdf', 'pins':[
+        Part(**{ 'name':'STM32F407I_E-G_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F407I_E-G_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f407ie.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F407I_E-G_Hx\n\nArm Cortex-M4 STM32F4 STM32F407/417', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -1392,7 +1392,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PF14',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F407I_E-G_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F407I_E-G_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f407ie.pdf', 'pins':[
+        Part(**{ 'name':'STM32F407I_E-G_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F407I_E-G_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f407ie.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F407I_E-G_Tx\n\nArm Cortex-M4 STM32F4 STM32F407/417', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PD12',func=Pin.types.BIDIR,unit=1),
@@ -1569,7 +1569,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PD9',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PD10',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PD11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F407V_E-G_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F407V_E-G_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f407ve.pdf', 'pins':[
+        Part(**{ 'name':'STM32F407V_E-G_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F407V_E-G_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f407ve.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F407V_E-G_Tx\n\nArm Cortex-M4 STM32F4 STM32F407/417', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -1670,7 +1670,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F407Z_E-G_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F407Z_E-G_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f407ze.pdf', 'pins':[
+        Part(**{ 'name':'STM32F407Z_E-G_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F407Z_E-G_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f407ze.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F407Z_E-G_Tx\n\nArm Cortex-M4 STM32F4 STM32F407/417', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -1815,7 +1815,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F410C_8-B_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F410C_8-B_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F410', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f410c8.pdf', 'pins':[
+        Part(**{ 'name':'STM32F410C_8-B_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F410C_8-B_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F410', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f410c8.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F410C_8-B_Tx\n\nArm Cortex-M4 STM32F4 STM32F410', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -1864,7 +1864,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F410C_8-B_Ux', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F410C_8-B_Ux'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F410', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f410c8.pdf', 'pins':[
+        Part(**{ 'name':'STM32F410C_8-B_Ux', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F410C_8-B_Ux'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F410', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f410c8.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F410C_8-B_Ux\n\nArm Cortex-M4 STM32F4 STM32F410', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -1914,7 +1914,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F410R_8-B_Ix', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F410R_8-B_Ix'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F410', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f410r8.pdf', 'pins':[
+        Part(**{ 'name':'STM32F410R_8-B_Ix', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F410R_8-B_Ix'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F410', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f410r8.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F410R_8-B_Ix\n\nArm Cortex-M4 STM32F4 STM32F410', 'pins':[
             Pin(num='A1',name='PC14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='A3',name='PB9',func=Pin.types.BIDIR,unit=1),
@@ -1979,7 +1979,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='H6',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='H7',name='VCAP1',func=Pin.types.PWROUT,unit=1),
             Pin(num='H8',name='PB12',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F410R_8-B_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F410R_8-B_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F410', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f410r8.pdf', 'pins':[
+        Part(**{ 'name':'STM32F410R_8-B_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F410R_8-B_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F410', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f410r8.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F410R_8-B_Tx\n\nArm Cortex-M4 STM32F4 STM32F410', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -2044,7 +2044,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F410T_8-B_Yx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F410T_8-B_Yx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-36_Die458'], 'footprint':'Package_CSP:ST_WLCSP-36_Die458', 'keywords':'Arm Cortex-M4 STM32F4 STM32F410', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f410t8.pdf', 'pins':[
+        Part(**{ 'name':'STM32F410T_8-B_Yx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F410T_8-B_Yx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-36_Die458'], 'footprint':'Package_CSP:ST_WLCSP-36_Die458', 'keywords':'Arm Cortex-M4 STM32F4 STM32F410', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f410t8.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F410T_8-B_Yx\n\nArm Cortex-M4 STM32F4 STM32F410', 'pins':[
             Pin(num='A1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A2',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PB5',func=Pin.types.BIDIR,unit=1),
@@ -2081,7 +2081,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='F4',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='F5',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='F6',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F411C_C-E_Ux', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F411C_C-E_Ux'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F411', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f411cc.pdf', 'pins':[
+        Part(**{ 'name':'STM32F411C_C-E_Ux', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F411C_C-E_Ux'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F411', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f411cc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F411C_C-E_Ux\n\nArm Cortex-M4 STM32F4 STM32F411', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -2131,7 +2131,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F411C_C-E_Yx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F411C_C-E_Yx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-49_Die431'], 'footprint':'Package_CSP:ST_WLCSP-49_Die431', 'keywords':'Arm Cortex-M4 STM32F4 STM32F411', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f411cc.pdf', 'pins':[
+        Part(**{ 'name':'STM32F411C_C-E_Yx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F411C_C-E_Yx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-49_Die431'], 'footprint':'Package_CSP:ST_WLCSP-49_Die431', 'keywords':'Arm Cortex-M4 STM32F4 STM32F411', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f411cc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F411C_C-E_Yx\n\nArm Cortex-M4 STM32F4 STM32F411', 'pins':[
             Pin(num='A1',name='PA14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PB3',func=Pin.types.BIDIR,unit=1),
@@ -2181,7 +2181,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G5',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='G6',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='G7',name='PA1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F411R_C-E_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F411R_C-E_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F411', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f411rc.pdf', 'pins':[
+        Part(**{ 'name':'STM32F411R_C-E_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F411R_C-E_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F411', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f411rc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F411R_C-E_Tx\n\nArm Cortex-M4 STM32F4 STM32F411', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -2246,7 +2246,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F411V_C-E_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F411V_C-E_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F411', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f411vc.pdf', 'pins':[
+        Part(**{ 'name':'STM32F411V_C-E_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F411V_C-E_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F411', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f411vc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F411V_C-E_Hx\n\nArm Cortex-M4 STM32F4 STM32F411', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA13',func=Pin.types.BIDIR,unit=1),
@@ -2347,7 +2347,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE9',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PE11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F411V_C-E_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F411V_C-E_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F411', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f411vc.pdf', 'pins':[
+        Part(**{ 'name':'STM32F411V_C-E_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F411V_C-E_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F411', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f411vc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F411V_C-E_Tx\n\nArm Cortex-M4 STM32F4 STM32F411', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -2448,7 +2448,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F412C_E-G_Ux', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412C_E-G_Ux'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412ce.pdf', 'pins':[
+        Part(**{ 'name':'STM32F412C_E-G_Ux', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412C_E-G_Ux'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412ce.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F412C_E-G_Ux\n\nArm Cortex-M4 STM32F4 STM32F412', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -2498,7 +2498,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F412R_E-G_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412R_E-G_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412re.pdf', 'pins':[
+        Part(**{ 'name':'STM32F412R_E-G_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412R_E-G_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412re.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F412R_E-G_Tx\n\nArm Cortex-M4 STM32F4 STM32F412', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -2563,7 +2563,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F412R_E-G_Yx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412R_E-G_Yx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-64_Die441'], 'footprint':'Package_CSP:ST_WLCSP-64_Die441', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412re.pdf', 'pins':[
+        Part(**{ 'name':'STM32F412R_E-G_Yx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412R_E-G_Yx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-64_Die441'], 'footprint':'Package_CSP:ST_WLCSP-64_Die441', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412re.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F412R_E-G_Yx\n\nArm Cortex-M4 STM32F4 STM32F412', 'pins':[
             Pin(num='A1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A2',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PC12',func=Pin.types.BIDIR,unit=1),
@@ -2628,7 +2628,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='H6',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='H7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='H8',name='PA2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F412R_E-G_YxP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412R_E-G_YxP'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-64_Die441'], 'footprint':'Package_CSP:ST_WLCSP-64_Die441', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412re.pdf', 'pins':[
+        Part(**{ 'name':'STM32F412R_E-G_YxP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412R_E-G_YxP'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-64_Die441'], 'footprint':'Package_CSP:ST_WLCSP-64_Die441', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412re.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F412R_E-G_YxP\n\nArm Cortex-M4 STM32F4 STM32F412', 'pins':[
             Pin(num='A1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A2',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PC12',func=Pin.types.BIDIR,unit=1),
@@ -2693,7 +2693,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='H6',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='H7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='H8',name='PA2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F412V_E-G_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412V_E-G_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412ve.pdf', 'pins':[
+        Part(**{ 'name':'STM32F412V_E-G_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412V_E-G_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412ve.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F412V_E-G_Hx\n\nArm Cortex-M4 STM32F4 STM32F412', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA13',func=Pin.types.BIDIR,unit=1),
@@ -2794,7 +2794,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE9',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PE11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F412V_E-G_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412V_E-G_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412ve.pdf', 'pins':[
+        Part(**{ 'name':'STM32F412V_E-G_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412V_E-G_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412ve.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F412V_E-G_Tx\n\nArm Cortex-M4 STM32F4 STM32F412', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -2895,7 +2895,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F412Z_E-G_Jx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412Z_E-G_Jx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm'], 'footprint':'Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412ze.pdf', 'pins':[
+        Part(**{ 'name':'STM32F412Z_E-G_Jx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412Z_E-G_Jx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm'], 'footprint':'Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412ze.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F412Z_E-G_Jx\n\nArm Cortex-M4 STM32F4 STM32F412', 'pins':[
             Pin(num='A1',name='PC13',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA14',func=Pin.types.BIDIR,unit=1),
@@ -3040,7 +3040,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE15',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PB10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F412Z_E-G_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412Z_E-G_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412ze.pdf', 'pins':[
+        Part(**{ 'name':'STM32F412Z_E-G_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412Z_E-G_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412ze.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F412Z_E-G_Tx\n\nArm Cortex-M4 STM32F4 STM32F412', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -3185,7 +3185,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F413C_G-H_Ux', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413C_G-H_Ux'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413cg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F413C_G-H_Ux', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413C_G-H_Ux'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413cg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F413C_G-H_Ux\n\nArm Cortex-M4 STM32F4 STM32F413/423', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -3235,7 +3235,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F413M_G-H_Yx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413M_G-H_Yx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-81_Die463'], 'footprint':'Package_CSP:ST_WLCSP-81_Die463', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413mg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F413M_G-H_Yx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413M_G-H_Yx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-81_Die463'], 'footprint':'Package_CSP:ST_WLCSP-81_Die463', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413mg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F413M_G-H_Yx\n\nArm Cortex-M4 STM32F4 STM32F413/423', 'pins':[
             Pin(num='A1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A2',name='PC10',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PA15',func=Pin.types.BIDIR,unit=1),
@@ -3317,7 +3317,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='J7',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='J8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='J9',name='PA2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F413R_G-H_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413R_G-H_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413rg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F413R_G-H_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413R_G-H_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413rg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F413R_G-H_Tx\n\nArm Cortex-M4 STM32F4 STM32F413/423', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -3382,7 +3382,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F413V_G-H_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413V_G-H_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413vg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F413V_G-H_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413V_G-H_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413vg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F413V_G-H_Hx\n\nArm Cortex-M4 STM32F4 STM32F413/423', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA13',func=Pin.types.BIDIR,unit=1),
@@ -3483,7 +3483,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE9',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PE11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F413V_G-H_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413V_G-H_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413vg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F413V_G-H_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413V_G-H_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413vg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F413V_G-H_Tx\n\nArm Cortex-M4 STM32F4 STM32F413/423', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -3584,7 +3584,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F413Z_G-H_Jx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413Z_G-H_Jx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm'], 'footprint':'Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413zg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F413Z_G-H_Jx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413Z_G-H_Jx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm'], 'footprint':'Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413zg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F413Z_G-H_Jx\n\nArm Cortex-M4 STM32F4 STM32F413/423', 'pins':[
             Pin(num='A1',name='PC13',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA14',func=Pin.types.BIDIR,unit=1),
@@ -3729,7 +3729,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE15',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PB10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F413Z_G-H_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413Z_G-H_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413zg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F413Z_G-H_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413Z_G-H_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413zg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F413Z_G-H_Tx\n\nArm Cortex-M4 STM32F4 STM32F413/423', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -3874,7 +3874,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F415OGYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F415OGYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-90_Die413'], 'footprint':'Package_CSP:ST_WLCSP-90_Die413', 'keywords':'Arm Cortex-M4 STM32F4 STM32F405/415', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f415og.pdf', 'pins':[
+        Part(**{ 'name':'STM32F415OGYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F415OGYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-90_Die413'], 'footprint':'Package_CSP:ST_WLCSP-90_Die413', 'keywords':'Arm Cortex-M4 STM32F4 STM32F405/415', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f415og.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F415OGYx\n\nArm Cortex-M4 STM32F4 STM32F405/415', 'pins':[
             Pin(num='A1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A10',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='A2',name='PA14',func=Pin.types.BIDIR,unit=1),
@@ -3965,7 +3965,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='J7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='J8',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='J9',name='PA4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F415RGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F415RGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F405/415', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f415rg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F415RGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F415RGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F405/415', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f415rg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F415RGTx\n\nArm Cortex-M4 STM32F4 STM32F405/415', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -4030,7 +4030,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F415VGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F415VGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F405/415', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f415vg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F415VGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F415VGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F405/415', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f415vg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F415VGTx\n\nArm Cortex-M4 STM32F4 STM32F405/415', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -4131,7 +4131,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F415ZGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F415ZGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F405/415', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f415zg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F415ZGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F415ZGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F405/415', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f415zg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F415ZGTx\n\nArm Cortex-M4 STM32F4 STM32F405/415', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -4276,7 +4276,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F417I_E-G_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F417I_E-G_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f417ie.pdf', 'pins':[
+        Part(**{ 'name':'STM32F417I_E-G_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F417I_E-G_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f417ie.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F417I_E-G_Hx\n\nArm Cortex-M4 STM32F4 STM32F407/417', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -4478,7 +4478,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PF14',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F417I_E-G_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F417I_E-G_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f417ie.pdf', 'pins':[
+        Part(**{ 'name':'STM32F417I_E-G_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F417I_E-G_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f417ie.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F417I_E-G_Tx\n\nArm Cortex-M4 STM32F4 STM32F407/417', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PD12',func=Pin.types.BIDIR,unit=1),
@@ -4655,7 +4655,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PD9',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PD10',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PD11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F417V_E-G_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F417V_E-G_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f417ve.pdf', 'pins':[
+        Part(**{ 'name':'STM32F417V_E-G_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F417V_E-G_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f417ve.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F417V_E-G_Tx\n\nArm Cortex-M4 STM32F4 STM32F407/417', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -4756,7 +4756,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F417Z_E-G_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F417Z_E-G_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f417ze.pdf', 'pins':[
+        Part(**{ 'name':'STM32F417Z_E-G_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F417Z_E-G_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f417ze.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F417Z_E-G_Tx\n\nArm Cortex-M4 STM32F4 STM32F407/417', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -4901,7 +4901,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F423CHUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F423CHUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f423ch.pdf', 'pins':[
+        Part(**{ 'name':'STM32F423CHUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F423CHUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f423ch.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F423CHUx\n\nArm Cortex-M4 STM32F4 STM32F413/423', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -4951,7 +4951,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F423MHYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F423MHYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-81_Die463'], 'footprint':'Package_CSP:ST_WLCSP-81_Die463', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f423mh.pdf', 'pins':[
+        Part(**{ 'name':'STM32F423MHYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F423MHYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-81_Die463'], 'footprint':'Package_CSP:ST_WLCSP-81_Die463', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f423mh.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F423MHYx\n\nArm Cortex-M4 STM32F4 STM32F413/423', 'pins':[
             Pin(num='A1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A2',name='PC10',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PA15',func=Pin.types.BIDIR,unit=1),
@@ -5033,7 +5033,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='J7',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='J8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='J9',name='PA2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F423RHTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F423RHTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f423rh.pdf', 'pins':[
+        Part(**{ 'name':'STM32F423RHTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F423RHTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f423rh.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F423RHTx\n\nArm Cortex-M4 STM32F4 STM32F413/423', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -5098,7 +5098,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F423VHHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F423VHHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f423vh.pdf', 'pins':[
+        Part(**{ 'name':'STM32F423VHHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F423VHHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f423vh.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F423VHHx\n\nArm Cortex-M4 STM32F4 STM32F413/423', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA13',func=Pin.types.BIDIR,unit=1),
@@ -5199,7 +5199,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE9',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PE11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F423VHTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F423VHTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f423vh.pdf', 'pins':[
+        Part(**{ 'name':'STM32F423VHTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F423VHTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f423vh.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F423VHTx\n\nArm Cortex-M4 STM32F4 STM32F413/423', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -5300,7 +5300,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F423ZHJx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F423ZHJx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm'], 'footprint':'Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f423zh.pdf', 'pins':[
+        Part(**{ 'name':'STM32F423ZHJx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F423ZHJx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm'], 'footprint':'Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f423zh.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F423ZHJx\n\nArm Cortex-M4 STM32F4 STM32F413/423', 'pins':[
             Pin(num='A1',name='PC13',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA14',func=Pin.types.BIDIR,unit=1),
@@ -5445,7 +5445,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE15',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PB10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F423ZHTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F423ZHTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f423zh.pdf', 'pins':[
+        Part(**{ 'name':'STM32F423ZHTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F423ZHTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f423zh.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F423ZHTx\n\nArm Cortex-M4 STM32F4 STM32F413/423', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -5590,7 +5590,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F427A_G-I_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F427A_G-I_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f427ag.pdf', 'pins':[
+        Part(**{ 'name':'STM32F427A_G-I_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F427A_G-I_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f427ag.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F427A_G-I_Hx\n\nArm Cortex-M4 STM32F4 STM32F427/437', 'pins':[
             Pin(num='A1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='A10',name='PC12',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA14',func=Pin.types.BIDIR,unit=1),
@@ -5760,7 +5760,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='N7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='N8',name='PE12',func=Pin.types.BIDIR,unit=1),
             Pin(num='N9',name='VCAP_1',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F427I_G-I_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F427I_G-I_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f427ig.pdf', 'pins':[
+        Part(**{ 'name':'STM32F427I_G-I_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F427I_G-I_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f427ig.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F427I_G-I_Hx\n\nArm Cortex-M4 STM32F4 STM32F427/437', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -5962,7 +5962,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PF14',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F427I_G-I_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F427I_G-I_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f427ig.pdf', 'pins':[
+        Part(**{ 'name':'STM32F427I_G-I_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F427I_G-I_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f427ig.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F427I_G-I_Tx\n\nArm Cortex-M4 STM32F4 STM32F427/437', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PD12',func=Pin.types.BIDIR,unit=1),
@@ -6139,7 +6139,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PD9',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PD10',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PD11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F427V_G-I_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F427V_G-I_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f427vg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F427V_G-I_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F427V_G-I_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f427vg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F427V_G-I_Tx\n\nArm Cortex-M4 STM32F4 STM32F427/437', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -6240,7 +6240,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F427Z_G-I_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F427Z_G-I_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f427zg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F427Z_G-I_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F427Z_G-I_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f427zg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F427Z_G-I_Tx\n\nArm Cortex-M4 STM32F4 STM32F427/437', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -6385,7 +6385,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F429A_G-I_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429A_G-I_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429ag.pdf', 'pins':[
+        Part(**{ 'name':'STM32F429A_G-I_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429A_G-I_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429ag.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F429A_G-I_Hx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='A1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='A10',name='PC12',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA14',func=Pin.types.BIDIR,unit=1),
@@ -6555,7 +6555,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='N7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='N8',name='PE12',func=Pin.types.BIDIR,unit=1),
             Pin(num='N9',name='VCAP_1',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F429B_E-G-I_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429B_E-G-I_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429be.pdf', 'pins':[
+        Part(**{ 'name':'STM32F429B_E-G-I_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429B_E-G-I_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429be.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F429B_E-G-I_Tx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PH10',func=Pin.types.BIDIR,unit=1),
@@ -6764,7 +6764,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PH7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PH8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PH9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F429IITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429IITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429ii.pdf', 'pins':[
+        Part(**{ 'name':'STM32F429IITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429IITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429ii.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F429IITx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PD12',func=Pin.types.BIDIR,unit=1),
@@ -6941,7 +6941,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PD9',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PD10',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PD11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F429I_E-G-I_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429I_E-G-I_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429ie.pdf', 'pins':[
+        Part(**{ 'name':'STM32F429I_E-G-I_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429I_E-G-I_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429ie.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F429I_E-G-I_Hx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -7143,7 +7143,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PF14',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F429I_E-G_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429I_E-G_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429ie.pdf', 'pins':[
+        Part(**{ 'name':'STM32F429I_E-G_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429I_E-G_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429ie.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F429I_E-G_Tx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PD12',func=Pin.types.BIDIR,unit=1),
@@ -7320,7 +7320,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PD9',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PD10',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PD11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F429NIHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429NIHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm'], 'footprint':'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429ni.pdf', 'pins':[
+        Part(**{ 'name':'STM32F429NIHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429NIHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm'], 'footprint':'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429ni.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F429NIHx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='A1',name='PE4',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -7537,7 +7537,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PJ1',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F429N_E-G_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429N_E-G_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm'], 'footprint':'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429ne.pdf', 'pins':[
+        Part(**{ 'name':'STM32F429N_E-G_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429N_E-G_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm'], 'footprint':'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429ne.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F429N_E-G_Hx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='A1',name='PE4',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -7754,7 +7754,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PJ1',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F429VITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429VITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429vi.pdf', 'pins':[
+        Part(**{ 'name':'STM32F429VITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429VITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429vi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F429VITx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -7855,7 +7855,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F429V_E-G_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429V_E-G_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429ve.pdf', 'pins':[
+        Part(**{ 'name':'STM32F429V_E-G_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429V_E-G_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429ve.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F429V_E-G_Tx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -7956,7 +7956,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F429ZGYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429ZGYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-143_Die419'], 'footprint':'Package_CSP:ST_WLCSP-143_Die419', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429zg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F429ZGYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429ZGYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-143_Die419'], 'footprint':'Package_CSP:ST_WLCSP-143_Die419', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429zg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F429ZGYx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='A1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A10',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PDR_ON',func=Pin.types.INPUT,unit=1),
@@ -8100,7 +8100,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='N7',name='PF12',func=Pin.types.BIDIR,unit=1),
             Pin(num='N8',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='N9',name='PC5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F429ZITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429ZITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429zi.pdf', 'pins':[
+        Part(**{ 'name':'STM32F429ZITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429ZITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429zi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F429ZITx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -8245,7 +8245,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F429ZIYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429ZIYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-143_Die419'], 'footprint':'Package_CSP:ST_WLCSP-143_Die419', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429zi.pdf', 'pins':[
+        Part(**{ 'name':'STM32F429ZIYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429ZIYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-143_Die419'], 'footprint':'Package_CSP:ST_WLCSP-143_Die419', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429zi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F429ZIYx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='A1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A10',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PDR_ON',func=Pin.types.INPUT,unit=1),
@@ -8389,7 +8389,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='N7',name='PF12',func=Pin.types.BIDIR,unit=1),
             Pin(num='N8',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='N9',name='PC5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F429Z_E-G_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429Z_E-G_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429ze.pdf', 'pins':[
+        Part(**{ 'name':'STM32F429Z_E-G_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429Z_E-G_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429ze.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F429Z_E-G_Tx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -8534,7 +8534,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F437AIHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F437AIHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f437ai.pdf', 'pins':[
+        Part(**{ 'name':'STM32F437AIHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F437AIHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f437ai.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F437AIHx\n\nArm Cortex-M4 STM32F4 STM32F427/437', 'pins':[
             Pin(num='A1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='A10',name='PC12',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA14',func=Pin.types.BIDIR,unit=1),
@@ -8704,7 +8704,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='N7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='N8',name='PE12',func=Pin.types.BIDIR,unit=1),
             Pin(num='N9',name='VCAP_1',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F437I_G-I_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F437I_G-I_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f437ig.pdf', 'pins':[
+        Part(**{ 'name':'STM32F437I_G-I_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F437I_G-I_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f437ig.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F437I_G-I_Hx\n\nArm Cortex-M4 STM32F4 STM32F427/437', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -8906,7 +8906,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PF14',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F437I_G-I_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F437I_G-I_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f437ig.pdf', 'pins':[
+        Part(**{ 'name':'STM32F437I_G-I_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F437I_G-I_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f437ig.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F437I_G-I_Tx\n\nArm Cortex-M4 STM32F4 STM32F427/437', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PD12',func=Pin.types.BIDIR,unit=1),
@@ -9083,7 +9083,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PD9',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PD10',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PD11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F437V_G-I_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F437V_G-I_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f437vg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F437V_G-I_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F437V_G-I_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f437vg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F437V_G-I_Tx\n\nArm Cortex-M4 STM32F4 STM32F427/437', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -9184,7 +9184,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F437Z_G-I_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F437Z_G-I_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f437zg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F437Z_G-I_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F437Z_G-I_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f437zg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F437Z_G-I_Tx\n\nArm Cortex-M4 STM32F4 STM32F427/437', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -9329,7 +9329,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F439AIHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439AIHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439ai.pdf', 'pins':[
+        Part(**{ 'name':'STM32F439AIHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439AIHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439ai.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F439AIHx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='A1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='A10',name='PC12',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA14',func=Pin.types.BIDIR,unit=1),
@@ -9499,7 +9499,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='N7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='N8',name='PE12',func=Pin.types.BIDIR,unit=1),
             Pin(num='N9',name='VCAP_1',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F439B_G-I_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439B_G-I_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439bg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F439B_G-I_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439B_G-I_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439bg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F439B_G-I_Tx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PH10',func=Pin.types.BIDIR,unit=1),
@@ -9708,7 +9708,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PH7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PH8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PH9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F439I_G-I_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439I_G-I_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439ig.pdf', 'pins':[
+        Part(**{ 'name':'STM32F439I_G-I_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439I_G-I_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439ig.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F439I_G-I_Hx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -9910,7 +9910,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PF14',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F439I_G-I_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439I_G-I_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439ig.pdf', 'pins':[
+        Part(**{ 'name':'STM32F439I_G-I_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439I_G-I_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439ig.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F439I_G-I_Tx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PD12',func=Pin.types.BIDIR,unit=1),
@@ -10087,7 +10087,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PD9',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PD10',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PD11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F439N_G-I_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439N_G-I_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm'], 'footprint':'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439ng.pdf', 'pins':[
+        Part(**{ 'name':'STM32F439N_G-I_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439N_G-I_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm'], 'footprint':'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439ng.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F439N_G-I_Hx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='A1',name='PE4',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -10304,7 +10304,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PJ1',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F439V_G-I_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439V_G-I_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439vg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F439V_G-I_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439V_G-I_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439vg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F439V_G-I_Tx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -10405,7 +10405,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F439Z_G-I_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439Z_G-I_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439zg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F439Z_G-I_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439Z_G-I_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439zg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F439Z_G-I_Tx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -10550,7 +10550,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F439Z_G-I_Yx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439Z_G-I_Yx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-143_Die419'], 'footprint':'Package_CSP:ST_WLCSP-143_Die419', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439zg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F439Z_G-I_Yx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439Z_G-I_Yx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-143_Die419'], 'footprint':'Package_CSP:ST_WLCSP-143_Die419', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439zg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F439Z_G-I_Yx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='A1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A10',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PDR_ON',func=Pin.types.INPUT,unit=1),
@@ -10694,7 +10694,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='N7',name='PF12',func=Pin.types.BIDIR,unit=1),
             Pin(num='N8',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='N9',name='PC5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F446M_C-E_Yx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F446M_C-E_Yx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-81_Die421'], 'footprint':'Package_CSP:ST_WLCSP-81_Die421', 'keywords':'Arm Cortex-M4 STM32F4 STM32F446', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f446mc.pdf', 'pins':[
+        Part(**{ 'name':'STM32F446M_C-E_Yx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F446M_C-E_Yx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-81_Die421'], 'footprint':'Package_CSP:ST_WLCSP-81_Die421', 'keywords':'Arm Cortex-M4 STM32F4 STM32F446', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f446mc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F446M_C-E_Yx\n\nArm Cortex-M4 STM32F4 STM32F446', 'pins':[
             Pin(num='A1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A2',name='PC12',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PD4',func=Pin.types.BIDIR,unit=1),
@@ -10776,7 +10776,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='J7',name='PC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='J8',name='BYPASS_REG',func=Pin.types.INPUT,unit=1),
             Pin(num='J9',name='PA0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F446R_C-E_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F446R_C-E_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F446', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f446rc.pdf', 'pins':[
+        Part(**{ 'name':'STM32F446R_C-E_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F446R_C-E_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F446', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f446rc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F446R_C-E_Tx\n\nArm Cortex-M4 STM32F4 STM32F446', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -10841,7 +10841,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F446V_C-E_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F446V_C-E_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F446', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f446vc.pdf', 'pins':[
+        Part(**{ 'name':'STM32F446V_C-E_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F446V_C-E_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F446', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f446vc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F446V_C-E_Tx\n\nArm Cortex-M4 STM32F4 STM32F446', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -10942,7 +10942,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F446Z_C-E_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F446Z_C-E_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-144_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-144_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F446', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f446zc.pdf', 'pins':[
+        Part(**{ 'name':'STM32F446Z_C-E_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F446Z_C-E_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-144_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-144_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F446', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f446zc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F446Z_C-E_Hx\n\nArm Cortex-M4 STM32F4 STM32F446', 'pins':[
             Pin(num='A1',name='PC13',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA14',func=Pin.types.BIDIR,unit=1),
@@ -11087,7 +11087,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE15',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PB10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F446Z_C-E_Jx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F446Z_C-E_Jx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm'], 'footprint':'Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F446', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f446zc.pdf', 'pins':[
+        Part(**{ 'name':'STM32F446Z_C-E_Jx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F446Z_C-E_Jx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm'], 'footprint':'Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F446', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f446zc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F446Z_C-E_Jx\n\nArm Cortex-M4 STM32F4 STM32F446', 'pins':[
             Pin(num='A1',name='PC13',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA14',func=Pin.types.BIDIR,unit=1),
@@ -11232,7 +11232,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE15',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PB10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F446Z_C-E_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F446Z_C-E_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F446', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f446zc.pdf', 'pins':[
+        Part(**{ 'name':'STM32F446Z_C-E_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F446Z_C-E_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F446', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f446zc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F446Z_C-E_Tx\n\nArm Cortex-M4 STM32F4 STM32F446', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -11377,7 +11377,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F469A_E-G-I_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469A_E-G-I_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ae.pdf', 'pins':[
+        Part(**{ 'name':'STM32F469A_E-G-I_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469A_E-G-I_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ae.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F469A_E-G-I_Hx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='A1',name='PI6',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA13',func=Pin.types.BIDIR,unit=1),
@@ -11547,7 +11547,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='N7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='N8',name='PB11',func=Pin.types.BIDIR,unit=1),
             Pin(num='N9',name='VCAP1',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F469A_E-G-I_Yx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469A_E-G-I_Yx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-168_Die434'], 'footprint':'Package_CSP:ST_WLCSP-168_Die434', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ae.pdf', 'pins':[
+        Part(**{ 'name':'STM32F469A_E-G-I_Yx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469A_E-G-I_Yx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-168_Die434'], 'footprint':'Package_CSP:ST_WLCSP-168_Die434', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ae.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F469A_E-G-I_Yx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='A1',name='PI2',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -11716,7 +11716,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='P7',name='PG1',func=Pin.types.BIDIR,unit=1),
             Pin(num='P8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='P9',name='PB2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F469B_E-G-I_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469B_E-G-I_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469be.pdf', 'pins':[
+        Part(**{ 'name':'STM32F469B_E-G-I_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469B_E-G-I_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469be.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F469B_E-G-I_Tx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PH10',func=Pin.types.BIDIR,unit=1),
@@ -11925,7 +11925,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PH7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PH8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PH9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F469IITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469IITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ii.pdf', 'pins':[
+        Part(**{ 'name':'STM32F469IITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469IITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ii.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F469IITx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='VCAPDSI',func=Pin.types.PWROUT,unit=1),
@@ -12102,7 +12102,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PD14',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PD15',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VDDDSI',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F469I_E-G-I_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469I_E-G-I_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ie.pdf', 'pins':[
+        Part(**{ 'name':'STM32F469I_E-G-I_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469I_E-G-I_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ie.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F469I_E-G-I_Hx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -12304,7 +12304,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PF14',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F469I_E-G_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469I_E-G_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ie.pdf', 'pins':[
+        Part(**{ 'name':'STM32F469I_E-G_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469I_E-G_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ie.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F469I_E-G_Tx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='VCAPDSI',func=Pin.types.PWROUT,unit=1),
@@ -12481,7 +12481,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PD14',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PD15',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VDDDSI',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F469NIHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469NIHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm'], 'footprint':'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ni.pdf', 'pins':[
+        Part(**{ 'name':'STM32F469NIHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469NIHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm'], 'footprint':'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ni.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F469NIHx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='A1',name='PE4',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -12698,7 +12698,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PJ1',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F469N_E-G_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469N_E-G_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm'], 'footprint':'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ne.pdf', 'pins':[
+        Part(**{ 'name':'STM32F469N_E-G_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469N_E-G_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm'], 'footprint':'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ne.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F469N_E-G_Hx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='A1',name='PE4',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -12915,7 +12915,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PJ1',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F469VITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469VITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469vi.pdf', 'pins':[
+        Part(**{ 'name':'STM32F469VITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469VITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469vi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F469VITx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PH1',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -13016,7 +13016,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='BOOT0',func=Pin.types.INPUT,unit=1),
             Pin(num='98',name='PB8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PB9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F469V_E-G_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469V_E-G_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ve.pdf', 'pins':[
+        Part(**{ 'name':'STM32F469V_E-G_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469V_E-G_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ve.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F469V_E-G_Tx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PH1',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -13117,7 +13117,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='BOOT0',func=Pin.types.INPUT,unit=1),
             Pin(num='98',name='PB8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PB9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F469ZITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469ZITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469zi.pdf', 'pins':[
+        Part(**{ 'name':'STM32F469ZITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469ZITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469zi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F469ZITx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF1',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PC8',func=Pin.types.BIDIR,unit=1),
@@ -13262,7 +13262,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='VDDUSB',func=Pin.types.PWRIN,unit=1),
             Pin(num='98',name='PC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F469Z_E-G_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469Z_E-G_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ze.pdf', 'pins':[
+        Part(**{ 'name':'STM32F469Z_E-G_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469Z_E-G_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ze.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F469Z_E-G_Tx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF1',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PC8',func=Pin.types.BIDIR,unit=1),
@@ -13407,7 +13407,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='VDDUSB',func=Pin.types.PWRIN,unit=1),
             Pin(num='98',name='PC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F479A_G-I_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479A_G-I_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479ag.pdf', 'pins':[
+        Part(**{ 'name':'STM32F479A_G-I_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479A_G-I_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479ag.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F479A_G-I_Hx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='A1',name='PI6',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA13',func=Pin.types.BIDIR,unit=1),
@@ -13577,7 +13577,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='N7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='N8',name='PB11',func=Pin.types.BIDIR,unit=1),
             Pin(num='N9',name='VCAP1',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F479A_G-I_Yx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479A_G-I_Yx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-168_Die434'], 'footprint':'Package_CSP:ST_WLCSP-168_Die434', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479ag.pdf', 'pins':[
+        Part(**{ 'name':'STM32F479A_G-I_Yx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479A_G-I_Yx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-168_Die434'], 'footprint':'Package_CSP:ST_WLCSP-168_Die434', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479ag.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F479A_G-I_Yx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='A1',name='PI2',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -13746,7 +13746,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='P7',name='PG1',func=Pin.types.BIDIR,unit=1),
             Pin(num='P8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='P9',name='PB2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F479B_G-I_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479B_G-I_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479bg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F479B_G-I_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479B_G-I_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479bg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F479B_G-I_Tx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PH10',func=Pin.types.BIDIR,unit=1),
@@ -13955,7 +13955,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PH7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PH8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PH9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F479I_G-I_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479I_G-I_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479ig.pdf', 'pins':[
+        Part(**{ 'name':'STM32F479I_G-I_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479I_G-I_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479ig.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F479I_G-I_Hx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -14157,7 +14157,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PF14',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F479I_G-I_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479I_G-I_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479ig.pdf', 'pins':[
+        Part(**{ 'name':'STM32F479I_G-I_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479I_G-I_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479ig.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F479I_G-I_Tx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='VCAPDSI',func=Pin.types.PWROUT,unit=1),
@@ -14334,7 +14334,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PD14',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PD15',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VDDDSI',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F479N_G-I_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479N_G-I_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm'], 'footprint':'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479ng.pdf', 'pins':[
+        Part(**{ 'name':'STM32F479N_G-I_Hx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479N_G-I_Hx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm'], 'footprint':'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479ng.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F479N_G-I_Hx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='A1',name='PE4',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -14551,7 +14551,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PJ1',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F479V_G-I_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479V_G-I_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479vg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F479V_G-I_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479V_G-I_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479vg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F479V_G-I_Tx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PH1',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -14652,7 +14652,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='BOOT0',func=Pin.types.INPUT,unit=1),
             Pin(num='98',name='PB8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PB9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F479Z_G-I_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479Z_G-I_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479zg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F479Z_G-I_Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479Z_G-I_Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479zg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F479Z_G-I_Tx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF1',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PC8',func=Pin.types.BIDIR,unit=1),
@@ -14797,7 +14797,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='VDDUSB',func=Pin.types.PWRIN,unit=1),
             Pin(num='98',name='PC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F401CBUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401CBUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401cb.pdf', 'pins':[
+        Part(**{ 'name':'STM32F401CBUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401CBUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401cb.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F401CBUx\n\nArm Cortex-M4 STM32F4 STM32F401', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -14847,7 +14847,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VREF+',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F401CBYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401CBYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-49_Die423', 'Package_CSP:ST_WLCSP-49_Die423'], 'footprint':'Package_CSP:ST_WLCSP-49_Die423', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401cby6.pdf', 'pins':[
+        Part(**{ 'name':'STM32F401CBYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401CBYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-49_Die423', 'Package_CSP:ST_WLCSP-49_Die423'], 'footprint':'Package_CSP:ST_WLCSP-49_Die423', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401cby6.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F401CBYx\n\nArm Cortex-M4 STM32F4 STM32F401', 'pins':[
             Pin(num='A1',name='PA14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PB3',func=Pin.types.BIDIR,unit=1),
@@ -14897,7 +14897,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G5',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='G6',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='G7',name='PA1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F401CCUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401CCUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401cc.pdf', 'pins':[
+        Part(**{ 'name':'STM32F401CCUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401CCUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401cc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F401CCUx\n\nArm Cortex-M4 STM32F4 STM32F401', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -14947,7 +14947,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VREF+',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F401CCYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401CCYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-49_Die423', 'Package_CSP:ST_WLCSP-49_Die423', 'Package_CSP:ST_WLCSP-49_Die423'], 'footprint':'Package_CSP:ST_WLCSP-49_Die423', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401cc.pdf', 'pins':[
+        Part(**{ 'name':'STM32F401CCYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401CCYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-49_Die423', 'Package_CSP:ST_WLCSP-49_Die423', 'Package_CSP:ST_WLCSP-49_Die423'], 'footprint':'Package_CSP:ST_WLCSP-49_Die423', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401cc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F401CCYx\n\nArm Cortex-M4 STM32F4 STM32F401', 'pins':[
             Pin(num='A1',name='PA14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PB3',func=Pin.types.BIDIR,unit=1),
@@ -14997,7 +14997,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G5',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='G6',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='G7',name='PA1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F401CDUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401CDUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401cd.pdf', 'pins':[
+        Part(**{ 'name':'STM32F401CDUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401CDUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401cd.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F401CDUx\n\nArm Cortex-M4 STM32F4 STM32F401', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -15047,7 +15047,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VREF+',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F401CDYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401CDYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-49_Die433', 'Package_CSP:ST_WLCSP-49_Die433'], 'footprint':'Package_CSP:ST_WLCSP-49_Die433', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401cd.pdf', 'pins':[
+        Part(**{ 'name':'STM32F401CDYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401CDYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-49_Die433', 'Package_CSP:ST_WLCSP-49_Die433'], 'footprint':'Package_CSP:ST_WLCSP-49_Die433', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401cd.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F401CDYx\n\nArm Cortex-M4 STM32F4 STM32F401', 'pins':[
             Pin(num='A1',name='PA14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PB3',func=Pin.types.BIDIR,unit=1),
@@ -15097,7 +15097,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G5',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='G6',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='G7',name='PA1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F401CEUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401CEUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401ce.pdf', 'pins':[
+        Part(**{ 'name':'STM32F401CEUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401CEUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401ce.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F401CEUx\n\nArm Cortex-M4 STM32F4 STM32F401', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -15147,7 +15147,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VREF+',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F401CEYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401CEYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-49_Die433', 'Package_CSP:ST_WLCSP-49_Die433', 'Package_CSP:ST_WLCSP-49_Die433'], 'footprint':'Package_CSP:ST_WLCSP-49_Die433', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401ce.pdf', 'pins':[
+        Part(**{ 'name':'STM32F401CEYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401CEYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-49_Die433', 'Package_CSP:ST_WLCSP-49_Die433', 'Package_CSP:ST_WLCSP-49_Die433'], 'footprint':'Package_CSP:ST_WLCSP-49_Die433', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401ce.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F401CEYx\n\nArm Cortex-M4 STM32F4 STM32F401', 'pins':[
             Pin(num='A1',name='PA14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PB3',func=Pin.types.BIDIR,unit=1),
@@ -15197,7 +15197,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G5',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='G6',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='G7',name='PA1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F401RBTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401RBTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401rb.pdf', 'pins':[
+        Part(**{ 'name':'STM32F401RBTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401RBTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401rb.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F401RBTx\n\nArm Cortex-M4 STM32F4 STM32F401', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -15262,7 +15262,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F401RCTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401RCTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401rc.pdf', 'pins':[
+        Part(**{ 'name':'STM32F401RCTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401RCTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401rc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F401RCTx\n\nArm Cortex-M4 STM32F4 STM32F401', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -15327,7 +15327,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F401RDTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401RDTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401rd.pdf', 'pins':[
+        Part(**{ 'name':'STM32F401RDTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401RDTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401rd.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F401RDTx\n\nArm Cortex-M4 STM32F4 STM32F401', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -15392,7 +15392,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F401RETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401RETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401re.pdf', 'pins':[
+        Part(**{ 'name':'STM32F401RETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401RETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401re.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F401RETx\n\nArm Cortex-M4 STM32F4 STM32F401', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -15457,7 +15457,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F401VBHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401VBHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401vb.pdf', 'pins':[
+        Part(**{ 'name':'STM32F401VBHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401VBHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401vb.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F401VBHx\n\nArm Cortex-M4 STM32F4 STM32F401', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA13',func=Pin.types.BIDIR,unit=1),
@@ -15558,7 +15558,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE9',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PE11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F401VBTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401VBTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401vb.pdf', 'pins':[
+        Part(**{ 'name':'STM32F401VBTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401VBTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401vb.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F401VBTx\n\nArm Cortex-M4 STM32F4 STM32F401', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -15659,7 +15659,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F401VCHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401VCHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401vc.pdf', 'pins':[
+        Part(**{ 'name':'STM32F401VCHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401VCHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401vc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F401VCHx\n\nArm Cortex-M4 STM32F4 STM32F401', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA13',func=Pin.types.BIDIR,unit=1),
@@ -15760,7 +15760,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE9',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PE11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F401VCTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401VCTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401vc.pdf', 'pins':[
+        Part(**{ 'name':'STM32F401VCTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401VCTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401vc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F401VCTx\n\nArm Cortex-M4 STM32F4 STM32F401', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -15861,7 +15861,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F401VDHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401VDHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401vd.pdf', 'pins':[
+        Part(**{ 'name':'STM32F401VDHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401VDHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401vd.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F401VDHx\n\nArm Cortex-M4 STM32F4 STM32F401', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA13',func=Pin.types.BIDIR,unit=1),
@@ -15962,7 +15962,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE9',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PE11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F401VDTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401VDTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401vd.pdf', 'pins':[
+        Part(**{ 'name':'STM32F401VDTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401VDTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401vd.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F401VDTx\n\nArm Cortex-M4 STM32F4 STM32F401', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -16063,7 +16063,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F401VEHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401VEHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401ve.pdf', 'pins':[
+        Part(**{ 'name':'STM32F401VEHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401VEHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401ve.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F401VEHx\n\nArm Cortex-M4 STM32F4 STM32F401', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA13',func=Pin.types.BIDIR,unit=1),
@@ -16164,7 +16164,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE9',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PE11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F401VETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401VETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401ve.pdf', 'pins':[
+        Part(**{ 'name':'STM32F401VETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F401VETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F401', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f401ve.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F401VETx\n\nArm Cortex-M4 STM32F4 STM32F401', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -16265,7 +16265,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F405OEYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F405OEYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-90_Die413', 'Package_CSP:ST_WLCSP-90_Die413'], 'footprint':'Package_CSP:ST_WLCSP-90_Die413', 'keywords':'Arm Cortex-M4 STM32F4 STM32F405/415', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f405oe.pdf', 'pins':[
+        Part(**{ 'name':'STM32F405OEYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F405OEYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-90_Die413', 'Package_CSP:ST_WLCSP-90_Die413'], 'footprint':'Package_CSP:ST_WLCSP-90_Die413', 'keywords':'Arm Cortex-M4 STM32F4 STM32F405/415', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f405oe.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F405OEYx\n\nArm Cortex-M4 STM32F4 STM32F405/415', 'pins':[
             Pin(num='A1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A10',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='A2',name='PA14',func=Pin.types.BIDIR,unit=1),
@@ -16356,7 +16356,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='J7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='J8',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='J9',name='PA4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F405OGYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F405OGYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-90_Die413', 'Package_CSP:ST_WLCSP-90_Die413', 'Package_CSP:ST_WLCSP-90_Die413'], 'footprint':'Package_CSP:ST_WLCSP-90_Die413', 'keywords':'Arm Cortex-M4 STM32F4 STM32F405/415', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f405og.pdf', 'pins':[
+        Part(**{ 'name':'STM32F405OGYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F405OGYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-90_Die413', 'Package_CSP:ST_WLCSP-90_Die413', 'Package_CSP:ST_WLCSP-90_Die413'], 'footprint':'Package_CSP:ST_WLCSP-90_Die413', 'keywords':'Arm Cortex-M4 STM32F4 STM32F405/415', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f405og.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F405OGYx\n\nArm Cortex-M4 STM32F4 STM32F405/415', 'pins':[
             Pin(num='A1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A10',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='A2',name='PA14',func=Pin.types.BIDIR,unit=1),
@@ -16447,7 +16447,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='J7',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='J8',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='J9',name='PA4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F407IEHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F407IEHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f407ie.pdf', 'pins':[
+        Part(**{ 'name':'STM32F407IEHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F407IEHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f407ie.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F407IEHx\n\nArm Cortex-M4 STM32F4 STM32F407/417', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -16649,7 +16649,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PF14',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F407IETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F407IETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f407ie.pdf', 'pins':[
+        Part(**{ 'name':'STM32F407IETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F407IETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f407ie.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F407IETx\n\nArm Cortex-M4 STM32F4 STM32F407/417', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PD12',func=Pin.types.BIDIR,unit=1),
@@ -16826,7 +16826,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PD9',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PD10',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PD11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F407IGHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F407IGHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f407ig.pdf', 'pins':[
+        Part(**{ 'name':'STM32F407IGHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F407IGHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f407ig.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F407IGHx\n\nArm Cortex-M4 STM32F4 STM32F407/417', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -17028,7 +17028,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PF14',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F407IGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F407IGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f407ig.pdf', 'pins':[
+        Part(**{ 'name':'STM32F407IGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F407IGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f407ig.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F407IGTx\n\nArm Cortex-M4 STM32F4 STM32F407/417', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PD12',func=Pin.types.BIDIR,unit=1),
@@ -17205,7 +17205,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PD9',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PD10',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PD11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F407VETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F407VETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f407ve.pdf', 'pins':[
+        Part(**{ 'name':'STM32F407VETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F407VETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f407ve.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F407VETx\n\nArm Cortex-M4 STM32F4 STM32F407/417', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -17306,7 +17306,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F407VGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F407VGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f407vg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F407VGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F407VGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f407vg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F407VGTx\n\nArm Cortex-M4 STM32F4 STM32F407/417', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -17407,7 +17407,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F407ZETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F407ZETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f407ze.pdf', 'pins':[
+        Part(**{ 'name':'STM32F407ZETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F407ZETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f407ze.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F407ZETx\n\nArm Cortex-M4 STM32F4 STM32F407/417', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -17552,7 +17552,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F407ZGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F407ZGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f407zg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F407ZGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F407ZGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f407zg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F407ZGTx\n\nArm Cortex-M4 STM32F4 STM32F407/417', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -17697,7 +17697,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F410C8Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F410C8Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F410', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f410c8.pdf', 'pins':[
+        Part(**{ 'name':'STM32F410C8Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F410C8Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F410', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f410c8.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F410C8Tx\n\nArm Cortex-M4 STM32F4 STM32F410', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -17746,7 +17746,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F410C8Ux', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F410C8Ux'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F410', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f410c8.pdf', 'pins':[
+        Part(**{ 'name':'STM32F410C8Ux', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F410C8Ux'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F410', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f410c8.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F410C8Ux\n\nArm Cortex-M4 STM32F4 STM32F410', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -17796,7 +17796,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F410CBTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F410CBTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F410', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f410cb.pdf', 'pins':[
+        Part(**{ 'name':'STM32F410CBTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F410CBTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F410', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f410cb.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F410CBTx\n\nArm Cortex-M4 STM32F4 STM32F410', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -17845,7 +17845,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F410CBUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F410CBUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F410', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f410cb.pdf', 'pins':[
+        Part(**{ 'name':'STM32F410CBUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F410CBUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F410', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f410cb.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F410CBUx\n\nArm Cortex-M4 STM32F4 STM32F410', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -17895,7 +17895,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F410R8Ix', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F410R8Ix'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm', 'Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F410', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f410r8.pdf', 'pins':[
+        Part(**{ 'name':'STM32F410R8Ix', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F410R8Ix'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm', 'Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F410', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f410r8.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F410R8Ix\n\nArm Cortex-M4 STM32F4 STM32F410', 'pins':[
             Pin(num='A1',name='PC14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='A3',name='PB9',func=Pin.types.BIDIR,unit=1),
@@ -17960,7 +17960,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='H6',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='H7',name='VCAP1',func=Pin.types.PWROUT,unit=1),
             Pin(num='H8',name='PB12',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F410R8Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F410R8Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F410', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f410r8.pdf', 'pins':[
+        Part(**{ 'name':'STM32F410R8Tx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F410R8Tx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F410', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f410r8.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F410R8Tx\n\nArm Cortex-M4 STM32F4 STM32F410', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -18025,7 +18025,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F410RBIx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F410RBIx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm', 'Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm', 'Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F410', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f410rb.pdf', 'pins':[
+        Part(**{ 'name':'STM32F410RBIx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F410RBIx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm', 'Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm', 'Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:UFBGA-64_5x5mm_Layout8x8_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F410', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f410rb.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F410RBIx\n\nArm Cortex-M4 STM32F4 STM32F410', 'pins':[
             Pin(num='A1',name='PC14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='A3',name='PB9',func=Pin.types.BIDIR,unit=1),
@@ -18090,7 +18090,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='H6',name='PB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='H7',name='VCAP1',func=Pin.types.PWROUT,unit=1),
             Pin(num='H8',name='PB12',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F410RBTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F410RBTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F410', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f410rb.pdf', 'pins':[
+        Part(**{ 'name':'STM32F410RBTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F410RBTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F410', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f410rb.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F410RBTx\n\nArm Cortex-M4 STM32F4 STM32F410', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -18155,7 +18155,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F410T8Yx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F410T8Yx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-36_Die458', 'Package_CSP:ST_WLCSP-36_Die458'], 'footprint':'Package_CSP:ST_WLCSP-36_Die458', 'keywords':'Arm Cortex-M4 STM32F4 STM32F410', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f410t8.pdf', 'pins':[
+        Part(**{ 'name':'STM32F410T8Yx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F410T8Yx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-36_Die458', 'Package_CSP:ST_WLCSP-36_Die458'], 'footprint':'Package_CSP:ST_WLCSP-36_Die458', 'keywords':'Arm Cortex-M4 STM32F4 STM32F410', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f410t8.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F410T8Yx\n\nArm Cortex-M4 STM32F4 STM32F410', 'pins':[
             Pin(num='A1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A2',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PB5',func=Pin.types.BIDIR,unit=1),
@@ -18192,7 +18192,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='F4',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='F5',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='F6',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F410TBYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F410TBYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-36_Die458', 'Package_CSP:ST_WLCSP-36_Die458', 'Package_CSP:ST_WLCSP-36_Die458'], 'footprint':'Package_CSP:ST_WLCSP-36_Die458', 'keywords':'Arm Cortex-M4 STM32F4 STM32F410', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f410tb.pdf', 'pins':[
+        Part(**{ 'name':'STM32F410TBYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F410TBYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-36_Die458', 'Package_CSP:ST_WLCSP-36_Die458', 'Package_CSP:ST_WLCSP-36_Die458'], 'footprint':'Package_CSP:ST_WLCSP-36_Die458', 'keywords':'Arm Cortex-M4 STM32F4 STM32F410', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f410tb.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F410TBYx\n\nArm Cortex-M4 STM32F4 STM32F410', 'pins':[
             Pin(num='A1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A2',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PB5',func=Pin.types.BIDIR,unit=1),
@@ -18229,7 +18229,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='F4',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='F5',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='F6',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F411CCUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F411CCUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F411', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f411cc.pdf', 'pins':[
+        Part(**{ 'name':'STM32F411CCUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F411CCUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F411', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f411cc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F411CCUx\n\nArm Cortex-M4 STM32F4 STM32F411', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -18279,7 +18279,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F411CCYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F411CCYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-49_Die431', 'Package_CSP:ST_WLCSP-49_Die431'], 'footprint':'Package_CSP:ST_WLCSP-49_Die431', 'keywords':'Arm Cortex-M4 STM32F4 STM32F411', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f411cc.pdf', 'pins':[
+        Part(**{ 'name':'STM32F411CCYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F411CCYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-49_Die431', 'Package_CSP:ST_WLCSP-49_Die431'], 'footprint':'Package_CSP:ST_WLCSP-49_Die431', 'keywords':'Arm Cortex-M4 STM32F4 STM32F411', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f411cc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F411CCYx\n\nArm Cortex-M4 STM32F4 STM32F411', 'pins':[
             Pin(num='A1',name='PA14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PB3',func=Pin.types.BIDIR,unit=1),
@@ -18329,7 +18329,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G5',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='G6',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='G7',name='PA1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F411CEUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F411CEUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F411', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f411ce.pdf', 'pins':[
+        Part(**{ 'name':'STM32F411CEUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F411CEUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F411', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f411ce.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F411CEUx\n\nArm Cortex-M4 STM32F4 STM32F411', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -18379,7 +18379,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F411CEYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F411CEYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-49_Die431', 'Package_CSP:ST_WLCSP-49_Die431', 'Package_CSP:ST_WLCSP-49_Die431'], 'footprint':'Package_CSP:ST_WLCSP-49_Die431', 'keywords':'Arm Cortex-M4 STM32F4 STM32F411', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f411ce.pdf', 'pins':[
+        Part(**{ 'name':'STM32F411CEYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F411CEYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-49_Die431', 'Package_CSP:ST_WLCSP-49_Die431', 'Package_CSP:ST_WLCSP-49_Die431'], 'footprint':'Package_CSP:ST_WLCSP-49_Die431', 'keywords':'Arm Cortex-M4 STM32F4 STM32F411', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f411ce.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F411CEYx\n\nArm Cortex-M4 STM32F4 STM32F411', 'pins':[
             Pin(num='A1',name='PA14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PB3',func=Pin.types.BIDIR,unit=1),
@@ -18429,7 +18429,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G5',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='G6',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='G7',name='PA1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F411RCTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F411RCTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F411', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f411rc.pdf', 'pins':[
+        Part(**{ 'name':'STM32F411RCTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F411RCTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F411', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f411rc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F411RCTx\n\nArm Cortex-M4 STM32F4 STM32F411', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -18494,7 +18494,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F411RETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F411RETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F411', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f411re.pdf', 'pins':[
+        Part(**{ 'name':'STM32F411RETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F411RETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F411', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f411re.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F411RETx\n\nArm Cortex-M4 STM32F4 STM32F411', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -18559,7 +18559,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F411VCHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F411VCHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F411', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f411vc.pdf', 'pins':[
+        Part(**{ 'name':'STM32F411VCHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F411VCHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F411', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f411vc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F411VCHx\n\nArm Cortex-M4 STM32F4 STM32F411', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA13',func=Pin.types.BIDIR,unit=1),
@@ -18660,7 +18660,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE9',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PE11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F411VCTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F411VCTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F411', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f411vc.pdf', 'pins':[
+        Part(**{ 'name':'STM32F411VCTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F411VCTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F411', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f411vc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F411VCTx\n\nArm Cortex-M4 STM32F4 STM32F411', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -18761,7 +18761,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F411VEHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F411VEHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F411', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f411ve.pdf', 'pins':[
+        Part(**{ 'name':'STM32F411VEHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F411VEHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F411', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f411ve.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F411VEHx\n\nArm Cortex-M4 STM32F4 STM32F411', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA13',func=Pin.types.BIDIR,unit=1),
@@ -18862,7 +18862,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE9',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PE11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F411VETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F411VETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F411', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f411ve.pdf', 'pins':[
+        Part(**{ 'name':'STM32F411VETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F411VETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F411', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f411ve.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F411VETx\n\nArm Cortex-M4 STM32F4 STM32F411', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -18963,7 +18963,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F412CEUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412CEUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412ce.pdf', 'pins':[
+        Part(**{ 'name':'STM32F412CEUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412CEUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412ce.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F412CEUx\n\nArm Cortex-M4 STM32F4 STM32F412', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -19013,7 +19013,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F412CGUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412CGUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412cg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F412CGUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412CGUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412cg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F412CGUx\n\nArm Cortex-M4 STM32F4 STM32F412', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -19063,7 +19063,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F412RETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412RETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412re.pdf', 'pins':[
+        Part(**{ 'name':'STM32F412RETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412RETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412re.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F412RETx\n\nArm Cortex-M4 STM32F4 STM32F412', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -19128,7 +19128,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F412REYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412REYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-64_Die441', 'Package_CSP:ST_WLCSP-64_Die441'], 'footprint':'Package_CSP:ST_WLCSP-64_Die441', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412re.pdf', 'pins':[
+        Part(**{ 'name':'STM32F412REYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412REYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-64_Die441', 'Package_CSP:ST_WLCSP-64_Die441'], 'footprint':'Package_CSP:ST_WLCSP-64_Die441', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412re.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F412REYx\n\nArm Cortex-M4 STM32F4 STM32F412', 'pins':[
             Pin(num='A1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A2',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PC12',func=Pin.types.BIDIR,unit=1),
@@ -19193,7 +19193,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='H6',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='H7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='H8',name='PA2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F412REYxP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412REYxP'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-64_Die441', 'Package_CSP:ST_WLCSP-64_Die441'], 'footprint':'Package_CSP:ST_WLCSP-64_Die441', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412re.pdf', 'pins':[
+        Part(**{ 'name':'STM32F412REYxP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412REYxP'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-64_Die441', 'Package_CSP:ST_WLCSP-64_Die441'], 'footprint':'Package_CSP:ST_WLCSP-64_Die441', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412re.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F412REYxP\n\nArm Cortex-M4 STM32F4 STM32F412', 'pins':[
             Pin(num='A1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A2',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PC12',func=Pin.types.BIDIR,unit=1),
@@ -19258,7 +19258,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='H6',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='H7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='H8',name='PA2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F412RGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412RGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412rg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F412RGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412RGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412rg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F412RGTx\n\nArm Cortex-M4 STM32F4 STM32F412', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -19323,7 +19323,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F412RGYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412RGYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-64_Die441', 'Package_CSP:ST_WLCSP-64_Die441', 'Package_CSP:ST_WLCSP-64_Die441'], 'footprint':'Package_CSP:ST_WLCSP-64_Die441', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412rg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F412RGYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412RGYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-64_Die441', 'Package_CSP:ST_WLCSP-64_Die441', 'Package_CSP:ST_WLCSP-64_Die441'], 'footprint':'Package_CSP:ST_WLCSP-64_Die441', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412rg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F412RGYx\n\nArm Cortex-M4 STM32F4 STM32F412', 'pins':[
             Pin(num='A1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A2',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PC12',func=Pin.types.BIDIR,unit=1),
@@ -19388,7 +19388,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='H6',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='H7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='H8',name='PA2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F412RGYxP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412RGYxP'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-64_Die441', 'Package_CSP:ST_WLCSP-64_Die441', 'Package_CSP:ST_WLCSP-64_Die441'], 'footprint':'Package_CSP:ST_WLCSP-64_Die441', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412rg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F412RGYxP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412RGYxP'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-64_Die441', 'Package_CSP:ST_WLCSP-64_Die441', 'Package_CSP:ST_WLCSP-64_Die441'], 'footprint':'Package_CSP:ST_WLCSP-64_Die441', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412rg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F412RGYxP\n\nArm Cortex-M4 STM32F4 STM32F412', 'pins':[
             Pin(num='A1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A2',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PC12',func=Pin.types.BIDIR,unit=1),
@@ -19453,7 +19453,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='H6',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='H7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='H8',name='PA2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F412VEHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412VEHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412ve.pdf', 'pins':[
+        Part(**{ 'name':'STM32F412VEHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412VEHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412ve.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F412VEHx\n\nArm Cortex-M4 STM32F4 STM32F412', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA13',func=Pin.types.BIDIR,unit=1),
@@ -19554,7 +19554,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE9',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PE11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F412VETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412VETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412ve.pdf', 'pins':[
+        Part(**{ 'name':'STM32F412VETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412VETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412ve.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F412VETx\n\nArm Cortex-M4 STM32F4 STM32F412', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -19655,7 +19655,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F412VGHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412VGHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412vg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F412VGHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412VGHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412vg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F412VGHx\n\nArm Cortex-M4 STM32F4 STM32F412', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA13',func=Pin.types.BIDIR,unit=1),
@@ -19756,7 +19756,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE9',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PE11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F412VGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412VGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412vg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F412VGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412VGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412vg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F412VGTx\n\nArm Cortex-M4 STM32F4 STM32F412', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -19857,7 +19857,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F412ZEJx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412ZEJx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm', 'Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm'], 'footprint':'Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412ze.pdf', 'pins':[
+        Part(**{ 'name':'STM32F412ZEJx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412ZEJx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm', 'Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm'], 'footprint':'Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412ze.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F412ZEJx\n\nArm Cortex-M4 STM32F4 STM32F412', 'pins':[
             Pin(num='A1',name='PC13',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA14',func=Pin.types.BIDIR,unit=1),
@@ -20002,7 +20002,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE15',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PB10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F412ZETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412ZETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412ze.pdf', 'pins':[
+        Part(**{ 'name':'STM32F412ZETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412ZETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412ze.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F412ZETx\n\nArm Cortex-M4 STM32F4 STM32F412', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -20147,7 +20147,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F412ZGJx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412ZGJx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm', 'Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm', 'Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm'], 'footprint':'Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412zg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F412ZGJx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412ZGJx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm', 'Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm', 'Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm'], 'footprint':'Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412zg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F412ZGJx\n\nArm Cortex-M4 STM32F4 STM32F412', 'pins':[
             Pin(num='A1',name='PC13',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA14',func=Pin.types.BIDIR,unit=1),
@@ -20292,7 +20292,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE15',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PB10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F412ZGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412ZGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412zg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F412ZGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F412ZGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F412', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f412zg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F412ZGTx\n\nArm Cortex-M4 STM32F4 STM32F412', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -20437,7 +20437,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F413CGUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413CGUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413cg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F413CGUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413CGUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413cg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F413CGUx\n\nArm Cortex-M4 STM32F4 STM32F413/423', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -20487,7 +20487,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F413CHUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413CHUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413ch.pdf', 'pins':[
+        Part(**{ 'name':'STM32F413CHUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413CHUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413ch.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F413CHUx\n\nArm Cortex-M4 STM32F4 STM32F413/423', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA1',func=Pin.types.BIDIR,unit=1),
@@ -20537,7 +20537,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F413MGYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413MGYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-81_Die463', 'Package_CSP:ST_WLCSP-81_Die463'], 'footprint':'Package_CSP:ST_WLCSP-81_Die463', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413mg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F413MGYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413MGYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-81_Die463', 'Package_CSP:ST_WLCSP-81_Die463'], 'footprint':'Package_CSP:ST_WLCSP-81_Die463', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413mg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F413MGYx\n\nArm Cortex-M4 STM32F4 STM32F413/423', 'pins':[
             Pin(num='A1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A2',name='PC10',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PA15',func=Pin.types.BIDIR,unit=1),
@@ -20619,7 +20619,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='J7',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='J8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='J9',name='PA2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F413MHYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413MHYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-81_Die463', 'Package_CSP:ST_WLCSP-81_Die463', 'Package_CSP:ST_WLCSP-81_Die463'], 'footprint':'Package_CSP:ST_WLCSP-81_Die463', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413mh.pdf', 'pins':[
+        Part(**{ 'name':'STM32F413MHYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413MHYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-81_Die463', 'Package_CSP:ST_WLCSP-81_Die463', 'Package_CSP:ST_WLCSP-81_Die463'], 'footprint':'Package_CSP:ST_WLCSP-81_Die463', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413mh.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F413MHYx\n\nArm Cortex-M4 STM32F4 STM32F413/423', 'pins':[
             Pin(num='A1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A2',name='PC10',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PA15',func=Pin.types.BIDIR,unit=1),
@@ -20701,7 +20701,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='J7',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='J8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='J9',name='PA2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F413RGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413RGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413rg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F413RGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413RGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413rg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F413RGTx\n\nArm Cortex-M4 STM32F4 STM32F413/423', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -20766,7 +20766,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F413RHTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413RHTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413rh.pdf', 'pins':[
+        Part(**{ 'name':'STM32F413RHTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413RHTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413rh.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F413RHTx\n\nArm Cortex-M4 STM32F4 STM32F413/423', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -20831,7 +20831,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F413VGHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413VGHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413vg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F413VGHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413VGHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413vg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F413VGHx\n\nArm Cortex-M4 STM32F4 STM32F413/423', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA13',func=Pin.types.BIDIR,unit=1),
@@ -20932,7 +20932,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE9',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PE11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F413VGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413VGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413vg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F413VGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413VGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413vg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F413VGTx\n\nArm Cortex-M4 STM32F4 STM32F413/423', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -21033,7 +21033,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F413VHHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413VHHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413vh.pdf', 'pins':[
+        Part(**{ 'name':'STM32F413VHHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413VHHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-100_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413vh.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F413VHHx\n\nArm Cortex-M4 STM32F4 STM32F413/423', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA13',func=Pin.types.BIDIR,unit=1),
@@ -21134,7 +21134,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE9',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PE11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F413VHTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413VHTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413vh.pdf', 'pins':[
+        Part(**{ 'name':'STM32F413VHTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413VHTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413vh.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F413VHTx\n\nArm Cortex-M4 STM32F4 STM32F413/423', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -21235,7 +21235,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F413ZGJx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413ZGJx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm', 'Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm'], 'footprint':'Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413zg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F413ZGJx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413ZGJx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm', 'Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm'], 'footprint':'Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413zg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F413ZGJx\n\nArm Cortex-M4 STM32F4 STM32F413/423', 'pins':[
             Pin(num='A1',name='PC13',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA14',func=Pin.types.BIDIR,unit=1),
@@ -21380,7 +21380,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE15',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PB10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F413ZGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413ZGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413zg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F413ZGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413ZGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413zg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F413ZGTx\n\nArm Cortex-M4 STM32F4 STM32F413/423', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -21525,7 +21525,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F413ZHJx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413ZHJx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm', 'Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm', 'Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm'], 'footprint':'Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413zh.pdf', 'pins':[
+        Part(**{ 'name':'STM32F413ZHJx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413ZHJx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm', 'Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm', 'Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm'], 'footprint':'Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413zh.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F413ZHJx\n\nArm Cortex-M4 STM32F4 STM32F413/423', 'pins':[
             Pin(num='A1',name='PC13',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA14',func=Pin.types.BIDIR,unit=1),
@@ -21670,7 +21670,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE15',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PB10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F413ZHTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413ZHTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413zh.pdf', 'pins':[
+        Part(**{ 'name':'STM32F413ZHTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F413ZHTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F413/423', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f413zh.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F413ZHTx\n\nArm Cortex-M4 STM32F4 STM32F413/423', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -21815,7 +21815,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F417IEHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F417IEHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f417ie.pdf', 'pins':[
+        Part(**{ 'name':'STM32F417IEHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F417IEHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f417ie.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F417IEHx\n\nArm Cortex-M4 STM32F4 STM32F407/417', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -22017,7 +22017,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PF14',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F417IETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F417IETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f417ie.pdf', 'pins':[
+        Part(**{ 'name':'STM32F417IETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F417IETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f417ie.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F417IETx\n\nArm Cortex-M4 STM32F4 STM32F407/417', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PD12',func=Pin.types.BIDIR,unit=1),
@@ -22194,7 +22194,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PD9',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PD10',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PD11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F417IGHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F417IGHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f417ig.pdf', 'pins':[
+        Part(**{ 'name':'STM32F417IGHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F417IGHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f417ig.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F417IGHx\n\nArm Cortex-M4 STM32F4 STM32F407/417', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -22396,7 +22396,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PF14',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F417IGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F417IGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f417ig.pdf', 'pins':[
+        Part(**{ 'name':'STM32F417IGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F417IGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f417ig.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F417IGTx\n\nArm Cortex-M4 STM32F4 STM32F407/417', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PD12',func=Pin.types.BIDIR,unit=1),
@@ -22573,7 +22573,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PD9',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PD10',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PD11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F417VETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F417VETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f417ve.pdf', 'pins':[
+        Part(**{ 'name':'STM32F417VETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F417VETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f417ve.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F417VETx\n\nArm Cortex-M4 STM32F4 STM32F407/417', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -22674,7 +22674,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F417VGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F417VGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f417vg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F417VGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F417VGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f417vg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F417VGTx\n\nArm Cortex-M4 STM32F4 STM32F407/417', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -22775,7 +22775,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F417ZETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F417ZETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f417ze.pdf', 'pins':[
+        Part(**{ 'name':'STM32F417ZETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F417ZETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f417ze.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F417ZETx\n\nArm Cortex-M4 STM32F4 STM32F407/417', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -22920,7 +22920,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F417ZGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F417ZGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f417zg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F417ZGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F417ZGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F407/417', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f417zg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F417ZGTx\n\nArm Cortex-M4 STM32F4 STM32F407/417', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -23065,7 +23065,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F427AGHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F427AGHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f427ag.pdf', 'pins':[
+        Part(**{ 'name':'STM32F427AGHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F427AGHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f427ag.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F427AGHx\n\nArm Cortex-M4 STM32F4 STM32F427/437', 'pins':[
             Pin(num='A1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='A10',name='PC12',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA14',func=Pin.types.BIDIR,unit=1),
@@ -23235,7 +23235,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='N7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='N8',name='PE12',func=Pin.types.BIDIR,unit=1),
             Pin(num='N9',name='VCAP_1',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F427AIHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F427AIHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f427ai.pdf', 'pins':[
+        Part(**{ 'name':'STM32F427AIHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F427AIHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f427ai.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F427AIHx\n\nArm Cortex-M4 STM32F4 STM32F427/437', 'pins':[
             Pin(num='A1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='A10',name='PC12',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA14',func=Pin.types.BIDIR,unit=1),
@@ -23405,7 +23405,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='N7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='N8',name='PE12',func=Pin.types.BIDIR,unit=1),
             Pin(num='N9',name='VCAP_1',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F427IGHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F427IGHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f427ig.pdf', 'pins':[
+        Part(**{ 'name':'STM32F427IGHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F427IGHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f427ig.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F427IGHx\n\nArm Cortex-M4 STM32F4 STM32F427/437', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -23607,7 +23607,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PF14',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F427IGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F427IGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f427ig.pdf', 'pins':[
+        Part(**{ 'name':'STM32F427IGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F427IGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f427ig.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F427IGTx\n\nArm Cortex-M4 STM32F4 STM32F427/437', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PD12',func=Pin.types.BIDIR,unit=1),
@@ -23784,7 +23784,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PD9',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PD10',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PD11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F427IIHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F427IIHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f427ii.pdf', 'pins':[
+        Part(**{ 'name':'STM32F427IIHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F427IIHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f427ii.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F427IIHx\n\nArm Cortex-M4 STM32F4 STM32F427/437', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -23986,7 +23986,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PF14',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F427IITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F427IITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f427ii.pdf', 'pins':[
+        Part(**{ 'name':'STM32F427IITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F427IITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f427ii.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F427IITx\n\nArm Cortex-M4 STM32F4 STM32F427/437', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PD12',func=Pin.types.BIDIR,unit=1),
@@ -24163,7 +24163,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PD9',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PD10',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PD11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F427VGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F427VGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f427vg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F427VGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F427VGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f427vg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F427VGTx\n\nArm Cortex-M4 STM32F4 STM32F427/437', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -24264,7 +24264,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F427VITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F427VITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f427vi.pdf', 'pins':[
+        Part(**{ 'name':'STM32F427VITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F427VITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f427vi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F427VITx\n\nArm Cortex-M4 STM32F4 STM32F427/437', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -24365,7 +24365,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F427ZGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F427ZGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f427zg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F427ZGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F427ZGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f427zg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F427ZGTx\n\nArm Cortex-M4 STM32F4 STM32F427/437', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -24510,7 +24510,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F427ZITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F427ZITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f427zi.pdf', 'pins':[
+        Part(**{ 'name':'STM32F427ZITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F427ZITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f427zi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F427ZITx\n\nArm Cortex-M4 STM32F4 STM32F427/437', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -24655,7 +24655,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F429AGHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429AGHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429ag.pdf', 'pins':[
+        Part(**{ 'name':'STM32F429AGHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429AGHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429ag.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F429AGHx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='A1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='A10',name='PC12',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA14',func=Pin.types.BIDIR,unit=1),
@@ -24825,7 +24825,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='N7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='N8',name='PE12',func=Pin.types.BIDIR,unit=1),
             Pin(num='N9',name='VCAP_1',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F429AIHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429AIHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429ai.pdf', 'pins':[
+        Part(**{ 'name':'STM32F429AIHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429AIHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429ai.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F429AIHx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='A1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='A10',name='PC12',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA14',func=Pin.types.BIDIR,unit=1),
@@ -24995,7 +24995,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='N7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='N8',name='PE12',func=Pin.types.BIDIR,unit=1),
             Pin(num='N9',name='VCAP_1',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F429BETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429BETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-208_28x28mm_P0.5mm', 'Package_QFP:LQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429be.pdf', 'pins':[
+        Part(**{ 'name':'STM32F429BETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429BETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-208_28x28mm_P0.5mm', 'Package_QFP:LQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429be.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F429BETx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PH10',func=Pin.types.BIDIR,unit=1),
@@ -25204,7 +25204,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PH7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PH8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PH9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F429BGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429BGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-208_28x28mm_P0.5mm', 'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'Package_QFP:LQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429bg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F429BGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429BGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-208_28x28mm_P0.5mm', 'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'Package_QFP:LQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429bg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F429BGTx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PH10',func=Pin.types.BIDIR,unit=1),
@@ -25413,7 +25413,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PH7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PH8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PH9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F429BITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429BITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-208_28x28mm_P0.5mm', 'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'Package_QFP:LQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429bi.pdf', 'pins':[
+        Part(**{ 'name':'STM32F429BITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429BITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-208_28x28mm_P0.5mm', 'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'Package_QFP:LQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429bi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F429BITx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PH10',func=Pin.types.BIDIR,unit=1),
@@ -25622,7 +25622,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PH7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PH8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PH9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F429IEHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429IEHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429ie.pdf', 'pins':[
+        Part(**{ 'name':'STM32F429IEHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429IEHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429ie.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F429IEHx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -25824,7 +25824,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PF14',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F429IETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429IETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429ie.pdf', 'pins':[
+        Part(**{ 'name':'STM32F429IETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429IETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429ie.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F429IETx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PD12',func=Pin.types.BIDIR,unit=1),
@@ -26001,7 +26001,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PD9',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PD10',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PD11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F429IGHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429IGHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429ig.pdf', 'pins':[
+        Part(**{ 'name':'STM32F429IGHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429IGHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429ig.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F429IGHx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -26203,7 +26203,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PF14',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F429IGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429IGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429ig.pdf', 'pins':[
+        Part(**{ 'name':'STM32F429IGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429IGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429ig.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F429IGTx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PD12',func=Pin.types.BIDIR,unit=1),
@@ -26380,7 +26380,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PD9',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PD10',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PD11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F429IIHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429IIHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429ii.pdf', 'pins':[
+        Part(**{ 'name':'STM32F429IIHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429IIHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429ii.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F429IIHx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -26582,7 +26582,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PF14',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F429NEHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429NEHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm'], 'footprint':'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429ne.pdf', 'pins':[
+        Part(**{ 'name':'STM32F429NEHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429NEHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm'], 'footprint':'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429ne.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F429NEHx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='A1',name='PE4',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -26799,7 +26799,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PJ1',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F429NGHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429NGHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm'], 'footprint':'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429ng.pdf', 'pins':[
+        Part(**{ 'name':'STM32F429NGHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429NGHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm'], 'footprint':'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429ng.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F429NGHx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='A1',name='PE4',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -27016,7 +27016,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PJ1',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F429VETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429VETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429ve.pdf', 'pins':[
+        Part(**{ 'name':'STM32F429VETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429VETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429ve.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F429VETx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -27117,7 +27117,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F429VGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429VGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429vg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F429VGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429VGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429vg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F429VGTx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -27218,7 +27218,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F429ZETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429ZETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429ze.pdf', 'pins':[
+        Part(**{ 'name':'STM32F429ZETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429ZETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429ze.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F429ZETx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -27363,7 +27363,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F429ZGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429ZGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429zg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F429ZGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F429ZGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f429zg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F429ZGTx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -27508,7 +27508,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F437IGHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F437IGHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f437ig.pdf', 'pins':[
+        Part(**{ 'name':'STM32F437IGHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F437IGHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f437ig.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F437IGHx\n\nArm Cortex-M4 STM32F4 STM32F427/437', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -27710,7 +27710,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PF14',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F437IGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F437IGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f437ig.pdf', 'pins':[
+        Part(**{ 'name':'STM32F437IGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F437IGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f437ig.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F437IGTx\n\nArm Cortex-M4 STM32F4 STM32F427/437', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PD12',func=Pin.types.BIDIR,unit=1),
@@ -27887,7 +27887,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PD9',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PD10',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PD11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F437IIHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F437IIHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f437ii.pdf', 'pins':[
+        Part(**{ 'name':'STM32F437IIHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F437IIHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f437ii.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F437IIHx\n\nArm Cortex-M4 STM32F4 STM32F427/437', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -28089,7 +28089,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PF14',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F437IITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F437IITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f437ii.pdf', 'pins':[
+        Part(**{ 'name':'STM32F437IITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F437IITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f437ii.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F437IITx\n\nArm Cortex-M4 STM32F4 STM32F427/437', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PD12',func=Pin.types.BIDIR,unit=1),
@@ -28266,7 +28266,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PD9',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PD10',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PD11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F437VGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F437VGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f437vg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F437VGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F437VGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f437vg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F437VGTx\n\nArm Cortex-M4 STM32F4 STM32F427/437', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -28367,7 +28367,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F437VITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F437VITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f437vi.pdf', 'pins':[
+        Part(**{ 'name':'STM32F437VITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F437VITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f437vi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F437VITx\n\nArm Cortex-M4 STM32F4 STM32F427/437', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -28468,7 +28468,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F437ZGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F437ZGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f437zg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F437ZGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F437ZGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f437zg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F437ZGTx\n\nArm Cortex-M4 STM32F4 STM32F427/437', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -28613,7 +28613,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F437ZITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F437ZITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f437zi.pdf', 'pins':[
+        Part(**{ 'name':'STM32F437ZITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F437ZITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F427/437', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f437zi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F437ZITx\n\nArm Cortex-M4 STM32F4 STM32F427/437', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -28758,7 +28758,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F439BGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439BGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-208_28x28mm_P0.5mm', 'Package_QFP:LQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439bg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F439BGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439BGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-208_28x28mm_P0.5mm', 'Package_QFP:LQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439bg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F439BGTx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PH10',func=Pin.types.BIDIR,unit=1),
@@ -28967,7 +28967,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PH7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PH8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PH9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F439BITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439BITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-208_28x28mm_P0.5mm', 'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'Package_QFP:LQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439bi.pdf', 'pins':[
+        Part(**{ 'name':'STM32F439BITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439BITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-208_28x28mm_P0.5mm', 'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'Package_QFP:LQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439bi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F439BITx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PH10',func=Pin.types.BIDIR,unit=1),
@@ -29176,7 +29176,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PH7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PH8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PH9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F439IGHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439IGHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439ig.pdf', 'pins':[
+        Part(**{ 'name':'STM32F439IGHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439IGHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439ig.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F439IGHx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -29378,7 +29378,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PF14',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F439IGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439IGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439ig.pdf', 'pins':[
+        Part(**{ 'name':'STM32F439IGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439IGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439ig.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F439IGTx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PD12',func=Pin.types.BIDIR,unit=1),
@@ -29555,7 +29555,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PD9',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PD10',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PD11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F439IIHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439IIHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439ii.pdf', 'pins':[
+        Part(**{ 'name':'STM32F439IIHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439IIHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439ii.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F439IIHx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -29757,7 +29757,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PF14',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F439IITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439IITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439ii.pdf', 'pins':[
+        Part(**{ 'name':'STM32F439IITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439IITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439ii.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F439IITx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PD12',func=Pin.types.BIDIR,unit=1),
@@ -29934,7 +29934,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PD9',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PD10',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PD11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F439NGHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439NGHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm'], 'footprint':'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439ng.pdf', 'pins':[
+        Part(**{ 'name':'STM32F439NGHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439NGHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm'], 'footprint':'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439ng.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F439NGHx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='A1',name='PE4',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -30151,7 +30151,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PJ1',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F439NIHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439NIHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm'], 'footprint':'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439ni.pdf', 'pins':[
+        Part(**{ 'name':'STM32F439NIHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439NIHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm'], 'footprint':'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439ni.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F439NIHx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='A1',name='PE4',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -30368,7 +30368,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PJ1',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F439VGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439VGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439vg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F439VGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439VGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439vg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F439VGTx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -30469,7 +30469,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F439VITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439VITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439vi.pdf', 'pins':[
+        Part(**{ 'name':'STM32F439VITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439VITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439vi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F439VITx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -30570,7 +30570,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F439ZGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439ZGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439zg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F439ZGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439ZGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439zg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F439ZGTx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -30715,7 +30715,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F439ZGYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439ZGYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-143_Die419', 'Package_CSP:ST_WLCSP-143_Die419'], 'footprint':'Package_CSP:ST_WLCSP-143_Die419', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439zg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F439ZGYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439ZGYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-143_Die419', 'Package_CSP:ST_WLCSP-143_Die419'], 'footprint':'Package_CSP:ST_WLCSP-143_Die419', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439zg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F439ZGYx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='A1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A10',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PDR_ON',func=Pin.types.INPUT,unit=1),
@@ -30859,7 +30859,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='N7',name='PF12',func=Pin.types.BIDIR,unit=1),
             Pin(num='N8',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='N9',name='PC5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F439ZITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439ZITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439zi.pdf', 'pins':[
+        Part(**{ 'name':'STM32F439ZITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439ZITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439zi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F439ZITx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -31004,7 +31004,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F439ZIYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439ZIYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-143_Die419', 'Package_CSP:ST_WLCSP-143_Die419', 'Package_CSP:ST_WLCSP-143_Die419'], 'footprint':'Package_CSP:ST_WLCSP-143_Die419', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439zi.pdf', 'pins':[
+        Part(**{ 'name':'STM32F439ZIYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F439ZIYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-143_Die419', 'Package_CSP:ST_WLCSP-143_Die419', 'Package_CSP:ST_WLCSP-143_Die419'], 'footprint':'Package_CSP:ST_WLCSP-143_Die419', 'keywords':'Arm Cortex-M4 STM32F4 STM32F429/439', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f439zi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F439ZIYx\n\nArm Cortex-M4 STM32F4 STM32F429/439', 'pins':[
             Pin(num='A1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A10',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PDR_ON',func=Pin.types.INPUT,unit=1),
@@ -31148,7 +31148,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='N7',name='PF12',func=Pin.types.BIDIR,unit=1),
             Pin(num='N8',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='N9',name='PC5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F446MCYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F446MCYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-81_Die421', 'Package_CSP:ST_WLCSP-81_Die421'], 'footprint':'Package_CSP:ST_WLCSP-81_Die421', 'keywords':'Arm Cortex-M4 STM32F4 STM32F446', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f446mc.pdf', 'pins':[
+        Part(**{ 'name':'STM32F446MCYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F446MCYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-81_Die421', 'Package_CSP:ST_WLCSP-81_Die421'], 'footprint':'Package_CSP:ST_WLCSP-81_Die421', 'keywords':'Arm Cortex-M4 STM32F4 STM32F446', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f446mc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F446MCYx\n\nArm Cortex-M4 STM32F4 STM32F446', 'pins':[
             Pin(num='A1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A2',name='PC12',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PD4',func=Pin.types.BIDIR,unit=1),
@@ -31230,7 +31230,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='J7',name='PC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='J8',name='BYPASS_REG',func=Pin.types.INPUT,unit=1),
             Pin(num='J9',name='PA0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F446MEYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F446MEYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-81_Die421', 'Package_CSP:ST_WLCSP-81_Die421', 'Package_CSP:ST_WLCSP-81_Die421'], 'footprint':'Package_CSP:ST_WLCSP-81_Die421', 'keywords':'Arm Cortex-M4 STM32F4 STM32F446', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f446me.pdf', 'pins':[
+        Part(**{ 'name':'STM32F446MEYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F446MEYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-81_Die421', 'Package_CSP:ST_WLCSP-81_Die421', 'Package_CSP:ST_WLCSP-81_Die421'], 'footprint':'Package_CSP:ST_WLCSP-81_Die421', 'keywords':'Arm Cortex-M4 STM32F4 STM32F446', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f446me.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F446MEYx\n\nArm Cortex-M4 STM32F4 STM32F446', 'pins':[
             Pin(num='A1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='A2',name='PC12',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PD4',func=Pin.types.BIDIR,unit=1),
@@ -31312,7 +31312,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='J7',name='PC4',func=Pin.types.BIDIR,unit=1),
             Pin(num='J8',name='BYPASS_REG',func=Pin.types.INPUT,unit=1),
             Pin(num='J9',name='PA0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F446RCTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F446RCTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F446', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f446rc.pdf', 'pins':[
+        Part(**{ 'name':'STM32F446RCTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F446RCTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F446', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f446rc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F446RCTx\n\nArm Cortex-M4 STM32F4 STM32F446', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -31377,7 +31377,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F446RETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F446RETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F446', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f446re.pdf', 'pins':[
+        Part(**{ 'name':'STM32F446RETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F446RETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F446', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f446re.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F446RETx\n\nArm Cortex-M4 STM32F4 STM32F446', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC3',func=Pin.types.BIDIR,unit=1),
@@ -31442,7 +31442,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F446VCTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F446VCTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F446', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f446vc.pdf', 'pins':[
+        Part(**{ 'name':'STM32F446VCTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F446VCTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F446', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f446vc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F446VCTx\n\nArm Cortex-M4 STM32F4 STM32F446', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -31543,7 +31543,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F446VETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F446VETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F446', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f446ve.pdf', 'pins':[
+        Part(**{ 'name':'STM32F446VETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F446VETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F446', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f446ve.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F446VETx\n\nArm Cortex-M4 STM32F4 STM32F446', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -31644,7 +31644,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F446ZCHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F446ZCHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-144_7x7mm_Layout12x12_P0.5mm', 'Package_BGA:UFBGA-144_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-144_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F446', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f446zc.pdf', 'pins':[
+        Part(**{ 'name':'STM32F446ZCHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F446ZCHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-144_7x7mm_Layout12x12_P0.5mm', 'Package_BGA:UFBGA-144_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-144_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F446', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f446zc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F446ZCHx\n\nArm Cortex-M4 STM32F4 STM32F446', 'pins':[
             Pin(num='A1',name='PC13',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA14',func=Pin.types.BIDIR,unit=1),
@@ -31789,7 +31789,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE15',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PB10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F446ZCJx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F446ZCJx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm', 'Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm'], 'footprint':'Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F446', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f446zc.pdf', 'pins':[
+        Part(**{ 'name':'STM32F446ZCJx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F446ZCJx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm', 'Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm'], 'footprint':'Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F446', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f446zc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F446ZCJx\n\nArm Cortex-M4 STM32F4 STM32F446', 'pins':[
             Pin(num='A1',name='PC13',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA14',func=Pin.types.BIDIR,unit=1),
@@ -31934,7 +31934,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE15',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PB10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F446ZCTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F446ZCTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F446', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f446zc.pdf', 'pins':[
+        Part(**{ 'name':'STM32F446ZCTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F446ZCTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F446', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f446zc.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F446ZCTx\n\nArm Cortex-M4 STM32F4 STM32F446', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -32079,7 +32079,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F446ZEHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F446ZEHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-144_7x7mm_Layout12x12_P0.5mm', 'Package_BGA:UFBGA-144_7x7mm_Layout12x12_P0.5mm', 'Package_BGA:UFBGA-144_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-144_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F446', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f446ze.pdf', 'pins':[
+        Part(**{ 'name':'STM32F446ZEHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F446ZEHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-144_7x7mm_Layout12x12_P0.5mm', 'Package_BGA:UFBGA-144_7x7mm_Layout12x12_P0.5mm', 'Package_BGA:UFBGA-144_7x7mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:UFBGA-144_7x7mm_Layout12x12_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F446', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f446ze.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F446ZEHx\n\nArm Cortex-M4 STM32F4 STM32F446', 'pins':[
             Pin(num='A1',name='PC13',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA14',func=Pin.types.BIDIR,unit=1),
@@ -32224,7 +32224,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE15',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PB10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F446ZEJx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F446ZEJx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm', 'Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm', 'Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm'], 'footprint':'Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F446', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f446ze.pdf', 'pins':[
+        Part(**{ 'name':'STM32F446ZEJx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F446ZEJx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm', 'Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm', 'Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm'], 'footprint':'Package_BGA:UFBGA-144_10x10mm_Layout12x12_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F446', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f446ze.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F446ZEJx\n\nArm Cortex-M4 STM32F4 STM32F446', 'pins':[
             Pin(num='A1',name='PC13',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA15',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA14',func=Pin.types.BIDIR,unit=1),
@@ -32369,7 +32369,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='PE15',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PB10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F446ZETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F446ZETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F446', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f446ze.pdf', 'pins':[
+        Part(**{ 'name':'STM32F446ZETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F446ZETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F446', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f446ze.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F446ZETx\n\nArm Cortex-M4 STM32F4 STM32F446', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PA8',func=Pin.types.BIDIR,unit=1),
@@ -32514,7 +32514,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F469AEHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469AEHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ae.pdf', 'pins':[
+        Part(**{ 'name':'STM32F469AEHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469AEHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ae.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F469AEHx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='A1',name='PI6',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA13',func=Pin.types.BIDIR,unit=1),
@@ -32684,7 +32684,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='N7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='N8',name='PB11',func=Pin.types.BIDIR,unit=1),
             Pin(num='N9',name='VCAP1',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F469AEYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469AEYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-168_Die434', 'Package_CSP:ST_WLCSP-168_Die434'], 'footprint':'Package_CSP:ST_WLCSP-168_Die434', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ae.pdf', 'pins':[
+        Part(**{ 'name':'STM32F469AEYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469AEYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-168_Die434', 'Package_CSP:ST_WLCSP-168_Die434'], 'footprint':'Package_CSP:ST_WLCSP-168_Die434', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ae.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F469AEYx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='A1',name='PI2',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -32853,7 +32853,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='P7',name='PG1',func=Pin.types.BIDIR,unit=1),
             Pin(num='P8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='P9',name='PB2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F469AGHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469AGHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ag.pdf', 'pins':[
+        Part(**{ 'name':'STM32F469AGHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469AGHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ag.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F469AGHx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='A1',name='PI6',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA13',func=Pin.types.BIDIR,unit=1),
@@ -33023,7 +33023,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='N7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='N8',name='PB11',func=Pin.types.BIDIR,unit=1),
             Pin(num='N9',name='VCAP1',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F469AGYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469AGYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-168_Die434', 'Package_CSP:ST_WLCSP-168_Die434', 'Package_CSP:ST_WLCSP-168_Die434'], 'footprint':'Package_CSP:ST_WLCSP-168_Die434', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ag.pdf', 'pins':[
+        Part(**{ 'name':'STM32F469AGYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469AGYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-168_Die434', 'Package_CSP:ST_WLCSP-168_Die434', 'Package_CSP:ST_WLCSP-168_Die434'], 'footprint':'Package_CSP:ST_WLCSP-168_Die434', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ag.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F469AGYx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='A1',name='PI2',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -33192,7 +33192,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='P7',name='PG1',func=Pin.types.BIDIR,unit=1),
             Pin(num='P8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='P9',name='PB2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F469AIHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469AIHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ai.pdf', 'pins':[
+        Part(**{ 'name':'STM32F469AIHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469AIHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ai.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F469AIHx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='A1',name='PI6',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA13',func=Pin.types.BIDIR,unit=1),
@@ -33362,7 +33362,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='N7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='N8',name='PB11',func=Pin.types.BIDIR,unit=1),
             Pin(num='N9',name='VCAP1',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F469AIYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469AIYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-168_Die434', 'Package_CSP:ST_WLCSP-168_Die434', 'Package_CSP:ST_WLCSP-168_Die434', 'Package_CSP:ST_WLCSP-168_Die434'], 'footprint':'Package_CSP:ST_WLCSP-168_Die434', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ai.pdf', 'pins':[
+        Part(**{ 'name':'STM32F469AIYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469AIYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-168_Die434', 'Package_CSP:ST_WLCSP-168_Die434', 'Package_CSP:ST_WLCSP-168_Die434', 'Package_CSP:ST_WLCSP-168_Die434'], 'footprint':'Package_CSP:ST_WLCSP-168_Die434', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ai.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F469AIYx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='A1',name='PI2',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -33531,7 +33531,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='P7',name='PG1',func=Pin.types.BIDIR,unit=1),
             Pin(num='P8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='P9',name='PB2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F469BETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469BETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-208_28x28mm_P0.5mm', 'Package_QFP:LQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469be.pdf', 'pins':[
+        Part(**{ 'name':'STM32F469BETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469BETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-208_28x28mm_P0.5mm', 'Package_QFP:LQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469be.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F469BETx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PH10',func=Pin.types.BIDIR,unit=1),
@@ -33740,7 +33740,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PH7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PH8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PH9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F469BGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469BGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-208_28x28mm_P0.5mm', 'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'Package_QFP:LQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469bg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F469BGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469BGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-208_28x28mm_P0.5mm', 'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'Package_QFP:LQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469bg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F469BGTx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PH10',func=Pin.types.BIDIR,unit=1),
@@ -33949,7 +33949,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PH7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PH8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PH9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F469BITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469BITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-208_28x28mm_P0.5mm', 'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'Package_QFP:LQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469bi.pdf', 'pins':[
+        Part(**{ 'name':'STM32F469BITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469BITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-208_28x28mm_P0.5mm', 'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'Package_QFP:LQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469bi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F469BITx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PH10',func=Pin.types.BIDIR,unit=1),
@@ -34158,7 +34158,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PH7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PH8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PH9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F469IEHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469IEHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ie.pdf', 'pins':[
+        Part(**{ 'name':'STM32F469IEHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469IEHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ie.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F469IEHx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -34360,7 +34360,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PF14',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F469IETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469IETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ie.pdf', 'pins':[
+        Part(**{ 'name':'STM32F469IETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469IETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ie.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F469IETx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='VCAPDSI',func=Pin.types.PWROUT,unit=1),
@@ -34537,7 +34537,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PD14',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PD15',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VDDDSI',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F469IGHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469IGHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ig.pdf', 'pins':[
+        Part(**{ 'name':'STM32F469IGHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469IGHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ig.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F469IGHx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -34739,7 +34739,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PF14',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F469IGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469IGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ig.pdf', 'pins':[
+        Part(**{ 'name':'STM32F469IGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469IGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ig.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F469IGTx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='VCAPDSI',func=Pin.types.PWROUT,unit=1),
@@ -34916,7 +34916,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PD14',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PD15',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VDDDSI',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F469IIHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469IIHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ii.pdf', 'pins':[
+        Part(**{ 'name':'STM32F469IIHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469IIHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ii.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F469IIHx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -35118,7 +35118,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PF14',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F469NEHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469NEHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm'], 'footprint':'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ne.pdf', 'pins':[
+        Part(**{ 'name':'STM32F469NEHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469NEHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm'], 'footprint':'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ne.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F469NEHx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='A1',name='PE4',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -35335,7 +35335,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PJ1',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F469NGHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469NGHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm'], 'footprint':'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ng.pdf', 'pins':[
+        Part(**{ 'name':'STM32F469NGHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469NGHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm'], 'footprint':'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ng.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F469NGHx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='A1',name='PE4',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -35552,7 +35552,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PJ1',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F469VETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469VETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ve.pdf', 'pins':[
+        Part(**{ 'name':'STM32F469VETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469VETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ve.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F469VETx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PH1',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -35653,7 +35653,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='BOOT0',func=Pin.types.INPUT,unit=1),
             Pin(num='98',name='PB8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PB9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F469VGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469VGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469vg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F469VGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469VGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469vg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F469VGTx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PH1',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -35754,7 +35754,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='BOOT0',func=Pin.types.INPUT,unit=1),
             Pin(num='98',name='PB8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PB9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F469ZETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469ZETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ze.pdf', 'pins':[
+        Part(**{ 'name':'STM32F469ZETx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469ZETx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469ze.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F469ZETx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF1',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PC8',func=Pin.types.BIDIR,unit=1),
@@ -35899,7 +35899,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='VDDUSB',func=Pin.types.PWRIN,unit=1),
             Pin(num='98',name='PC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F469ZGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469ZGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469zg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F469ZGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F469ZGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f469zg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F469ZGTx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF1',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PC8',func=Pin.types.BIDIR,unit=1),
@@ -36044,7 +36044,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='VDDUSB',func=Pin.types.PWRIN,unit=1),
             Pin(num='98',name='PC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F479AGHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479AGHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479ag.pdf', 'pins':[
+        Part(**{ 'name':'STM32F479AGHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479AGHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479ag.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F479AGHx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='A1',name='PI6',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA13',func=Pin.types.BIDIR,unit=1),
@@ -36214,7 +36214,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='N7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='N8',name='PB11',func=Pin.types.BIDIR,unit=1),
             Pin(num='N9',name='VCAP1',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F479AGYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479AGYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-168_Die434', 'Package_CSP:ST_WLCSP-168_Die434'], 'footprint':'Package_CSP:ST_WLCSP-168_Die434', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479ag.pdf', 'pins':[
+        Part(**{ 'name':'STM32F479AGYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479AGYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-168_Die434', 'Package_CSP:ST_WLCSP-168_Die434'], 'footprint':'Package_CSP:ST_WLCSP-168_Die434', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479ag.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F479AGYx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='A1',name='PI2',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -36383,7 +36383,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='P7',name='PG1',func=Pin.types.BIDIR,unit=1),
             Pin(num='P8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='P9',name='PB2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F479AIHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479AIHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479ai.pdf', 'pins':[
+        Part(**{ 'name':'STM32F479AIHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479AIHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm'], 'footprint':'Package_BGA:UFBGA-169_7x7mm_Layout13x13_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479ai.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F479AIHx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='A1',name='PI6',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PA14',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PA13',func=Pin.types.BIDIR,unit=1),
@@ -36553,7 +36553,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='N7',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='N8',name='PB11',func=Pin.types.BIDIR,unit=1),
             Pin(num='N9',name='VCAP1',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F479AIYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479AIYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-168_Die434', 'Package_CSP:ST_WLCSP-168_Die434', 'Package_CSP:ST_WLCSP-168_Die434'], 'footprint':'Package_CSP:ST_WLCSP-168_Die434', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479ai.pdf', 'pins':[
+        Part(**{ 'name':'STM32F479AIYx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479AIYx'}), 'ref_prefix':'U', 'fplist':['Package_CSP:ST_WLCSP-168_Die434', 'Package_CSP:ST_WLCSP-168_Die434', 'Package_CSP:ST_WLCSP-168_Die434'], 'footprint':'Package_CSP:ST_WLCSP-168_Die434', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479ai.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F479AIYx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='A1',name='PI2',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -36722,7 +36722,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='P7',name='PG1',func=Pin.types.BIDIR,unit=1),
             Pin(num='P8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='P9',name='PB2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F479BGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479BGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-208_28x28mm_P0.5mm', 'Package_QFP:LQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479bg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F479BGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479BGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-208_28x28mm_P0.5mm', 'Package_QFP:LQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479bg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F479BGTx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PH10',func=Pin.types.BIDIR,unit=1),
@@ -36931,7 +36931,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PH7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PH8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PH9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F479BITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479BITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-208_28x28mm_P0.5mm', 'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'Package_QFP:LQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479bi.pdf', 'pins':[
+        Part(**{ 'name':'STM32F479BITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479BITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-208_28x28mm_P0.5mm', 'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'Package_QFP:LQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-208_28x28mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479bi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F479BITx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PH10',func=Pin.types.BIDIR,unit=1),
@@ -37140,7 +37140,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PH7',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PH8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PH9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F479IGHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479IGHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479ig.pdf', 'pins':[
+        Part(**{ 'name':'STM32F479IGHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479IGHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479ig.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F479IGHx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -37342,7 +37342,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PF14',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F479IGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479IGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479ig.pdf', 'pins':[
+        Part(**{ 'name':'STM32F479IGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479IGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479ig.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F479IGTx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='VCAPDSI',func=Pin.types.PWROUT,unit=1),
@@ -37519,7 +37519,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PD14',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PD15',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VDDDSI',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F479IIHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479IIHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479ii.pdf', 'pins':[
+        Part(**{ 'name':'STM32F479IIHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479IIHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm'], 'footprint':'Package_BGA:UFBGA-201_10x10mm_Layout15x15_P0.65mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479ii.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F479IIHx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='A1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -37721,7 +37721,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PF14',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F479IITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479IITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479ii.pdf', 'pins':[
+        Part(**{ 'name':'STM32F479IITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479IITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'Package_QFP:LQFP-176_24x24mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-176_24x24mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479ii.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F479IITx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC15',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='VCAPDSI',func=Pin.types.PWROUT,unit=1),
@@ -37898,7 +37898,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PD14',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PD15',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VDDDSI',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F479NGHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479NGHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm'], 'footprint':'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479ng.pdf', 'pins':[
+        Part(**{ 'name':'STM32F479NGHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479NGHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm'], 'footprint':'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479ng.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F479NGHx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='A1',name='PE4',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -38115,7 +38115,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PJ1',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F479NIHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479NIHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm'], 'footprint':'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479ni.pdf', 'pins':[
+        Part(**{ 'name':'STM32F479NIHx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479NIHx'}), 'ref_prefix':'U', 'fplist':['Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm'], 'footprint':'Package_BGA:TFBGA-216_13x13mm_Layout15x15_P0.8mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479ni.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F479NIHx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='A1',name='PE4',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PD7',func=Pin.types.BIDIR,unit=1),
@@ -38332,7 +38332,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R7',name='PJ1',func=Pin.types.BIDIR,unit=1),
             Pin(num='R8',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='R9',name='PE10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F479VGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479VGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479vg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F479VGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479VGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479vg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F479VGTx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PH1',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -38433,7 +38433,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='BOOT0',func=Pin.types.INPUT,unit=1),
             Pin(num='98',name='PB8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PB9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F479VITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479VITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479vi.pdf', 'pins':[
+        Part(**{ 'name':'STM32F479VITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479VITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479vi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F479VITx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='1',name='PE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PH1',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -38534,7 +38534,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='BOOT0',func=Pin.types.INPUT,unit=1),
             Pin(num='98',name='PB8',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PB9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F479ZGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479ZGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479zg.pdf', 'pins':[
+        Part(**{ 'name':'STM32F479ZGTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479ZGTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479zg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F479ZGTx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF1',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PC8',func=Pin.types.BIDIR,unit=1),
@@ -38679,7 +38679,7 @@ MCU_ST_STM32F4 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='VDDUSB',func=Pin.types.PWRIN,unit=1),
             Pin(num='98',name='PC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32F479ZITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479ZITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479zi.pdf', 'pins':[
+        Part(**{ 'name':'STM32F479ZITx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32F479ZITx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'Package_QFP:LQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-144_20x20mm_P0.5mm', 'keywords':'Arm Cortex-M4 STM32F4 STM32F469/479', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32f479zi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32F4.kicad_sym\nSTM32F479ZITx\n\nArm Cortex-M4 STM32F4 STM32F469/479', 'pins':[
             Pin(num='1',name='PE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PF1',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PC8',func=Pin.types.BIDIR,unit=1),

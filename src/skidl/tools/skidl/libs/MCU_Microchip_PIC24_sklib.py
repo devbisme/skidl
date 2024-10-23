@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 MCU_Microchip_PIC24 = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'PIC24FJ256DA210-xBG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC24FJ256DA210-xBG'}), 'ref_prefix':'U', 'fplist':['Package_BGA:XBGA-121_10x10mm_Layout11x11_P0.8mm'], 'footprint':'Package_BGA:XBGA-121_10x10mm_Layout11x11_P0.8mm', 'keywords':'Flash-Based 16-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39969b.pdf', 'pins':[
+        Part(**{ 'name':'PIC24FJ256DA210-xBG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC24FJ256DA210-xBG'}), 'ref_prefix':'U', 'fplist':['Package_BGA:XBGA-121_10x10mm_Layout11x11_P0.8mm'], 'footprint':'Package_BGA:XBGA-121_10x10mm_Layout11x11_P0.8mm', 'keywords':'Flash-Based 16-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39969b.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC24.kicad_sym\nPIC24FJ256DA210-xBG\n\nFlash-Based 16-Bit Microcontroller', 'pins':[
             Pin(num='A1',name='RE4',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='RD2',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='RD1',func=Pin.types.BIDIR,unit=1),
@@ -126,7 +126,7 @@ MCU_Microchip_PIC24 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='L7',name='RB13',func=Pin.types.BIDIR,unit=1),
             Pin(num='L8',name='RB15',func=Pin.types.BIDIR,unit=1),
             Pin(num='L9',name='RD14',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC24FJ256DA210-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC24FJ256DA210-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-100_12x12mm_P0.4mm'], 'footprint':'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'keywords':'Flash-Based 16-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39969b.pdf', 'pins':[
+        Part(**{ 'name':'PIC24FJ256DA210-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC24FJ256DA210-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-100_12x12mm_P0.4mm'], 'footprint':'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'keywords':'Flash-Based 16-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39969b.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC24.kicad_sym\nPIC24FJ256DA210-xPT\n\nFlash-Based 16-Bit Microcontroller', 'pins':[
             Pin(num='1',name='RG15',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RG6',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='RE4',func=Pin.types.BIDIR,unit=1),
@@ -227,7 +227,7 @@ MCU_Microchip_PIC24 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='RG13',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='RE3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC24FJ64GA306-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC24FJ64GA306-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'Flash-Based 16-Bit Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/30009996g.pdf', 'pins':[
+        Part(**{ 'name':'PIC24FJ64GA306-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC24FJ64GA306-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'Flash-Based 16-Bit Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/30009996g.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC24.kicad_sym\nPIC24FJ64GA306-xPT\n\nFlash-Based 16-Bit Microcontroller', 'pins':[
             Pin(num='1',name='RE5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='RB5/PGEC3',func=Pin.types.BIDIR,unit=1),
@@ -292,7 +292,7 @@ MCU_Microchip_PIC24 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{MCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='RG9',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC24FV32KA304-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC24FV32KA304-IPT'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 16-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39995d.pdf', 'pins':[
+        Part(**{ 'name':'PIC24FV32KA304-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC24FV32KA304-IPT'}), 'ref_prefix':'IC', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 16-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39995d.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC24.kicad_sym\nPIC24FV32KA304-IPT\n\nFlash-Based 16-Bit Microcontroller', 'pins':[
             Pin(num='1',name='RB9/DA1/T1CK/~{U1RTS}/CTED4/CN21',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB12/N12/HLVDIN/CTED2/CN14',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB13/AN11/SDO1/CTPLS/CN13',func=Pin.types.BIDIR,unit=1),
@@ -337,7 +337,7 @@ MCU_Microchip_PIC24 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA6/C2OUT/OC1/CTED1/INT2/CN8',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB10/PGED2/SDI1/CTED11/CN16',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB11/PGEC2/SCK1/CTED9/CN15',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC24FJ128GA306-xMR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC24FJ128GA306-xMR'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'Flash-Based 16-Bit Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/30009996g.pdf', 'pins':[
+        Part(**{ 'name':'PIC24FJ128GA306-xMR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC24FJ128GA306-xMR'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'Flash-Based 16-Bit Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/30009996g.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC24.kicad_sym\nPIC24FJ128GA306-xMR\n\nFlash-Based 16-Bit Microcontroller', 'pins':[
             Pin(num='1',name='RE5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='RB5/PGEC3',func=Pin.types.BIDIR,unit=1),
@@ -402,7 +402,7 @@ MCU_Microchip_PIC24 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{MCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='RG9',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC24FJ128GA306-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC24FJ128GA306-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'Flash-Based 16-Bit Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/30009996g.pdf', 'pins':[
+        Part(**{ 'name':'PIC24FJ128GA306-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC24FJ128GA306-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'Flash-Based 16-Bit Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/30009996g.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC24.kicad_sym\nPIC24FJ128GA306-xPT\n\nFlash-Based 16-Bit Microcontroller', 'pins':[
             Pin(num='1',name='RE5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='RB5/PGEC3',func=Pin.types.BIDIR,unit=1),
@@ -467,7 +467,7 @@ MCU_Microchip_PIC24 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{MCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='RG9',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC24FJ64GA306-xMR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC24FJ64GA306-xMR'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'Flash-Based 16-Bit Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/30009996g.pdf', 'pins':[
+        Part(**{ 'name':'PIC24FJ64GA306-xMR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC24FJ64GA306-xMR'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'Flash-Based 16-Bit Microcontroller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/30009996g.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC24.kicad_sym\nPIC24FJ64GA306-xMR\n\nFlash-Based 16-Bit Microcontroller', 'pins':[
             Pin(num='1',name='RE5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='RB5/PGEC3',func=Pin.types.BIDIR,unit=1),

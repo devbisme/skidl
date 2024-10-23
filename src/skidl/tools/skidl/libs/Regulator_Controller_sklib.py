@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'ICE1PCS01', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICE1PCS01'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-ICE1PCS01-DS-v01_03-en.pdf?fileId=db3a304412b407950112b427c6f13cc7', 'pins':[
+        Part(**{ 'name':'ICE1PCS01', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICE1PCS01'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-ICE1PCS01-DS-v01_03-en.pdf?fileId=db3a304412b407950112b427c6f13cc7', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nICE1PCS01\n\nSMPS pfc controller', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='ICOMP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='ISENSE',func=Pin.types.INPUT,unit=1),
@@ -13,7 +13,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VSENSE',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GATE',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ICE1PCS02', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICE1PCS02'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-ICE1PCS02-DS-v01_02-en.pdf?fileId=db3a304412b407950112b427c9283ccb', 'pins':[
+        Part(**{ 'name':'ICE1PCS02', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICE1PCS02'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-ICE1PCS02-DS-v01_02-en.pdf?fileId=db3a304412b407950112b427c9283ccb', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nICE1PCS02\n\nSMPS pfc controller', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='ICOMP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='ISENSE',func=Pin.types.INPUT,unit=1),
@@ -22,7 +22,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VSENSE',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GATE',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ICE3PCS01', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICE3PCS01'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-ICE3PCS01-DS-v03_00-EN.pdf?fileId=db3a304329a0f6ee0129a67ae8c02b46', 'pins':[
+        Part(**{ 'name':'ICE3PCS01', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICE3PCS01'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-ICE3PCS01-DS-v03_00-EN.pdf?fileId=db3a304329a0f6ee0129a67ae8c02b46', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nICE3PCS01\n\nSMPS pfc controller', 'pins':[
             Pin(num='1',name='BOFO',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OVP',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VSENSE',func=Pin.types.INPUT,unit=1),
@@ -37,7 +37,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VBTHL_EN',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VREF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='BOP',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ICE3PCS02', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICE3PCS02'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-ICE3PCS02G-DS-v03_00-EN.pdf?fileId=db3a304329a0f6ee0129a67fab472b4b', 'pins':[
+        Part(**{ 'name':'ICE3PCS02', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICE3PCS02'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-ICE3PCS02G-DS-v03_00-EN.pdf?fileId=db3a304329a0f6ee0129a67fab472b4b', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nICE3PCS02\n\nSMPS pfc controller', 'pins':[
             Pin(num='1',name='ISENSE',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='ICOMP',func=Pin.types.PASSIVE,unit=1),
@@ -46,7 +46,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VSENSE',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GATE',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ICE3PCS03', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICE3PCS03'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-ICE3PCS03G-DS-v03_00-EN.pdf?fileId=db3a304329a0f6ee0129a683c9c92b50', 'pins':[
+        Part(**{ 'name':'ICE3PCS03', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICE3PCS03'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-ICE3PCS03G-DS-v03_00-EN.pdf?fileId=db3a304329a0f6ee0129a683c9c92b50', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nICE3PCS03\n\nSMPS pfc controller', 'pins':[
             Pin(num='1',name='ISENSE',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='ICOMP',func=Pin.types.PASSIVE,unit=1),
@@ -55,7 +55,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VSENSE',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GATE',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR1153S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR1153S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'pfc controller ccm', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir1153.pdf?fileId=5546d462533600a4015355c42a5b1649', 'pins':[
+        Part(**{ 'name':'IR1153S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR1153S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'pfc controller ccm', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir1153.pdf?fileId=5546d462533600a4015355c42a5b1649', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nIR1153S\n\npfc controller ccm', 'pins':[
             Pin(num='1',name='COM',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='COMP',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='ISNS',func=Pin.types.PASSIVE,unit=1),
@@ -64,7 +64,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VFB',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GATE',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR1155S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR1155S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'pfc controller ccm', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir1155spbf.pdf?fileId=5546d462533600a4015355c431f9164b', 'pins':[
+        Part(**{ 'name':'IR1155S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR1155S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'pfc controller ccm', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir1155spbf.pdf?fileId=5546d462533600a4015355c431f9164b', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nIR1155S\n\npfc controller ccm', 'pins':[
             Pin(num='1',name='COM',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='FREQ',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='ISNS',func=Pin.types.PASSIVE,unit=1),
@@ -73,13 +73,13 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VFB',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GATE',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR1161L', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR1161L'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'synchronous rectifier controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir1161lpbf.pdf?fileId=5546d462533600a4015355c439a5164d', 'pins':[
+        Part(**{ 'name':'IR1161L', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR1161L'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'synchronous rectifier controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir1161lpbf.pdf?fileId=5546d462533600a4015355c439a5164d', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nIR1161L\n\nsynchronous rectifier controller', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='MOT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='VD',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='GATE',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR1167S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR1167S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'synchronous rectifier controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir1167aspbf.pdf?fileId=5546d462533600a4015355c45d9c1655', 'pins':[
+        Part(**{ 'name':'IR1167S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR1167S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'synchronous rectifier controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir1167aspbf.pdf?fileId=5546d462533600a4015355c45d9c1655', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nIR1167S\n\nsynchronous rectifier controller', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='OVT',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='MOT',func=Pin.types.PASSIVE,unit=1),
@@ -88,7 +88,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VGATE',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR11688S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR11688S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'dual synchronous rectifier controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir11688spbf.pdf?fileId=5546d462533600a4015355c47c70165c', 'pins':[
+        Part(**{ 'name':'IR11688S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR11688S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'dual synchronous rectifier controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir11688spbf.pdf?fileId=5546d462533600a4015355c47c70165c', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nIR11688S\n\ndual synchronous rectifier controller', 'pins':[
             Pin(num='1',name='GATE1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='MOT',func=Pin.types.PASSIVE,unit=1),
@@ -97,7 +97,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GATE2',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR1168S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR1168S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'dual synchronous rectifier controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir1168.pdf?fileId=5546d462533600a4015355c467fa1658', 'pins':[
+        Part(**{ 'name':'IR1168S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR1168S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'dual synchronous rectifier controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir1168.pdf?fileId=5546d462533600a4015355c467fa1658', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nIR1168S\n\ndual synchronous rectifier controller', 'pins':[
             Pin(num='1',name='GATE1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VS1',func=Pin.types.INPUT,unit=1),
@@ -106,7 +106,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS2',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GATE2',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR1169S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR1169S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'synchronous rectifier controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir1169.pdf?fileId=5546d462533600a4015355c485c4165e', 'pins':[
+        Part(**{ 'name':'IR1169S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR1169S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'synchronous rectifier controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir1169.pdf?fileId=5546d462533600a4015355c485c4165e', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nIR1169S\n\nsynchronous rectifier controller', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='SYNC',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='MOT',func=Pin.types.PASSIVE,unit=1),
@@ -115,13 +115,13 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VGATE',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IRS2505L', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2505L'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'pfc controller crcm dcm', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2505lpbf.pdf?fileId=5546d462533600a40153567ad42c2819', 'pins':[
+        Part(**{ 'name':'IRS2505L', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IRS2505L'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'pfc controller crcm dcm', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/irs2505lpbf.pdf?fileId=5546d462533600a40153567ad42c2819', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nIRS2505L\n\npfc controller crcm dcm', 'pins':[
             Pin(num='1',name='CMP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='COM',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='PFC',func=Pin.types.OUTPUT,unit=1),
             Pin(num='5',name='VBUS',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISL6551', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISL6551'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'SMPS controller', 'description':'', 'datasheet':'https://www.intersil.com/content/dam/Intersil/documents/isl6/isl6551.pdf', 'pins':[
+        Part(**{ 'name':'ISL6551', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISL6551'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'SMPS controller', 'description':'', 'datasheet':'https://www.intersil.com/content/dam/Intersil/documents/isl6/isl6551.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nISL6551\n\nSMPS controller', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='CS_COMP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='CSS',func=Pin.types.PASSIVE,unit=1),
@@ -150,7 +150,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PKILIM',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='BGREF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='R_LEB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'L4981A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L4981A'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/l4981.pdf', 'pins':[
+        Part(**{ 'name':'L4981A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L4981A'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/l4981.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nL4981A\n\nSMPS pfc controller', 'pins':[
             Pin(num='1',name='P-GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='S-GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='VREF',func=Pin.types.OUTPUT,unit=1),
@@ -171,7 +171,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VRMS',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='MULT-OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='ISENSE',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'L4981B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L4981B'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/l4981.pdf', 'pins':[
+        Part(**{ 'name':'L4981B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L4981B'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/l4981.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nL4981B\n\nSMPS pfc controller', 'pins':[
             Pin(num='1',name='P-GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='S-GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='VREF',func=Pin.types.OUTPUT,unit=1),
@@ -192,7 +192,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VRMS',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='MULT-OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='ISENSE',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'L4984D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L4984D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-10_3.9x4.9mm_P1.00mm'], 'footprint':'Package_SO:SSOP-10_3.9x4.9mm_P1.00mm', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/l4984d.pdf', 'pins':[
+        Part(**{ 'name':'L4984D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L4984D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-10_3.9x4.9mm_P1.00mm'], 'footprint':'Package_SO:SSOP-10_3.9x4.9mm_P1.00mm', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/l4984d.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nL4984D\n\nSMPS pfc controller', 'pins':[
             Pin(num='1',name='INV',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='COMP',func=Pin.types.OUTPUT,unit=1),
@@ -203,7 +203,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TIMER',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GD',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'L6561', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L6561'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/l6561.pdf', 'pins':[
+        Part(**{ 'name':'L6561', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L6561'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/l6561.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nL6561\n\nSMPS pfc controller', 'pins':[
             Pin(num='1',name='INV',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='COMP',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='MULT',func=Pin.types.INPUT,unit=1),
@@ -212,7 +212,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='GD',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'L6563', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L6563'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/l6563.pdf', 'pins':[
+        Part(**{ 'name':'L6563', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L6563'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/l6563.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nL6563\n\nSMPS pfc controller', 'pins':[
             Pin(num='1',name='INV',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RUN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='ZCD',func=Pin.types.INPUT,unit=1),
@@ -227,7 +227,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PFC_OK',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PWM_LATCH',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='PWM_STOP',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'L6563H', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L6563H'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/l6563h.pdf', 'pins':[
+        Part(**{ 'name':'L6563H', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L6563H'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/l6563h.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nL6563H\n\nSMPS pfc controller', 'pins':[
             Pin(num='1',name='INV',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='PWM_STOP',func=Pin.types.OUTPUT,unit=1),
@@ -244,7 +244,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PFC_OK',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PWM_LATCH',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='HVS',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'L6564', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L6564'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-10_3.9x4.9mm_P1.00mm'], 'footprint':'Package_SO:SSOP-10_3.9x4.9mm_P1.00mm', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/l6564.pdf', 'pins':[
+        Part(**{ 'name':'L6564', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L6564'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-10_3.9x4.9mm_P1.00mm'], 'footprint':'Package_SO:SSOP-10_3.9x4.9mm_P1.00mm', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/l6564.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nL6564\n\nSMPS pfc controller', 'pins':[
             Pin(num='1',name='INV',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='COMP',func=Pin.types.OUTPUT,unit=1),
@@ -255,7 +255,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='ZCD',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GD',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'L6564H', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L6564H'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/l6564h.pdf', 'pins':[
+        Part(**{ 'name':'L6564H', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L6564H'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/l6564h.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nL6564H\n\nSMPS pfc controller', 'pins':[
             Pin(num='1',name='INV',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='ZCD',func=Pin.types.INPUT,unit=1),
@@ -270,7 +270,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='HVS',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'L6598', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L6598'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'SMPS controller', 'description':'', 'datasheet':'www.st.com/resource/en/datasheet/l6598.pdf', 'pins':[
+        Part(**{ 'name':'L6598', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L6598'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'SMPS controller', 'description':'', 'datasheet':'www.st.com/resource/en/datasheet/l6598.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nL6598\n\nSMPS controller', 'pins':[
             Pin(num='1',name='CSS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='LVG',func=Pin.types.OUTPUT,unit=1),
@@ -287,7 +287,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OPIN+',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='EN1',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='EN2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'L6599', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L6599'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'SMPS controller', 'description':'', 'datasheet':'www.st.com/resource/en/datasheet/l6599.pdf', 'pins':[
+        Part(**{ 'name':'L6599', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L6599'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'SMPS controller', 'description':'', 'datasheet':'www.st.com/resource/en/datasheet/l6599.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nL6599\n\nSMPS controller', 'pins':[
             Pin(num='1',name='CSS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='LVG',func=Pin.types.OUTPUT,unit=1),
@@ -304,7 +304,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='LINE',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DIS',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='PFC_STOP',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'L6727', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L6727'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS controller', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/l6727.pdf', 'pins':[
+        Part(**{ 'name':'L6727', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L6727'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS controller', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/l6727.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nL6727\n\nSMPS controller', 'pins':[
             Pin(num='1',name='BOOT',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='UGATE',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -313,7 +313,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='COMP/DIS/OC',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PHASE',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LM25119', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM25119'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:WQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:WQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'Dual Synchronous Buck', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm25119.pdf', 'pins':[
+        Part(**{ 'name':'LM25119', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM25119'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:WQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:WQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'Dual Synchronous Buck', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm25119.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nLM25119\n\nDual Synchronous Buck', 'pins':[
             Pin(num='1',name='VCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='COMP1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='LO1',func=Pin.types.OUTPUT,unit=1),
@@ -346,8 +346,8 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='28',name='UVLO',func=Pin.types.INPUT,unit=3),
             Pin(num='29',name='VIN',func=Pin.types.PWRIN,unit=3),
             Pin(num='33',name='EP',func=Pin.types.UNSPEC,unit=3),
-            Pin(num='8',name='VCCDIS',func=Pin.types.INPUT,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '31', '10', '3', '7', '32', '5', '6', '30', '4', '9']},{'label': 'uB', 'num': 2, 'pin_nums': ['22', '11', '20', '16', '19', '25', '27', '15', '21', '23', '18', '24', '26']},{'label': 'uC', 'num': 3, 'pin_nums': ['17', '12', '13', '28', '14', '33', '8', '29']}] }),
-        Part(**{ 'name':'LM3478MA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM3478MA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Boost flyback SEPIC DC-DC controller', 'description':'', 'datasheet':'https://www.ti.com/lit/gpn/lm3478', 'pins':[
+            Pin(num='8',name='VCCDIS',func=Pin.types.INPUT,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '7', '30', '10', '32', '2', '6', '1', '9', '4', '31', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['19', '11', '16', '18', '27', '21', '23', '25', '26', '15', '22', '24', '20']},{'label': 'uC', 'num': 3, 'pin_nums': ['29', '12', '14', '8', '13', '28', '33', '17']}] }),
+        Part(**{ 'name':'LM3478MA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM3478MA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Boost flyback SEPIC DC-DC controller', 'description':'', 'datasheet':'https://www.ti.com/lit/gpn/lm3478', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nLM3478MA\n\nBoost flyback SEPIC DC-DC controller', 'pins':[
             Pin(num='1',name='I_{SEN}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='COMP',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='FB',func=Pin.types.INPUT,unit=1),
@@ -356,7 +356,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='DR',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='FA/SD',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='V_{IN}',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LM5023', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM5023'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:VSSOP-8_3x3mm_P0.65mm', 'keywords':'smps pwm controller ac-dc ac dc offline off-line quasi resonant quasi-resonant flyback', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/lm5023.pdf', 'pins':[
+        Part(**{ 'name':'LM5023', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM5023'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:VSSOP-8_3x3mm_P0.65mm', 'keywords':'smps pwm controller ac-dc ac dc offline off-line quasi resonant quasi-resonant flyback', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/lm5023.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nLM5023\n\nsmps pwm controller ac-dc ac dc offline off-line quasi resonant quasi-resonant flyback', 'pins':[
             Pin(num='1',name='QR',func=Pin.types.INPUT),
             Pin(num='2',name='VSD',func=Pin.types.OUTPUT),
             Pin(num='3',name='SS',func=Pin.types.PASSIVE),
@@ -365,7 +365,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GND',func=Pin.types.PWRIN),
             Pin(num='7',name='OUT',func=Pin.types.OUTPUT),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN)], 'unit_defs':[] }),
-        Part(**{ 'name':'LT1248', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT1248'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'pfc controller', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1248fd.pdf', 'pins':[
+        Part(**{ 'name':'LT1248', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT1248'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'pfc controller', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1248fd.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nLT1248\n\npfc controller', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN/SYNC',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VSENSE',func=Pin.types.INPUT,unit=1),
@@ -382,7 +382,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VAOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='OVP',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VREF',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LT1249', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT1249'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'pfc controller', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1249fbs.pdf', 'pins':[
+        Part(**{ 'name':'LT1249', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT1249'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'pfc controller', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1249fbs.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nLT1249\n\npfc controller', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='CAOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='MOUT',func=Pin.types.INPUT,unit=1),
@@ -391,7 +391,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VSENSE',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GTDR',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LT1509', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT1509'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'pfc pwm controller', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/lt1509.pdf', 'pins':[
+        Part(**{ 'name':'LT1509', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT1509'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'pfc pwm controller', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/lt1509.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nLT1509\n\npfc pwm controller', 'pins':[
             Pin(num='1',name='GTDR1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='VAOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='OVP',func=Pin.types.INPUT,unit=1),
@@ -412,7 +412,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='ISENSE',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='MOUT',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='IAC',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LT4295xUFD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT4295xUFD'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_4x5mm_P0.5mm_EP2.65x3.65mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_4x5mm_P0.5mm_EP2.65x3.65mm', 'keywords':'LTPoE++ IEEE 802.3af IEEE 802.3at IEEE 802.3bt', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/LT4295.pdf', 'pins':[
+        Part(**{ 'name':'LT4295xUFD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT4295xUFD'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_4x5mm_P0.5mm_EP2.65x3.65mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_4x5mm_P0.5mm_EP2.65x3.65mm', 'keywords':'LTPoE++ IEEE 802.3af IEEE 802.3at IEEE 802.3bt', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/LT4295.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nLT4295xUFD\n\nLTPoE++ IEEE 802.3af IEEE 802.3at IEEE 802.3bt', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='ROSC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='SFST',func=Pin.types.PASSIVE,unit=1),
@@ -442,7 +442,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC1624CS8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1624CS8'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Switching Regulator Controller', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1624f.pdf', 'pins':[
+        Part(**{ 'name':'LTC1624CS8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1624CS8'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Switching Regulator Controller', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1624f.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nLTC1624CS8\n\nSwitching Regulator Controller', 'pins':[
             Pin(num='1',name='ISENSE',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='Ith/RUN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SET',func=Pin.types.INPUT,unit=1),
@@ -451,7 +451,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='TG',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='BOOST',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VIN',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC3805xMSE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC3805xMSE'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10-1EP_3x3mm_P0.5mm_EP1.68x1.88mm'], 'footprint':'Package_SO:MSOP-10-1EP_3x3mm_P0.5mm_EP1.68x1.88mm', 'keywords':'flyback dc-dc switcher switching', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/3805fg.pdf', 'pins':[
+        Part(**{ 'name':'LTC3805xMSE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC3805xMSE'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10-1EP_3x3mm_P0.5mm_EP1.68x1.88mm'], 'footprint':'Package_SO:MSOP-10-1EP_3x3mm_P0.5mm_EP1.68x1.88mm', 'keywords':'flyback dc-dc switcher switching', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/3805fg.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nLTC3805xMSE\n\nflyback dc-dc switcher switching', 'pins':[
             Pin(num='1',name='SSFLT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='GATE',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -463,7 +463,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Isense',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='OC',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC3890', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC3890'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'switching buck converter regulator dual-output', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/3890fc.pdf', 'pins':[
+        Part(**{ 'name':'LTC3890', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC3890'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'switching buck converter regulator dual-output', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/3890fc.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nLTC3890\n\nswitching buck converter regulator dual-output', 'pins':[
             Pin(num='1',name='SENSE1-',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='SENSE2+',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VFB2',func=Pin.types.INPUT,unit=1),
@@ -497,7 +497,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RUN1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='RUN2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='SENSE2-',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC3890-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC3890-1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_3.9x9.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-28_3.9x9.9mm_P0.635mm', 'keywords':'switching buck converter regulator dual-output', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/38901fb.pdf', 'pins':[
+        Part(**{ 'name':'LTC3890-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC3890-1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_3.9x9.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-28_3.9x9.9mm_P0.635mm', 'keywords':'switching buck converter regulator dual-output', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/38901fb.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nLTC3890-1\n\nswitching buck converter regulator dual-output', 'pins':[
             Pin(num='1',name='ITH1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='SENSE2-',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SENSE2+',func=Pin.types.INPUT,unit=1),
@@ -526,7 +526,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RUN1',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='RUN2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC3892', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC3892'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'switching buck converter regulator dual-output', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/38921fc.pdf', 'pins':[
+        Part(**{ 'name':'LTC3892', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC3892'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'switching buck converter regulator dual-output', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/38921fc.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nLTC3892\n\nswitching buck converter regulator dual-output', 'pins':[
             Pin(num='1',name='FREQ',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='SENSE2+',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VFB2',func=Pin.types.INPUT,unit=1),
@@ -560,7 +560,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RUN2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='ILIM',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='SENSE2-',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC3892-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC3892-1'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28-1EP_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28-1EP_4.4x9.7mm_P0.65mm', 'keywords':'switching buck converter regulator dual-output', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/38921fc.pdf', 'pins':[
+        Part(**{ 'name':'LTC3892-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC3892-1'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28-1EP_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28-1EP_4.4x9.7mm_P0.65mm', 'keywords':'switching buck converter regulator dual-output', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/38921fc.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nLTC3892-1\n\nswitching buck converter regulator dual-output', 'pins':[
             Pin(num='1',name='ITH1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='SENSE2-',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SENSE2+',func=Pin.types.INPUT,unit=1),
@@ -590,7 +590,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='INTVcc',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='RUN1',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='RUN2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC7810', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC7810'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48-1EP_7x7mm_P0.5mm_EP3.6x3.6mm'], 'footprint':'Package_QFP:LQFP-48-1EP_7x7mm_P0.5mm_EP3.6x3.6mm', 'keywords':'switching buck converter regulator dual-output', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/LTC7810.pdf', 'pins':[
+        Part(**{ 'name':'LTC7810', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC7810'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48-1EP_7x7mm_P0.5mm_EP3.6x3.6mm'], 'footprint':'Package_QFP:LQFP-48-1EP_7x7mm_P0.5mm_EP3.6x3.6mm', 'keywords':'switching buck converter regulator dual-output', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/LTC7810.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nLTC7810\n\nswitching buck converter regulator dual-output', 'pins':[
             Pin(num='1',name='SENSE1-',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='NDRV',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='EXTVcc',func=Pin.types.PWRIN,unit=1),
@@ -625,7 +625,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='REGSD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='MODE',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='OVLO',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP1200D40', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1200D40'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1200-D.PDF', 'pins':[
+        Part(**{ 'name':'NCP1200D40', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1200D40'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1200-D.PDF', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nNCP1200D40\n\nSMPS Controller AC-DC', 'pins':[
             Pin(num='1',name='ADJ',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -634,7 +634,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='HV',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP1200P40', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1200P40'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1200-D.PDF', 'pins':[
+        Part(**{ 'name':'NCP1200P40', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1200P40'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1200-D.PDF', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nNCP1200P40\n\nSMPS Controller AC-DC', 'pins':[
             Pin(num='1',name='ADJ',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -643,7 +643,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='HV',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP1207A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1207A'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/NCP1207B.PDF', 'pins':[
+        Part(**{ 'name':'NCP1207A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1207A'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/NCP1207B.PDF', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nNCP1207A\n\nSMPS Controller AC-DC', 'pins':[
             Pin(num='1',name='DMG',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -652,7 +652,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='HV',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP1207B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1207B'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8-N7_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8-N7_3.9x4.9mm_P1.27mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/NCP1207B.PDF', 'pins':[
+        Part(**{ 'name':'NCP1207B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1207B'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8-N7_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8-N7_3.9x4.9mm_P1.27mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/NCP1207B.PDF', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nNCP1207B\n\nSMPS Controller AC-DC', 'pins':[
             Pin(num='1',name='DMG',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -660,7 +660,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='DRV',func=Pin.types.OUTPUT,unit=1),
             Pin(num='6',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='HV',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP1280', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1280'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/NCP1280-D.PDF', 'pins':[
+        Part(**{ 'name':'NCP1280', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1280'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/NCP1280-D.PDF', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nNCP1280\n\nSMPS Controller AC-DC', 'pins':[
             Pin(num='1',name='VIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VEA',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VREF',func=Pin.types.OUTPUT,unit=1),
@@ -677,7 +677,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='DCMAX',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='SS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP1380A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1380A'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/NCP1380-D.PDF', 'pins':[
+        Part(**{ 'name':'NCP1380A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1380A'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/NCP1380-D.PDF', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nNCP1380A\n\nSMPS Controller AC-DC', 'pins':[
             Pin(num='1',name='ZCD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -686,7 +686,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='FAULT',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CT',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP1653', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1653'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'PFC SMPS Controller', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/NCP1653-D.PDF', 'pins':[
+        Part(**{ 'name':'NCP1653', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1653'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'PFC SMPS Controller', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/NCP1653-D.PDF', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nNCP1653\n\nPFC SMPS Controller', 'pins':[
             Pin(num='1',name='FB/SD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='VCONTROL',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='IN',func=Pin.types.INPUT,unit=1),
@@ -695,7 +695,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='DRV',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP4308AD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP4308AD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'synchronous rectifier controller', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/NCP4308-D.PDF', 'pins':[
+        Part(**{ 'name':'NCP4308AD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP4308AD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'synchronous rectifier controller', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/NCP4308-D.PDF', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nNCP4308AD\n\nsynchronous rectifier controller', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='MIN_TOFF',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='MIN_TON',func=Pin.types.PASSIVE,unit=1),
@@ -704,7 +704,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CS',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='DRV',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP4308AMT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP4308AMT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:OnSemi_DFN-8_2x2mm_P0.5mm'], 'footprint':'Package_DFN_QFN:OnSemi_DFN-8_2x2mm_P0.5mm', 'keywords':'synchronous rectifier controller', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/NCP4308-D.PDF', 'pins':[
+        Part(**{ 'name':'NCP4308AMT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP4308AMT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:OnSemi_DFN-8_2x2mm_P0.5mm'], 'footprint':'Package_DFN_QFN:OnSemi_DFN-8_2x2mm_P0.5mm', 'keywords':'synchronous rectifier controller', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/NCP4308-D.PDF', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nNCP4308AMT\n\nsynchronous rectifier controller', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='MIN_TOFF',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='MIN_TON',func=Pin.types.PASSIVE,unit=1),
@@ -713,7 +713,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CS',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='DRV',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP4308DMN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP4308DMN'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_4x4mm_P0.8mm_EP2.39x2.21mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_4x4mm_P0.8mm_EP2.39x2.21mm', 'keywords':'synchronous rectifier controller', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/NCP4308-D.PDF', 'pins':[
+        Part(**{ 'name':'NCP4308DMN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP4308DMN'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_4x4mm_P0.8mm_EP2.39x2.21mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_4x4mm_P0.8mm_EP2.39x2.21mm', 'keywords':'synchronous rectifier controller', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/NCP4308-D.PDF', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nNCP4308DMN\n\nsynchronous rectifier controller', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='MIN_TOFF',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='MIN_TON',func=Pin.types.PASSIVE,unit=1),
@@ -722,7 +722,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CS',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='DRV',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP4308QD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP4308QD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'synchronous rectifier controller', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/NCP4308-D.PDF', 'pins':[
+        Part(**{ 'name':'NCP4308QD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP4308QD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'synchronous rectifier controller', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/NCP4308-D.PDF', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nNCP4308QD\n\nsynchronous rectifier controller', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='MIN_TOFF',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='MIN_TON',func=Pin.types.PASSIVE,unit=1),
@@ -731,7 +731,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CS',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='DRV',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SG3525', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SG3525'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'www.st.com/resource/en/datasheet/sg3525.pdf', 'pins':[
+        Part(**{ 'name':'SG3525', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SG3525'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'www.st.com/resource/en/datasheet/sg3525.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nSG3525\n\nSMPS PWM Controller', 'pins':[
             Pin(num='1',name='INV',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='SD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='OUTA',func=Pin.types.OUTPUT,unit=1),
@@ -748,7 +748,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DISCH',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='SS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='COMP',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TDA4862', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA4862'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'PFC SMPS Controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-PFC_DCMICTDA4862G-DS-v02_00-en.pdf?fileId=db3a304412b407950112b417ffae24a3', 'pins':[
+        Part(**{ 'name':'TDA4862', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA4862'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'PFC SMPS Controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-PFC_DCMICTDA4862G-DS-v02_00-en.pdf?fileId=db3a304412b407950112b417ffae24a3', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nTDA4862\n\nPFC SMPS Controller', 'pins':[
             Pin(num='1',name='VSENSE',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='VAOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='MULTIN',func=Pin.types.INPUT,unit=1),
@@ -757,7 +757,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='GTDRV',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TL494', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TL494'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tl494.pdf', 'pins':[
+        Part(**{ 'name':'TL494', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TL494'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tl494.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nTL494\n\nSMPS PWM Controller', 'pins':[
             Pin(num='1',name='1IN+',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='E2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='C2',func=Pin.types.PASSIVE,unit=1),
@@ -774,7 +774,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='C1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='E1',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TPS2375-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPS2375-1'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_4.4x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'keywords':'IEEE802.3af PoE', 'description':'', 'datasheet':'https://www.ti.com/lit/gpn/tps2375-1', 'pins':[
+        Part(**{ 'name':'TPS2375-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPS2375-1'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_4.4x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_4.4x3mm_P0.65mm', 'keywords':'IEEE802.3af PoE', 'description':'', 'datasheet':'https://www.ti.com/lit/gpn/tps2375-1', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nTPS2375-1\n\nIEEE802.3af PoE', 'pins':[
             Pin(num='1',name='ILIM',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='CLASS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='DET',func=Pin.types.PASSIVE,unit=1),
@@ -783,7 +783,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PG',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UC3525', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UC3525'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uc2525b.pdf', 'pins':[
+        Part(**{ 'name':'UC3525', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UC3525'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uc2525b.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUC3525\n\nSMPS PWM Controller', 'pins':[
             Pin(num='1',name='INV',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='SD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='OUTA',func=Pin.types.OUTPUT,unit=1),
@@ -800,7 +800,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DISCH',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='SS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='COMP',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UC3842_SOIC14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UC3842_SOIC14'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uc3842.pdf', 'pins':[
+        Part(**{ 'name':'UC3842_SOIC14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UC3842_SOIC14'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uc3842.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUC3842_SOIC14\n\nSMPS PWM Controller', 'pins':[
             Pin(num='1',name='COMP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='VC',func=Pin.types.PWRIN,unit=1),
@@ -815,7 +815,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='PWRGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UC3842_SOIC16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UC3842_SOIC16'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uc2843a.pdf', 'pins':[
+        Part(**{ 'name':'UC3842_SOIC16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UC3842_SOIC16'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uc2843a.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUC3842_SOIC16\n\nSMPS PWM Controller', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='PWRGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -832,7 +832,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UC3842_SOIC8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UC3842_SOIC8'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uc3842.pdf', 'pins':[
+        Part(**{ 'name':'UC3842_SOIC8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UC3842_SOIC8'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uc3842.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUC3842_SOIC8\n\nSMPS PWM Controller', 'pins':[
             Pin(num='1',name='COMP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -841,7 +841,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VREF',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UC3854', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UC3854'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'PFC SMPS Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uc3854.pdf', 'pins':[
+        Part(**{ 'name':'UC3854', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UC3854'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'PFC SMPS Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uc3854.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUC3854\n\nPFC SMPS Controller', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='ENA',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VSENSE',func=Pin.types.INPUT,unit=1),
@@ -858,7 +858,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VAOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VRMS',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VREF',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UCC24610D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC24610D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'synchronous rectifier controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc24610.pdf', 'pins':[
+        Part(**{ 'name':'UCC24610D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC24610D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'synchronous rectifier controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc24610.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUCC24610D\n\nsynchronous rectifier controller', 'pins':[
             Pin(num='1',name='SYNC',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='EN/TOFF',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='TON',func=Pin.types.INPUT,unit=1),
@@ -867,7 +867,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='VS',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VD',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UCC24610DRB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC24610DRB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_DRB0008A'], 'footprint':'Package_DFN_QFN:Texas_DRB0008A', 'keywords':'synchronous rectifier controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc24610.pdf', 'pins':[
+        Part(**{ 'name':'UCC24610DRB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC24610DRB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_DRB0008A'], 'footprint':'Package_DFN_QFN:Texas_DRB0008A', 'keywords':'synchronous rectifier controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc24610.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUCC24610DRB\n\nsynchronous rectifier controller', 'pins':[
             Pin(num='1',name='SYNC',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='EN/TOFF',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='TON',func=Pin.types.INPUT,unit=1),
@@ -876,20 +876,20 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='VS',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VD',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UCC24612-1DBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC24612-1DBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'synchronous rectifier controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc24612.pdf', 'pins':[
+        Part(**{ 'name':'UCC24612-1DBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC24612-1DBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'synchronous rectifier controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc24612.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUCC24612-1DBV\n\nsynchronous rectifier controller', 'pins':[
             Pin(num='1',name='VG',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='VS',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='REG',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='VD',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UCC24630DBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC24630DBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'synchronous rectifier controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc24630.pdf', 'pins':[
+        Part(**{ 'name':'UCC24630DBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC24630DBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'synchronous rectifier controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc24630.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUCC24630DBV\n\nsynchronous rectifier controller', 'pins':[
             Pin(num='1',name='VPC',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='VSC',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='TBLK',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='DRV',func=Pin.types.OUTPUT,unit=1),
             Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UCC25600', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC25600'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc25600.pdf', 'pins':[
+        Part(**{ 'name':'UCC25600', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC25600'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc25600.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUCC25600\n\nSMPS PWM Controller', 'pins':[
             Pin(num='1',name='DT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='RT',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='OC',func=Pin.types.INPUT,unit=1),
@@ -898,7 +898,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GD1',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UCC256301', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC256301'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14-16_3.9x9.9mm_P1.27mm', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/ucc256301.pdf', 'pins':[
+        Part(**{ 'name':'UCC256301', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC256301'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14-16_3.9x9.9mm_P1.27mm', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/ucc256301.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUCC256301\n\nSMPS PWM Controller', 'pins':[
             Pin(num='1',name='HV',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='LO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -913,7 +913,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCR',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='BW',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='LL/SS',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UCC25800', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC25800'}), 'ref_prefix':'U', 'fplist':['Package_SO:HVSSOP-8-1EP_3x3mm_P0.65mm_EP1.57x1.89mm'], 'footprint':'Package_SO:HVSSOP-8-1EP_3x3mm_P0.65mm_EP1.57x1.89mm', 'keywords':'transformer driver isolated bias supply llc converter', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/ucc25800-q1.pdf', 'pins':[
+        Part(**{ 'name':'UCC25800', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC25800'}), 'ref_prefix':'U', 'fplist':['Package_SO:HVSSOP-8-1EP_3x3mm_P0.65mm_EP1.57x1.89mm'], 'footprint':'Package_SO:HVSSOP-8-1EP_3x3mm_P0.65mm_EP1.57x1.89mm', 'keywords':'transformer driver isolated bias supply llc converter', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/ucc25800-q1.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUCC25800\n\ntransformer driver isolated bias supply llc converter', 'pins':[
             Pin(num='1',name='SYNC',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~{DIS/FLT}',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='VREG',func=Pin.types.OUTPUT,unit=1),
@@ -923,7 +923,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SW',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UCC2891', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC2891'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc2891.pdf', 'pins':[
+        Part(**{ 'name':'UCC2891', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC2891'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc2891.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUCC2891\n\nSMPS PWM Controller', 'pins':[
             Pin(num='1',name='RTDEL',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='SS/SD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='PGND',func=Pin.types.PWRIN,unit=1),
@@ -940,7 +940,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CS',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='RSLOPE',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='FB',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UCC2892', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC2892'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc2892.pdf', 'pins':[
+        Part(**{ 'name':'UCC2892', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC2892'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc2892.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUCC2892\n\nSMPS PWM Controller', 'pins':[
             Pin(num='1',name='RTDEL',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='SS/SD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='PGND',func=Pin.types.PWRIN,unit=1),
@@ -957,7 +957,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CS',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='RSLOPE',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='FB',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UCC2897', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC2897'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc2897.pdf', 'pins':[
+        Part(**{ 'name':'UCC2897', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC2897'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc2897.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUCC2897\n\nSMPS PWM Controller', 'pins':[
             Pin(num='1',name='VIN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RSLOPE',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='FB',func=Pin.types.INPUT,unit=1),
@@ -978,7 +978,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SYNC',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='CS',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UCC3800', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC3800'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3800.pdf', 'pins':[
+        Part(**{ 'name':'UCC3800', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC3800'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3800.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUCC3800\n\nSMPS PWM Controller', 'pins':[
             Pin(num='1',name='COMP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -987,7 +987,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='REF',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UCC3808D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC3808D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3808-2.pdf', 'pins':[
+        Part(**{ 'name':'UCC3808D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC3808D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3808-2.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUCC3808D\n\nSMPS PWM Controller', 'pins':[
             Pin(num='1',name='COMP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -996,7 +996,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='OUTB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='OUTA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UCC3808N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC3808N'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3808-2.pdf', 'pins':[
+        Part(**{ 'name':'UCC3808N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC3808N'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3808-2.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUCC3808N\n\nSMPS PWM Controller', 'pins':[
             Pin(num='1',name='OUTA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='COMP',func=Pin.types.PASSIVE,unit=1),
@@ -1005,7 +1005,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='RC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='OUTB',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UCC3895DW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC3895DW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'Phase-shift full-bridge converter', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3895.pdf', 'pins':[
+        Part(**{ 'name':'UCC3895DW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC3895DW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'Phase-shift full-bridge converter', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3895.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUCC3895DW\n\nPhase-shift full-bridge converter', 'pins':[
             Pin(num='1',name='EAN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DELCD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='ADS',func=Pin.types.INPUT,unit=1),
@@ -1026,7 +1026,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='RT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='DELAB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UCC3895N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC3895N'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm_LongPads'], 'footprint':'Package_DIP:DIP-20_W7.62mm_LongPads', 'keywords':'Phase-shift full-bridge converter', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3895.pdf', 'pins':[
+        Part(**{ 'name':'UCC3895N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC3895N'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm_LongPads'], 'footprint':'Package_DIP:DIP-20_W7.62mm_LongPads', 'keywords':'Phase-shift full-bridge converter', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3895.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUCC3895N\n\nPhase-shift full-bridge converter', 'pins':[
             Pin(num='1',name='EAN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DELCD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='ADS',func=Pin.types.INPUT,unit=1),
@@ -1047,7 +1047,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='RT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='DELAB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UCC3895PW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC3895PW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'Phase-shift full-bridge converter', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3895.pdf', 'pins':[
+        Part(**{ 'name':'UCC3895PW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC3895PW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'Phase-shift full-bridge converter', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3895.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUCC3895PW\n\nPhase-shift full-bridge converter', 'pins':[
             Pin(num='1',name='EAN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DELCD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='ADS',func=Pin.types.INPUT,unit=1),
@@ -1068,7 +1068,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='RT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='DELAB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ICE2PCS01', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICE2PCS01'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-ICE2PCS01-DS-v02_03-en.pdf?fileId=db3a304412b407950112b427caa43ccf', 'pins':[
+        Part(**{ 'name':'ICE2PCS01', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICE2PCS01'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-ICE2PCS01-DS-v02_03-en.pdf?fileId=db3a304412b407950112b427caa43ccf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nICE2PCS01\n\nSMPS pfc controller', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='ICOMP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='ISENSE',func=Pin.types.INPUT,unit=1),
@@ -1077,7 +1077,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VSENSE',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GATE',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ICE2PCS02', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICE2PCS02'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-ICE2PCS02-DS-v02_04-en.pdf?fileId=db3a304412b407950112b427cc3c3cdc', 'pins':[
+        Part(**{ 'name':'ICE2PCS02', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICE2PCS02'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-ICE2PCS02-DS-v02_04-en.pdf?fileId=db3a304412b407950112b427cc3c3cdc', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nICE2PCS02\n\nSMPS pfc controller', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='ICOMP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='ISENSE',func=Pin.types.INPUT,unit=1),
@@ -1086,7 +1086,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VSENSE',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GATE',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ICE2PCS03', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICE2PCS03'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-ICE2PCS03-DS-v02_01-en.pdf?fileId=db3a30431936bc4b01193b45457e52a1', 'pins':[
+        Part(**{ 'name':'ICE2PCS03', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICE2PCS03'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-ICE2PCS03-DS-v02_01-en.pdf?fileId=db3a30431936bc4b01193b45457e52a1', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nICE2PCS03\n\nSMPS pfc controller', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='ICOMP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='ISENSE',func=Pin.types.INPUT,unit=1),
@@ -1095,7 +1095,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VSENSE',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GATE',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ICE2PCS04', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICE2PCS04'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-ICE2PCS04-DS-v02_01-en.pdf?fileId=db3a30431936bc4b01193b4e467952a9', 'pins':[
+        Part(**{ 'name':'ICE2PCS04', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICE2PCS04'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-ICE2PCS04-DS-v02_01-en.pdf?fileId=db3a30431936bc4b01193b4e467952a9', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nICE2PCS04\n\nSMPS pfc controller', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='ICOMP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='ISENSE',func=Pin.types.INPUT,unit=1),
@@ -1104,7 +1104,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VSENSE',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GATE',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ICE2PCS05', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICE2PCS05'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-ICE2PCS05-DS-v01_02-en.pdf?fileId=db3a30431c69a49d011cdfb46a834373', 'pins':[
+        Part(**{ 'name':'ICE2PCS05', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICE2PCS05'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-ICE2PCS05-DS-v01_02-en.pdf?fileId=db3a30431c69a49d011cdfb46a834373', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nICE2PCS05\n\nSMPS pfc controller', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='ICOMP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='ISENSE',func=Pin.types.INPUT,unit=1),
@@ -1113,7 +1113,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VSENSE',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GATE',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ICE2PCS06', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICE2PCS06'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-ICE2PCS06-DS-v01_01-en.pdf?fileId=db3a3043327f13e3013285ff4ecb2e77', 'pins':[
+        Part(**{ 'name':'ICE2PCS06', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICE2PCS06'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-ICE2PCS06-DS-v01_01-en.pdf?fileId=db3a3043327f13e3013285ff4ecb2e77', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nICE2PCS06\n\nSMPS pfc controller', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='ICOMP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='ISENSE',func=Pin.types.INPUT,unit=1),
@@ -1122,7 +1122,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VSENSE',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GATE',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR11662S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR11662S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'synchronous rectifier controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir11662spbf.pdf?fileId=5546d462533600a4015355c44195164f', 'pins':[
+        Part(**{ 'name':'IR11662S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR11662S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'synchronous rectifier controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir11662spbf.pdf?fileId=5546d462533600a4015355c44195164f', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nIR11662S\n\nsynchronous rectifier controller', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='OVT',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='MOT',func=Pin.types.PASSIVE,unit=1),
@@ -1131,7 +1131,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VGATE',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR11672AS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR11672AS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'synchronous rectifier controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir11672aspbf.pdf?fileId=5546d462533600a4015355c455561653', 'pins':[
+        Part(**{ 'name':'IR11672AS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR11672AS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'synchronous rectifier controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir11672aspbf.pdf?fileId=5546d462533600a4015355c455561653', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nIR11672AS\n\nsynchronous rectifier controller', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='OVT',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='MOT',func=Pin.types.PASSIVE,unit=1),
@@ -1140,7 +1140,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VGATE',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IR11682S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR11682S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'dual synchronous rectifier controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir11682spbf.pdf?fileId=5546d462533600a4015355c47188165a', 'pins':[
+        Part(**{ 'name':'IR11682S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IR11682S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'dual synchronous rectifier controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/ir11682spbf.pdf?fileId=5546d462533600a4015355c47188165a', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nIR11682S\n\ndual synchronous rectifier controller', 'pins':[
             Pin(num='1',name='GATE1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VS1',func=Pin.types.INPUT,unit=1),
@@ -1149,7 +1149,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VS2',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GATE2',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'L6562', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L6562'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/l6562.pdf', 'pins':[
+        Part(**{ 'name':'L6562', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L6562'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/l6562.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nL6562\n\nSMPS pfc controller', 'pins':[
             Pin(num='1',name='INV',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='COMP',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='MULT',func=Pin.types.INPUT,unit=1),
@@ -1158,7 +1158,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='GD',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'L6562A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L6562A'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/l6562a.pdf', 'pins':[
+        Part(**{ 'name':'L6562A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L6562A'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/l6562a.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nL6562A\n\nSMPS pfc controller', 'pins':[
             Pin(num='1',name='INV',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='COMP',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='MULT',func=Pin.types.INPUT,unit=1),
@@ -1167,7 +1167,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='GD',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'L6562AT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L6562AT'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/l6562at.pdf', 'pins':[
+        Part(**{ 'name':'L6562AT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L6562AT'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/l6562at.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nL6562AT\n\nSMPS pfc controller', 'pins':[
             Pin(num='1',name='INV',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='COMP',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='MULT',func=Pin.types.INPUT,unit=1),
@@ -1176,7 +1176,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='GD',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'L6563A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L6563A'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/l6563.pdf', 'pins':[
+        Part(**{ 'name':'L6563A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L6563A'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/l6563.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nL6563A\n\nSMPS pfc controller', 'pins':[
             Pin(num='1',name='INV',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RUN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='ZCD',func=Pin.types.INPUT,unit=1),
@@ -1191,7 +1191,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PFC_OK',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PWM_LATCH',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='PWM_STOP',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'L6563S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L6563S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/l6563s.pdf', 'pins':[
+        Part(**{ 'name':'L6563S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L6563S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/l6563s.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nL6563S\n\nSMPS pfc controller', 'pins':[
             Pin(num='1',name='INV',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RUN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='ZCD',func=Pin.types.INPUT,unit=1),
@@ -1206,7 +1206,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PFC_OK',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PWM_LATCH',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='PWM_STOP',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'L6564T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L6564T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-10_3.9x4.9mm_P1.00mm', 'Package_SO:SSOP-10_3.9x4.9mm_P1.00mm'], 'footprint':'Package_SO:SSOP-10_3.9x4.9mm_P1.00mm', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/l6564t.pdf', 'pins':[
+        Part(**{ 'name':'L6564T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L6564T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-10_3.9x4.9mm_P1.00mm', 'Package_SO:SSOP-10_3.9x4.9mm_P1.00mm'], 'footprint':'Package_SO:SSOP-10_3.9x4.9mm_P1.00mm', 'keywords':'SMPS pfc controller', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/l6564t.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nL6564T\n\nSMPS pfc controller', 'pins':[
             Pin(num='1',name='INV',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='COMP',func=Pin.types.OUTPUT,unit=1),
@@ -1217,7 +1217,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='ZCD',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GD',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LM3478MM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM3478MM'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:VSSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Boost flyback SEPIC DC-DC controller', 'description':'', 'datasheet':'https://www.ti.com/lit/gpn/lm3478', 'pins':[
+        Part(**{ 'name':'LM3478MM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM3478MM'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:VSSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Boost flyback SEPIC DC-DC controller', 'description':'', 'datasheet':'https://www.ti.com/lit/gpn/lm3478', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nLM3478MM\n\nBoost flyback SEPIC DC-DC controller', 'pins':[
             Pin(num='1',name='I_{SEN}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='COMP',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='FB',func=Pin.types.INPUT,unit=1),
@@ -1226,7 +1226,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='DR',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='FA/SD',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='V_{IN}',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LM3478QMM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM3478QMM'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:VSSOP-8_3x3mm_P0.65mm', 'Package_SO:VSSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Boost flyback SEPIC DC-DC controller Automotive', 'description':'', 'datasheet':'https://www.ti.com/lit/gpn/lm3478q-q1', 'pins':[
+        Part(**{ 'name':'LM3478QMM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM3478QMM'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:VSSOP-8_3x3mm_P0.65mm', 'Package_SO:VSSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Boost flyback SEPIC DC-DC controller Automotive', 'description':'', 'datasheet':'https://www.ti.com/lit/gpn/lm3478q-q1', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nLM3478QMM\n\nBoost flyback SEPIC DC-DC controller Automotive', 'pins':[
             Pin(num='1',name='I_{SEN}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='COMP',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='FB',func=Pin.types.INPUT,unit=1),
@@ -1235,7 +1235,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='DR',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='FA/SD',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='V_{IN}',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC3892-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC3892-2'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'switching buck converter regulator dual-output', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/38921fc.pdf', 'pins':[
+        Part(**{ 'name':'LTC3892-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC3892-2'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'switching buck converter regulator dual-output', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/38921fc.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nLTC3892-2\n\nswitching buck converter regulator dual-output', 'pins':[
             Pin(num='1',name='FREQ',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='SENSE2+',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VFB2',func=Pin.types.INPUT,unit=1),
@@ -1269,7 +1269,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RUN2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='ILIM',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='SENSE2-',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP1200D100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1200D100'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1200-D.PDF', 'pins':[
+        Part(**{ 'name':'NCP1200D100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1200D100'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1200-D.PDF', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nNCP1200D100\n\nSMPS Controller AC-DC', 'pins':[
             Pin(num='1',name='ADJ',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1278,7 +1278,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='HV',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP1200D60', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1200D60'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1200-D.PDF', 'pins':[
+        Part(**{ 'name':'NCP1200D60', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1200D60'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1200-D.PDF', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nNCP1200D60\n\nSMPS Controller AC-DC', 'pins':[
             Pin(num='1',name='ADJ',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1287,7 +1287,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='HV',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP1200P100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1200P100'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1200-D.PDF', 'pins':[
+        Part(**{ 'name':'NCP1200P100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1200P100'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1200-D.PDF', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nNCP1200P100\n\nSMPS Controller AC-DC', 'pins':[
             Pin(num='1',name='ADJ',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1296,7 +1296,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='HV',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP1200P60', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1200P60'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1200-D.PDF', 'pins':[
+        Part(**{ 'name':'NCP1200P60', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1200P60'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1200-D.PDF', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nNCP1200P60\n\nSMPS Controller AC-DC', 'pins':[
             Pin(num='1',name='ADJ',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1305,7 +1305,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='HV',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP1203D100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1203D100'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1203-D.PDF', 'pins':[
+        Part(**{ 'name':'NCP1203D100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1203D100'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1203-D.PDF', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nNCP1203D100\n\nSMPS Controller AC-DC', 'pins':[
             Pin(num='1',name='ADJ',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1314,7 +1314,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='HV',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP1203D40', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1203D40'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1203-D.PDF', 'pins':[
+        Part(**{ 'name':'NCP1203D40', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1203D40'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1203-D.PDF', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nNCP1203D40\n\nSMPS Controller AC-DC', 'pins':[
             Pin(num='1',name='ADJ',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1323,7 +1323,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='HV',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP1203D60', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1203D60'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1203-D.PDF', 'pins':[
+        Part(**{ 'name':'NCP1203D60', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1203D60'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1203-D.PDF', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nNCP1203D60\n\nSMPS Controller AC-DC', 'pins':[
             Pin(num='1',name='ADJ',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1332,7 +1332,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='HV',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP1203P100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1203P100'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1203-D.PDF', 'pins':[
+        Part(**{ 'name':'NCP1203P100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1203P100'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1203-D.PDF', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nNCP1203P100\n\nSMPS Controller AC-DC', 'pins':[
             Pin(num='1',name='ADJ',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1341,7 +1341,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='HV',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP1203P40', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1203P40'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1203-D.PDF', 'pins':[
+        Part(**{ 'name':'NCP1203P40', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1203P40'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1203-D.PDF', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nNCP1203P40\n\nSMPS Controller AC-DC', 'pins':[
             Pin(num='1',name='ADJ',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1350,7 +1350,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='HV',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP1203P60', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1203P60'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1203-D.PDF', 'pins':[
+        Part(**{ 'name':'NCP1203P60', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1203P60'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1203-D.PDF', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nNCP1203P60\n\nSMPS Controller AC-DC', 'pins':[
             Pin(num='1',name='ADJ',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1359,7 +1359,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='HV',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP1217AD100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1217AD100'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1217-D.PDF', 'pins':[
+        Part(**{ 'name':'NCP1217AD100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1217AD100'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1217-D.PDF', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nNCP1217AD100\n\nSMPS Controller AC-DC', 'pins':[
             Pin(num='1',name='ADJ',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1368,7 +1368,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='HV',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP1217AD133', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1217AD133'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1217-D.PDF', 'pins':[
+        Part(**{ 'name':'NCP1217AD133', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1217AD133'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1217-D.PDF', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nNCP1217AD133\n\nSMPS Controller AC-DC', 'pins':[
             Pin(num='1',name='ADJ',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1377,7 +1377,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='HV',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP1217AD65', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1217AD65'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1217-D.PDF', 'pins':[
+        Part(**{ 'name':'NCP1217AD65', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1217AD65'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1217-D.PDF', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nNCP1217AD65\n\nSMPS Controller AC-DC', 'pins':[
             Pin(num='1',name='ADJ',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1386,7 +1386,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='HV',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP1217AP100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1217AP100'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1217-D.PDF', 'pins':[
+        Part(**{ 'name':'NCP1217AP100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1217AP100'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1217-D.PDF', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nNCP1217AP100\n\nSMPS Controller AC-DC', 'pins':[
             Pin(num='1',name='ADJ',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1395,7 +1395,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='HV',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP1217AP133', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1217AP133'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1217-D.PDF', 'pins':[
+        Part(**{ 'name':'NCP1217AP133', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1217AP133'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1217-D.PDF', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nNCP1217AP133\n\nSMPS Controller AC-DC', 'pins':[
             Pin(num='1',name='ADJ',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1404,7 +1404,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='HV',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP1217AP65', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1217AP65'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1217-D.PDF', 'pins':[
+        Part(**{ 'name':'NCP1217AP65', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1217AP65'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1217-D.PDF', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nNCP1217AP65\n\nSMPS Controller AC-DC', 'pins':[
             Pin(num='1',name='ADJ',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1413,7 +1413,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='HV',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP1217D100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1217D100'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1217-D.PDF', 'pins':[
+        Part(**{ 'name':'NCP1217D100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1217D100'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1217-D.PDF', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nNCP1217D100\n\nSMPS Controller AC-DC', 'pins':[
             Pin(num='1',name='ADJ',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1422,7 +1422,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='HV',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP1217D133', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1217D133'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1217-D.PDF', 'pins':[
+        Part(**{ 'name':'NCP1217D133', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1217D133'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1217-D.PDF', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nNCP1217D133\n\nSMPS Controller AC-DC', 'pins':[
             Pin(num='1',name='ADJ',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1431,7 +1431,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='HV',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP1217D65', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1217D65'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1217-D.PDF', 'pins':[
+        Part(**{ 'name':'NCP1217D65', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1217D65'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1217-D.PDF', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nNCP1217D65\n\nSMPS Controller AC-DC', 'pins':[
             Pin(num='1',name='ADJ',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1440,7 +1440,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='HV',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP1217P100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1217P100'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1217-D.PDF', 'pins':[
+        Part(**{ 'name':'NCP1217P100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1217P100'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1217-D.PDF', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nNCP1217P100\n\nSMPS Controller AC-DC', 'pins':[
             Pin(num='1',name='ADJ',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1449,7 +1449,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='HV',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP1217P133', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1217P133'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1217-D.PDF', 'pins':[
+        Part(**{ 'name':'NCP1217P133', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1217P133'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1217-D.PDF', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nNCP1217P133\n\nSMPS Controller AC-DC', 'pins':[
             Pin(num='1',name='ADJ',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1458,7 +1458,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='HV',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP1217P65', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1217P65'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1217-D.PDF', 'pins':[
+        Part(**{ 'name':'NCP1217P65', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1217P65'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'http://www.onsemi.com/pub_link/Collateral/NCP1217-D.PDF', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nNCP1217P65\n\nSMPS Controller AC-DC', 'pins':[
             Pin(num='1',name='ADJ',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1467,7 +1467,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='HV',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP1380B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1380B'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/NCP1380-D.PDF', 'pins':[
+        Part(**{ 'name':'NCP1380B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1380B'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/NCP1380-D.PDF', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nNCP1380B\n\nSMPS Controller AC-DC', 'pins':[
             Pin(num='1',name='ZCD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1476,7 +1476,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='FAULT',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CT',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP1380C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1380C'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/NCP1380-D.PDF', 'pins':[
+        Part(**{ 'name':'NCP1380C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1380C'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/NCP1380-D.PDF', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nNCP1380C\n\nSMPS Controller AC-DC', 'pins':[
             Pin(num='1',name='ZCD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1485,7 +1485,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='FAULT',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CT',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP1380D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1380D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/NCP1380-D.PDF', 'pins':[
+        Part(**{ 'name':'NCP1380D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1380D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS Controller AC-DC', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/NCP1380-D.PDF', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nNCP1380D\n\nSMPS Controller AC-DC', 'pins':[
             Pin(num='1',name='ZCD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1494,7 +1494,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='FAULT',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CT',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP1653A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1653A'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'PFC SMPS Controller', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/NCP1653-D.PDF', 'pins':[
+        Part(**{ 'name':'NCP1653A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP1653A'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'PFC SMPS Controller', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/NCP1653-D.PDF', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nNCP1653A\n\nPFC SMPS Controller', 'pins':[
             Pin(num='1',name='FB/SD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='VCONTROL',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='IN',func=Pin.types.INPUT,unit=1),
@@ -1503,7 +1503,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='DRV',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP4308DD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP4308DD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'synchronous rectifier controller', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/NCP4308-D.PDF', 'pins':[
+        Part(**{ 'name':'NCP4308DD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP4308DD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'synchronous rectifier controller', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/NCP4308-D.PDF', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nNCP4308DD\n\nsynchronous rectifier controller', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='MIN_TOFF',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='MIN_TON',func=Pin.types.PASSIVE,unit=1),
@@ -1512,7 +1512,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CS',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='DRV',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP4308DMT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP4308DMT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:OnSemi_DFN-8_2x2mm_P0.5mm', 'Package_DFN_QFN:OnSemi_DFN-8_2x2mm_P0.5mm'], 'footprint':'Package_DFN_QFN:OnSemi_DFN-8_2x2mm_P0.5mm', 'keywords':'synchronous rectifier controller', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/NCP4308-D.PDF', 'pins':[
+        Part(**{ 'name':'NCP4308DMT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP4308DMT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:OnSemi_DFN-8_2x2mm_P0.5mm', 'Package_DFN_QFN:OnSemi_DFN-8_2x2mm_P0.5mm'], 'footprint':'Package_DFN_QFN:OnSemi_DFN-8_2x2mm_P0.5mm', 'keywords':'synchronous rectifier controller', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/NCP4308-D.PDF', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nNCP4308DMT\n\nsynchronous rectifier controller', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='MIN_TOFF',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='MIN_TON',func=Pin.types.PASSIVE,unit=1),
@@ -1521,7 +1521,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CS',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='DRV',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SG3527', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SG3527'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'https://www.microsemi.com/document-portal/doc_view/11120-sg1525a-sg1527a-datasheet', 'pins':[
+        Part(**{ 'name':'SG3527', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SG3527'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'https://www.microsemi.com/document-portal/doc_view/11120-sg1525a-sg1527a-datasheet', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nSG3527\n\nSMPS PWM Controller', 'pins':[
             Pin(num='1',name='INV',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='SD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='OUTA',func=Pin.types.OUTPUT,unit=1),
@@ -1538,7 +1538,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DISCH',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='SS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='COMP',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TDA4863', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA4863'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'PFC SMPS Controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-TDA4863-DS-v02_00-en.pdf?fileId=db3a304412b407950112b427d2d23ce8', 'pins':[
+        Part(**{ 'name':'TDA4863', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA4863'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'PFC SMPS Controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-TDA4863-DS-v02_00-en.pdf?fileId=db3a304412b407950112b427d2d23ce8', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nTDA4863\n\nPFC SMPS Controller', 'pins':[
             Pin(num='1',name='VSENSE',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='VAOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='MULTIN',func=Pin.types.INPUT,unit=1),
@@ -1547,7 +1547,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='GTDRV',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TDA4863-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA4863-2'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'PFC SMPS Controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-TDA4863_2-DS-v02_01-en.pdf?fileId=db3a304412b407950112b41802de24ab', 'pins':[
+        Part(**{ 'name':'TDA4863-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TDA4863-2'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'PFC SMPS Controller', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-TDA4863_2-DS-v02_01-en.pdf?fileId=db3a304412b407950112b41802de24ab', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nTDA4863-2\n\nPFC SMPS Controller', 'pins':[
             Pin(num='1',name='VSENSE',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='VAOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='MULTIN',func=Pin.types.INPUT,unit=1),
@@ -1556,7 +1556,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='GTDRV',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UC3527', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UC3527'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uc2525b.pdf', 'pins':[
+        Part(**{ 'name':'UC3527', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UC3527'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uc2525b.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUC3527\n\nSMPS PWM Controller', 'pins':[
             Pin(num='1',name='INV',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='SD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='OUTA',func=Pin.types.OUTPUT,unit=1),
@@ -1573,7 +1573,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DISCH',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='SS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='COMP',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UC3842_DIP8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UC3842_DIP8'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uc3842.pdf', 'pins':[
+        Part(**{ 'name':'UC3842_DIP8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UC3842_DIP8'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uc3842.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUC3842_DIP8\n\nSMPS PWM Controller', 'pins':[
             Pin(num='1',name='COMP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1582,7 +1582,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VREF',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UC3843_DIP8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UC3843_DIP8'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uc3842.pdf', 'pins':[
+        Part(**{ 'name':'UC3843_DIP8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UC3843_DIP8'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uc3842.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUC3843_DIP8\n\nSMPS PWM Controller', 'pins':[
             Pin(num='1',name='COMP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1591,7 +1591,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VREF',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UC3843_SOIC14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UC3843_SOIC14'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uc3842.pdf', 'pins':[
+        Part(**{ 'name':'UC3843_SOIC14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UC3843_SOIC14'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uc3842.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUC3843_SOIC14\n\nSMPS PWM Controller', 'pins':[
             Pin(num='1',name='COMP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='VC',func=Pin.types.PWRIN,unit=1),
@@ -1606,7 +1606,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='PWRGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UC3843_SOIC8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UC3843_SOIC8'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uc3842.pdf', 'pins':[
+        Part(**{ 'name':'UC3843_SOIC8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UC3843_SOIC8'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uc3842.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUC3843_SOIC8\n\nSMPS PWM Controller', 'pins':[
             Pin(num='1',name='COMP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1615,7 +1615,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VREF',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UC3844_DIP8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UC3844_DIP8'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uc3842.pdf', 'pins':[
+        Part(**{ 'name':'UC3844_DIP8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UC3844_DIP8'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uc3842.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUC3844_DIP8\n\nSMPS PWM Controller', 'pins':[
             Pin(num='1',name='COMP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1624,7 +1624,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VREF',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UC3844_SOIC14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UC3844_SOIC14'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uc3842.pdf', 'pins':[
+        Part(**{ 'name':'UC3844_SOIC14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UC3844_SOIC14'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uc3842.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUC3844_SOIC14\n\nSMPS PWM Controller', 'pins':[
             Pin(num='1',name='COMP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='VC',func=Pin.types.PWRIN,unit=1),
@@ -1639,7 +1639,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='PWRGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UC3844_SOIC8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UC3844_SOIC8'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uc3842.pdf', 'pins':[
+        Part(**{ 'name':'UC3844_SOIC8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UC3844_SOIC8'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uc3842.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUC3844_SOIC8\n\nSMPS PWM Controller', 'pins':[
             Pin(num='1',name='COMP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1648,7 +1648,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VREF',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UC3845_DIP8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UC3845_DIP8'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uc3842.pdf', 'pins':[
+        Part(**{ 'name':'UC3845_DIP8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UC3845_DIP8'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uc3842.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUC3845_DIP8\n\nSMPS PWM Controller', 'pins':[
             Pin(num='1',name='COMP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1657,7 +1657,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VREF',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UC3845_SOIC14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UC3845_SOIC14'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uc3842.pdf', 'pins':[
+        Part(**{ 'name':'UC3845_SOIC14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UC3845_SOIC14'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uc3842.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUC3845_SOIC14\n\nSMPS PWM Controller', 'pins':[
             Pin(num='1',name='COMP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='VC',func=Pin.types.PWRIN,unit=1),
@@ -1672,7 +1672,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='PWRGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UC3845_SOIC8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UC3845_SOIC8'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uc3842.pdf', 'pins':[
+        Part(**{ 'name':'UC3845_SOIC8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UC3845_SOIC8'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/uc3842.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUC3845_SOIC8\n\nSMPS PWM Controller', 'pins':[
             Pin(num='1',name='COMP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1681,7 +1681,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VREF',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UCC1895J', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC1895J'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm_LongPads', 'Package_DIP:DIP-20_W7.62mm_LongPads'], 'footprint':'Package_DIP:DIP-20_W7.62mm_LongPads', 'keywords':'Phase-shift full-bridge converter', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3895.pdf', 'pins':[
+        Part(**{ 'name':'UCC1895J', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC1895J'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm_LongPads', 'Package_DIP:DIP-20_W7.62mm_LongPads'], 'footprint':'Package_DIP:DIP-20_W7.62mm_LongPads', 'keywords':'Phase-shift full-bridge converter', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3895.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUCC1895J\n\nPhase-shift full-bridge converter', 'pins':[
             Pin(num='1',name='EAN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DELCD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='ADS',func=Pin.types.INPUT,unit=1),
@@ -1702,20 +1702,20 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='RT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='DELAB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UCC24612-2DBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC24612-2DBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'synchronous rectifier controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc24612.pdf', 'pins':[
+        Part(**{ 'name':'UCC24612-2DBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC24612-2DBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'synchronous rectifier controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc24612.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUCC24612-2DBV\n\nsynchronous rectifier controller', 'pins':[
             Pin(num='1',name='VG',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='VS',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='REG',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='VD',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UCC24636DBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC24636DBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'synchronous rectifier controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc24636.pdf', 'pins':[
+        Part(**{ 'name':'UCC24636DBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC24636DBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'synchronous rectifier controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc24636.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUCC24636DBV\n\nsynchronous rectifier controller', 'pins':[
             Pin(num='1',name='VPC',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='VSC',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='TBLK',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='DRV',func=Pin.types.OUTPUT,unit=1),
             Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UCC2893', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC2893'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc2893.pdf', 'pins':[
+        Part(**{ 'name':'UCC2893', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC2893'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc2893.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUCC2893\n\nSMPS PWM Controller', 'pins':[
             Pin(num='1',name='RTDEL',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='SS/SD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='PGND',func=Pin.types.PWRIN,unit=1),
@@ -1732,7 +1732,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CS',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='RSLOPE',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='FB',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UCC2894', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC2894'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc2894.pdf', 'pins':[
+        Part(**{ 'name':'UCC2894', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC2894'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc2894.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUCC2894\n\nSMPS PWM Controller', 'pins':[
             Pin(num='1',name='RTDEL',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='SS/SD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='PGND',func=Pin.types.PWRIN,unit=1),
@@ -1749,7 +1749,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CS',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='RSLOPE',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='FB',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UCC2895DW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC2895DW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'Phase-shift full-bridge converter', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3895.pdf', 'pins':[
+        Part(**{ 'name':'UCC2895DW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC2895DW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'Phase-shift full-bridge converter', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3895.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUCC2895DW\n\nPhase-shift full-bridge converter', 'pins':[
             Pin(num='1',name='EAN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DELCD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='ADS',func=Pin.types.INPUT,unit=1),
@@ -1770,7 +1770,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='RT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='DELAB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UCC2895N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC2895N'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm_LongPads', 'Package_DIP:DIP-20_W7.62mm_LongPads', 'Package_DIP:DIP-20_W7.62mm_LongPads'], 'footprint':'Package_DIP:DIP-20_W7.62mm_LongPads', 'keywords':'Phase-shift full-bridge converter', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3895.pdf', 'pins':[
+        Part(**{ 'name':'UCC2895N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC2895N'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm_LongPads', 'Package_DIP:DIP-20_W7.62mm_LongPads', 'Package_DIP:DIP-20_W7.62mm_LongPads'], 'footprint':'Package_DIP:DIP-20_W7.62mm_LongPads', 'keywords':'Phase-shift full-bridge converter', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3895.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUCC2895N\n\nPhase-shift full-bridge converter', 'pins':[
             Pin(num='1',name='EAN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DELCD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='ADS',func=Pin.types.INPUT,unit=1),
@@ -1791,7 +1791,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='RT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='DELAB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UCC2895PW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC2895PW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'Phase-shift full-bridge converter', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3895.pdf', 'pins':[
+        Part(**{ 'name':'UCC2895PW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC2895PW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'Phase-shift full-bridge converter', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3895.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUCC2895PW\n\nPhase-shift full-bridge converter', 'pins':[
             Pin(num='1',name='EAN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DELCD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='ADS',func=Pin.types.INPUT,unit=1),
@@ -1812,7 +1812,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='RT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='DELAB',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UCC3801', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC3801'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3800.pdf', 'pins':[
+        Part(**{ 'name':'UCC3801', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC3801'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3800.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUCC3801\n\nSMPS PWM Controller', 'pins':[
             Pin(num='1',name='COMP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1821,7 +1821,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='REF',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UCC3802', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC3802'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3800.pdf', 'pins':[
+        Part(**{ 'name':'UCC3802', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC3802'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3800.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUCC3802\n\nSMPS PWM Controller', 'pins':[
             Pin(num='1',name='COMP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1830,7 +1830,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='REF',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UCC3803', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC3803'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3800.pdf', 'pins':[
+        Part(**{ 'name':'UCC3803', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC3803'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3800.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUCC3803\n\nSMPS PWM Controller', 'pins':[
             Pin(num='1',name='COMP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1839,7 +1839,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='REF',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UCC3804', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC3804'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3800.pdf', 'pins':[
+        Part(**{ 'name':'UCC3804', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC3804'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3800.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUCC3804\n\nSMPS PWM Controller', 'pins':[
             Pin(num='1',name='COMP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1848,7 +1848,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='REF',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UCC3805', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC3805'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', ''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3800.pdf', 'pins':[
+        Part(**{ 'name':'UCC3805', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC3805'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', ''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3800.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUCC3805\n\nSMPS PWM Controller', 'pins':[
             Pin(num='1',name='COMP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1857,7 +1857,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='REF',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UCC3813-0', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC3813-0'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', ''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3813-1.pdf', 'pins':[
+        Part(**{ 'name':'UCC3813-0', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC3813-0'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', ''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3813-1.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUCC3813-0\n\nSMPS PWM Controller', 'pins':[
             Pin(num='1',name='COMP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1866,7 +1866,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='REF',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UCC3813-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC3813-1'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3813-1.pdf', 'pins':[
+        Part(**{ 'name':'UCC3813-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC3813-1'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3813-1.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUCC3813-1\n\nSMPS PWM Controller', 'pins':[
             Pin(num='1',name='COMP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1875,7 +1875,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='REF',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UCC3813-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC3813-2'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3813-1.pdf', 'pins':[
+        Part(**{ 'name':'UCC3813-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC3813-2'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3813-1.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUCC3813-2\n\nSMPS PWM Controller', 'pins':[
             Pin(num='1',name='COMP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1884,7 +1884,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='REF',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UCC3813-3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC3813-3'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3813-1.pdf', 'pins':[
+        Part(**{ 'name':'UCC3813-3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC3813-3'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3813-1.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUCC3813-3\n\nSMPS PWM Controller', 'pins':[
             Pin(num='1',name='COMP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1893,7 +1893,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='REF',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UCC3813-4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC3813-4'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3813-1.pdf', 'pins':[
+        Part(**{ 'name':'UCC3813-4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC3813-4'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3813-1.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUCC3813-4\n\nSMPS PWM Controller', 'pins':[
             Pin(num='1',name='COMP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),
@@ -1902,7 +1902,7 @@ Regulator_Controller = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='REF',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UCC3813-5', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC3813-5'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3813-1.pdf', 'pins':[
+        Part(**{ 'name':'UCC3813-5', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UCC3813-5'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'SMPS PWM Controller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ucc3813-1.pdf', 'search_text':'/usr/share/kicad/symbols/Regulator_Controller.kicad_sym\nUCC3813-5\n\nSMPS PWM Controller', 'pins':[
             Pin(num='1',name='COMP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CS',func=Pin.types.INPUT,unit=1),

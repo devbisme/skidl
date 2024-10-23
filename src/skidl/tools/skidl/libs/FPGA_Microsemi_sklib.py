@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 FPGA_Microsemi = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'A3P030-VQG100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A3P030-VQG100'}), 'ref_prefix':'U', 'fplist':['Package_QFP:VQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:VQFP-100_14x14mm_P0.5mm', 'keywords':'ProASIC3 ACTEL FLASH', 'description':'', 'datasheet':'http://www.microsemi.com/document-portal/doc_download/130704-proasic3-flash-family-fpgas-datasheet', 'pins':[
+        Part(**{ 'name':'A3P030-VQG100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A3P030-VQG100'}), 'ref_prefix':'U', 'fplist':['Package_QFP:VQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:VQFP-100_14x14mm_P0.5mm', 'keywords':'ProASIC3 ACTEL FLASH', 'description':'', 'datasheet':'http://www.microsemi.com/document-portal/doc_download/130704-proasic3-flash-family-fpgas-datasheet', 'search_text':'/usr/share/kicad/symbols/FPGA_Microsemi.kicad_sym\nA3P030-VQG100\n\nProASIC3 ACTEL FLASH', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='IO75RSB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='IO00RSB0',func=Pin.types.BIDIR,unit=1),
@@ -103,7 +103,7 @@ FPGA_Microsemi = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='IO03RSB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='IO02RSB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='IO01RSB0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'A3P060-VQG100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A3P060-VQG100'}), 'ref_prefix':'U', 'fplist':['Package_QFP:VQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:VQFP-100_14x14mm_P0.5mm', 'keywords':'ProASIC3 ACTEL FLASH', 'description':'', 'datasheet':'http://www.microsemi.com/document-portal/doc_download/130704-proasic3-flash-family-fpgas-datasheet', 'pins':[
+        Part(**{ 'name':'A3P060-VQG100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A3P060-VQG100'}), 'ref_prefix':'U', 'fplist':['Package_QFP:VQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:VQFP-100_14x14mm_P0.5mm', 'keywords':'ProASIC3 ACTEL FLASH', 'description':'', 'datasheet':'http://www.microsemi.com/document-portal/doc_download/130704-proasic3-flash-family-fpgas-datasheet', 'search_text':'/usr/share/kicad/symbols/FPGA_Microsemi.kicad_sym\nA3P060-VQG100\n\nProASIC3 ACTEL FLASH', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='IO87RSB1/GFB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='IO00RSB0',func=Pin.types.BIDIR,unit=1),
@@ -203,7 +203,7 @@ FPGA_Microsemi = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='GAA1/IO03RSB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='GAA0/IO02RSB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='IO01RSB0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'A3P1000-PQG208', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A3P1000-PQG208'}), 'ref_prefix':'U', 'fplist':['Package_QFP:PQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:PQFP-208_28x28mm_P0.5mm', 'keywords':'ProASIC3 ACTEL FLASH', 'description':'', 'datasheet':'http://www.microsemi.com/document-portal/doc_download/130704-proasic3-flash-family-fpgas-datasheet', 'pins':[
+        Part(**{ 'name':'A3P1000-PQG208', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A3P1000-PQG208'}), 'ref_prefix':'U', 'fplist':['Package_QFP:PQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:PQFP-208_28x28mm_P0.5mm', 'keywords':'ProASIC3 ACTEL FLASH', 'description':'', 'datasheet':'http://www.microsemi.com/document-portal/doc_download/130704-proasic3-flash-family-fpgas-datasheet', 'search_text':'/usr/share/kicad/symbols/FPGA_Microsemi.kicad_sym\nA3P1000-PQG208\n\nProASIC3 ACTEL FLASH', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='IO220PDB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='GNDQ',func=Pin.types.PWRIN,unit=1),
@@ -411,7 +411,7 @@ FPGA_Microsemi = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='98',name='IO115RSB2/GDB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='IO114RSB2/GDA2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'A3P125-PQG208', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A3P125-PQG208'}), 'ref_prefix':'U', 'fplist':['Package_QFP:PQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:PQFP-208_28x28mm_P0.5mm', 'keywords':'ProASIC3 ACTEL FLASH', 'description':'', 'datasheet':'http://www.microsemi.com/document-portal/doc_download/130704-proasic3-flash-family-fpgas-datasheet', 'pins':[
+        Part(**{ 'name':'A3P125-PQG208', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A3P125-PQG208'}), 'ref_prefix':'U', 'fplist':['Package_QFP:PQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:PQFP-208_28x28mm_P0.5mm', 'keywords':'ProASIC3 ACTEL FLASH', 'description':'', 'datasheet':'http://www.microsemi.com/document-portal/doc_download/130704-proasic3-flash-family-fpgas-datasheet', 'search_text':'/usr/share/kicad/symbols/FPGA_Microsemi.kicad_sym\nA3P125-PQG208\n\nProASIC3 ACTEL FLASH', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='IO129RSB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='GNDQ',func=Pin.types.PWRIN,unit=1),
@@ -595,7 +595,7 @@ FPGA_Microsemi = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='98',name='IO71RSB1/GDB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='IO70RSB1/GDA2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'A3P125-VQG100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A3P125-VQG100'}), 'ref_prefix':'U', 'fplist':['Package_QFP:VQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:VQFP-100_14x14mm_P0.5mm', 'keywords':'ProASIC3 ACTEL FLASH', 'description':'', 'datasheet':'http://www.microsemi.com/document-portal/doc_download/130704-proasic3-flash-family-fpgas-datasheet', 'pins':[
+        Part(**{ 'name':'A3P125-VQG100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A3P125-VQG100'}), 'ref_prefix':'U', 'fplist':['Package_QFP:VQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:VQFP-100_14x14mm_P0.5mm', 'keywords':'ProASIC3 ACTEL FLASH', 'description':'', 'datasheet':'http://www.microsemi.com/document-portal/doc_download/130704-proasic3-flash-family-fpgas-datasheet', 'search_text':'/usr/share/kicad/symbols/FPGA_Microsemi.kicad_sym\nA3P125-VQG100\n\nProASIC3 ACTEL FLASH', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='IO124RSB1/GFB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='GAA0/IO00RSB0',func=Pin.types.BIDIR,unit=1),
@@ -695,7 +695,7 @@ FPGA_Microsemi = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='GAB1/IO03RSB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='GAB0/IO02RSB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='GAA1/IO01RSB0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'A3P250-PQG208', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A3P250-PQG208'}), 'ref_prefix':'U', 'fplist':['Package_QFP:PQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:PQFP-208_28x28mm_P0.5mm', 'keywords':'ProASIC3 ACTEL FLASH', 'description':'', 'datasheet':'http://www.microsemi.com/document-portal/doc_download/130704-proasic3-flash-family-fpgas-datasheet', 'pins':[
+        Part(**{ 'name':'A3P250-PQG208', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A3P250-PQG208'}), 'ref_prefix':'U', 'fplist':['Package_QFP:PQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:PQFP-208_28x28mm_P0.5mm', 'keywords':'ProASIC3 ACTEL FLASH', 'description':'', 'datasheet':'http://www.microsemi.com/document-portal/doc_download/130704-proasic3-flash-family-fpgas-datasheet', 'search_text':'/usr/share/kicad/symbols/FPGA_Microsemi.kicad_sym\nA3P250-PQG208\n\nProASIC3 ACTEL FLASH', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='IO114UDB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='GNDQ',func=Pin.types.PWRIN,unit=1),
@@ -897,7 +897,7 @@ FPGA_Microsemi = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='98',name='IO62RSB2/GDB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='IO61RSB2/GDA2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'A3P250-VQG100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A3P250-VQG100'}), 'ref_prefix':'U', 'fplist':['Package_QFP:VQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:VQFP-100_14x14mm_P0.5mm', 'keywords':'ProASIC3 ACTEL FLASH', 'description':'', 'datasheet':'http://www.microsemi.com/document-portal/doc_download/130704-proasic3-flash-family-fpgas-datasheet', 'pins':[
+        Part(**{ 'name':'A3P250-VQG100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A3P250-VQG100'}), 'ref_prefix':'U', 'fplist':['Package_QFP:VQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:VQFP-100_14x14mm_P0.5mm', 'keywords':'ProASIC3 ACTEL FLASH', 'description':'', 'datasheet':'http://www.microsemi.com/document-portal/doc_download/130704-proasic3-flash-family-fpgas-datasheet', 'search_text':'/usr/share/kicad/symbols/FPGA_Microsemi.kicad_sym\nA3P250-VQG100\n\nProASIC3 ACTEL FLASH', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWROUT,unit=1),
             Pin(num='10',name='IO109PDB3/GFB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='VMV0',func=Pin.types.PWRIN,unit=1),
@@ -997,7 +997,7 @@ FPGA_Microsemi = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='GAA1/IO01RSB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='GAA0/IO00RSB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='GNDQ',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'A3P400-PQG208', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A3P400-PQG208'}), 'ref_prefix':'U', 'fplist':['Package_QFP:PQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:PQFP-208_28x28mm_P0.5mm', 'keywords':'ProASIC3 ACTEL FLASH', 'description':'', 'datasheet':'http://www.microsemi.com/document-portal/doc_download/130704-proasic3-flash-family-fpgas-datasheet', 'pins':[
+        Part(**{ 'name':'A3P400-PQG208', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A3P400-PQG208'}), 'ref_prefix':'U', 'fplist':['Package_QFP:PQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:PQFP-208_28x28mm_P0.5mm', 'keywords':'ProASIC3 ACTEL FLASH', 'description':'', 'datasheet':'http://www.microsemi.com/document-portal/doc_download/130704-proasic3-flash-family-fpgas-datasheet', 'search_text':'/usr/share/kicad/symbols/FPGA_Microsemi.kicad_sym\nA3P400-PQG208\n\nProASIC3 ACTEL FLASH', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='IO151UDB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='GNDQ',func=Pin.types.PWRIN,unit=1),
@@ -1201,7 +1201,7 @@ FPGA_Microsemi = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='98',name='IO81RSB2/GDB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='IO80RSB2/GDA2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'A3P600-PQG208', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A3P600-PQG208'}), 'ref_prefix':'U', 'fplist':['Package_QFP:PQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:PQFP-208_28x28mm_P0.5mm', 'keywords':'ProASIC3 ACTEL FLASH', 'description':'', 'datasheet':'http://www.microsemi.com/document-portal/doc_download/130704-proasic3-flash-family-fpgas-datasheet', 'pins':[
+        Part(**{ 'name':'A3P600-PQG208', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'A3P600-PQG208'}), 'ref_prefix':'U', 'fplist':['Package_QFP:PQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:PQFP-208_28x28mm_P0.5mm', 'keywords':'ProASIC3 ACTEL FLASH', 'description':'', 'datasheet':'http://www.microsemi.com/document-portal/doc_download/130704-proasic3-flash-family-fpgas-datasheet', 'search_text':'/usr/share/kicad/symbols/FPGA_Microsemi.kicad_sym\nA3P600-PQG208\n\nProASIC3 ACTEL FLASH', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='IO170PDB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='GNDQ',func=Pin.types.PWRIN,unit=1),
@@ -1409,7 +1409,7 @@ FPGA_Microsemi = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='98',name='IO90RSB2/GDB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='IO89RSB2/GDA2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ACT1020PL44', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ACT1020PL44'}), 'ref_prefix':'U', 'fplist':['Package_LCC:PLCC-44_16.6x16.6mm_P1.27mm'], 'footprint':'Package_LCC:PLCC-44_16.6x16.6mm_P1.27mm', 'keywords':'Actel FPGA', 'description':'', 'datasheet':'https://www.microsemi.com/document-portal/doc_download/130666-act-1-series-fpgas-datasheet', 'pins':[
+        Part(**{ 'name':'ACT1020PL44', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ACT1020PL44'}), 'ref_prefix':'U', 'fplist':['Package_LCC:PLCC-44_16.6x16.6mm_P1.27mm'], 'footprint':'Package_LCC:PLCC-44_16.6x16.6mm_P1.27mm', 'keywords':'Actel FPGA', 'description':'', 'datasheet':'https://www.microsemi.com/document-portal/doc_download/130666-act-1-series-fpgas-datasheet', 'search_text':'/usr/share/kicad/symbols/FPGA_Microsemi.kicad_sym\nACT1020PL44\n\nActel FPGA', 'pins':[
             Pin(num='1',name='IO1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='IO11',func=Pin.types.INPUT,unit=1),
@@ -1454,7 +1454,7 @@ FPGA_Microsemi = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IO7',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='IO8',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='IO9',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ACT1020PL68', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ACT1020PL68'}), 'ref_prefix':'U', 'fplist':['Package_LCC:PLCC-68_24.2x24.2mm_P1.27mm'], 'footprint':'Package_LCC:PLCC-68_24.2x24.2mm_P1.27mm', 'keywords':'Actel FPGA', 'description':'', 'datasheet':'https://www.microsemi.com/document-portal/doc_download/130666-act-1-series-fpgas-datasheet', 'pins':[
+        Part(**{ 'name':'ACT1020PL68', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ACT1020PL68'}), 'ref_prefix':'U', 'fplist':['Package_LCC:PLCC-68_24.2x24.2mm_P1.27mm'], 'footprint':'Package_LCC:PLCC-68_24.2x24.2mm_P1.27mm', 'keywords':'Actel FPGA', 'description':'', 'datasheet':'https://www.microsemi.com/document-portal/doc_download/130666-act-1-series-fpgas-datasheet', 'search_text':'/usr/share/kicad/symbols/FPGA_Microsemi.kicad_sym\nACT1020PL68\n\nActel FPGA', 'pins':[
             Pin(num='1',name='IO1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='IO10',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='IO11',func=Pin.types.INPUT,unit=1),
@@ -1523,7 +1523,7 @@ FPGA_Microsemi = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IO7',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='IO8',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='IO9',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ACT1225PL84', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ACT1225PL84'}), 'ref_prefix':'U', 'fplist':['Package_LCC:PLCC-84_29.3x29.3mm_P1.27mm'], 'footprint':'Package_LCC:PLCC-84_29.3x29.3mm_P1.27mm', 'keywords':'Actel FPGA', 'description':'', 'datasheet':'https://www.microsemi.com/document-portal/doc_download/130666-act-1-series-fpgas-datasheet', 'pins':[
+        Part(**{ 'name':'ACT1225PL84', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ACT1225PL84'}), 'ref_prefix':'U', 'fplist':['Package_LCC:PLCC-84_29.3x29.3mm_P1.27mm'], 'footprint':'Package_LCC:PLCC-84_29.3x29.3mm_P1.27mm', 'keywords':'Actel FPGA', 'description':'', 'datasheet':'https://www.microsemi.com/document-portal/doc_download/130666-act-1-series-fpgas-datasheet', 'search_text':'/usr/share/kicad/symbols/FPGA_Microsemi.kicad_sym\nACT1225PL84\n\nActel FPGA', 'pins':[
             Pin(num='1',name='IO1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='IO11',func=Pin.types.INPUT,unit=1),
@@ -1608,7 +1608,7 @@ FPGA_Microsemi = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='83',name='CLKA',func=Pin.types.INPUT,unit=1),
             Pin(num='84',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='IO9',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EX128-TQ100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EX128-TQ100'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-100_14x14mm_P0.5mm', 'keywords':'Actel FPGA eX eX128', 'description':'', 'datasheet':'http://www.microsemi.com/document-portal/doc_download/130687-ex-datasheet', 'pins':[
+        Part(**{ 'name':'EX128-TQ100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EX128-TQ100'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-100_14x14mm_P0.5mm', 'keywords':'Actel FPGA eX eX128', 'description':'', 'datasheet':'http://www.microsemi.com/document-portal/doc_download/130687-ex-datasheet', 'search_text':'/usr/share/kicad/symbols/FPGA_Microsemi.kicad_sym\nEX128-TQ100\n\nActel FPGA eX eX128', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='IO',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='TCK/IO',func=Pin.types.BIDIR,unit=1),
@@ -1696,7 +1696,7 @@ FPGA_Microsemi = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='IO',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='IO',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='IO',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EX128-TQ64', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EX128-TQ64'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'Actel FPGA eX eX128', 'description':'', 'datasheet':'http://www.microsemi.com/document-portal/doc_download/130687-ex-datasheet', 'pins':[
+        Part(**{ 'name':'EX128-TQ64', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EX128-TQ64'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'Actel FPGA eX eX128', 'description':'', 'datasheet':'http://www.microsemi.com/document-portal/doc_download/130687-ex-datasheet', 'search_text':'/usr/share/kicad/symbols/FPGA_Microsemi.kicad_sym\nEX128-TQ64\n\nActel FPGA eX eX128', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWROUT,unit=1),
             Pin(num='10',name='IO',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='IO/TRST',func=Pin.types.BIDIR,unit=1),
@@ -1761,7 +1761,7 @@ FPGA_Microsemi = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IO',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='IO',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='IO',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EX256-TQ100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EX256-TQ100'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-100_14x14mm_P0.5mm', 'keywords':'Actel FPGA eX eX256', 'description':'', 'datasheet':'http://www.microsemi.com/document-portal/doc_download/130687-ex-datasheet', 'pins':[
+        Part(**{ 'name':'EX256-TQ100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EX256-TQ100'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-100_14x14mm_P0.5mm', 'keywords':'Actel FPGA eX eX256', 'description':'', 'datasheet':'http://www.microsemi.com/document-portal/doc_download/130687-ex-datasheet', 'search_text':'/usr/share/kicad/symbols/FPGA_Microsemi.kicad_sym\nEX256-TQ100\n\nActel FPGA eX eX256', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='IO',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='TCK/IO',func=Pin.types.BIDIR,unit=1),
@@ -1860,7 +1860,7 @@ FPGA_Microsemi = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='IO',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='IO',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='IO',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EX64-TQ100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EX64-TQ100'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-100_14x14mm_P0.5mm', 'keywords':'Actel FPGA eX eX64', 'description':'', 'datasheet':'http://www.microsemi.com/document-portal/doc_download/130687-ex-datasheet', 'pins':[
+        Part(**{ 'name':'EX64-TQ100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EX64-TQ100'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-100_14x14mm_P0.5mm', 'keywords':'Actel FPGA eX eX64', 'description':'', 'datasheet':'http://www.microsemi.com/document-portal/doc_download/130687-ex-datasheet', 'search_text':'/usr/share/kicad/symbols/FPGA_Microsemi.kicad_sym\nEX64-TQ100\n\nActel FPGA eX eX64', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWROUT,unit=1),
             Pin(num='100',name='TCK/IO',func=Pin.types.BIDIR,unit=1),
             Pin(num='12',name='IO',func=Pin.types.BIDIR,unit=1),
@@ -1934,7 +1934,7 @@ FPGA_Microsemi = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='IO',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='IO',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='IO',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EX64-TQ64', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EX64-TQ64'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'Actel FPGA eX eX64', 'description':'', 'datasheet':'http://www.microsemi.com/document-portal/doc_download/130687-ex-datasheet', 'pins':[
+        Part(**{ 'name':'EX64-TQ64', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EX64-TQ64'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'Actel FPGA eX eX64', 'description':'', 'datasheet':'http://www.microsemi.com/document-portal/doc_download/130687-ex-datasheet', 'search_text':'/usr/share/kicad/symbols/FPGA_Microsemi.kicad_sym\nEX64-TQ64\n\nActel FPGA eX eX64', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWROUT,unit=1),
             Pin(num='11',name='IO/TRST',func=Pin.types.BIDIR,unit=1),
             Pin(num='12',name='IO',func=Pin.types.BIDIR,unit=1),
@@ -1994,7 +1994,7 @@ FPGA_Microsemi = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='64',name='TCK/IO',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='IO',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='IO',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'M2GL090T-FG484', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'M2GL090T-FG484'}), 'ref_prefix':'U', 'fplist':['Package_BGA:BGA-484_23.0x23.0mm_Layout22x22_P1.0mm'], 'footprint':'Package_BGA:BGA-484_23.0x23.0mm_Layout22x22_P1.0mm', 'keywords':'FPGA Igloo2 BGA', 'description':'', 'datasheet':'https://www.microsemi.com/document-portal/doc_download/132042-ds0128-igloo2-and-smartfusion2-datasheet', 'pins':[
+        Part(**{ 'name':'M2GL090T-FG484', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'M2GL090T-FG484'}), 'ref_prefix':'U', 'fplist':['Package_BGA:BGA-484_23.0x23.0mm_Layout22x22_P1.0mm'], 'footprint':'Package_BGA:BGA-484_23.0x23.0mm_Layout22x22_P1.0mm', 'keywords':'FPGA Igloo2 BGA', 'description':'', 'datasheet':'https://www.microsemi.com/document-portal/doc_download/132042-ds0128-igloo2-and-smartfusion2-datasheet', 'search_text':'/usr/share/kicad/symbols/FPGA_Microsemi.kicad_sym\nM2GL090T-FG484\n\nFPGA Igloo2 BGA', 'pins':[
             Pin(num='A10',name='MDDR_DM_RDQS0/DDRIO84PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='MDDR_DQ4/DDRIO84NB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='A12',name='MDDR_DQ8/DDRIO81PB1',func=Pin.types.BIDIR,unit=1),
@@ -2478,4 +2478,4 @@ FPGA_Microsemi = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='Y2',name='VSS',func=Pin.types.PASSIVE,unit=9),
             Pin(num='Y4',name='VSS',func=Pin.types.PASSIVE,unit=9),
             Pin(num='Y6',name='VSS',func=Pin.types.PASSIVE,unit=9),
-            Pin(num='Y8',name='VSS',func=Pin.types.PASSIVE,unit=9)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['F7', 'C10', 'A13', 'E16', 'A11', 'F9', 'E17', 'C11', 'A14', 'C14', 'F8', 'A10', 'C13', 'E18', 'A15', 'A16', 'E19', 'G12', 'A17', 'C15', 'E7', 'G13', 'H14', 'A18', 'C16', 'A19', 'G14', 'C17', 'A20', 'C18', 'A21', 'C19', 'A3', 'C20', 'C6', 'A4', 'C5', 'A5', 'A6', 'C7', 'A7', 'C9', 'A8', 'D10', 'A9', 'D11', 'AA21', 'D12', 'AB21', 'B12', 'D13', 'B11', 'D14', 'D17', 'D16', 'B13', 'B16', 'B15', 'D18', 'D20', 'E8', 'B17', 'D6', 'B20', 'B19', 'D7', 'D8', 'H12', 'B21', 'D9', 'E11', 'B5', 'E10', 'F13', 'B6', 'F12', 'B8', 'B7', 'E12', 'F14', 'F10', 'F17', 'E13', 'A12', 'F15', 'B9', 'E15']},{'label': 'uB', 'num': 2, 'pin_nums': ['B22', 'H22', 'G18', 'E20', 'D21', 'J19', 'G19', 'D22', 'G17', 'G21', 'J20', 'H18', 'F21', 'G22', 'J21', 'C22', 'E21', 'F22', 'E22', 'H19', 'F18', 'F20', 'F19', 'G16', 'H20', 'H21']},{'label': 'uC', 'num': 3, 'pin_nums': ['K16', 'T20', 'V22', 'N22', 'R17', 'R19', 'K17', 'L19', 'M21', 'P16', 'R18', 'T21', 'K18', 'L20', 'M22', 'P17', 'T22', 'K20', 'L21', 'N16', 'P18', 'R20', 'U19', 'K21', 'M16', 'N17', 'P19', 'R21', 'U21', 'J18', 'K22', 'L17', 'M17', 'N19', 'P20', 'R22', 'U22', 'J22', 'L16', 'M18', 'N20', 'P22', 'T18', 'M20', 'V19', 'K15', 'L18', 'M19', 'N21', 'R16', 'T19', 'V21']},{'label': 'uD', 'num': 4, 'pin_nums': ['AA22', 'W20', 'Y22', 'W21', 'V20', 'Y21', 'W22']},{'label': 'uE', 'num': 5, 'pin_nums': ['U11', 'W11', 'W9', 'V11', 'W13', 'Y18', 'AA10', 'AA18', 'AB18', 'U13', 'V12', 'W12', 'Y10', 'Y19', 'AA11', 'AB10', 'AB12', 'AB19', 'U14', 'V13', 'Y12', 'Y20', 'AA12', 'AB11', 'R15', 'U15', 'V14', 'W14', 'T14', 'Y13', 'Y9', 'AA13', 'T13', 'U16', 'V16', 'W15', 'Y14', 'AA15', 'AB13', 'U17', 'V17', 'W16', 'Y15', 'V10', 'AA16', 'AB14', 'T16', 'U18', 'V18', 'W17', 'Y16', 'AB15', 'AA17', 'AA19', 'U10', 'W10', 'W19', 'Y17', 'AB17']},{'label': 'uF', 'num': 6, 'pin_nums': ['Y1', 'AB2', 'U4', 'AB4', 'Y3', 'Y5', 'AB6', 'V8', 'AA8', 'AB8', 'V9', 'Y7', 'U3', 'AA2', 'T1', 'W1', 'AA4', 'U6', 'W3', 'U1', 'U5', 'W5', 'AA6', 'U2', 'W7']},{'label': 'uG', 'num': 7, 'pin_nums': ['M5', 'P6', 'N5', 'L6', 'L5', 'M6', 'N6', 'P7', 'M7', 'N8', 'R1', 'K4', 'L7', 'M8', 'P1', 'R2', 'N2', 'K5', 'L8', 'N1', 'P2', 'R3', 'K8', 'M1', 'P3', 'R4', 'L4', 'L2', 'M2', 'N3', 'P4', 'T3', 'K2', 'L3', 'M3', 'N4', 'P5', 'T4', 'K1', 'K3']},{'label': 'uH', 'num': 8, 'pin_nums': ['G2', 'E5', 'A2', 'D1', 'G4', 'H4', 'J6', 'B1', 'D2', 'G3', 'F1', 'J7', 'H5', 'B2', 'D3', 'F2', 'H6', 'K6', 'B3', 'D4', 'F3', 'G5', 'C2', 'H7', 'K7', 'C1', 'D5', 'F4', 'G6', 'J1', 'E1', 'F5', 'G7', 'J2', 'C3', 'E2', 'F6', 'H1', 'J3', 'C4', 'E4', 'G1', 'H3', 'J4']},{'label': 'uI', 'num': 9, 'pin_nums': ['N12', 'T2', 'C12', 'N13', 'J15', 'T5', 'C21', 'J16', 'N14', 'J5', 'T6', 'C8', 'J17', 'N18', 'T7', 'D15', 'N15', 'J9', 'T8', 'U12', 'D19', 'J8', 'N7', 'T9', 'E14', 'K10', 'N9', 'U20', 'E3', 'K11', 'P10', 'E6', 'K12', 'P11', 'U7', 'E9', 'K13', 'P12', 'U8', 'V1', 'F11', 'K14', 'P13', 'U9', 'F16', 'K19', 'P14', 'V15', 'A22', 'K9', 'P15', 'V2', 'A1', 'G10', 'L1', 'P21', 'V3', 'AA1', 'G11', 'G20', 'L10', 'P9', 'V4', 'AA14', 'G15', 'L11', 'P8', 'V5', 'AA20', 'L12', 'R10', 'V6', 'AA3', 'G8', 'H10', 'L13', 'R11', 'V7', 'AA5', 'G9', 'L14', 'R12', 'W18', 'AA7', 'H11', 'L15', 'R14', 'W2', 'AA9', 'H13', 'L22', 'R13', 'W4', 'AB1', 'L9', 'R5', 'W6', 'AB16', 'H15', 'M10', 'W8', 'AB20', 'H16', 'H2', 'M11', 'R6', 'Y11', 'H17', 'AB22', 'M12', 'R7', 'R9', 'Y2', 'AB3', 'H9', 'M13', 'R8', 'Y4', 'AB5', 'H8', 'M14', 'T11', 'Y6', 'AB7', 'J10', 'T10', 'M4', 'Y8', 'AB9', 'J11', 'M15', 'T12', 'B10', 'J12', 'M9', 'T15', 'B14', 'J13', 'N10', 'T17', 'B18', 'J14', 'N11', 'B4']}] })])
+            Pin(num='Y8',name='VSS',func=Pin.types.PASSIVE,unit=9)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['B11', 'D17', 'H14', 'D16', 'B13', 'B16', 'B15', 'D18', 'D20', 'B17', 'B20', 'D6', 'B19', 'D7', 'D8', 'B21', 'D9', 'E11', 'B5', 'E10', 'B6', 'B8', 'B7', 'E12', 'C10', 'E13', 'A11', 'B9', 'E15', 'A12', 'A13', 'E16', 'A10', 'C11', 'C14', 'E17', 'A14', 'C13', 'E18', 'A15', 'A16', 'E19', 'C15', 'A17', 'E7', 'C16', 'A18', 'E8', 'A19', 'C17', 'F10', 'F13', 'A20', 'C18', 'F12', 'A21', 'C19', 'A3', 'C20', 'C6', 'F14', 'A4', 'C5', 'F15', 'F7', 'A5', 'F17', 'A6', 'C7', 'F9', 'A7', 'C9', 'F8', 'A8', 'D10', 'A9', 'D11', 'G12', 'AA21', 'D12', 'D14', 'G13', 'H12', 'AB21', 'D13', 'B12', 'G14']},{'label': 'uB', 'num': 2, 'pin_nums': ['G18', 'E22', 'H22', 'G19', 'F18', 'J19', 'G21', 'B22', 'F19', 'J20', 'H18', 'C22', 'F20', 'G22', 'J21', 'F22', 'F21', 'D21', 'E20', 'E21', 'D22', 'H19', 'H21', 'G16', 'H20', 'G17']},{'label': 'uC', 'num': 3, 'pin_nums': ['L19', 'N17', 'R21', 'U21', 'P19', 'L21', 'N19', 'P20', 'R22', 'U22', 'M17', 'L20', 'N16', 'P18', 'M18', 'N20', 'P22', 'T18', 'M20', 'U19', 'V19', 'M19', 'N21', 'R16', 'T19', 'V21', 'K22', 'K17', 'L17', 'N22', 'R17', 'J18', 'R19', 'T20', 'V22', 'L16', 'M16', 'M21', 'P16', 'R18', 'K21', 'J22', 'T21', 'K20', 'K18', 'M22', 'P17', 'T22', 'K15', 'L18', 'R20', 'K16']},{'label': 'uD', 'num': 4, 'pin_nums': ['AA22', 'W22', 'Y22', 'V20', 'W21', 'Y21', 'W20']},{'label': 'uE', 'num': 5, 'pin_nums': ['U16', 'W15', 'Y14', 'V16', 'T14', 'AA15', 'AB13', 'U17', 'V17', 'W16', 'Y15', 'V10', 'AB14', 'AA16', 'T16', 'U18', 'V18', 'W17', 'Y16', 'AA17', 'AB15', 'AA19', 'U10', 'W10', 'W19', 'Y17', 'AA18', 'AB17', 'U11', 'V11', 'W11', 'W9', 'W13', 'Y18', 'AA13', 'AB18', 'AA10', 'U13', 'V12', 'W12', 'Y10', 'Y19', 'AB10', 'AB19', 'AA11', 'AB12', 'U14', 'V13', 'Y12', 'Y20', 'R15', 'AA12', 'AB11', 'U15', 'V14', 'W14', 'Y13', 'Y9', 'T13']},{'label': 'uF', 'num': 6, 'pin_nums': ['AA2', 'V9', 'T1', 'Y7', 'AB8', 'AA4', 'U1', 'W1', 'Y5', 'AA6', 'U2', 'W3', 'AA8', 'U3', 'W5', 'AB2', 'U4', 'W7', 'AB4', 'U5', 'Y1', 'AB6', 'U6', 'Y3', 'V8']},{'label': 'uG', 'num': 7, 'pin_nums': ['L2', 'N3', 'T3', 'M2', 'P4', 'L3', 'M3', 'N4', 'P5', 'T4', 'K1', 'L4', 'M5', 'N5', 'K3', 'L6', 'P6', 'K2', 'L5', 'M6', 'N6', 'P7', 'M7', 'N8', 'R1', 'K4', 'L7', 'M8', 'P1', 'N2', 'R2', 'K5', 'L8', 'N1', 'P2', 'R3', 'K8', 'M1', 'P3', 'R4']},{'label': 'uH', 'num': 8, 'pin_nums': ['C3', 'E2', 'F6', 'H1', 'J3', 'C4', 'E4', 'H3', 'J4', 'F1', 'G1', 'G7', 'A2', 'D1', 'E5', 'G2', 'H4', 'J6', 'G4', 'B1', 'D2', 'G3', 'H5', 'J7', 'B2', 'D3', 'F2', 'H6', 'K6', 'B3', 'D4', 'F3', 'C2', 'G5', 'H7', 'K7', 'C1', 'D5', 'F4', 'G6', 'J1', 'E1', 'F5', 'J2']},{'label': 'uI', 'num': 9, 'pin_nums': ['M10', 'W8', 'R5', 'AB20', 'H16', 'M11', 'H2', 'R6', 'Y11', 'AB22', 'H17', 'M12', 'R7', 'Y2', 'R9', 'AB3', 'M13', 'H9', 'R8', 'Y4', 'AB5', 'H8', 'M14', 'Y6', 'T11', 'AB7', 'J10', 'M4', 'T10', 'Y8', 'AB9', 'J11', 'M15', 'T12', 'B10', 'J12', 'M9', 'T15', 'B14', 'J13', 'N10', 'T17', 'B18', 'J14', 'N11', 'T2', 'B4', 'N12', 'C12', 'J15', 'N13', 'T5', 'C21', 'J16', 'N14', 'J5', 'T6', 'C8', 'J17', 'N18', 'T7', 'D15', 'N15', 'J9', 'T8', 'U12', 'D19', 'J8', 'N7', 'T9', 'E14', 'K10', 'N9', 'U20', 'E3', 'K11', 'P10', 'E6', 'K12', 'P11', 'U7', 'E9', 'K13', 'P12', 'U8', 'V1', 'F11', 'K14', 'P13', 'U9', 'F16', 'K19', 'P14', 'H15', 'V15', 'A22', 'K9', 'P15', 'V2', 'A1', 'G10', 'L1', 'P21', 'V3', 'AA1', 'G11', 'G20', 'L10', 'P9', 'V4', 'AA14', 'G15', 'L11', 'P8', 'V5', 'AA20', 'L12', 'R10', 'V6', 'AA3', 'G8', 'H10', 'L13', 'R11', 'V7', 'AA5', 'G9', 'L14', 'R12', 'W18', 'AA7', 'H11', 'L15', 'R14', 'W2', 'AA9', 'H13', 'L22', 'R13', 'W4', 'AB1', 'L9', 'W6', 'AB16']}] })])

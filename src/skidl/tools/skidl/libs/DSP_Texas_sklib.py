@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 DSP_Texas = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'TMS320LF2406PZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMS320LF2406PZ'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'16BIT DSP TMS320 Obsolete', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tms320lf2406.pdf', 'pins':[
+        Part(**{ 'name':'TMS320LF2406PZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMS320LF2406PZ'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'16BIT DSP TMS320 Obsolete', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tms320lf2406.pdf', 'search_text':'/usr/share/kicad/symbols/DSP_Texas.kicad_sym\nTMS320LF2406PZ\n\n16BIT DSP TMS320 Obsolete', 'pins':[
             Pin(num='1',name='TRST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PLLVcca',func=Pin.types.PASSIVE,unit=1),
             Pin(num='100',name='TMS',func=Pin.types.INPUT,unit=1),

@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'ADM3053', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADM3053'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'protected', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADM3053.pdf', 'pins':[
+        Part(**{ 'name':'ADM3053', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADM3053'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'protected', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADM3053.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nADM3053\n\nprotected', 'pins':[
             Pin(num='1',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='GND2',func=Pin.types.PWRIN,unit=1),
@@ -25,7 +25,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND1',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADM3057ExRW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADM3057ExRW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'can transceiver isolated protected', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADM3055E-3057E.pdf', 'pins':[
+        Part(**{ 'name':'ADM3057ExRW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADM3057ExRW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'can transceiver isolated protected', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADM3055E-3057E.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nADM3057ExRW\n\ncan transceiver isolated protected', 'pins':[
             Pin(num='1',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='GND2',func=Pin.types.PASSIVE,unit=1),
@@ -46,7 +46,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='STBY',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='AUXIN',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO1044BD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO1044BD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'CAN-FD Isolated', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso1044.pdf', 'pins':[
+        Part(**{ 'name':'ISO1044BD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO1044BD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'CAN-FD Isolated', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso1044.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nISO1044BD\n\nCAN-FD Isolated', 'pins':[
             Pin(num='1',name='VCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='RXD',func=Pin.types.OUTPUT,unit=1),
@@ -55,7 +55,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GND2',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VCC2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO1050DUB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO1050DUB'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-8_6.62x9.15mm_P2.54mm'], 'footprint':'Package_SO:SOP-8_6.62x9.15mm_P2.54mm', 'keywords':'CAN Isolated', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/iso1050.pdf', 'pins':[
+        Part(**{ 'name':'ISO1050DUB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO1050DUB'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-8_6.62x9.15mm_P2.54mm'], 'footprint':'Package_SO:SOP-8_6.62x9.15mm_P2.54mm', 'keywords':'CAN Isolated', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/iso1050.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nISO1050DUB\n\nCAN Isolated', 'pins':[
             Pin(num='1',name='VCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RXD',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='TXD',func=Pin.types.INPUT,unit=1),
@@ -64,7 +64,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISOW1044', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISOW1044'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'can transceiver isolated protected integrated isolated supply', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/isow1044.pdf', 'pins':[
+        Part(**{ 'name':'ISOW1044', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISOW1044'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'can transceiver isolated protected integrated isolated supply', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/isow1044.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nISOW1044\n\ncan transceiver isolated protected integrated isolated supply', 'pins':[
             Pin(num='1',name='VIO',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='GND2',func=Pin.types.PWROUT,unit=1),
@@ -85,7 +85,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='EN/FLT',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2875-DD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2875-DD'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/2875f.pdf', 'pins':[
+        Part(**{ 'name':'LTC2875-DD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2875-DD'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/2875f.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nLTC2875-DD\n\nHigh-Speed CAN Transceiver', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -95,7 +95,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RS',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2875-S8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2875-S8'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/2875f.pdf', 'pins':[
+        Part(**{ 'name':'LTC2875-S8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2875-S8'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/2875f.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nLTC2875-S8\n\nHigh-Speed CAN Transceiver', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -104,7 +104,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RS',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2021A-xxxxMD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2021A-xxxxMD'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_4x4mm_P0.8mm_EP2.5x3.6mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_4x4mm_P0.8mm_EP2.5x3.6mm', 'keywords':'LIN Transceiver regulator', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20002298C.pdf', 'pins':[
+        Part(**{ 'name':'MCP2021A-xxxxMD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2021A-xxxxMD'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_4x4mm_P0.8mm_EP2.5x3.6mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_4x4mm_P0.8mm_EP2.5x3.6mm', 'keywords':'LIN Transceiver regulator', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20002298C.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP2021A-xxxxMD\n\nLIN Transceiver regulator', 'pins':[
             Pin(num='1',name='RXD',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='CS/LWAKE',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='VREG',func=Pin.types.PWROUT,unit=1),
@@ -114,7 +114,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VBB',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='~{FAULT}/TXE',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2021A-xxxxP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2021A-xxxxP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'LIN Transceiver regulator', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20002298C.pdf', 'pins':[
+        Part(**{ 'name':'MCP2021A-xxxxP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2021A-xxxxP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'LIN Transceiver regulator', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20002298C.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP2021A-xxxxP\n\nLIN Transceiver regulator', 'pins':[
             Pin(num='1',name='RXD',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='CS/LWAKE',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='VREG',func=Pin.types.PWROUT,unit=1),
@@ -123,7 +123,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='LBUS',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='VBB',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='~{FAULT}/TXE',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2021A-xxxxSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2021A-xxxxSN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'LIN Transceiver regulator', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20002298C.pdf', 'pins':[
+        Part(**{ 'name':'MCP2021A-xxxxSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2021A-xxxxSN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'LIN Transceiver regulator', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20002298C.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP2021A-xxxxSN\n\nLIN Transceiver regulator', 'pins':[
             Pin(num='1',name='RXD',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='CS/LWAKE',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='VREG',func=Pin.types.PWROUT,unit=1),
@@ -132,7 +132,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='LBUS',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='VBB',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='~{FAULT}/TXE',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2022A-xxxxP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2022A-xxxxP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'LIN Transceiver regulator', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20002298C.pdf', 'pins':[
+        Part(**{ 'name':'MCP2022A-xxxxP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2022A-xxxxP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'LIN Transceiver regulator', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20002298C.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP2022A-xxxxP\n\nLIN Transceiver regulator', 'pins':[
             Pin(num='1',name='RXD',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='VSS',func=Pin.types.PWRIN,unit=1),
@@ -147,7 +147,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2022A-xxxxSL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2022A-xxxxSL'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'LIN Transceiver regulator', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20002298C.pdf', 'pins':[
+        Part(**{ 'name':'MCP2022A-xxxxSL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2022A-xxxxSL'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'LIN Transceiver regulator', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20002298C.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP2022A-xxxxSL\n\nLIN Transceiver regulator', 'pins':[
             Pin(num='1',name='RXD',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='VSS',func=Pin.types.PWRIN,unit=1),
@@ -162,7 +162,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2022A-xxxxST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2022A-xxxxST'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'LIN Transceiver regulator', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20002298C.pdf', 'pins':[
+        Part(**{ 'name':'MCP2022A-xxxxST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2022A-xxxxST'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'LIN Transceiver regulator', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20002298C.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP2022A-xxxxST\n\nLIN Transceiver regulator', 'pins':[
             Pin(num='1',name='RXD',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='VSS',func=Pin.types.PWRIN,unit=1),
@@ -177,7 +177,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2050-330-EMQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2050-330-EMQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_5x5mm_P0.65mm_EP3.35x3.35mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_5x5mm_P0.65mm_EP3.35x3.35mm', 'keywords':'LIN transceiver regulator', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22299B.pdf', 'pins':[
+        Part(**{ 'name':'MCP2050-330-EMQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2050-330-EMQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_5x5mm_P0.65mm_EP3.35x3.35mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_5x5mm_P0.65mm_EP3.35x3.35mm', 'keywords':'LIN transceiver regulator', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22299B.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP2050-330-EMQ\n\nLIN transceiver regulator', 'pins':[
             Pin(num='1',name='RXD',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -199,7 +199,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='LBUS',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2050-330-EP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2050-330-EP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'LIN transceiver regulator', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22299B.pdf', 'pins':[
+        Part(**{ 'name':'MCP2050-330-EP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2050-330-EP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'LIN transceiver regulator', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22299B.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP2050-330-EP\n\nLIN transceiver regulator', 'pins':[
             Pin(num='1',name='VBAT_RATIO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='VBB',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='FAULT/TXE',func=Pin.types.OPENCOLL,unit=1),
@@ -214,7 +214,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='LBUS',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2050-330-ESL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2050-330-ESL'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'LIN transceiver regulator', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22299B.pdf', 'pins':[
+        Part(**{ 'name':'MCP2050-330-ESL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2050-330-ESL'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'LIN transceiver regulator', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22299B.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP2050-330-ESL\n\nLIN transceiver regulator', 'pins':[
             Pin(num='1',name='VBAT_RATIO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='VBB',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='FAULT/TXE',func=Pin.types.OPENCOLL,unit=1),
@@ -229,7 +229,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='LBUS',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2515-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2515-xSO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm'], 'footprint':'Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm', 'keywords':'CAN Controller SPI', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21801e.pdf', 'pins':[
+        Part(**{ 'name':'MCP2515-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2515-xSO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm'], 'footprint':'Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm', 'keywords':'CAN Controller SPI', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21801e.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP2515-xSO\n\nCAN Controller SPI', 'pins':[
             Pin(num='1',name='TXCAN',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='~{RX1BF}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='~{RX0BF}',func=Pin.types.OUTPUT,unit=1),
@@ -248,7 +248,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OSC2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='OSC1',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2515-xST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2515-xST'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'CAN Controller SPI', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21801e.pdf', 'pins':[
+        Part(**{ 'name':'MCP2515-xST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2515-xST'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'CAN Controller SPI', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21801e.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP2515-xST\n\nCAN Controller SPI', 'pins':[
             Pin(num='1',name='TXCAN',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='~{RX1BF}',func=Pin.types.OUTPUT,unit=1),
@@ -269,7 +269,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{TX2RTS}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='OSC2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='OSC1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2517FD-xJHA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2517FD-xJHA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-14-1EP_3x4.5mm_P0.65mm_EP1.65x4.25mm'], 'footprint':'Package_DFN_QFN:DFN-14-1EP_3x4.5mm_P0.65mm_EP1.65x4.25mm', 'keywords':'CAN FD Controller SPI', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/MCP2517FD-External-CAN-FD-Controller-with-SPI-Interface-20005688B.pdf', 'pins':[
+        Part(**{ 'name':'MCP2517FD-xJHA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2517FD-xJHA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-14-1EP_3x4.5mm_P0.65mm_EP1.65x4.25mm'], 'footprint':'Package_DFN_QFN:DFN-14-1EP_3x4.5mm_P0.65mm_EP1.65x4.25mm', 'keywords':'CAN FD Controller SPI', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/MCP2517FD-External-CAN-FD-Controller-with-SPI-Interface-20005688B.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP2517FD-xJHA\n\nCAN FD Controller SPI', 'pins':[
             Pin(num='1',name='TXCAN',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SDI',func=Pin.types.INPUT,unit=1),
@@ -285,7 +285,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='~{INT1}/GPIO1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{INT0}/GPIO0/XSTBY',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2517FD-xSL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2517FD-xSL'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'CAN FD Controller SPI', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/MCP2517FD-External-CAN-FD-Controller-with-SPI-Interface-20005688B.pdf', 'pins':[
+        Part(**{ 'name':'MCP2517FD-xSL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2517FD-xSL'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'CAN FD Controller SPI', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/MCP2517FD-External-CAN-FD-Controller-with-SPI-Interface-20005688B.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP2517FD-xSL\n\nCAN FD Controller SPI', 'pins':[
             Pin(num='1',name='TXCAN',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SDI',func=Pin.types.INPUT,unit=1),
@@ -300,7 +300,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='~{INT1}/GPIO1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{INT0}/GPIO0/XSTBY',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2542FDxMF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2542FDxMF'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'keywords':'CAN transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/MCP2542FD-4FD-MCP2542WFD-4WFD-Data-Sheet20005514B.pdf', 'pins':[
+        Part(**{ 'name':'MCP2542FDxMF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2542FDxMF'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'keywords':'CAN transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/MCP2542FD-4FD-MCP2542WFD-4WFD-Data-Sheet20005514B.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP2542FDxMF\n\nCAN transceiver', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -310,7 +310,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='STBY',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2551-I-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2551-I-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/21667d.pdf', 'pins':[
+        Part(**{ 'name':'MCP2551-I-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2551-I-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/21667d.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP2551-I-P\n\nHigh-Speed CAN Transceiver', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -319,7 +319,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='Rs',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2551-I-SN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2551-I-SN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/21667d.pdf', 'pins':[
+        Part(**{ 'name':'MCP2551-I-SN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2551-I-SN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/21667d.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP2551-I-SN\n\nHigh-Speed CAN Transceiver', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -328,7 +328,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='Rs',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2557FD-xMF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2557FD-xMF'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'keywords':'CAN FD Transceiver', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/20005533A.pdf', 'pins':[
+        Part(**{ 'name':'MCP2557FD-xMF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2557FD-xMF'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'keywords':'CAN FD Transceiver', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/20005533A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP2557FD-xMF\n\nCAN FD Transceiver', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -338,7 +338,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='S',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2557FD-xMNY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2557FD-xMNY'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TDFN-8-1EP_3x2mm_P0.5mm_EP1.80x1.65mm'], 'footprint':'Package_DFN_QFN:TDFN-8-1EP_3x2mm_P0.5mm_EP1.80x1.65mm', 'keywords':'CAN FD Transceiver', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/20005533A.pdf', 'pins':[
+        Part(**{ 'name':'MCP2557FD-xMNY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2557FD-xMNY'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TDFN-8-1EP_3x2mm_P0.5mm_EP1.80x1.65mm'], 'footprint':'Package_DFN_QFN:TDFN-8-1EP_3x2mm_P0.5mm_EP1.80x1.65mm', 'keywords':'CAN FD Transceiver', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/20005533A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP2557FD-xMNY\n\nCAN FD Transceiver', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -348,7 +348,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='S',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2557FD-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2557FD-xSN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'CAN FD Transceiver', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/20005533A.pdf', 'pins':[
+        Part(**{ 'name':'MCP2557FD-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2557FD-xSN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'CAN FD Transceiver', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/20005533A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP2557FD-xSN\n\nCAN FD Transceiver', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -357,7 +357,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='S',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2558FD-xMF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2558FD-xMF'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'keywords':'CAN FD Transceiver', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/20005533A.pdf', 'pins':[
+        Part(**{ 'name':'MCP2558FD-xMF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2558FD-xMF'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'keywords':'CAN FD Transceiver', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/20005533A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP2558FD-xMF\n\nCAN FD Transceiver', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -367,7 +367,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='S',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2558FD-xMNY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2558FD-xMNY'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TDFN-8-1EP_3x2mm_P0.5mm_EP1.80x1.65mm'], 'footprint':'Package_DFN_QFN:TDFN-8-1EP_3x2mm_P0.5mm_EP1.80x1.65mm', 'keywords':'CAN FD Transceiver', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/20005533A.pdf', 'pins':[
+        Part(**{ 'name':'MCP2558FD-xMNY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2558FD-xMNY'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TDFN-8-1EP_3x2mm_P0.5mm_EP1.80x1.65mm'], 'footprint':'Package_DFN_QFN:TDFN-8-1EP_3x2mm_P0.5mm_EP1.80x1.65mm', 'keywords':'CAN FD Transceiver', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/20005533A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP2558FD-xMNY\n\nCAN FD Transceiver', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -377,7 +377,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='S',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2558FD-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2558FD-xSN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'CAN FD Transceiver', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/20005533A.pdf', 'pins':[
+        Part(**{ 'name':'MCP2558FD-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2558FD-xSN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'CAN FD Transceiver', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/20005533A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP2558FD-xSN\n\nCAN FD Transceiver', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -386,7 +386,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='S',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2561-E-MF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2561-E-MF'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/25167A.pdf', 'pins':[
+        Part(**{ 'name':'MCP2561-E-MF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2561-E-MF'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/25167A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP2561-E-MF\n\nHigh-Speed CAN Transceiver', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -396,7 +396,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='STBY',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2561-E-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2561-E-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/25167A.pdf', 'pins':[
+        Part(**{ 'name':'MCP2561-E-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2561-E-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/25167A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP2561-E-P\n\nHigh-Speed CAN Transceiver', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -405,7 +405,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='STBY',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2561-E-SN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2561-E-SN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/25167A.pdf', 'pins':[
+        Part(**{ 'name':'MCP2561-E-SN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2561-E-SN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/25167A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP2561-E-SN\n\nHigh-Speed CAN Transceiver', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -414,7 +414,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='STBY',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2562-E-MF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2562-E-MF'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/25167A.pdf', 'pins':[
+        Part(**{ 'name':'MCP2562-E-MF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2562-E-MF'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/25167A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP2562-E-MF\n\nHigh-Speed CAN Transceiver', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -424,7 +424,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SHDN',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='PAD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2562-E-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2562-E-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/25167A.pdf', 'pins':[
+        Part(**{ 'name':'MCP2562-E-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2562-E-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/25167A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP2562-E-P\n\nHigh-Speed CAN Transceiver', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -433,7 +433,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='STBY',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2562-E-SN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2562-E-SN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/25167A.pdf', 'pins':[
+        Part(**{ 'name':'MCP2562-E-SN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2562-E-SN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/25167A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP2562-E-SN\n\nHigh-Speed CAN Transceiver', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -442,7 +442,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='STBY',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP25625-x-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP25625-x-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'CAN Controller SPI Transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005282B.pdf', 'pins':[
+        Part(**{ 'name':'MCP25625-x-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP25625-x-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'CAN Controller SPI Transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005282B.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP25625-x-SS\n\nCAN Controller SPI Transceiver', 'pins':[
             Pin(num='1',name='VIO',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='~{Rx1BF}',func=Pin.types.OUTPUT,unit=1),
@@ -471,7 +471,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{Tx2RTS}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='OSC2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='OSC1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PCA82C251', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA82C251'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SO-8_3.9x4.9mm_P1.27mm', 'keywords':'BUS CAN', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/PCA82C251.pdf', 'pins':[
+        Part(**{ 'name':'PCA82C251', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA82C251'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SO-8_3.9x4.9mm_P1.27mm', 'keywords':'BUS CAN', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/PCA82C251.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nPCA82C251\n\nBUS CAN', 'pins':[
             Pin(num='1',name='TxD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -480,7 +480,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CAN-',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CAN+',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='Rsl',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SN65HVD1050D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN65HVD1050D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'can transceiver ti canbus', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn65hvd1050.pdf', 'pins':[
+        Part(**{ 'name':'SN65HVD1050D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN65HVD1050D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'can transceiver ti canbus', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn65hvd1050.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nSN65HVD1050D\n\ncan transceiver ti canbus', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -489,7 +489,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='S',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SN65HVD230', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN65HVD230'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'can transeiver ti low-power', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn65hvd230.pdf', 'pins':[
+        Part(**{ 'name':'SN65HVD230', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN65HVD230'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'can transeiver ti low-power', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn65hvd230.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nSN65HVD230\n\ncan transeiver ti low-power', 'pins':[
             Pin(num='1',name='D',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -498,7 +498,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='Rs',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SN65HVD232', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN65HVD232'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'can transeiver ti', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn65hvd230.pdf', 'pins':[
+        Part(**{ 'name':'SN65HVD232', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN65HVD232'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'can transeiver ti', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn65hvd230.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nSN65HVD232\n\ncan transeiver ti', 'pins':[
             Pin(num='1',name='D',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -507,7 +507,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SN65HVD233', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN65HVD233'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'can transeiver ti', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn65hvd234.pdf', 'pins':[
+        Part(**{ 'name':'SN65HVD233', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN65HVD233'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'can transeiver ti', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn65hvd234.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nSN65HVD233\n\ncan transeiver ti', 'pins':[
             Pin(num='1',name='D',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -516,7 +516,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='Rs',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SN65HVD234', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN65HVD234'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'can transeiver ti', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn65hvd234.pdf', 'pins':[
+        Part(**{ 'name':'SN65HVD234', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN65HVD234'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'can transeiver ti', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn65hvd234.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nSN65HVD234\n\ncan transeiver ti', 'pins':[
             Pin(num='1',name='D',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -525,7 +525,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='Rs',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SN65HVD235', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN65HVD235'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'can transeiver ti', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn65hvd234.pdf', 'pins':[
+        Part(**{ 'name':'SN65HVD235', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN65HVD235'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'can transeiver ti', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn65hvd234.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nSN65HVD235\n\ncan transeiver ti', 'pins':[
             Pin(num='1',name='D',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -534,7 +534,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='Rs',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SN65HVD255D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN65HVD255D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'can transceiver ti canbus 5.0V 1Mbps SOIC-8', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn65hvd257.pdf', 'pins':[
+        Part(**{ 'name':'SN65HVD255D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN65HVD255D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'can transceiver ti canbus 5.0V 1Mbps SOIC-8', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn65hvd257.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nSN65HVD255D\n\ncan transceiver ti canbus 5.0V 1Mbps SOIC-8', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -543,7 +543,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='S',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SN65HVD256D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN65HVD256D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'can transceiver ti canbus 5.0V 1Mbps SOIC-8', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn65hvd257.pdf', 'pins':[
+        Part(**{ 'name':'SN65HVD256D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN65HVD256D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'can transceiver ti canbus 5.0V 1Mbps SOIC-8', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn65hvd257.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nSN65HVD256D\n\ncan transceiver ti canbus 5.0V 1Mbps SOIC-8', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -552,7 +552,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='S',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SN65HVD257D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN65HVD257D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'can transceiver ti canbus 5.0V 1Mbps SOIC-8', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn65hvd257.pdf', 'pins':[
+        Part(**{ 'name':'SN65HVD257D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN65HVD257D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'can transceiver ti canbus 5.0V 1Mbps SOIC-8', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/sn65hvd257.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nSN65HVD257D\n\ncan transceiver ti canbus 5.0V 1Mbps SOIC-8', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -561,7 +561,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='S',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCAN1043xDxQ1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCAN1043xDxQ1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'CAN FD High Speed CAN Transceiver Sleep VIO', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tcan1043-q1.pdf', 'pins':[
+        Part(**{ 'name':'TCAN1043xDxQ1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCAN1043xDxQ1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'CAN FD High Speed CAN Transceiver Sleep VIO', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tcan1043-q1.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nTCAN1043xDxQ1\n\nCAN FD High Speed CAN Transceiver Sleep VIO', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VSUP',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -576,7 +576,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='INH',func=Pin.types.OPENEMIT,unit=1),
             Pin(num='8',name='~{FAULT}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='WAKE',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCAN330', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCAN330'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tcan337.pdf', 'pins':[
+        Part(**{ 'name':'TCAN330', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCAN330'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tcan337.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nTCAN330\n\nHigh-Speed CAN Transceiver', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -585,7 +585,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='S',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCAN332', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCAN332'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tcan337.pdf', 'pins':[
+        Part(**{ 'name':'TCAN332', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCAN332'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tcan337.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nTCAN332\n\nHigh-Speed CAN Transceiver', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -594,7 +594,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCAN334', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCAN334'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tcan337.pdf', 'pins':[
+        Part(**{ 'name':'TCAN334', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCAN334'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tcan337.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nTCAN334\n\nHigh-Speed CAN Transceiver', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -603,7 +603,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='STB',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCAN337', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCAN337'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tcan337.pdf', 'pins':[
+        Part(**{ 'name':'TCAN337', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCAN337'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tcan337.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nTCAN337\n\nHigh-Speed CAN Transceiver', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -612,7 +612,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='S',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCAN4550RGY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCAN4550RGY'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGY_R-PVQFN-N20_EP2.05x3.05mm'], 'footprint':'Package_DFN_QFN:Texas_RGY_R-PVQFN-N20_EP2.05x3.05mm', 'keywords':'M_CAN', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tcan4550.pdf', 'pins':[
+        Part(**{ 'name':'TCAN4550RGY', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCAN4550RGY'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGY_R-PVQFN-N20_EP2.05x3.05mm'], 'footprint':'Package_DFN_QFN:Texas_RGY_R-PVQFN-N20_EP2.05x3.05mm', 'keywords':'M_CAN', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tcan4550.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nTCAN4550RGY\n\nM_CAN', 'pins':[
             Pin(num='10',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='12',name='WAKE',func=Pin.types.INPUT,unit=1),
@@ -634,7 +634,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SDO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{INT}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TJA1021T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1021T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'LIN 2.1 SAE J2602 Transceiver', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/TJA1021.pdf', 'pins':[
+        Part(**{ 'name':'TJA1021T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1021T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'LIN 2.1 SAE J2602 Transceiver', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/TJA1021.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nTJA1021T\n\nLIN 2.1 SAE J2602 Transceiver', 'pins':[
             Pin(num='1',name='RXD',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='2',name='~{SLP}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~{WAKE}',func=Pin.types.INPUT,unit=1),
@@ -643,7 +643,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='LIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='INH',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TJA1021TK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1021TK'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'keywords':'LIN 2.1 SAE J2602 Transceiver HVSON-8', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/TJA1021.pdf', 'pins':[
+        Part(**{ 'name':'TJA1021TK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1021TK'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'keywords':'LIN 2.1 SAE J2602 Transceiver HVSON-8', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/TJA1021.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nTJA1021TK\n\nLIN 2.1 SAE J2602 Transceiver HVSON-8', 'pins':[
             Pin(num='1',name='RXD',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='2',name='~{SLP}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~{WAKE}',func=Pin.types.INPUT,unit=1),
@@ -653,7 +653,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='INH',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TJA1029T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1029T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'LIN 2.2A/SAE J2602 Transceiver', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/TJA1029.pdf', 'pins':[
+        Part(**{ 'name':'TJA1029T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1029T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'LIN 2.2A/SAE J2602 Transceiver', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/TJA1029.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nTJA1029T\n\nLIN 2.2A/SAE J2602 Transceiver', 'pins':[
             Pin(num='1',name='RXD',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='2',name='~{SLP}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -662,7 +662,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='LIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TJA1029TK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1029TK'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'keywords':'LIN 2.2A/SAE J2602 Transceiver HVSON-8', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/TJA1029.pdf', 'pins':[
+        Part(**{ 'name':'TJA1029TK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1029TK'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'keywords':'LIN 2.2A/SAE J2602 Transceiver HVSON-8', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/TJA1029.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nTJA1029TK\n\nLIN 2.2A/SAE J2602 Transceiver HVSON-8', 'pins':[
             Pin(num='1',name='RXD',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='2',name='~{SLP}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -672,7 +672,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TJA1043T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1043T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'CAN FD High Speed CAN Transceiver Sleep Split-Pin VIO', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/TJA1043.pdf', 'pins':[
+        Part(**{ 'name':'TJA1043T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1043T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'CAN FD High Speed CAN Transceiver Sleep Split-Pin VIO', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/TJA1043.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nTJA1043T\n\nCAN FD High Speed CAN Transceiver Sleep Split-Pin VIO', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='SPLIT',func=Pin.types.OUTPUT,unit=1),
@@ -687,7 +687,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='INH',func=Pin.types.OPENEMIT,unit=1),
             Pin(num='8',name='~{ERR}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='WAKE',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TJA1043TK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1043TK'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-14-1EP_3x4.5mm_P0.65mm_EP1.65x4.25mm'], 'footprint':'Package_DFN_QFN:DFN-14-1EP_3x4.5mm_P0.65mm_EP1.65x4.25mm', 'keywords':'CAN FD High Speed CAN Transceiver Sleep Split-Pin VIO', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/TJA1043.pdf', 'pins':[
+        Part(**{ 'name':'TJA1043TK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1043TK'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-14-1EP_3x4.5mm_P0.65mm_EP1.65x4.25mm'], 'footprint':'Package_DFN_QFN:DFN-14-1EP_3x4.5mm_P0.65mm_EP1.65x4.25mm', 'keywords':'CAN FD High Speed CAN Transceiver Sleep Split-Pin VIO', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/TJA1043.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nTJA1043TK\n\nCAN FD High Speed CAN Transceiver Sleep Split-Pin VIO', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='SPLIT',func=Pin.types.OUTPUT,unit=1),
@@ -703,7 +703,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='INH',func=Pin.types.OPENEMIT,unit=1),
             Pin(num='8',name='~{ERR}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='WAKE',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TJA1049T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1049T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/TJA1049.pdf', 'pins':[
+        Part(**{ 'name':'TJA1049T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1049T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/TJA1049.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nTJA1049T\n\nHigh-Speed CAN Transceiver', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -712,7 +712,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='STB',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TJA1049T-3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1049T-3'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/TJA1049.pdf', 'pins':[
+        Part(**{ 'name':'TJA1049T-3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1049T-3'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/TJA1049.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nTJA1049T-3\n\nHigh-Speed CAN Transceiver', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -721,7 +721,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='STB',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TJA1049TK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1049TK'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'keywords':'High-Speed CAN Transceiver HVSON-8', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/TJA1049.pdf', 'pins':[
+        Part(**{ 'name':'TJA1049TK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1049TK'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'keywords':'High-Speed CAN Transceiver HVSON-8', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/TJA1049.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nTJA1049TK\n\nHigh-Speed CAN Transceiver HVSON-8', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -731,7 +731,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='STB',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TJA1049TK-3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1049TK-3'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'keywords':'High-Speed CAN Transceiver HVSON-8', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/TJA1049.pdf', 'pins':[
+        Part(**{ 'name':'TJA1049TK-3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1049TK-3'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'keywords':'High-Speed CAN Transceiver HVSON-8', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/TJA1049.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nTJA1049TK-3\n\nHigh-Speed CAN Transceiver HVSON-8', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -741,7 +741,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='STB',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TJA1051T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1051T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/TJA1051.pdf', 'pins':[
+        Part(**{ 'name':'TJA1051T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1051T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/TJA1051.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nTJA1051T\n\nHigh-Speed CAN Transceiver', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -750,7 +750,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='S',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TJA1051T-3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1051T-3'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/TJA1051.pdf', 'pins':[
+        Part(**{ 'name':'TJA1051T-3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1051T-3'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/TJA1051.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nTJA1051T-3\n\nHigh-Speed CAN Transceiver', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -759,7 +759,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='S',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TJA1051T-E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1051T-E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/TJA1051.pdf', 'pins':[
+        Part(**{ 'name':'TJA1051T-E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1051T-E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/TJA1051.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nTJA1051T-E\n\nHigh-Speed CAN Transceiver', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -768,7 +768,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='S',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TJA1051TK-3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1051TK-3'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'keywords':'High-Speed CAN Transceiver HVSON-8', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/TJA1051.pdf', 'pins':[
+        Part(**{ 'name':'TJA1051TK-3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1051TK-3'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'keywords':'High-Speed CAN Transceiver HVSON-8', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/TJA1051.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nTJA1051TK-3\n\nHigh-Speed CAN Transceiver HVSON-8', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -778,7 +778,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='S',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TJA1052i-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1052i-1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'can transceiver isolated protected', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/TJA1052I.pdf', 'pins':[
+        Part(**{ 'name':'TJA1052i-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1052i-1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'can transceiver isolated protected', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/TJA1052I.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nTJA1052i-1\n\ncan transceiver isolated protected', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='VDD2',func=Pin.types.PASSIVE,unit=1),
@@ -795,7 +795,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TJA1145T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1145T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'CAN FD High Speed CAN Transceiver Sleep VIO Partial Networking SPI', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/TJA1145.pdf', 'pins':[
+        Part(**{ 'name':'TJA1145T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1145T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'CAN FD High Speed CAN Transceiver Sleep VIO Partial Networking SPI', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/TJA1145.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nTJA1145T\n\nCAN FD High Speed CAN Transceiver Sleep VIO Partial Networking SPI', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='BAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='SDI',func=Pin.types.INPUT,unit=1),
@@ -810,7 +810,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='INH',func=Pin.types.OPENEMIT,unit=1),
             Pin(num='8',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='WAKE',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TJA1145TK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1145TK'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-14-1EP_3x4.5mm_P0.65mm_EP1.65x4.25mm'], 'footprint':'Package_DFN_QFN:DFN-14-1EP_3x4.5mm_P0.65mm_EP1.65x4.25mm', 'keywords':'CAN FD High Speed CAN Transceiver Sleep VIO Partial Networking SPI', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/TJA1145.pdf', 'pins':[
+        Part(**{ 'name':'TJA1145TK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1145TK'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-14-1EP_3x4.5mm_P0.65mm_EP1.65x4.25mm'], 'footprint':'Package_DFN_QFN:DFN-14-1EP_3x4.5mm_P0.65mm_EP1.65x4.25mm', 'keywords':'CAN FD High Speed CAN Transceiver Sleep VIO Partial Networking SPI', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/TJA1145.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nTJA1145TK\n\nCAN FD High Speed CAN Transceiver Sleep VIO Partial Networking SPI', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='BAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='SDI',func=Pin.types.INPUT,unit=1),
@@ -826,7 +826,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='INH',func=Pin.types.OPENEMIT,unit=1),
             Pin(num='8',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='WAKE',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CA-IF1042LVS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CA-IF1042LVS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'chipanalog', 'description':'', 'datasheet':'https://datasheet.lcsc.com/lcsc/2401191740_Chipanalog-CA-IF1042LS-Q1_C20598901.pdf', 'pins':[
+        Part(**{ 'name':'CA-IF1042LVS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CA-IF1042LVS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'chipanalog', 'description':'', 'datasheet':'https://datasheet.lcsc.com/lcsc/2401191740_Chipanalog-CA-IF1042LS-Q1_C20598901.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nCA-IF1042LVS\n\nchipanalog', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -835,7 +835,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='STB',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2050-500-EMQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2050-500-EMQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_5x5mm_P0.65mm_EP3.35x3.35mm', 'Package_DFN_QFN:QFN-20-1EP_5x5mm_P0.65mm_EP3.35x3.35mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_5x5mm_P0.65mm_EP3.35x3.35mm', 'keywords':'LIN transceiver regulator', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22299B.pdf', 'pins':[
+        Part(**{ 'name':'MCP2050-500-EMQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2050-500-EMQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_5x5mm_P0.65mm_EP3.35x3.35mm', 'Package_DFN_QFN:QFN-20-1EP_5x5mm_P0.65mm_EP3.35x3.35mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_5x5mm_P0.65mm_EP3.35x3.35mm', 'keywords':'LIN transceiver regulator', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22299B.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP2050-500-EMQ\n\nLIN transceiver regulator', 'pins':[
             Pin(num='1',name='RXD',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -857,7 +857,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='LBUS',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2050-500-EP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2050-500-EP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'LIN transceiver regulator', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22299B.pdf', 'pins':[
+        Part(**{ 'name':'MCP2050-500-EP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2050-500-EP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'LIN transceiver regulator', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22299B.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP2050-500-EP\n\nLIN transceiver regulator', 'pins':[
             Pin(num='1',name='VBAT_RATIO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='VBB',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='FAULT/TXE',func=Pin.types.OPENCOLL,unit=1),
@@ -872,7 +872,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='LBUS',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2050-500-ESL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2050-500-ESL'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'LIN transceiver regulator', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22299B.pdf', 'pins':[
+        Part(**{ 'name':'MCP2050-500-ESL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2050-500-ESL'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'LIN transceiver regulator', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22299B.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP2050-500-ESL\n\nLIN transceiver regulator', 'pins':[
             Pin(num='1',name='VBAT_RATIO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='VBB',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='FAULT/TXE',func=Pin.types.OPENCOLL,unit=1),
@@ -887,7 +887,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='LBUS',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2518FD-xQBB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2518FD-xQBB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-14-1EP_3x4.5mm_P0.65mm_EP1.65x4.25mm', 'Package_DFN_QFN:DFN-14-1EP_3x4.5mm_P0.65mm_EP1.65x4.25mm'], 'footprint':'Package_DFN_QFN:DFN-14-1EP_3x4.5mm_P0.65mm_EP1.65x4.25mm', 'keywords':'microchip', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/External-CAN-FD-Controller-with-SPI-Interface-DS20006027B.pdf', 'pins':[
+        Part(**{ 'name':'MCP2518FD-xQBB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2518FD-xQBB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-14-1EP_3x4.5mm_P0.65mm_EP1.65x4.25mm', 'Package_DFN_QFN:DFN-14-1EP_3x4.5mm_P0.65mm_EP1.65x4.25mm'], 'footprint':'Package_DFN_QFN:DFN-14-1EP_3x4.5mm_P0.65mm_EP1.65x4.25mm', 'keywords':'microchip', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/External-CAN-FD-Controller-with-SPI-Interface-DS20006027B.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP2518FD-xQBB\n\nmicrochip', 'pins':[
             Pin(num='1',name='TXCAN',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SDI',func=Pin.types.INPUT,unit=1),
@@ -903,7 +903,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='~{INT1}/GPIO1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{INT0}/GPIO0/XSTBY',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2542WFDxMF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2542WFDxMF'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'keywords':'CAN transceiver WUP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/MCP2542FD-4FD-MCP2542WFD-4WFD-Data-Sheet20005514B.pdf', 'pins':[
+        Part(**{ 'name':'MCP2542WFDxMF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2542WFDxMF'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'keywords':'CAN transceiver WUP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/MCP2542FD-4FD-MCP2542WFD-4WFD-Data-Sheet20005514B.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP2542WFDxMF\n\nCAN transceiver WUP', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -913,7 +913,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='STBY',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2561-H-MF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2561-H-MF'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/25167A.pdf', 'pins':[
+        Part(**{ 'name':'MCP2561-H-MF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2561-H-MF'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/25167A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP2561-H-MF\n\nHigh-Speed CAN Transceiver', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -923,7 +923,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='STBY',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2561-H-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2561-H-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/25167A.pdf', 'pins':[
+        Part(**{ 'name':'MCP2561-H-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2561-H-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/25167A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP2561-H-P\n\nHigh-Speed CAN Transceiver', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -932,7 +932,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='STBY',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2561-H-SN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2561-H-SN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/25167A.pdf', 'pins':[
+        Part(**{ 'name':'MCP2561-H-SN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2561-H-SN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/25167A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP2561-H-SN\n\nHigh-Speed CAN Transceiver', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -941,7 +941,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='STBY',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2562-H-MF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2562-H-MF'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/25167A.pdf', 'pins':[
+        Part(**{ 'name':'MCP2562-H-MF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2562-H-MF'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/25167A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP2562-H-MF\n\nHigh-Speed CAN Transceiver', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -951,7 +951,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SHDN',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='PAD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2562-H-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2562-H-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/25167A.pdf', 'pins':[
+        Part(**{ 'name':'MCP2562-H-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2562-H-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/25167A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP2562-H-P\n\nHigh-Speed CAN Transceiver', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -960,7 +960,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='STBY',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2562-H-SN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2562-H-SN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/25167A.pdf', 'pins':[
+        Part(**{ 'name':'MCP2562-H-SN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2562-H-SN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/25167A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nMCP2562-H-SN\n\nHigh-Speed CAN Transceiver', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -969,7 +969,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='STBY',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SN65HVD231', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN65HVD231'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'can transeiver ti ulp low-power', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn65hvd230.pdf', 'pins':[
+        Part(**{ 'name':'SN65HVD231', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN65HVD231'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'can transeiver ti ulp low-power', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn65hvd230.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nSN65HVD231\n\ncan transeiver ti ulp low-power', 'pins':[
             Pin(num='1',name='D',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -978,7 +978,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='Rs',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCAN330G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCAN330G'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tcan337.pdf', 'pins':[
+        Part(**{ 'name':'TCAN330G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCAN330G'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tcan337.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nTCAN330G\n\nHigh-Speed CAN Transceiver', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -987,7 +987,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='S',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCAN332G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCAN332G'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tcan337.pdf', 'pins':[
+        Part(**{ 'name':'TCAN332G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCAN332G'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tcan337.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nTCAN332G\n\nHigh-Speed CAN Transceiver', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -996,7 +996,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCAN334G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCAN334G'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tcan337.pdf', 'pins':[
+        Part(**{ 'name':'TCAN334G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCAN334G'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tcan337.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nTCAN334G\n\nHigh-Speed CAN Transceiver', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -1005,7 +1005,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='STB',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCAN337G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCAN337G'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tcan337.pdf', 'pins':[
+        Part(**{ 'name':'TCAN337G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCAN337G'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tcan337.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nTCAN337G\n\nHigh-Speed CAN Transceiver', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -1014,7 +1014,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='S',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TJA1042T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1042T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/TJA1042.pdf', 'pins':[
+        Part(**{ 'name':'TJA1042T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1042T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/TJA1042.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nTJA1042T\n\nHigh-Speed CAN Transceiver', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -1023,7 +1023,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='STB',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TJA1042T-3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1042T-3'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/TJA1042.pdf', 'pins':[
+        Part(**{ 'name':'TJA1042T-3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1042T-3'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/TJA1042.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nTJA1042T-3\n\nHigh-Speed CAN Transceiver', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -1032,7 +1032,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='STB',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TJA1042TK-3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1042TK-3'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'keywords':'High-Speed CAN Transceiver HVSON-8', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/TJA1042.pdf', 'pins':[
+        Part(**{ 'name':'TJA1042TK-3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1042TK-3'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'keywords':'High-Speed CAN Transceiver HVSON-8', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/TJA1042.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nTJA1042TK-3\n\nHigh-Speed CAN Transceiver HVSON-8', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -1042,7 +1042,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='STB',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TJA1052i-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1052i-2'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'can transceiver isolated protected', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/TJA1052I.pdf', 'pins':[
+        Part(**{ 'name':'TJA1052i-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1052i-2'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'can transceiver isolated protected', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/TJA1052I.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nTJA1052i-2\n\ncan transceiver isolated protected', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='VDD2',func=Pin.types.PASSIVE,unit=1),
@@ -1059,7 +1059,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TJA1052i-5', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1052i-5'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'can transceiver isolated protected', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/TJA1052I.pdf', 'pins':[
+        Part(**{ 'name':'TJA1052i-5', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1052i-5'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'can transceiver isolated protected', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/TJA1052I.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nTJA1052i-5\n\ncan transceiver isolated protected', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='VDD2',func=Pin.types.PASSIVE,unit=1),
@@ -1076,7 +1076,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TJA1145T-FD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1145T-FD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'CAN FD High Speed CAN Transceiver Sleep VIO Partial Networking SPI', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/TJA1145.pdf', 'pins':[
+        Part(**{ 'name':'TJA1145T-FD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1145T-FD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'CAN FD High Speed CAN Transceiver Sleep VIO Partial Networking SPI', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/TJA1145.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nTJA1145T-FD\n\nCAN FD High Speed CAN Transceiver Sleep VIO Partial Networking SPI', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='BAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='SDI',func=Pin.types.INPUT,unit=1),
@@ -1091,7 +1091,7 @@ Interface_CAN_LIN = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='INH',func=Pin.types.OPENEMIT,unit=1),
             Pin(num='8',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='WAKE',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TJA1145TK-FD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1145TK-FD'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-14-1EP_3x4.5mm_P0.65mm_EP1.65x4.25mm', 'Package_DFN_QFN:DFN-14-1EP_3x4.5mm_P0.65mm_EP1.65x4.25mm'], 'footprint':'Package_DFN_QFN:DFN-14-1EP_3x4.5mm_P0.65mm_EP1.65x4.25mm', 'keywords':'CAN FD High Speed CAN Transceiver Sleep VIO Partial Networking SPI', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/TJA1145.pdf', 'pins':[
+        Part(**{ 'name':'TJA1145TK-FD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TJA1145TK-FD'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-14-1EP_3x4.5mm_P0.65mm_EP1.65x4.25mm', 'Package_DFN_QFN:DFN-14-1EP_3x4.5mm_P0.65mm_EP1.65x4.25mm'], 'footprint':'Package_DFN_QFN:DFN-14-1EP_3x4.5mm_P0.65mm_EP1.65x4.25mm', 'keywords':'CAN FD High Speed CAN Transceiver Sleep VIO Partial Networking SPI', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/TJA1145.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_CAN_LIN.kicad_sym\nTJA1145TK-FD\n\nCAN FD High Speed CAN Transceiver Sleep VIO Partial Networking SPI', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='BAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='SDI',func=Pin.types.INPUT,unit=1),

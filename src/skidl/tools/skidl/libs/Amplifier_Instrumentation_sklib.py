@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Amplifier_Instrumentation = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'AD620', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD620'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Instrumentation amplifier', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD620.pdf', 'pins':[
+        Part(**{ 'name':'AD620', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD620'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Instrumentation amplifier', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD620.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Instrumentation.kicad_sym\nAD620\n\nInstrumentation amplifier', 'pins':[
             Pin(num='1',name='Rg',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='+',func=Pin.types.INPUT,unit=1),
@@ -13,7 +13,7 @@ Amplifier_Instrumentation = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='Vs+',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Rg',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD623AN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD623AN'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'ad623 instumentation amplifier dip-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD623.pdf', 'pins':[
+        Part(**{ 'name':'AD623AN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD623AN'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'ad623 instumentation amplifier dip-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD623.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Instrumentation.kicad_sym\nAD623AN\n\nad623 instumentation amplifier dip-8', 'pins':[
             Pin(num='1',name='Rg',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='+',func=Pin.types.INPUT,unit=1),
@@ -22,7 +22,7 @@ Amplifier_Instrumentation = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='Vs+',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Rg',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD623AR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD623AR'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'ad623 instumentation amplifier soic-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD623.pdf', 'pins':[
+        Part(**{ 'name':'AD623AR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD623AR'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'ad623 instumentation amplifier soic-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD623.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Instrumentation.kicad_sym\nAD623AR\n\nad623 instumentation amplifier soic-8', 'pins':[
             Pin(num='1',name='Rg',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='+',func=Pin.types.INPUT,unit=1),
@@ -31,7 +31,7 @@ Amplifier_Instrumentation = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='Vs+',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Rg',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD623ARM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD623ARM'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'ad623 instumentation amplifier msop-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD623.pdf', 'pins':[
+        Part(**{ 'name':'AD623ARM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD623ARM'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'ad623 instumentation amplifier msop-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD623.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Instrumentation.kicad_sym\nAD623ARM\n\nad623 instumentation amplifier msop-8', 'pins':[
             Pin(num='1',name='Rg',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='+',func=Pin.types.INPUT,unit=1),
@@ -40,7 +40,7 @@ Amplifier_Instrumentation = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='Vs+',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Rg',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD8230', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD8230'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'single instrumentation amplifier', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD8230.pdf', 'pins':[
+        Part(**{ 'name':'AD8230', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD8230'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'single instrumentation amplifier', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD8230.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Instrumentation.kicad_sym\nAD8230\n\nsingle instrumentation amplifier', 'pins':[
             Pin(num='1',name='V-',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='Vr1',func=Pin.types.INPUT,unit=1),
@@ -49,7 +49,7 @@ Amplifier_Instrumentation = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Vr2',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='Rg',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD8236', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD8236'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'single instumentation amplifier', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD8236.pdf', 'pins':[
+        Part(**{ 'name':'AD8236', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD8236'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'single instumentation amplifier', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD8236.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Instrumentation.kicad_sym\nAD8236\n\nsingle instumentation amplifier', 'pins':[
             Pin(num='1',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='Rg',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Rg',func=Pin.types.PASSIVE,unit=1),
@@ -58,7 +58,7 @@ Amplifier_Instrumentation = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Ref',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='Vs+',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD8422ARMZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD8422ARMZ'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'ad8422 instumentation amplifier msop-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD8422.pdf', 'pins':[
+        Part(**{ 'name':'AD8422ARMZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD8422ARMZ'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'ad8422 instumentation amplifier msop-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD8422.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Instrumentation.kicad_sym\nAD8422ARMZ\n\nad8422 instumentation amplifier msop-8', 'pins':[
             Pin(num='1',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='Rg',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Rg',func=Pin.types.PASSIVE,unit=1),
@@ -67,7 +67,7 @@ Amplifier_Instrumentation = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Ref',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='Vs+',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD8422ARZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD8422ARZ'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'ad8422 instumentation amplifier soic-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD8422.pdf', 'pins':[
+        Part(**{ 'name':'AD8422ARZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD8422ARZ'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'ad8422 instumentation amplifier soic-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD8422.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Instrumentation.kicad_sym\nAD8422ARZ\n\nad8422 instumentation amplifier soic-8', 'pins':[
             Pin(num='1',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='Rg',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Rg',func=Pin.types.PASSIVE,unit=1),
@@ -76,7 +76,7 @@ Amplifier_Instrumentation = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Ref',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='Vs+',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'INA128', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'INA128'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'instrumentation opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ina128.pdf', 'pins':[
+        Part(**{ 'name':'INA128', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'INA128'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'instrumentation opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ina128.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Instrumentation.kicad_sym\nINA128\n\ninstrumentation opamp', 'pins':[
             Pin(num='1',name='Rg',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='+',func=Pin.types.INPUT,unit=1),
@@ -85,7 +85,7 @@ Amplifier_Instrumentation = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Rg',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'INA326', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'INA326'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'instrumentation opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ina326.pdf', 'pins':[
+        Part(**{ 'name':'INA326', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'INA326'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'instrumentation opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ina326.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Instrumentation.kicad_sym\nINA326\n\ninstrumentation opamp', 'pins':[
             Pin(num='1',name='R1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='+',func=Pin.types.INPUT,unit=1),
@@ -94,7 +94,7 @@ Amplifier_Instrumentation = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='R1',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'INA327', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'INA327'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'instrumentation opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ina326.pdf', 'pins':[
+        Part(**{ 'name':'INA327', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'INA327'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'instrumentation opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ina326.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Instrumentation.kicad_sym\nINA327\n\ninstrumentation opamp', 'pins':[
             Pin(num='1',name='R1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='R1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
@@ -105,7 +105,7 @@ Amplifier_Instrumentation = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='R2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='V+',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'INA333xxDGK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'INA333xxDGK'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:VSSOP-8_3x3mm_P0.65mm', 'keywords':'instrumentation opamp amplifier', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/ina333.pdf', 'pins':[
+        Part(**{ 'name':'INA333xxDGK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'INA333xxDGK'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:VSSOP-8_3x3mm_P0.65mm', 'keywords':'instrumentation opamp amplifier', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/ina333.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Instrumentation.kicad_sym\nINA333xxDGK\n\ninstrumentation opamp amplifier', 'pins':[
             Pin(num='1',name='Rg',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='+',func=Pin.types.INPUT,unit=1),
@@ -114,7 +114,7 @@ Amplifier_Instrumentation = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Rg',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'INA333xxDRG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'INA333xxDRG'}), 'ref_prefix':'U', 'fplist':['Package_SON:WSON-8-1EP_3x3mm_P0.5mm_EP1.45x2.4mm'], 'footprint':'Package_SON:WSON-8-1EP_3x3mm_P0.5mm_EP1.45x2.4mm', 'keywords':'instrumentation opamp amplifier', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/ina333.pdf', 'pins':[
+        Part(**{ 'name':'INA333xxDRG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'INA333xxDRG'}), 'ref_prefix':'U', 'fplist':['Package_SON:WSON-8-1EP_3x3mm_P0.5mm_EP1.45x2.4mm'], 'footprint':'Package_SON:WSON-8-1EP_3x3mm_P0.5mm_EP1.45x2.4mm', 'keywords':'instrumentation opamp amplifier', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/ina333.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Instrumentation.kicad_sym\nINA333xxDRG\n\ninstrumentation opamp amplifier', 'pins':[
             Pin(num='1',name='Rg',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='+',func=Pin.types.INPUT,unit=1),
@@ -124,7 +124,7 @@ Amplifier_Instrumentation = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Rg',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='EP',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC1100xN8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1100xN8'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'single instrumentation amp', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1100fc.pdf', 'pins':[
+        Part(**{ 'name':'LTC1100xN8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1100xN8'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'single instrumentation amp', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1100fc.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Instrumentation.kicad_sym\nLTC1100xN8\n\nsingle instrumentation amp', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='CMRR',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='-',func=Pin.types.INPUT,unit=1),
@@ -133,7 +133,7 @@ Amplifier_Instrumentation = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='+',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='COMP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC1100xSW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1100xSW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'single instrumentation amp', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1100fc.pdf', 'pins':[
+        Part(**{ 'name':'LTC1100xSW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1100xSW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'single instrumentation amp', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1100fc.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Instrumentation.kicad_sym\nLTC1100xSW\n\nsingle instrumentation amp', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='+',func=Pin.types.INPUT,unit=1),
@@ -150,7 +150,7 @@ Amplifier_Instrumentation = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='V-',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD623', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD623'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'single instumentation amplifier', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD623.pdf', 'pins':[
+        Part(**{ 'name':'AD623', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD623'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'single instumentation amplifier', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD623.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Instrumentation.kicad_sym\nAD623\n\nsingle instumentation amplifier', 'pins':[
             Pin(num='1',name='Rg',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='+',func=Pin.types.INPUT,unit=1),
@@ -159,7 +159,7 @@ Amplifier_Instrumentation = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='Vs+',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Rg',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD623ANZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD623ANZ'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'ad623 instumentation amplifier dip-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD623.pdf', 'pins':[
+        Part(**{ 'name':'AD623ANZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD623ANZ'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'ad623 instumentation amplifier dip-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD623.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Instrumentation.kicad_sym\nAD623ANZ\n\nad623 instumentation amplifier dip-8', 'pins':[
             Pin(num='1',name='Rg',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='+',func=Pin.types.INPUT,unit=1),
@@ -168,7 +168,7 @@ Amplifier_Instrumentation = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='Vs+',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Rg',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD623ARMZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD623ARMZ'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'ad623 instumentation amplifier msop-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD623.pdf', 'pins':[
+        Part(**{ 'name':'AD623ARMZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD623ARMZ'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'ad623 instumentation amplifier msop-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD623.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Instrumentation.kicad_sym\nAD623ARMZ\n\nad623 instumentation amplifier msop-8', 'pins':[
             Pin(num='1',name='Rg',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='+',func=Pin.types.INPUT,unit=1),
@@ -177,7 +177,7 @@ Amplifier_Instrumentation = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='Vs+',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Rg',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD623ARZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD623ARZ'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'ad623 instumentation amplifier soic-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD623.pdf', 'pins':[
+        Part(**{ 'name':'AD623ARZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD623ARZ'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'ad623 instumentation amplifier soic-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD623.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Instrumentation.kicad_sym\nAD623ARZ\n\nad623 instumentation amplifier soic-8', 'pins':[
             Pin(num='1',name='Rg',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='+',func=Pin.types.INPUT,unit=1),
@@ -186,7 +186,7 @@ Amplifier_Instrumentation = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='Vs+',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Rg',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD623BN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD623BN'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'ad623 instumentation amplifier dip-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD623.pdf', 'pins':[
+        Part(**{ 'name':'AD623BN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD623BN'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'ad623 instumentation amplifier dip-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD623.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Instrumentation.kicad_sym\nAD623BN\n\nad623 instumentation amplifier dip-8', 'pins':[
             Pin(num='1',name='Rg',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='+',func=Pin.types.INPUT,unit=1),
@@ -195,7 +195,7 @@ Amplifier_Instrumentation = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='Vs+',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Rg',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD623BNZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD623BNZ'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'ad623 instumentation amplifier dip-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD623.pdf', 'pins':[
+        Part(**{ 'name':'AD623BNZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD623BNZ'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'ad623 instumentation amplifier dip-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD623.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Instrumentation.kicad_sym\nAD623BNZ\n\nad623 instumentation amplifier dip-8', 'pins':[
             Pin(num='1',name='Rg',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='+',func=Pin.types.INPUT,unit=1),
@@ -204,7 +204,7 @@ Amplifier_Instrumentation = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='Vs+',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Rg',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD623BR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD623BR'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'ad623 instumentation amplifier soic-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD623.pdf', 'pins':[
+        Part(**{ 'name':'AD623BR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD623BR'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'ad623 instumentation amplifier soic-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD623.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Instrumentation.kicad_sym\nAD623BR\n\nad623 instumentation amplifier soic-8', 'pins':[
             Pin(num='1',name='Rg',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='+',func=Pin.types.INPUT,unit=1),
@@ -213,7 +213,7 @@ Amplifier_Instrumentation = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='Vs+',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Rg',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD623BRZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD623BRZ'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'ad623 instumentation amplifier soic-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD623.pdf', 'pins':[
+        Part(**{ 'name':'AD623BRZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD623BRZ'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'ad623 instumentation amplifier soic-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD623.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Instrumentation.kicad_sym\nAD623BRZ\n\nad623 instumentation amplifier soic-8', 'pins':[
             Pin(num='1',name='Rg',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='+',func=Pin.types.INPUT,unit=1),
@@ -222,7 +222,7 @@ Amplifier_Instrumentation = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='Vs+',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Rg',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD8236ARMZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD8236ARMZ'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'ad8236 instumentation amplifier msop-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD8236.pdf', 'pins':[
+        Part(**{ 'name':'AD8236ARMZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD8236ARMZ'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'ad8236 instumentation amplifier msop-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD8236.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Instrumentation.kicad_sym\nAD8236ARMZ\n\nad8236 instumentation amplifier msop-8', 'pins':[
             Pin(num='1',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='Rg',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Rg',func=Pin.types.PASSIVE,unit=1),
@@ -231,7 +231,7 @@ Amplifier_Instrumentation = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Ref',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='Vs+',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD8421', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD8421'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'single instumentation amplifier', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD8421.pdf', 'pins':[
+        Part(**{ 'name':'AD8421', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD8421'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'single instumentation amplifier', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD8421.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Instrumentation.kicad_sym\nAD8421\n\nsingle instumentation amplifier', 'pins':[
             Pin(num='1',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='Rg',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Rg',func=Pin.types.PASSIVE,unit=1),
@@ -240,7 +240,7 @@ Amplifier_Instrumentation = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Ref',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='Vs+',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD8421ARMZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD8421ARMZ'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'ad8421 instumentation amplifier msop-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD8421.pdf', 'pins':[
+        Part(**{ 'name':'AD8421ARMZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD8421ARMZ'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'ad8421 instumentation amplifier msop-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD8421.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Instrumentation.kicad_sym\nAD8421ARMZ\n\nad8421 instumentation amplifier msop-8', 'pins':[
             Pin(num='1',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='Rg',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Rg',func=Pin.types.PASSIVE,unit=1),
@@ -249,7 +249,7 @@ Amplifier_Instrumentation = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Ref',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='Vs+',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD8421ARZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD8421ARZ'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'ad8421 instumentation amplifier soic-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD8421.pdf', 'pins':[
+        Part(**{ 'name':'AD8421ARZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD8421ARZ'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'ad8421 instumentation amplifier soic-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD8421.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Instrumentation.kicad_sym\nAD8421ARZ\n\nad8421 instumentation amplifier soic-8', 'pins':[
             Pin(num='1',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='Rg',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Rg',func=Pin.types.PASSIVE,unit=1),
@@ -258,7 +258,7 @@ Amplifier_Instrumentation = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Ref',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='Vs+',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD8421BRMZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD8421BRMZ'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'ad8421 instumentation amplifier msop-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD8421.pdf', 'pins':[
+        Part(**{ 'name':'AD8421BRMZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD8421BRMZ'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'ad8421 instumentation amplifier msop-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD8421.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Instrumentation.kicad_sym\nAD8421BRMZ\n\nad8421 instumentation amplifier msop-8', 'pins':[
             Pin(num='1',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='Rg',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Rg',func=Pin.types.PASSIVE,unit=1),
@@ -267,7 +267,7 @@ Amplifier_Instrumentation = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Ref',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='Vs+',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD8421BRZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD8421BRZ'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'ad8421 instumentation amplifier soic-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD8421.pdf', 'pins':[
+        Part(**{ 'name':'AD8421BRZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD8421BRZ'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'ad8421 instumentation amplifier soic-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD8421.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Instrumentation.kicad_sym\nAD8421BRZ\n\nad8421 instumentation amplifier soic-8', 'pins':[
             Pin(num='1',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='Rg',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Rg',func=Pin.types.PASSIVE,unit=1),
@@ -276,7 +276,7 @@ Amplifier_Instrumentation = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Ref',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='Vs+',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD8422', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD8422'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'single instumentation amplifier', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD8422.pdf', 'pins':[
+        Part(**{ 'name':'AD8422', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD8422'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'single instumentation amplifier', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD8422.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Instrumentation.kicad_sym\nAD8422\n\nsingle instumentation amplifier', 'pins':[
             Pin(num='1',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='Rg',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Rg',func=Pin.types.PASSIVE,unit=1),
@@ -285,7 +285,7 @@ Amplifier_Instrumentation = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Ref',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='Vs+',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD8422BRMZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD8422BRMZ'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'ad8422 instumentation amplifier msop-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD8422.pdf', 'pins':[
+        Part(**{ 'name':'AD8422BRMZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD8422BRMZ'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'ad8422 instumentation amplifier msop-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD8422.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Instrumentation.kicad_sym\nAD8422BRMZ\n\nad8422 instumentation amplifier msop-8', 'pins':[
             Pin(num='1',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='Rg',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Rg',func=Pin.types.PASSIVE,unit=1),
@@ -294,7 +294,7 @@ Amplifier_Instrumentation = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Ref',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='Vs+',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD8422BRZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD8422BRZ'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'ad8422 instumentation amplifier soic-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD8422.pdf', 'pins':[
+        Part(**{ 'name':'AD8422BRZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD8422BRZ'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'ad8422 instumentation amplifier soic-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD8422.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Instrumentation.kicad_sym\nAD8422BRZ\n\nad8422 instumentation amplifier soic-8', 'pins':[
             Pin(num='1',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='Rg',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Rg',func=Pin.types.PASSIVE,unit=1),
@@ -303,7 +303,7 @@ Amplifier_Instrumentation = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Ref',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='Vs+',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD8429', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD8429'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'single instumentation amplifier', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD8429.pdf', 'pins':[
+        Part(**{ 'name':'AD8429', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD8429'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'single instumentation amplifier', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD8429.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Instrumentation.kicad_sym\nAD8429\n\nsingle instumentation amplifier', 'pins':[
             Pin(num='1',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='Rg',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Rg',func=Pin.types.PASSIVE,unit=1),
@@ -312,7 +312,7 @@ Amplifier_Instrumentation = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Ref',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='Vs+',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD8429ARZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD8429ARZ'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'ad8429 instumentation amplifier soic-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD8429.pdf', 'pins':[
+        Part(**{ 'name':'AD8429ARZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD8429ARZ'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'ad8429 instumentation amplifier soic-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD8429.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Instrumentation.kicad_sym\nAD8429ARZ\n\nad8429 instumentation amplifier soic-8', 'pins':[
             Pin(num='1',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='Rg',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Rg',func=Pin.types.PASSIVE,unit=1),
@@ -321,7 +321,7 @@ Amplifier_Instrumentation = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Ref',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='Vs+',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD8429BRZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD8429BRZ'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', ''], 'footprint':'', 'keywords':'ad8429 instumentation amplifier soic-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD8429.pdf', 'pins':[
+        Part(**{ 'name':'AD8429BRZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD8429BRZ'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', ''], 'footprint':'', 'keywords':'ad8429 instumentation amplifier soic-8', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD8429.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Instrumentation.kicad_sym\nAD8429BRZ\n\nad8429 instumentation amplifier soic-8', 'pins':[
             Pin(num='1',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='Rg',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Rg',func=Pin.types.PASSIVE,unit=1),
@@ -330,7 +330,7 @@ Amplifier_Instrumentation = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Ref',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='Vs+',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'INA129', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'INA129'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'instrumentation opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ina128.pdf', 'pins':[
+        Part(**{ 'name':'INA129', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'INA129'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'instrumentation opamp', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ina128.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Instrumentation.kicad_sym\nINA129\n\ninstrumentation opamp', 'pins':[
             Pin(num='1',name='Rg',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='+',func=Pin.types.INPUT,unit=1),
@@ -339,7 +339,7 @@ Amplifier_Instrumentation = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Rg',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'INA849D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'INA849D'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'', 'keywords':'high-common-mode-rejection low-offset-drift low-gain-drift', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/ina849.pdf', 'pins':[
+        Part(**{ 'name':'INA849D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'INA849D'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'', 'keywords':'high-common-mode-rejection low-offset-drift low-gain-drift', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/ina849.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Instrumentation.kicad_sym\nINA849D\n\nhigh-common-mode-rejection low-offset-drift low-gain-drift', 'pins':[
             Pin(num='1',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='Rg',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Rg',func=Pin.types.PASSIVE,unit=1),
@@ -348,7 +348,7 @@ Amplifier_Instrumentation = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Ref',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='Vs+',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'INA849DGK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'INA849DGK'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:VSSOP-8_3x3mm_P0.65mm'], 'footprint':'', 'keywords':'high-common-mode-rejection low-offset-drift low-gain-drift', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/ina849.pdf', 'pins':[
+        Part(**{ 'name':'INA849DGK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'INA849DGK'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:VSSOP-8_3x3mm_P0.65mm'], 'footprint':'', 'keywords':'high-common-mode-rejection low-offset-drift low-gain-drift', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/ina849.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Instrumentation.kicad_sym\nINA849DGK\n\nhigh-common-mode-rejection low-offset-drift low-gain-drift', 'pins':[
             Pin(num='1',name='-',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='Rg',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Rg',func=Pin.types.PASSIVE,unit=1),

@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Interface_UART = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'16450', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'16450'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'1ch UART', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'16450', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'16450'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'1ch UART', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\n16450\n\n1ch UART', 'pins':[
             Pin(num='1',name='D0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SIN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SOUT',func=Pin.types.OUTPUT,unit=1),
@@ -44,7 +44,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='D7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RCLK',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'16550', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'16550'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'1ch UART FIFO', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/pc16550d.pdf', 'pins':[
+        Part(**{ 'name':'16550', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'16550'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'1ch UART FIFO', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/pc16550d.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\n16550\n\n1ch UART FIFO', 'pins':[
             Pin(num='1',name='D0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SIN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SOUT',func=Pin.types.OUTPUT,unit=1),
@@ -85,7 +85,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='D7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RCLK',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'68C681', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'68C681'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'UART serial', 'description':'', 'datasheet':'https://www.elektronik.ropla.eu/pdf/stock/exa/xr68c681.pdf', 'pins':[
+        Part(**{ 'name':'68C681', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'68C681'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'UART serial', 'description':'', 'datasheet':'https://www.elektronik.ropla.eu/pdf/stock/exa/xr68c681.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\n68C681\n\nUART serial', 'pins':[
             Pin(num='1',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RXDB',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='TXDB',func=Pin.types.OUTPUT,unit=1),
@@ -126,7 +126,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IP0',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='RWN',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DTACKN',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'8252', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8252'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'UART Serial Interface', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'8252', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8252'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'UART Serial Interface', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\n8252\n\nUART Serial Interface', 'pins':[
             Pin(num='1',name='~{RD}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='D7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='A0',func=Pin.types.INPUT,unit=1),
@@ -155,7 +155,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='D5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='D6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADM101E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADM101E'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'rs232 uart transceiver line-driver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADM101E.pdf', 'pins':[
+        Part(**{ 'name':'ADM101E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADM101E'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'rs232 uart transceiver line-driver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADM101E.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nADM101E\n\nrs232 uart transceiver line-driver', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='C1-',func=Pin.types.PASSIVE,unit=1),
@@ -166,7 +166,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='T1OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='SD',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='C1+',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADM1491EBR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADM1491EBR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADM1490E_1491E.pdf', 'pins':[
+        Part(**{ 'name':'ADM1491EBR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADM1491EBR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADM1490E_1491E.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nADM1491EBR\n\nRS485 RS422 transceiver full duplex', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='Z',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='B',func=Pin.types.INPUT,unit=1),
@@ -181,7 +181,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='Y',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADM242', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADM242'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'rs232 uart transceiver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADM222_232A_242.pdf', 'pins':[
+        Part(**{ 'name':'ADM242', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADM242'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'rs232 uart transceiver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADM222_232A_242.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nADM242\n\nrs232 uart transceiver', 'pins':[
             Pin(num='1',name='~{EN}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='R2OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='T2IN',func=Pin.types.INPUT,unit=1),
@@ -200,7 +200,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='V-',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='T2OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='R2IN',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADM2481xRW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADM2481xRW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'rs-485 rs-422 eia485 eia-485 eia422 eia-422 serial differential', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/adm2481.pdf', 'pins':[
+        Part(**{ 'name':'ADM2481xRW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADM2481xRW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'rs-485 rs-422 eia485 eia-485 eia422 eia-422 serial differential', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/adm2481.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nADM2481xRW\n\nrs-485 rs-422 eia485 eia-485 eia422 eia-422 serial differential', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -217,7 +217,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADM2483xRW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADM2483xRW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'rs-485 rs-422 eia485 eia-485 eia422 eia-422 serial differential', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/adm2483.pdf', 'pins':[
+        Part(**{ 'name':'ADM2483xRW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADM2483xRW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'rs-485 rs-422 eia485 eia-485 eia422 eia-422 serial differential', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/adm2483.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nADM2483xRW\n\nrs-485 rs-422 eia485 eia-485 eia422 eia-422 serial differential', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -234,7 +234,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PV',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADM2484E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADM2484E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'RS485 Transceiver RS422 Transceiver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADM2484E.pdf', 'pins':[
+        Part(**{ 'name':'ADM2484E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADM2484E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'RS485 Transceiver RS422 Transceiver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADM2484E.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nADM2484E\n\nRS485 Transceiver RS422 Transceiver', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='Y',func=Pin.types.OUTPUT,unit=1),
@@ -251,7 +251,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADM2587E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADM2587E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'RS485 Transceiver,RS422 Transceiver', 'description':'', 'datasheet':'www.analog.com/media/en/technical-documentation/data-sheets/ADM2582E_2587E.pdf', 'pins':[
+        Part(**{ 'name':'ADM2587E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADM2587E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'RS485 Transceiver,RS422 Transceiver', 'description':'', 'datasheet':'www.analog.com/media/en/technical-documentation/data-sheets/ADM2582E_2587E.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nADM2587E\n\nRS485 Transceiver,RS422 Transceiver', 'pins':[
             Pin(num='1',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='GND2',func=Pin.types.PWRIN,unit=1),
@@ -272,7 +272,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TxD',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND1',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADM2682E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADM2682E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x12.8mm_P1.27mm', 'keywords':'RS485 Transceiver, RS422 Transceiver, Isopower', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADM2682E_2687E.pdf', 'pins':[
+        Part(**{ 'name':'ADM2682E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADM2682E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x12.8mm_P1.27mm', 'keywords':'RS485 Transceiver, RS422 Transceiver, Isopower', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADM2682E_2687E.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nADM2682E\n\nRS485 Transceiver, RS422 Transceiver, Isopower', 'pins':[
             Pin(num='1',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VISOOUT',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='Y',func=Pin.types.OUTPUT,unit=1),
@@ -289,7 +289,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADM3490ExR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADM3490ExR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADM3483E_3486E_3488E_3490E_3491E.pdf', 'pins':[
+        Part(**{ 'name':'ADM3490ExR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADM3490ExR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADM3483E_3486E_3488E_3490E_3491E.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nADM3490ExR\n\nRS485 RS422 transceiver full duplex', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='DI',func=Pin.types.INPUT,unit=1),
@@ -298,7 +298,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Z',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AZ75232M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AZ75232M'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'rs232 uart transceiver line-driver', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/AZ75232.pdf', 'pins':[
+        Part(**{ 'name':'AZ75232M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AZ75232M'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'rs232 uart transceiver line-driver', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/AZ75232.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nAZ75232M\n\nrs232 uart transceiver line-driver', 'pins':[
             Pin(num='17',name='RY3',func=Pin.types.OUTPUT),
             Pin(num='18',name='RY2',func=Pin.types.OUTPUT),
             Pin(num='19',name='RY1',func=Pin.types.OUTPUT),
@@ -319,20 +319,20 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA4',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DY3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='RA5',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISL3280ExHZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISL3280ExHZ'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'Interface Driver Receiver Transceiver', 'description':'', 'datasheet':'https://www.renesas.com/us/en/www/doc/datasheet/isl3280e-81e-82e-83e-84e-85e.pdf', 'pins':[
+        Part(**{ 'name':'ISL3280ExHZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISL3280ExHZ'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'Interface Driver Receiver Transceiver', 'description':'', 'datasheet':'https://www.renesas.com/us/en/www/doc/datasheet/isl3280e-81e-82e-83e-84e-85e.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nISL3280ExHZ\n\nInterface Driver Receiver Transceiver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='4',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='A',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISL3281ExHZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISL3281ExHZ'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'Interface - Driver Receiver Transceiver', 'description':'', 'datasheet':'https://www.renesas.com/us/en/www/doc/datasheet/isl3280e-81e-82e-83e-84e-85e.pdf', 'pins':[
+        Part(**{ 'name':'ISL3281ExHZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISL3281ExHZ'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'Interface - Driver Receiver Transceiver', 'description':'', 'datasheet':'https://www.renesas.com/us/en/www/doc/datasheet/isl3280e-81e-82e-83e-84e-85e.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nISL3281ExHZ\n\nInterface - Driver Receiver Transceiver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='4',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='RE',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='A',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISL3282ExRHZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISL3282ExRHZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TDFN-8-1EP_3x2mm_P0.5mm_EP1.80x1.65mm'], 'footprint':'Package_DFN_QFN:TDFN-8-1EP_3x2mm_P0.5mm_EP1.80x1.65mm', 'keywords':'Interface Driver Receiver Transceiver', 'description':'', 'datasheet':'https://www.renesas.com/us/en/www/doc/datasheet/isl3280e-81e-82e-83e-84e-85e.pdf', 'pins':[
+        Part(**{ 'name':'ISL3282ExRHZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISL3282ExRHZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TDFN-8-1EP_3x2mm_P0.5mm_EP1.80x1.65mm'], 'footprint':'Package_DFN_QFN:TDFN-8-1EP_3x2mm_P0.5mm_EP1.80x1.65mm', 'keywords':'Interface Driver Receiver Transceiver', 'description':'', 'datasheet':'https://www.renesas.com/us/en/www/doc/datasheet/isl3280e-81e-82e-83e-84e-85e.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nISL3282ExRHZ\n\nInterface Driver Receiver Transceiver', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -342,28 +342,28 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISL3283ExHZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISL3283ExHZ'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'Interface Driver Receiver Transceiver', 'description':'', 'datasheet':'https://www.renesas.com/us/en/www/doc/datasheet/isl3280e-81e-82e-83e-84e-85e.pdf', 'pins':[
+        Part(**{ 'name':'ISL3283ExHZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISL3283ExHZ'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'Interface Driver Receiver Transceiver', 'description':'', 'datasheet':'https://www.renesas.com/us/en/www/doc/datasheet/isl3280e-81e-82e-83e-84e-85e.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nISL3283ExHZ\n\nInterface Driver Receiver Transceiver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='4',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='A',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISL3284ExHZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISL3284ExHZ'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'Interface Driver Receiver Transceiver', 'description':'', 'datasheet':'https://www.renesas.com/us/en/www/doc/datasheet/isl3280e-81e-82e-83e-84e-85e.pdf', 'pins':[
+        Part(**{ 'name':'ISL3284ExHZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISL3284ExHZ'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'Interface Driver Receiver Transceiver', 'description':'', 'datasheet':'https://www.renesas.com/us/en/www/doc/datasheet/isl3280e-81e-82e-83e-84e-85e.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nISL3284ExHZ\n\nInterface Driver Receiver Transceiver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='4',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='VL',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='A',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISL3295xxH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISL3295xxH'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'RS485 RS422 transceiver', 'description':'', 'datasheet':'https://www.renesas.com/sg/en/www/doc/datasheet/isl3295e-98e.pdf', 'pins':[
+        Part(**{ 'name':'ISL3295xxH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISL3295xxH'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'RS485 RS422 transceiver', 'description':'', 'datasheet':'https://www.renesas.com/sg/en/www/doc/datasheet/isl3295e-98e.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nISL3295xxH\n\nRS485 RS422 transceiver', 'pins':[
             Pin(num='1',name='DI',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='Z',func=Pin.types.OUTPUT,unit=1),
             Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='Y',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISL3298xxRT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISL3298xxRT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TDFN-8-1EP_3x2mm_P0.5mm_EP1.80x1.65mm'], 'footprint':'Package_DFN_QFN:TDFN-8-1EP_3x2mm_P0.5mm_EP1.80x1.65mm', 'keywords':'RS485 RS422 transceiver', 'description':'', 'datasheet':'https://www.renesas.com/sg/en/www/doc/datasheet/isl3295e-98e.pdf', 'pins':[
+        Part(**{ 'name':'ISL3298xxRT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISL3298xxRT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TDFN-8-1EP_3x2mm_P0.5mm_EP1.80x1.65mm'], 'footprint':'Package_DFN_QFN:TDFN-8-1EP_3x2mm_P0.5mm_EP1.80x1.65mm', 'keywords':'RS485 RS422 transceiver', 'description':'', 'datasheet':'https://www.renesas.com/sg/en/www/doc/datasheet/isl3295e-98e.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nISL3298xxRT\n\nRS485 RS422 transceiver', 'pins':[
             Pin(num='1',name='VL',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='DE',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DI',func=Pin.types.INPUT,unit=1),
@@ -373,7 +373,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Z',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISL83491', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISL83491'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/isl8/isl83483-85-88-90-91.pdf', 'pins':[
+        Part(**{ 'name':'ISL83491', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISL83491'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/isl8/isl83483-85-88-90-91.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nISL83491\n\nRS485 RS422 transceiver full duplex', 'pins':[
             Pin(num='10',name='~{Z}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='~{B}',func=Pin.types.INPUT,unit=1),
             Pin(num='12',name='A',func=Pin.types.INPUT,unit=1),
@@ -386,7 +386,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Y',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO1500', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO1500'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'RS-485 RS422 transceiver isolated', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/iso1500.pdf', 'pins':[
+        Part(**{ 'name':'ISO1500', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO1500'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'RS-485 RS422 transceiver isolated', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/iso1500.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nISO1500\n\nRS-485 RS422 transceiver isolated', 'pins':[
             Pin(num='1',name='VCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VCC2',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -403,7 +403,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO3082DW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO3082DW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'RS-485', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/iso3082.pdf', 'pins':[
+        Part(**{ 'name':'ISO3082DW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO3082DW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'RS-485', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/iso3082.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nISO3082DW\n\nRS-485', 'pins':[
             Pin(num='1',name='Vcc1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND2',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -420,7 +420,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LT1080', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT1080'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'rs232 uart transceiver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/10801fe.pdf', 'pins':[
+        Part(**{ 'name':'LT1080', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT1080'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'rs232 uart transceiver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/10801fe.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nLT1080\n\nrs232 uart transceiver', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='R2OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='T2IN',func=Pin.types.INPUT,unit=1),
@@ -439,7 +439,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='V-',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='T2OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='R2IN',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LT1791xN8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT1791xN8'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285012fe.pdf', 'pins':[
+        Part(**{ 'name':'LT1791xN8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT1791xN8'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285012fe.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nLT1791xN8\n\nRS485 RS422 transceiver full duplex', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='Z',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='B',func=Pin.types.INPUT,unit=1),
@@ -454,7 +454,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='Y',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2850xDD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2850xDD'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm', 'keywords':'RS485 RS422 transceiver half duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285012fe.pdf', 'pins':[
+        Part(**{ 'name':'LTC2850xDD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2850xDD'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm', 'keywords':'RS485 RS422 transceiver half duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285012fe.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nLTC2850xDD\n\nRS485 RS422 transceiver half duplex', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -464,7 +464,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2850xS8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2850xS8'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'RS485 RS422 transceiver half duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285012fe.pdf', 'pins':[
+        Part(**{ 'name':'LTC2850xS8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2850xS8'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'RS485 RS422 transceiver half duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285012fe.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nLTC2850xS8\n\nRS485 RS422 transceiver half duplex', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -473,7 +473,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2851xDD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2851xDD'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285012fe.pdf', 'pins':[
+        Part(**{ 'name':'LTC2851xDD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2851xDD'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285012fe.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nLTC2851xDD\n\nRS485 RS422 transceiver full duplex', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='DI',func=Pin.types.INPUT,unit=1),
@@ -483,7 +483,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2851xMS8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2851xMS8'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285012fe.pdf', 'pins':[
+        Part(**{ 'name':'LTC2851xMS8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2851xMS8'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285012fe.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nLTC2851xMS8\n\nRS485 RS422 transceiver full duplex', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='DI',func=Pin.types.INPUT,unit=1),
@@ -492,7 +492,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Z',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2851xS8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2851xS8'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285012fe.pdf', 'pins':[
+        Part(**{ 'name':'LTC2851xS8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2851xS8'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285012fe.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nLTC2851xS8\n\nRS485 RS422 transceiver full duplex', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='DI',func=Pin.types.INPUT,unit=1),
@@ -501,7 +501,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Z',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2852xDD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2852xDD'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.65x2.38mm'], 'footprint':'Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.65x2.38mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285012fe.pdf', 'pins':[
+        Part(**{ 'name':'LTC2852xDD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2852xDD'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.65x2.38mm'], 'footprint':'Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.65x2.38mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285012fe.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nLTC2852xDD\n\nRS485 RS422 transceiver full duplex', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -513,7 +513,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Z',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2852xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2852xMS'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285012fe.pdf', 'pins':[
+        Part(**{ 'name':'LTC2852xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2852xMS'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285012fe.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nLTC2852xMS\n\nRS485 RS422 transceiver full duplex', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
@@ -524,7 +524,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Z',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2852xS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2852xS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285012fe.pdf', 'pins':[
+        Part(**{ 'name':'LTC2852xS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2852xS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285012fe.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nLTC2852xS\n\nRS485 RS422 transceiver full duplex', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='Z',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='B',func=Pin.types.INPUT,unit=1),
@@ -539,7 +539,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='Y',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2861', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2861'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'RS485', 'description':'', 'datasheet':'linear-tec\\ltc2859-2861.pdf', 'pins':[
+        Part(**{ 'name':'LTC2861', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2861'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'RS485', 'description':'', 'datasheet':'linear-tec\\ltc2859-2861.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nLTC2861\n\nRS485', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='SLO',func=Pin.types.INPUT,unit=1),
             Pin(num='12',name='Y',func=Pin.types.OUTPUT,unit=1),
@@ -552,7 +552,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='4',name='DI',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='TE',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX13432EESD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX13432EESD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'rs485 transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX13430E-MAX13433E.pdf', 'pins':[
+        Part(**{ 'name':'MAX13432EESD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX13432EESD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'rs485 transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX13430E-MAX13433E.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMAX13432EESD\n\nrs485 transceiver', 'pins':[
             Pin(num='1',name='Vlogic',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{Z}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='~{B}',func=Pin.types.INPUT,unit=1),
@@ -567,7 +567,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Y',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX13432EETD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX13432EETD'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-14-1EP_3x3mm_P0.4mm_EP1.78x2.35mm'], 'footprint':'Package_DFN_QFN:DFN-14-1EP_3x3mm_P0.4mm_EP1.78x2.35mm', 'keywords':'rs485 transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX13430E-MAX13433E.pdf', 'pins':[
+        Part(**{ 'name':'MAX13432EETD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX13432EETD'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-14-1EP_3x3mm_P0.4mm_EP1.78x2.35mm'], 'footprint':'Package_DFN_QFN:DFN-14-1EP_3x3mm_P0.4mm_EP1.78x2.35mm', 'keywords':'rs485 transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX13430E-MAX13433E.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMAX13432EETD\n\nrs485 transceiver', 'pins':[
             Pin(num='1',name='Vlogic',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{Z}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='~{B}',func=Pin.types.INPUT,unit=1),
@@ -583,7 +583,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Y',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX14783ExS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX14783ExS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High-Speed 3.3V/5V RS-485/RS-422 Transceiver ESD 42Mbps', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX14783E.pdf', 'pins':[
+        Part(**{ 'name':'MAX14783ExS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX14783ExS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High-Speed 3.3V/5V RS-485/RS-422 Transceiver ESD 42Mbps', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX14783E.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMAX14783ExS\n\nHigh-Speed 3.3V/5V RS-485/RS-422 Transceiver ESD 42Mbps', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -592,7 +592,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX14830', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX14830'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-48-1EP_7x7mm_P0.5mm_EP5.1x5.1mm'], 'footprint':'Package_DFN_QFN:TQFN-48-1EP_7x7mm_P0.5mm_EP5.1x5.1mm', 'keywords':'UART I2C/SPI 128W FIFO IrDA SIR', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX14830.pdf', 'pins':[
+        Part(**{ 'name':'MAX14830', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX14830'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-48-1EP_7x7mm_P0.5mm_EP5.1x5.1mm'], 'footprint':'Package_DFN_QFN:TQFN-48-1EP_7x7mm_P0.5mm_EP5.1x5.1mm', 'keywords':'UART I2C/SPI 128W FIFO IrDA SIR', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX14830.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMAX14830\n\nUART I2C/SPI 128W FIFO IrDA SIR', 'pins':[
             Pin(num='1',name='SPI/~{I2C}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='GPIO0',func=Pin.types.BIDIR,unit=1),
@@ -642,7 +642,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{IRQ}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{RST}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VL',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX232', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX232'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'rs232 uart transceiver line-driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/max232.pdf', 'pins':[
+        Part(**{ 'name':'MAX232', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX232'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'rs232 uart transceiver line-driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/max232.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMAX232\n\nrs232 uart transceiver line-driver', 'pins':[
             Pin(num='1',name='C1+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='T2IN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='T1IN',func=Pin.types.INPUT,unit=1),
@@ -659,7 +659,32 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='T2OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='R2IN',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='R2OUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX3051', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX3051'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://datasheets.maximintegrated.com/en/ds/MAX3051.pdf', 'pins':[
+        Part(**{ 'name':'MAX238xWG+', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX238xWG+'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm'], 'footprint':'Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm', 'keywords':'rs232 uart transceiver line-driver', 'description':'', 'datasheet':'https://eu.mouser.com/datasheet/2/609/MAX220_MAX249-3127785.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMAX238xWG+\n\nrs232 uart transceiver line-driver', 'pins':[
+            Pin(num='1',name='T2OUT',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='10',name='C1+',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='11',name='VS+',func=Pin.types.PWROUT,unit=1),
+            Pin(num='12',name='C1-',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='13',name='C2+',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='14',name='C2-',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='15',name='VS-',func=Pin.types.PWROUT,unit=1),
+            Pin(num='16',name='R2IN',func=Pin.types.INPUT,unit=1),
+            Pin(num='17',name='R2OUT',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='18',name='T2IN',func=Pin.types.INPUT,unit=1),
+            Pin(num='19',name='T1IN',func=Pin.types.INPUT,unit=1),
+            Pin(num='2',name='T1OUT',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='20',name='T2OUT',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='21',name='T2IN',func=Pin.types.INPUT,unit=1),
+            Pin(num='22',name='R1OUT',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='23',name='R1IN',func=Pin.types.INPUT,unit=1),
+            Pin(num='24',name='T1OUT',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='3',name='R2IN',func=Pin.types.INPUT,unit=1),
+            Pin(num='4',name='R2OUT',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='5',name='T1IN',func=Pin.types.INPUT,unit=1),
+            Pin(num='6',name='R1OUT',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='7',name='R1IN',func=Pin.types.INPUT,unit=1),
+            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
+            Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'MAX3051', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX3051'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'High-Speed CAN Transceiver', 'description':'', 'datasheet':'http://datasheets.maximintegrated.com/en/ds/MAX3051.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMAX3051\n\nHigh-Speed CAN Transceiver', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -668,7 +693,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CANL',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='CANH',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RS',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX3218', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX3218'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'1Î¼A Supply Current', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX3218.pdf', 'pins':[
+        Part(**{ 'name':'MAX3218', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX3218'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'1Î¼A Supply Current', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX3218.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMAX3218\n\n1Î¼A Supply Current', 'pins':[
             Pin(num='1',name='LX',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='R2OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='R2IN',func=Pin.types.INPUT,unit=1),
@@ -689,7 +714,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='T1IN',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='T2IN',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='R1OUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX3221', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX3221'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'serial UART RS232', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/max3221.pdf', 'pins':[
+        Part(**{ 'name':'MAX3221', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX3221'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'serial UART RS232', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/max3221.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMAX3221\n\nserial UART RS232', 'pins':[
             Pin(num='1',name='~{EN}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{INVALID}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='DIN',func=Pin.types.INPUT,unit=1),
@@ -706,7 +731,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='V-',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='RIN',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='ROUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX3226', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX3226'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_5.3x6.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-16_5.3x6.2mm_P0.65mm', 'keywords':'rs232 uart transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX3224-MAX3245.pdf', 'pins':[
+        Part(**{ 'name':'MAX3226', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX3226'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_5.3x6.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-16_5.3x6.2mm_P0.65mm', 'keywords':'rs232 uart transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX3224-MAX3245.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMAX3226\n\nrs232 uart transceiver', 'pins':[
             Pin(num='1',name='READY',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='~{INVALID}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='T1IN',func=Pin.types.INPUT,unit=1),
@@ -723,14 +748,14 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='V-',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='R1IN',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='R1OUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX3284E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX3284E'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'RS-485 RS-422 True Fail-Safe Receivers 1/4 unit load receiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX3280E-MAX3284E.pdf', 'pins':[
+        Part(**{ 'name':'MAX3284E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX3284E'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'RS-485 RS-422 True Fail-Safe Receivers 1/4 unit load receiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX3280E-MAX3284E.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMAX3284E\n\nRS-485 RS-422 True Fail-Safe Receivers 1/4 unit load receiver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='4',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='VL',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='A',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX489E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX489E'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX1487E-MAX491E.pdf', 'pins':[
+        Part(**{ 'name':'MAX489E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX489E'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX1487E-MAX491E.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMAX489E\n\ntransceiver', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='Z',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='B',func=Pin.types.INPUT,unit=1),
@@ -745,7 +770,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='Y',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC6850', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC6850'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-24_W15.24mm'], 'footprint':'Package_DIP:DIP-24_W15.24mm', 'keywords':'ACIA', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheet/motorola/MC6850.pdf', 'pins':[
+        Part(**{ 'name':'MC6850', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC6850'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-24_W15.24mm'], 'footprint':'Package_DIP:DIP-24_W15.24mm', 'keywords':'ACIA', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheet/motorola/MC6850.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMC6850\n\nACIA', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='CS1',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='RS',func=Pin.types.INPUT,unit=1),
@@ -770,7 +795,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{IRQ}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='CS0',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='CS2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SC16IS740', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SC16IS740'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'UART I2C/SPI 64B FIFO IrDA SIR', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/SC16IS740_750_760.pdf', 'pins':[
+        Part(**{ 'name':'SC16IS740', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SC16IS740'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'UART I2C/SPI 64B FIFO IrDA SIR', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/SC16IS740_750_760.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nSC16IS740\n\nUART I2C/SPI 64B FIFO IrDA SIR', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RTS}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='~{CTS}',func=Pin.types.INPUT,unit=1),
@@ -787,7 +812,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{IRQ}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='I2C/~{SPI}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SC16IS750xBS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SC16IS750xBS'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:HVQFN-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm'], 'footprint':'Package_DFN_QFN:HVQFN-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'keywords':'UART I2C/SPI 64B FIFO IrDA SIR', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/SC16IS740_750_760.pdf', 'pins':[
+        Part(**{ 'name':'SC16IS750xBS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SC16IS750xBS'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:HVQFN-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm'], 'footprint':'Package_DFN_QFN:HVQFN-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'keywords':'UART I2C/SPI 64B FIFO IrDA SIR', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/SC16IS740_750_760.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nSC16IS750xBS\n\nUART I2C/SPI 64B FIFO IrDA SIR', 'pins':[
             Pin(num='1',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='~{IRQ}',func=Pin.types.OPENCOLL,unit=1),
@@ -813,7 +838,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A1/SI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='SCL/SCLK',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SC16IS750xPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SC16IS750xPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'UART I2C/SPI 64B FIFO IrDA SIR', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/SC16IS740_750_760.pdf', 'pins':[
+        Part(**{ 'name':'SC16IS750xPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SC16IS750xPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'UART I2C/SPI 64B FIFO IrDA SIR', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/SC16IS740_750_760.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nSC16IS750xPW\n\nUART I2C/SPI 64B FIFO IrDA SIR', 'pins':[
             Pin(num='1',name='~{CTS}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A1/SI',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SO',func=Pin.types.OUTPUT,unit=1),
@@ -838,7 +863,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='I2C/~{SPI}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A0/~{CS}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SC16IS752IBS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SC16IS752IBS'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:VQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'UART I2C/SPI 64B FIFO IrDA SIR', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/SC16IS752_SC16IS762.pdf', 'pins':[
+        Part(**{ 'name':'SC16IS752IBS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SC16IS752IBS'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:VQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'UART I2C/SPI 64B FIFO IrDA SIR', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/SC16IS752_SC16IS762.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nSC16IS752IBS\n\nUART I2C/SPI 64B FIFO IrDA SIR', 'pins':[
             Pin(num='1',name='RXA',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='SCL/SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SDA/VSS',func=Pin.types.BIDIR,unit=1),
@@ -872,7 +897,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A0/~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A1/SI',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='n.c./SO',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SC16IS752IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SC16IS752IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'UART I2C/SPI 64B FIFO IrDA SIR', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/SC16IS752_SC16IS762.pdf', 'pins':[
+        Part(**{ 'name':'SC16IS752IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SC16IS752IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'UART I2C/SPI 64B FIFO IrDA SIR', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/SC16IS752_SC16IS762.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nSC16IS752IPW\n\nUART I2C/SPI 64B FIFO IrDA SIR', 'pins':[
             Pin(num='1',name='~{RTSA}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='A0/~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='A1/SI',func=Pin.types.INPUT,unit=1),
@@ -901,7 +926,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTAL2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='I2C/~{SPI}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SN65HVD11HD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN65HVD11HD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'rs485 transceiver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn65hvd11-ht.pdf', 'pins':[
+        Part(**{ 'name':'SN65HVD11HD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN65HVD11HD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'rs485 transceiver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn65hvd11-ht.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nSN65HVD11HD\n\nrs485 transceiver', 'pins':[
             Pin(num='1',name='R',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -910,7 +935,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SN75LBC176D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN75LBC176D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Differential bus transceiver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn75lbc176.pdf', 'pins':[
+        Part(**{ 'name':'SN75LBC176D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN75LBC176D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Differential bus transceiver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn75lbc176.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nSN75LBC176D\n\nDifferential bus transceiver', 'pins':[
             Pin(num='1',name='R',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -919,7 +944,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SN75LBC176P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN75LBC176P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'Differential bus transceiver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn75lbc176.pdf', 'pins':[
+        Part(**{ 'name':'SN75LBC176P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN75LBC176P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'Differential bus transceiver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn75lbc176.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nSN75LBC176P\n\nDifferential bus transceiver', 'pins':[
             Pin(num='1',name='R',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -928,7 +953,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'THVD1451D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'THVD1451D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'rs485 transceiver line driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/thvd1451.pdf', 'pins':[
+        Part(**{ 'name':'THVD1451D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'THVD1451D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'rs485 transceiver line driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/thvd1451.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nTHVD1451D\n\nrs485 transceiver line driver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='R',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='D',func=Pin.types.INPUT,unit=1),
@@ -937,7 +962,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Z',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Z8530', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Z8530'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'SCC Serial Communication', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'Z8530', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Z8530'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'SCC Serial Communication', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nZ8530\n\nSCC Serial Communication', 'pins':[
             Pin(num='1',name='D1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{W/REQA}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='~{SYNCA}',func=Pin.types.BIDIR,unit=1),
@@ -978,7 +1003,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IEI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{INTACK}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'8250', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8250'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'1ch UART', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'8250', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8250'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'1ch UART', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\n8250\n\n1ch UART', 'pins':[
             Pin(num='1',name='D0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SIN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SOUT',func=Pin.types.OUTPUT,unit=1),
@@ -1018,7 +1043,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='D7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RCLK',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADM222', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADM222'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'rs232 uart transceiver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADM222_232A_242.pdf', 'pins':[
+        Part(**{ 'name':'ADM222', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADM222'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'rs232 uart transceiver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADM222_232A_242.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nADM222\n\nrs232 uart transceiver', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='R2OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='T2IN',func=Pin.types.INPUT,unit=1),
@@ -1037,7 +1062,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='V-',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='T2OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='R2IN',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADM232A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADM232A'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'rs232 uart transceiver line-driver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADM222_232A_242.pdf', 'pins':[
+        Part(**{ 'name':'ADM232A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADM232A'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'rs232 uart transceiver line-driver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADM222_232A_242.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nADM232A\n\nrs232 uart transceiver line-driver', 'pins':[
             Pin(num='1',name='C1+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='T2IN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='T1IN',func=Pin.types.INPUT,unit=1),
@@ -1054,7 +1079,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='T2OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='R2IN',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='R2OUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADM2582E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADM2582E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'RS485 Transceiver,RS422 Transceiver', 'description':'', 'datasheet':'www.analog.com/media/en/technical-documentation/data-sheets/ADM2582E_2587E.pdf', 'pins':[
+        Part(**{ 'name':'ADM2582E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADM2582E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'RS485 Transceiver,RS422 Transceiver', 'description':'', 'datasheet':'www.analog.com/media/en/technical-documentation/data-sheets/ADM2582E_2587E.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nADM2582E\n\nRS485 Transceiver,RS422 Transceiver', 'pins':[
             Pin(num='1',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='GND2',func=Pin.types.PWRIN,unit=1),
@@ -1075,7 +1100,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TxD',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND1',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADM2687E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADM2687E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x12.8mm_P1.27mm', 'keywords':'RS485 Transceiver, RS422 Transceiver, Isopower', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADM2682E_2687E.pdf', 'pins':[
+        Part(**{ 'name':'ADM2687E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADM2687E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x12.8mm_P1.27mm', 'keywords':'RS485 Transceiver, RS422 Transceiver, Isopower', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADM2682E_2687E.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nADM2687E\n\nRS485 Transceiver, RS422 Transceiver, Isopower', 'pins':[
             Pin(num='1',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VISOOUT',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='Y',func=Pin.types.OUTPUT,unit=1),
@@ -1092,7 +1117,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADM3488ExR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADM3488ExR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADM3483E_3486E_3488E_3490E_3491E.pdf', 'pins':[
+        Part(**{ 'name':'ADM3488ExR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADM3488ExR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADM3483E_3486E_3488E_3490E_3491E.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nADM3488ExR\n\nRS485 RS422 transceiver full duplex', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='DI',func=Pin.types.INPUT,unit=1),
@@ -1101,7 +1126,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Z',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADM3491ExR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADM3491ExR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADM3483E_3486E_3488E_3490E_3491E.pdf', 'pins':[
+        Part(**{ 'name':'ADM3491ExR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADM3491ExR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADM3483E_3486E_3488E_3490E_3491E.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nADM3491ExR\n\nRS485 RS422 transceiver full duplex', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='Z',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='B',func=Pin.types.INPUT,unit=1),
@@ -1116,7 +1141,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='Y',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AZ75232G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AZ75232G'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'rs232 uart transceiver line-driver', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/AZ75232.pdf', 'pins':[
+        Part(**{ 'name':'AZ75232G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AZ75232G'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'rs232 uart transceiver line-driver', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/AZ75232.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nAZ75232G\n\nrs232 uart transceiver line-driver', 'pins':[
             Pin(num='17',name='RY3',func=Pin.types.OUTPUT),
             Pin(num='18',name='RY2',func=Pin.types.OUTPUT),
             Pin(num='19',name='RY1',func=Pin.types.OUTPUT),
@@ -1137,7 +1162,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA4',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DY3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='RA5',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AZ75232GS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AZ75232GS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'rs232 uart transceiver line-driver', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/AZ75232.pdf', 'pins':[
+        Part(**{ 'name':'AZ75232GS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AZ75232GS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'rs232 uart transceiver line-driver', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/AZ75232.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nAZ75232GS\n\nrs232 uart transceiver line-driver', 'pins':[
             Pin(num='17',name='RY3',func=Pin.types.OUTPUT),
             Pin(num='18',name='RY2',func=Pin.types.OUTPUT),
             Pin(num='19',name='RY1',func=Pin.types.OUTPUT),
@@ -1158,7 +1183,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA4',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DY3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='RA5',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'GD65232DB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'GD65232DB'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'RS232 UART Driver Receiver Interface', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/gd75232.pdf', 'pins':[
+        Part(**{ 'name':'GD65232DB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'GD65232DB'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'RS232 UART Driver Receiver Interface', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/gd75232.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nGD65232DB\n\nRS232 UART Driver Receiver Interface', 'pins':[
             Pin(num='17',name='RY3',func=Pin.types.OUTPUT),
             Pin(num='18',name='RY2',func=Pin.types.OUTPUT),
             Pin(num='19',name='RY1',func=Pin.types.OUTPUT),
@@ -1179,7 +1204,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA4',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DY3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='RA5',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'GD65232DW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'GD65232DW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'RS232 UART Driver Receiver Interface', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/gd75232.pdf', 'pins':[
+        Part(**{ 'name':'GD65232DW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'GD65232DW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'RS232 UART Driver Receiver Interface', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/gd75232.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nGD65232DW\n\nRS232 UART Driver Receiver Interface', 'pins':[
             Pin(num='17',name='RY3',func=Pin.types.OUTPUT),
             Pin(num='18',name='RY2',func=Pin.types.OUTPUT),
             Pin(num='19',name='RY1',func=Pin.types.OUTPUT),
@@ -1200,7 +1225,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA4',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DY3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='RA5',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'GD65232PW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'GD65232PW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'RS232 UART Driver Receiver Interface', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/gd75232.pdf', 'pins':[
+        Part(**{ 'name':'GD65232PW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'GD65232PW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'RS232 UART Driver Receiver Interface', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/gd75232.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nGD65232PW\n\nRS232 UART Driver Receiver Interface', 'pins':[
             Pin(num='17',name='RY3',func=Pin.types.OUTPUT),
             Pin(num='18',name='RY2',func=Pin.types.OUTPUT),
             Pin(num='19',name='RY1',func=Pin.types.OUTPUT),
@@ -1221,7 +1246,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA4',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DY3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='RA5',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'GD75232DB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'GD75232DB'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'RS232 UART Driver Receiver Interface', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/gd75232.pdf', 'pins':[
+        Part(**{ 'name':'GD75232DB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'GD75232DB'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'RS232 UART Driver Receiver Interface', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/gd75232.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nGD75232DB\n\nRS232 UART Driver Receiver Interface', 'pins':[
             Pin(num='17',name='RY3',func=Pin.types.OUTPUT),
             Pin(num='18',name='RY2',func=Pin.types.OUTPUT),
             Pin(num='19',name='RY1',func=Pin.types.OUTPUT),
@@ -1242,7 +1267,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA4',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DY3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='RA5',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'GD75232DW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'GD75232DW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'RS232 UART Driver Receiver Interface', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/gd75232.pdf', 'pins':[
+        Part(**{ 'name':'GD75232DW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'GD75232DW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'RS232 UART Driver Receiver Interface', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/gd75232.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nGD75232DW\n\nRS232 UART Driver Receiver Interface', 'pins':[
             Pin(num='17',name='RY3',func=Pin.types.OUTPUT),
             Pin(num='18',name='RY2',func=Pin.types.OUTPUT),
             Pin(num='19',name='RY1',func=Pin.types.OUTPUT),
@@ -1263,7 +1288,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA4',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DY3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='RA5',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'GD75232N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'GD75232N'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'RS232 UART Driver Receiver Interface', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/gd75232.pdf', 'pins':[
+        Part(**{ 'name':'GD75232N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'GD75232N'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'RS232 UART Driver Receiver Interface', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/gd75232.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nGD75232N\n\nRS232 UART Driver Receiver Interface', 'pins':[
             Pin(num='17',name='RY3',func=Pin.types.OUTPUT),
             Pin(num='18',name='RY2',func=Pin.types.OUTPUT),
             Pin(num='19',name='RY1',func=Pin.types.OUTPUT),
@@ -1284,7 +1309,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA4',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DY3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='RA5',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'GD75232PW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'GD75232PW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'RS232 UART Driver Receiver Interface', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/gd75232.pdf', 'pins':[
+        Part(**{ 'name':'GD75232PW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'GD75232PW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'RS232 UART Driver Receiver Interface', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/gd75232.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nGD75232PW\n\nRS232 UART Driver Receiver Interface', 'pins':[
             Pin(num='17',name='RY3',func=Pin.types.OUTPUT),
             Pin(num='18',name='RY2',func=Pin.types.OUTPUT),
             Pin(num='19',name='RY1',func=Pin.types.OUTPUT),
@@ -1305,7 +1330,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA4',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DY3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='RA5',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ICL3232', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICL3232'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'rs232 uart transceiver line-driver', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/icl3/icl3221-22-23-32-41-43.pdf', 'pins':[
+        Part(**{ 'name':'ICL3232', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICL3232'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'rs232 uart transceiver line-driver', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/icl3/icl3221-22-23-32-41-43.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nICL3232\n\nrs232 uart transceiver line-driver', 'pins':[
             Pin(num='1',name='C1+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='T2IN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='T1IN',func=Pin.types.INPUT,unit=1),
@@ -1322,7 +1347,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='T2OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='R2IN',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='R2OUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO3088DW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO3088DW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'RS-485', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/iso3082.pdf', 'pins':[
+        Part(**{ 'name':'ISO3088DW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO3088DW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'RS-485', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/iso3082.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nISO3088DW\n\nRS-485', 'pins':[
             Pin(num='1',name='Vcc1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND2',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -1339,7 +1364,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LT1785AxS8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT1785AxS8'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'RS485 RS422 transceiver half duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/LT1785-1785A-1791-1791A.pdf', 'pins':[
+        Part(**{ 'name':'LT1785AxS8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT1785AxS8'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'RS485 RS422 transceiver half duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/LT1785-1785A-1791-1791A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nLT1785AxS8\n\nRS485 RS422 transceiver half duplex', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -1348,7 +1373,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LT1785xN8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT1785xN8'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'RS485 RS422 transceiver half duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/LT1785-1785A-1791-1791A.pdf', 'pins':[
+        Part(**{ 'name':'LT1785xN8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT1785xN8'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'RS485 RS422 transceiver half duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/LT1785-1785A-1791-1791A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nLT1785xN8\n\nRS485 RS422 transceiver half duplex', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -1357,7 +1382,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LT1785xS8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT1785xS8'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'RS485 RS422 transceiver half duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/LT1785-1785A-1791-1791A.pdf', 'pins':[
+        Part(**{ 'name':'LT1785xS8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT1785xS8'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'RS485 RS422 transceiver half duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/LT1785-1785A-1791-1791A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nLT1785xS8\n\nRS485 RS422 transceiver half duplex', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -1366,7 +1391,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LT1791AxN8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT1791AxN8'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/LT1785-1785A-1791-1791A.pdf', 'pins':[
+        Part(**{ 'name':'LT1791AxN8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT1791AxN8'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/LT1785-1785A-1791-1791A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nLT1791AxN8\n\nRS485 RS422 transceiver full duplex', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='Z',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='B',func=Pin.types.INPUT,unit=1),
@@ -1381,7 +1406,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='Y',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LT1791AxS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT1791AxS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/LT1785-1785A-1791-1791A.pdf', 'pins':[
+        Part(**{ 'name':'LT1791AxS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT1791AxS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/LT1785-1785A-1791-1791A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nLT1791AxS\n\nRS485 RS422 transceiver full duplex', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='Z',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='B',func=Pin.types.INPUT,unit=1),
@@ -1396,7 +1421,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='Y',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LT1791xS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT1791xS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/LT1785-1785A-1791-1791A.pdf', 'pins':[
+        Part(**{ 'name':'LT1791xS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT1791xS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/LT1785-1785A-1791-1791A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nLT1791xS\n\nRS485 RS422 transceiver full duplex', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='Z',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='B',func=Pin.types.INPUT,unit=1),
@@ -1411,7 +1436,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='Y',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2850xMS8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2850xMS8'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'RS485 RS422 transceiver half duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285012fe.pdf', 'pins':[
+        Part(**{ 'name':'LTC2850xMS8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2850xMS8'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'RS485 RS422 transceiver half duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285012fe.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nLTC2850xMS8\n\nRS485 RS422 transceiver half duplex', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -1420,7 +1445,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2856xDD-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2856xDD-1'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm', 'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm', 'keywords':'RS485 RS422 transceiver half duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285678fg.pdf', 'pins':[
+        Part(**{ 'name':'LTC2856xDD-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2856xDD-1'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm', 'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm', 'keywords':'RS485 RS422 transceiver half duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285678fg.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nLTC2856xDD-1\n\nRS485 RS422 transceiver half duplex', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -1430,7 +1455,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2856xDD-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2856xDD-2'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm', 'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm', 'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm', 'keywords':'RS485 RS422 transceiver half duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285678fg.pdf', 'pins':[
+        Part(**{ 'name':'LTC2856xDD-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2856xDD-2'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm', 'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm', 'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm', 'keywords':'RS485 RS422 transceiver half duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285678fg.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nLTC2856xDD-2\n\nRS485 RS422 transceiver half duplex', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -1440,7 +1465,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2857xDD-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2857xDD-1'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm', 'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285678fg.pdf', 'pins':[
+        Part(**{ 'name':'LTC2857xDD-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2857xDD-1'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm', 'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285678fg.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nLTC2857xDD-1\n\nRS485 RS422 transceiver full duplex', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='DI',func=Pin.types.INPUT,unit=1),
@@ -1450,7 +1475,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2857xDD-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2857xDD-2'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm', 'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm', 'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285012fe.pdf', 'pins':[
+        Part(**{ 'name':'LTC2857xDD-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2857xDD-2'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm', 'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm', 'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285012fe.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nLTC2857xDD-2\n\nRS485 RS422 transceiver full duplex', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='DI',func=Pin.types.INPUT,unit=1),
@@ -1460,7 +1485,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2857xMS8-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2857xMS8-1'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285678fg.pdf', 'pins':[
+        Part(**{ 'name':'LTC2857xMS8-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2857xMS8-1'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285678fg.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nLTC2857xMS8-1\n\nRS485 RS422 transceiver full duplex', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='DI',func=Pin.types.INPUT,unit=1),
@@ -1469,7 +1494,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Z',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2857xMS8-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2857xMS8-2'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285678fg.pdf', 'pins':[
+        Part(**{ 'name':'LTC2857xMS8-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2857xMS8-2'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285678fg.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nLTC2857xMS8-2\n\nRS485 RS422 transceiver full duplex', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='DI',func=Pin.types.INPUT,unit=1),
@@ -1478,7 +1503,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Z',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2858xDD-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2858xDD-1'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.65x2.38mm', 'Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.65x2.38mm'], 'footprint':'Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.65x2.38mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285678fg.pdf', 'pins':[
+        Part(**{ 'name':'LTC2858xDD-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2858xDD-1'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.65x2.38mm', 'Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.65x2.38mm'], 'footprint':'Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.65x2.38mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285678fg.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nLTC2858xDD-1\n\nRS485 RS422 transceiver full duplex', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -1490,7 +1515,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Z',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2858xDD-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2858xDD-2'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.65x2.38mm', 'Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.65x2.38mm', 'Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.65x2.38mm'], 'footprint':'Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.65x2.38mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285678fg.pdf', 'pins':[
+        Part(**{ 'name':'LTC2858xDD-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2858xDD-2'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.65x2.38mm', 'Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.65x2.38mm', 'Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.65x2.38mm'], 'footprint':'Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.65x2.38mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285678fg.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nLTC2858xDD-2\n\nRS485 RS422 transceiver full duplex', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -1502,7 +1527,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Z',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2858xMS-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2858xMS-1'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm', 'Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285678fg.pdf', 'pins':[
+        Part(**{ 'name':'LTC2858xMS-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2858xMS-1'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm', 'Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285678fg.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nLTC2858xMS-1\n\nRS485 RS422 transceiver full duplex', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
@@ -1513,7 +1538,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Z',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2858xMS-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2858xMS-2'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm', 'Package_SO:MSOP-10_3x3mm_P0.5mm', 'Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285678fg.pdf', 'pins':[
+        Part(**{ 'name':'LTC2858xMS-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2858xMS-2'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm', 'Package_SO:MSOP-10_3x3mm_P0.5mm', 'Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'RS485 RS422 transceiver full duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285678fg.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nLTC2858xMS-2\n\nRS485 RS422 transceiver full duplex', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
@@ -1524,7 +1549,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Z',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX13433EESD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX13433EESD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'rs485 transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX13430E-MAX13433E.pdf', 'pins':[
+        Part(**{ 'name':'MAX13433EESD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX13433EESD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'rs485 transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX13430E-MAX13433E.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMAX13433EESD\n\nrs485 transceiver', 'pins':[
             Pin(num='1',name='Vlogic',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{Z}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='~{B}',func=Pin.types.INPUT,unit=1),
@@ -1539,7 +1564,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Y',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX13433EETD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX13433EETD'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-14-1EP_3x3mm_P0.4mm_EP1.78x2.35mm', 'Package_DFN_QFN:DFN-14-1EP_3x3mm_P0.4mm_EP1.78x2.35mm'], 'footprint':'Package_DFN_QFN:DFN-14-1EP_3x3mm_P0.4mm_EP1.78x2.35mm', 'keywords':'rs485 transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX13430E-MAX13433E.pdf', 'pins':[
+        Part(**{ 'name':'MAX13433EETD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX13433EETD'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-14-1EP_3x3mm_P0.4mm_EP1.78x2.35mm', 'Package_DFN_QFN:DFN-14-1EP_3x3mm_P0.4mm_EP1.78x2.35mm'], 'footprint':'Package_DFN_QFN:DFN-14-1EP_3x3mm_P0.4mm_EP1.78x2.35mm', 'keywords':'rs485 transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX13430E-MAX13433E.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMAX13433EETD\n\nrs485 transceiver', 'pins':[
             Pin(num='1',name='Vlogic',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{Z}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='~{B}',func=Pin.types.INPUT,unit=1),
@@ -1555,7 +1580,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Y',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX202', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX202'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'rs232 uart transceiver line-driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/max202.pdf', 'pins':[
+        Part(**{ 'name':'MAX202', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX202'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'rs232 uart transceiver line-driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/max202.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMAX202\n\nrs232 uart transceiver line-driver', 'pins':[
             Pin(num='1',name='C1+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='T2IN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='T1IN',func=Pin.types.INPUT,unit=1),
@@ -1572,7 +1597,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='T2OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='R2IN',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='R2OUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX232I', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX232I'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'rs232 uart transceiver line-driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/max232.pdf', 'pins':[
+        Part(**{ 'name':'MAX232I', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX232I'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'rs232 uart transceiver line-driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/max232.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMAX232I\n\nrs232 uart transceiver line-driver', 'pins':[
             Pin(num='1',name='C1+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='T2IN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='T1IN',func=Pin.types.INPUT,unit=1),
@@ -1589,7 +1614,32 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='T2OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='R2IN',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='R2OUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX3072E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX3072E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Low Power Half-Duplex RS-485 RS-422 Transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX3070E-MAX3079E.pdf', 'pins':[
+        Part(**{ 'name':'MAX238xNG+', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX238xNG+'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm', 'Package_DIP:DIP-24_W7.62mm'], 'footprint':'Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm', 'keywords':'rs232 uart transceiver line-driver', 'description':'', 'datasheet':'https://eu.mouser.com/datasheet/2/609/MAX220_MAX249-3127785.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMAX238xNG+\n\nrs232 uart transceiver line-driver', 'pins':[
+            Pin(num='1',name='T2OUT',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='10',name='C1+',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='11',name='VS+',func=Pin.types.PWROUT,unit=1),
+            Pin(num='12',name='C1-',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='13',name='C2+',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='14',name='C2-',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='15',name='VS-',func=Pin.types.PWROUT,unit=1),
+            Pin(num='16',name='R2IN',func=Pin.types.INPUT,unit=1),
+            Pin(num='17',name='R2OUT',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='18',name='T2IN',func=Pin.types.INPUT,unit=1),
+            Pin(num='19',name='T1IN',func=Pin.types.INPUT,unit=1),
+            Pin(num='2',name='T1OUT',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='20',name='T2OUT',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='21',name='T2IN',func=Pin.types.INPUT,unit=1),
+            Pin(num='22',name='R1OUT',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='23',name='R1IN',func=Pin.types.INPUT,unit=1),
+            Pin(num='24',name='T1OUT',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='3',name='R2IN',func=Pin.types.INPUT,unit=1),
+            Pin(num='4',name='R2OUT',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='5',name='T1IN',func=Pin.types.INPUT,unit=1),
+            Pin(num='6',name='R1OUT',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='7',name='R1IN',func=Pin.types.INPUT,unit=1),
+            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
+            Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'MAX3072E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX3072E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Low Power Half-Duplex RS-485 RS-422 Transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX3070E-MAX3079E.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMAX3072E\n\nLow Power Half-Duplex RS-485 RS-422 Transceiver', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -1598,7 +1648,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX3227', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX3227'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_5.3x6.2mm_P0.65mm', 'Package_SO:SSOP-16_5.3x6.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-16_5.3x6.2mm_P0.65mm', 'keywords':'rs232 uart transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX3224-MAX3245.pdf', 'pins':[
+        Part(**{ 'name':'MAX3227', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX3227'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_5.3x6.2mm_P0.65mm', 'Package_SO:SSOP-16_5.3x6.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-16_5.3x6.2mm_P0.65mm', 'keywords':'rs232 uart transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX3224-MAX3245.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMAX3227\n\nrs232 uart transceiver', 'pins':[
             Pin(num='1',name='READY',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='~{INVALID}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='T1IN',func=Pin.types.INPUT,unit=1),
@@ -1615,7 +1665,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='V-',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='R1IN',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='R1OUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX3232', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX3232'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', ''], 'footprint':'', 'keywords':'rs232 uart transceiver line-driver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX3222-MAX3241.pdf', 'pins':[
+        Part(**{ 'name':'MAX3232', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX3232'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', ''], 'footprint':'', 'keywords':'rs232 uart transceiver line-driver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX3222-MAX3241.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMAX3232\n\nrs232 uart transceiver line-driver', 'pins':[
             Pin(num='1',name='C1+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='T2IN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='T1IN',func=Pin.types.INPUT,unit=1),
@@ -1632,7 +1682,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='T2OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='R2IN',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='R2OUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX3485', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX3485'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', ''], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'RS-485 RS-422 UART line-driver transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX3483-MAX3491.pdf', 'pins':[
+        Part(**{ 'name':'MAX3485', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX3485'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', ''], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'RS-485 RS-422 UART line-driver transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX3483-MAX3491.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMAX3485\n\nRS-485 RS-422 UART line-driver transceiver', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -1641,7 +1691,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX3488xPA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX3488xPA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'transceiver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/MAX3483-MAX3491.pdf', 'pins':[
+        Part(**{ 'name':'MAX3488xPA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX3488xPA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'transceiver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/MAX3483-MAX3491.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMAX3488xPA\n\ntransceiver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='DI',func=Pin.types.INPUT,unit=1),
@@ -1650,7 +1700,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Z',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX3488xSA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX3488xSA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'transceiver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/MAX3483-MAX3491.pdf', 'pins':[
+        Part(**{ 'name':'MAX3488xSA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX3488xSA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'transceiver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/MAX3483-MAX3491.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMAX3488xSA\n\ntransceiver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='DI',func=Pin.types.INPUT,unit=1),
@@ -1659,7 +1709,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Z',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX3490xPA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX3490xPA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'transceiver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/MAX3483-MAX3491.pdf', 'pins':[
+        Part(**{ 'name':'MAX3490xPA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX3490xPA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'transceiver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/MAX3483-MAX3491.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMAX3490xPA\n\ntransceiver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='DI',func=Pin.types.INPUT,unit=1),
@@ -1668,7 +1718,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Z',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX3490xSA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX3490xSA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'transceiver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/MAX3483-MAX3491.pdf', 'pins':[
+        Part(**{ 'name':'MAX3490xSA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX3490xSA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'transceiver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/MAX3483-MAX3491.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMAX3490xSA\n\ntransceiver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='DI',func=Pin.types.INPUT,unit=1),
@@ -1677,7 +1727,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Z',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX481E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX481E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', ''], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX1487E-MAX491E.pdf', 'pins':[
+        Part(**{ 'name':'MAX481E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX481E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', ''], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX1487E-MAX491E.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMAX481E\n\ntransceiver', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -1686,7 +1736,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX488E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX488E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', ''], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX1487E-MAX491E.pdf', 'pins':[
+        Part(**{ 'name':'MAX488E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX488E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', ''], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX1487E-MAX491E.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMAX488E\n\ntransceiver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='DI',func=Pin.types.INPUT,unit=1),
@@ -1695,7 +1745,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Z',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX490E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX490E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', ''], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX1487E-MAX491E.pdf', 'pins':[
+        Part(**{ 'name':'MAX490E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX490E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', ''], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX1487E-MAX491E.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMAX490E\n\ntransceiver', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='DI',func=Pin.types.INPUT,unit=1),
@@ -1704,7 +1754,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Z',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX491E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX491E'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX1487E-MAX491E.pdf', 'pins':[
+        Part(**{ 'name':'MAX491E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX491E'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX1487E-MAX491E.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMAX491E\n\ntransceiver', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='Z',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='B',func=Pin.types.INPUT,unit=1),
@@ -1719,7 +1769,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='Y',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC68A50', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68A50'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-24_W15.24mm', 'Package_DIP:DIP-24_W15.24mm'], 'footprint':'Package_DIP:DIP-24_W15.24mm', 'keywords':'ACIA', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheet/motorola/MC6850.pdf', 'pins':[
+        Part(**{ 'name':'MC68A50', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68A50'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-24_W15.24mm', 'Package_DIP:DIP-24_W15.24mm'], 'footprint':'Package_DIP:DIP-24_W15.24mm', 'keywords':'ACIA', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheet/motorola/MC6850.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMC68A50\n\nACIA', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='CS1',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='RS',func=Pin.types.INPUT,unit=1),
@@ -1744,7 +1794,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{IRQ}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='CS0',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='CS2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC68B50', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68B50'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-24_W15.24mm', 'Package_DIP:DIP-24_W15.24mm', 'Package_DIP:DIP-24_W15.24mm'], 'footprint':'Package_DIP:DIP-24_W15.24mm', 'keywords':'ACIA', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheet/motorola/MC6850.pdf', 'pins':[
+        Part(**{ 'name':'MC68B50', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68B50'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-24_W15.24mm', 'Package_DIP:DIP-24_W15.24mm', 'Package_DIP:DIP-24_W15.24mm'], 'footprint':'Package_DIP:DIP-24_W15.24mm', 'keywords':'ACIA', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheet/motorola/MC6850.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMC68B50\n\nACIA', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='CS1',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='RS',func=Pin.types.INPUT,unit=1),
@@ -1769,7 +1819,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{IRQ}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='CS0',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='CS2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SC16IS760xBS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SC16IS760xBS'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:HVQFN-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'Package_DFN_QFN:HVQFN-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm'], 'footprint':'Package_DFN_QFN:HVQFN-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'keywords':'UART I2C/SPI 64B FIFO IrDA SIR', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/SC16IS740_750_760.pdf', 'pins':[
+        Part(**{ 'name':'SC16IS760xBS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SC16IS760xBS'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:HVQFN-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'Package_DFN_QFN:HVQFN-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm'], 'footprint':'Package_DFN_QFN:HVQFN-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'keywords':'UART I2C/SPI 64B FIFO IrDA SIR', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/SC16IS740_750_760.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nSC16IS760xBS\n\nUART I2C/SPI 64B FIFO IrDA SIR', 'pins':[
             Pin(num='1',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='~{IRQ}',func=Pin.types.OPENCOLL,unit=1),
@@ -1795,7 +1845,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A1/SI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='SCL/SCLK',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SC16IS760xPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SC16IS760xPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'UART I2C/SPI 64B FIFO IrDA SIR', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/SC16IS740_750_760.pdf', 'pins':[
+        Part(**{ 'name':'SC16IS760xPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SC16IS760xPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'UART I2C/SPI 64B FIFO IrDA SIR', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/SC16IS740_750_760.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nSC16IS760xPW\n\nUART I2C/SPI 64B FIFO IrDA SIR', 'pins':[
             Pin(num='1',name='~{CTS}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A1/SI',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SO',func=Pin.types.OUTPUT,unit=1),
@@ -1820,7 +1870,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='I2C/~{SPI}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A0/~{CS}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SC16IS762IBS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SC16IS762IBS'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:VQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:VQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'UART I2C/SPI 64B FIFO IrDA SIR', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/SC16IS752_SC16IS762.pdf', 'pins':[
+        Part(**{ 'name':'SC16IS762IBS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SC16IS762IBS'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'Package_DFN_QFN:VQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:VQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'UART I2C/SPI 64B FIFO IrDA SIR', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/SC16IS752_SC16IS762.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nSC16IS762IBS\n\nUART I2C/SPI 64B FIFO IrDA SIR', 'pins':[
             Pin(num='1',name='RXA',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='SCL/SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SDA/VSS',func=Pin.types.BIDIR,unit=1),
@@ -1854,7 +1904,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A0/~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A1/SI',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='n.c./SO',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SC16IS762IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SC16IS762IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'UART I2C/SPI 64B FIFO IrDA SIR', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/SC16IS752_SC16IS762.pdf', 'pins':[
+        Part(**{ 'name':'SC16IS762IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SC16IS762IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'UART I2C/SPI 64B FIFO IrDA SIR', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/SC16IS752_SC16IS762.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nSC16IS762IPW\n\nUART I2C/SPI 64B FIFO IrDA SIR', 'pins':[
             Pin(num='1',name='~{RTSA}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='A0/~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='A1/SI',func=Pin.types.INPUT,unit=1),
@@ -1883,7 +1933,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTAL2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='I2C/~{SPI}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SN65LBC176D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN65LBC176D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Differential bus transceiver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn75lbc176.pdf', 'pins':[
+        Part(**{ 'name':'SN65LBC176D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN65LBC176D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Differential bus transceiver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn75lbc176.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nSN65LBC176D\n\nDifferential bus transceiver', 'pins':[
             Pin(num='1',name='R',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -1892,7 +1942,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SN65LBC176P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN65LBC176P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'Differential bus transceiver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn75lbc176.pdf', 'pins':[
+        Part(**{ 'name':'SN65LBC176P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN65LBC176P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'Differential bus transceiver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn75lbc176.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nSN65LBC176P\n\nDifferential bus transceiver', 'pins':[
             Pin(num='1',name='R',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -1901,7 +1951,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SN65LBC176QD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN65LBC176QD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Differential bus transceiver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn75lbc176.pdf', 'pins':[
+        Part(**{ 'name':'SN65LBC176QD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN65LBC176QD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Differential bus transceiver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn75lbc176.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nSN65LBC176QD\n\nDifferential bus transceiver', 'pins':[
             Pin(num='1',name='R',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -1910,7 +1960,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SN65LBC176QDR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN65LBC176QDR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Differential bus transceiver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn75lbc176.pdf', 'pins':[
+        Part(**{ 'name':'SN65LBC176QDR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN65LBC176QDR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Differential bus transceiver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn75lbc176.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nSN65LBC176QDR\n\nDifferential bus transceiver', 'pins':[
             Pin(num='1',name='R',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -1919,7 +1969,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SN75176AD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN75176AD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Differential bus transceiver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn75176a.pdf', 'pins':[
+        Part(**{ 'name':'SN75176AD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN75176AD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Differential bus transceiver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn75176a.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nSN75176AD\n\nDifferential bus transceiver', 'pins':[
             Pin(num='1',name='R',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -1928,7 +1978,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SN75176AP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN75176AP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'Differential bus transceiver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn75176a.pdf', 'pins':[
+        Part(**{ 'name':'SN75176AP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SN75176AP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'Differential bus transceiver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn75176a.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nSN75176AP\n\nDifferential bus transceiver', 'pins':[
             Pin(num='1',name='R',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -1937,7 +1987,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SNJ55LBC176JG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SNJ55LBC176JG'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'Differential bus transceiver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn75lbc176.pdf', 'pins':[
+        Part(**{ 'name':'SNJ55LBC176JG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SNJ55LBC176JG'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'Differential bus transceiver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/sn75lbc176.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nSNJ55LBC176JG\n\nDifferential bus transceiver', 'pins':[
             Pin(num='1',name='R',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -1946,7 +1996,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SP3481CN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SP3481CN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', ''], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Low Power Half-Duplex RS-485 Transceiver 10Mbps', 'description':'', 'datasheet':'http://www.icbase.com/pdf/SPX/SPX00480106.pdf', 'pins':[
+        Part(**{ 'name':'SP3481CN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SP3481CN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', ''], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Low Power Half-Duplex RS-485 Transceiver 10Mbps', 'description':'', 'datasheet':'http://www.icbase.com/pdf/SPX/SPX00480106.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nSP3481CN\n\nLow Power Half-Duplex RS-485 Transceiver 10Mbps', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -1955,7 +2005,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SP3481CP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SP3481CP'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', ''], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Low Power Half-Duplex RS-485 Transceiver 10Mbps', 'description':'', 'datasheet':'http://www.icbase.com/pdf/SPX/SPX00480106.pdf', 'pins':[
+        Part(**{ 'name':'SP3481CP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SP3481CP'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', ''], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Low Power Half-Duplex RS-485 Transceiver 10Mbps', 'description':'', 'datasheet':'http://www.icbase.com/pdf/SPX/SPX00480106.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nSP3481CP\n\nLow Power Half-Duplex RS-485 Transceiver 10Mbps', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -1964,7 +2014,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SP3485CN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SP3485CN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Low Power Half-Duplex RS-485 Transceiver 10Mbps', 'description':'', 'datasheet':'http://www.icbase.com/pdf/SPX/SPX00480106.pdf', 'pins':[
+        Part(**{ 'name':'SP3485CN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SP3485CN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Low Power Half-Duplex RS-485 Transceiver 10Mbps', 'description':'', 'datasheet':'http://www.icbase.com/pdf/SPX/SPX00480106.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nSP3485CN\n\nLow Power Half-Duplex RS-485 Transceiver 10Mbps', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -1973,7 +2023,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SP3485CP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SP3485CP'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Low Power Half-Duplex RS-485 Transceiver 10Mbps', 'description':'', 'datasheet':'http://www.icbase.com/pdf/SPX/SPX00480106.pdf', 'pins':[
+        Part(**{ 'name':'SP3485CP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SP3485CP'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Low Power Half-Duplex RS-485 Transceiver 10Mbps', 'description':'', 'datasheet':'http://www.icbase.com/pdf/SPX/SPX00480106.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nSP3485CP\n\nLow Power Half-Duplex RS-485 Transceiver 10Mbps', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -1982,7 +2032,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SP3485EN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SP3485EN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Low Power Half-Duplex RS-485 Transceiver 10Mbps', 'description':'', 'datasheet':'http://www.icbase.com/pdf/SPX/SPX00480106.pdf', 'pins':[
+        Part(**{ 'name':'SP3485EN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SP3485EN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Low Power Half-Duplex RS-485 Transceiver 10Mbps', 'description':'', 'datasheet':'http://www.icbase.com/pdf/SPX/SPX00480106.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nSP3485EN\n\nLow Power Half-Duplex RS-485 Transceiver 10Mbps', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -1991,7 +2041,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SP3485EP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SP3485EP'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Low Power Half-Duplex RS-485 Transceiver 10Mbps', 'description':'', 'datasheet':'http://www.icbase.com/pdf/SPX/SPX00480106.pdf', 'pins':[
+        Part(**{ 'name':'SP3485EP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SP3485EP'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Low Power Half-Duplex RS-485 Transceiver 10Mbps', 'description':'', 'datasheet':'http://www.icbase.com/pdf/SPX/SPX00480106.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nSP3485EP\n\nLow Power Half-Duplex RS-485 Transceiver 10Mbps', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -2000,7 +2050,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SSP3085', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SSP3085'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'RS485 RS422 transceiver half duplex Siproin', 'description':'', 'datasheet':'https://www.lcsc.com/datasheet/lcsc_datasheet_2404071515_Shanghai-Siproin-Microelectronics-SSP3085_C410986.pdf', 'pins':[
+        Part(**{ 'name':'SSP3085', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SSP3085'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'RS485 RS422 transceiver half duplex Siproin', 'description':'', 'datasheet':'https://www.lcsc.com/datasheet/lcsc_datasheet_2404071515_Shanghai-Siproin-Microelectronics-SSP3085_C410986.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nSSP3085\n\nRS485 RS422 transceiver half duplex Siproin', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -2009,7 +2059,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ST485E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ST485E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'ST-Microelectronics half-duplex', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/st485eb.pdf', 'pins':[
+        Part(**{ 'name':'ST485E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ST485E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'ST-Microelectronics half-duplex', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/st485eb.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nST485E\n\nST-Microelectronics half-duplex', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -2018,7 +2068,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LT1785AxN8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT1785AxN8'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'RS485 RS422 transceiver half duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/LT1785-1785A-1791-1791A.pdf', 'pins':[
+        Part(**{ 'name':'LT1785AxN8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT1785AxN8'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'RS485 RS422 transceiver half duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/LT1785-1785A-1791-1791A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nLT1785AxN8\n\nRS485 RS422 transceiver half duplex', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -2027,7 +2077,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2856xMS8-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2856xMS8-1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'RS485 RS422 transceiver half duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285678fg.pdf', 'pins':[
+        Part(**{ 'name':'LTC2856xMS8-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2856xMS8-1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'RS485 RS422 transceiver half duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285678fg.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nLTC2856xMS8-1\n\nRS485 RS422 transceiver half duplex', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -2036,7 +2086,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2856xMS8-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2856xMS8-2'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'RS485 RS422 transceiver half duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285678fg.pdf', 'pins':[
+        Part(**{ 'name':'LTC2856xMS8-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2856xMS8-2'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'RS485 RS422 transceiver half duplex', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/285678fg.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nLTC2856xMS8-2\n\nRS485 RS422 transceiver half duplex', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -2045,7 +2095,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX1487E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX1487E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', ''], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX1487E-MAX491E.pdf', 'pins':[
+        Part(**{ 'name':'MAX1487E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX1487E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', ''], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX1487E-MAX491E.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMAX1487E\n\ntransceiver', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -2054,7 +2104,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX3075E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX3075E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Low Power Half-Duplex RS-485 RS-422 Transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX3070E-MAX3079E.pdf', 'pins':[
+        Part(**{ 'name':'MAX3075E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX3075E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Low Power Half-Duplex RS-485 RS-422 Transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX3070E-MAX3079E.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMAX3075E\n\nLow Power Half-Duplex RS-485 RS-422 Transceiver', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -2063,7 +2113,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX3078E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX3078E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Low Power Half-Duplex RS-485 RS-422 Transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX3070E-MAX3079E.pdf', 'pins':[
+        Part(**{ 'name':'MAX3078E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX3078E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Low Power Half-Duplex RS-485 RS-422 Transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX3070E-MAX3079E.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMAX3078E\n\nLow Power Half-Duplex RS-485 RS-422 Transceiver', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -2072,7 +2122,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX3483', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX3483'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', ''], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'RS-485 RS-422 UART line-driver transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX3483-MAX3491.pdf', 'pins':[
+        Part(**{ 'name':'MAX3483', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX3483'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', ''], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'RS-485 RS-422 UART line-driver transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX3483-MAX3491.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMAX3483\n\nRS-485 RS-422 UART line-driver transceiver', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -2081,7 +2131,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX3486', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX3486'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', ''], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'RS-485 RS-422 UART line-driver transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX3483-MAX3491.pdf', 'pins':[
+        Part(**{ 'name':'MAX3486', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX3486'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', ''], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'RS-485 RS-422 UART line-driver transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX3483-MAX3491.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMAX3486\n\nRS-485 RS-422 UART line-driver transceiver', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -2090,7 +2140,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX483E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX483E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', '', ''], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX1487E-MAX491E.pdf', 'pins':[
+        Part(**{ 'name':'MAX483E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX483E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', '', ''], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX1487E-MAX491E.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMAX483E\n\ntransceiver', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -2099,7 +2149,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX485E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX485E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', '', '', ''], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX1487E-MAX491E.pdf', 'pins':[
+        Part(**{ 'name':'MAX485E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX485E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', '', '', ''], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX1487E-MAX491E.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMAX485E\n\ntransceiver', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -2108,7 +2158,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX487E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX487E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', '', '', '', ''], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX1487E-MAX491E.pdf', 'pins':[
+        Part(**{ 'name':'MAX487E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX487E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', '', '', '', ''], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'transceiver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX1487E-MAX491E.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nMAX487E\n\ntransceiver', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -2117,7 +2167,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SP3481EN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SP3481EN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', '', '', '', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Low Power Half-Duplex RS-485 Transceiver 10Mbps', 'description':'', 'datasheet':'http://www.icbase.com/pdf/SPX/SPX00480106.pdf', 'pins':[
+        Part(**{ 'name':'SP3481EN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SP3481EN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', '', '', '', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Low Power Half-Duplex RS-485 Transceiver 10Mbps', 'description':'', 'datasheet':'http://www.icbase.com/pdf/SPX/SPX00480106.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nSP3481EN\n\nLow Power Half-Duplex RS-485 Transceiver 10Mbps', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -2126,7 +2176,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SP3481EP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SP3481EP'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', '', '', '', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Low Power Half-Duplex RS-485 Transceiver 10Mbps', 'description':'', 'datasheet':'http://www.icbase.com/pdf/SPX/SPX00480106.pdf', 'pins':[
+        Part(**{ 'name':'SP3481EP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SP3481EP'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', '', '', '', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Low Power Half-Duplex RS-485 Transceiver 10Mbps', 'description':'', 'datasheet':'http://www.icbase.com/pdf/SPX/SPX00480106.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nSP3481EP\n\nLow Power Half-Duplex RS-485 Transceiver 10Mbps', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -2135,7 +2185,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'THVD1400D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'THVD1400D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', '', '', '', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Half duplex 3.3V 5V RS-485 RS-422', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/thvd1420.pdf', 'pins':[
+        Part(**{ 'name':'THVD1400D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'THVD1400D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', '', '', '', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Half duplex 3.3V 5V RS-485 RS-422', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/thvd1420.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nTHVD1400D\n\nHalf duplex 3.3V 5V RS-485 RS-422', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -2144,7 +2194,7 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'THVD1420D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'THVD1420D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', '', '', '', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Half duplex 3.3V 5V RS-485 RS-422', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/thvd1420.pdf', 'pins':[
+        Part(**{ 'name':'THVD1420D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'THVD1420D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', '', '', '', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Half duplex 3.3V 5V RS-485 RS-422', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/thvd1420.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nTHVD1420D\n\nHalf duplex 3.3V 5V RS-485 RS-422', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
@@ -2153,7 +2203,25 @@ Interface_UART = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'THVD1500', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'THVD1500'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', '', '', '', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Half duplex 4.5V 5.5V RS-485', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/thvd1500.pdf', 'pins':[
+        Part(**{ 'name':'THVD1450D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'THVD1450D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', '', '', '', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'tranceiver rs485 esd', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/thvd1450.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nTHVD1450D\n\ntranceiver rs485 esd', 'pins':[
+            Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
+            Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
+            Pin(num='4',name='DI',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=1),
+            Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'THVD1500', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'THVD1500'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', '', '', '', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Half duplex 4.5V 5.5V RS-485', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/thvd1500.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nTHVD1500\n\nHalf duplex 4.5V 5.5V RS-485', 'pins':[
+            Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
+            Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),
+            Pin(num='4',name='DI',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=1),
+            Pin(num='6',name='A',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='B',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'THVD1450DR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'THVD1450DR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', '', '', '', '', '', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SON:VSON-8-1EP_3x3mm_P0.65mm_EP1.6x2.4mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'tranceiver rs485 esd', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/thvd1450.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_UART.kicad_sym\nTHVD1450DR\n\ntranceiver rs485 esd', 'pins':[
             Pin(num='1',name='RO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{RE}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DE',func=Pin.types.INPUT,unit=1),

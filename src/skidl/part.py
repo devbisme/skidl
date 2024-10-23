@@ -262,10 +262,11 @@ class Part(SkidlBaseObject):
         self.associate_pins()
 
         # If any unit definitions were passed in, then make units.
-        for unit_def in kwargs.pop("unit_defs", []):
-            self.make_unit(
-                unit_def["label"], *unit_def["pin_nums"], unit=unit_def["num"]
-            )
+        # FIXME: make_unit takes too long because of filtering pin lists.
+        # for unit_def in kwargs.pop("unit_defs", []):
+        #     self.make_unit(
+        #         unit_def["label"], *unit_def["pin_nums"], unit=unit_def["num"]
+        #     )
 
         # Add any other passed-in attributes to the part.
         for k, v in list(kwargs.items()):

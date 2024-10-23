@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 MCU_Microchip_8051 = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'AT89C2051-12P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT89C2051-12P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'MCS-51 8bit Flash Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc0368.pdf', 'pins':[
+        Part(**{ 'name':'AT89C2051-12P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT89C2051-12P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'MCS-51 8bit Flash Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc0368.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_8051.kicad_sym\nAT89C2051-12P\n\nMCS-51 8bit Flash Microcontroller', 'pins':[
             Pin(num='1',name='RST/VPP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='P3.7',func=Pin.types.BIDIR,unit=1),
@@ -25,7 +25,7 @@ MCU_Microchip_8051 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P3.3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P3.4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT89C2051-12S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT89C2051-12S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'MCS-51 8bit Flash Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc0368.pdf', 'pins':[
+        Part(**{ 'name':'AT89C2051-12S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT89C2051-12S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'MCS-51 8bit Flash Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc0368.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_8051.kicad_sym\nAT89C2051-12S\n\nMCS-51 8bit Flash Microcontroller', 'pins':[
             Pin(num='1',name='RST/VPP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='P3.7',func=Pin.types.BIDIR,unit=1),
@@ -46,7 +46,7 @@ MCU_Microchip_8051 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P3.3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P3.4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT89x51xxA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT89x51xxA'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Microcontroller 8051 TQFP', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/doc2487.pdf', 'pins':[
+        Part(**{ 'name':'AT89x51xxA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT89x51xxA'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Microcontroller 8051 TQFP', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/doc2487.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_8051.kicad_sym\nAT89x51xxA\n\nMicrocontroller 8051 TQFP', 'pins':[
             Pin(num='42',name='P1.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='1',name='P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P3.4',func=Pin.types.BIDIR,unit=1),
@@ -91,7 +91,7 @@ MCU_Microchip_8051 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P3.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P3.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT89x51xxJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT89x51xxJ'}), 'ref_prefix':'U', 'fplist':['Package_LCC:PLCC-44'], 'footprint':'Package_LCC:PLCC-44', 'keywords':'Microcontroller 8051 PLCC', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/doc2487.pdf', 'pins':[
+        Part(**{ 'name':'AT89x51xxJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT89x51xxJ'}), 'ref_prefix':'U', 'fplist':['Package_LCC:PLCC-44'], 'footprint':'Package_LCC:PLCC-44', 'keywords':'Microcontroller 8051 PLCC', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/doc2487.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_8051.kicad_sym\nAT89x51xxJ\n\nMicrocontroller 8051 PLCC', 'pins':[
             Pin(num='4',name='P1.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='RST',func=Pin.types.INPUT,unit=1),
@@ -136,7 +136,7 @@ MCU_Microchip_8051 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P1.7/SCK',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT89x51xxP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT89x51xxP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Microcontroller 8051 DIP', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/doc2487.pdf', 'pins':[
+        Part(**{ 'name':'AT89x51xxP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT89x51xxP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'Microcontroller 8051 DIP', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/doc2487.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_8051.kicad_sym\nAT89x51xxP\n\nMicrocontroller 8051 DIP', 'pins':[
             Pin(num='3',name='P1.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='1',name='P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P3.0',func=Pin.types.BIDIR,unit=1),
@@ -177,7 +177,7 @@ MCU_Microchip_8051 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P1.7/SCK',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RST',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT89C2051-24P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT89C2051-24P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'MCS-51 8bit Flash Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc0368.pdf', 'pins':[
+        Part(**{ 'name':'AT89C2051-24P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT89C2051-24P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'MCS-51 8bit Flash Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc0368.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_8051.kicad_sym\nAT89C2051-24P\n\nMCS-51 8bit Flash Microcontroller', 'pins':[
             Pin(num='1',name='RST/VPP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='P3.7',func=Pin.types.BIDIR,unit=1),
@@ -198,7 +198,7 @@ MCU_Microchip_8051 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P3.3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P3.4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT89C2051-24S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT89C2051-24S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'MCS-51 8bit Flash Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc0368.pdf', 'pins':[
+        Part(**{ 'name':'AT89C2051-24S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT89C2051-24S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'MCS-51 8bit Flash Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc0368.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_8051.kicad_sym\nAT89C2051-24S\n\nMCS-51 8bit Flash Microcontroller', 'pins':[
             Pin(num='1',name='RST/VPP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='P3.7',func=Pin.types.BIDIR,unit=1),
@@ -219,7 +219,7 @@ MCU_Microchip_8051 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P3.3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P3.4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT89C4051-12P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT89C4051-12P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'MCS-51 8bit Flash Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc1001.pdf', 'pins':[
+        Part(**{ 'name':'AT89C4051-12P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT89C4051-12P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'MCS-51 8bit Flash Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc1001.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_8051.kicad_sym\nAT89C4051-12P\n\nMCS-51 8bit Flash Microcontroller', 'pins':[
             Pin(num='1',name='RST/VPP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='P3.7',func=Pin.types.BIDIR,unit=1),
@@ -240,7 +240,7 @@ MCU_Microchip_8051 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P3.3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P3.4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT89C4051-12S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT89C4051-12S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'MCS-51 8bit Flash Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc1001.pdf', 'pins':[
+        Part(**{ 'name':'AT89C4051-12S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT89C4051-12S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'MCS-51 8bit Flash Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc1001.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_8051.kicad_sym\nAT89C4051-12S\n\nMCS-51 8bit Flash Microcontroller', 'pins':[
             Pin(num='1',name='RST/VPP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='P3.7',func=Pin.types.BIDIR,unit=1),
@@ -261,7 +261,7 @@ MCU_Microchip_8051 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P3.3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P3.4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT89C4051-24P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT89C4051-24P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'MCS-51 8bit Flash Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc1001.pdf', 'pins':[
+        Part(**{ 'name':'AT89C4051-24P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT89C4051-24P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'MCS-51 8bit Flash Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc1001.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_8051.kicad_sym\nAT89C4051-24P\n\nMCS-51 8bit Flash Microcontroller', 'pins':[
             Pin(num='1',name='RST/VPP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='P3.7',func=Pin.types.BIDIR,unit=1),
@@ -282,7 +282,7 @@ MCU_Microchip_8051 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P3.3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P3.4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT89C4051-24S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT89C4051-24S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'MCS-51 8bit Flash Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc1001.pdf', 'pins':[
+        Part(**{ 'name':'AT89C4051-24S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT89C4051-24S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'MCS-51 8bit Flash Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc1001.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_8051.kicad_sym\nAT89C4051-24S\n\nMCS-51 8bit Flash Microcontroller', 'pins':[
             Pin(num='1',name='RST/VPP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='P3.7',func=Pin.types.BIDIR,unit=1),
@@ -303,7 +303,7 @@ MCU_Microchip_8051 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P3.3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P3.4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT89S2051-24P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT89S2051-24P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'MCS-51 8bit Flash Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc3390.pdf', 'pins':[
+        Part(**{ 'name':'AT89S2051-24P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT89S2051-24P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'MCS-51 8bit Flash Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc3390.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_8051.kicad_sym\nAT89S2051-24P\n\nMCS-51 8bit Flash Microcontroller', 'pins':[
             Pin(num='1',name='RST/VPP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='P3.7',func=Pin.types.BIDIR,unit=1),
@@ -324,7 +324,7 @@ MCU_Microchip_8051 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P3.3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P3.4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT89S2051-24S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT89S2051-24S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'MCS-51 8bit Flash Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc3390.pdf', 'pins':[
+        Part(**{ 'name':'AT89S2051-24S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT89S2051-24S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'MCS-51 8bit Flash Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc3390.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_8051.kicad_sym\nAT89S2051-24S\n\nMCS-51 8bit Flash Microcontroller', 'pins':[
             Pin(num='1',name='RST/VPP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='P3.7',func=Pin.types.BIDIR,unit=1),
@@ -345,7 +345,7 @@ MCU_Microchip_8051 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P3.3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P3.4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT89S4051-24P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT89S4051-24P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'MCS-51 8bit Flash Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc3390.pdf', 'pins':[
+        Part(**{ 'name':'AT89S4051-24P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT89S4051-24P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'MCS-51 8bit Flash Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc3390.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_8051.kicad_sym\nAT89S4051-24P\n\nMCS-51 8bit Flash Microcontroller', 'pins':[
             Pin(num='1',name='RST/VPP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='P3.7',func=Pin.types.BIDIR,unit=1),
@@ -366,7 +366,7 @@ MCU_Microchip_8051 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P3.3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P3.4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT89S4051-24S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT89S4051-24S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'MCS-51 8bit Flash Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc3390.pdf', 'pins':[
+        Part(**{ 'name':'AT89S4051-24S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT89S4051-24S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'MCS-51 8bit Flash Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc3390.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_8051.kicad_sym\nAT89S4051-24S\n\nMCS-51 8bit Flash Microcontroller', 'pins':[
             Pin(num='1',name='RST/VPP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='P3.7',func=Pin.types.BIDIR,unit=1),

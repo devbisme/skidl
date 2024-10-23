@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'ATM90E26-YU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATM90E26-YU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'energy metering sensor', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/Atmel-46002-SE-M90E26-Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATM90E26-YU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATM90E26-YU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'energy metering sensor', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/Atmel-46002-SE-M90E26-Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nATM90E26-YU\n\nenergy metering sensor', 'pins':[
             Pin(num='1',name='MMD1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='I1P',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='I1N',func=Pin.types.INPUT,unit=1),
@@ -33,7 +33,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I2P',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='I2N',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DGND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'INA219AxD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'INA219AxD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'ADC I2C 16-Bit Oversampling Current Shunt', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ina219.pdf', 'pins':[
+        Part(**{ 'name':'INA219AxD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'INA219AxD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'ADC I2C 16-Bit Oversampling Current Shunt', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ina219.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nINA219AxD\n\nADC I2C 16-Bit Oversampling Current Shunt', 'pins':[
             Pin(num='1',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SDA',func=Pin.types.BIDIR,unit=1),
@@ -42,7 +42,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='IN-',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='IN+',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'INA219AxDCN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'INA219AxDCN'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-8'], 'footprint':'Package_TO_SOT_SMD:SOT-23-8', 'keywords':'ADC I2C 16-Bit Oversampling Current Shunt', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ina219.pdf', 'pins':[
+        Part(**{ 'name':'INA219AxDCN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'INA219AxDCN'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-8'], 'footprint':'Package_TO_SOT_SMD:SOT-23-8', 'keywords':'ADC I2C 16-Bit Oversampling Current Shunt', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ina219.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nINA219AxDCN\n\nADC I2C 16-Bit Oversampling Current Shunt', 'pins':[
             Pin(num='1',name='IN+',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='IN-',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -51,7 +51,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'INA226', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'INA226'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:VSSOP-10_3x3mm_P0.5mm', 'keywords':'ADC I2C 16-Bit Oversampling Current Shunt', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ina226.pdf', 'pins':[
+        Part(**{ 'name':'INA226', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'INA226'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:VSSOP-10_3x3mm_P0.5mm', 'keywords':'ADC I2C 16-Bit Oversampling Current Shunt', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ina226.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nINA226\n\nADC I2C 16-Bit Oversampling Current Shunt', 'pins':[
             Pin(num='1',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Vin+',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='A0',func=Pin.types.INPUT,unit=1),
@@ -62,7 +62,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Vbus',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='Vin-',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC4151xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC4151xMS'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'I2C Current Monitor', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/4151ff.pdf', 'pins':[
+        Part(**{ 'name':'LTC4151xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC4151xMS'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'I2C Current Monitor', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/4151ff.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nLTC4151xMS\n\nI2C Current Monitor', 'pins':[
             Pin(num='1',name='SENSE+',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='SENSE-',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='VIN',func=Pin.types.PWRIN,unit=1),
@@ -73,7 +73,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='~{SHDN}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP39F521', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP39F521'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_5x5mm_P0.5mm_EP3.35x3.35mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_5x5mm_P0.5mm_EP3.35x3.35mm', 'keywords':'i2c power monitor', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005442A.pdf', 'pins':[
+        Part(**{ 'name':'MCP39F521', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP39F521'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_5x5mm_P0.5mm_EP3.35x3.35mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_5x5mm_P0.5mm_EP3.35x3.35mm', 'keywords':'i2c power monitor', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005442A.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nMCP39F521\n\ni2c power monitor', 'pins':[
             Pin(num='1',name='EVENT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='AVDD',func=Pin.types.PWRIN,unit=1),
@@ -103,7 +103,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OSCO',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAC1931x-xJ6CX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1931x-xJ6CX'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm'], 'footprint':'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC1931-Family-Data-Sheet-DS20005850E.pdf', 'pins':[
+        Part(**{ 'name':'PAC1931x-xJ6CX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1931x-xJ6CX'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm'], 'footprint':'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC1931-Family-Data-Sheet-DS20005850E.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nPAC1931x-xJ6CX\n\nPower Monitor I2C', 'pins':[
             Pin(num='A1',name='GND',func=Pin.types.PASSIVE),
             Pin(num='A2',name='SENSE1-',func=Pin.types.INPUT),
             Pin(num='A3',name='SENSE1+',func=Pin.types.INPUT),
@@ -120,7 +120,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='D2',name='GND',func=Pin.types.PASSIVE),
             Pin(num='D3',name='GND',func=Pin.types.PASSIVE),
             Pin(num='D4',name='SDA',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAC1932x-xJ6CX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1932x-xJ6CX'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm'], 'footprint':'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC1931-Family-Data-Sheet-DS20005850E.pdf', 'pins':[
+        Part(**{ 'name':'PAC1932x-xJ6CX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1932x-xJ6CX'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm'], 'footprint':'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC1931-Family-Data-Sheet-DS20005850E.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nPAC1932x-xJ6CX\n\nPower Monitor I2C', 'pins':[
             Pin(num='A1',name='SENSE2+',func=Pin.types.INPUT),
             Pin(num='A2',name='SENSE1-',func=Pin.types.INPUT),
             Pin(num='A3',name='SENSE1+',func=Pin.types.INPUT),
@@ -137,7 +137,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='D2',name='GND',func=Pin.types.PASSIVE),
             Pin(num='D3',name='GND',func=Pin.types.PASSIVE),
             Pin(num='D4',name='SDA',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAC1932x-xJQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1932x-xJQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:UQFN-16-1EP_4x4mm_P0.65mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:UQFN-16-1EP_4x4mm_P0.65mm_EP2.6x2.6mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC1931-Family-Data-Sheet-DS20005850E.pdf', 'pins':[
+        Part(**{ 'name':'PAC1932x-xJQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1932x-xJQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:UQFN-16-1EP_4x4mm_P0.65mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:UQFN-16-1EP_4x4mm_P0.65mm_EP2.6x2.6mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC1931-Family-Data-Sheet-DS20005850E.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nPAC1932x-xJQ\n\nPower Monitor I2C', 'pins':[
             Pin(num='1',name='SLOW',func=Pin.types.INPUT),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE),
             Pin(num='11',name='SENSE1+',func=Pin.types.INPUT),
@@ -155,7 +155,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE),
             Pin(num='8',name='GND',func=Pin.types.PASSIVE),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAC1933x-xJ6CX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1933x-xJ6CX'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm'], 'footprint':'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC1931-Family-Data-Sheet-DS20005850E.pdf', 'pins':[
+        Part(**{ 'name':'PAC1933x-xJ6CX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1933x-xJ6CX'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm'], 'footprint':'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC1931-Family-Data-Sheet-DS20005850E.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nPAC1933x-xJ6CX\n\nPower Monitor I2C', 'pins':[
             Pin(num='A1',name='SENSE2+',func=Pin.types.INPUT),
             Pin(num='A2',name='SENSE1-',func=Pin.types.INPUT),
             Pin(num='A3',name='SENSE1+',func=Pin.types.INPUT),
@@ -172,7 +172,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='D2',name='GND',func=Pin.types.PASSIVE),
             Pin(num='D3',name='GND',func=Pin.types.PASSIVE),
             Pin(num='D4',name='SDA',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAC1933x-xJQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1933x-xJQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:UQFN-16-1EP_4x4mm_P0.65mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:UQFN-16-1EP_4x4mm_P0.65mm_EP2.6x2.6mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC1931-Family-Data-Sheet-DS20005850E.pdf', 'pins':[
+        Part(**{ 'name':'PAC1933x-xJQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1933x-xJQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:UQFN-16-1EP_4x4mm_P0.65mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:UQFN-16-1EP_4x4mm_P0.65mm_EP2.6x2.6mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC1931-Family-Data-Sheet-DS20005850E.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nPAC1933x-xJQ\n\nPower Monitor I2C', 'pins':[
             Pin(num='1',name='SLOW',func=Pin.types.INPUT),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE),
             Pin(num='11',name='SENSE1+',func=Pin.types.INPUT),
@@ -190,7 +190,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SENSE3-',func=Pin.types.INPUT),
             Pin(num='8',name='SENSE3+',func=Pin.types.INPUT),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAC1934x-xJ6CX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1934x-xJ6CX'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm'], 'footprint':'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC1931-Family-Data-Sheet-DS20005850E.pdf', 'pins':[
+        Part(**{ 'name':'PAC1934x-xJ6CX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1934x-xJ6CX'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm'], 'footprint':'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC1931-Family-Data-Sheet-DS20005850E.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nPAC1934x-xJ6CX\n\nPower Monitor I2C', 'pins':[
             Pin(num='A1',name='SENSE2+',func=Pin.types.INPUT),
             Pin(num='A2',name='SENSE1-',func=Pin.types.INPUT),
             Pin(num='A3',name='SENSE1+',func=Pin.types.INPUT),
@@ -207,7 +207,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='D2',name='SENSE4-',func=Pin.types.INPUT),
             Pin(num='D3',name='SENSE4+',func=Pin.types.INPUT),
             Pin(num='D4',name='SDA',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAC1934x-xJQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1934x-xJQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:UQFN-16-1EP_4x4mm_P0.65mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:UQFN-16-1EP_4x4mm_P0.65mm_EP2.6x2.6mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC1931-Family-Data-Sheet-DS20005850E.pdf', 'pins':[
+        Part(**{ 'name':'PAC1934x-xJQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1934x-xJQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:UQFN-16-1EP_4x4mm_P0.65mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:UQFN-16-1EP_4x4mm_P0.65mm_EP2.6x2.6mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC1931-Family-Data-Sheet-DS20005850E.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nPAC1934x-xJQ\n\nPower Monitor I2C', 'pins':[
             Pin(num='1',name='SLOW',func=Pin.types.INPUT),
             Pin(num='10',name='SENSE4+',func=Pin.types.INPUT),
             Pin(num='11',name='SENSE1+',func=Pin.types.INPUT),
@@ -225,7 +225,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SENSE3-',func=Pin.types.INPUT),
             Pin(num='8',name='SENSE3+',func=Pin.types.INPUT),
             Pin(num='9',name='SENSE4-',func=Pin.types.INPUT)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAC1951x-1x-4MX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1951x-1x-4MX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm'], 'footprint':'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC195X-Data-Sheet-20006539.pdf', 'pins':[
+        Part(**{ 'name':'PAC1951x-1x-4MX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1951x-1x-4MX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm'], 'footprint':'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC195X-Data-Sheet-20006539.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nPAC1951x-1x-4MX\n\nPower Monitor I2C', 'pins':[
             Pin(num='1',name='SLOW',func=Pin.types.INPUT),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE),
             Pin(num='11',name='SENSE1+',func=Pin.types.INPUT),
@@ -243,7 +243,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE),
             Pin(num='8',name='GND',func=Pin.types.PASSIVE),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAC1951x-1x-J6CX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1951x-1x-J6CX'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm'], 'footprint':'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC195X-Data-Sheet-20006539.pdf', 'pins':[
+        Part(**{ 'name':'PAC1951x-1x-J6CX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1951x-1x-J6CX'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm'], 'footprint':'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC195X-Data-Sheet-20006539.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nPAC1951x-1x-J6CX\n\nPower Monitor I2C', 'pins':[
             Pin(num='A1',name='GND',func=Pin.types.PASSIVE),
             Pin(num='A2',name='SENSE1-',func=Pin.types.INPUT),
             Pin(num='A3',name='SENSE1+',func=Pin.types.INPUT),
@@ -260,7 +260,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='D2',name='GND',func=Pin.types.PASSIVE),
             Pin(num='D3',name='GND',func=Pin.types.PASSIVE),
             Pin(num='D4',name='SDA',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAC1951x-2x-4MX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1951x-2x-4MX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm'], 'footprint':'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC195X-Data-Sheet-20006539.pdf', 'pins':[
+        Part(**{ 'name':'PAC1951x-2x-4MX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1951x-2x-4MX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm'], 'footprint':'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC195X-Data-Sheet-20006539.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nPAC1951x-2x-4MX\n\nPower Monitor I2C', 'pins':[
             Pin(num='1',name='SLOW',func=Pin.types.INPUT),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE),
             Pin(num='11',name='SENSE1+',func=Pin.types.INPUT),
@@ -278,7 +278,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE),
             Pin(num='8',name='GND',func=Pin.types.PASSIVE),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAC1951x-2x-J6CX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1951x-2x-J6CX'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm'], 'footprint':'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC195X-Data-Sheet-20006539.pdf', 'pins':[
+        Part(**{ 'name':'PAC1951x-2x-J6CX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1951x-2x-J6CX'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm'], 'footprint':'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC195X-Data-Sheet-20006539.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nPAC1951x-2x-J6CX\n\nPower Monitor I2C', 'pins':[
             Pin(num='A1',name='V_{BUS1+}',func=Pin.types.INPUT),
             Pin(num='A2',name='SENSE1-',func=Pin.types.INPUT),
             Pin(num='A3',name='SENSE1+',func=Pin.types.INPUT),
@@ -295,7 +295,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='D2',name='GND',func=Pin.types.PASSIVE),
             Pin(num='D3',name='GND',func=Pin.types.PASSIVE),
             Pin(num='D4',name='SDA',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAC1952x-1x-4MX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1952x-1x-4MX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm'], 'footprint':'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC195X-Data-Sheet-20006539.pdf', 'pins':[
+        Part(**{ 'name':'PAC1952x-1x-4MX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1952x-1x-4MX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm'], 'footprint':'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC195X-Data-Sheet-20006539.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nPAC1952x-1x-4MX\n\nPower Monitor I2C', 'pins':[
             Pin(num='1',name='SLOW',func=Pin.types.INPUT),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE),
             Pin(num='11',name='SENSE1+',func=Pin.types.INPUT),
@@ -313,7 +313,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE),
             Pin(num='8',name='GND',func=Pin.types.PASSIVE),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAC1952x-1x-J6CX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1952x-1x-J6CX'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm'], 'footprint':'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC195X-Data-Sheet-20006539.pdf', 'pins':[
+        Part(**{ 'name':'PAC1952x-1x-J6CX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1952x-1x-J6CX'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm'], 'footprint':'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC195X-Data-Sheet-20006539.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nPAC1952x-1x-J6CX\n\nPower Monitor I2C', 'pins':[
             Pin(num='A1',name='SENSE2+',func=Pin.types.INPUT),
             Pin(num='A2',name='SENSE1-',func=Pin.types.INPUT),
             Pin(num='A3',name='SENSE1+',func=Pin.types.INPUT),
@@ -330,7 +330,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='D2',name='GND',func=Pin.types.PASSIVE),
             Pin(num='D3',name='GND',func=Pin.types.PASSIVE),
             Pin(num='D4',name='SDA',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAC1952x-2x-4MX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1952x-2x-4MX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm'], 'footprint':'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC195X-Data-Sheet-20006539.pdf', 'pins':[
+        Part(**{ 'name':'PAC1952x-2x-4MX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1952x-2x-4MX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm'], 'footprint':'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC195X-Data-Sheet-20006539.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nPAC1952x-2x-4MX\n\nPower Monitor I2C', 'pins':[
             Pin(num='1',name='SLOW',func=Pin.types.INPUT),
             Pin(num='10',name='SENSE2+',func=Pin.types.INPUT),
             Pin(num='11',name='SENSE1+',func=Pin.types.INPUT),
@@ -348,7 +348,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='V_{BUS2-}',func=Pin.types.INPUT),
             Pin(num='8',name='V_{BUS2+}',func=Pin.types.INPUT),
             Pin(num='9',name='SENSE2-',func=Pin.types.INPUT)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAC1952x-2x-J6CX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1952x-2x-J6CX'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm'], 'footprint':'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC195X-Data-Sheet-20006539.pdf', 'pins':[
+        Part(**{ 'name':'PAC1952x-2x-J6CX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1952x-2x-J6CX'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm'], 'footprint':'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC195X-Data-Sheet-20006539.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nPAC1952x-2x-J6CX\n\nPower Monitor I2C', 'pins':[
             Pin(num='A1',name='V_{BUS1+}',func=Pin.types.INPUT),
             Pin(num='A2',name='SENSE1-',func=Pin.types.INPUT),
             Pin(num='A3',name='SENSE1+',func=Pin.types.INPUT),
@@ -365,7 +365,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='D2',name='SENSE2-',func=Pin.types.INPUT),
             Pin(num='D3',name='SENSE2+',func=Pin.types.INPUT),
             Pin(num='D4',name='SDA',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAC1953x-x4MX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1953x-x4MX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm'], 'footprint':'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC195X-Data-Sheet-20006539.pdf', 'pins':[
+        Part(**{ 'name':'PAC1953x-x4MX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1953x-x4MX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm'], 'footprint':'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC195X-Data-Sheet-20006539.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nPAC1953x-x4MX\n\nPower Monitor I2C', 'pins':[
             Pin(num='1',name='SLOW',func=Pin.types.INPUT),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE),
             Pin(num='11',name='SENSE1+',func=Pin.types.INPUT),
@@ -383,7 +383,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SENSE3-',func=Pin.types.INPUT),
             Pin(num='8',name='SENSE3+',func=Pin.types.INPUT),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAC1953x-xJ6CX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1953x-xJ6CX'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm'], 'footprint':'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC195X-Data-Sheet-20006539.pdf', 'pins':[
+        Part(**{ 'name':'PAC1953x-xJ6CX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1953x-xJ6CX'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm'], 'footprint':'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC195X-Data-Sheet-20006539.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nPAC1953x-xJ6CX\n\nPower Monitor I2C', 'pins':[
             Pin(num='A1',name='SENSE2+',func=Pin.types.INPUT),
             Pin(num='A2',name='SENSE1-',func=Pin.types.INPUT),
             Pin(num='A3',name='SENSE1+',func=Pin.types.INPUT),
@@ -400,7 +400,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='D2',name='GND',func=Pin.types.PASSIVE),
             Pin(num='D3',name='GND',func=Pin.types.PASSIVE),
             Pin(num='D4',name='SDA',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAC1954x-x4MX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1954x-x4MX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm'], 'footprint':'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC195X-Data-Sheet-20006539.pdf', 'pins':[
+        Part(**{ 'name':'PAC1954x-x4MX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1954x-x4MX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm'], 'footprint':'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC195X-Data-Sheet-20006539.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nPAC1954x-x4MX\n\nPower Monitor I2C', 'pins':[
             Pin(num='1',name='SLOW',func=Pin.types.INPUT),
             Pin(num='10',name='SENSE4+',func=Pin.types.INPUT),
             Pin(num='11',name='SENSE1+',func=Pin.types.INPUT),
@@ -418,7 +418,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SENSE3-',func=Pin.types.INPUT),
             Pin(num='8',name='SENSE3+',func=Pin.types.INPUT),
             Pin(num='9',name='SENSE4-',func=Pin.types.INPUT)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAC1954x-xJ6CX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1954x-xJ6CX'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm'], 'footprint':'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC195X-Data-Sheet-20006539.pdf', 'pins':[
+        Part(**{ 'name':'PAC1954x-xJ6CX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1954x-xJ6CX'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm'], 'footprint':'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC195X-Data-Sheet-20006539.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nPAC1954x-xJ6CX\n\nPower Monitor I2C', 'pins':[
             Pin(num='A1',name='SENSE2+',func=Pin.types.INPUT),
             Pin(num='A2',name='SENSE1-',func=Pin.types.INPUT),
             Pin(num='A3',name='SENSE1+',func=Pin.types.INPUT),
@@ -435,7 +435,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='D2',name='SENSE4-',func=Pin.types.INPUT),
             Pin(num='D3',name='SENSE4+',func=Pin.types.INPUT),
             Pin(num='D4',name='SDA',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'INA219BxD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'INA219BxD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'ADC I2C 16-Bit Oversampling Current Shunt', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ina219.pdf', 'pins':[
+        Part(**{ 'name':'INA219BxD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'INA219BxD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'ADC I2C 16-Bit Oversampling Current Shunt', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ina219.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nINA219BxD\n\nADC I2C 16-Bit Oversampling Current Shunt', 'pins':[
             Pin(num='1',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SDA',func=Pin.types.BIDIR,unit=1),
@@ -444,7 +444,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='IN-',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='IN+',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'INA219BxDCN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'INA219BxDCN'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-8', 'Package_TO_SOT_SMD:SOT-23-8'], 'footprint':'Package_TO_SOT_SMD:SOT-23-8', 'keywords':'ADC I2C 16-Bit Oversampling Current Shunt', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ina219.pdf', 'pins':[
+        Part(**{ 'name':'INA219BxDCN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'INA219BxDCN'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-8', 'Package_TO_SOT_SMD:SOT-23-8'], 'footprint':'Package_TO_SOT_SMD:SOT-23-8', 'keywords':'ADC I2C 16-Bit Oversampling Current Shunt', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ina219.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nINA219BxDCN\n\nADC I2C 16-Bit Oversampling Current Shunt', 'pins':[
             Pin(num='1',name='IN+',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='IN-',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -453,7 +453,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'INA233', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'INA233'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-10_3x3mm_P0.5mm', 'Package_SO:VSSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:VSSOP-10_3x3mm_P0.5mm', 'keywords':'ADC I2C 16-Bit Oversampling Current Shunt', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/ina233.pdf', 'pins':[
+        Part(**{ 'name':'INA233', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'INA233'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-10_3x3mm_P0.5mm', 'Package_SO:VSSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:VSSOP-10_3x3mm_P0.5mm', 'keywords':'ADC I2C 16-Bit Oversampling Current Shunt', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/ina233.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nINA233\n\nADC I2C 16-Bit Oversampling Current Shunt', 'pins':[
             Pin(num='1',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Vin+',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='A0',func=Pin.types.INPUT,unit=1),
@@ -464,7 +464,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Vbus',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='Vin-',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAC1941x-1x-4MX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1941x-1x-4MX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm', 'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm'], 'footprint':'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC194X-Data-Sheet-20006543.pdf', 'pins':[
+        Part(**{ 'name':'PAC1941x-1x-4MX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1941x-1x-4MX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm', 'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm'], 'footprint':'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC194X-Data-Sheet-20006543.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nPAC1941x-1x-4MX\n\nPower Monitor I2C', 'pins':[
             Pin(num='1',name='SLOW',func=Pin.types.INPUT),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE),
             Pin(num='11',name='SENSE1+',func=Pin.types.INPUT),
@@ -482,7 +482,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE),
             Pin(num='8',name='GND',func=Pin.types.PASSIVE),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAC1941x-1x-J6CX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1941x-1x-J6CX'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm'], 'footprint':'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC194X-Data-Sheet-20006543.pdf', 'pins':[
+        Part(**{ 'name':'PAC1941x-1x-J6CX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1941x-1x-J6CX'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm'], 'footprint':'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC194X-Data-Sheet-20006543.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nPAC1941x-1x-J6CX\n\nPower Monitor I2C', 'pins':[
             Pin(num='A1',name='GND',func=Pin.types.PASSIVE),
             Pin(num='A2',name='SENSE1-',func=Pin.types.INPUT),
             Pin(num='A3',name='SENSE1+',func=Pin.types.INPUT),
@@ -499,7 +499,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='D2',name='GND',func=Pin.types.PASSIVE),
             Pin(num='D3',name='GND',func=Pin.types.PASSIVE),
             Pin(num='D4',name='SDA',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAC1941x-2x-4MX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1941x-2x-4MX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm', 'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm'], 'footprint':'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC194X-Data-Sheet-20006543.pdf', 'pins':[
+        Part(**{ 'name':'PAC1941x-2x-4MX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1941x-2x-4MX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm', 'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm'], 'footprint':'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC194X-Data-Sheet-20006543.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nPAC1941x-2x-4MX\n\nPower Monitor I2C', 'pins':[
             Pin(num='1',name='SLOW',func=Pin.types.INPUT),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE),
             Pin(num='11',name='SENSE1+',func=Pin.types.INPUT),
@@ -517,7 +517,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE),
             Pin(num='8',name='GND',func=Pin.types.PASSIVE),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAC1941x-2x-J6CX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1941x-2x-J6CX'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm'], 'footprint':'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC194X-Data-Sheet-20006543.pdf', 'pins':[
+        Part(**{ 'name':'PAC1941x-2x-J6CX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1941x-2x-J6CX'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm'], 'footprint':'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC194X-Data-Sheet-20006543.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nPAC1941x-2x-J6CX\n\nPower Monitor I2C', 'pins':[
             Pin(num='A1',name='V_{BUS1+}',func=Pin.types.INPUT),
             Pin(num='A2',name='SENSE1-',func=Pin.types.INPUT),
             Pin(num='A3',name='SENSE1+',func=Pin.types.INPUT),
@@ -534,7 +534,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='D2',name='GND',func=Pin.types.PASSIVE),
             Pin(num='D3',name='GND',func=Pin.types.PASSIVE),
             Pin(num='D4',name='SDA',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAC1942x-1x-4MX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1942x-1x-4MX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm', 'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm'], 'footprint':'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC194X-Data-Sheet-20006543.pdf', 'pins':[
+        Part(**{ 'name':'PAC1942x-1x-4MX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1942x-1x-4MX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm', 'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm'], 'footprint':'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC194X-Data-Sheet-20006543.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nPAC1942x-1x-4MX\n\nPower Monitor I2C', 'pins':[
             Pin(num='1',name='SLOW',func=Pin.types.INPUT),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE),
             Pin(num='11',name='SENSE1+',func=Pin.types.INPUT),
@@ -552,7 +552,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE),
             Pin(num='8',name='GND',func=Pin.types.PASSIVE),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAC1942x-1x-J6CX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1942x-1x-J6CX'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm'], 'footprint':'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC194X-Data-Sheet-20006543.pdf', 'pins':[
+        Part(**{ 'name':'PAC1942x-1x-J6CX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1942x-1x-J6CX'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm'], 'footprint':'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC194X-Data-Sheet-20006543.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nPAC1942x-1x-J6CX\n\nPower Monitor I2C', 'pins':[
             Pin(num='A1',name='SENSE2+',func=Pin.types.INPUT),
             Pin(num='A2',name='SENSE1-',func=Pin.types.INPUT),
             Pin(num='A3',name='SENSE1+',func=Pin.types.INPUT),
@@ -569,7 +569,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='D2',name='GND',func=Pin.types.PASSIVE),
             Pin(num='D3',name='GND',func=Pin.types.PASSIVE),
             Pin(num='D4',name='SDA',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAC1942x-2x-4MX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1942x-2x-4MX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm', 'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm'], 'footprint':'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC194X-Data-Sheet-20006543.pdf', 'pins':[
+        Part(**{ 'name':'PAC1942x-2x-4MX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1942x-2x-4MX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm', 'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm'], 'footprint':'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC194X-Data-Sheet-20006543.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nPAC1942x-2x-4MX\n\nPower Monitor I2C', 'pins':[
             Pin(num='1',name='SLOW',func=Pin.types.INPUT),
             Pin(num='10',name='SENSE2+',func=Pin.types.INPUT),
             Pin(num='11',name='SENSE1+',func=Pin.types.INPUT),
@@ -587,7 +587,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='V_{BUS2-}',func=Pin.types.INPUT),
             Pin(num='8',name='V_{BUS2+}',func=Pin.types.INPUT),
             Pin(num='9',name='SENSE2-',func=Pin.types.INPUT)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAC1942x-2x-J6CX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1942x-2x-J6CX'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm'], 'footprint':'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC194X-Data-Sheet-20006543.pdf', 'pins':[
+        Part(**{ 'name':'PAC1942x-2x-J6CX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1942x-2x-J6CX'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm'], 'footprint':'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC194X-Data-Sheet-20006543.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nPAC1942x-2x-J6CX\n\nPower Monitor I2C', 'pins':[
             Pin(num='A1',name='V_{BUS1+}',func=Pin.types.INPUT),
             Pin(num='A2',name='SENSE1-',func=Pin.types.INPUT),
             Pin(num='A3',name='SENSE1+',func=Pin.types.INPUT),
@@ -604,7 +604,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='D2',name='SENSE2-',func=Pin.types.INPUT),
             Pin(num='D3',name='SENSE2+',func=Pin.types.INPUT),
             Pin(num='D4',name='SDA',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAC1943x-x4MX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1943x-x4MX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm', 'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm'], 'footprint':'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC194X-Data-Sheet-20006543.pdf', 'pins':[
+        Part(**{ 'name':'PAC1943x-x4MX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1943x-x4MX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm', 'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm'], 'footprint':'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC194X-Data-Sheet-20006543.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nPAC1943x-x4MX\n\nPower Monitor I2C', 'pins':[
             Pin(num='1',name='SLOW',func=Pin.types.INPUT),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE),
             Pin(num='11',name='SENSE1+',func=Pin.types.INPUT),
@@ -622,7 +622,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SENSE3-',func=Pin.types.INPUT),
             Pin(num='8',name='SENSE3+',func=Pin.types.INPUT),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAC1943x-xJ6CX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1943x-xJ6CX'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm'], 'footprint':'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC194X-Data-Sheet-20006543.pdf', 'pins':[
+        Part(**{ 'name':'PAC1943x-xJ6CX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1943x-xJ6CX'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm'], 'footprint':'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC194X-Data-Sheet-20006543.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nPAC1943x-xJ6CX\n\nPower Monitor I2C', 'pins':[
             Pin(num='A1',name='SENSE2+',func=Pin.types.INPUT),
             Pin(num='A2',name='SENSE1-',func=Pin.types.INPUT),
             Pin(num='A3',name='SENSE1+',func=Pin.types.INPUT),
@@ -639,7 +639,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='D2',name='GND',func=Pin.types.PASSIVE),
             Pin(num='D3',name='GND',func=Pin.types.PASSIVE),
             Pin(num='D4',name='SDA',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAC1944x-x4MX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1944x-x4MX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm', 'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm'], 'footprint':'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC194X-Data-Sheet-20006543.pdf', 'pins':[
+        Part(**{ 'name':'PAC1944x-x4MX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1944x-x4MX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm', 'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm'], 'footprint':'Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.1x1.1mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC194X-Data-Sheet-20006543.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nPAC1944x-x4MX\n\nPower Monitor I2C', 'pins':[
             Pin(num='1',name='SLOW',func=Pin.types.INPUT),
             Pin(num='10',name='SENSE4+',func=Pin.types.INPUT),
             Pin(num='11',name='SENSE1+',func=Pin.types.INPUT),
@@ -657,7 +657,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SENSE3-',func=Pin.types.INPUT),
             Pin(num='8',name='SENSE3+',func=Pin.types.INPUT),
             Pin(num='9',name='SENSE4-',func=Pin.types.INPUT)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAC1944x-xJ6CX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1944x-xJ6CX'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm'], 'footprint':'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC194X-Data-Sheet-20006543.pdf', 'pins':[
+        Part(**{ 'name':'PAC1944x-xJ6CX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAC1944x-xJ6CX'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm'], 'footprint':'Package_CSP:WLCSP-16_2.225x2.17mm_P0.5mm', 'keywords':'Power Monitor I2C', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PAC194X-Data-Sheet-20006543.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nPAC1944x-xJ6CX\n\nPower Monitor I2C', 'pins':[
             Pin(num='A1',name='SENSE2+',func=Pin.types.INPUT),
             Pin(num='A2',name='SENSE1-',func=Pin.types.INPUT),
             Pin(num='A3',name='SENSE1+',func=Pin.types.INPUT),
@@ -674,7 +674,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='D2',name='SENSE4-',func=Pin.types.INPUT),
             Pin(num='D3',name='SENSE4+',func=Pin.types.INPUT),
             Pin(num='D4',name='SDA',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'INA228', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'INA228'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-10_3x3mm_P0.5mm', 'Package_SO:VSSOP-10_3x3mm_P0.5mm', 'Package_SO:VSSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:VSSOP-10_3x3mm_P0.5mm', 'keywords':'ADC I2C 20-Bit Oversampling Current Shunt', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/ina228.pdf', 'pins':[
+        Part(**{ 'name':'INA228', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'INA228'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-10_3x3mm_P0.5mm', 'Package_SO:VSSOP-10_3x3mm_P0.5mm', 'Package_SO:VSSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:VSSOP-10_3x3mm_P0.5mm', 'keywords':'ADC I2C 20-Bit Oversampling Current Shunt', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/ina228.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nINA228\n\nADC I2C 20-Bit Oversampling Current Shunt', 'pins':[
             Pin(num='1',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Vin+',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='A0',func=Pin.types.INPUT,unit=1),
@@ -685,7 +685,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Vbus',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='Vin-',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'INA237', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'INA237'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-10_3x3mm_P0.5mm', 'Package_SO:VSSOP-10_3x3mm_P0.5mm', 'Package_SO:VSSOP-10_3x3mm_P0.5mm', 'Package_SO:VSSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:VSSOP-10_3x3mm_P0.5mm', 'keywords':'ADC I2C 16-Bit Oversampling Current Shunt', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/ina237.pdf', 'pins':[
+        Part(**{ 'name':'INA237', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'INA237'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-10_3x3mm_P0.5mm', 'Package_SO:VSSOP-10_3x3mm_P0.5mm', 'Package_SO:VSSOP-10_3x3mm_P0.5mm', 'Package_SO:VSSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:VSSOP-10_3x3mm_P0.5mm', 'keywords':'ADC I2C 16-Bit Oversampling Current Shunt', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/ina237.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nINA237\n\nADC I2C 16-Bit Oversampling Current Shunt', 'pins':[
             Pin(num='1',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Vin+',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='A0',func=Pin.types.INPUT,unit=1),
@@ -696,7 +696,7 @@ Sensor_Energy = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Vbus',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='Vin-',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'INA238', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'INA238'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-10_3x3mm_P0.5mm', 'Package_SO:VSSOP-10_3x3mm_P0.5mm', 'Package_SO:VSSOP-10_3x3mm_P0.5mm', 'Package_SO:VSSOP-10_3x3mm_P0.5mm', 'Package_SO:VSSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:VSSOP-10_3x3mm_P0.5mm', 'keywords':'ADC I2C 16-Bit Oversampling Current Shunt', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/ina238.pdf', 'pins':[
+        Part(**{ 'name':'INA238', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'INA238'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-10_3x3mm_P0.5mm', 'Package_SO:VSSOP-10_3x3mm_P0.5mm', 'Package_SO:VSSOP-10_3x3mm_P0.5mm', 'Package_SO:VSSOP-10_3x3mm_P0.5mm', 'Package_SO:VSSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:VSSOP-10_3x3mm_P0.5mm', 'keywords':'ADC I2C 16-Bit Oversampling Current Shunt', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/ina238.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Energy.kicad_sym\nINA238\n\nADC I2C 16-Bit Oversampling Current Shunt', 'pins':[
             Pin(num='1',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Vin+',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='A0',func=Pin.types.INPUT,unit=1),

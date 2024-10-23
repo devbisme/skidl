@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Display_Graphic = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'AG12864E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AG12864E'}), 'ref_prefix':'DS', 'fplist':['Display:AG12864E'], 'footprint':'Display:AG12864E', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'https://www.digchip.com/datasheets/parts/datasheet/1121/AG-12864E-pdf.php', 'pins':[
+        Part(**{ 'name':'AG12864E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AG12864E'}), 'ref_prefix':'DS', 'fplist':['Display:AG12864E'], 'footprint':'Display:AG12864E', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'https://www.digchip.com/datasheets/parts/datasheet/1121/AG-12864E-pdf.php', 'search_text':'/usr/share/kicad/symbols/Display_Graphic.kicad_sym\nAG12864E\n\ndisplay LCD graphic', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='DB7',func=Pin.types.BIDIR,unit=1),
@@ -25,7 +25,7 @@ Display_Graphic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='DB5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EA_DOGL128X-6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_DOGL128X-6'}), 'ref_prefix':'U', 'fplist':['Display:EA_DOGL128-6'], 'footprint':'Display:EA_DOGL128-6', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'https://www.lcd-module.com/eng/pdf/grafik/dogl128-6e.pdf', 'pins':[
+        Part(**{ 'name':'EA_DOGL128X-6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_DOGL128X-6'}), 'ref_prefix':'U', 'fplist':['Display:EA_DOGL128-6'], 'footprint':'Display:EA_DOGL128-6', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'https://www.lcd-module.com/eng/pdf/grafik/dogl128-6e.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Graphic.kicad_sym\nEA_DOGL128X-6\n\ndisplay LCD graphic', 'pins':[
             Pin(num='1',name='A1+',func=Pin.types.PWRIN,unit=1),
             Pin(num='18',name='C1-',func=Pin.types.PWRIN,unit=1),
             Pin(num='19',name='C2-',func=Pin.types.PWRIN,unit=1),
@@ -52,7 +52,7 @@ Display_Graphic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='38',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='39',name='~{RST}',func=Pin.types.INPUT,unit=1),
             Pin(num='40',name='~{CS1B}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EA_DOGM128X-6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_DOGM128X-6'}), 'ref_prefix':'U', 'fplist':['Display:EA_DOGM128-6'], 'footprint':'Display:EA_DOGM128-6', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'https://www.lcd-module.de/eng/pdf/grafik/dogm128e.pdf', 'pins':[
+        Part(**{ 'name':'EA_DOGM128X-6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_DOGM128X-6'}), 'ref_prefix':'U', 'fplist':['Display:EA_DOGM128-6'], 'footprint':'Display:EA_DOGM128-6', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'https://www.lcd-module.de/eng/pdf/grafik/dogm128e.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Graphic.kicad_sym\nEA_DOGM128X-6\n\ndisplay LCD graphic', 'pins':[
             Pin(num='1',name='A1+',func=Pin.types.PWRIN,unit=1),
             Pin(num='18',name='C1-',func=Pin.types.PWRIN,unit=1),
             Pin(num='19',name='C2-',func=Pin.types.PWRIN,unit=1),
@@ -79,7 +79,7 @@ Display_Graphic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='38',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='39',name='~{RST}',func=Pin.types.INPUT,unit=1),
             Pin(num='40',name='~{CS1B}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EA_DOGS104B-A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_DOGS104B-A'}), 'ref_prefix':'U', 'fplist':['Display:EA_DOGS104X-A'], 'footprint':'Display:EA_DOGS104X-A', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/doma/dogs104e.pdf', 'pins':[
+        Part(**{ 'name':'EA_DOGS104B-A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_DOGS104B-A'}), 'ref_prefix':'U', 'fplist':['Display:EA_DOGS104X-A'], 'footprint':'Display:EA_DOGS104X-A', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/doma/dogs104e.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Graphic.kicad_sym\nEA_DOGS104B-A\n\ndisplay LCD graphic', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='VOUT',func=Pin.types.OUTPUT,unit=1),
@@ -94,7 +94,7 @@ Display_Graphic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='20',name='~{RST}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EA_DOGXL160-7', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_DOGXL160-7'}), 'ref_prefix':'U', 'fplist':['Display:EA_DOGXL160-7'], 'footprint':'Display:EA_DOGXL160-7', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/eng/pdf/grafik/dogxl160-7e.pdf', 'pins':[
+        Part(**{ 'name':'EA_DOGXL160-7', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_DOGXL160-7'}), 'ref_prefix':'U', 'fplist':['Display:EA_DOGXL160-7'], 'footprint':'Display:EA_DOGXL160-7', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/eng/pdf/grafik/dogxl160-7e.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Graphic.kicad_sym\nEA_DOGXL160-7\n\ndisplay LCD graphic', 'pins':[
             Pin(num='1',name='A1+',func=Pin.types.PWRIN,unit=1),
             Pin(num='14',name='C1-',func=Pin.types.PWRIN,unit=1),
             Pin(num='15',name='C2-',func=Pin.types.PWRIN,unit=1),
@@ -117,7 +117,7 @@ Display_Graphic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='30',name='D6',func=Pin.types.INPUT,unit=1),
             Pin(num='31',name='D3/SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='32',name='D0/SCK',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EA_eDIP128B-6LW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP128B-6LW'}), 'ref_prefix':'U', 'fplist':['Display:EA-eDIP128B-XXX'], 'footprint':'Display:EA-eDIP128B-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip128-6e.pdf', 'pins':[
+        Part(**{ 'name':'EA_eDIP128B-6LW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP128B-6LW'}), 'ref_prefix':'U', 'fplist':['Display:EA-eDIP128B-XXX'], 'footprint':'Display:EA-eDIP128B-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip128-6e.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Graphic.kicad_sym\nEA_eDIP128B-6LW\n\ndisplay LCD graphic', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RxD',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='TxD',func=Pin.types.OUTPUT,unit=1),
@@ -149,7 +149,7 @@ Display_Graphic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='BAUD1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='BAUD2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='ADR0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EA_eDIP160B-7LW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP160B-7LW'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIP160-XXX'], 'footprint':'Display:EA_eDIP160-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip160-7e.pdf', 'pins':[
+        Part(**{ 'name':'EA_eDIP160B-7LW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP160B-7LW'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIP160-XXX'], 'footprint':'Display:EA_eDIP160-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip160-7e.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Graphic.kicad_sym\nEA_eDIP160B-7LW\n\ndisplay LCD graphic', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RxD',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='TxD',func=Pin.types.OUTPUT,unit=1),
@@ -190,7 +190,7 @@ Display_Graphic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='BAUD1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='BAUD2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='ADR0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EA_eDIP240B-7LW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP240B-7LW'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIP240-XXX'], 'footprint':'Display:EA_eDIP240-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip240-7e.pdf', 'pins':[
+        Part(**{ 'name':'EA_eDIP240B-7LW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP240B-7LW'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIP240-XXX'], 'footprint':'Display:EA_eDIP240-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip240-7e.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Graphic.kicad_sym\nEA_eDIP240B-7LW\n\ndisplay LCD graphic', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RxD',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='TxD',func=Pin.types.OUTPUT,unit=1),
@@ -231,7 +231,7 @@ Display_Graphic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='BAUD1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='BAUD2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='ADR0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EA_eDIP320B-8LW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP320B-8LW'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIP320X-XXX'], 'footprint':'Display:EA_eDIP320X-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip320-8e.pdf', 'pins':[
+        Part(**{ 'name':'EA_eDIP320B-8LW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP320B-8LW'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIP320X-XXX'], 'footprint':'Display:EA_eDIP320X-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip320-8e.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Graphic.kicad_sym\nEA_eDIP320B-8LW\n\ndisplay LCD graphic', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RxD',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='TxD',func=Pin.types.OUTPUT,unit=1),
@@ -280,7 +280,7 @@ Display_Graphic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='78',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='BAUD2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='ADR0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EA_eDIPTFT32-A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIPTFT32-A'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIPTFT32-XXX'], 'footprint':'Display:EA_eDIPTFT32-XXX', 'keywords':'display TFT LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/ediptft43-ae.pdf', 'pins':[
+        Part(**{ 'name':'EA_eDIPTFT32-A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIPTFT32-A'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIPTFT32-XXX'], 'footprint':'Display:EA_eDIPTFT32-XXX', 'keywords':'display TFT LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/ediptft43-ae.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Graphic.kicad_sym\nEA_eDIPTFT32-A\n\ndisplay TFT LCD graphic', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='SA2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='BA2',func=Pin.types.INPUT,unit=1),
@@ -321,7 +321,7 @@ Display_Graphic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='BA1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SA0',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='SA1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EA_eDIPTFT43-A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIPTFT43-A'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIPTFT43-XXX'], 'footprint':'Display:EA_eDIPTFT43-XXX', 'keywords':'display TFT LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/ediptft43-ae.pdf', 'pins':[
+        Part(**{ 'name':'EA_eDIPTFT43-A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIPTFT43-A'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIPTFT43-XXX'], 'footprint':'Display:EA_eDIPTFT43-XXX', 'keywords':'display TFT LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/ediptft43-ae.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Graphic.kicad_sym\nEA_eDIPTFT43-A\n\ndisplay TFT LCD graphic', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RxD',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='TxD',func=Pin.types.OUTPUT,unit=1),
@@ -362,7 +362,7 @@ Display_Graphic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='BAUD1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='BAUD2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='ADR0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EA_eDIPTFT43-ATC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIPTFT43-ATC'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIPTFT43-ATC'], 'footprint':'Display:EA_eDIPTFT43-ATC', 'keywords':'display TFT LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/ediptft43-ae.pdf', 'pins':[
+        Part(**{ 'name':'EA_eDIPTFT43-ATC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIPTFT43-ATC'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIPTFT43-ATC'], 'footprint':'Display:EA_eDIPTFT43-ATC', 'keywords':'display TFT LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/ediptft43-ae.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Graphic.kicad_sym\nEA_eDIPTFT43-ATC\n\ndisplay TFT LCD graphic', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RxD',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='TxD',func=Pin.types.OUTPUT,unit=1),
@@ -403,7 +403,7 @@ Display_Graphic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='BAUD1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='BAUD2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='ADR0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EA_eDIPTFT57-A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIPTFT57-A'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIPTFT57-XXX'], 'footprint':'Display:EA_eDIPTFT57-XXX', 'keywords':'display TFT LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/ediptft57-ae.pdf', 'pins':[
+        Part(**{ 'name':'EA_eDIPTFT57-A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIPTFT57-A'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIPTFT57-XXX'], 'footprint':'Display:EA_eDIPTFT57-XXX', 'keywords':'display TFT LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/ediptft57-ae.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Graphic.kicad_sym\nEA_eDIPTFT57-A\n\ndisplay TFT LCD graphic', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RxD',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='TxD',func=Pin.types.OUTPUT,unit=1),
@@ -452,7 +452,7 @@ Display_Graphic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='BAUD1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='BAUD2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='ADR0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EA_eDIPTFT70-A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIPTFT70-A'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIPTFT70-XXX'], 'footprint':'Display:EA_eDIPTFT70-XXX', 'keywords':'display TFT LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/ediptft70-ae.pdf', 'pins':[
+        Part(**{ 'name':'EA_eDIPTFT70-A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIPTFT70-A'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIPTFT70-XXX'], 'footprint':'Display:EA_eDIPTFT70-XXX', 'keywords':'display TFT LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/ediptft70-ae.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Graphic.kicad_sym\nEA_eDIPTFT70-A\n\ndisplay TFT LCD graphic', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RxD',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='TxD',func=Pin.types.OUTPUT,unit=1),
@@ -501,7 +501,7 @@ Display_Graphic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='BAUD1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='BAUD2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='ADR0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EA_eDIPTFT70-ATC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIPTFT70-ATC'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIPTFT70-ATC'], 'footprint':'Display:EA_eDIPTFT70-ATC', 'keywords':'display TFT LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/ediptft70-ae.pdf', 'pins':[
+        Part(**{ 'name':'EA_eDIPTFT70-ATC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIPTFT70-ATC'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIPTFT70-ATC'], 'footprint':'Display:EA_eDIPTFT70-ATC', 'keywords':'display TFT LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/ediptft70-ae.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Graphic.kicad_sym\nEA_eDIPTFT70-ATC\n\ndisplay TFT LCD graphic', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RxD',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='TxD',func=Pin.types.OUTPUT,unit=1),
@@ -550,7 +550,7 @@ Display_Graphic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='BAUD1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='BAUD2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='ADR0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ERM19264', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ERM19264'}), 'ref_prefix':'DS', 'fplist':['Display:ERM19264'], 'footprint':'Display:ERM19264', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'https://www.buydisplay.com/download/manual/ERM19264-1_Series_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ERM19264', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ERM19264'}), 'ref_prefix':'DS', 'fplist':['Display:ERM19264'], 'footprint':'Display:ERM19264', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'https://www.buydisplay.com/download/manual/ERM19264-1_Series_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Graphic.kicad_sym\nERM19264\n\ndisplay LCD graphic', 'pins':[
             Pin(num='18',name='~{CS3}',func=Pin.types.INPUT),
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DB3',func=Pin.types.BIDIR,unit=1),
@@ -571,7 +571,7 @@ Display_Graphic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='DB2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NHD-C12832A1Z-FSRGB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NHD-C12832A1Z-FSRGB'}), 'ref_prefix':'U', 'fplist':['Display:NHD-C12832A1Z-FSRGB'], 'footprint':'Display:NHD-C12832A1Z-FSRGB', 'keywords':'lcd rgb st7565r spi 4-wire', 'description':'', 'datasheet':'https://www.newhavendisplay.com/specs/NHD-C12832A1Z-FSRGB-FBW-3V.pdf', 'pins':[
+        Part(**{ 'name':'NHD-C12832A1Z-FSRGB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NHD-C12832A1Z-FSRGB'}), 'ref_prefix':'U', 'fplist':['Display:NHD-C12832A1Z-FSRGB'], 'footprint':'Display:NHD-C12832A1Z-FSRGB', 'keywords':'lcd rgb st7565r spi 4-wire', 'description':'', 'datasheet':'https://www.newhavendisplay.com/specs/NHD-C12832A1Z-FSRGB-FBW-3V.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Graphic.kicad_sym\nNHD-C12832A1Z-FSRGB\n\nlcd rgb st7565r spi 4-wire', 'pins':[
             Pin(num='1',name='V0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='V_{out}',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='V_{ss}',func=Pin.types.PWRIN,unit=1),
@@ -593,7 +593,7 @@ Display_Graphic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='C2+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='C1+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='C1-',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'OLED-128O064D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OLED-128O064D'}), 'ref_prefix':'DS', 'fplist':['Display:OLED-128O064D'], 'footprint':'Display:OLED-128O064D', 'keywords':'display oled', 'description':'', 'datasheet':'https://www.vishay.com/docs/37902/oled128o064dbpp3n00000.pdf', 'pins':[
+        Part(**{ 'name':'OLED-128O064D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OLED-128O064D'}), 'ref_prefix':'DS', 'fplist':['Display:OLED-128O064D'], 'footprint':'Display:OLED-128O064D', 'keywords':'display oled', 'description':'', 'datasheet':'https://www.vishay.com/docs/37902/oled128o064dbpp3n00000.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Graphic.kicad_sym\nOLED-128O064D\n\ndisplay oled', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='BS0',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='BS1',func=Pin.types.INPUT,unit=1),
@@ -624,7 +624,7 @@ Display_Graphic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EA_eDIP128B-6LWTP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP128B-6LWTP'}), 'ref_prefix':'U', 'fplist':['Display:EA-eDIP128B-XXX', 'Display:EA-eDIP128B-XXX'], 'footprint':'Display:EA-eDIP128B-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip128-6e.pdf', 'pins':[
+        Part(**{ 'name':'EA_eDIP128B-6LWTP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP128B-6LWTP'}), 'ref_prefix':'U', 'fplist':['Display:EA-eDIP128B-XXX', 'Display:EA-eDIP128B-XXX'], 'footprint':'Display:EA-eDIP128B-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip128-6e.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Graphic.kicad_sym\nEA_eDIP128B-6LWTP\n\ndisplay LCD graphic', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RxD',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='TxD',func=Pin.types.OUTPUT,unit=1),
@@ -656,7 +656,7 @@ Display_Graphic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='BAUD1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='BAUD2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='ADR0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EA_eDIP128W-6LW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP128W-6LW'}), 'ref_prefix':'U', 'fplist':['Display:EA-eDIP128B-XXX', 'Display:EA-eDIP128B-XXX', 'Display:EA-eDIP128B-XXX'], 'footprint':'Display:EA-eDIP128B-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip128-6e.pdf', 'pins':[
+        Part(**{ 'name':'EA_eDIP128W-6LW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP128W-6LW'}), 'ref_prefix':'U', 'fplist':['Display:EA-eDIP128B-XXX', 'Display:EA-eDIP128B-XXX', 'Display:EA-eDIP128B-XXX'], 'footprint':'Display:EA-eDIP128B-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip128-6e.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Graphic.kicad_sym\nEA_eDIP128W-6LW\n\ndisplay LCD graphic', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RxD',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='TxD',func=Pin.types.OUTPUT,unit=1),
@@ -688,7 +688,7 @@ Display_Graphic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='BAUD1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='BAUD2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='ADR0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EA_eDIP128W-6LWTP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP128W-6LWTP'}), 'ref_prefix':'U', 'fplist':['Display:EA-eDIP128B-XXX', 'Display:EA-eDIP128B-XXX', 'Display:EA-eDIP128B-XXX', 'Display:EA-eDIP128B-XXX'], 'footprint':'Display:EA-eDIP128B-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip128-6e.pdf', 'pins':[
+        Part(**{ 'name':'EA_eDIP128W-6LWTP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP128W-6LWTP'}), 'ref_prefix':'U', 'fplist':['Display:EA-eDIP128B-XXX', 'Display:EA-eDIP128B-XXX', 'Display:EA-eDIP128B-XXX', 'Display:EA-eDIP128B-XXX'], 'footprint':'Display:EA-eDIP128B-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip128-6e.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Graphic.kicad_sym\nEA_eDIP128W-6LWTP\n\ndisplay LCD graphic', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RxD',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='TxD',func=Pin.types.OUTPUT,unit=1),
@@ -720,48 +720,7 @@ Display_Graphic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='BAUD1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='BAUD2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='ADR0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EA_eDIP160B-7LWTP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP160B-7LWTP'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIP160-XXX', 'Display:EA_eDIP160-XXX'], 'footprint':'Display:EA_eDIP160-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip160-7e.pdf', 'pins':[
-            Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
-            Pin(num='10',name='RxD',func=Pin.types.INPUT,unit=1),
-            Pin(num='11',name='TxD',func=Pin.types.OUTPUT,unit=1),
-            Pin(num='12',name='EN485',func=Pin.types.OUTPUT,unit=1),
-            Pin(num='13',name='WUP',func=Pin.types.INPUT,unit=1),
-            Pin(num='14',name='ADR1',func=Pin.types.INPUT,unit=1),
-            Pin(num='15',name='ADR2',func=Pin.types.INPUT,unit=1),
-            Pin(num='16',name='BUZZ',func=Pin.types.OUTPUT,unit=1),
-            Pin(num='17',name='DPROT',func=Pin.types.INPUT,unit=1),
-            Pin(num='18',name='PWR',func=Pin.types.OUTPUT,unit=1),
-            Pin(num='19',name='NC',func=Pin.types.NOCONNECT,unit=1),
-            Pin(num='2',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='20',name='TEST_SBUF',func=Pin.types.OPENCOLL,unit=1),
-            Pin(num='21',name='GND',func=Pin.types.PWRIN,unit=1),
-            Pin(num='22',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='23',name='NC',func=Pin.types.NOCONNECT,unit=1),
-            Pin(num='24',name='NC',func=Pin.types.NOCONNECT,unit=1),
-            Pin(num='25',name='IN8/OUT1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='26',name='IN7/OUT2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='27',name='IN6/OUT3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='28',name='IN5/OUT4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='29',name='IN4/OUT5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
-            Pin(num='30',name='IN3/OUT6',func=Pin.types.BIDIR,unit=1),
-            Pin(num='31',name='IN2/OUT7',func=Pin.types.BIDIR,unit=1),
-            Pin(num='32',name='IN1/OUT8',func=Pin.types.BIDIR,unit=1),
-            Pin(num='33',name='NC',func=Pin.types.NOCONNECT,unit=1),
-            Pin(num='34',name='NC',func=Pin.types.NOCONNECT,unit=1),
-            Pin(num='35',name='NC',func=Pin.types.NOCONNECT,unit=1),
-            Pin(num='36',name='NC',func=Pin.types.NOCONNECT,unit=1),
-            Pin(num='37',name='NC',func=Pin.types.NOCONNECT,unit=1),
-            Pin(num='38',name='NC',func=Pin.types.NOCONNECT,unit=1),
-            Pin(num='39',name='NC',func=Pin.types.NOCONNECT,unit=1),
-            Pin(num='4',name='NC',func=Pin.types.NOCONNECT,unit=1),
-            Pin(num='40',name='NC',func=Pin.types.NOCONNECT,unit=1),
-            Pin(num='5',name='~{RESET}',func=Pin.types.INPUT,unit=1),
-            Pin(num='6',name='BAUD0',func=Pin.types.INPUT,unit=1),
-            Pin(num='7',name='BAUD1',func=Pin.types.INPUT,unit=1),
-            Pin(num='8',name='BAUD2',func=Pin.types.INPUT,unit=1),
-            Pin(num='9',name='ADR0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EA_eDIP160W-7LW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP160W-7LW'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIP160-XXX', 'Display:EA_eDIP160-XXX', 'Display:EA_eDIP160-XXX'], 'footprint':'Display:EA_eDIP160-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip160-7e.pdf', 'pins':[
+        Part(**{ 'name':'EA_eDIP160B-7LWTP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP160B-7LWTP'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIP160-XXX', 'Display:EA_eDIP160-XXX'], 'footprint':'Display:EA_eDIP160-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip160-7e.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Graphic.kicad_sym\nEA_eDIP160B-7LWTP\n\ndisplay LCD graphic', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RxD',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='TxD',func=Pin.types.OUTPUT,unit=1),
@@ -802,7 +761,7 @@ Display_Graphic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='BAUD1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='BAUD2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='ADR0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EA_eDIP160W-7LWTP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP160W-7LWTP'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIP160-XXX', 'Display:EA_eDIP160-XXX', 'Display:EA_eDIP160-XXX', 'Display:EA_eDIP160-XXX'], 'footprint':'Display:EA_eDIP160-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip160-7e.pdf', 'pins':[
+        Part(**{ 'name':'EA_eDIP160W-7LW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP160W-7LW'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIP160-XXX', 'Display:EA_eDIP160-XXX', 'Display:EA_eDIP160-XXX'], 'footprint':'Display:EA_eDIP160-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip160-7e.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Graphic.kicad_sym\nEA_eDIP160W-7LW\n\ndisplay LCD graphic', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RxD',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='TxD',func=Pin.types.OUTPUT,unit=1),
@@ -843,7 +802,48 @@ Display_Graphic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='BAUD1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='BAUD2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='ADR0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EA_eDIP240B-7LWTP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP240B-7LWTP'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIP240-XXX', 'Display:EA_eDIP240-XXX'], 'footprint':'Display:EA_eDIP240-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip240-7e.pdf', 'pins':[
+        Part(**{ 'name':'EA_eDIP160W-7LWTP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP160W-7LWTP'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIP160-XXX', 'Display:EA_eDIP160-XXX', 'Display:EA_eDIP160-XXX', 'Display:EA_eDIP160-XXX'], 'footprint':'Display:EA_eDIP160-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip160-7e.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Graphic.kicad_sym\nEA_eDIP160W-7LWTP\n\ndisplay LCD graphic', 'pins':[
+            Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
+            Pin(num='10',name='RxD',func=Pin.types.INPUT,unit=1),
+            Pin(num='11',name='TxD',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='12',name='EN485',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='13',name='WUP',func=Pin.types.INPUT,unit=1),
+            Pin(num='14',name='ADR1',func=Pin.types.INPUT,unit=1),
+            Pin(num='15',name='ADR2',func=Pin.types.INPUT,unit=1),
+            Pin(num='16',name='BUZZ',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='17',name='DPROT',func=Pin.types.INPUT,unit=1),
+            Pin(num='18',name='PWR',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='19',name='NC',func=Pin.types.NOCONNECT,unit=1),
+            Pin(num='2',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='20',name='TEST_SBUF',func=Pin.types.OPENCOLL,unit=1),
+            Pin(num='21',name='GND',func=Pin.types.PWRIN,unit=1),
+            Pin(num='22',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='23',name='NC',func=Pin.types.NOCONNECT,unit=1),
+            Pin(num='24',name='NC',func=Pin.types.NOCONNECT,unit=1),
+            Pin(num='25',name='IN8/OUT1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='26',name='IN7/OUT2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='27',name='IN6/OUT3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='28',name='IN5/OUT4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='29',name='IN4/OUT5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
+            Pin(num='30',name='IN3/OUT6',func=Pin.types.BIDIR,unit=1),
+            Pin(num='31',name='IN2/OUT7',func=Pin.types.BIDIR,unit=1),
+            Pin(num='32',name='IN1/OUT8',func=Pin.types.BIDIR,unit=1),
+            Pin(num='33',name='NC',func=Pin.types.NOCONNECT,unit=1),
+            Pin(num='34',name='NC',func=Pin.types.NOCONNECT,unit=1),
+            Pin(num='35',name='NC',func=Pin.types.NOCONNECT,unit=1),
+            Pin(num='36',name='NC',func=Pin.types.NOCONNECT,unit=1),
+            Pin(num='37',name='NC',func=Pin.types.NOCONNECT,unit=1),
+            Pin(num='38',name='NC',func=Pin.types.NOCONNECT,unit=1),
+            Pin(num='39',name='NC',func=Pin.types.NOCONNECT,unit=1),
+            Pin(num='4',name='NC',func=Pin.types.NOCONNECT,unit=1),
+            Pin(num='40',name='NC',func=Pin.types.NOCONNECT,unit=1),
+            Pin(num='5',name='~{RESET}',func=Pin.types.INPUT,unit=1),
+            Pin(num='6',name='BAUD0',func=Pin.types.INPUT,unit=1),
+            Pin(num='7',name='BAUD1',func=Pin.types.INPUT,unit=1),
+            Pin(num='8',name='BAUD2',func=Pin.types.INPUT,unit=1),
+            Pin(num='9',name='ADR0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'EA_eDIP240B-7LWTP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP240B-7LWTP'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIP240-XXX', 'Display:EA_eDIP240-XXX'], 'footprint':'Display:EA_eDIP240-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip240-7e.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Graphic.kicad_sym\nEA_eDIP240B-7LWTP\n\ndisplay LCD graphic', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RxD',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='TxD',func=Pin.types.OUTPUT,unit=1),
@@ -884,7 +884,7 @@ Display_Graphic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='BAUD1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='BAUD2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='ADR0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EA_eDIP240J-7LA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP240J-7LA'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIP240-XXX', 'Display:EA_eDIP240-XXX', 'Display:EA_eDIP240-XXX'], 'footprint':'Display:EA_eDIP240-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip240-7e.pdf', 'pins':[
+        Part(**{ 'name':'EA_eDIP240J-7LA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP240J-7LA'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIP240-XXX', 'Display:EA_eDIP240-XXX', 'Display:EA_eDIP240-XXX'], 'footprint':'Display:EA_eDIP240-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip240-7e.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Graphic.kicad_sym\nEA_eDIP240J-7LA\n\ndisplay LCD graphic', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RxD',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='TxD',func=Pin.types.OUTPUT,unit=1),
@@ -925,7 +925,7 @@ Display_Graphic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='BAUD1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='BAUD2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='ADR0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EA_eDIP240J-7LATP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP240J-7LATP'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIP240-XXX', 'Display:EA_eDIP240-XXX', 'Display:EA_eDIP240-XXX', 'Display:EA_eDIP240-XXX'], 'footprint':'Display:EA_eDIP240-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip240-7e.pdf', 'pins':[
+        Part(**{ 'name':'EA_eDIP240J-7LATP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP240J-7LATP'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIP240-XXX', 'Display:EA_eDIP240-XXX', 'Display:EA_eDIP240-XXX', 'Display:EA_eDIP240-XXX'], 'footprint':'Display:EA_eDIP240-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip240-7e.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Graphic.kicad_sym\nEA_eDIP240J-7LATP\n\ndisplay LCD graphic', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RxD',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='TxD',func=Pin.types.OUTPUT,unit=1),
@@ -966,7 +966,7 @@ Display_Graphic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='BAUD1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='BAUD2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='ADR0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EA_eDIP240J-7LW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP240J-7LW'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIP240-XXX', 'Display:EA_eDIP240-XXX', 'Display:EA_eDIP240-XXX', 'Display:EA_eDIP240-XXX', 'Display:EA_eDIP240-XXX'], 'footprint':'Display:EA_eDIP240-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip240-7e.pdf', 'pins':[
+        Part(**{ 'name':'EA_eDIP240J-7LW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP240J-7LW'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIP240-XXX', 'Display:EA_eDIP240-XXX', 'Display:EA_eDIP240-XXX', 'Display:EA_eDIP240-XXX', 'Display:EA_eDIP240-XXX'], 'footprint':'Display:EA_eDIP240-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip240-7e.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Graphic.kicad_sym\nEA_eDIP240J-7LW\n\ndisplay LCD graphic', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RxD',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='TxD',func=Pin.types.OUTPUT,unit=1),
@@ -1007,7 +1007,7 @@ Display_Graphic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='BAUD1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='BAUD2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='ADR0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EA_eDIP240J-7LWTP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP240J-7LWTP'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIP240-XXX', 'Display:EA_eDIP240-XXX', 'Display:EA_eDIP240-XXX', 'Display:EA_eDIP240-XXX', 'Display:EA_eDIP240-XXX', 'Display:EA_eDIP240-XXX'], 'footprint':'Display:EA_eDIP240-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip240-7e.pdf', 'pins':[
+        Part(**{ 'name':'EA_eDIP240J-7LWTP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP240J-7LWTP'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIP240-XXX', 'Display:EA_eDIP240-XXX', 'Display:EA_eDIP240-XXX', 'Display:EA_eDIP240-XXX', 'Display:EA_eDIP240-XXX', 'Display:EA_eDIP240-XXX'], 'footprint':'Display:EA_eDIP240-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip240-7e.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Graphic.kicad_sym\nEA_eDIP240J-7LWTP\n\ndisplay LCD graphic', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RxD',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='TxD',func=Pin.types.OUTPUT,unit=1),
@@ -1048,7 +1048,7 @@ Display_Graphic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='BAUD1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='BAUD2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='ADR0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EA_eDIP320B-8LWTP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP320B-8LWTP'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIP320X-XXX', 'Display:EA_eDIP320X-XXX'], 'footprint':'Display:EA_eDIP320X-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip320-8e.pdf', 'pins':[
+        Part(**{ 'name':'EA_eDIP320B-8LWTP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP320B-8LWTP'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIP320X-XXX', 'Display:EA_eDIP320X-XXX'], 'footprint':'Display:EA_eDIP320X-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip320-8e.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Graphic.kicad_sym\nEA_eDIP320B-8LWTP\n\ndisplay LCD graphic', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RxD',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='TxD',func=Pin.types.OUTPUT,unit=1),
@@ -1097,7 +1097,7 @@ Display_Graphic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='78',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='BAUD2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='ADR0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EA_eDIP320J-8LA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP320J-8LA'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIP320X-XXX', 'Display:EA_eDIP320X-XXX', 'Display:EA_eDIP320X-XXX'], 'footprint':'Display:EA_eDIP320X-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip320-8e.pdf', 'pins':[
+        Part(**{ 'name':'EA_eDIP320J-8LA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP320J-8LA'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIP320X-XXX', 'Display:EA_eDIP320X-XXX', 'Display:EA_eDIP320X-XXX'], 'footprint':'Display:EA_eDIP320X-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip320-8e.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Graphic.kicad_sym\nEA_eDIP320J-8LA\n\ndisplay LCD graphic', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RxD',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='TxD',func=Pin.types.OUTPUT,unit=1),
@@ -1146,7 +1146,7 @@ Display_Graphic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='78',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='BAUD2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='ADR0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EA_eDIP320J-8LATP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP320J-8LATP'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIP320X-XXX', 'Display:EA_eDIP320X-XXX', 'Display:EA_eDIP320X-XXX', 'Display:EA_eDIP320X-XXX'], 'footprint':'Display:EA_eDIP320X-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip320-8e.pdf', 'pins':[
+        Part(**{ 'name':'EA_eDIP320J-8LATP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP320J-8LATP'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIP320X-XXX', 'Display:EA_eDIP320X-XXX', 'Display:EA_eDIP320X-XXX', 'Display:EA_eDIP320X-XXX'], 'footprint':'Display:EA_eDIP320X-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip320-8e.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Graphic.kicad_sym\nEA_eDIP320J-8LATP\n\ndisplay LCD graphic', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RxD',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='TxD',func=Pin.types.OUTPUT,unit=1),
@@ -1195,7 +1195,7 @@ Display_Graphic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='78',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='BAUD2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='ADR0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EA_eDIP320J-8LW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP320J-8LW'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIP320X-XXX', 'Display:EA_eDIP320X-XXX', 'Display:EA_eDIP320X-XXX', 'Display:EA_eDIP320X-XXX', 'Display:EA_eDIP320X-XXX'], 'footprint':'Display:EA_eDIP320X-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip320-8e.pdf', 'pins':[
+        Part(**{ 'name':'EA_eDIP320J-8LW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP320J-8LW'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIP320X-XXX', 'Display:EA_eDIP320X-XXX', 'Display:EA_eDIP320X-XXX', 'Display:EA_eDIP320X-XXX', 'Display:EA_eDIP320X-XXX'], 'footprint':'Display:EA_eDIP320X-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip320-8e.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Graphic.kicad_sym\nEA_eDIP320J-8LW\n\ndisplay LCD graphic', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RxD',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='TxD',func=Pin.types.OUTPUT,unit=1),
@@ -1244,7 +1244,7 @@ Display_Graphic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='78',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='BAUD2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='ADR0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EA_eDIP320J-8LWTP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP320J-8LWTP'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIP320X-XXX', 'Display:EA_eDIP320X-XXX', 'Display:EA_eDIP320X-XXX', 'Display:EA_eDIP320X-XXX', 'Display:EA_eDIP320X-XXX', 'Display:EA_eDIP320X-XXX'], 'footprint':'Display:EA_eDIP320X-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip320-8e.pdf', 'pins':[
+        Part(**{ 'name':'EA_eDIP320J-8LWTP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIP320J-8LWTP'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIP320X-XXX', 'Display:EA_eDIP320X-XXX', 'Display:EA_eDIP320X-XXX', 'Display:EA_eDIP320X-XXX', 'Display:EA_eDIP320X-XXX', 'Display:EA_eDIP320X-XXX'], 'footprint':'Display:EA_eDIP320X-XXX', 'keywords':'display LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/edip320-8e.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Graphic.kicad_sym\nEA_eDIP320J-8LWTP\n\ndisplay LCD graphic', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RxD',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='TxD',func=Pin.types.OUTPUT,unit=1),
@@ -1293,7 +1293,7 @@ Display_Graphic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='78',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='BAUD2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='ADR0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EA_eDIPTFT32-ATP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIPTFT32-ATP'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIPTFT32-XXX', 'Display:EA_eDIPTFT32-XXX'], 'footprint':'Display:EA_eDIPTFT32-XXX', 'keywords':'display TFT LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/ediptft43-ae.pdf', 'pins':[
+        Part(**{ 'name':'EA_eDIPTFT32-ATP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIPTFT32-ATP'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIPTFT32-XXX', 'Display:EA_eDIPTFT32-XXX'], 'footprint':'Display:EA_eDIPTFT32-XXX', 'keywords':'display TFT LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/ediptft43-ae.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Graphic.kicad_sym\nEA_eDIPTFT32-ATP\n\ndisplay TFT LCD graphic', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='SA2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='BA2',func=Pin.types.INPUT,unit=1),
@@ -1334,7 +1334,7 @@ Display_Graphic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='BA1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SA0',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='SA1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EA_eDIPTFT43-ATP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIPTFT43-ATP'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIPTFT43-XXX', 'Display:EA_eDIPTFT43-XXX'], 'footprint':'Display:EA_eDIPTFT43-XXX', 'keywords':'display TFT LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/ediptft43-ae.pdf', 'pins':[
+        Part(**{ 'name':'EA_eDIPTFT43-ATP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIPTFT43-ATP'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIPTFT43-XXX', 'Display:EA_eDIPTFT43-XXX'], 'footprint':'Display:EA_eDIPTFT43-XXX', 'keywords':'display TFT LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/ediptft43-ae.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Graphic.kicad_sym\nEA_eDIPTFT43-ATP\n\ndisplay TFT LCD graphic', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RxD',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='TxD',func=Pin.types.OUTPUT,unit=1),
@@ -1375,7 +1375,7 @@ Display_Graphic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='BAUD1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='BAUD2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='ADR0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EA_eDIPTFT43-ATS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIPTFT43-ATS'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIPTFT43-XXX', 'Display:EA_eDIPTFT43-XXX', 'Display:EA_eDIPTFT43-XXX'], 'footprint':'Display:EA_eDIPTFT43-XXX', 'keywords':'display TFT LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/ediptft43-ae.pdf', 'pins':[
+        Part(**{ 'name':'EA_eDIPTFT43-ATS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIPTFT43-ATS'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIPTFT43-XXX', 'Display:EA_eDIPTFT43-XXX', 'Display:EA_eDIPTFT43-XXX'], 'footprint':'Display:EA_eDIPTFT43-XXX', 'keywords':'display TFT LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/ediptft43-ae.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Graphic.kicad_sym\nEA_eDIPTFT43-ATS\n\ndisplay TFT LCD graphic', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RxD',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='TxD',func=Pin.types.OUTPUT,unit=1),
@@ -1416,7 +1416,7 @@ Display_Graphic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='BAUD1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='BAUD2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='ADR0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EA_eDIPTFT57-ATP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIPTFT57-ATP'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIPTFT57-XXX', 'Display:EA_eDIPTFT57-XXX'], 'footprint':'Display:EA_eDIPTFT57-XXX', 'keywords':'display TFT LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/ediptft57-ae.pdf', 'pins':[
+        Part(**{ 'name':'EA_eDIPTFT57-ATP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIPTFT57-ATP'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIPTFT57-XXX', 'Display:EA_eDIPTFT57-XXX'], 'footprint':'Display:EA_eDIPTFT57-XXX', 'keywords':'display TFT LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/ediptft57-ae.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Graphic.kicad_sym\nEA_eDIPTFT57-ATP\n\ndisplay TFT LCD graphic', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RxD',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='TxD',func=Pin.types.OUTPUT,unit=1),
@@ -1465,7 +1465,7 @@ Display_Graphic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='BAUD1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='BAUD2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='ADR0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EA_eDIPTFT70-ATP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIPTFT70-ATP'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIPTFT70-XXX', 'Display:EA_eDIPTFT70-XXX'], 'footprint':'Display:EA_eDIPTFT70-XXX', 'keywords':'display TFT LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/ediptft70-ae.pdf', 'pins':[
+        Part(**{ 'name':'EA_eDIPTFT70-ATP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_eDIPTFT70-ATP'}), 'ref_prefix':'U', 'fplist':['Display:EA_eDIPTFT70-XXX', 'Display:EA_eDIPTFT70-XXX'], 'footprint':'Display:EA_eDIPTFT70-XXX', 'keywords':'display TFT LCD graphic', 'description':'', 'datasheet':'http://www.lcd-module.com/fileadmin/eng/pdf/grafik/ediptft70-ae.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Graphic.kicad_sym\nEA_eDIPTFT70-ATP\n\ndisplay TFT LCD graphic', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RxD',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='TxD',func=Pin.types.OUTPUT,unit=1),

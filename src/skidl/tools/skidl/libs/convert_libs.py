@@ -31,6 +31,7 @@ def convert_libs(from_dir, to_dir):
         lib.export(
             libname=basename,
             file_=os.path.join(to_dir, basename + lib_suffixes[SKIDL]),
+            addtl_part_attrs=("search_text",),
         )
 
 

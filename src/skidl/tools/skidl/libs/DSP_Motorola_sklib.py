@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 DSP_Motorola = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'DSP56301', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSP56301'}), 'ref_prefix':'U', 'fplist':['Package_QFP:PQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:PQFP-208_28x28mm_P0.5mm', 'keywords':'DSP PCI', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/DSP56301DS.pdf', 'pins':[
+        Part(**{ 'name':'DSP56301', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSP56301'}), 'ref_prefix':'U', 'fplist':['Package_QFP:PQFP-208_28x28mm_P0.5mm'], 'footprint':'Package_QFP:PQFP-208_28x28mm_P0.5mm', 'keywords':'DSP PCI', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/DSP56301DS.pdf', 'search_text':'/usr/share/kicad/symbols/DSP_Motorola.kicad_sym\nDSP56301\n\nDSP PCI', 'pins':[
             Pin(num='1',name='AA0/RAS0',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='/RESET',func=Pin.types.INPUT,unit=1),
             Pin(num='100',name='D23',func=Pin.types.BIDIR,unit=1),

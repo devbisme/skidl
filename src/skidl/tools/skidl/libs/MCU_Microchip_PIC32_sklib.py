@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 MCU_Microchip_PIC32 = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'PIC32MK1024GPD100-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC32MK1024GPD100-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-100_12x12mm_P0.4mm'], 'footprint':'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'keywords':'32-bit MIPS MCU Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC32MK_GP_MC_Familly_Datasheet_60001402G.pdf', 'pins':[
+        Part(**{ 'name':'PIC32MK1024GPD100-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC32MK1024GPD100-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-100_12x12mm_P0.4mm'], 'footprint':'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'keywords':'32-bit MIPS MCU Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC32MK_GP_MC_Familly_Datasheet_60001402G.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC32.kicad_sym\nPIC32MK1024GPD100-xPT\n\n32-bit MIPS MCU Microcontroller', 'pins':[
             Pin(num='1',name='RG15',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RG6/VBUSON2',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='RA10/TDO',func=Pin.types.BIDIR,unit=1),
@@ -105,7 +105,7 @@ MCU_Microchip_PIC32 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='RG13/TRD0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='RB12',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='RB13',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC32MM0064GPL028x-ML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC32MM0064GPL028x-ML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'FLASH-Based 32-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC32MM0064GPL036-Family-Data-Sheet-DS60001324C.pdf', 'pins':[
+        Part(**{ 'name':'PIC32MM0064GPL028x-ML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC32MM0064GPL028x-ML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'FLASH-Based 32-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC32MM0064GPL036-Family-Data-Sheet-DS60001324C.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC32.kicad_sym\nPIC32MM0064GPL028x-ML\n\nFLASH-Based 32-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='RBO',func=Pin.types.BIDIR),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN),
             Pin(num='11',name='RB5',func=Pin.types.BIDIR),
@@ -135,7 +135,7 @@ MCU_Microchip_PIC32 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA3',func=Pin.types.BIDIR),
             Pin(num='8',name='RB4',func=Pin.types.BIDIR),
             Pin(num='9',name='RA4',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC32MX110F016D-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC32MX110F016D-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Microchip PIC32 Microcontroller MIPS', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/60001168F.pdf', 'pins':[
+        Part(**{ 'name':'PIC32MX110F016D-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC32MX110F016D-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Microchip PIC32 Microcontroller MIPS', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/60001168F.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC32.kicad_sym\nPIC32MX110F016D-IPT\n\nMicrochip PIC32 Microcontroller MIPS', 'pins':[
             Pin(num='1',name='RB9',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB12',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB13',func=Pin.types.BIDIR,unit=1),
@@ -180,7 +180,7 @@ MCU_Microchip_PIC32 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCAP',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB10',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC32MX210F016D-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC32MX210F016D-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Microchip PIC32 Microcontroller MIPS', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/60001168F.pdf', 'pins':[
+        Part(**{ 'name':'PIC32MX210F016D-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC32MX210F016D-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Microchip PIC32 Microcontroller MIPS', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/60001168F.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC32.kicad_sym\nPIC32MX210F016D-IPT\n\nMicrochip PIC32 Microcontroller MIPS', 'pins':[
             Pin(num='1',name='RB9',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VUSB3V3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB13',func=Pin.types.BIDIR,unit=1),
@@ -225,7 +225,7 @@ MCU_Microchip_PIC32 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCAP',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB10',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC32MX575F256H', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC32MX575F256H'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Microchip PIC32 Microcontroller MIPS', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/61156G.pdf', 'pins':[
+        Part(**{ 'name':'PIC32MX575F256H', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC32MX575F256H'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Microchip PIC32 Microcontroller MIPS', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/61156G.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC32.kicad_sym\nPIC32MX575F256H\n\nMicrochip PIC32 Microcontroller MIPS', 'pins':[
             Pin(num='1',name='RE5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='RB5',func=Pin.types.BIDIR,unit=1),
@@ -290,7 +290,7 @@ MCU_Microchip_PIC32 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{MCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='RG9',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC32MX795F512L-80x-PF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC32MX795F512L-80x-PF'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-100_14x14mm_P0.5mm', 'keywords':'32-bit MIPS MCU Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/60001156J.pdf', 'pins':[
+        Part(**{ 'name':'PIC32MX795F512L-80x-PF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC32MX795F512L-80x-PF'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-100_14x14mm_P0.5mm', 'keywords':'32-bit MIPS MCU Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/60001156J.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC32.kicad_sym\nPIC32MX795F512L-80x-PF\n\n32-bit MIPS MCU Microcontroller', 'pins':[
             Pin(num='1',name='RG15',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RG6',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='RE4',func=Pin.types.BIDIR,unit=1),
@@ -391,7 +391,7 @@ MCU_Microchip_PIC32 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='RG13/TRD0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='RE3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC32MX795F512L-80x-PT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC32MX795F512L-80x-PT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-100_12x12mm_P0.4mm'], 'footprint':'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'keywords':'32-bit MIPS MCU Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/60001156J.pdf', 'pins':[
+        Part(**{ 'name':'PIC32MX795F512L-80x-PT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC32MX795F512L-80x-PT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-100_12x12mm_P0.4mm'], 'footprint':'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'keywords':'32-bit MIPS MCU Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/60001156J.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC32.kicad_sym\nPIC32MX795F512L-80x-PT\n\n32-bit MIPS MCU Microcontroller', 'pins':[
             Pin(num='1',name='RG15',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RG6',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='RE4',func=Pin.types.BIDIR,unit=1),
@@ -492,7 +492,7 @@ MCU_Microchip_PIC32 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='RG13/TRD0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='RE3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC32MK1024GPE100-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC32MK1024GPE100-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-100_12x12mm_P0.4mm', 'Package_QFP:TQFP-100_12x12mm_P0.4mm'], 'footprint':'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'keywords':'32-bit MIPS MCU Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC32MK_GP_MC_Familly_Datasheet_60001402G.pdf', 'pins':[
+        Part(**{ 'name':'PIC32MK1024GPE100-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC32MK1024GPE100-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-100_12x12mm_P0.4mm', 'Package_QFP:TQFP-100_12x12mm_P0.4mm'], 'footprint':'Package_QFP:TQFP-100_12x12mm_P0.4mm', 'keywords':'32-bit MIPS MCU Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC32MK_GP_MC_Familly_Datasheet_60001402G.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC32.kicad_sym\nPIC32MK1024GPE100-xPT\n\n32-bit MIPS MCU Microcontroller', 'pins':[
             Pin(num='1',name='RG15',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RG6/VBUSON2',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='RA10/TDO',func=Pin.types.BIDIR,unit=1),
@@ -593,7 +593,7 @@ MCU_Microchip_PIC32 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='RG13/TRD0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='RB12',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='RB13',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC32MX120F032D-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC32MX120F032D-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Microchip PIC32 Microcontroller MIPS', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/60001168F.pdf', 'pins':[
+        Part(**{ 'name':'PIC32MX120F032D-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC32MX120F032D-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Microchip PIC32 Microcontroller MIPS', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/60001168F.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC32.kicad_sym\nPIC32MX120F032D-IPT\n\nMicrochip PIC32 Microcontroller MIPS', 'pins':[
             Pin(num='1',name='RB9',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB12',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB13',func=Pin.types.BIDIR,unit=1),
@@ -638,7 +638,7 @@ MCU_Microchip_PIC32 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCAP',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB10',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC32MX130F064D-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC32MX130F064D-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Microchip PIC32 Microcontroller MIPS', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/60001168F.pdf', 'pins':[
+        Part(**{ 'name':'PIC32MX130F064D-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC32MX130F064D-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Microchip PIC32 Microcontroller MIPS', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/60001168F.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC32.kicad_sym\nPIC32MX130F064D-IPT\n\nMicrochip PIC32 Microcontroller MIPS', 'pins':[
             Pin(num='1',name='RB9',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB12',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB13',func=Pin.types.BIDIR,unit=1),
@@ -683,7 +683,7 @@ MCU_Microchip_PIC32 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCAP',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB10',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC32MX150F128D-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC32MX150F128D-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Microchip PIC32 Microcontroller MIPS', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/60001168F.pdf', 'pins':[
+        Part(**{ 'name':'PIC32MX150F128D-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC32MX150F128D-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Microchip PIC32 Microcontroller MIPS', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/60001168F.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC32.kicad_sym\nPIC32MX150F128D-IPT\n\nMicrochip PIC32 Microcontroller MIPS', 'pins':[
             Pin(num='1',name='RB9',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB12',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB13',func=Pin.types.BIDIR,unit=1),
@@ -728,7 +728,7 @@ MCU_Microchip_PIC32 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCAP',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB10',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC32MX170F256D-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC32MX170F256D-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Microchip PIC32 Microcontroller MIPS', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/60001168F.pdf', 'pins':[
+        Part(**{ 'name':'PIC32MX170F256D-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC32MX170F256D-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Microchip PIC32 Microcontroller MIPS', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/60001168F.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC32.kicad_sym\nPIC32MX170F256D-IPT\n\nMicrochip PIC32 Microcontroller MIPS', 'pins':[
             Pin(num='1',name='RB9',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB12',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB13',func=Pin.types.BIDIR,unit=1),
@@ -773,7 +773,7 @@ MCU_Microchip_PIC32 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCAP',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB10',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC32MX220F032D-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC32MX220F032D-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Microchip PIC32 Microcontroller MIPS', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/60001168F.pdf', 'pins':[
+        Part(**{ 'name':'PIC32MX220F032D-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC32MX220F032D-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Microchip PIC32 Microcontroller MIPS', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/60001168F.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC32.kicad_sym\nPIC32MX220F032D-IPT\n\nMicrochip PIC32 Microcontroller MIPS', 'pins':[
             Pin(num='1',name='RB9',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VUSB3V3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB13',func=Pin.types.BIDIR,unit=1),
@@ -818,7 +818,7 @@ MCU_Microchip_PIC32 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCAP',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB10',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC32MX230F064D-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC32MX230F064D-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Microchip PIC32 Microcontroller MIPS', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/60001168F.pdf', 'pins':[
+        Part(**{ 'name':'PIC32MX230F064D-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC32MX230F064D-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Microchip PIC32 Microcontroller MIPS', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/60001168F.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC32.kicad_sym\nPIC32MX230F064D-IPT\n\nMicrochip PIC32 Microcontroller MIPS', 'pins':[
             Pin(num='1',name='RB9',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VUSB3V3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB13',func=Pin.types.BIDIR,unit=1),
@@ -863,7 +863,7 @@ MCU_Microchip_PIC32 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCAP',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB10',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC32MX250F128D-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC32MX250F128D-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Microchip PIC32 Microcontroller MIPS', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/60001168F.pdf', 'pins':[
+        Part(**{ 'name':'PIC32MX250F128D-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC32MX250F128D-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Microchip PIC32 Microcontroller MIPS', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/60001168F.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC32.kicad_sym\nPIC32MX250F128D-IPT\n\nMicrochip PIC32 Microcontroller MIPS', 'pins':[
             Pin(num='1',name='RB9',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VUSB3V3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB13',func=Pin.types.BIDIR,unit=1),
@@ -908,7 +908,7 @@ MCU_Microchip_PIC32 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCAP',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB10',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC32MX270F256D-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC32MX270F256D-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Microchip PIC32 Microcontroller MIPS', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/60001168F.pdf', 'pins':[
+        Part(**{ 'name':'PIC32MX270F256D-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC32MX270F256D-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Microchip PIC32 Microcontroller MIPS', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/60001168F.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC32.kicad_sym\nPIC32MX270F256D-IPT\n\nMicrochip PIC32 Microcontroller MIPS', 'pins':[
             Pin(num='1',name='RB9',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VUSB3V3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB13',func=Pin.types.BIDIR,unit=1),
@@ -953,7 +953,7 @@ MCU_Microchip_PIC32 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCAP',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB10',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC32MX575F512H', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC32MX575F512H'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Microchip PIC32 Microcontroller MIPS', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/61156G.pdf', 'pins':[
+        Part(**{ 'name':'PIC32MX575F512H', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC32MX575F512H'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Microchip PIC32 Microcontroller MIPS', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/61156G.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC32.kicad_sym\nPIC32MX575F512H\n\nMicrochip PIC32 Microcontroller MIPS', 'pins':[
             Pin(num='1',name='RE5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='RB5',func=Pin.types.BIDIR,unit=1),

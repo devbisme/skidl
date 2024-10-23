@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Display_Character = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'AD-121F2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD-121F2'}), 'ref_prefix':'D', 'fplist':['Display_7Segment:AD-121F2'], 'footprint':'Display_7Segment:AD-121F2', 'keywords':'display RGB LED digit 7-segment', 'description':'', 'datasheet':'http://usasyck.com/products/AD-121F2_cat_e.pdf', 'pins':[
+        Part(**{ 'name':'AD-121F2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD-121F2'}), 'ref_prefix':'D', 'fplist':['Display_7Segment:AD-121F2'], 'footprint':'Display_7Segment:AD-121F2', 'keywords':'display RGB LED digit 7-segment', 'description':'', 'datasheet':'http://usasyck.com/products/AD-121F2_cat_e.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nAD-121F2\n\ndisplay RGB LED digit 7-segment', 'pins':[
             Pin(num='1',name='e-green',func=Pin.types.PASSIVE),
             Pin(num='10',name='e-red',func=Pin.types.PASSIVE),
             Pin(num='11',name='c-green',func=Pin.types.PASSIVE),
@@ -27,7 +27,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='c-blue',func=Pin.types.PASSIVE),
             Pin(num='6',name='c-red',func=Pin.types.PASSIVE),
             Pin(num='9',name='e-blue',func=Pin.types.PASSIVE)], 'unit_defs':[] }),
-        Part(**{ 'name':'CA56-12CGKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CA56-12CGKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:CA56-12CGKWA'], 'footprint':'Display_7Segment:CA56-12CGKWA', 'keywords':'display LED', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/CA56-12CGKWA(Ver.9A).pdf', 'pins':[
+        Part(**{ 'name':'CA56-12CGKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CA56-12CGKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:CA56-12CGKWA'], 'footprint':'Display_7Segment:CA56-12CGKWA', 'keywords':'display LED', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/CA56-12CGKWA(Ver.9A).pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nCA56-12CGKWA\n\ndisplay LED', 'pins':[
             Pin(num='1',name='e',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='f',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='a',func=Pin.types.INPUT,unit=1),
@@ -40,7 +40,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='b',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CA3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='CA2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CA56-12EWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CA56-12EWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:CA56-12EWA'], 'footprint':'Display_7Segment:CA56-12EWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/CA56-12EWA.pdf', 'pins':[
+        Part(**{ 'name':'CA56-12EWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CA56-12EWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:CA56-12EWA'], 'footprint':'Display_7Segment:CA56-12EWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/CA56-12EWA.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nCA56-12EWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='e',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='f',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='a',func=Pin.types.INPUT,unit=1),
@@ -53,7 +53,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='b',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CA3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='CA2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CA56-12SEKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CA56-12SEKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:CA56-12SEKWA'], 'footprint':'Display_7Segment:CA56-12SEKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/CA56-12SEKWA(Ver.7A).pdf', 'pins':[
+        Part(**{ 'name':'CA56-12SEKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CA56-12SEKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:CA56-12SEKWA'], 'footprint':'Display_7Segment:CA56-12SEKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/CA56-12SEKWA(Ver.7A).pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nCA56-12SEKWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='e',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='f',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='a',func=Pin.types.INPUT,unit=1),
@@ -66,7 +66,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='b',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CA3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='CA2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CA56-12SRWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CA56-12SRWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:CA56-12SRWA'], 'footprint':'Display_7Segment:CA56-12SRWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/CA56-12SRWA.pdf', 'pins':[
+        Part(**{ 'name':'CA56-12SRWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CA56-12SRWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:CA56-12SRWA'], 'footprint':'Display_7Segment:CA56-12SRWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/CA56-12SRWA.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nCA56-12SRWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='e',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='f',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='a',func=Pin.types.INPUT,unit=1),
@@ -79,7 +79,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='b',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CA3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='CA2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CA56-12SURKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CA56-12SURKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:CA56-12SURKWA'], 'footprint':'Display_7Segment:CA56-12SURKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/CA56-12SURKWA(Ver.8A).pdf', 'pins':[
+        Part(**{ 'name':'CA56-12SURKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CA56-12SURKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:CA56-12SURKWA'], 'footprint':'Display_7Segment:CA56-12SURKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/CA56-12SURKWA(Ver.8A).pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nCA56-12SURKWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='e',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='f',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='a',func=Pin.types.INPUT,unit=1),
@@ -92,7 +92,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='b',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CA3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='CA2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CA56-12SYKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CA56-12SYKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:CA56-12SYKWA'], 'footprint':'Display_7Segment:CA56-12SYKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/CA56-12SYKWA(Ver.6A).pdf', 'pins':[
+        Part(**{ 'name':'CA56-12SYKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CA56-12SYKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:CA56-12SYKWA'], 'footprint':'Display_7Segment:CA56-12SYKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/CA56-12SYKWA(Ver.6A).pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nCA56-12SYKWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='e',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='f',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='a',func=Pin.types.INPUT,unit=1),
@@ -105,7 +105,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='b',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CA3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='CA2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CC56-12CGKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CC56-12CGKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:CA56-12CGKWA'], 'footprint':'Display_7Segment:CA56-12CGKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/CC56-12CGKWA(Ver.8A).pdf', 'pins':[
+        Part(**{ 'name':'CC56-12CGKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CC56-12CGKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:CA56-12CGKWA'], 'footprint':'Display_7Segment:CA56-12CGKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/CC56-12CGKWA(Ver.8A).pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nCC56-12CGKWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='e',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='f',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='a',func=Pin.types.INPUT,unit=1),
@@ -118,7 +118,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='b',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CC3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='CC2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CC56-12EWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CC56-12EWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:CA56-12EWA'], 'footprint':'Display_7Segment:CA56-12EWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/CA56-12EWA.pdf', 'pins':[
+        Part(**{ 'name':'CC56-12EWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CC56-12EWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:CA56-12EWA'], 'footprint':'Display_7Segment:CA56-12EWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/CA56-12EWA.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nCC56-12EWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='e',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='f',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='a',func=Pin.types.INPUT,unit=1),
@@ -131,7 +131,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='b',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CC3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='CC2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CC56-12GWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CC56-12GWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:CC56-12GWA'], 'footprint':'Display_7Segment:CC56-12GWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/CC56-12GWA.pdf', 'pins':[
+        Part(**{ 'name':'CC56-12GWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CC56-12GWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:CC56-12GWA'], 'footprint':'Display_7Segment:CC56-12GWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/CC56-12GWA.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nCC56-12GWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='e',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='f',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='a',func=Pin.types.INPUT,unit=1),
@@ -144,7 +144,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='b',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CC3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='CC2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CC56-12SEKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CC56-12SEKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:CA56-12SEKWA'], 'footprint':'Display_7Segment:CA56-12SEKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/CC56-12SEKWA(Ver.7A).pdf', 'pins':[
+        Part(**{ 'name':'CC56-12SEKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CC56-12SEKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:CA56-12SEKWA'], 'footprint':'Display_7Segment:CA56-12SEKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/CC56-12SEKWA(Ver.7A).pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nCC56-12SEKWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='e',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='f',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='a',func=Pin.types.INPUT,unit=1),
@@ -157,7 +157,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='b',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CC3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='CC2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CC56-12SRWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CC56-12SRWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:CA56-12SRWA'], 'footprint':'Display_7Segment:CA56-12SRWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/CC56-12SRWA.pdf', 'pins':[
+        Part(**{ 'name':'CC56-12SRWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CC56-12SRWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:CA56-12SRWA'], 'footprint':'Display_7Segment:CA56-12SRWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/CC56-12SRWA.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nCC56-12SRWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='e',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='f',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='a',func=Pin.types.INPUT,unit=1),
@@ -170,7 +170,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='b',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CC3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='CC2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CC56-12SURKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CC56-12SURKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:CA56-12SURKWA'], 'footprint':'Display_7Segment:CA56-12SURKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/CC56-12SURKWA(Ver.7A).pdf', 'pins':[
+        Part(**{ 'name':'CC56-12SURKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CC56-12SURKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:CA56-12SURKWA'], 'footprint':'Display_7Segment:CA56-12SURKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/CC56-12SURKWA(Ver.7A).pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nCC56-12SURKWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='e',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='f',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='a',func=Pin.types.INPUT,unit=1),
@@ -183,7 +183,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='b',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CC3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='CC2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CC56-12SYKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CC56-12SYKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:CA56-12SYKWA'], 'footprint':'Display_7Segment:CA56-12SYKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/CC56-12SYKWA(Ver.6A).pdf', 'pins':[
+        Part(**{ 'name':'CC56-12SYKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CC56-12SYKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:CA56-12SYKWA'], 'footprint':'Display_7Segment:CA56-12SYKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/CC56-12SYKWA(Ver.6A).pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nCC56-12SYKWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='e',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='f',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='a',func=Pin.types.INPUT,unit=1),
@@ -196,7 +196,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='b',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CC3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='CC2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CC56-12YWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CC56-12YWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:CC56-12YWA'], 'footprint':'Display_7Segment:CC56-12YWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/CC56-12YWA.pdf', 'pins':[
+        Part(**{ 'name':'CC56-12YWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CC56-12YWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:CC56-12YWA'], 'footprint':'Display_7Segment:CC56-12YWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/CC56-12YWA.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nCC56-12YWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='e',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='f',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='a',func=Pin.types.INPUT,unit=1),
@@ -209,7 +209,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='b',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CC3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='CC2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'D168K', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D168K'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:D1X8K'], 'footprint':'Display_7Segment:D1X8K', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://ia800903.us.archive.org/24/items/CTKD1x8K/Cromatek%20D168K.pdf', 'pins':[
+        Part(**{ 'name':'D168K', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D168K'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:D1X8K'], 'footprint':'Display_7Segment:D1X8K', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://ia800903.us.archive.org/24/items/CTKD1x8K/Cromatek%20D168K.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nD168K\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='E',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='D',func=Pin.types.INPUT,unit=1),
@@ -220,7 +220,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CC',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='F',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DA04-11CGKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA04-11CGKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA04-11CGKWA'], 'footprint':'Display_7Segment:DA04-11CGKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/DA04-11CGKWA(Ver.6A).pdf', 'pins':[
+        Part(**{ 'name':'DA04-11CGKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA04-11CGKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA04-11CGKWA'], 'footprint':'Display_7Segment:DA04-11CGKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/DA04-11CGKWA(Ver.6A).pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nDA04-11CGKWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='DIG1_C',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DIG2_A',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DIG2_F',func=Pin.types.INPUT,unit=1),
@@ -237,7 +237,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIG2_E',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DIG2_C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DIG2_G',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DA04-11SEKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA04-11SEKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA04-11SEKWA'], 'footprint':'Display_7Segment:DA04-11SEKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/DA04-11SEKWA(Ver.9A).pdf', 'pins':[
+        Part(**{ 'name':'DA04-11SEKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA04-11SEKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA04-11SEKWA'], 'footprint':'Display_7Segment:DA04-11SEKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/DA04-11SEKWA(Ver.9A).pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nDA04-11SEKWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='DIG1_C',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DIG2_A',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DIG2_F',func=Pin.types.INPUT,unit=1),
@@ -254,7 +254,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIG2_E',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DIG2_C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DIG2_G',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DA04-11SURKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA04-11SURKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA04-11SURKWA'], 'footprint':'Display_7Segment:DA04-11SURKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/DA04-11SURKWA(Ver.10A).pdf', 'pins':[
+        Part(**{ 'name':'DA04-11SURKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA04-11SURKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA04-11SURKWA'], 'footprint':'Display_7Segment:DA04-11SURKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/DA04-11SURKWA(Ver.10A).pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nDA04-11SURKWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='DIG1_C',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DIG2_A',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DIG2_F',func=Pin.types.INPUT,unit=1),
@@ -271,7 +271,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIG2_E',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DIG2_C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DIG2_G',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DA04-11SYKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA04-11SYKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA04-11SYKWA'], 'footprint':'Display_7Segment:DA04-11SYKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/DA04-11SYKWA(Ver.6A).pdf', 'pins':[
+        Part(**{ 'name':'DA04-11SYKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA04-11SYKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA04-11SYKWA'], 'footprint':'Display_7Segment:DA04-11SYKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/DA04-11SYKWA(Ver.6A).pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nDA04-11SYKWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='DIG1_C',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DIG2_A',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DIG2_F',func=Pin.types.INPUT,unit=1),
@@ -288,7 +288,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIG2_E',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DIG2_C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DIG2_G',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DA56-11CGKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA56-11CGKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA56-11CGKWA'], 'footprint':'Display_7Segment:DA56-11CGKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/DA56-11CGKWA(Ver.16A).pdf', 'pins':[
+        Part(**{ 'name':'DA56-11CGKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA56-11CGKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA56-11CGKWA'], 'footprint':'Display_7Segment:DA56-11CGKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/DA56-11CGKWA(Ver.16A).pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nDA56-11CGKWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='DIG1_E',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DIG2_B',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DIG2_A',func=Pin.types.INPUT,unit=1),
@@ -307,7 +307,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIG2_G',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DIG2_C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DP2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DA56-11SEKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA56-11SEKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA56-11SEKWA'], 'footprint':'Display_7Segment:DA56-11SEKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/DA56-11SEKWA(Ver.9A).pdf', 'pins':[
+        Part(**{ 'name':'DA56-11SEKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA56-11SEKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA56-11SEKWA'], 'footprint':'Display_7Segment:DA56-11SEKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/DA56-11SEKWA(Ver.9A).pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nDA56-11SEKWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='DIG1_E',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DIG2_B',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DIG2_A',func=Pin.types.INPUT,unit=1),
@@ -326,7 +326,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIG2_G',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DIG2_C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DP2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DA56-11SURKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA56-11SURKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA56-11SURKWA'], 'footprint':'Display_7Segment:DA56-11SURKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/DA56-11SURKWA(Ver.11A).pdf', 'pins':[
+        Part(**{ 'name':'DA56-11SURKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA56-11SURKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA56-11SURKWA'], 'footprint':'Display_7Segment:DA56-11SURKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/DA56-11SURKWA(Ver.11A).pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nDA56-11SURKWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='DIG1_E',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DIG2_B',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DIG2_A',func=Pin.types.INPUT,unit=1),
@@ -345,7 +345,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIG2_G',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DIG2_C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DP2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DA56-11SYKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA56-11SYKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA56-11SYKWA'], 'footprint':'Display_7Segment:DA56-11SYKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/DA56-11SYKWA(Ver.11A).pdf', 'pins':[
+        Part(**{ 'name':'DA56-11SYKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA56-11SYKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA56-11SYKWA'], 'footprint':'Display_7Segment:DA56-11SYKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/DA56-11SYKWA(Ver.11A).pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nDA56-11SYKWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='DIG1_E',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DIG2_B',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DIG2_A',func=Pin.types.INPUT,unit=1),
@@ -364,7 +364,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIG2_G',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DIG2_C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DP2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DC56-11CGKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DC56-11CGKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA56-11CGKWA'], 'footprint':'Display_7Segment:DA56-11CGKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/DC56-11CGKWA(Ver.7A).pdf', 'pins':[
+        Part(**{ 'name':'DC56-11CGKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DC56-11CGKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA56-11CGKWA'], 'footprint':'Display_7Segment:DA56-11CGKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/DC56-11CGKWA(Ver.7A).pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nDC56-11CGKWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='DIG1_E',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DIG2_B',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DIG2_A',func=Pin.types.INPUT,unit=1),
@@ -383,7 +383,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIG2_G',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DIG2_C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DP2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DC56-11SEKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DC56-11SEKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA56-11SEKWA'], 'footprint':'Display_7Segment:DA56-11SEKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/DA56-11SEKWA(Ver.9A).pdf', 'pins':[
+        Part(**{ 'name':'DC56-11SEKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DC56-11SEKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA56-11SEKWA'], 'footprint':'Display_7Segment:DA56-11SEKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/DA56-11SEKWA(Ver.9A).pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nDC56-11SEKWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='DIG1_E',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DIG2_B',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DIG2_A',func=Pin.types.INPUT,unit=1),
@@ -402,7 +402,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIG2_G',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DIG2_C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DP2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DC56-11SURKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DC56-11SURKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA56-11SURKWA'], 'footprint':'Display_7Segment:DA56-11SURKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/DC56-11SURKWA(Ver.8A).pdf', 'pins':[
+        Part(**{ 'name':'DC56-11SURKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DC56-11SURKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA56-11SURKWA'], 'footprint':'Display_7Segment:DA56-11SURKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/DC56-11SURKWA(Ver.8A).pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nDC56-11SURKWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='DIG1_E',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DIG2_B',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DIG2_A',func=Pin.types.INPUT,unit=1),
@@ -421,7 +421,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIG2_G',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DIG2_C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DP2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DC56-11SYKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DC56-11SYKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA56-11SYKWA'], 'footprint':'Display_7Segment:DA56-11SYKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/DC56-11SYKWA(Ver.7A).pdf', 'pins':[
+        Part(**{ 'name':'DC56-11SYKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DC56-11SYKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA56-11SYKWA'], 'footprint':'Display_7Segment:DA56-11SYKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/DC56-11SYKWA(Ver.7A).pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nDC56-11SYKWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='DIG1_E',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DIG2_B',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DIG2_A',func=Pin.types.INPUT,unit=1),
@@ -440,7 +440,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIG2_G',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DIG2_C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DP2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DE113-XX-XX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DE113-XX-XX'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DE113-XX-XX'], 'footprint':'Display_7Segment:DE113-XX-XX', 'keywords':'display LCD 7-segment', 'description':'', 'datasheet':'http://www.display-elektronik.de/filter/DE113-MS-20_75.pdf', 'pins':[
+        Part(**{ 'name':'DE113-XX-XX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DE113-XX-XX'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DE113-XX-XX'], 'footprint':'Display_7Segment:DE113-XX-XX', 'keywords':'display LCD 7-segment', 'description':'', 'datasheet':'http://www.display-elektronik.de/filter/DE113-MS-20_75.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nDE113-XX-XX\n\ndisplay LCD 7-segment', 'pins':[
             Pin(num='1',name='BP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='1D',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='1C',func=Pin.types.INPUT,unit=1),
@@ -481,7 +481,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='DP1',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='1E',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DE114-RS-20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DE114-RS-20'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DE114-RS-20'], 'footprint':'Display_7Segment:DE114-RS-20', 'keywords':'display LCD 7-segment', 'description':'', 'datasheet':'http://www.display-elektronik.de/filter/DE114-RS-20_635.pdf', 'pins':[
+        Part(**{ 'name':'DE114-RS-20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DE114-RS-20'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DE114-RS-20'], 'footprint':'Display_7Segment:DE114-RS-20', 'keywords':'display LCD 7-segment', 'description':'', 'datasheet':'http://www.display-elektronik.de/filter/DE114-RS-20_635.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nDE114-RS-20\n\ndisplay LCD 7-segment', 'pins':[
             Pin(num='1',name='BP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='1D',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='1C',func=Pin.types.INPUT,unit=1),
@@ -522,7 +522,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='DP1',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='1E',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DE122-XX-XX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DE122-XX-XX'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DE122-XX-XX'], 'footprint':'Display_7Segment:DE122-XX-XX', 'keywords':'display LCD 7-segment', 'description':'', 'datasheet':'http://www.display-elektronik.de/filter/DE122-RS-20_635.pdf', 'pins':[
+        Part(**{ 'name':'DE122-XX-XX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DE122-XX-XX'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DE122-XX-XX'], 'footprint':'Display_7Segment:DE122-XX-XX', 'keywords':'display LCD 7-segment', 'description':'', 'datasheet':'http://www.display-elektronik.de/filter/DE122-RS-20_635.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nDE122-XX-XX\n\ndisplay LCD 7-segment', 'pins':[
             Pin(num='41',name='3G',func=Pin.types.INPUT),
             Pin(num='42',name='COL1',func=Pin.types.INPUT),
             Pin(num='43',name='2B',func=Pin.types.INPUT),
@@ -573,7 +573,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='2D',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='2C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DP2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DE170-XX-XX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DE170-XX-XX'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DE170-XX-XX'], 'footprint':'Display_7Segment:DE170-XX-XX', 'keywords':'display LCD 7-segment', 'description':'', 'datasheet':'http://www.display-elektronik.de/filter/DE170-RS-20_75.pdf', 'pins':[
+        Part(**{ 'name':'DE170-XX-XX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DE170-XX-XX'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DE170-XX-XX'], 'footprint':'Display_7Segment:DE170-XX-XX', 'keywords':'display LCD 7-segment', 'description':'', 'datasheet':'http://www.display-elektronik.de/filter/DE170-RS-20_75.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nDE170-XX-XX\n\ndisplay LCD 7-segment', 'pins':[
             Pin(num='1',name='BP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='1D',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='1C',func=Pin.types.INPUT,unit=1),
@@ -614,14 +614,14 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='DP1',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='1E',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EA_T123X-I2C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_T123X-I2C'}), 'ref_prefix':'U', 'fplist':['Display:EA_T123X-I2C'], 'footprint':'Display:EA_T123X-I2C', 'keywords':'display LCD 7-segment', 'description':'', 'datasheet':'http://www.lcd-module.de/pdf/doma/t123-i2c.pdf', 'pins':[
+        Part(**{ 'name':'EA_T123X-I2C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EA_T123X-I2C'}), 'ref_prefix':'U', 'fplist':['Display:EA_T123X-I2C'], 'footprint':'Display:EA_T123X-I2C', 'keywords':'display LCD 7-segment', 'description':'', 'datasheet':'http://www.lcd-module.de/pdf/doma/t123-i2c.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nEA_T123X-I2C\n\ndisplay LCD 7-segment', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VLCD',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='V0',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ELD-426SYGWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ELD-426SYGWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:ELD_426XXXX'], 'footprint':'Display_7Segment:ELD_426XXXX', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.everlight.com/file/ProductFile/D426SYGWA-S530-E2.pdf', 'pins':[
+        Part(**{ 'name':'ELD-426SYGWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ELD-426SYGWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:ELD_426XXXX'], 'footprint':'Display_7Segment:ELD_426XXXX', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.everlight.com/file/ProductFile/D426SYGWA-S530-E2.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nELD-426SYGWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='d',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='CA_D1',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='DP',func=Pin.types.INPUT,unit=1),
@@ -632,7 +632,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='a',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='f',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='g',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HDSM-441B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDSM-441B'}), 'ref_prefix':'U', 'fplist':['Display:HDSM-441B_HDSM-443B'], 'footprint':'Display:HDSM-441B_HDSM-443B', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-1589EN', 'pins':[
+        Part(**{ 'name':'HDSM-441B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDSM-441B'}), 'ref_prefix':'U', 'fplist':['Display:HDSM-441B_HDSM-443B'], 'footprint':'Display:HDSM-441B_HDSM-443B', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-1589EN', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nHDSM-441B\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='CA_DIG1',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='DP',func=Pin.types.INPUT,unit=1),
@@ -643,7 +643,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='E',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HDSM-443B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDSM-443B'}), 'ref_prefix':'U', 'fplist':['Display:HDSM-441B_HDSM-443B'], 'footprint':'Display:HDSM-441B_HDSM-443B', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-1589EN', 'pins':[
+        Part(**{ 'name':'HDSM-443B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDSM-443B'}), 'ref_prefix':'U', 'fplist':['Display:HDSM-441B_HDSM-443B'], 'footprint':'Display:HDSM-441B_HDSM-443B', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-1589EN', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nHDSM-443B\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='CC_DIG1',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='DP',func=Pin.types.INPUT,unit=1),
@@ -654,7 +654,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='E',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HDSM-541B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDSM-541B'}), 'ref_prefix':'U', 'fplist':['Display:HDSM-441B_HDSM-443B'], 'footprint':'Display:HDSM-441B_HDSM-443B', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-1588EN', 'pins':[
+        Part(**{ 'name':'HDSM-541B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDSM-541B'}), 'ref_prefix':'U', 'fplist':['Display:HDSM-441B_HDSM-443B'], 'footprint':'Display:HDSM-441B_HDSM-443B', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-1588EN', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nHDSM-541B\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='CA_DIG1',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='DP',func=Pin.types.INPUT,unit=1),
@@ -665,7 +665,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='E',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HDSM-543B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDSM-543B'}), 'ref_prefix':'U', 'fplist':['Display:HDSM-541B_HDSM-543B'], 'footprint':'Display:HDSM-541B_HDSM-543B', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-1588EN', 'pins':[
+        Part(**{ 'name':'HDSM-543B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDSM-543B'}), 'ref_prefix':'U', 'fplist':['Display:HDSM-541B_HDSM-543B'], 'footprint':'Display:HDSM-541B_HDSM-543B', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-1588EN', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nHDSM-543B\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='CC_DIG1',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='DP',func=Pin.types.INPUT,unit=1),
@@ -676,7 +676,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='E',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HDSP-7401', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDSP-7401'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:HDSP-7401'], 'footprint':'Display_7Segment:HDSP-7401', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-2553EN', 'pins':[
+        Part(**{ 'name':'HDSP-7401', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDSP-7401'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:HDSP-7401'], 'footprint':'Display_7Segment:HDSP-7401', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-2553EN', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nHDSP-7401\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='CA',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='F',func=Pin.types.INPUT,unit=1),
@@ -687,7 +687,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HDSP-7403', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDSP-7403'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:HDSP-7401'], 'footprint':'Display_7Segment:HDSP-7401', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-2553EN', 'pins':[
+        Part(**{ 'name':'HDSP-7403', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDSP-7403'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:HDSP-7401'], 'footprint':'Display_7Segment:HDSP-7401', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-2553EN', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nHDSP-7403\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='CC',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='F',func=Pin.types.INPUT,unit=1),
@@ -698,51 +698,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HDSP-7507', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDSP-7507'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:HDSP-7507'], 'footprint':'Display_7Segment:HDSP-7507', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-2553EN', 'pins':[
-            Pin(num='1',name='CA',func=Pin.types.INPUT,unit=1),
-            Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
-            Pin(num='2',name='P',func=Pin.types.INPUT,unit=1),
-            Pin(num='3',name='M',func=Pin.types.INPUT,unit=1),
-            Pin(num='4',name='NC',func=Pin.types.NOCONNECT,unit=1),
-            Pin(num='5',name='NC',func=Pin.types.NOCONNECT,unit=1),
-            Pin(num='6',name='CA',func=Pin.types.INPUT,unit=1),
-            Pin(num='7',name='DP',func=Pin.types.INPUT,unit=1),
-            Pin(num='8',name='C',func=Pin.types.INPUT,unit=1),
-            Pin(num='9',name='B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HDSP-7508', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDSP-7508'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:HDSP-7507'], 'footprint':'Display_7Segment:HDSP-7507', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-2553EN', 'pins':[
-            Pin(num='1',name='CC',func=Pin.types.INPUT,unit=1),
-            Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
-            Pin(num='2',name='P',func=Pin.types.INPUT,unit=1),
-            Pin(num='3',name='M',func=Pin.types.INPUT,unit=1),
-            Pin(num='4',name='NC',func=Pin.types.NOCONNECT,unit=1),
-            Pin(num='5',name='NC',func=Pin.types.NOCONNECT,unit=1),
-            Pin(num='6',name='CC',func=Pin.types.INPUT,unit=1),
-            Pin(num='7',name='DP',func=Pin.types.INPUT,unit=1),
-            Pin(num='8',name='C',func=Pin.types.INPUT,unit=1),
-            Pin(num='9',name='B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HDSP-7801', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDSP-7801'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:HDSP-7801'], 'footprint':'Display_7Segment:HDSP-7801', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-2553EN', 'pins':[
-            Pin(num='1',name='CA',func=Pin.types.INPUT,unit=1),
-            Pin(num='10',name='A',func=Pin.types.INPUT,unit=1),
-            Pin(num='2',name='F',func=Pin.types.INPUT,unit=1),
-            Pin(num='3',name='G',func=Pin.types.INPUT,unit=1),
-            Pin(num='4',name='E',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='D',func=Pin.types.INPUT,unit=1),
-            Pin(num='6',name='CA',func=Pin.types.INPUT,unit=1),
-            Pin(num='7',name='DP',func=Pin.types.INPUT,unit=1),
-            Pin(num='8',name='C',func=Pin.types.INPUT,unit=1),
-            Pin(num='9',name='B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HDSP-7803', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDSP-7803'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:HDSP-7801'], 'footprint':'Display_7Segment:HDSP-7801', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-2553EN', 'pins':[
-            Pin(num='1',name='CC',func=Pin.types.INPUT,unit=1),
-            Pin(num='10',name='A',func=Pin.types.INPUT,unit=1),
-            Pin(num='2',name='F',func=Pin.types.INPUT,unit=1),
-            Pin(num='3',name='G',func=Pin.types.INPUT,unit=1),
-            Pin(num='4',name='E',func=Pin.types.INPUT,unit=1),
-            Pin(num='5',name='D',func=Pin.types.INPUT,unit=1),
-            Pin(num='6',name='CC',func=Pin.types.INPUT,unit=1),
-            Pin(num='7',name='DP',func=Pin.types.INPUT,unit=1),
-            Pin(num='8',name='C',func=Pin.types.INPUT,unit=1),
-            Pin(num='9',name='B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HDSP-7807', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDSP-7807'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:HDSP-7807'], 'footprint':'Display_7Segment:HDSP-7807', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-2553EN', 'pins':[
+        Part(**{ 'name':'HDSP-7507', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDSP-7507'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:HDSP-7507'], 'footprint':'Display_7Segment:HDSP-7507', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-2553EN', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nHDSP-7507\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='CA',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='P',func=Pin.types.INPUT,unit=1),
@@ -753,7 +709,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HDSP-7808', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDSP-7808'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:HDSP-7807'], 'footprint':'Display_7Segment:HDSP-7807', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-2553EN', 'pins':[
+        Part(**{ 'name':'HDSP-7508', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDSP-7508'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:HDSP-7507'], 'footprint':'Display_7Segment:HDSP-7507', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-2553EN', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nHDSP-7508\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='CC',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='P',func=Pin.types.INPUT,unit=1),
@@ -764,7 +720,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HDSP-A151', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDSP-A151'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:HDSP-A151'], 'footprint':'Display_7Segment:HDSP-A151', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-2553EN', 'pins':[
+        Part(**{ 'name':'HDSP-7801', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDSP-7801'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:HDSP-7801'], 'footprint':'Display_7Segment:HDSP-7801', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-2553EN', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nHDSP-7801\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='CA',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='F',func=Pin.types.INPUT,unit=1),
@@ -775,7 +731,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HDSP-A153', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDSP-A153'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:HDSP-A151'], 'footprint':'Display_7Segment:HDSP-A151', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-2553EN', 'pins':[
+        Part(**{ 'name':'HDSP-7803', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDSP-7803'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:HDSP-7801'], 'footprint':'Display_7Segment:HDSP-7801', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-2553EN', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nHDSP-7803\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='CC',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='F',func=Pin.types.INPUT,unit=1),
@@ -786,7 +742,29 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HDSP-A401', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDSP-A401'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:HDSP-A401'], 'footprint':'Display_7Segment:HDSP-A401', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-2553EN', 'pins':[
+        Part(**{ 'name':'HDSP-7807', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDSP-7807'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:HDSP-7807'], 'footprint':'Display_7Segment:HDSP-7807', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-2553EN', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nHDSP-7807\n\ndisplay LED 7-segment', 'pins':[
+            Pin(num='1',name='CA',func=Pin.types.INPUT,unit=1),
+            Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
+            Pin(num='2',name='P',func=Pin.types.INPUT,unit=1),
+            Pin(num='3',name='M',func=Pin.types.INPUT,unit=1),
+            Pin(num='4',name='NC',func=Pin.types.NOCONNECT,unit=1),
+            Pin(num='5',name='NC',func=Pin.types.NOCONNECT,unit=1),
+            Pin(num='6',name='CA',func=Pin.types.INPUT,unit=1),
+            Pin(num='7',name='DP',func=Pin.types.INPUT,unit=1),
+            Pin(num='8',name='C',func=Pin.types.INPUT,unit=1),
+            Pin(num='9',name='B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'HDSP-7808', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDSP-7808'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:HDSP-7807'], 'footprint':'Display_7Segment:HDSP-7807', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-2553EN', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nHDSP-7808\n\ndisplay LED 7-segment', 'pins':[
+            Pin(num='1',name='CC',func=Pin.types.INPUT,unit=1),
+            Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
+            Pin(num='2',name='P',func=Pin.types.INPUT,unit=1),
+            Pin(num='3',name='M',func=Pin.types.INPUT,unit=1),
+            Pin(num='4',name='NC',func=Pin.types.NOCONNECT,unit=1),
+            Pin(num='5',name='NC',func=Pin.types.NOCONNECT,unit=1),
+            Pin(num='6',name='CC',func=Pin.types.INPUT,unit=1),
+            Pin(num='7',name='DP',func=Pin.types.INPUT,unit=1),
+            Pin(num='8',name='C',func=Pin.types.INPUT,unit=1),
+            Pin(num='9',name='B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'HDSP-A151', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDSP-A151'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:HDSP-A151'], 'footprint':'Display_7Segment:HDSP-A151', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-2553EN', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nHDSP-A151\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='CA',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='F',func=Pin.types.INPUT,unit=1),
@@ -797,7 +775,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HDSP-A403', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDSP-A403'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:HDSP-A401'], 'footprint':'Display_7Segment:HDSP-A401', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-2553EN', 'pins':[
+        Part(**{ 'name':'HDSP-A153', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDSP-A153'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:HDSP-A151'], 'footprint':'Display_7Segment:HDSP-A151', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-2553EN', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nHDSP-A153\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='CC',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='F',func=Pin.types.INPUT,unit=1),
@@ -808,7 +786,29 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HY1602E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HY1602E'}), 'ref_prefix':'DS', 'fplist':['Display:HY1602E'], 'footprint':'Display:HY1602E', 'keywords':'display LCD 7-segment', 'description':'', 'datasheet':'http://www.icbank.com/data/ICBShop/board/HY1602E.pdf', 'pins':[
+        Part(**{ 'name':'HDSP-A401', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDSP-A401'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:HDSP-A401'], 'footprint':'Display_7Segment:HDSP-A401', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-2553EN', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nHDSP-A401\n\ndisplay LED 7-segment', 'pins':[
+            Pin(num='1',name='CA',func=Pin.types.INPUT,unit=1),
+            Pin(num='10',name='A',func=Pin.types.INPUT,unit=1),
+            Pin(num='2',name='F',func=Pin.types.INPUT,unit=1),
+            Pin(num='3',name='G',func=Pin.types.INPUT,unit=1),
+            Pin(num='4',name='E',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='D',func=Pin.types.INPUT,unit=1),
+            Pin(num='6',name='CA',func=Pin.types.INPUT,unit=1),
+            Pin(num='7',name='DP',func=Pin.types.INPUT,unit=1),
+            Pin(num='8',name='C',func=Pin.types.INPUT,unit=1),
+            Pin(num='9',name='B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'HDSP-A403', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDSP-A403'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:HDSP-A401'], 'footprint':'Display_7Segment:HDSP-A401', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-2553EN', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nHDSP-A403\n\ndisplay LED 7-segment', 'pins':[
+            Pin(num='1',name='CC',func=Pin.types.INPUT,unit=1),
+            Pin(num='10',name='A',func=Pin.types.INPUT,unit=1),
+            Pin(num='2',name='F',func=Pin.types.INPUT,unit=1),
+            Pin(num='3',name='G',func=Pin.types.INPUT,unit=1),
+            Pin(num='4',name='E',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='D',func=Pin.types.INPUT,unit=1),
+            Pin(num='6',name='CC',func=Pin.types.INPUT,unit=1),
+            Pin(num='7',name='DP',func=Pin.types.INPUT,unit=1),
+            Pin(num='8',name='C',func=Pin.types.INPUT,unit=1),
+            Pin(num='9',name='B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'HY1602E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HY1602E'}), 'ref_prefix':'DS', 'fplist':['Display:HY1602E'], 'footprint':'Display:HY1602E', 'keywords':'display LCD 7-segment', 'description':'', 'datasheet':'http://www.icbank.com/data/ICBShop/board/HY1602E.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nHY1602E\n\ndisplay LCD 7-segment', 'pins':[
             Pin(num='1',name='LEDK',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='DB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='DB2',func=Pin.types.BIDIR,unit=1),
@@ -825,7 +825,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='R/~{W}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='E',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DB0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'KCSA02-105', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KCSA02-105'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:KCSC02-105'], 'footprint':'Display_7Segment:KCSC02-105', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/KCSA02-105(Ver.10A).pdf', 'pins':[
+        Part(**{ 'name':'KCSA02-105', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KCSA02-105'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:KCSC02-105'], 'footprint':'Display_7Segment:KCSC02-105', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/KCSA02-105(Ver.10A).pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nKCSA02-105\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='E',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='D',func=Pin.types.INPUT,unit=1),
@@ -836,7 +836,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CA',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='F',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'KCSA02-106', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KCSA02-106'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:KCSC02-106'], 'footprint':'Display_7Segment:KCSC02-106', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/KCSA02-106(Ver.11A).pdf', 'pins':[
+        Part(**{ 'name':'KCSA02-106', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KCSA02-106'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:KCSC02-106'], 'footprint':'Display_7Segment:KCSC02-106', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/KCSA02-106(Ver.11A).pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nKCSA02-106\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='E',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='D',func=Pin.types.INPUT,unit=1),
@@ -847,7 +847,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CA',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='F',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'KCSA02-107', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KCSA02-107'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:KCSC02-107'], 'footprint':'Display_7Segment:KCSC02-107', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/KCSA02-107(Ver.10A).pdf', 'pins':[
+        Part(**{ 'name':'KCSA02-107', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KCSA02-107'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:KCSC02-107'], 'footprint':'Display_7Segment:KCSC02-107', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/KCSA02-107(Ver.10A).pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nKCSA02-107\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='E',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='D',func=Pin.types.INPUT,unit=1),
@@ -858,7 +858,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CA',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='F',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'KCSA02-123', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KCSA02-123'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:KCSC02-123'], 'footprint':'Display_7Segment:KCSC02-123', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/KCSA02-123(Ver.9A).pdf', 'pins':[
+        Part(**{ 'name':'KCSA02-123', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KCSA02-123'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:KCSC02-123'], 'footprint':'Display_7Segment:KCSC02-123', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/KCSA02-123(Ver.9A).pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nKCSA02-123\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='E',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='D',func=Pin.types.INPUT,unit=1),
@@ -869,7 +869,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CA',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='F',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'KCSA02-136', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KCSA02-136'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:KCSC02-136'], 'footprint':'Display_7Segment:KCSC02-136', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/KCSA02-136(Ver.7B).pdf', 'pins':[
+        Part(**{ 'name':'KCSA02-136', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KCSA02-136'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:KCSC02-136'], 'footprint':'Display_7Segment:KCSC02-136', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/KCSA02-136(Ver.7B).pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nKCSA02-136\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='E',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='D',func=Pin.types.INPUT,unit=1),
@@ -880,7 +880,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CA',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='F',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'KCSC02-105', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KCSC02-105'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:KCSC02-105'], 'footprint':'Display_7Segment:KCSC02-105', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/KCSC02-105(Ver.9A).pdf', 'pins':[
+        Part(**{ 'name':'KCSC02-105', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KCSC02-105'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:KCSC02-105'], 'footprint':'Display_7Segment:KCSC02-105', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/KCSC02-105(Ver.9A).pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nKCSC02-105\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='E',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='D',func=Pin.types.INPUT,unit=1),
@@ -891,7 +891,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CC',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='F',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'KCSC02-106', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KCSC02-106'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:KCSC02-106'], 'footprint':'Display_7Segment:KCSC02-106', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/KCSC02-106(Ver.10A).pdf', 'pins':[
+        Part(**{ 'name':'KCSC02-106', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KCSC02-106'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:KCSC02-106'], 'footprint':'Display_7Segment:KCSC02-106', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/KCSC02-106(Ver.10A).pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nKCSC02-106\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='E',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='D',func=Pin.types.INPUT,unit=1),
@@ -902,7 +902,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CC',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='F',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'KCSC02-107', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KCSC02-107'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:KCSC02-107'], 'footprint':'Display_7Segment:KCSC02-107', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/KCSC02-106(Ver.10A).pdf', 'pins':[
+        Part(**{ 'name':'KCSC02-107', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KCSC02-107'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:KCSC02-107'], 'footprint':'Display_7Segment:KCSC02-107', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/KCSC02-106(Ver.10A).pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nKCSC02-107\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='E',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='D',func=Pin.types.INPUT,unit=1),
@@ -913,7 +913,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CC',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='F',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'KCSC02-123', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KCSC02-123'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:KCSC02-123'], 'footprint':'Display_7Segment:KCSC02-123', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/KCSC02-123(Ver.10A).pdf', 'pins':[
+        Part(**{ 'name':'KCSC02-123', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KCSC02-123'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:KCSC02-123'], 'footprint':'Display_7Segment:KCSC02-123', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/KCSC02-123(Ver.10A).pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nKCSC02-123\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='E',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='D',func=Pin.types.INPUT,unit=1),
@@ -924,7 +924,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CC',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='F',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'KCSC02-136', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KCSC02-136'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:KCSC02-136'], 'footprint':'Display_7Segment:KCSC02-136', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/KCSC02-136(Ver.6B).pdf', 'pins':[
+        Part(**{ 'name':'KCSC02-136', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KCSC02-136'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:KCSC02-136'], 'footprint':'Display_7Segment:KCSC02-136', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/KCSC02-136(Ver.6B).pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nKCSC02-136\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='E',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='D',func=Pin.types.INPUT,unit=1),
@@ -935,7 +935,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CC',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='F',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LCD-016N002L', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LCD-016N002L'}), 'ref_prefix':'U', 'fplist':['Display:LCD-016N002L'], 'footprint':'Display:LCD-016N002L', 'keywords':'display LCD dot-matrix', 'description':'', 'datasheet':'http://www.vishay.com/docs/37299/37299.pdf', 'pins':[
+        Part(**{ 'name':'LCD-016N002L', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LCD-016N002L'}), 'ref_prefix':'U', 'fplist':['Display:LCD-016N002L'], 'footprint':'Display:LCD-016N002L', 'keywords':'display LCD dot-matrix', 'description':'', 'datasheet':'http://www.vishay.com/docs/37299/37299.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nLCD-016N002L\n\ndisplay LCD dot-matrix', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='DB4',func=Pin.types.BIDIR,unit=1),
@@ -956,7 +956,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='A2',name='A2',func=Pin.types.PWRIN,unit=1),
             Pin(num='K1',name='K1',func=Pin.types.PWRIN,unit=1),
             Pin(num='K2',name='K2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LM16255K', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM16255K'}), 'ref_prefix':'U', 'fplist':['Display:LM16255'], 'footprint':'Display:LM16255', 'keywords':'display LCD dot-matrix', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheet/Sharp/mXvtrzw.pdf', 'pins':[
+        Part(**{ 'name':'LM16255K', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM16255K'}), 'ref_prefix':'U', 'fplist':['Display:LM16255'], 'footprint':'Display:LM16255', 'keywords':'display LCD dot-matrix', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheet/Sharp/mXvtrzw.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nLM16255K\n\ndisplay LCD dot-matrix', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='DB4',func=Pin.types.BIDIR,unit=1),
@@ -971,7 +971,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='DB2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC-4627JG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC-4627JG'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:LTC-4627Jx'], 'footprint':'Display_7Segment:LTC-4627Jx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://optoelectronics.liteon.com/upload/download/DS30-2001-393/C4627JG.pdf', 'pins':[
+        Part(**{ 'name':'LTC-4627JG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC-4627JG'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:LTC-4627Jx'], 'footprint':'Display_7Segment:LTC-4627Jx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://optoelectronics.liteon.com/upload/download/DS30-2001-393/C4627JG.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nLTC-4627JG\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='CA1',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='F',func=Pin.types.INPUT,unit=1),
             Pin(num='13',name='C',func=Pin.types.INPUT,unit=1),
@@ -986,7 +986,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CA4',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTS-6960HR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTS-6960HR'}), 'ref_prefix':'AFF', 'fplist':['Display_7Segment:7SegmentLED_LTS6760_LTS6780'], 'footprint':'Display_7Segment:7SegmentLED_LTS6760_LTS6780', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://datasheet.octopart.com/LTS-6960HR-Lite-On-datasheet-11803242.pdf', 'pins':[
+        Part(**{ 'name':'LTS-6960HR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTS-6960HR'}), 'ref_prefix':'AFF', 'fplist':['Display_7Segment:7SegmentLED_LTS6760_LTS6780'], 'footprint':'Display_7Segment:7SegmentLED_LTS6760_LTS6780', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://datasheet.octopart.com/LTS-6960HR-Lite-On-datasheet-11803242.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nLTS-6960HR\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='e',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='g',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='d',func=Pin.types.PASSIVE,unit=1),
@@ -997,7 +997,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='a',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='C.A.',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='f',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTS-6980HR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTS-6980HR'}), 'ref_prefix':'AFF', 'fplist':['Display_7Segment:7SegmentLED_LTS6760_LTS6780'], 'footprint':'Display_7Segment:7SegmentLED_LTS6760_LTS6780', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://datasheet.octopart.com/LTS-6960HR-Lite-On-datasheet-11803242.pdf', 'pins':[
+        Part(**{ 'name':'LTS-6980HR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTS-6980HR'}), 'ref_prefix':'AFF', 'fplist':['Display_7Segment:7SegmentLED_LTS6760_LTS6780'], 'footprint':'Display_7Segment:7SegmentLED_LTS6760_LTS6780', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://datasheet.octopart.com/LTS-6960HR-Lite-On-datasheet-11803242.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nLTS-6980HR\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='e',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='g',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='d',func=Pin.types.PASSIVE,unit=1),
@@ -1008,7 +1008,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='a',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='C.K.',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='f',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAN3410A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAN3410A'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:MAN3410A'], 'footprint':'Display_7Segment:MAN3410A', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php', 'pins':[
+        Part(**{ 'name':'MAN3410A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAN3410A'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:MAN3410A'], 'footprint':'Display_7Segment:MAN3410A', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nMAN3410A\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='G',func=Pin.types.INPUT,unit=1),
@@ -1023,7 +1023,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='E',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='D.P.',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAN3420A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAN3420A'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:MAN3420A'], 'footprint':'Display_7Segment:MAN3420A', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php', 'pins':[
+        Part(**{ 'name':'MAN3420A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAN3420A'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:MAN3420A'], 'footprint':'Display_7Segment:MAN3420A', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nMAN3420A\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='G',func=Pin.types.INPUT,unit=1),
@@ -1038,7 +1038,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='E',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAN3440A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAN3440A'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:MAN3410A'], 'footprint':'Display_7Segment:MAN3410A', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php', 'pins':[
+        Part(**{ 'name':'MAN3440A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAN3440A'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:MAN3410A'], 'footprint':'Display_7Segment:MAN3410A', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nMAN3440A\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='F',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -1053,7 +1053,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='D.P.',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAN3610A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAN3610A'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:MAN3610A'], 'footprint':'Display_7Segment:MAN3610A', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php', 'pins':[
+        Part(**{ 'name':'MAN3610A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAN3610A'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:MAN3610A'], 'footprint':'Display_7Segment:MAN3610A', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nMAN3610A\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='G',func=Pin.types.INPUT,unit=1),
@@ -1068,7 +1068,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='E',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='D.P.',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAN3620A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAN3620A'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:MAN3620A'], 'footprint':'Display_7Segment:MAN3620A', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php', 'pins':[
+        Part(**{ 'name':'MAN3620A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAN3620A'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:MAN3620A'], 'footprint':'Display_7Segment:MAN3620A', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nMAN3620A\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='G',func=Pin.types.INPUT,unit=1),
@@ -1083,7 +1083,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='E',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAN3630A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAN3630A'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:MAN3630A'], 'footprint':'Display_7Segment:MAN3630A', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php', 'pins':[
+        Part(**{ 'name':'MAN3630A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAN3630A'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:MAN3630A'], 'footprint':'Display_7Segment:MAN3630A', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nMAN3630A\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='CA_CD',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='A',func=Pin.types.INPUT,unit=1),
@@ -1098,7 +1098,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAN3640A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAN3640A'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:MAN3610A'], 'footprint':'Display_7Segment:MAN3610A', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php', 'pins':[
+        Part(**{ 'name':'MAN3640A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAN3640A'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:MAN3610A'], 'footprint':'Display_7Segment:MAN3610A', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nMAN3640A\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='F',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -1113,7 +1113,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='D.P.',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAN3810A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAN3810A'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:MAN3810A'], 'footprint':'Display_7Segment:MAN3810A', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php', 'pins':[
+        Part(**{ 'name':'MAN3810A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAN3810A'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:MAN3810A'], 'footprint':'Display_7Segment:MAN3810A', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nMAN3810A\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='G',func=Pin.types.INPUT,unit=1),
@@ -1128,7 +1128,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='E',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='D.P.',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAN3820A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAN3820A'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:MAN3820A'], 'footprint':'Display_7Segment:MAN3820A', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php', 'pins':[
+        Part(**{ 'name':'MAN3820A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAN3820A'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:MAN3820A'], 'footprint':'Display_7Segment:MAN3820A', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nMAN3820A\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='G',func=Pin.types.INPUT,unit=1),
@@ -1143,7 +1143,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='E',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAN3840A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAN3840A'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:MAN3810A'], 'footprint':'Display_7Segment:MAN3810A', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php', 'pins':[
+        Part(**{ 'name':'MAN3840A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAN3840A'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:MAN3810A'], 'footprint':'Display_7Segment:MAN3810A', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nMAN3840A\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='F',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -1158,7 +1158,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='D.P.',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAN71A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAN71A'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:MAN71A'], 'footprint':'Display_7Segment:MAN71A', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php', 'pins':[
+        Part(**{ 'name':'MAN71A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAN71A'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:MAN71A'], 'footprint':'Display_7Segment:MAN71A', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nMAN71A\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='G',func=Pin.types.INPUT,unit=1),
@@ -1173,7 +1173,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='E',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='D.P.',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAN72A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAN72A'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:MAN72A'], 'footprint':'Display_7Segment:MAN72A', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php', 'pins':[
+        Part(**{ 'name':'MAN72A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAN72A'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:MAN72A'], 'footprint':'Display_7Segment:MAN72A', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nMAN72A\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='G',func=Pin.types.INPUT,unit=1),
@@ -1188,7 +1188,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='E',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAN73A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAN73A'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:MAN73A'], 'footprint':'Display_7Segment:MAN73A', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php', 'pins':[
+        Part(**{ 'name':'MAN73A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAN73A'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:MAN73A'], 'footprint':'Display_7Segment:MAN73A', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nMAN73A\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='CA_CD',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='A',func=Pin.types.INPUT,unit=1),
@@ -1203,7 +1203,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAN74A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAN74A'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:MAN71A'], 'footprint':'Display_7Segment:MAN71A', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php', 'pins':[
+        Part(**{ 'name':'MAN74A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAN74A'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:MAN71A'], 'footprint':'Display_7Segment:MAN71A', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://www.digchip.com/datasheets/parts/datasheet/161/MAN3640A-pdf.php', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nMAN74A\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='F',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -1218,7 +1218,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='D.P.',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NHD-0420H1Z', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NHD-0420H1Z'}), 'ref_prefix':'U', 'fplist':['Display:NHD-0420H1Z'], 'footprint':'Display:NHD-0420H1Z', 'keywords':'display LCD 20x4', 'description':'', 'datasheet':'http://www.newhavendisplay.com/specs/NHD-0420H1Z-FSW-GBW-33V3.pdf', 'pins':[
+        Part(**{ 'name':'NHD-0420H1Z', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NHD-0420H1Z'}), 'ref_prefix':'U', 'fplist':['Display:NHD-0420H1Z'], 'footprint':'Display:NHD-0420H1Z', 'keywords':'display LCD 20x4', 'description':'', 'datasheet':'http://www.newhavendisplay.com/specs/NHD-0420H1Z-FSW-GBW-33V3.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nNHD-0420H1Z\n\ndisplay LCD 20x4', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='DB4',func=Pin.types.BIDIR,unit=1),
@@ -1235,7 +1235,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='DB2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NHD-C0220BIZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NHD-C0220BIZ'}), 'ref_prefix':'U', 'fplist':['Display:NHD-C0220BiZ'], 'footprint':'Display:NHD-C0220BiZ', 'keywords':'display LCD 20x2', 'description':'', 'datasheet':'http://www.newhavendisplay.com/specs/NHD-C0220BiZ-FSW-FBW-3V3M.pdf', 'pins':[
+        Part(**{ 'name':'NHD-C0220BIZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NHD-C0220BIZ'}), 'ref_prefix':'U', 'fplist':['Display:NHD-C0220BiZ'], 'footprint':'Display:NHD-C0220BiZ', 'keywords':'display LCD 20x2', 'description':'', 'datasheet':'http://www.newhavendisplay.com/specs/NHD-C0220BiZ-FSW-FBW-3V3M.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nNHD-C0220BIZ\n\ndisplay LCD 20x2', 'pins':[
             Pin(num='1',name='~{RST}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='SCL',func=Pin.types.INPUT,unit=1),
@@ -1246,7 +1246,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='C1+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='C1-',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='A',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NHD-C0220BIZ-FSRGB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NHD-C0220BIZ-FSRGB'}), 'ref_prefix':'U', 'fplist':['Display:NHD-C0220BiZ-FSRGB'], 'footprint':'Display:NHD-C0220BiZ-FSRGB', 'keywords':'lcd rgb character st736i i2c 2-wire twi', 'description':'', 'datasheet':'https://newhavendisplay.com/content/specs/NHD-C0220BiZ-FSRGB-FBW-3VM.pdf', 'pins':[
+        Part(**{ 'name':'NHD-C0220BIZ-FSRGB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NHD-C0220BIZ-FSRGB'}), 'ref_prefix':'U', 'fplist':['Display:NHD-C0220BiZ-FSRGB'], 'footprint':'Display:NHD-C0220BiZ-FSRGB', 'keywords':'lcd rgb character st736i i2c 2-wire twi', 'description':'', 'datasheet':'https://newhavendisplay.com/content/specs/NHD-C0220BiZ-FSRGB-FBW-3VM.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nNHD-C0220BIZ-FSRGB\n\nlcd rgb character st736i i2c 2-wire twi', 'pins':[
             Pin(num='1',name='~{RST}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='(B)LED-',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='(G)LED-',func=Pin.types.PASSIVE,unit=1),
@@ -1259,7 +1259,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='C1+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='C1-',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='LED+',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RC1602A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RC1602A'}), 'ref_prefix':'U', 'fplist':['Display:RC1602A'], 'footprint':'Display:RC1602A', 'keywords':'display LCD dot-matrix', 'description':'', 'datasheet':'http://www.raystar-optronics.com/down.php?ProID=18', 'pins':[
+        Part(**{ 'name':'RC1602A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RC1602A'}), 'ref_prefix':'U', 'fplist':['Display:RC1602A'], 'footprint':'Display:RC1602A', 'keywords':'display LCD dot-matrix', 'description':'', 'datasheet':'http://www.raystar-optronics.com/down.php?ProID=18', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nRC1602A\n\ndisplay LCD dot-matrix', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='DB4',func=Pin.types.BIDIR,unit=1),
@@ -1276,7 +1276,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='DB2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RC1602A-GHW-ESX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RC1602A-GHW-ESX'}), 'ref_prefix':'U', 'fplist':['Display:RC1602A'], 'footprint':'Display:RC1602A', 'keywords':'display LCD dot-matrix', 'description':'', 'datasheet':'http://www.raystar-optronics.com/down.php?ProID=18', 'pins':[
+        Part(**{ 'name':'RC1602A-GHW-ESX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RC1602A-GHW-ESX'}), 'ref_prefix':'U', 'fplist':['Display:RC1602A'], 'footprint':'Display:RC1602A', 'keywords':'display LCD dot-matrix', 'description':'', 'datasheet':'http://www.raystar-optronics.com/down.php?ProID=18', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nRC1602A-GHW-ESX\n\ndisplay LCD dot-matrix', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='DB4',func=Pin.types.BIDIR,unit=1),
@@ -1295,7 +1295,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='DB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='A1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='K1',name='K',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SA15-11SRWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SA15-11SRWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:SA15-11xxx'], 'footprint':'Display_7Segment:SA15-11xxx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/SA15-11SRWA.pdf', 'pins':[
+        Part(**{ 'name':'SA15-11SRWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SA15-11SRWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:SA15-11xxx'], 'footprint':'Display_7Segment:SA15-11xxx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/SA15-11SRWA.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nSA15-11SRWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='CA',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='E',func=Pin.types.INPUT,unit=1),
@@ -1306,7 +1306,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DP',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='F',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SA39-11EWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SA39-11EWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:Sx39-1xxxxx'], 'footprint':'Display_7Segment:Sx39-1xxxxx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/sa39-11ewa.pdf', 'pins':[
+        Part(**{ 'name':'SA39-11EWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SA39-11EWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:Sx39-1xxxxx'], 'footprint':'Display_7Segment:Sx39-1xxxxx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/sa39-11ewa.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nSA39-11EWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='F',func=Pin.types.INPUT,unit=1),
@@ -1317,7 +1317,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CA',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SA39-12EWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SA39-12EWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:Sx39-1xxxxx'], 'footprint':'Display_7Segment:Sx39-1xxxxx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/sa39-12ewa.pdf', 'pins':[
+        Part(**{ 'name':'SA39-12EWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SA39-12EWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:Sx39-1xxxxx'], 'footprint':'Display_7Segment:Sx39-1xxxxx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/sa39-12ewa.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nSA39-12EWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='CA',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='F',func=Pin.types.INPUT,unit=1),
@@ -1328,7 +1328,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SBC18-11SURKCGKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SBC18-11SURKCGKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:SBC18-11SURKCGKWA'], 'footprint':'Display_7Segment:SBC18-11SURKCGKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/SBC18-11SURKCGKWA(Ver.6A).pdf', 'pins':[
+        Part(**{ 'name':'SBC18-11SURKCGKWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SBC18-11SURKCGKWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:SBC18-11SURKCGKWA'], 'footprint':'Display_7Segment:SBC18-11SURKCGKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbright.com/attachments/file/psearch/000/00/00/SBC18-11SURKCGKWA(Ver.6A).pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nSBC18-11SURKCGKWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='CC',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='E',func=Pin.types.INPUT,unit=1),
@@ -1339,7 +1339,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DP',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='F',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SC39-11EWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SC39-11EWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:Sx39-1xxxxx'], 'footprint':'Display_7Segment:Sx39-1xxxxx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/sc39-11ewa.pdf', 'pins':[
+        Part(**{ 'name':'SC39-11EWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SC39-11EWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:Sx39-1xxxxx'], 'footprint':'Display_7Segment:Sx39-1xxxxx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/sc39-11ewa.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nSC39-11EWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='F',func=Pin.types.INPUT,unit=1),
@@ -1350,7 +1350,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CC',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SC39-12EWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SC39-12EWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:Sx39-1xxxxx'], 'footprint':'Display_7Segment:Sx39-1xxxxx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/sc39-12ewa.pdf', 'pins':[
+        Part(**{ 'name':'SC39-12EWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SC39-12EWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:Sx39-1xxxxx'], 'footprint':'Display_7Segment:Sx39-1xxxxx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/sc39-12ewa.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nSC39-12EWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='CC',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='F',func=Pin.types.INPUT,unit=1),
@@ -1361,7 +1361,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SM420561N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SM420561N'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:7SegmentLED_LTS6760_LTS6780'], 'footprint':'Display_7Segment:7SegmentLED_LTS6760_LTS6780', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://datasheet.lcsc.com/szlcsc/Wuxi-ARK-Tech-Elec-SM420561N_C141367.pdf', 'pins':[
+        Part(**{ 'name':'SM420561N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SM420561N'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:7SegmentLED_LTS6760_LTS6780'], 'footprint':'Display_7Segment:7SegmentLED_LTS6760_LTS6780', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://datasheet.lcsc.com/szlcsc/Wuxi-ARK-Tech-Elec-SM420561N_C141367.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nSM420561N\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='E',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='D',func=Pin.types.INPUT,unit=1),
@@ -1372,7 +1372,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CC',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='F',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'WC1602A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'WC1602A'}), 'ref_prefix':'DS', 'fplist':['Display:WC1602A'], 'footprint':'Display:WC1602A', 'keywords':'display LCD dot-matrix', 'description':'', 'datasheet':'http://www.wincomlcd.com/pdf/WC1602A-SFYLYHTC06.pdf', 'pins':[
+        Part(**{ 'name':'WC1602A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'WC1602A'}), 'ref_prefix':'DS', 'fplist':['Display:WC1602A'], 'footprint':'Display:WC1602A', 'keywords':'display LCD dot-matrix', 'description':'', 'datasheet':'http://www.wincomlcd.com/pdf/WC1602A-SFYLYHTC06.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nWC1602A\n\ndisplay LCD dot-matrix', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='D3',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='D4',func=Pin.types.INPUT,unit=1),
@@ -1389,7 +1389,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D0',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D1',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='D2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'D148K', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D148K'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:D1X8K', 'Display_7Segment:D1X8K'], 'footprint':'Display_7Segment:D1X8K', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://ia800903.us.archive.org/24/items/CTKD1x8K/Cromatek%20D168K.pdf', 'pins':[
+        Part(**{ 'name':'D148K', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D148K'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:D1X8K', 'Display_7Segment:D1X8K'], 'footprint':'Display_7Segment:D1X8K', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://ia800903.us.archive.org/24/items/CTKD1x8K/Cromatek%20D168K.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nD148K\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='E',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='D',func=Pin.types.INPUT,unit=1),
@@ -1400,7 +1400,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CC',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='F',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'D198K', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D198K'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:D1X8K', 'Display_7Segment:D1X8K', 'Display_7Segment:D1X8K'], 'footprint':'Display_7Segment:D1X8K', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://ia800903.us.archive.org/24/items/CTKD1x8K/Cromatek%20D168K.pdf', 'pins':[
+        Part(**{ 'name':'D198K', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D198K'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:D1X8K', 'Display_7Segment:D1X8K', 'Display_7Segment:D1X8K'], 'footprint':'Display_7Segment:D1X8K', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://ia800903.us.archive.org/24/items/CTKD1x8K/Cromatek%20D168K.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nD198K\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='E',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='D',func=Pin.types.INPUT,unit=1),
@@ -1411,7 +1411,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CC',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='F',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'D1X8K-14BL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D1X8K-14BL'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:D1X8K', 'Display_7Segment:D1X8K', 'Display_7Segment:D1X8K', 'Display_7Segment:D1X8K'], 'footprint':'Display_7Segment:D1X8K', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://ia800903.us.archive.org/24/items/CTKD1x8K/Cromatek%20D168K.pdf', 'pins':[
+        Part(**{ 'name':'D1X8K-14BL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D1X8K-14BL'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:D1X8K', 'Display_7Segment:D1X8K', 'Display_7Segment:D1X8K', 'Display_7Segment:D1X8K'], 'footprint':'Display_7Segment:D1X8K', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://ia800903.us.archive.org/24/items/CTKD1x8K/Cromatek%20D168K.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nD1X8K-14BL\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='E',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='D',func=Pin.types.INPUT,unit=1),
@@ -1422,7 +1422,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CC',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='F',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DA04-11EWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA04-11EWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA04-11SURKWA', 'Display_7Segment:DA04-11SURKWA'], 'footprint':'Display_7Segment:DA04-11SURKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/DA04-11EWA.pdf', 'pins':[
+        Part(**{ 'name':'DA04-11EWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA04-11EWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA04-11SURKWA', 'Display_7Segment:DA04-11SURKWA'], 'footprint':'Display_7Segment:DA04-11SURKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/DA04-11EWA.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nDA04-11EWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='DIG1_C',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DIG2_A',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DIG2_F',func=Pin.types.INPUT,unit=1),
@@ -1439,7 +1439,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIG2_E',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DIG2_C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DIG2_G',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DA04-11GWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA04-11GWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA04-11CGKWA', 'Display_7Segment:DA04-11CGKWA'], 'footprint':'Display_7Segment:DA04-11CGKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/DA04-11GWA.pdf', 'pins':[
+        Part(**{ 'name':'DA04-11GWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA04-11GWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA04-11CGKWA', 'Display_7Segment:DA04-11CGKWA'], 'footprint':'Display_7Segment:DA04-11CGKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/DA04-11GWA.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nDA04-11GWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='DIG1_C',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DIG2_A',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DIG2_F',func=Pin.types.INPUT,unit=1),
@@ -1456,7 +1456,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIG2_E',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DIG2_C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DIG2_G',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DA04-11SRWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA04-11SRWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA04-11SURKWA', 'Display_7Segment:DA04-11SURKWA', 'Display_7Segment:DA04-11SURKWA'], 'footprint':'Display_7Segment:DA04-11SURKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/DA04-11SRWA.pdf', 'pins':[
+        Part(**{ 'name':'DA04-11SRWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA04-11SRWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA04-11SURKWA', 'Display_7Segment:DA04-11SURKWA', 'Display_7Segment:DA04-11SURKWA'], 'footprint':'Display_7Segment:DA04-11SURKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/DA04-11SRWA.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nDA04-11SRWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='DIG1_C',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DIG2_A',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DIG2_F',func=Pin.types.INPUT,unit=1),
@@ -1473,7 +1473,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIG2_E',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DIG2_C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DIG2_G',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DA56-11EWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA56-11EWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA56-11SURKWA', 'Display_7Segment:DA56-11SURKWA'], 'footprint':'Display_7Segment:DA56-11SURKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/DA56-11EWA.pdf', 'pins':[
+        Part(**{ 'name':'DA56-11EWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA56-11EWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA56-11SURKWA', 'Display_7Segment:DA56-11SURKWA'], 'footprint':'Display_7Segment:DA56-11SURKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/DA56-11EWA.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nDA56-11EWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='DIG1_E',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DIG2_B',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DIG2_A',func=Pin.types.INPUT,unit=1),
@@ -1492,7 +1492,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIG2_G',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DIG2_C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DP2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DA56-11GWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA56-11GWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA56-11CGKWA', 'Display_7Segment:DA56-11CGKWA'], 'footprint':'Display_7Segment:DA56-11CGKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/DA56-11GWA.pdf', 'pins':[
+        Part(**{ 'name':'DA56-11GWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA56-11GWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA56-11CGKWA', 'Display_7Segment:DA56-11CGKWA'], 'footprint':'Display_7Segment:DA56-11CGKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/DA56-11GWA.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nDA56-11GWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='DIG1_E',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DIG2_B',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DIG2_A',func=Pin.types.INPUT,unit=1),
@@ -1511,7 +1511,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIG2_G',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DIG2_C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DP2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DA56-11SRWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA56-11SRWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA56-11SURKWA', 'Display_7Segment:DA56-11SURKWA', 'Display_7Segment:DA56-11SURKWA'], 'footprint':'Display_7Segment:DA56-11SURKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/DA56-11SRWA.pdf', 'pins':[
+        Part(**{ 'name':'DA56-11SRWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA56-11SRWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA56-11SURKWA', 'Display_7Segment:DA56-11SURKWA', 'Display_7Segment:DA56-11SURKWA'], 'footprint':'Display_7Segment:DA56-11SURKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/DA56-11SRWA.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nDA56-11SRWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='DIG1_E',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DIG2_B',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DIG2_A',func=Pin.types.INPUT,unit=1),
@@ -1530,7 +1530,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIG2_G',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DIG2_C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DP2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DA56-11YWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA56-11YWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA56-11SYKWA', 'Display_7Segment:DA56-11SYKWA'], 'footprint':'Display_7Segment:DA56-11SYKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/DA56-11YWA.pdf', 'pins':[
+        Part(**{ 'name':'DA56-11YWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DA56-11YWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA56-11SYKWA', 'Display_7Segment:DA56-11SYKWA'], 'footprint':'Display_7Segment:DA56-11SYKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/DA56-11YWA.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nDA56-11YWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='DIG1_E',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DIG2_B',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DIG2_A',func=Pin.types.INPUT,unit=1),
@@ -1549,7 +1549,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIG2_G',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DIG2_C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DP2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DC56-11EWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DC56-11EWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA56-11SURKWA', 'Display_7Segment:DA56-11SURKWA'], 'footprint':'Display_7Segment:DA56-11SURKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/DC56-11EWA.pdf', 'pins':[
+        Part(**{ 'name':'DC56-11EWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DC56-11EWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA56-11SURKWA', 'Display_7Segment:DA56-11SURKWA'], 'footprint':'Display_7Segment:DA56-11SURKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/DC56-11EWA.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nDC56-11EWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='DIG1_E',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DIG2_B',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DIG2_A',func=Pin.types.INPUT,unit=1),
@@ -1568,7 +1568,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIG2_G',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DIG2_C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DP2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DC56-11GWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DC56-11GWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA56-11CGKWA', 'Display_7Segment:DA56-11CGKWA'], 'footprint':'Display_7Segment:DA56-11CGKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/DC56-11GWA.pdf', 'pins':[
+        Part(**{ 'name':'DC56-11GWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DC56-11GWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA56-11CGKWA', 'Display_7Segment:DA56-11CGKWA'], 'footprint':'Display_7Segment:DA56-11CGKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/DC56-11GWA.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nDC56-11GWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='DIG1_E',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DIG2_B',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DIG2_A',func=Pin.types.INPUT,unit=1),
@@ -1587,7 +1587,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIG2_G',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DIG2_C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DP2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DC56-11SRWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DC56-11SRWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA56-11SURKWA', 'Display_7Segment:DA56-11SURKWA', 'Display_7Segment:DA56-11SURKWA'], 'footprint':'Display_7Segment:DA56-11SURKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/DC56-11SRWA.pdf', 'pins':[
+        Part(**{ 'name':'DC56-11SRWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DC56-11SRWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA56-11SURKWA', 'Display_7Segment:DA56-11SURKWA', 'Display_7Segment:DA56-11SURKWA'], 'footprint':'Display_7Segment:DA56-11SURKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/DC56-11SRWA.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nDC56-11SRWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='DIG1_E',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DIG2_B',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DIG2_A',func=Pin.types.INPUT,unit=1),
@@ -1606,7 +1606,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIG2_G',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DIG2_C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DP2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DC56-11YWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DC56-11YWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA56-11SYKWA', 'Display_7Segment:DA56-11SYKWA'], 'footprint':'Display_7Segment:DA56-11SYKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/DC56-11YWA.pdf', 'pins':[
+        Part(**{ 'name':'DC56-11YWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DC56-11YWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:DA56-11SYKWA', 'Display_7Segment:DA56-11SYKWA'], 'footprint':'Display_7Segment:DA56-11SYKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/DC56-11YWA.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nDC56-11YWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='DIG1_E',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DIG2_B',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DIG2_A',func=Pin.types.INPUT,unit=1),
@@ -1625,7 +1625,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIG2_G',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DIG2_C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DP2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HDSP-7501', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDSP-7501'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:HDSP-A151', 'Display_7Segment:HDSP-A151'], 'footprint':'Display_7Segment:HDSP-A151', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-2553EN', 'pins':[
+        Part(**{ 'name':'HDSP-7501', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDSP-7501'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:HDSP-A151', 'Display_7Segment:HDSP-A151'], 'footprint':'Display_7Segment:HDSP-A151', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-2553EN', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nHDSP-7501\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='CA',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='F',func=Pin.types.INPUT,unit=1),
@@ -1636,7 +1636,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HDSP-7503', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDSP-7503'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:HDSP-A151', 'Display_7Segment:HDSP-A151'], 'footprint':'Display_7Segment:HDSP-A151', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-2553EN', 'pins':[
+        Part(**{ 'name':'HDSP-7503', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HDSP-7503'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:HDSP-A151', 'Display_7Segment:HDSP-A151'], 'footprint':'Display_7Segment:HDSP-A151', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-2553EN', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nHDSP-7503\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='CC',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='F',func=Pin.types.INPUT,unit=1),
@@ -1647,7 +1647,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC-4627JD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC-4627JD'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:LTC-4627Jx', 'Display_7Segment:LTC-4627Jx'], 'footprint':'Display_7Segment:LTC-4627Jx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://optoelectronics.liteon.com/upload/download/DS30-2001-093/LTC-4627JD.pdf', 'pins':[
+        Part(**{ 'name':'LTC-4627JD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC-4627JD'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:LTC-4627Jx', 'Display_7Segment:LTC-4627Jx'], 'footprint':'Display_7Segment:LTC-4627Jx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://optoelectronics.liteon.com/upload/download/DS30-2001-093/LTC-4627JD.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nLTC-4627JD\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='CA1',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='F',func=Pin.types.INPUT,unit=1),
             Pin(num='13',name='C',func=Pin.types.INPUT,unit=1),
@@ -1662,7 +1662,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CA4',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC-4627JD-01', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC-4627JD-01'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:LTC-4627Jx', 'Display_7Segment:LTC-4627Jx', 'Display_7Segment:LTC-4627Jx'], 'footprint':'Display_7Segment:LTC-4627Jx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://optoelectronics.liteon.com/upload/download/DS30-2008-0116/LTC-4627JD-01.pdf', 'pins':[
+        Part(**{ 'name':'LTC-4627JD-01', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC-4627JD-01'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:LTC-4627Jx', 'Display_7Segment:LTC-4627Jx', 'Display_7Segment:LTC-4627Jx'], 'footprint':'Display_7Segment:LTC-4627Jx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://optoelectronics.liteon.com/upload/download/DS30-2008-0116/LTC-4627JD-01.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nLTC-4627JD-01\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='CA1',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='F',func=Pin.types.INPUT,unit=1),
             Pin(num='13',name='C',func=Pin.types.INPUT,unit=1),
@@ -1677,7 +1677,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CA4',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC-4627JF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC-4627JF'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:LTC-4627Jx', 'Display_7Segment:LTC-4627Jx', 'Display_7Segment:LTC-4627Jx', 'Display_7Segment:LTC-4627Jx'], 'footprint':'Display_7Segment:LTC-4627Jx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://optoelectronics.liteon.com/upload/download/DS30-2000-192/C4627JF.pdf', 'pins':[
+        Part(**{ 'name':'LTC-4627JF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC-4627JF'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:LTC-4627Jx', 'Display_7Segment:LTC-4627Jx', 'Display_7Segment:LTC-4627Jx', 'Display_7Segment:LTC-4627Jx'], 'footprint':'Display_7Segment:LTC-4627Jx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://optoelectronics.liteon.com/upload/download/DS30-2000-192/C4627JF.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nLTC-4627JF\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='CA1',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='F',func=Pin.types.INPUT,unit=1),
             Pin(num='13',name='C',func=Pin.types.INPUT,unit=1),
@@ -1692,7 +1692,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CA4',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC-4627JR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC-4627JR'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:LTC-4627Jx', 'Display_7Segment:LTC-4627Jx', 'Display_7Segment:LTC-4627Jx', 'Display_7Segment:LTC-4627Jx', 'Display_7Segment:LTC-4627Jx'], 'footprint':'Display_7Segment:LTC-4627Jx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://optoelectronics.liteon.com/upload/download/DS30-2000-185/LTC-4627JR.pdf', 'pins':[
+        Part(**{ 'name':'LTC-4627JR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC-4627JR'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:LTC-4627Jx', 'Display_7Segment:LTC-4627Jx', 'Display_7Segment:LTC-4627Jx', 'Display_7Segment:LTC-4627Jx', 'Display_7Segment:LTC-4627Jx'], 'footprint':'Display_7Segment:LTC-4627Jx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://optoelectronics.liteon.com/upload/download/DS30-2000-185/LTC-4627JR.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nLTC-4627JR\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='CA1',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='F',func=Pin.types.INPUT,unit=1),
             Pin(num='13',name='C',func=Pin.types.INPUT,unit=1),
@@ -1707,7 +1707,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CA4',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC-4627JS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC-4627JS'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:LTC-4627Jx', 'Display_7Segment:LTC-4627Jx', 'Display_7Segment:LTC-4627Jx', 'Display_7Segment:LTC-4627Jx', 'Display_7Segment:LTC-4627Jx', 'Display_7Segment:LTC-4627Jx'], 'footprint':'Display_7Segment:LTC-4627Jx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://optoelectronics.liteon.com/upload/download/DS30-2000-186/LTC-4627JS.pdf', 'pins':[
+        Part(**{ 'name':'LTC-4627JS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC-4627JS'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:LTC-4627Jx', 'Display_7Segment:LTC-4627Jx', 'Display_7Segment:LTC-4627Jx', 'Display_7Segment:LTC-4627Jx', 'Display_7Segment:LTC-4627Jx', 'Display_7Segment:LTC-4627Jx'], 'footprint':'Display_7Segment:LTC-4627Jx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://optoelectronics.liteon.com/upload/download/DS30-2000-186/LTC-4627JS.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nLTC-4627JS\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='CA1',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='F',func=Pin.types.INPUT,unit=1),
             Pin(num='13',name='C',func=Pin.types.INPUT,unit=1),
@@ -1722,7 +1722,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CA4',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SA15-11EWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SA15-11EWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:SA15-11xxx', 'Display_7Segment:SA15-11xxx'], 'footprint':'Display_7Segment:SA15-11xxx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/SA15-11EWA.pdf', 'pins':[
+        Part(**{ 'name':'SA15-11EWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SA15-11EWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:SA15-11xxx', 'Display_7Segment:SA15-11xxx'], 'footprint':'Display_7Segment:SA15-11xxx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/SA15-11EWA.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nSA15-11EWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='CA',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='E',func=Pin.types.INPUT,unit=1),
@@ -1733,7 +1733,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DP',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='F',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SA15-11GWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SA15-11GWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:SA15-11xxx', 'Display_7Segment:SA15-11xxx', 'Display_7Segment:SA15-11xxx'], 'footprint':'Display_7Segment:SA15-11xxx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/SA15-11GWA.pdf', 'pins':[
+        Part(**{ 'name':'SA15-11GWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SA15-11GWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:SA15-11xxx', 'Display_7Segment:SA15-11xxx', 'Display_7Segment:SA15-11xxx'], 'footprint':'Display_7Segment:SA15-11xxx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/SA15-11GWA.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nSA15-11GWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='CA',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='E',func=Pin.types.INPUT,unit=1),
@@ -1744,7 +1744,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DP',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='F',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SA39-11GWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SA39-11GWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx'], 'footprint':'Display_7Segment:Sx39-1xxxxx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/sa39-11gwa.pdf', 'pins':[
+        Part(**{ 'name':'SA39-11GWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SA39-11GWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx'], 'footprint':'Display_7Segment:Sx39-1xxxxx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/sa39-11gwa.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nSA39-11GWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='F',func=Pin.types.INPUT,unit=1),
@@ -1755,7 +1755,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CA',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SA39-11SRWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SA39-11SRWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx'], 'footprint':'Display_7Segment:Sx39-1xxxxx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/sa39-11srwa.pdf', 'pins':[
+        Part(**{ 'name':'SA39-11SRWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SA39-11SRWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx'], 'footprint':'Display_7Segment:Sx39-1xxxxx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/sa39-11srwa.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nSA39-11SRWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='F',func=Pin.types.INPUT,unit=1),
@@ -1766,7 +1766,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CA',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SA39-11YWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SA39-11YWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx'], 'footprint':'Display_7Segment:Sx39-1xxxxx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/sa39-11ywa.pdf', 'pins':[
+        Part(**{ 'name':'SA39-11YWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SA39-11YWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx'], 'footprint':'Display_7Segment:Sx39-1xxxxx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/sa39-11ywa.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nSA39-11YWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='F',func=Pin.types.INPUT,unit=1),
@@ -1777,7 +1777,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CA',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SA39-12GWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SA39-12GWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx'], 'footprint':'Display_7Segment:Sx39-1xxxxx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/sa39-12gwa.pdf', 'pins':[
+        Part(**{ 'name':'SA39-12GWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SA39-12GWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx'], 'footprint':'Display_7Segment:Sx39-1xxxxx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/sa39-12gwa.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nSA39-12GWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='CA',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='F',func=Pin.types.INPUT,unit=1),
@@ -1788,7 +1788,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SA39-12SRWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SA39-12SRWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx'], 'footprint':'Display_7Segment:Sx39-1xxxxx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/sa39-12srwa.pdf', 'pins':[
+        Part(**{ 'name':'SA39-12SRWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SA39-12SRWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx'], 'footprint':'Display_7Segment:Sx39-1xxxxx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/sa39-12srwa.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nSA39-12SRWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='CA',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='F',func=Pin.types.INPUT,unit=1),
@@ -1799,7 +1799,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SA39-12YWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SA39-12YWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx'], 'footprint':'Display_7Segment:Sx39-1xxxxx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/sa39-12ywa.pdf', 'pins':[
+        Part(**{ 'name':'SA39-12YWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SA39-12YWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx'], 'footprint':'Display_7Segment:Sx39-1xxxxx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/sa39-12ywa.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nSA39-12YWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='CA',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='F',func=Pin.types.INPUT,unit=1),
@@ -1810,7 +1810,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SBC18-11EGWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SBC18-11EGWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:SBC18-11SURKCGKWA', 'Display_7Segment:SBC18-11SURKCGKWA'], 'footprint':'Display_7Segment:SBC18-11SURKCGKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/SBC18-11EGWA.pdf', 'pins':[
+        Part(**{ 'name':'SBC18-11EGWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SBC18-11EGWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:SBC18-11SURKCGKWA', 'Display_7Segment:SBC18-11SURKCGKWA'], 'footprint':'Display_7Segment:SBC18-11SURKCGKWA', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/SBC18-11EGWA.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nSBC18-11EGWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='CC',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='E',func=Pin.types.INPUT,unit=1),
@@ -1821,7 +1821,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DP',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='F',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SC39-11GWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SC39-11GWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx'], 'footprint':'Display_7Segment:Sx39-1xxxxx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/sc39-11gwa.pdf', 'pins':[
+        Part(**{ 'name':'SC39-11GWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SC39-11GWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx'], 'footprint':'Display_7Segment:Sx39-1xxxxx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/sc39-11gwa.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nSC39-11GWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='F',func=Pin.types.INPUT,unit=1),
@@ -1832,7 +1832,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CC',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SC39-11SRWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SC39-11SRWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx'], 'footprint':'Display_7Segment:Sx39-1xxxxx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/sc39-11srwa.pdf', 'pins':[
+        Part(**{ 'name':'SC39-11SRWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SC39-11SRWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx'], 'footprint':'Display_7Segment:Sx39-1xxxxx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/sc39-11srwa.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nSC39-11SRWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='F',func=Pin.types.INPUT,unit=1),
@@ -1843,7 +1843,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CC',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SC39-11YWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SC39-11YWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx'], 'footprint':'Display_7Segment:Sx39-1xxxxx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/sc39-11ywa.pdf', 'pins':[
+        Part(**{ 'name':'SC39-11YWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SC39-11YWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx'], 'footprint':'Display_7Segment:Sx39-1xxxxx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/sc39-11ywa.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nSC39-11YWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='G',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='F',func=Pin.types.INPUT,unit=1),
@@ -1854,7 +1854,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CC',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SC39-12GWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SC39-12GWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx'], 'footprint':'Display_7Segment:Sx39-1xxxxx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/sc39-12gwa.pdf', 'pins':[
+        Part(**{ 'name':'SC39-12GWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SC39-12GWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx'], 'footprint':'Display_7Segment:Sx39-1xxxxx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/sc39-12gwa.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nSC39-12GWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='CC',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='F',func=Pin.types.INPUT,unit=1),
@@ -1865,7 +1865,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SC39-12SRWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SC39-12SRWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx'], 'footprint':'Display_7Segment:Sx39-1xxxxx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/sc39-12srwa.pdf', 'pins':[
+        Part(**{ 'name':'SC39-12SRWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SC39-12SRWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx'], 'footprint':'Display_7Segment:Sx39-1xxxxx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/sc39-12srwa.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nSC39-12SRWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='CC',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='F',func=Pin.types.INPUT,unit=1),
@@ -1876,7 +1876,7 @@ Display_Character = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SC39-12YWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SC39-12YWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx'], 'footprint':'Display_7Segment:Sx39-1xxxxx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/sc39-12ywa.pdf', 'pins':[
+        Part(**{ 'name':'SC39-12YWA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SC39-12YWA'}), 'ref_prefix':'U', 'fplist':['Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx', 'Display_7Segment:Sx39-1xxxxx'], 'footprint':'Display_7Segment:Sx39-1xxxxx', 'keywords':'display LED 7-segment', 'description':'', 'datasheet':'http://www.kingbrightusa.com/images/catalog/SPEC/sc39-12ywa.pdf', 'search_text':'/usr/share/kicad/symbols/Display_Character.kicad_sym\nSC39-12YWA\n\ndisplay LED 7-segment', 'pins':[
             Pin(num='1',name='CC',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='F',func=Pin.types.INPUT,unit=1),

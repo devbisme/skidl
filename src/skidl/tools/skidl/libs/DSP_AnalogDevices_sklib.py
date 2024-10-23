@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 DSP_AnalogDevices = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'ADAU1450', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADAU1450'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-72-1EP_10x10mm_P0.5mm_EP5.3x5.3mm'], 'footprint':'Package_CSP:LFCSP-72-1EP_10x10mm_P0.5mm_EP5.3x5.3mm', 'keywords':'sigmadsp audio', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADAU1452_1451_1450.pdf', 'pins':[
+        Part(**{ 'name':'ADAU1450', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADAU1450'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-72-1EP_10x10mm_P0.5mm_EP5.3x5.3mm'], 'footprint':'Package_CSP:LFCSP-72-1EP_10x10mm_P0.5mm_EP5.3x5.3mm', 'keywords':'sigmadsp audio', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADAU1452_1451_1450.pdf', 'search_text':'/usr/share/kicad/symbols/DSP_AnalogDevices.kicad_sym\nADAU1450\n\nsigmadsp audio', 'pins':[
             Pin(num='1',name='DGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='AUXADC2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='AUXADC3',func=Pin.types.INPUT,unit=1),
@@ -78,7 +78,7 @@ DSP_AnalogDevices = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='73',name='EP',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='AUXADC0',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='AUXADC1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADAU1701', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADAU1701'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'sigmadsp audio adc dac', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADAU1701.pdf', 'pins':[
+        Part(**{ 'name':'ADAU1701', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADAU1701'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'sigmadsp audio adc dac', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADAU1701.pdf', 'search_text':'/usr/share/kicad/symbols/DSP_AnalogDevices.kicad_sym\nADAU1701\n\nsigmadsp audio adc dac', 'pins':[
             Pin(num='1',name='AGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='MP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='MP0',func=Pin.types.BIDIR,unit=1),
@@ -127,7 +127,7 @@ DSP_AnalogDevices = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='ADDR0',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='MP4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='MP5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADAU1451', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADAU1451'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-72-1EP_10x10mm_P0.5mm_EP5.3x5.3mm', 'Package_CSP:LFCSP-72-1EP_10x10mm_P0.5mm_EP5.3x5.3mm'], 'footprint':'Package_CSP:LFCSP-72-1EP_10x10mm_P0.5mm_EP5.3x5.3mm', 'keywords':'sigmadsp audio', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADAU1452_1451_1450.pdf', 'pins':[
+        Part(**{ 'name':'ADAU1451', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADAU1451'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-72-1EP_10x10mm_P0.5mm_EP5.3x5.3mm', 'Package_CSP:LFCSP-72-1EP_10x10mm_P0.5mm_EP5.3x5.3mm'], 'footprint':'Package_CSP:LFCSP-72-1EP_10x10mm_P0.5mm_EP5.3x5.3mm', 'keywords':'sigmadsp audio', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADAU1452_1451_1450.pdf', 'search_text':'/usr/share/kicad/symbols/DSP_AnalogDevices.kicad_sym\nADAU1451\n\nsigmadsp audio', 'pins':[
             Pin(num='1',name='DGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='AUXADC2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='AUXADC3',func=Pin.types.INPUT,unit=1),
@@ -201,7 +201,7 @@ DSP_AnalogDevices = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='73',name='EP',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='AUXADC0',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='AUXADC1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADAU1452', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADAU1452'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-72-1EP_10x10mm_P0.5mm_EP5.3x5.3mm', 'Package_CSP:LFCSP-72-1EP_10x10mm_P0.5mm_EP5.3x5.3mm', 'Package_CSP:LFCSP-72-1EP_10x10mm_P0.5mm_EP5.3x5.3mm'], 'footprint':'Package_CSP:LFCSP-72-1EP_10x10mm_P0.5mm_EP5.3x5.3mm', 'keywords':'sigmadsp audio', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADAU1452_1451_1450.pdf', 'pins':[
+        Part(**{ 'name':'ADAU1452', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADAU1452'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-72-1EP_10x10mm_P0.5mm_EP5.3x5.3mm', 'Package_CSP:LFCSP-72-1EP_10x10mm_P0.5mm_EP5.3x5.3mm', 'Package_CSP:LFCSP-72-1EP_10x10mm_P0.5mm_EP5.3x5.3mm'], 'footprint':'Package_CSP:LFCSP-72-1EP_10x10mm_P0.5mm_EP5.3x5.3mm', 'keywords':'sigmadsp audio', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADAU1452_1451_1450.pdf', 'search_text':'/usr/share/kicad/symbols/DSP_AnalogDevices.kicad_sym\nADAU1452\n\nsigmadsp audio', 'pins':[
             Pin(num='1',name='DGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='AUXADC2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='AUXADC3',func=Pin.types.INPUT,unit=1),
@@ -275,7 +275,7 @@ DSP_AnalogDevices = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='73',name='EP',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='AUXADC0',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='AUXADC1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADAU1702', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADAU1702'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'sigmadsp audio adc dac', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADAU1702.pdf', 'pins':[
+        Part(**{ 'name':'ADAU1702', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADAU1702'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'sigmadsp audio adc dac', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADAU1702.pdf', 'search_text':'/usr/share/kicad/symbols/DSP_AnalogDevices.kicad_sym\nADAU1702\n\nsigmadsp audio adc dac', 'pins':[
             Pin(num='1',name='AGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='MP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='MP0',func=Pin.types.BIDIR,unit=1),

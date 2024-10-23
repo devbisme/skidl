@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 MCU_WCH_CH32V3 = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'CH32V30xCxTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH32V30xCxTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'RISC-V WCH MCU', 'description':'', 'datasheet':'http://www.wch-ic.com/products/CH32V307.html?', 'pins':[
+        Part(**{ 'name':'CH32V30xCxTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH32V30xCxTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'RISC-V WCH MCU', 'description':'', 'datasheet':'http://www.wch-ic.com/products/CH32V307.html?', 'search_text':'/usr/share/kicad/symbols/MCU_WCH_CH32V3.kicad_sym\nCH32V30xCxTx\n\nRISC-V WCH MCU', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN),
             Pin(num='23',name='VSS',func=Pin.types.PWRIN),
             Pin(num='24',name='VDD',func=Pin.types.PWRIN),
@@ -53,7 +53,7 @@ MCU_WCH_CH32V3 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='OSC_IN',func=Pin.types.BIDIR,unit=1),
             Pin(num='6',name='OSC_OUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='~{RST}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CH32V30xFxPx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH32V30xFxPx'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'RISC-V WCH MCU', 'description':'', 'datasheet':'http://www.wch-ic.com/products/CH32V307.html?', 'pins':[
+        Part(**{ 'name':'CH32V30xFxPx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH32V30xFxPx'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'RISC-V WCH MCU', 'description':'', 'datasheet':'http://www.wch-ic.com/products/CH32V307.html?', 'search_text':'/usr/share/kicad/symbols/MCU_WCH_CH32V3.kicad_sym\nCH32V30xFxPx\n\nRISC-V WCH MCU', 'pins':[
             Pin(num='1',name='~{RST}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC8',func=Pin.types.BIDIR,unit=1),
@@ -74,7 +74,7 @@ MCU_WCH_CH32V3 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB14',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB15',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CH32V30xRxTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH32V30xRxTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'RISC-V WCH MCU', 'description':'', 'datasheet':'http://www.wch-ic.com/products/CH32V307.html?', 'pins':[
+        Part(**{ 'name':'CH32V30xRxTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH32V30xRxTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'RISC-V WCH MCU', 'description':'', 'datasheet':'http://www.wch-ic.com/products/CH32V307.html?', 'search_text':'/usr/share/kicad/symbols/MCU_WCH_CH32V3.kicad_sym\nCH32V30xRxTx\n\nRISC-V WCH MCU', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN),
             Pin(num='12',name='VSSA',func=Pin.types.PWRIN),
             Pin(num='13',name='VDDA',func=Pin.types.PWRIN),
@@ -139,7 +139,7 @@ MCU_WCH_CH32V3 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CH32V30xVxTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH32V30xVxTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'RISC-V WCH MCU', 'description':'', 'datasheet':'http://www.wch-ic.com/products/CH32V307.html?', 'pins':[
+        Part(**{ 'name':'CH32V30xVxTx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH32V30xVxTx'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'RISC-V WCH MCU', 'description':'', 'datasheet':'http://www.wch-ic.com/products/CH32V307.html?', 'search_text':'/usr/share/kicad/symbols/MCU_WCH_CH32V3.kicad_sym\nCH32V30xVxTx\n\nRISC-V WCH MCU', 'pins':[
             Pin(num='10',name='VSS',func=Pin.types.PWRIN),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN),
             Pin(num='12',name='OSC_IN',func=Pin.types.BIDIR),
@@ -240,7 +240,7 @@ MCU_WCH_CH32V3 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CH32V30xWxUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH32V30xWxUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-68-1EP_8x8mm_P0.4mm_EP6.4x6.4mm'], 'footprint':'Package_DFN_QFN:QFN-68-1EP_8x8mm_P0.4mm_EP6.4x6.4mm', 'keywords':'RISC-V WCH MCU', 'description':'', 'datasheet':'http://www.wch-ic.com/products/CH32V307.html?', 'pins':[
+        Part(**{ 'name':'CH32V30xWxUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH32V30xWxUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-68-1EP_8x8mm_P0.4mm_EP6.4x6.4mm'], 'footprint':'Package_DFN_QFN:QFN-68-1EP_8x8mm_P0.4mm_EP6.4x6.4mm', 'keywords':'RISC-V WCH MCU', 'description':'', 'datasheet':'http://www.wch-ic.com/products/CH32V307.html?', 'search_text':'/usr/share/kicad/symbols/MCU_WCH_CH32V3.kicad_sym\nCH32V30xWxUx\n\nRISC-V WCH MCU', 'pins':[
             Pin(num='1',name='VBAT',func=Pin.types.PWRIN),
             Pin(num='12',name='VSSA',func=Pin.types.PWRIN),
             Pin(num='13',name='VDDA',func=Pin.types.PWRIN),

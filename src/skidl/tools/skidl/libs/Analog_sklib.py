@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Analog = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'AD5593R', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5593R'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'8channel 12bit ADC DAC GPIO I2C Temperature', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5593R.pdf', 'pins':[
+        Part(**{ 'name':'AD5593R', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5593R'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'8channel 12bit ADC DAC GPIO I2C Temperature', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5593R.pdf', 'search_text':'/usr/share/kicad/symbols/Analog.kicad_sym\nAD5593R\n\n8channel 12bit ADC DAC GPIO I2C Temperature', 'pins':[
             Pin(num='1',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='IO4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='IO5',func=Pin.types.BIDIR,unit=1),
@@ -21,7 +21,7 @@ Analog = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IO3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='V_{REF}',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='V_{LOGIC}',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD630ARZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD630ARZ'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'modulator demodulator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ad630.pdf', 'pins':[
+        Part(**{ 'name':'AD630ARZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD630ARZ'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'modulator demodulator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ad630.pdf', 'search_text':'/usr/share/kicad/symbols/Analog.kicad_sym\nAD630ARZ\n\nmodulator demodulator', 'pins':[
             Pin(num='1',name='R_{in}A',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='SEL_A',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='+V_{S}',func=Pin.types.PWRIN,unit=1),
@@ -42,7 +42,7 @@ Analog = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='B/~{A}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='-V_{S}',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='SEL_B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD637xQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD637xQ'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'rms-to-dc', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD637.pdf', 'pins':[
+        Part(**{ 'name':'AD637xQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD637xQ'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'rms-to-dc', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD637.pdf', 'search_text':'/usr/share/kicad/symbols/Analog.kicad_sym\nAD637xQ\n\nrms-to-dc', 'pins':[
             Pin(num='1',name='BUFF_IN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='-V_{S}',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='+V_{S}',func=Pin.types.PWRIN,unit=1),
@@ -57,7 +57,7 @@ Analog = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='dB_OUTPUT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='C_{AV}',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='RMS_OUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD637xRZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD637xRZ'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'rms-to-dc', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD637.pdf', 'pins':[
+        Part(**{ 'name':'AD637xRZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD637xRZ'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'rms-to-dc', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD637.pdf', 'search_text':'/usr/share/kicad/symbols/Analog.kicad_sym\nAD637xRZ\n\nrms-to-dc', 'pins':[
             Pin(num='1',name='BUFF_IN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='C_{AV}',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='RMS_OUT',func=Pin.types.OUTPUT,unit=1),
@@ -74,7 +74,7 @@ Analog = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='dB_OUTPUT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='NIC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='NIC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD654JN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD654JN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'v-to-f v-f', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD654.pdf', 'pins':[
+        Part(**{ 'name':'AD654JN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD654JN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'v-to-f v-f', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD654.pdf', 'search_text':'/usr/share/kicad/symbols/Analog.kicad_sym\nAD654JN\n\nv-to-f v-f', 'pins':[
             Pin(num='1',name='F_{OUT}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='2',name='COM',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='R_{T}',func=Pin.types.INPUT,unit=1),
@@ -83,7 +83,7 @@ Analog = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='C_{T}1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='C_{T}2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='+V_{S}',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD654JR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD654JR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'v-to-f v-f', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD654.pdf', 'pins':[
+        Part(**{ 'name':'AD654JR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD654JR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'v-to-f v-f', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD654.pdf', 'search_text':'/usr/share/kicad/symbols/Analog.kicad_sym\nAD654JR\n\nv-to-f v-f', 'pins':[
             Pin(num='1',name='F_{OUT}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='2',name='COM',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='R_{T}',func=Pin.types.INPUT,unit=1),
@@ -92,7 +92,7 @@ Analog = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='C_{T}1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='C_{T}2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='+V_{S}',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LF398H', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LF398H'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-99-8'], 'footprint':'Package_TO_SOT_THT:TO-99-8', 'keywords':'sample hold buffer unity gain', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lf398-n.pdf', 'pins':[
+        Part(**{ 'name':'LF398H', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LF398H'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-99-8'], 'footprint':'Package_TO_SOT_THT:TO-99-8', 'keywords':'sample hold buffer unity gain', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lf398-n.pdf', 'search_text':'/usr/share/kicad/symbols/Analog.kicad_sym\nLF398H\n\nsample hold buffer unity gain', 'pins':[
             Pin(num='1',name='V^{+}',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='Adj',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='I',func=Pin.types.INPUT,unit=1),
@@ -101,7 +101,7 @@ Analog = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='C_{h}',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='T',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Hold',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LF398_DIP8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LF398_DIP8'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'sample hold buffer unity gain', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lf398-n.pdf', 'pins':[
+        Part(**{ 'name':'LF398_DIP8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LF398_DIP8'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'sample hold buffer unity gain', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lf398-n.pdf', 'search_text':'/usr/share/kicad/symbols/Analog.kicad_sym\nLF398_DIP8\n\nsample hold buffer unity gain', 'pins':[
             Pin(num='1',name='V^{+}',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='Adj',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='I',func=Pin.types.INPUT,unit=1),
@@ -110,7 +110,7 @@ Analog = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='C_{h}',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='T',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Hold',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LF398_SOIC14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LF398_SOIC14'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'sample hold buffer unity gain', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lf398-n.pdf', 'pins':[
+        Part(**{ 'name':'LF398_SOIC14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LF398_SOIC14'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'sample hold buffer unity gain', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lf398-n.pdf', 'search_text':'/usr/share/kicad/symbols/Analog.kicad_sym\nLF398_SOIC14\n\nsample hold buffer unity gain', 'pins':[
             Pin(num='1',name='I',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='T',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='Hold',func=Pin.types.INPUT,unit=1),
@@ -125,7 +125,7 @@ Analog = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='C_{h}',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC1966', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1966'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'rms-to-dc converter', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1966fb.pdf', 'pins':[
+        Part(**{ 'name':'LTC1966', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1966'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'rms-to-dc converter', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1966fb.pdf', 'search_text':'/usr/share/kicad/symbols/Analog.kicad_sym\nLTC1966\n\nrms-to-dc converter', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='2',name='IN1',func=Pin.types.INPUT),
             Pin(num='3',name='IN2',func=Pin.types.INPUT),
@@ -134,7 +134,7 @@ Analog = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='V_{OUT}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='V_{DD}',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='~{ENABLE}',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC1967', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1967'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'rms-to-dc converter', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1967f.pdf', 'pins':[
+        Part(**{ 'name':'LTC1967', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1967'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'rms-to-dc converter', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1967f.pdf', 'search_text':'/usr/share/kicad/symbols/Analog.kicad_sym\nLTC1967\n\nrms-to-dc converter', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='2',name='IN1',func=Pin.types.INPUT),
             Pin(num='3',name='IN2',func=Pin.types.INPUT),
@@ -143,7 +143,7 @@ Analog = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='V_{OUT}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='V^{+}',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='~{ENABLE}',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MLX90314xDF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MLX90314xDF'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'sensor signal conditioning', 'description':'', 'datasheet':'https://media.digikey.com/pdf/Data%20Sheets/Melexis%20PDFs/MLX90314_Rev008.pdf', 'pins':[
+        Part(**{ 'name':'MLX90314xDF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MLX90314xDF'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'sensor signal conditioning', 'description':'', 'datasheet':'https://media.digikey.com/pdf/Data%20Sheets/Melexis%20PDFs/MLX90314_Rev008.pdf', 'search_text':'/usr/share/kicad/symbols/Analog.kicad_sym\nMLX90314xDF\n\nsensor signal conditioning', 'pins':[
             Pin(num='1',name='IO1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='FET',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='V_{DD1}',func=Pin.types.PWRIN,unit=1),
@@ -160,7 +160,7 @@ Analog = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VBP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='TMP',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='V_{DD}',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MLX90320xFR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MLX90320xFR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-14_5.3x6.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-14_5.3x6.2mm_P0.65mm', 'keywords':'sensor signal conditioning', 'description':'', 'datasheet':'https://www.mouser.com/datasheet/2/734/MLX90320-Datasheet-Melexis-953341.pdf', 'pins':[
+        Part(**{ 'name':'MLX90320xFR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MLX90320xFR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-14_5.3x6.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-14_5.3x6.2mm_P0.65mm', 'keywords':'sensor signal conditioning', 'description':'', 'datasheet':'https://www.mouser.com/datasheet/2/734/MLX90320-Datasheet-Melexis-953341.pdf', 'search_text':'/usr/share/kicad/symbols/Analog.kicad_sym\nMLX90320xFR\n\nsensor signal conditioning', 'pins':[
             Pin(num='1',name='INM',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='TESTIN2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='FLT',func=Pin.types.OUTPUT,unit=1),
@@ -175,7 +175,7 @@ Analog = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TEST1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='TESTOUT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='TESTIN1',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MPY634KP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MPY634KP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'analog multiplier', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/mpy634.pdf', 'pins':[
+        Part(**{ 'name':'MPY634KP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MPY634KP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'analog multiplier', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/mpy634.pdf', 'search_text':'/usr/share/kicad/symbols/Analog.kicad_sym\nMPY634KP\n\nanalog multiplier', 'pins':[
             Pin(num='1',name='X_{1}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Z_{2}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='Z_{1}',func=Pin.types.INPUT,unit=1),
@@ -190,7 +190,7 @@ Analog = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Y_{2}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='-V_{S}',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MPY634KU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MPY634KU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'analog multiplier', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/mpy634.pdf', 'pins':[
+        Part(**{ 'name':'MPY634KU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MPY634KU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'analog multiplier', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/mpy634.pdf', 'search_text':'/usr/share/kicad/symbols/Analog.kicad_sym\nMPY634KU\n\nanalog multiplier', 'pins':[
             Pin(num='1',name='X_{1}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='-V_{S}',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -207,7 +207,7 @@ Analog = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Y_{2}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PGA112', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PGA112'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-10_3x3mm_P0.5mm', 'keywords':'PGA SPI', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/sbos424c/sbos424c.pdf', 'pins':[
+        Part(**{ 'name':'PGA112', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PGA112'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-10_3x3mm_P0.5mm', 'keywords':'PGA SPI', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/sbos424c/sbos424c.pdf', 'search_text':'/usr/share/kicad/symbols/Analog.kicad_sym\nPGA112\n\nPGA SPI', 'pins':[
             Pin(num='1',name='AV_{DD}',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DV_{DD}',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='CH1',func=Pin.types.INPUT,unit=1),
@@ -218,7 +218,7 @@ Analog = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DIO',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{CS}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LF398_SOIC8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LF398_SOIC8'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'sample hold buffer unity gain', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/lt0398s8.pdf', 'pins':[
+        Part(**{ 'name':'LF398_SOIC8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LF398_SOIC8'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'sample hold buffer unity gain', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/lt0398s8.pdf', 'search_text':'/usr/share/kicad/symbols/Analog.kicad_sym\nLF398_SOIC8\n\nsample hold buffer unity gain', 'pins':[
             Pin(num='1',name='V^{+}',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='Adj',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='I',func=Pin.types.INPUT,unit=1),
@@ -227,7 +227,7 @@ Analog = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='C_{h}',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='T',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Hold',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC1968', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1968'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'rms-to-dc converter', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1968f.pdf', 'pins':[
+        Part(**{ 'name':'LTC1968', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1968'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'rms-to-dc converter', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1968f.pdf', 'search_text':'/usr/share/kicad/symbols/Analog.kicad_sym\nLTC1968\n\nrms-to-dc converter', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='2',name='IN1',func=Pin.types.INPUT),
             Pin(num='3',name='IN2',func=Pin.types.INPUT),
@@ -236,7 +236,7 @@ Analog = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='V_{OUT}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='V^{+}',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='~{ENABLE}',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PGA113', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PGA113'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-10_3x3mm_P0.5mm', 'Package_SO:TSSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-10_3x3mm_P0.5mm', 'keywords':'PGA SPI', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/sbos424c/sbos424c.pdf', 'pins':[
+        Part(**{ 'name':'PGA113', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PGA113'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-10_3x3mm_P0.5mm', 'Package_SO:TSSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-10_3x3mm_P0.5mm', 'keywords':'PGA SPI', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/sbos424c/sbos424c.pdf', 'search_text':'/usr/share/kicad/symbols/Analog.kicad_sym\nPGA113\n\nPGA SPI', 'pins':[
             Pin(num='1',name='AV_{DD}',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DV_{DD}',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='CH1',func=Pin.types.INPUT,unit=1),

@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 MCU_NXP_HC12 = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'MC68HC812A4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68HC812A4'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'68HC12 Microcontroller', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'MC68HC812A4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68HC812A4'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'68HC12 Microcontroller', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_HC12.kicad_sym\nMC68HC812A4\n\n68HC12 Microcontroller', 'pins':[
             Pin(num='1',name='VSSX',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PJ7/KWUJ7',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PS3/TXD1',func=Pin.types.BIDIR,unit=1),
@@ -117,7 +117,7 @@ MCU_NXP_HC12 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PS0/RXD0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PS1/TXD0',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PS2/RXD1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC68HC912', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68HC912'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'68HC12 Microcontroller', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'MC68HC912', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68HC912'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'68HC12 Microcontroller', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_HC12.kicad_sym\nMC68HC912\n\n68HC12 Microcontroller', 'pins':[
             Pin(num='1',name='PP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='VSS',func=Pin.types.PWRIN,unit=1),

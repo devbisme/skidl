@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Driver_TEC = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'MAX1968xUI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX1968xUI'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.85x5.4mm'], 'footprint':'Package_SO:HTSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.85x5.4mm', 'keywords':'thermoelectric cooler', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX1968-MAX1969.pdf', 'pins':[
+        Part(**{ 'name':'MAX1968xUI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX1968xUI'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.85x5.4mm'], 'footprint':'Package_SO:HTSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.85x5.4mm', 'keywords':'thermoelectric cooler', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX1968-MAX1969.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_TEC.kicad_sym\nMAX1968xUI\n\nthermoelectric cooler', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='LX2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='PVDD2',func=Pin.types.PASSIVE,unit=1),
@@ -34,7 +34,7 @@ Driver_TEC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PGND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='LX2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='PVDD2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX1969xUI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX1969xUI'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.85x5.4mm', 'Package_SO:HTSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.85x5.4mm'], 'footprint':'Package_SO:HTSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.85x5.4mm', 'keywords':'thermoelectric cooler', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX1968-MAX1969.pdf', 'pins':[
+        Part(**{ 'name':'MAX1969xUI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX1969xUI'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.85x5.4mm', 'Package_SO:HTSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.85x5.4mm'], 'footprint':'Package_SO:HTSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.85x5.4mm', 'keywords':'thermoelectric cooler', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX1968-MAX1969.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_TEC.kicad_sym\nMAX1969xUI\n\nthermoelectric cooler', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='LX2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='PVDD2',func=Pin.types.PASSIVE,unit=1),

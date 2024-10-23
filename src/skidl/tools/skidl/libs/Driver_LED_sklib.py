@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Driver_LED = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'AL8860MP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AL8860MP'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8-1EP_3x3mm_P0.65mm_EP1.5x1.8mm'], 'footprint':'Package_SO:MSOP-8-1EP_3x3mm_P0.65mm_EP1.5x1.8mm', 'keywords':'LED Driver Buck Constant Current', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/AL8860.pdf', 'pins':[
+        Part(**{ 'name':'AL8860MP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AL8860MP'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8-1EP_3x3mm_P0.65mm_EP1.5x1.8mm'], 'footprint':'Package_SO:MSOP-8-1EP_3x3mm_P0.65mm_EP1.5x1.8mm', 'keywords':'LED Driver Buck Constant Current', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/AL8860.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nAL8860MP\n\nLED Driver Buck Constant Current', 'pins':[
             Pin(num='1',name='SET',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -14,20 +14,20 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='VIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AL8860WT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AL8860WT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TSOT-23-5'], 'footprint':'Package_TO_SOT_SMD:TSOT-23-5', 'keywords':'LED Driver Buck Constant Current', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/AL8860.pdf', 'pins':[
+        Part(**{ 'name':'AL8860WT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AL8860WT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TSOT-23-5'], 'footprint':'Package_TO_SOT_SMD:TSOT-23-5', 'keywords':'LED Driver Buck Constant Current', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/AL8860.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nAL8860WT\n\nLED Driver Buck Constant Current', 'pins':[
             Pin(num='1',name='SW',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='CTRL',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='SET',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='VIN',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'BCR430UW6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BCR430UW6'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SC-74-6_1.55x2.9mm_P0.95mm'], 'footprint':'Package_TO_SOT_SMD:SC-74-6_1.55x2.9mm_P0.95mm', 'keywords':'LED driver constant current', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/BCR430UW6.pdf', 'pins':[
+        Part(**{ 'name':'BCR430UW6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BCR430UW6'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SC-74-6_1.55x2.9mm_P0.95mm'], 'footprint':'Package_TO_SOT_SMD:SC-74-6_1.55x2.9mm_P0.95mm', 'keywords':'LED driver constant current', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/BCR430UW6.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nBCR430UW6\n\nLED driver constant current', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='REXT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='VS',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='6',name='OUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CH455G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH455G'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOP-16_3.9x9.9mm_P1.27mm', 'keywords':'WCH Nixie I2C', 'description':'', 'datasheet':'https://www.wch-ic.com/products/CH455.html', 'pins':[
+        Part(**{ 'name':'CH455G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH455G'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOP-16_3.9x9.9mm_P1.27mm', 'keywords':'WCH Nixie I2C', 'description':'', 'datasheet':'https://www.wch-ic.com/products/CH455.html', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nCH455G\n\nWCH Nixie I2C', 'pins':[
             Pin(num='1',name='SEG4',func=Pin.types.TRISTATE),
             Pin(num='10',name='DIG2',func=Pin.types.OUTPUT),
             Pin(num='11',name='DIG3',func=Pin.types.OUTPUT),
@@ -44,7 +44,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDA',func=Pin.types.BIDIR),
             Pin(num='8',name='GND',func=Pin.types.PWRIN),
             Pin(num='9',name='DIG1',func=Pin.types.OUTPUT)], 'unit_defs':[] }),
-        Part(**{ 'name':'CH455K', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH455K'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-18_W7.62mm'], 'footprint':'Package_DIP:DIP-18_W7.62mm', 'keywords':'WCH Nixie I2C', 'description':'', 'datasheet':'https://www.wch-ic.com/products/CH455.html', 'pins':[
+        Part(**{ 'name':'CH455K', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH455K'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-18_W7.62mm'], 'footprint':'Package_DIP:DIP-18_W7.62mm', 'keywords':'WCH Nixie I2C', 'description':'', 'datasheet':'https://www.wch-ic.com/products/CH455.html', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nCH455K\n\nWCH Nixie I2C', 'pins':[
             Pin(num='1',name='DIG0',func=Pin.types.OUTPUT),
             Pin(num='10',name='SEG1',func=Pin.types.TRISTATE),
             Pin(num='11',name='VCC',func=Pin.types.PWRIN),
@@ -63,14 +63,14 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='SEG0',func=Pin.types.TRISTATE),
             Pin(num='18',name='~{INT}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='ISET',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CL220K4-G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CL220K4-G'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TO-252-2'], 'footprint':'Package_TO_SOT_SMD:TO-252-2', 'keywords':'Constant Current LED Driver IC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005413A.pdf', 'pins':[
+        Part(**{ 'name':'CL220K4-G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CL220K4-G'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TO-252-2'], 'footprint':'Package_TO_SOT_SMD:TO-252-2', 'keywords':'Constant Current LED Driver IC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005413A.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nCL220K4-G\n\nConstant Current LED Driver IC', 'pins':[
             Pin(num='1',name='VA',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='VB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CL220N5-G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CL220N5-G'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-3_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-3_Vertical', 'keywords':'Constant Current LED Driver IC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005413A.pdf', 'pins':[
+        Part(**{ 'name':'CL220N5-G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CL220N5-G'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_THT:TO-220-3_Vertical'], 'footprint':'Package_TO_SOT_THT:TO-220-3_Vertical', 'keywords':'Constant Current LED Driver IC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005413A.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nCL220N5-G\n\nConstant Current LED Driver IC', 'pins':[
             Pin(num='1',name='VA',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='VB',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DIO5661CD6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIO5661CD6'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-6-1EP_2x2mm_P0.65mm_EP1x1.6mm'], 'footprint':'Package_DFN_QFN:DFN-6-1EP_2x2mm_P0.65mm_EP1x1.6mm', 'keywords':'LED driver single', 'description':'', 'datasheet':'http://www.dioo.com/uploads/product/20190311/e6c7f30c0fbe92fbfa6965c8ef1c5b19.pdf', 'pins':[
+        Part(**{ 'name':'DIO5661CD6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIO5661CD6'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-6-1EP_2x2mm_P0.65mm_EP1x1.6mm'], 'footprint':'Package_DFN_QFN:DFN-6-1EP_2x2mm_P0.65mm_EP1x1.6mm', 'keywords':'LED driver single', 'description':'', 'datasheet':'http://www.dioo.com/uploads/product/20190311/e6c7f30c0fbe92fbfa6965c8ef1c5b19.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nDIO5661CD6\n\nLED driver single', 'pins':[
             Pin(num='1',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -78,21 +78,21 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='EN',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='VIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DIO5661ST6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIO5661ST6'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'LED driver single', 'description':'', 'datasheet':'http://www.dioo.com/uploads/product/20190311/e6c7f30c0fbe92fbfa6965c8ef1c5b19.pdf', 'pins':[
+        Part(**{ 'name':'DIO5661ST6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIO5661ST6'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'LED driver single', 'description':'', 'datasheet':'http://www.dioo.com/uploads/product/20190311/e6c7f30c0fbe92fbfa6965c8ef1c5b19.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nDIO5661ST6\n\nLED driver single', 'pins':[
             Pin(num='1',name='LX',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='EN',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='~',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='6',name='VIN',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DIO5661TST6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIO5661TST6'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TSOT-23-6'], 'footprint':'Package_TO_SOT_SMD:TSOT-23-6', 'keywords':'LED driver single', 'description':'', 'datasheet':'http://www.dioo.com/uploads/product/20190311/e6c7f30c0fbe92fbfa6965c8ef1c5b19.pdf', 'pins':[
+        Part(**{ 'name':'DIO5661TST6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DIO5661TST6'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TSOT-23-6'], 'footprint':'Package_TO_SOT_SMD:TSOT-23-6', 'keywords':'LED driver single', 'description':'', 'datasheet':'http://www.dioo.com/uploads/product/20190311/e6c7f30c0fbe92fbfa6965c8ef1c5b19.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nDIO5661TST6\n\nLED driver single', 'pins':[
             Pin(num='1',name='LX',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='EN',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='~',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='6',name='VIN',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HT1632C-52LQFP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HT1632C-52LQFP'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-52_14x14mm_P1mm'], 'footprint':'Package_QFP:LQFP-52_14x14mm_P1mm', 'keywords':'LED Matrix Driver', 'description':'', 'datasheet':'http://www.holtek.com/documents/10179/116711/HT1632Cv170.pdf', 'pins':[
+        Part(**{ 'name':'HT1632C-52LQFP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HT1632C-52LQFP'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-52_14x14mm_P1mm'], 'footprint':'Package_QFP:LQFP-52_14x14mm_P1mm', 'keywords':'LED Matrix Driver', 'description':'', 'datasheet':'http://www.holtek.com/documents/10179/116711/HT1632Cv170.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nHT1632C-52LQFP\n\nLED Matrix Driver', 'pins':[
             Pin(num='1',name='ROW11',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='ROW3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='ROW2',func=Pin.types.OUTPUT,unit=1),
@@ -145,11 +145,11 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='ROW5',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='ROW4',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HV9921N8-G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HV9921N8-G'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-89-3'], 'footprint':'Package_TO_SOT_SMD:SOT-89-3', 'keywords':'CC LED Driver High Voltage', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005311A.pdf', 'pins':[
+        Part(**{ 'name':'HV9921N8-G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HV9921N8-G'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-89-3'], 'footprint':'Package_TO_SOT_SMD:SOT-89-3', 'keywords':'CC LED Driver High Voltage', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005311A.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nHV9921N8-G\n\nCC LED Driver High Voltage', 'pins':[
             Pin(num='1',name='D',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HV9925SG-G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HV9925SG-G'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Programmable Current LED Lamp Driver High Voltage', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/hv9925.pdf', 'pins':[
+        Part(**{ 'name':'HV9925SG-G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HV9925SG-G'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Programmable Current LED Lamp Driver High Voltage', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/hv9925.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nHV9925SG-G\n\nProgrammable Current LED Lamp Driver High Voltage', 'pins':[
             Pin(num='1',name='Rs',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='PWMD',func=Pin.types.INPUT,unit=1),
@@ -158,7 +158,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='D',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='D',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HV9930LG-G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HV9930LG-G'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Buck-Boost LED Lamp Driver High Voltage', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/hv9930.pdf', 'pins':[
+        Part(**{ 'name':'HV9930LG-G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HV9930LG-G'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Buck-Boost LED Lamp Driver High Voltage', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/hv9930.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nHV9930LG-G\n\nBuck-Boost LED Lamp Driver High Voltage', 'pins':[
             Pin(num='1',name='VIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='CS1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -167,7 +167,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VDD',func=Pin.types.PWROUT,unit=1),
             Pin(num='7',name='CS2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='REF',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HV9931LG-G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HV9931LG-G'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Buck-Boost LED Lamp Driver High Voltage PFC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/hv9931.pdf', 'pins':[
+        Part(**{ 'name':'HV9931LG-G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HV9931LG-G'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Buck-Boost LED Lamp Driver High Voltage PFC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/hv9931.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nHV9931LG-G\n\nBuck-Boost LED Lamp Driver High Voltage PFC', 'pins':[
             Pin(num='1',name='VIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='CS1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -176,7 +176,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VDD',func=Pin.types.PWROUT,unit=1),
             Pin(num='7',name='CS2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='REF',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HV9961LG-G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HV9961LG-G'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Buck LED Lamp Driver High Voltage Average CC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005588A.pdf', 'pins':[
+        Part(**{ 'name':'HV9961LG-G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HV9961LG-G'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Buck LED Lamp Driver High Voltage Average CC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005588A.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nHV9961LG-G\n\nBuck LED Lamp Driver High Voltage Average CC', 'pins':[
             Pin(num='1',name='VIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='CS',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -185,7 +185,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VDD',func=Pin.types.PWROUT,unit=1),
             Pin(num='7',name='LD',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='RT',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HV9961NG-G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HV9961NG-G'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'Buck LED Lamp Driver High Voltage Average CC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005588A.pdf', 'pins':[
+        Part(**{ 'name':'HV9961NG-G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HV9961NG-G'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'Buck LED Lamp Driver High Voltage Average CC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005588A.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nHV9961NG-G\n\nBuck LED Lamp Driver High Voltage Average CC', 'pins':[
             Pin(num='1',name='VIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -202,7 +202,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GATE',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='PWMD',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HV9967BK7-G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HV9967BK7-G'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'keywords':'Buck LED Lamp Driver Low Voltage Average CC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/hv9967b.pdf', 'pins':[
+        Part(**{ 'name':'HV9967BK7-G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HV9967BK7-G'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.65mm_EP1.55x2.4mm', 'keywords':'Buck LED Lamp Driver Low Voltage Average CC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/hv9967b.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nHV9967BK7-G\n\nBuck LED Lamp Driver Low Voltage Average CC', 'pins':[
             Pin(num='1',name='SW',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='Rs',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -211,7 +211,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWROUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HV9967BMG-G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HV9967BMG-G'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'Buck LED Lamp Driver Low Voltage Average CC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/hv9967b.pdf', 'pins':[
+        Part(**{ 'name':'HV9967BMG-G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HV9967BMG-G'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'Buck LED Lamp Driver Low Voltage Average CC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/hv9967b.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nHV9967BMG-G\n\nBuck LED Lamp Driver Low Voltage Average CC', 'pins':[
             Pin(num='1',name='SW',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='Rs',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -219,7 +219,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='RT',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HV9972LG-G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HV9972LG-G'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Isolated LED Lamp Driver High Voltage CC', 'description':'', 'datasheet':'https://www.mouser.com/ds/2/268/HV9972-272498-1181261.pdf', 'pins':[
+        Part(**{ 'name':'HV9972LG-G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HV9972LG-G'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Isolated LED Lamp Driver High Voltage CC', 'description':'', 'datasheet':'https://www.mouser.com/ds/2/268/HV9972-272498-1181261.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nHV9972LG-G\n\nIsolated LED Lamp Driver High Voltage CC', 'pins':[
             Pin(num='1',name='BIAS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='VIN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='VD',func=Pin.types.INPUT,unit=1),
@@ -228,7 +228,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='GATE',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IS31FL3216', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS31FL3216'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_4x4mm_P0.4mm_EP2.4x2.4mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_4x4mm_P0.4mm_EP2.4x2.4mm', 'keywords':'led pwm audio', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/IS31FL3216.pdf', 'pins':[
+        Part(**{ 'name':'IS31FL3216', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS31FL3216'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_4x4mm_P0.4mm_EP2.4x2.4mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_4x4mm_P0.4mm_EP2.4x2.4mm', 'keywords':'led pwm audio', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/IS31FL3216.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nIS31FL3216\n\nled pwm audio', 'pins':[
             Pin(num='1',name='CLK',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='OUT7',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='OUT8',func=Pin.types.OPENCOLL,unit=1),
@@ -258,7 +258,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='OUT5',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='OUT6',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IS31FL3218-GR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS31FL3218-GR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-24_7.5x15.4mm_P1.27mm'], 'footprint':'Package_SO:SOP-24_7.5x15.4mm_P1.27mm', 'keywords':'led matrix pwm', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/31FL3218.pdf', 'pins':[
+        Part(**{ 'name':'IS31FL3218-GR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS31FL3218-GR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-24_7.5x15.4mm_P1.27mm'], 'footprint':'Package_SO:SOP-24_7.5x15.4mm_P1.27mm', 'keywords':'led matrix pwm', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/31FL3218.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nIS31FL3218-GR\n\nled matrix pwm', 'pins':[
             Pin(num='1',name='OUT18',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='10',name='OUT4',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='OUT5',func=Pin.types.OPENCOLL,unit=1),
@@ -283,7 +283,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUT1',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='OUT2',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='OUT3',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IS31FL3218-QF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS31FL3218-QF'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm', 'keywords':'led matrix pwm', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/31FL3218.pdf', 'pins':[
+        Part(**{ 'name':'IS31FL3218-QF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS31FL3218-QF'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm', 'keywords':'led matrix pwm', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/31FL3218.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nIS31FL3218-QF\n\nled matrix pwm', 'pins':[
             Pin(num='1',name='OUT18',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='10',name='OUT4',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='OUT5',func=Pin.types.OPENCOLL,unit=1),
@@ -309,7 +309,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUT1',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='OUT2',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='OUT3',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IS31FL3236-TQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS31FL3236-TQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP4.11x4.11mm'], 'footprint':'Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP4.11x4.11mm', 'keywords':'led matrix pwm', 'description':'', 'datasheet':'https://www.lumissil.com/assets/pdf/core/IS31FL3236_DS.pdf', 'pins':[
+        Part(**{ 'name':'IS31FL3236-TQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS31FL3236-TQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP4.11x4.11mm'], 'footprint':'Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP4.11x4.11mm', 'keywords':'led matrix pwm', 'description':'', 'datasheet':'https://www.lumissil.com/assets/pdf/core/IS31FL3236_DS.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nIS31FL3236-TQ\n\nled matrix pwm', 'pins':[
             Pin(num='1',name='OUT3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='OUT11',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='OUT12',func=Pin.types.OUTPUT,unit=1),
@@ -359,7 +359,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUT8',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='OUT9',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='OUT10',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IS31FL3731-QF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS31FL3731-QF'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_4x4mm_P0.4mm_EP2.3x2.3mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_4x4mm_P0.4mm_EP2.3x2.3mm', 'keywords':'led matrix pwm', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/31FL3731.pdf', 'pins':[
+        Part(**{ 'name':'IS31FL3731-QF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS31FL3731-QF'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_4x4mm_P0.4mm_EP2.3x2.3mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_4x4mm_P0.4mm_EP2.3x2.3mm', 'keywords':'led matrix pwm', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/31FL3731.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nIS31FL3731-QF\n\nled matrix pwm', 'pins':[
             Pin(num='1',name='CA9',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='CB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='CB5',func=Pin.types.BIDIR,unit=1),
@@ -389,7 +389,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='CB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='CB3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IS31FL3731-SA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS31FL3731-SA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'led matrix pwm', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/31FL3731.pdf', 'pins':[
+        Part(**{ 'name':'IS31FL3731-SA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS31FL3731-SA'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'led matrix pwm', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/31FL3731.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nIS31FL3731-SA\n\nled matrix pwm', 'pins':[
             Pin(num='1',name='CA9',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='CB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='CB5',func=Pin.types.BIDIR,unit=1),
@@ -418,7 +418,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='CB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='CB3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IS31FL3733-QF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS31FL3733-QF'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm', 'keywords':'led matrix pwm', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/IS31FL3733.pdf', 'pins':[
+        Part(**{ 'name':'IS31FL3733-QF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS31FL3733-QF'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm', 'keywords':'led matrix pwm', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/IS31FL3733.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nIS31FL3733-QF\n\nled matrix pwm', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='SW8',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SW9',func=Pin.types.INPUT,unit=1),
@@ -468,7 +468,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SW5',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SW6',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='SW7',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IS31FL3733-TQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS31FL3733-TQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP5x5mm'], 'footprint':'Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP5x5mm', 'keywords':'led matrix pwm', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/IS31FL3733.pdf', 'pins':[
+        Part(**{ 'name':'IS31FL3733-TQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS31FL3733-TQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP5x5mm'], 'footprint':'Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP5x5mm', 'keywords':'led matrix pwm', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/IS31FL3733.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nIS31FL3733-TQ\n\nled matrix pwm', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='SW8',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SW9',func=Pin.types.INPUT,unit=1),
@@ -518,7 +518,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SW5',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SW6',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='SW7',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IS31FL3736', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS31FL3736'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.8x3.8mm'], 'footprint':'Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.8x3.8mm', 'keywords':'led matrix pwm', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/31FL3736.pdf', 'pins':[
+        Part(**{ 'name':'IS31FL3736', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS31FL3736'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.8x3.8mm'], 'footprint':'Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.8x3.8mm', 'keywords':'led matrix pwm', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/31FL3736.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nIS31FL3736\n\nled matrix pwm', 'pins':[
             Pin(num='1',name='SW1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='SW9',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='PGND',func=Pin.types.PASSIVE,unit=1),
@@ -560,7 +560,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SW6',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SW7',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='SW8',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IS31FL3737', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS31FL3737'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.8x3.8mm'], 'footprint':'Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.8x3.8mm', 'keywords':'led matrix pwm', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/31FL3737.pdf', 'pins':[
+        Part(**{ 'name':'IS31FL3737', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS31FL3737'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.8x3.8mm'], 'footprint':'Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.8x3.8mm', 'keywords':'led matrix pwm', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/31FL3737.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nIS31FL3737\n\nled matrix pwm', 'pins':[
             Pin(num='1',name='SW1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='SW9',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='PGND',func=Pin.types.PASSIVE,unit=1),
@@ -602,13 +602,23 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SW6',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SW7',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='SW8',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IS31LT3360', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS31LT3360'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-89-5'], 'footprint':'Package_TO_SOT_SMD:SOT-89-5', 'keywords':'Switching LED driver', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/31LT3360.pdf', 'pins':[
+        Part(**{ 'name':'IS31LT3360', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS31LT3360'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-89-5'], 'footprint':'Package_TO_SOT_SMD:SOT-89-5', 'keywords':'Switching LED driver', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/31LT3360.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nIS31LT3360\n\nSwitching LED driver', 'pins':[
             Pin(num='1',name='LX',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='ADJ',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='ISENSE',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='VIN',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'KTD2027', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KTD2027'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_1.5x1.5mm_P0.4mm_EP0.7x1.2mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_1.5x1.5mm_P0.4mm_EP0.7x1.2mm', 'keywords':'kinetic cc sink RGB', 'description':'', 'datasheet':'https://www.kinet-ic.com/uploads/KTD2026-7-04h.pdf', 'pins':[
+        Part(**{ 'name':'KTD2026', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KTD2026'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_1.5x1.5mm_P0.4mm_EP0.7x1.2mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_1.5x1.5mm_P0.4mm_EP0.7x1.2mm', 'keywords':'kinetic cc sink RGB', 'description':'', 'datasheet':'https://www.kinet-ic.com/uploads/KTD2026-7-04h.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nKTD2026\n\nkinetic cc sink RGB', 'pins':[
+            Pin(num='1',name='ST',func=Pin.types.OPENCOLL,unit=1),
+            Pin(num='2',name='D3',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='3',name='D2',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='4',name='D1',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='5',name='VIN',func=Pin.types.PWRIN,unit=1),
+            Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
+            Pin(num='7',name='SDA',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
+            Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'KTD2027', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KTD2027'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_1.5x1.5mm_P0.4mm_EP0.7x1.2mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_1.5x1.5mm_P0.4mm_EP0.7x1.2mm', 'keywords':'kinetic cc sink RGB', 'description':'', 'datasheet':'https://www.kinet-ic.com/uploads/KTD2026-7-04h.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nKTD2027\n\nkinetic cc sink RGB', 'pins':[
             Pin(num='1',name='D4',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='D3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='D2',func=Pin.types.OUTPUT,unit=1),
@@ -618,7 +628,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LED1642GWPTR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LED1642GWPTR'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-24_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:QSOP-24_3.9x8.7mm_P0.635mm', 'keywords':'PWM LED driver error detection brightness QSOP-24', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/led1642gw.pdf', 'pins':[
+        Part(**{ 'name':'LED1642GWPTR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LED1642GWPTR'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-24_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:QSOP-24_3.9x8.7mm_P0.635mm', 'keywords':'PWM LED driver error detection brightness QSOP-24', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/led1642gw.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nLED1642GWPTR\n\nPWM LED driver error detection brightness QSOP-24', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='OUT5',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='OUT6',func=Pin.types.OUTPUT,unit=1),
@@ -643,7 +653,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUT2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='OUT3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='OUT4',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LED1642GWQTR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LED1642GWQTR'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.15x2.15mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.15x2.15mm', 'keywords':'PWM LED driver error detection brightness QFN-24', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/led1642gw.pdf', 'pins':[
+        Part(**{ 'name':'LED1642GWQTR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LED1642GWQTR'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.15x2.15mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.15x2.15mm', 'keywords':'PWM LED driver error detection brightness QFN-24', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/led1642gw.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nLED1642GWQTR\n\nPWM LED driver error detection brightness QFN-24', 'pins':[
             Pin(num='1',name='LE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OUT8',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='OUT9',func=Pin.types.OUTPUT,unit=1),
@@ -669,7 +679,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUT5',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='OUT6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='OUT7',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LED1642GWTTR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LED1642GWTTR'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'PWM LED driver error detection brightness TSSOP-24', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/led1642gw.pdf', 'pins':[
+        Part(**{ 'name':'LED1642GWTTR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LED1642GWTTR'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'PWM LED driver error detection brightness TSSOP-24', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/led1642gw.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nLED1642GWTTR\n\nPWM LED driver error detection brightness TSSOP-24', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='OUT5',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='OUT6',func=Pin.types.OUTPUT,unit=1),
@@ -694,7 +704,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUT2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='OUT3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='OUT4',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LED1642GWXTTR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LED1642GWXTTR'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24-1EP_4.4x7.8mm_P0.65mm_EP3.2x5mm'], 'footprint':'Package_SO:TSSOP-24-1EP_4.4x7.8mm_P0.65mm_EP3.2x5mm', 'keywords':'PWM LED driver error detection brightness TSSOP-24', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/led1642gw.pdf', 'pins':[
+        Part(**{ 'name':'LED1642GWXTTR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LED1642GWXTTR'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24-1EP_4.4x7.8mm_P0.65mm_EP3.2x5mm'], 'footprint':'Package_SO:TSSOP-24-1EP_4.4x7.8mm_P0.65mm_EP3.2x5mm', 'keywords':'PWM LED driver error detection brightness TSSOP-24', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/led1642gw.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nLED1642GWXTTR\n\nPWM LED driver error detection brightness TSSOP-24', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='OUT5',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='OUT6',func=Pin.types.OUTPUT,unit=1),
@@ -720,7 +730,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUT2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='OUT3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='OUT4',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LED5000', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LED5000'}), 'ref_prefix':'U', 'fplist':['Package_SO:HSOP-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.1mm'], 'footprint':'Package_SO:HSOP-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.1mm', 'keywords':'LED buck driver', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/led5000.pdf', 'pins':[
+        Part(**{ 'name':'LED5000', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LED5000'}), 'ref_prefix':'U', 'fplist':['Package_SO:HSOP-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.1mm'], 'footprint':'Package_SO:HSOP-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.1mm', 'keywords':'LED buck driver', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/led5000.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nLED5000\n\nLED buck driver', 'pins':[
             Pin(num='1',name='BOOT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='DIM',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='INH',func=Pin.types.INPUT,unit=1),
@@ -730,7 +740,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='SW',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LM3914N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM3914N'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-18_W7.62mm'], 'footprint':'Package_DIP:DIP-18_W7.62mm', 'keywords':'LED driver bar dot', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/lm3914.pdf', 'pins':[
+        Part(**{ 'name':'LM3914N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM3914N'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-18_W7.62mm'], 'footprint':'Package_DIP:DIP-18_W7.62mm', 'keywords':'LED driver bar dot', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/lm3914.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nLM3914N\n\nLED driver bar dot', 'pins':[
             Pin(num='1',name='LED1',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='10',name='LED10',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='LED9',func=Pin.types.OPENCOLL,unit=1),
@@ -749,7 +759,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='REFOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='REFADJ',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='MODE',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LM3914V', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM3914V'}), 'ref_prefix':'U', 'fplist':['Package_LCC:PLCC-20'], 'footprint':'Package_LCC:PLCC-20', 'keywords':'LED driver bar dot', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/lm3914.pdf', 'pins':[
+        Part(**{ 'name':'LM3914V', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM3914V'}), 'ref_prefix':'U', 'fplist':['Package_LCC:PLCC-20'], 'footprint':'Package_LCC:PLCC-20', 'keywords':'LED driver bar dot', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/lm3914.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nLM3914V\n\nLED driver bar dot', 'pins':[
             Pin(num='1',name='LED1',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='10',name='REFADJ',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='MODE',func=Pin.types.INPUT,unit=1),
@@ -770,7 +780,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='REFOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LP5036', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LP5036'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-46-1EP_5x6mm_P0.4mm_EP2.8x3.8mm'], 'footprint':'Package_DFN_QFN:VQFN-46-1EP_5x6mm_P0.4mm_EP2.8x3.8mm', 'keywords':'PWM LED driver I2C', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lp5036.pdf', 'pins':[
+        Part(**{ 'name':'LP5036', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LP5036'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-46-1EP_5x6mm_P0.4mm_EP2.8x3.8mm'], 'footprint':'Package_DFN_QFN:VQFN-46-1EP_5x6mm_P0.4mm_EP2.8x3.8mm', 'keywords':'PWM LED driver I2C', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lp5036.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nLP5036\n\nPWM LED driver I2C', 'pins':[
             Pin(num='1',name='OUT0',func=Pin.types.PWROUT,unit=1),
             Pin(num='10',name='OUT9',func=Pin.types.PWROUT,unit=1),
             Pin(num='11',name='OUT10',func=Pin.types.PWROUT,unit=1),
@@ -818,14 +828,14 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUT6',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='OUT7',func=Pin.types.PWROUT,unit=1),
             Pin(num='9',name='OUT8',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LT3465', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT3465'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TSOT-23-6'], 'footprint':'Package_TO_SOT_SMD:TSOT-23-6', 'keywords':'Switching LED driver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/3465fa.pdf', 'pins':[
+        Part(**{ 'name':'LT3465', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT3465'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TSOT-23-6'], 'footprint':'Package_TO_SOT_SMD:TSOT-23-6', 'keywords':'Switching LED driver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/3465fa.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nLT3465\n\nSwitching LED driver', 'pins':[
             Pin(num='1',name='VOUT',func=Pin.types.PWROUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='CTRL',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='VIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='SW',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LT3755xMSE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT3755xMSE'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-16-1EP_3x4mm_P0.5mm_EP1.65x2.85mm'], 'footprint':'Package_SO:MSOP-16-1EP_3x4mm_P0.5mm_EP1.65x2.85mm', 'keywords':'Boost Buck Buck-Boost SEPIC Flyback', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/37551fd.pdf', 'pins':[
+        Part(**{ 'name':'LT3755xMSE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT3755xMSE'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-16-1EP_3x4mm_P0.5mm_EP1.65x2.85mm'], 'footprint':'Package_SO:MSOP-16-1EP_3x4mm_P0.5mm_EP1.65x2.85mm', 'keywords':'Boost Buck Buck-Boost SEPIC Flyback', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/37551fd.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nLT3755xMSE\n\nBoost Buck Buck-Boost SEPIC Flyback', 'pins':[
             Pin(num='1',name='PWMOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='SS',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='RT',func=Pin.types.INPUT,unit=1),
@@ -843,7 +853,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VREF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='PWM',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{OPENLED}',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LT3755xMSE-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT3755xMSE-1'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-16-1EP_3x4mm_P0.5mm_EP1.65x2.85mm'], 'footprint':'Package_SO:MSOP-16-1EP_3x4mm_P0.5mm_EP1.65x2.85mm', 'keywords':'Boost Buck Buck-Boost SEPIC Flyback', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/37551fd.pdf', 'pins':[
+        Part(**{ 'name':'LT3755xMSE-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT3755xMSE-1'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-16-1EP_3x4mm_P0.5mm_EP1.65x2.85mm'], 'footprint':'Package_SO:MSOP-16-1EP_3x4mm_P0.5mm_EP1.65x2.85mm', 'keywords':'Boost Buck Buck-Boost SEPIC Flyback', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/37551fd.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nLT3755xMSE-1\n\nBoost Buck Buck-Boost SEPIC Flyback', 'pins':[
             Pin(num='1',name='PWMOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='SS',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='RT',func=Pin.types.INPUT,unit=1),
@@ -861,7 +871,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VREF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='PWM',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='SYNC',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LT3755xUD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT3755xUD'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm', 'keywords':'Boost Buck Buck-Boost SEPIC Flyback', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/37551fd.pdf', 'pins':[
+        Part(**{ 'name':'LT3755xUD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT3755xUD'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm', 'keywords':'Boost Buck Buck-Boost SEPIC Flyback', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/37551fd.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nLT3755xUD\n\nBoost Buck Buck-Boost SEPIC Flyback', 'pins':[
             Pin(num='1',name='VREF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='GATE',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='PWMOUT',func=Pin.types.OUTPUT,unit=1),
@@ -879,7 +889,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='INTVCC',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='VIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='SENSE',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LT3755xUD-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT3755xUD-1'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm', 'keywords':'Boost Buck Buck-Boost SEPIC Flyback', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/37551fd.pdf', 'pins':[
+        Part(**{ 'name':'LT3755xUD-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT3755xUD-1'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm', 'keywords':'Boost Buck Buck-Boost SEPIC Flyback', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/37551fd.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nLT3755xUD-1\n\nBoost Buck Buck-Boost SEPIC Flyback', 'pins':[
             Pin(num='1',name='VREF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='GATE',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='PWMOUT',func=Pin.types.OUTPUT,unit=1),
@@ -897,7 +907,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='INTVCC',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='VIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='SENSE',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LT8391xFE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT8391xFE'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28-1EP_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28-1EP_4.4x9.7mm_P0.65mm', 'keywords':'60V Synchronous 4-Switch Buck-Boost LED Controller', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/lt8391.pdf', 'pins':[
+        Part(**{ 'name':'LT8391xFE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT8391xFE'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.74x4.75mm_ThermalVias'], 'footprint':'Package_SO:TSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.74x4.75mm_ThermalVias', 'keywords':'60V Synchronous 4-Switch Buck-Boost LED Controller', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/lt8391.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nLT8391xFE\n\n60V Synchronous 4-Switch Buck-Boost LED Controller', 'pins':[
             Pin(num='1',name='BG1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='RP',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='PWM',func=Pin.types.INPUT,unit=1),
@@ -927,7 +937,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='INTVCC',func=Pin.types.PWROUT,unit=1),
             Pin(num='9',name='EN/UVLO',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX7219', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX7219'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'LED 8-Digit Display Driver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX7219-MAX7221.pdf', 'pins':[
+        Part(**{ 'name':'MAX7219', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX7219'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'LED 8-Digit Display Driver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX7219-MAX7221.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nMAX7219\n\nLED 8-Digit Display Driver', 'pins':[
             Pin(num='1',name='DIN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DIG_5',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='DIG_1',func=Pin.types.OUTPUT,unit=1),
@@ -952,7 +962,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIG_3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='DIG_7',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX7221xNG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX7221xNG'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-24_W7.62mm'], 'footprint':'Package_DIP:DIP-24_W7.62mm', 'keywords':'spi qspi microwire', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX7219-MAX7221.pdf', 'pins':[
+        Part(**{ 'name':'MAX7221xNG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX7221xNG'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-24_W7.62mm'], 'footprint':'Package_DIP:DIP-24_W7.62mm', 'keywords':'spi qspi microwire', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX7219-MAX7221.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nMAX7221xNG\n\nspi qspi microwire', 'pins':[
             Pin(num='1',name='DIN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DIG_5',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='DIG_1',func=Pin.types.OPENCOLL,unit=1),
@@ -977,7 +987,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIG_3',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='DIG_7',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX7221xWG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX7221xWG'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm'], 'footprint':'Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm', 'keywords':'spi qspi microwire', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX7219-MAX7221.pdf', 'pins':[
+        Part(**{ 'name':'MAX7221xWG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX7221xWG'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm'], 'footprint':'Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm', 'keywords':'spi qspi microwire', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX7219-MAX7221.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nMAX7221xWG\n\nspi qspi microwire', 'pins':[
             Pin(num='1',name='DIN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DIG_5',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='DIG_1',func=Pin.types.OPENCOLL,unit=1),
@@ -1002,7 +1012,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIG_3',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='DIG_7',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MBI5252GFN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MBI5252GFN'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:HVQFN-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm'], 'footprint':'Package_DFN_QFN:HVQFN-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'keywords':'Shift Register LED driver 16 bit', 'description':'', 'datasheet':'https://datasheet.lcsc.com/lcsc/1809031521_MBI-MBI5252GP-A_C261127.pdf', 'pins':[
+        Part(**{ 'name':'MBI5252GFN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MBI5252GFN'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:HVQFN-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm'], 'footprint':'Package_DFN_QFN:HVQFN-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'keywords':'Shift Register LED driver 16 bit', 'description':'', 'datasheet':'https://datasheet.lcsc.com/lcsc/1809031521_MBI-MBI5252GP-A_C261127.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nMBI5252GFN\n\nShift Register LED driver 16 bit', 'pins':[
             Pin(num='1',name='LE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='~{OUT8}',func=Pin.types.OPENCOLL,unit=1),
@@ -1028,7 +1038,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{OUT5}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='~{OUT6}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='~{OUT7}',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MBI5252GP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MBI5252GP'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:SSOP-24_3.9x8.7mm_P0.635mm', 'keywords':'Shift Register LED driver 16 bit', 'description':'', 'datasheet':'https://datasheet.lcsc.com/lcsc/1809031521_MBI-MBI5252GP-A_C261127.pdf', 'pins':[
+        Part(**{ 'name':'MBI5252GP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MBI5252GP'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:SSOP-24_3.9x8.7mm_P0.635mm', 'keywords':'Shift Register LED driver 16 bit', 'description':'', 'datasheet':'https://datasheet.lcsc.com/lcsc/1809031521_MBI-MBI5252GP-A_C261127.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nMBI5252GP\n\nShift Register LED driver 16 bit', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{OUT5}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='~{OUT6}',func=Pin.types.OPENCOLL,unit=1),
@@ -1053,7 +1063,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{OUT2}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='~{OUT3}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='~{OUT4}',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC14495P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC14495P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'driver 7-segment', 'description':'', 'datasheet':'https://www.futurlec.com/Datasheet/Motorola/MC14495.pdf', 'pins':[
+        Part(**{ 'name':'MC14495P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC14495P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'driver 7-segment', 'description':'', 'datasheet':'https://www.futurlec.com/Datasheet/Motorola/MC14495.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nMC14495P\n\ndriver 7-segment', 'pins':[
             Pin(num='1',name='e',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='D',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~{VCR}',func=Pin.types.INPUT,unit=1),
@@ -1070,7 +1080,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{CLK}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='C',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP1643xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP1643xMS'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'LED driver low voltage', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/20005208A.pdf', 'pins':[
+        Part(**{ 'name':'MCP1643xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP1643xMS'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'LED driver low voltage', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/20005208A.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nMCP1643xMS\n\nLED driver low voltage', 'pins':[
             Pin(num='1',name='EN',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='VFB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -1079,13 +1089,13 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='SGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VIN',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP1662-xOT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP1662-xOT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'step-up led driver uvlo', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/20005316E.pdf', 'pins':[
+        Part(**{ 'name':'MCP1662-xOT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP1662-xOT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'step-up led driver uvlo', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/20005316E.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nMCP1662-xOT\n\nstep-up led driver uvlo', 'pins':[
             Pin(num='1',name='SW',func=Pin.types.PWROUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='V_{FB}',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='EN',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='V_{IN}',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MP3362GJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MP3362GJ'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TSOT-23-8'], 'footprint':'Package_TO_SOT_SMD:TSOT-23-8', 'keywords':'LED driver', 'description':'', 'datasheet':'https://www.monolithicpower.com/en/documentview/productdocument/index/version/2/document_type/Datasheet/lang/en/sku/MP3362GJ/document_id/9117/', 'pins':[
+        Part(**{ 'name':'MP3362GJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MP3362GJ'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TSOT-23-8'], 'footprint':'Package_TO_SOT_SMD:TSOT-23-8', 'keywords':'LED driver', 'description':'', 'datasheet':'https://www.monolithicpower.com/en/documentview/productdocument/index/version/2/document_type/Datasheet/lang/en/sku/MP3362GJ/document_id/9117/', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nMP3362GJ\n\nLED driver', 'pins':[
             Pin(num='1',name='SW',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='VIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='COMP',func=Pin.types.PASSIVE,unit=1),
@@ -1094,7 +1104,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='FB',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='OVP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MPQ2483DQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MPQ2483DQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.7x2.5mm'], 'footprint':'Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.7x2.5mm', 'keywords':'LED driver', 'description':'', 'datasheet':'https://www.monolithicpower.com/pub/media/document/MPQ2483_r1.05.pdf', 'pins':[
+        Part(**{ 'name':'MPQ2483DQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MPQ2483DQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.7x2.5mm'], 'footprint':'Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.7x2.5mm', 'keywords':'LED driver', 'description':'', 'datasheet':'https://www.monolithicpower.com/pub/media/document/MPQ2483_r1.05.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nMPQ2483DQ\n\nLED driver', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='SW',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='VSS',func=Pin.types.PASSIVE,unit=1),
@@ -1106,7 +1116,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN/DIM',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='INGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='BST',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCP5623DTBR2G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP5623DTBR2G'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'LED RGB', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/NCP5623-D.PDF', 'pins':[
+        Part(**{ 'name':'NCP5623DTBR2G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCP5623DTBR2G'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'LED RGB', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/NCP5623-D.PDF', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nNCP5623DTBR2G\n\nLED RGB', 'pins':[
             Pin(num='1',name='IC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='I_{REF}',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='SCL',func=Pin.types.INPUT,unit=1),
@@ -1121,14 +1131,14 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='SDA',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NCR401U', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCR401U'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SC-74-6_1.55x2.9mm_P0.95mm'], 'footprint':'Package_TO_SOT_SMD:SC-74-6_1.55x2.9mm_P0.95mm', 'keywords':'LED driver constant current', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/NCR401U.pdf', 'pins':[
+        Part(**{ 'name':'NCR401U', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NCR401U'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SC-74-6_1.55x2.9mm_P0.95mm'], 'footprint':'Package_TO_SOT_SMD:SC-74-6_1.55x2.9mm_P0.95mm', 'keywords':'LED driver constant current', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/NCR401U.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nNCR401U\n\nLED driver constant current', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='IOUT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='VS',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='IOUT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='REXT',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PCA9531PW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9531PW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'led pwm rgb smbus', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/PCA9531.pdf', 'pins':[
+        Part(**{ 'name':'PCA9531PW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9531PW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'led pwm rgb smbus', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/PCA9531.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nPCA9531PW\n\nled pwm rgb smbus', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='LED5',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='LED6',func=Pin.types.OPENCOLL,unit=1),
@@ -1145,7 +1155,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='LED3',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='V_{SS}',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='LED4',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PCA9635', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9635'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'led pwm rgb rgba', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/PCA9635.pdf', 'pins':[
+        Part(**{ 'name':'PCA9635', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9635'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'led pwm rgb rgba', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/PCA9635.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nPCA9635\n\nled pwm rgb rgba', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='LED4',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='LED5',func=Pin.types.OUTPUT,unit=1),
@@ -1174,7 +1184,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='LED1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='LED2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='LED3',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PCA9685BS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9685BS'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'PWM LED driver I2C QFN', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/PCA9685.pdf', 'pins':[
+        Part(**{ 'name':'PCA9685BS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9685BS'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'PWM LED driver I2C QFN', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/PCA9685.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nPCA9685BS\n\nPWM LED driver I2C QFN', 'pins':[
             Pin(num='1',name='A3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='LED7',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='VSS',func=Pin.types.PWRIN,unit=1),
@@ -1204,7 +1214,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='LED4',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='LED5',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='LED6',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PCA9685PW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9685PW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'PWM LED driver I2C TSSOP', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/PCA9685.pdf', 'pins':[
+        Part(**{ 'name':'PCA9685PW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9685PW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'PWM LED driver I2C TSSOP', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/PCA9685.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nPCA9685PW\n\nPWM LED driver I2C TSSOP', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='LED4',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='LED5',func=Pin.types.OUTPUT,unit=1),
@@ -1233,7 +1243,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='LED1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='LED2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='LED3',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PCA9745BTW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9745BTW'}), 'ref_prefix':'U', 'fplist':['Package_SO:NXP_HTSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.2x3.4mm'], 'footprint':'Package_SO:NXP_HTSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.2x3.4mm', 'keywords':'pwm led current spi', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/PCA9745B.pdf', 'pins':[
+        Part(**{ 'name':'PCA9745BTW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9745BTW'}), 'ref_prefix':'U', 'fplist':['Package_SO:NXP_HTSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.2x3.4mm'], 'footprint':'Package_SO:NXP_HTSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.2x3.4mm', 'keywords':'pwm led current spi', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/PCA9745B.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nPCA9745BTW\n\npwm led current spi', 'pins':[
             Pin(num='1',name='REXT',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='V_{SS}',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='LED4',func=Pin.types.OPENCOLL,unit=1),
@@ -1263,14 +1273,14 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='LED1',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='LED2',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='LED3',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RCD-24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RCD-24'}), 'ref_prefix':'U', 'fplist':['Converter_DCDC:Converter_DCDC_RECOM_RCD-24_THT'], 'footprint':'Converter_DCDC:Converter_DCDC_RECOM_RCD-24_THT', 'keywords':'Led Driver DC-DC', 'description':'', 'datasheet':'https://g.recomcdn.com/media/Datasheet/pdf/.fYUQjOlW/.t2a80a771bdbb0ef300f7/Datasheet-93/RCD-24.pdf', 'pins':[
+        Part(**{ 'name':'RCD-24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RCD-24'}), 'ref_prefix':'U', 'fplist':['Converter_DCDC:Converter_DCDC_RECOM_RCD-24_THT'], 'footprint':'Converter_DCDC:Converter_DCDC_RECOM_RCD-24_THT', 'keywords':'Led Driver DC-DC', 'description':'', 'datasheet':'https://g.recomcdn.com/media/Datasheet/pdf/.fYUQjOlW/.t2a80a771bdbb0ef300f7/Datasheet-93/RCD-24.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nRCD-24\n\nLed Driver DC-DC', 'pins':[
             Pin(num='1',name='+Vin',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='Analogue_Dimming',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='PWM/ON/OFF',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='-Vout',func=Pin.types.PWROUT,unit=1),
             Pin(num='6',name='+Vout',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ST1CC40DR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ST1CC40DR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'DC/DC Buck Conwerter 3A Low Voltage Input LED Lighting', 'description':'', 'datasheet':'http://www.st.com/content/ccc/resource/technical/document/datasheet/group3/71/e8/26/3c/c8/cc/46/e6/CD00292360/files/CD00292360.pdf/jcr:content/translations/en.CD00292360.pdf', 'pins':[
+        Part(**{ 'name':'ST1CC40DR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ST1CC40DR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'DC/DC Buck Conwerter 3A Low Voltage Input LED Lighting', 'description':'', 'datasheet':'http://www.st.com/content/ccc/resource/technical/document/datasheet/group3/71/e8/26/3c/c8/cc/46/e6/CD00292360/files/CD00292360.pdf/jcr:content/translations/en.CD00292360.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nST1CC40DR\n\nDC/DC Buck Conwerter 3A Low Voltage Input LED Lighting', 'pins':[
             Pin(num='1',name='SW',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='PGND',func=Pin.types.PWROUT,unit=1),
             Pin(num='3',name='VINA',func=Pin.types.PWRIN,unit=1),
@@ -1279,7 +1289,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='AGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VINSW',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ST1CC40PUR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ST1CC40PUR'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_4x4mm_P0.8mm_EP2.5x3.6mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_4x4mm_P0.8mm_EP2.5x3.6mm', 'keywords':'DC/DC Buck Conwerter 3A Low Voltage Input LED Lighting', 'description':'', 'datasheet':'http://www.st.com/content/ccc/resource/technical/document/datasheet/group3/71/e8/26/3c/c8/cc/46/e6/CD00292360/files/CD00292360.pdf/jcr:content/translations/en.CD00292360.pdf', 'pins':[
+        Part(**{ 'name':'ST1CC40PUR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ST1CC40PUR'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_4x4mm_P0.8mm_EP2.5x3.6mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_4x4mm_P0.8mm_EP2.5x3.6mm', 'keywords':'DC/DC Buck Conwerter 3A Low Voltage Input LED Lighting', 'description':'', 'datasheet':'http://www.st.com/content/ccc/resource/technical/document/datasheet/group3/71/e8/26/3c/c8/cc/46/e6/CD00292360/files/CD00292360.pdf/jcr:content/translations/en.CD00292360.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nST1CC40PUR\n\nDC/DC Buck Conwerter 3A Low Voltage Input LED Lighting', 'pins':[
             Pin(num='1',name='VINA',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='INH',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='FB',func=Pin.types.INPUT,unit=1),
@@ -1289,7 +1299,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SW',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='PGND',func=Pin.types.PWROUT,unit=1),
             Pin(num='9',name='PAD',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STP08CP05', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STP08CP05'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Shift Register LED driver 8 bit', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stp08cp05.pdf', 'pins':[
+        Part(**{ 'name':'STP08CP05', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STP08CP05'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Shift Register LED driver 8 bit', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stp08cp05.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nSTP08CP05\n\nShift Register LED driver 8 bit', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='OUT5',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='OUT6',func=Pin.types.OUTPUT,unit=1),
@@ -1306,7 +1316,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUT2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='OUT3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='OUT4',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STP08CP05XT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STP08CP05XT'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-16-1EP_4.4x5mm_P0.65mm_EP3x3mm'], 'footprint':'Package_SO:HTSSOP-16-1EP_4.4x5mm_P0.65mm_EP3x3mm', 'keywords':'Shift Register LED driver 8 bit', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stp08cp05.pdf', 'pins':[
+        Part(**{ 'name':'STP08CP05XT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STP08CP05XT'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-16-1EP_4.4x5mm_P0.65mm_EP3x3mm'], 'footprint':'Package_SO:HTSSOP-16-1EP_4.4x5mm_P0.65mm_EP3x3mm', 'keywords':'Shift Register LED driver 8 bit', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stp08cp05.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nSTP08CP05XT\n\nShift Register LED driver 8 bit', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='OUT5',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='OUT6',func=Pin.types.OUTPUT,unit=1),
@@ -1324,7 +1334,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUT2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='OUT3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='OUT4',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STP16CP05', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STP16CP05'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Shift Register LED driver 16 bit', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stp16cp05.pdf', 'pins':[
+        Part(**{ 'name':'STP16CP05', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STP16CP05'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Shift Register LED driver 16 bit', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stp16cp05.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nSTP16CP05\n\nShift Register LED driver 16 bit', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{OUT5}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='~{OUT6}',func=Pin.types.OUTPUT,unit=1),
@@ -1349,7 +1359,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{OUT2}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='~{OUT3}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='~{OUT4}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STP16CP05XT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STP16CP05XT'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-24-1EP_4.4x7.8mm_P0.65mm_EP3.2x5mm'], 'footprint':'Package_SO:HTSSOP-24-1EP_4.4x7.8mm_P0.65mm_EP3.2x5mm', 'keywords':'Shift Register LED driver 16 bit', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stp16cp05.pdf', 'pins':[
+        Part(**{ 'name':'STP16CP05XT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STP16CP05XT'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-24-1EP_4.4x7.8mm_P0.65mm_EP3.2x5mm'], 'footprint':'Package_SO:HTSSOP-24-1EP_4.4x7.8mm_P0.65mm_EP3.2x5mm', 'keywords':'Shift Register LED driver 16 bit', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stp16cp05.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nSTP16CP05XT\n\nShift Register LED driver 16 bit', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{OUT5}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='~{OUT6}',func=Pin.types.OUTPUT,unit=1),
@@ -1375,7 +1385,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{OUT2}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='~{OUT3}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='~{OUT4}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCA6507RUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA6507RUE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_X2QFN-RUE-12_1.4x2mm_P0.4mm'], 'footprint':'Package_DFN_QFN:Texas_X2QFN-RUE-12_1.4x2mm_P0.4mm', 'keywords':'led driver i2c 7-bit', 'description':'', 'datasheet':'https://www.ti.com/lit/gpn/tca6507', 'pins':[
+        Part(**{ 'name':'TCA6507RUE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA6507RUE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_X2QFN-RUE-12_1.4x2mm_P0.4mm'], 'footprint':'Package_DFN_QFN:Texas_X2QFN-RUE-12_1.4x2mm_P0.4mm', 'keywords':'led driver i2c 7-bit', 'description':'', 'datasheet':'https://www.ti.com/lit/gpn/tca6507', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nTCA6507RUE\n\nled driver i2c 7-bit', 'pins':[
             Pin(num='1',name='V_{CC}',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P4',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='P5',func=Pin.types.OPENCOLL,unit=1),
@@ -1388,7 +1398,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P1',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='P2',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='P3',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLC59108xPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC59108xPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'LED current driver', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tlc59108.pdf', 'pins':[
+        Part(**{ 'name':'TLC59108xPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC59108xPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'LED current driver', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tlc59108.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nTLC59108xPW\n\nLED current driver', 'pins':[
             Pin(num='1',name='REXT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='~{OUT3}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='~{OUT4}',func=Pin.types.OPENCOLL,unit=1),
@@ -1409,7 +1419,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{OUT1}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='~{OUT2}',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLC5916', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC5916'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'LED Constant-Current Driver', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tlc5916.pdf', 'pins':[
+        Part(**{ 'name':'TLC5916', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC5916'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'LED Constant-Current Driver', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tlc5916.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nTLC5916\n\nLED Constant-Current Driver', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{OUT5}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='~{OUT6}',func=Pin.types.OPENCOLL,unit=1),
@@ -1426,7 +1436,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{OUT2}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='~{OUT3}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='~{OUT4}',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLC5940NT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC5940NT'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'PWM LED driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tlc5940.pdf', 'pins':[
+        Part(**{ 'name':'TLC5940NT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC5940NT'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'PWM LED driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tlc5940.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nTLC5940NT\n\nPWM LED driver', 'pins':[
             Pin(num='1',name='OUT1',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='10',name='OUT10',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='OUT11',func=Pin.types.OPENCOLL,unit=1),
@@ -1455,7 +1465,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUT7',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='OUT8',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='OUT9',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLC5940PWP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC5940PWP'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP3.4x9.5mm_Mask2.4x6.17mm_ThermalVias'], 'footprint':'Package_SO:HTSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP3.4x9.5mm_Mask2.4x6.17mm_ThermalVias', 'keywords':'PWM LED driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tlc5940.pdf', 'pins':[
+        Part(**{ 'name':'TLC5940PWP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC5940PWP'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP3.4x9.5mm_Mask2.4x6.17mm_ThermalVias'], 'footprint':'Package_SO:HTSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP3.4x9.5mm_Mask2.4x6.17mm_ThermalVias', 'keywords':'PWM LED driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tlc5940.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nTLC5940PWP\n\nPWM LED driver', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='OUT3',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='OUT4',func=Pin.types.OPENCOLL,unit=1),
@@ -1485,7 +1495,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUT0',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='OUT1',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='OUT2',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLC5947DAP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC5947DAP'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-32-1EP_6.1x11mm_P0.65mm_EP5.2x11mm_Mask4.11x4.36mm_ThermalVias'], 'footprint':'Package_SO:HTSSOP-32-1EP_6.1x11mm_P0.65mm_EP5.2x11mm_Mask4.11x4.36mm_ThermalVias', 'keywords':'PWM LED driver HTSSOP', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tlc5947.pdf', 'pins':[
+        Part(**{ 'name':'TLC5947DAP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC5947DAP'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-32-1EP_6.1x11mm_P0.65mm_EP5.2x11mm_Mask4.11x4.36mm_ThermalVias'], 'footprint':'Package_SO:HTSSOP-32-1EP_6.1x11mm_P0.65mm_EP5.2x11mm_Mask4.11x4.36mm_ThermalVias', 'keywords':'PWM LED driver HTSSOP', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tlc5947.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nTLC5947DAP\n\nPWM LED driver HTSSOP', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='10',name='OUT5',func=Pin.types.OUTPUT),
             Pin(num='11',name='OUT6',func=Pin.types.OUTPUT),
@@ -1519,7 +1529,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUT2',func=Pin.types.OUTPUT),
             Pin(num='8',name='OUT3',func=Pin.types.OUTPUT),
             Pin(num='9',name='OUT4',func=Pin.types.OUTPUT)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLC5947RHB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC5947RHB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'PWM LED driver QFN', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tlc5947.pdf', 'pins':[
+        Part(**{ 'name':'TLC5947RHB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC5947RHB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'PWM LED driver QFN', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tlc5947.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nTLC5947RHB\n\nPWM LED driver QFN', 'pins':[
             Pin(num='1',name='OUT0',func=Pin.types.OUTPUT),
             Pin(num='10',name='OUT9',func=Pin.types.OUTPUT),
             Pin(num='11',name='OUT10',func=Pin.types.OUTPUT),
@@ -1553,7 +1563,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUT6',func=Pin.types.OUTPUT),
             Pin(num='8',name='OUT7',func=Pin.types.OUTPUT),
             Pin(num='9',name='OUT8',func=Pin.types.OUTPUT)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLC5949PWP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC5949PWP'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-24-1EP_4.4x7.8mm_P0.65mm_EP3.4x7.8mm_Mask2.4x2.98mm'], 'footprint':'Package_SO:HTSSOP-24-1EP_4.4x7.8mm_P0.65mm_EP3.4x7.8mm_Mask2.4x2.98mm', 'keywords':'led driver', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tlc5949.pdf', 'pins':[
+        Part(**{ 'name':'TLC5949PWP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC5949PWP'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-24-1EP_4.4x7.8mm_P0.65mm_EP3.4x7.8mm_Mask2.4x2.98mm'], 'footprint':'Package_SO:HTSSOP-24-1EP_4.4x7.8mm_P0.65mm_EP3.4x7.8mm_Mask2.4x2.98mm', 'keywords':'led driver', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tlc5949.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nTLC5949PWP\n\nled driver', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='OUT5',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='OUT6',func=Pin.types.OPENCOLL,unit=1),
@@ -1579,7 +1589,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUT2',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='OUT3',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='OUT4',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLC5951DAP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC5951DAP'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-38-1EP_6.1x12.5mm_P0.65mm_EP5.2x12.5mm_Mask3.39x6.35mm_ThermalVias'], 'footprint':'Package_SO:HTSSOP-38-1EP_6.1x12.5mm_P0.65mm_EP5.2x12.5mm_Mask3.39x6.35mm_ThermalVias', 'keywords':'led driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tlc5951.pdf', 'pins':[
+        Part(**{ 'name':'TLC5951DAP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC5951DAP'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-38-1EP_6.1x12.5mm_P0.65mm_EP5.2x12.5mm_Mask3.39x6.35mm_ThermalVias'], 'footprint':'Package_SO:HTSSOP-38-1EP_6.1x12.5mm_P0.65mm_EP5.2x12.5mm_Mask3.39x6.35mm_ThermalVias', 'keywords':'led driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tlc5951.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nTLC5951DAP\n\nled driver', 'pins':[
             Pin(num='1',name='GSSIN',func=Pin.types.INPUT),
             Pin(num='10',name='OUTG1',func=Pin.types.OPENCOLL),
             Pin(num='11',name='OUTR1',func=Pin.types.OPENCOLL),
@@ -1619,7 +1629,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='OUTB0',func=Pin.types.OPENCOLL),
             Pin(num='19',name='GSSOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='20',name='DCSOUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLC5951RHA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC5951RHA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm_ThermalVias'], 'footprint':'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm_ThermalVias', 'keywords':'led driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tlc5951.pdf', 'pins':[
+        Part(**{ 'name':'TLC5951RHA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC5951RHA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm_ThermalVias'], 'footprint':'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm_ThermalVias', 'keywords':'led driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tlc5951.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nTLC5951RHA\n\nled driver', 'pins':[
             Pin(num='1',name='OUTG3',func=Pin.types.OPENCOLL),
             Pin(num='10',name='OUTG4',func=Pin.types.OPENCOLL),
             Pin(num='11',name='OUTB5',func=Pin.types.OPENCOLL),
@@ -1661,7 +1671,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='OUTR4',func=Pin.types.OPENCOLL),
             Pin(num='5',name='GSSOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='6',name='DCSOUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLC5957RTQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC5957RTQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-56-1EP_8x8mm_P0.5mm_EP5.6x5.6mm_ThermalVias'], 'footprint':'Package_DFN_QFN:QFN-56-1EP_8x8mm_P0.5mm_EP5.6x5.6mm_ThermalVias', 'keywords':'led driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tlc5957.pdf', 'pins':[
+        Part(**{ 'name':'TLC5957RTQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC5957RTQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-56-1EP_8x8mm_P0.5mm_EP5.6x5.6mm_ThermalVias'], 'footprint':'Package_DFN_QFN:QFN-56-1EP_8x8mm_P0.5mm_EP5.6x5.6mm_ThermalVias', 'keywords':'led driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tlc5957.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nTLC5957RTQ\n\nled driver', 'pins':[
             Pin(num='1',name='IREF',func=Pin.types.PASSIVE),
             Pin(num='10',name='OUTB0',func=Pin.types.OPENCOLL),
             Pin(num='11',name='OUTR1',func=Pin.types.OPENCOLL),
@@ -1719,7 +1729,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='OUTR0',func=Pin.types.OPENCOLL),
             Pin(num='9',name='OUTG0',func=Pin.types.OPENCOLL),
             Pin(num='42',name='SOUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLC5971PWP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC5971PWP'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-20-1EP_4.4x6.5mm_P0.65mm_EP3.4x6.5mm_Mask2.75x3.43mm_ThermalVias'], 'footprint':'Package_SO:HTSSOP-20-1EP_4.4x6.5mm_P0.65mm_EP3.4x6.5mm_Mask2.75x3.43mm_ThermalVias', 'keywords':'led driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tlc5971.pdf', 'pins':[
+        Part(**{ 'name':'TLC5971PWP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC5971PWP'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-20-1EP_4.4x6.5mm_P0.65mm_EP3.4x6.5mm_Mask2.75x3.43mm_ThermalVias'], 'footprint':'Package_SO:HTSSOP-20-1EP_4.4x6.5mm_P0.65mm_EP3.4x6.5mm_Mask2.75x3.43mm_ThermalVias', 'keywords':'led driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tlc5971.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nTLC5971PWP\n\nled driver', 'pins':[
             Pin(num='10',name='SCKI',func=Pin.types.INPUT),
             Pin(num='13',name='OUTR2',func=Pin.types.OPENCOLL),
             Pin(num='14',name='OUTG2',func=Pin.types.OPENCOLL),
@@ -1741,7 +1751,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='1',name='IREF',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='SCKO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='12',name='SDTO',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLC5971RGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC5971RGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGE0024H_VQFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm_ThermalVias'], 'footprint':'Package_DFN_QFN:Texas_RGE0024H_VQFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm_ThermalVias', 'keywords':'led driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tlc5971.pdf', 'pins':[
+        Part(**{ 'name':'TLC5971RGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC5971RGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGE0024H_VQFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm_ThermalVias'], 'footprint':'Package_DFN_QFN:Texas_RGE0024H_VQFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm_ThermalVias', 'keywords':'led driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tlc5971.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nTLC5971RGE\n\nled driver', 'pins':[
             Pin(num='1',name='SDTI',func=Pin.types.INPUT),
             Pin(num='10',name='OUTR3',func=Pin.types.OPENCOLL),
             Pin(num='11',name='OUTG3',func=Pin.types.OPENCOLL),
@@ -1767,7 +1777,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='15',name='VREG',func=Pin.types.PASSIVE,unit=1),
             Pin(num='16',name='IREF',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='SCKO',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLC5973', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC5973'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'LED current driver 12bit PWM', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tlc5973.pdf', 'pins':[
+        Part(**{ 'name':'TLC5973', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC5973'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'LED current driver 12bit PWM', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tlc5973.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nTLC5973\n\nLED current driver 12bit PWM', 'pins':[
             Pin(num='1',name='OUT0',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='OUT1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='OUT2',func=Pin.types.OUTPUT,unit=1),
@@ -1776,14 +1786,14 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SDI',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='IREF',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TPS61165DBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPS61165DBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'led backlight display driver', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tps61165.pdf', 'pins':[
+        Part(**{ 'name':'TPS61165DBV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPS61165DBV'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'led backlight display driver', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tps61165.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nTPS61165DBV\n\nled backlight display driver', 'pins':[
             Pin(num='1',name='VIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='CTRL',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SW',func=Pin.types.OUTPUT,unit=1),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='COMP',func=Pin.types.OUTPUT,unit=1),
             Pin(num='6',name='FB',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TPS92692PWP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPS92692PWP'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-20-1EP_4.4x6.5mm_P0.65mm_EP3.4x6.5mm_Mask2.4x3.7mm'], 'footprint':'Package_SO:HTSSOP-20-1EP_4.4x6.5mm_P0.65mm_EP3.4x6.5mm_Mask2.4x3.7mm', 'keywords':'LED Driver Buck Boost Sepic Flyback PWM Dimming', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tps92692-q1.pdf', 'pins':[
+        Part(**{ 'name':'TPS92692PWP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPS92692PWP'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-20-1EP_4.4x6.5mm_P0.65mm_EP3.4x6.5mm_Mask2.4x3.7mm'], 'footprint':'Package_SO:HTSSOP-20-1EP_4.4x6.5mm_P0.65mm_EP3.4x6.5mm_Mask2.4x3.7mm', 'keywords':'LED Driver Buck Boost Sepic Flyback PWM Dimming', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tps92692-q1.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nTPS92692PWP\n\nLED Driver Buck Boost Sepic Flyback PWM Dimming', 'pins':[
             Pin(num='1',name='VIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DIM/PWM',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='RAMP',func=Pin.types.PASSIVE,unit=1),
@@ -1805,7 +1815,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='COMP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='IMON',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='IADJ',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'WS2811', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'WS2811'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'PWM LED driver', 'description':'', 'datasheet':'https://cdn-shop.adafruit.com/datasheets/WS2811.pdf', 'pins':[
+        Part(**{ 'name':'WS2811', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'WS2811'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'PWM LED driver', 'description':'', 'datasheet':'https://cdn-shop.adafruit.com/datasheets/WS2811.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nWS2811\n\nPWM LED driver', 'pins':[
             Pin(num='1',name='OUTR',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='OUTG',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='OUTB',func=Pin.types.OUTPUT,unit=1),
@@ -1814,7 +1824,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='DIN',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='SET',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'iC-HTG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'iC-HTG'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:HVQFN-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm'], 'footprint':'Package_DFN_QFN:HVQFN-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'keywords':'ichaus continous wave monitoring adc', 'description':'', 'datasheet':'https://www.ichaus.de/product/ic-htg/#documents', 'pins':[
+        Part(**{ 'name':'iC-HTG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'iC-HTG'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:HVQFN-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm'], 'footprint':'Package_DFN_QFN:HVQFN-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'keywords':'ichaus continous wave monitoring adc', 'description':'', 'datasheet':'https://www.ichaus.de/product/ic-htg/#documents', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\niC-HTG\n\nichaus continous wave monitoring adc', 'pins':[
             Pin(num='10',name='MCH',func=Pin.types.INPUT),
             Pin(num='11',name='MCL',func=Pin.types.INPUT),
             Pin(num='12',name='MOD',func=Pin.types.INPUT),
@@ -1840,7 +1850,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='~{CS}/A1',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='MOSI/A0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='SCLK/SCL',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CH455H', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH455H'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-18_W7.62mm', 'Package_SO:SOP-18_7.495x11.515mm_P1.27mm'], 'footprint':'Package_DIP:DIP-18_W7.62mm', 'keywords':'WCH Nixie I2C', 'description':'', 'datasheet':'https://www.wch-ic.com/products/CH455.html', 'pins':[
+        Part(**{ 'name':'CH455H', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH455H'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-18_W7.62mm', 'Package_SO:SOP-18_7.495x11.515mm_P1.27mm'], 'footprint':'Package_DIP:DIP-18_W7.62mm', 'keywords':'WCH Nixie I2C', 'description':'', 'datasheet':'https://www.wch-ic.com/products/CH455.html', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nCH455H\n\nWCH Nixie I2C', 'pins':[
             Pin(num='1',name='DIG0',func=Pin.types.OUTPUT),
             Pin(num='10',name='SEG1',func=Pin.types.TRISTATE),
             Pin(num='11',name='VCC',func=Pin.types.PWRIN),
@@ -1859,15 +1869,15 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='SEG0',func=Pin.types.TRISTATE),
             Pin(num='18',name='~{INT}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='ISET',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HV9922N8-G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HV9922N8-G'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-89-3', 'Package_TO_SOT_SMD:SOT-89-3'], 'footprint':'Package_TO_SOT_SMD:SOT-89-3', 'keywords':'CC LED Driver High Voltage', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005311A.pdf', 'pins':[
+        Part(**{ 'name':'HV9922N8-G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HV9922N8-G'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-89-3', 'Package_TO_SOT_SMD:SOT-89-3'], 'footprint':'Package_TO_SOT_SMD:SOT-89-3', 'keywords':'CC LED Driver High Voltage', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005311A.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nHV9922N8-G\n\nCC LED Driver High Voltage', 'pins':[
             Pin(num='1',name='D',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HV9923N8-G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HV9923N8-G'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-89-3', 'Package_TO_SOT_SMD:SOT-89-3', 'Package_TO_SOT_SMD:SOT-89-3'], 'footprint':'Package_TO_SOT_SMD:SOT-89-3', 'keywords':'CC LED Driver High Voltage', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005311A.pdf', 'pins':[
+        Part(**{ 'name':'HV9923N8-G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HV9923N8-G'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-89-3', 'Package_TO_SOT_SMD:SOT-89-3', 'Package_TO_SOT_SMD:SOT-89-3'], 'footprint':'Package_TO_SOT_SMD:SOT-89-3', 'keywords':'CC LED Driver High Voltage', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005311A.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nHV9923N8-G\n\nCC LED Driver High Voltage', 'pins':[
             Pin(num='1',name='D',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IS31FL3216A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS31FL3216A'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_4x4mm_P0.4mm_EP2.4x2.4mm', 'Package_DFN_QFN:QFN-28-1EP_4x4mm_P0.4mm_EP2.4x2.4mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_4x4mm_P0.4mm_EP2.4x2.4mm', 'keywords':'led pwm audio', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/IS31FL3216A.pdf', 'pins':[
+        Part(**{ 'name':'IS31FL3216A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS31FL3216A'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_4x4mm_P0.4mm_EP2.4x2.4mm', 'Package_DFN_QFN:QFN-28-1EP_4x4mm_P0.4mm_EP2.4x2.4mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_4x4mm_P0.4mm_EP2.4x2.4mm', 'keywords':'led pwm audio', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/IS31FL3216A.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nIS31FL3216A\n\nled pwm audio', 'pins':[
             Pin(num='1',name='CLK',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='OUT7',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='OUT8',func=Pin.types.OPENCOLL,unit=1),
@@ -1897,7 +1907,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='OUT5',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='OUT6',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IS31FL3236A-TQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS31FL3236A-TQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP4.11x4.11mm', 'Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP4.11x4.11mm'], 'footprint':'Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP4.11x4.11mm', 'keywords':'led matrix pwm', 'description':'', 'datasheet':'https://www.lumissil.com/assets/pdf/core/IS31FL3236A_DS.pdf', 'pins':[
+        Part(**{ 'name':'IS31FL3236A-TQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS31FL3236A-TQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP4.11x4.11mm', 'Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP4.11x4.11mm'], 'footprint':'Package_QFP:TQFP-48-1EP_7x7mm_P0.5mm_EP4.11x4.11mm', 'keywords':'led matrix pwm', 'description':'', 'datasheet':'https://www.lumissil.com/assets/pdf/core/IS31FL3236A_DS.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nIS31FL3236A-TQ\n\nled matrix pwm', 'pins':[
             Pin(num='1',name='OUT3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='OUT11',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='OUT12',func=Pin.types.OUTPUT,unit=1),
@@ -1947,14 +1957,14 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUT8',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='OUT9',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='OUT10',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LT3465A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT3465A'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TSOT-23-6', 'Package_TO_SOT_SMD:TSOT-23-6'], 'footprint':'Package_TO_SOT_SMD:TSOT-23-6', 'keywords':'Switching LED driver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/3465fa.pdf', 'pins':[
+        Part(**{ 'name':'LT3465A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT3465A'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TSOT-23-6', 'Package_TO_SOT_SMD:TSOT-23-6'], 'footprint':'Package_TO_SOT_SMD:TSOT-23-6', 'keywords':'Switching LED driver', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/3465fa.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nLT3465A\n\nSwitching LED driver', 'pins':[
             Pin(num='1',name='VOUT',func=Pin.types.PWROUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='FB',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='CTRL',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='VIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='SW',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LT3755xMSE-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT3755xMSE-2'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-16-1EP_3x4mm_P0.5mm_EP1.65x2.85mm', 'Package_SO:MSOP-16-1EP_3x4mm_P0.5mm_EP1.65x2.85mm'], 'footprint':'Package_SO:MSOP-16-1EP_3x4mm_P0.5mm_EP1.65x2.85mm', 'keywords':'Boost Buck Buck-Boost SEPIC Flyback', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/37551fd.pdf', 'pins':[
+        Part(**{ 'name':'LT3755xMSE-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT3755xMSE-2'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-16-1EP_3x4mm_P0.5mm_EP1.65x2.85mm', 'Package_SO:MSOP-16-1EP_3x4mm_P0.5mm_EP1.65x2.85mm'], 'footprint':'Package_SO:MSOP-16-1EP_3x4mm_P0.5mm_EP1.65x2.85mm', 'keywords':'Boost Buck Buck-Boost SEPIC Flyback', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/37551fd.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nLT3755xMSE-2\n\nBoost Buck Buck-Boost SEPIC Flyback', 'pins':[
             Pin(num='1',name='PWMOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='SS',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='RT',func=Pin.types.INPUT,unit=1),
@@ -1972,7 +1982,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VREF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='PWM',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{OPENLED}',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LT3755xUD-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT3755xUD-2'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm', 'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm', 'keywords':'Boost Buck Buck-Boost SEPIC Flyback', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/37551fd.pdf', 'pins':[
+        Part(**{ 'name':'LT3755xUD-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT3755xUD-2'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm', 'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm', 'keywords':'Boost Buck Buck-Boost SEPIC Flyback', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/37551fd.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nLT3755xUD-2\n\nBoost Buck Buck-Boost SEPIC Flyback', 'pins':[
             Pin(num='1',name='VREF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='GATE',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='PWMOUT',func=Pin.types.OUTPUT,unit=1),
@@ -1990,7 +2000,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='INTVCC',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='VIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='SENSE',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LT3756xMSE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT3756xMSE'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-16-1EP_3x4mm_P0.5mm_EP1.65x2.85mm', 'Package_SO:MSOP-16-1EP_3x4mm_P0.5mm_EP1.65x2.85mm', 'Package_SO:MSOP-16-1EP_3x4mm_P0.5mm_EP1.65x2.85mm'], 'footprint':'Package_SO:MSOP-16-1EP_3x4mm_P0.5mm_EP1.65x2.85mm', 'keywords':'Boost Buck Buck-Boost SEPIC Flyback', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/375612fb.pdf', 'pins':[
+        Part(**{ 'name':'LT3756xMSE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT3756xMSE'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-16-1EP_3x4mm_P0.5mm_EP1.65x2.85mm', 'Package_SO:MSOP-16-1EP_3x4mm_P0.5mm_EP1.65x2.85mm', 'Package_SO:MSOP-16-1EP_3x4mm_P0.5mm_EP1.65x2.85mm'], 'footprint':'Package_SO:MSOP-16-1EP_3x4mm_P0.5mm_EP1.65x2.85mm', 'keywords':'Boost Buck Buck-Boost SEPIC Flyback', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/375612fb.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nLT3756xMSE\n\nBoost Buck Buck-Boost SEPIC Flyback', 'pins':[
             Pin(num='1',name='PWMOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='SS',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='RT',func=Pin.types.INPUT,unit=1),
@@ -2008,7 +2018,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VREF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='PWM',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{OPENLED}',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LT3756xMSE-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT3756xMSE-1'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-16-1EP_3x4mm_P0.5mm_EP1.65x2.85mm', 'Package_SO:MSOP-16-1EP_3x4mm_P0.5mm_EP1.65x2.85mm'], 'footprint':'Package_SO:MSOP-16-1EP_3x4mm_P0.5mm_EP1.65x2.85mm', 'keywords':'Boost Buck Buck-Boost SEPIC Flyback', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/375612fb.pdf', 'pins':[
+        Part(**{ 'name':'LT3756xMSE-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT3756xMSE-1'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-16-1EP_3x4mm_P0.5mm_EP1.65x2.85mm', 'Package_SO:MSOP-16-1EP_3x4mm_P0.5mm_EP1.65x2.85mm'], 'footprint':'Package_SO:MSOP-16-1EP_3x4mm_P0.5mm_EP1.65x2.85mm', 'keywords':'Boost Buck Buck-Boost SEPIC Flyback', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/375612fb.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nLT3756xMSE-1\n\nBoost Buck Buck-Boost SEPIC Flyback', 'pins':[
             Pin(num='1',name='PWMOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='SS',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='RT',func=Pin.types.INPUT,unit=1),
@@ -2026,7 +2036,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VREF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='PWM',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='SYNC',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LT3756xMSE-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT3756xMSE-2'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-16-1EP_3x4mm_P0.5mm_EP1.65x2.85mm', 'Package_SO:MSOP-16-1EP_3x4mm_P0.5mm_EP1.65x2.85mm', 'Package_SO:MSOP-16-1EP_3x4mm_P0.5mm_EP1.65x2.85mm', 'Package_SO:MSOP-16-1EP_3x4mm_P0.5mm_EP1.65x2.85mm'], 'footprint':'Package_SO:MSOP-16-1EP_3x4mm_P0.5mm_EP1.65x2.85mm', 'keywords':'Boost Buck Buck-Boost SEPIC Flyback', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/375612fb.pdf', 'pins':[
+        Part(**{ 'name':'LT3756xMSE-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT3756xMSE-2'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-16-1EP_3x4mm_P0.5mm_EP1.65x2.85mm', 'Package_SO:MSOP-16-1EP_3x4mm_P0.5mm_EP1.65x2.85mm', 'Package_SO:MSOP-16-1EP_3x4mm_P0.5mm_EP1.65x2.85mm', 'Package_SO:MSOP-16-1EP_3x4mm_P0.5mm_EP1.65x2.85mm'], 'footprint':'Package_SO:MSOP-16-1EP_3x4mm_P0.5mm_EP1.65x2.85mm', 'keywords':'Boost Buck Buck-Boost SEPIC Flyback', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/375612fb.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nLT3756xMSE-2\n\nBoost Buck Buck-Boost SEPIC Flyback', 'pins':[
             Pin(num='1',name='PWMOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='SS',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='RT',func=Pin.types.INPUT,unit=1),
@@ -2044,7 +2054,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VREF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='PWM',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{OPENLED}',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LT3756xUD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT3756xUD'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm', 'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm', 'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm', 'keywords':'Boost Buck Buck-Boost SEPIC Flyback', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/375612fb.pdf', 'pins':[
+        Part(**{ 'name':'LT3756xUD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT3756xUD'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm', 'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm', 'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm', 'keywords':'Boost Buck Buck-Boost SEPIC Flyback', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/375612fb.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nLT3756xUD\n\nBoost Buck Buck-Boost SEPIC Flyback', 'pins':[
             Pin(num='1',name='VREF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='GATE',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='PWMOUT',func=Pin.types.OUTPUT,unit=1),
@@ -2062,7 +2072,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='INTVCC',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='VIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='SENSE',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LT3756xUD-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT3756xUD-1'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm', 'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm', 'keywords':'Boost Buck Buck-Boost SEPIC Flyback', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/375612fb.pdf', 'pins':[
+        Part(**{ 'name':'LT3756xUD-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT3756xUD-1'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm', 'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm', 'keywords':'Boost Buck Buck-Boost SEPIC Flyback', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/375612fb.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nLT3756xUD-1\n\nBoost Buck Buck-Boost SEPIC Flyback', 'pins':[
             Pin(num='1',name='VREF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='GATE',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='PWMOUT',func=Pin.types.OUTPUT,unit=1),
@@ -2080,7 +2090,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='INTVCC',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='VIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='SENSE',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LT3756xUD-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT3756xUD-2'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm', 'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm', 'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm', 'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm', 'keywords':'Boost Buck Buck-Boost SEPIC Flyback', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/375612fb.pdf', 'pins':[
+        Part(**{ 'name':'LT3756xUD-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT3756xUD-2'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm', 'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm', 'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm', 'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm', 'keywords':'Boost Buck Buck-Boost SEPIC Flyback', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/375612fb.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nLT3756xUD-2\n\nBoost Buck Buck-Boost SEPIC Flyback', 'pins':[
             Pin(num='1',name='VREF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='GATE',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='PWMOUT',func=Pin.types.OUTPUT,unit=1),
@@ -2098,7 +2108,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='INTVCC',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='VIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='SENSE',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX7221xRG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX7221xRG'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-24_W7.62mm', 'Package_DIP:DIP-24_W7.62mm'], 'footprint':'Package_DIP:DIP-24_W7.62mm', 'keywords':'spi qspi microwire', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX7219-MAX7221.pdf', 'pins':[
+        Part(**{ 'name':'MAX7221xRG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX7221xRG'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-24_W7.62mm', 'Package_DIP:DIP-24_W7.62mm'], 'footprint':'Package_DIP:DIP-24_W7.62mm', 'keywords':'spi qspi microwire', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX7219-MAX7221.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nMAX7221xRG\n\nspi qspi microwire', 'pins':[
             Pin(num='1',name='DIN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DIG_5',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='DIG_1',func=Pin.types.OPENCOLL,unit=1),
@@ -2123,7 +2133,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIG_3',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='DIG_7',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MPQ3362GJ-AEC1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MPQ3362GJ-AEC1'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TSOT-23-8', 'Package_TO_SOT_SMD:TSOT-23-8'], 'footprint':'Package_TO_SOT_SMD:TSOT-23-8', 'keywords':'LED driver AEC AEC1-Q100', 'description':'', 'datasheet':'https://www.monolithicpower.com/en/documentview/productdocument/index/version/2/document_type/Datasheet/lang/en/sku/MPQ3362GJ-AEC1/document_id/9116/', 'pins':[
+        Part(**{ 'name':'MPQ3362GJ-AEC1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MPQ3362GJ-AEC1'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TSOT-23-8', 'Package_TO_SOT_SMD:TSOT-23-8'], 'footprint':'Package_TO_SOT_SMD:TSOT-23-8', 'keywords':'LED driver AEC AEC1-Q100', 'description':'', 'datasheet':'https://www.monolithicpower.com/en/documentview/productdocument/index/version/2/document_type/Datasheet/lang/en/sku/MPQ3362GJ-AEC1/document_id/9116/', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nMPQ3362GJ-AEC1\n\nLED driver AEC AEC1-Q100', 'pins':[
             Pin(num='1',name='SW',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='VIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='COMP',func=Pin.types.PASSIVE,unit=1),
@@ -2132,7 +2142,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='FB',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='OVP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLC5917', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC5917'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'LED Constant-Current Driver', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tlc5917.pdf', 'pins':[
+        Part(**{ 'name':'TLC5917', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC5917'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'LED Constant-Current Driver', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tlc5917.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nTLC5917\n\nLED Constant-Current Driver', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{OUT5}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='~{OUT6}',func=Pin.types.OPENCOLL,unit=1),
@@ -2149,7 +2159,7 @@ Driver_LED = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{OUT2}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='~{OUT3}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='~{OUT4}',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLC5951RTA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC5951RTA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm_ThermalVias', 'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm_ThermalVias'], 'footprint':'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm_ThermalVias', 'keywords':'led driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tlc5951.pdf', 'pins':[
+        Part(**{ 'name':'TLC5951RTA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC5951RTA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm_ThermalVias', 'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm_ThermalVias'], 'footprint':'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm_ThermalVias', 'keywords':'led driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tlc5951.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_LED.kicad_sym\nTLC5951RTA\n\nled driver', 'pins':[
             Pin(num='1',name='OUTG3',func=Pin.types.OPENCOLL),
             Pin(num='10',name='OUTG4',func=Pin.types.OPENCOLL),
             Pin(num='11',name='OUTB5',func=Pin.types.OPENCOLL),

@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Interface_USB = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'ADUM4160', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADUM4160'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'usb isolation', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM4160.pdf', 'pins':[
+        Part(**{ 'name':'ADUM4160', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADUM4160'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'usb isolation', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM4160.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nADUM4160\n\nusb isolation', 'pins':[
             Pin(num='1',name='VBUS1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DD+',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='DD-',func=Pin.types.BIDIR,unit=1),
@@ -21,7 +21,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='UD+',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AP33771', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AP33771'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm', 'keywords':'USB Type C PD Sink', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/AP33771.pdf', 'pins':[
+        Part(**{ 'name':'AP33771', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AP33771'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm', 'keywords':'USB Type C PD Sink', 'description':'', 'datasheet':'https://www.diodes.com/assets/Datasheets/AP33771.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nAP33771\n\nUSB Type C PD Sink', 'pins':[
             Pin(num='1',name='ISENP',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='VSEL2',func=Pin.types.BIDIR,unit=1),
@@ -47,7 +47,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSEL1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GPIO1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VSEL0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'BQ24392', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BQ24392'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_R-PUQFN-N10'], 'footprint':'Package_DFN_QFN:Texas_R-PUQFN-N10', 'keywords':'USB BC detector charger', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/bq24392.pdf', 'pins':[
+        Part(**{ 'name':'BQ24392', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BQ24392'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_R-PUQFN-N10'], 'footprint':'Package_DFN_QFN:Texas_R-PUQFN-N10', 'keywords':'USB BC detector charger', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/bq24392.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nBQ24392\n\nUSB BC detector charger', 'pins':[
             Pin(num='1',name='SW_OPEN',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='10',name='CHG_DET',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='DM_HOST',func=Pin.types.BIDIR,unit=1),
@@ -58,7 +58,19 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DP_CON',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DM_CON',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VBUS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CH236D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH236D'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.4mm_EP1.65x1.65mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.4mm_EP1.65x1.65mm', 'keywords':'USB PD', 'description':'', 'datasheet':'https://wch-ic.com/downloads/file/313.html', 'pins':[
+        Part(**{ 'name':'CH224K', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH224K'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-10-1EP_3.9x4.9mm_P1mm_EP2.1x3.3mm'], 'footprint':'Package_SO:SSOP-10-1EP_3.9x4.9mm_P1mm_EP2.1x3.3mm', 'keywords':'USB-C WCH powered-device', 'description':'', 'datasheet':'https://www.wch.cn/downloads/file/301.html', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nCH224K\n\nUSB-C WCH powered-device', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='10',name='PG',func=Pin.types.OPENCOLL,unit=1),
+            Pin(num='11',name='GND',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='CFG2',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='3',name='CFG3',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='4',name='DP',func=Pin.types.BIDIR,unit=1),
+            Pin(num='5',name='DM',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='CC2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='CC1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VBUS',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='9',name='CFG1',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'CH236D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH236D'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.4mm_EP1.65x1.65mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.4mm_EP1.65x1.65mm', 'keywords':'USB PD', 'description':'', 'datasheet':'https://wch-ic.com/downloads/file/313.html', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nCH236D\n\nUSB PD', 'pins':[
             Pin(num='0',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='1',name='FBOX',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='CC1',func=Pin.types.BIDIR,unit=1),
@@ -80,7 +92,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='UD+',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='UD-',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CH246D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH246D'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.4mm_EP1.65x1.65mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.4mm_EP1.65x1.65mm', 'keywords':'USB PD QII', 'description':'', 'datasheet':'https://wch-ic.com/downloads/file/307.html', 'pins':[
+        Part(**{ 'name':'CH246D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH246D'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.4mm_EP1.65x1.65mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_3x3mm_P0.4mm_EP1.65x1.65mm', 'keywords':'USB PD QII', 'description':'', 'datasheet':'https://wch-ic.com/downloads/file/307.html', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nCH246D\n\nUSB PD QII', 'pins':[
             Pin(num='0',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='CC1',func=Pin.types.BIDIR,unit=1),
@@ -102,7 +114,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='UDP',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='UDM',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CH330N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH330N'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'usb uart wch serial', 'description':'', 'datasheet':'http://www.wch.cn/downloads/file/240.html', 'pins':[
+        Part(**{ 'name':'CH330N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH330N'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'usb uart wch serial', 'description':'', 'datasheet':'http://www.wch.cn/downloads/file/240.html', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nCH330N\n\nusb uart wch serial', 'pins':[
             Pin(num='1',name='UD+',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='UD-',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -111,7 +123,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='TXD',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='RXD',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='V3',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CH334R', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH334R'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'USB HUB Controller Interface', 'description':'', 'datasheet':'https://www.wch-ic.com/downloads/file/327.html', 'pins':[
+        Part(**{ 'name':'CH334R', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH334R'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'USB HUB Controller Interface', 'description':'', 'datasheet':'https://www.wch-ic.com/downloads/file/327.html', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nCH334R\n\nUSB HUB Controller Interface', 'pins':[
             Pin(num='1',name='DM4-',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='DMU-',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='DPU+',func=Pin.types.BIDIR,unit=1),
@@ -128,7 +140,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DM1-',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DP1+',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{RESET}/CDP',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CH340C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH340C'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'USB UART Serial Converter Interface', 'description':'', 'datasheet':'https://datasheet.lcsc.com/szlcsc/Jiangsu-Qin-Heng-CH340C_C84681.pdf', 'pins':[
+        Part(**{ 'name':'CH340C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH340C'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'USB UART Serial Converter Interface', 'description':'', 'datasheet':'https://datasheet.lcsc.com/szlcsc/Jiangsu-Qin-Heng-CH340C_C84681.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nCH340C\n\nUSB UART Serial Converter Interface', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{DSR}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~{RI}',func=Pin.types.INPUT,unit=1),
@@ -145,7 +157,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='~{CTS}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CH340E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH340E'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'USB UART Serial Converter Interface', 'description':'', 'datasheet':'https://www.mpja.com/download/35227cpdata.pdf', 'pins':[
+        Part(**{ 'name':'CH340E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH340E'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'USB UART Serial Converter Interface', 'description':'', 'datasheet':'https://www.mpja.com/download/35227cpdata.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nCH340E\n\nUSB UART Serial Converter Interface', 'pins':[
             Pin(num='1',name='UD+',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='V3',func=Pin.types.PWROUT,unit=1),
             Pin(num='2',name='UD-',func=Pin.types.BIDIR,unit=1),
@@ -156,7 +168,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='TXD',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='RXD',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CH340G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH340G'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'USB UART Serial Converter Interface', 'description':'', 'datasheet':'http://www.datasheet5.com/pdf-local-2195953', 'pins':[
+        Part(**{ 'name':'CH340G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH340G'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'USB UART Serial Converter Interface', 'description':'', 'datasheet':'http://www.datasheet5.com/pdf-local-2195953', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nCH340G\n\nUSB UART Serial Converter Interface', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{DSR}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~{RI}',func=Pin.types.INPUT,unit=1),
@@ -173,7 +185,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='XO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='~{CTS}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CH340K', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH340K'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-10-1EP_3.9x4.9mm_P1mm_EP2.1x3.3mm'], 'footprint':'Package_SO:SSOP-10-1EP_3.9x4.9mm_P1mm_EP2.1x3.3mm', 'keywords':'USB UART Serial Converter Interface', 'description':'', 'datasheet':'https://cdn.sparkfun.com/assets/5/0/a/8/5/CH340DS1.PDF', 'pins':[
+        Part(**{ 'name':'CH340K', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH340K'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-10-1EP_3.9x4.9mm_P1mm_EP2.1x3.3mm'], 'footprint':'Package_SO:SSOP-10-1EP_3.9x4.9mm_P1mm_EP2.1x3.3mm', 'keywords':'USB UART Serial Converter Interface', 'description':'', 'datasheet':'https://cdn.sparkfun.com/assets/5/0/a/8/5/CH340DS1.PDF', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nCH340K\n\nUSB UART Serial Converter Interface', 'pins':[
             Pin(num='11',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='1',name='UD+',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='V3',func=Pin.types.PASSIVE,unit=1),
@@ -185,7 +197,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='TXD',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='RXD',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CH340T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH340T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'USB UART Serial Converter Interface', 'description':'', 'datasheet':'https://cdn.sparkfun.com/datasheets/Dev/Arduino/Other/CH340DS1.PDF', 'pins':[
+        Part(**{ 'name':'CH340T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH340T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'USB UART Serial Converter Interface', 'description':'', 'datasheet':'https://cdn.sparkfun.com/datasheets/Dev/Arduino/Other/CH340DS1.PDF', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nCH340T\n\nUSB UART Serial Converter Interface', 'pins':[
             Pin(num='1',name='CKOH',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='XO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='~{CTS}',func=Pin.types.INPUT,unit=1),
@@ -206,7 +218,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='UD-',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='XI',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CH340X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH340X'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'USB UART Serial Converter Interface', 'description':'', 'datasheet':'https://cdn.sparkfun.com/assets/5/0/a/8/5/CH340DS1.PDF', 'pins':[
+        Part(**{ 'name':'CH340X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH340X'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'USB UART Serial Converter Interface', 'description':'', 'datasheet':'https://cdn.sparkfun.com/assets/5/0/a/8/5/CH340DS1.PDF', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nCH340X\n\nUSB UART Serial Converter Interface', 'pins':[
             Pin(num='1',name='UD+',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='V3',func=Pin.types.PWROUT,unit=1),
             Pin(num='2',name='UD-',func=Pin.types.BIDIR,unit=1),
@@ -217,7 +229,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='TXD',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='RXD',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CH343G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH343G'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'UART Interface crystalless', 'description':'', 'datasheet':'https://datasheet.lcsc.com/lcsc/2204111415_WCH-Jiangsu-Qin-Heng-CH343G_C2844153.pdf', 'pins':[
+        Part(**{ 'name':'CH343G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH343G'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'UART Interface crystalless', 'description':'', 'datasheet':'https://datasheet.lcsc.com/lcsc/2204111415_WCH-Jiangsu-Qin-Heng-CH343G_C2844153.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nCH343G\n\nUART Interface crystalless', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{DTR}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='~{RTS}',func=Pin.types.OUTPUT,unit=1),
@@ -234,7 +246,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VBUS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~{ACT}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='~{DCD}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CH344Q', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH344Q'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'USB Quad UART Serial Converter Interface', 'description':'', 'datasheet':'https://www.wch-ic.com/downloads/file/299.html', 'pins':[
+        Part(**{ 'name':'CH344Q', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH344Q'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'USB Quad UART Serial Converter Interface', 'description':'', 'datasheet':'https://www.wch-ic.com/downloads/file/299.html', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nCH344Q\n\nUSB Quad UART Serial Converter Interface', 'pins':[
             Pin(num='19',name='~{DTR2}/TNOW2/GPIO9',func=Pin.types.BIDIR,unit=1),
             Pin(num='20',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -283,7 +295,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CH9102F', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH9102F'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'uart usb bridge interface transceiver CH9102F', 'description':'', 'datasheet':'http://www.wch-ic.com/downloads/CH9102DS1_PDF.html', 'pins':[
+        Part(**{ 'name':'CH9102F', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH9102F'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'uart usb bridge interface transceiver CH9102F', 'description':'', 'datasheet':'http://www.wch-ic.com/downloads/CH9102DS1_PDF.html', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nCH9102F\n\nuart usb bridge interface transceiver CH9102F', 'pins':[
             Pin(num='1',name='~{RI}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{ACT}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='~{WAKEUP}/GPIO3',func=Pin.types.BIDIR,unit=1),
@@ -309,7 +321,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD5',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VBUS',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{RST}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CP2102N-Axx-xQFN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CP2102N-Axx-xQFN20'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm'], 'footprint':'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm', 'keywords':'USB UART bridge', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/cp2102n-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'CP2102N-Axx-xQFN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CP2102N-Axx-xQFN20'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm'], 'footprint':'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm', 'keywords':'USB UART bridge', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/cp2102n-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nCP2102N-Axx-xQFN20\n\nUSB UART bridge', 'pins':[
             Pin(num='1',name='RS485/GPIO.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='~{SUSPEND}',func=Pin.types.OUTPUT,unit=1),
@@ -331,7 +343,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VREGIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VBUS',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{RST}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CP2102N-Axx-xQFN24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CP2102N-Axx-xQFN24'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'USB UART bridge', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/cp2102n-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'CP2102N-Axx-xQFN24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CP2102N-Axx-xQFN24'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'USB UART bridge', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/cp2102n-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nCP2102N-Axx-xQFN24\n\nUSB UART bridge', 'pins':[
             Pin(num='1',name='~{RI}/CLK',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='~{WAKEUP}/GPIO.3',func=Pin.types.BIDIR,unit=1),
@@ -357,7 +369,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VREGIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VBUS',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{RST}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CP2102N-Axx-xQFN28', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CP2102N-Axx-xQFN28'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_5x5mm_P0.5mm_EP3.35x3.35mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_5x5mm_P0.5mm_EP3.35x3.35mm', 'keywords':'USB UART bridge', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/cp2102n-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'CP2102N-Axx-xQFN28', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CP2102N-Axx-xQFN28'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_5x5mm_P0.5mm_EP3.35x3.35mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_5x5mm_P0.5mm_EP3.35x3.35mm', 'keywords':'USB UART bridge', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/cp2102n-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nCP2102N-Axx-xQFN28\n\nUSB UART bridge', 'pins':[
             Pin(num='1',name='~{DCD}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='~{SUSPEND}',func=Pin.types.OUTPUT,unit=1),
@@ -387,7 +399,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VREGIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VBUS',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{RST}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CP2104', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CP2104'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'uart usb bridge interface transceiver', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/cp2104.pdf', 'pins':[
+        Part(**{ 'name':'CP2104', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CP2104'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'uart usb bridge interface transceiver', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/cp2104.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nCP2104\n\nuart usb bridge interface transceiver', 'pins':[
             Pin(num='1',name='~{RI}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='GPIO.3',func=Pin.types.BIDIR,unit=1),
@@ -413,7 +425,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='REGIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VBUS',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{RST}',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CP2108-xxx-xM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CP2108-xxx-xM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP4.1x4.1mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP4.1x4.1mm', 'keywords':'USB Quad UART FIFO bridge', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/cp2108-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'CP2108-xxx-xM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CP2108-xxx-xM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP4.1x4.1mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP4.1x4.1mm', 'keywords':'USB Quad UART FIFO bridge', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/cp2108-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nCP2108-xxx-xM\n\nUSB Quad UART FIFO bridge', 'pins':[
             Pin(num='1',name='RX3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{DTR3}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='~{RI2}',func=Pin.types.INPUT,unit=1),
@@ -479,7 +491,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RI3}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{DCD3}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{DSR3}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CP2112', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CP2112'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'USB SMBUS bridge', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/cp2112-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'CP2112', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CP2112'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'USB SMBUS bridge', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/cp2112-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nCP2112\n\nUSB SMBUS bridge', 'pins':[
             Pin(num='1',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='SUSPEND',func=Pin.types.OUTPUT,unit=1),
@@ -505,7 +517,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='REGIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VBUS',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{RST}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CP2615-xx-xM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CP2615-xx-xM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm', 'keywords':'usb i2s i2c uart audio bridge hid gpio', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/cp2615-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'CP2615-xx-xM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CP2615-xx-xM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm', 'keywords':'usb i2s i2c uart audio bridge hid gpio', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/cp2615-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nCP2615-xx-xM\n\nusb i2s i2c uart audio bridge hid gpio', 'pins':[
             Pin(num='1',name='I2S_SDIN',func=Pin.types.INPUT),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT),
             Pin(num='11',name='GPIO.7',func=Pin.types.BIDIR),
@@ -539,7 +551,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='19',name='GPIO.9/BUTTONS',func=Pin.types.BIDIR,unit=1),
             Pin(num='20',name='GPIO.8/ADC',func=Pin.types.BIDIR,unit=1),
             Pin(num='33',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CY7C65211-24LTXI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CY7C65211-24LTXI'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'USB-Serial single channel bridge', 'description':'', 'datasheet':'http://www.cypress.com/file/139886/download', 'pins':[
+        Part(**{ 'name':'CY7C65211-24LTXI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CY7C65211-24LTXI'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'USB-Serial single channel bridge', 'description':'', 'datasheet':'http://www.cypress.com/file/139886/download', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nCY7C65211-24LTXI\n\nUSB-Serial single channel bridge', 'pins':[
             Pin(num='1',name='SCB_0/GPIO_6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='USBDP',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='USBDM',func=Pin.types.BIDIR,unit=1),
@@ -565,7 +577,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GPIO_11',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='SUSPEND',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='WAKEUP',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CY7C65213-28PVXI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CY7C65213-28PVXI'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'USB-UART LP Bridge Controller, full speed 12Mbps', 'description':'', 'datasheet':'http://www.cypress.com/file/139881/download', 'pins':[
+        Part(**{ 'name':'CY7C65213-28PVXI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CY7C65213-28PVXI'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'USB-UART LP Bridge Controller, full speed 12Mbps', 'description':'', 'datasheet':'http://www.cypress.com/file/139881/download', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nCY7C65213-28PVXI\n\nUSB-UART LP Bridge Controller, full speed 12Mbps', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='DCD',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='CTS',func=Pin.types.INPUT,unit=1),
@@ -594,7 +606,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GPIO5',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='DSR',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CY7C65213-32LTXI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CY7C65213-32LTXI'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'USB-UART LP Bridge Controller, full speed 12Mbps', 'description':'', 'datasheet':'http://www.cypress.com/file/139881/download', 'pins':[
+        Part(**{ 'name':'CY7C65213-32LTXI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CY7C65213-32LTXI'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'USB-UART LP Bridge Controller, full speed 12Mbps', 'description':'', 'datasheet':'http://www.cypress.com/file/139881/download', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nCY7C65213-32LTXI\n\nUSB-UART LP Bridge Controller, full speed 12Mbps', 'pins':[
             Pin(num='1',name='VCCIO',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GPIO2',func=Pin.types.TRISTATE,unit=1),
             Pin(num='11',name='GPIO3',func=Pin.types.BIDIR,unit=1),
@@ -628,7 +640,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DCD',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CTS',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='GPIO4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CY7C65215-32LTXI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CY7C65215-32LTXI'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'USB-Serial single channel bridge', 'description':'', 'datasheet':'http://www.cypress.com/file/129956/download', 'pins':[
+        Part(**{ 'name':'CY7C65215-32LTXI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CY7C65215-32LTXI'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'USB-Serial single channel bridge', 'description':'', 'datasheet':'http://www.cypress.com/file/129956/download', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nCY7C65215-32LTXI\n\nUSB-Serial single channel bridge', 'pins':[
             Pin(num='1',name='VDDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='SCB1_5/GPIO_15',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SUSPEND',func=Pin.types.OUTPUT,unit=1),
@@ -662,7 +674,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SCB1_2/GPIO_12',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SCB1_3/GPIO_13',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SCB1_4/GPIO_14',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CYPD3171-24LQXQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CYPD3171-24LQXQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.75x2.75mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.75x2.75mm', 'keywords':'USBPD Quickcharge', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-EZ-PD(TM)_CCG3PA_Datasheet_USB_Type-C_Port_Controller-DataSheet-v09_00-EN.pdf?fileId=8ac78c8c7d0d8da4017d0ee438366ac0', 'pins':[
+        Part(**{ 'name':'CYPD3171-24LQXQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CYPD3171-24LQXQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.75x2.75mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.75x2.75mm', 'keywords':'USBPD Quickcharge', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-EZ-PD(TM)_CCG3PA_Datasheet_USB_Type-C_Port_Controller-DataSheet-v09_00-EN.pdf?fileId=8ac78c8c7d0d8da4017d0ee438366ac0', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nCYPD3171-24LQXQ\n\nUSBPD Quickcharge', 'pins':[
             Pin(num='1',name='P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VBUS_C_MON_DIS',func=Pin.types.INPUT,unit=1),
@@ -688,7 +700,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P0.0/SWD_DAT_0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P0.1/SWD_CLK_0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.0/AXRES',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CYPD3174-16SXQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CYPD3174-16SXQ'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'USBPD quickcharge', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-EZ-PD(TM)_CCG3PA_Datasheet_USB_Type-C_Port_Controller-DataSheet-v09_00-EN.pdf?fileId=8ac78c8c7d0d8da4017d0ee438366ac0', 'pins':[
+        Part(**{ 'name':'CYPD3174-16SXQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CYPD3174-16SXQ'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'USBPD quickcharge', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-EZ-PD(TM)_CCG3PA_Datasheet_USB_Type-C_Port_Controller-DataSheet-v09_00-EN.pdf?fileId=8ac78c8c7d0d8da4017d0ee438366ac0', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nCYPD3174-16SXQ\n\nUSBPD quickcharge', 'pins':[
             Pin(num='1',name='FB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='CC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='CC1',func=Pin.types.BIDIR,unit=1),
@@ -705,7 +717,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P0.1/SWD_CLK_0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0/AXRES',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VBUS_C_MON_DIS',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CYPD3177-24LQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CYPD3177-24LQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.75x2.75mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.75x2.75mm', 'keywords':'usb pd type csink', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-EZ-PD_BCR_Datasheet_USB_Type-C_Port_Controller_for_Power_Sinks-DataSheet-v03_00-EN.pdf?fileId=8ac78c8c7d0d8da4017d0ee7ce9d70ad', 'pins':[
+        Part(**{ 'name':'CYPD3177-24LQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CYPD3177-24LQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.75x2.75mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.75x2.75mm', 'keywords':'usb pd type csink', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-EZ-PD_BCR_Datasheet_USB_Type-C_Port_Controller_for_Power_Sinks-DataSheet-v03_00-EN.pdf?fileId=8ac78c8c7d0d8da4017d0ee7ce9d70ad', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nCYPD3177-24LQ\n\nusb pd type csink', 'pins':[
             Pin(num='1',name='VBUS_MIN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='FLIP',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='VDC_OUT',func=Pin.types.OUTPUT,unit=1),
@@ -731,7 +743,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{HPI_INT}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GPIO_1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='FAULT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FE1.1s', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FE1.1s'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_3.9x9.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-28_3.9x9.9mm_P0.635mm', 'keywords':'4-Port, EEPROM, High Speed, Hub, USB2.0', 'description':'', 'datasheet':'https://cdn-shop.adafruit.com/product-files/2991/FE1.1s+Data+Sheet+(Rev.+1.0).pdf', 'pins':[
+        Part(**{ 'name':'FE1.1s', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FE1.1s'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_3.9x9.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-28_3.9x9.9mm_P0.635mm', 'keywords':'4-Port, EEPROM, High Speed, Hub, USB2.0', 'description':'', 'datasheet':'https://cdn-shop.adafruit.com/product-files/2991/FE1.1s+Data+Sheet+(Rev.+1.0).pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nFE1.1s\n\n4-Port, EEPROM, High Speed, Hub, USB2.0', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DM1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='DP1',func=Pin.types.BIDIR,unit=1),
@@ -760,7 +772,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DP3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DM2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='DP2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FSUSB30MUX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FSUSB30MUX'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'USB 2.0 High Speed Switch', 'description':'', 'datasheet':'https://www.onsemi.com/pdf/datasheet/fsusb30-d.pdf', 'pins':[
+        Part(**{ 'name':'FSUSB30MUX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FSUSB30MUX'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'USB 2.0 High Speed Switch', 'description':'', 'datasheet':'https://www.onsemi.com/pdf/datasheet/fsusb30-d.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nFSUSB30MUX\n\nUSB 2.0 High Speed Switch', 'pins':[
             Pin(num='1',name='S',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='HSD1+',func=Pin.types.BIDIR,unit=1),
@@ -771,7 +783,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='HSD2-',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='HSD1-',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{OE}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FSUSB42MUX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FSUSB42MUX'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'USB 2.0 UART High Speed Switch', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/FSUSB42-D.PDF', 'pins':[
+        Part(**{ 'name':'FSUSB42MUX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FSUSB42MUX'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'USB 2.0 UART High Speed Switch', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/FSUSB42-D.PDF', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nFSUSB42MUX\n\nUSB 2.0 UART High Speed Switch', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{OE}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='SEL',func=Pin.types.INPUT,unit=1),
@@ -782,7 +794,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='HSD1+',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='HSD2-',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='HSD2+',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FT200XD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT200XD'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.55x2.48mm'], 'footprint':'Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.55x2.48mm', 'keywords':'FTDI USB I2C Interface Converter', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT200XD.pdf', 'pins':[
+        Part(**{ 'name':'FT200XD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT200XD'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.55x2.48mm'], 'footprint':'Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.55x2.48mm', 'keywords':'FTDI USB I2C Interface Converter', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT200XD.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nFT200XD\n\nFTDI USB I2C Interface Converter', 'pins':[
             Pin(num='1',name='USBDM',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='USBDP',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -794,7 +806,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCCIO',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FT201XQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT201XQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm', 'keywords':'FTDI USB I2C interface Converter', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT201X.pdf', 'pins':[
+        Part(**{ 'name':'FT201XQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT201XQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm', 'keywords':'FTDI USB I2C interface Converter', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT201X.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nFT201XQ\n\nFTDI USB I2C interface Converter', 'pins':[
             Pin(num='1',name='VCCIO',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='CBUS1',func=Pin.types.BIDIR,unit=1),
@@ -812,7 +824,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='USBDM',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='3V3OUT',func=Pin.types.PWROUT,unit=1),
             Pin(num='9',name='~{RESET}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FT201XS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT201XS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'FTDI USB I2C Interface Converter', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT201X.pdf', 'pins':[
+        Part(**{ 'name':'FT201XS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT201XS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'FTDI USB I2C Interface Converter', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT201X.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nFT201XS\n\nFTDI USB I2C Interface Converter', 'pins':[
             Pin(num='1',name='CBUS5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='3V3OUT',func=Pin.types.PWROUT,unit=1),
             Pin(num='11',name='~{RESET}',func=Pin.types.INPUT,unit=1),
@@ -829,7 +841,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CBUS2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='USBDP',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='USBDM',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FT220XQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT220XQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm', 'keywords':'FTDI USB SPI FT1248 Interface Converter', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT220X.pdf', 'pins':[
+        Part(**{ 'name':'FT220XQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT220XQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm', 'keywords':'FTDI USB SPI FT1248 Interface Converter', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT220X.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nFT220XQ\n\nFTDI USB SPI FT1248 Interface Converter', 'pins':[
             Pin(num='1',name='VCCIO',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='~{CS}',func=Pin.types.INPUT,unit=1),
@@ -847,7 +859,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='USBDM',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='3V3OUT',func=Pin.types.PWROUT,unit=1),
             Pin(num='9',name='~{RESET}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FT220XS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT220XS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'FTDI USB SPI FT1248 Interface Converter', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT220X.pdf', 'pins':[
+        Part(**{ 'name':'FT220XS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT220XS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'FTDI USB SPI FT1248 Interface Converter', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT220X.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nFT220XS\n\nFTDI USB SPI FT1248 Interface Converter', 'pins':[
             Pin(num='1',name='MIOSI0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='3V3OUT',func=Pin.types.PWROUT,unit=1),
             Pin(num='11',name='~{RESET}',func=Pin.types.INPUT,unit=1),
@@ -864,7 +876,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='MISO',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='USBDP',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='USBDM',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FT221XQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT221XQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'keywords':'FTDI USB SPI FT1248 interface converter', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT221X.pdf', 'pins':[
+        Part(**{ 'name':'FT221XQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT221XQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'keywords':'FTDI USB SPI FT1248 interface converter', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT221X.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nFT221XQ\n\nFTDI USB SPI FT1248 interface converter', 'pins':[
             Pin(num='1',name='MIOSI1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='3V3OUT',func=Pin.types.PWROUT,unit=1),
             Pin(num='11',name='~{RESET}',func=Pin.types.INPUT,unit=1),
@@ -886,7 +898,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='MISO',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='USBDP',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='USBDM',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FT221XS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT221XS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:SSOP-20_3.9x8.7mm_P0.635mm', 'keywords':'FTDI USB SPI FT1248 interface converter', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT221X.pdf', 'pins':[
+        Part(**{ 'name':'FT221XS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT221XS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:SSOP-20_3.9x8.7mm_P0.635mm', 'keywords':'FTDI USB SPI FT1248 interface converter', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT221X.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nFT221XS\n\nFTDI USB SPI FT1248 interface converter', 'pins':[
             Pin(num='1',name='MIOSI4',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='MISO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='USBDP',func=Pin.types.BIDIR,unit=1),
@@ -907,7 +919,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='MIOSI5',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='MIOSI6',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='MIOSI3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FT2232D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT2232D'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'USB Double UART FIFO', 'description':'', 'datasheet':'http://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT2232D.pdf', 'pins':[
+        Part(**{ 'name':'FT2232D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT2232D'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'USB Double UART FIFO', 'description':'', 'datasheet':'http://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT2232D.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nFT2232D\n\nUSB Double UART FIFO', 'pins':[
             Pin(num='1',name='EECLK',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='SI/WUA',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='ACBUS3',func=Pin.types.BIDIR,unit=1),
@@ -956,7 +968,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='USBDP',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='USBDM',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FT2232HL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT2232HL'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'USB Double UART FIFO', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT2232H.pdf', 'pins':[
+        Part(**{ 'name':'FT2232HL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT2232HL'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'USB Double UART FIFO', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT2232H.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nFT2232HL\n\nUSB Double UART FIFO', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='AGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -1021,7 +1033,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DM',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DP',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VPLL',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FT2232HQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT2232HQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP4.35x4.35mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP4.35x4.35mm', 'keywords':'USB Double UART FIFO', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT2232H.pdf', 'pins':[
+        Part(**{ 'name':'FT2232HQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT2232HQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP4.35x4.35mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP4.35x4.35mm', 'keywords':'USB Double UART FIFO', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT2232H.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nFT2232HQ\n\nUSB Double UART FIFO', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='AGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -1087,7 +1099,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DM',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DP',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VPLL',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FT230XQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT230XQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm', 'keywords':'FTDI USB UART interface converter', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT230X.pdf', 'pins':[
+        Part(**{ 'name':'FT230XQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT230XQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm', 'keywords':'FTDI USB UART interface converter', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT230X.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nFT230XQ\n\nFTDI USB UART interface converter', 'pins':[
             Pin(num='1',name='VCCIO',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='CBUS1',func=Pin.types.BIDIR,unit=1),
@@ -1105,7 +1117,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='USBDM',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='3V3OUT',func=Pin.types.PWROUT,unit=1),
             Pin(num='9',name='~{RESET}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FT230XS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT230XS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'FTDI USB UART interface converter', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT230X.pdf', 'pins':[
+        Part(**{ 'name':'FT230XS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT230XS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'FTDI USB UART interface converter', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT230X.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nFT230XS\n\nFTDI USB UART interface converter', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='3V3OUT',func=Pin.types.PWROUT,unit=1),
             Pin(num='11',name='~{RESET}',func=Pin.types.INPUT,unit=1),
@@ -1122,7 +1134,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CBUS2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='USBDP',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='USBDM',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FT231XQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT231XQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'keywords':'FTDI USB UART interface converter', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT231X.pdf', 'pins':[
+        Part(**{ 'name':'FT231XQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT231XQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'keywords':'FTDI USB UART interface converter', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT231X.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nFT231XQ\n\nFTDI USB UART interface converter', 'pins':[
             Pin(num='1',name='RXD',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='3V3OUT',func=Pin.types.PWROUT,unit=1),
             Pin(num='11',name='~{RESET}',func=Pin.types.INPUT,unit=1),
@@ -1144,7 +1156,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CBUS2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='USBDP',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='USBDM',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FT231XS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT231XS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:SSOP-20_3.9x8.7mm_P0.635mm', 'keywords':'FTDI USB UART interface converter', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT231X.pdf', 'pins':[
+        Part(**{ 'name':'FT231XS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT231XS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:SSOP-20_3.9x8.7mm_P0.635mm', 'keywords':'FTDI USB UART interface converter', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT231X.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nFT231XS\n\nFTDI USB UART interface converter', 'pins':[
             Pin(num='1',name='~{DTR}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='CBUS2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='USBDP',func=Pin.types.BIDIR,unit=1),
@@ -1165,7 +1177,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{DSR}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{DCD}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{CTS}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FT232BM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT232BM'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'FTDI USB Single UART FIFO', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT232BM.pdf', 'pins':[
+        Part(**{ 'name':'FT232BM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT232BM'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'FTDI USB Single UART FIFO', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT232BM.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nFT232BM\n\nFTDI USB Single UART FIFO', 'pins':[
             Pin(num='1',name='EESK',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='~{SLEEP}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='~{RXLED}',func=Pin.types.OPENCOLL,unit=1),
@@ -1198,7 +1210,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='USBDP',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='USBDM',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FT232H', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT232H'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FTDI USB Single UART FIFO', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT232H.pdf', 'pins':[
+        Part(**{ 'name':'FT232H', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT232H'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FTDI USB Single UART FIFO', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT232H.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nFT232H\n\nFTDI USB Single UART FIFO', 'pins':[
             Pin(num='1',name='XCSI',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -1247,7 +1259,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DP',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VPLL',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='AGND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FT232RL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT232RL'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'FTDI USB Serial', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT232R.pdf', 'pins':[
+        Part(**{ 'name':'FT232RL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT232RL'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'FTDI USB Serial', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT232R.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nFT232RL\n\nFTDI USB Serial', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='DCD',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='CTS',func=Pin.types.INPUT,unit=1),
@@ -1274,7 +1286,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='RI',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='DCR',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FT240XQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT240XQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'FTDI USB FIFO interface converter', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT240X.pdf', 'pins':[
+        Part(**{ 'name':'FT240XQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT240XQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'FTDI USB FIFO interface converter', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT240X.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nFT240XQ\n\nFTDI USB FIFO interface converter', 'pins':[
             Pin(num='1',name='DATA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='USBDP',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='USBDM',func=Pin.types.BIDIR,unit=1),
@@ -1300,7 +1312,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{SI/WU}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{RD}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{WR}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FT240XS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT240XS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:SSOP-24_3.9x8.7mm_P0.635mm', 'keywords':'FTDI USB FIFO interface converter', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT240X.pdf', 'pins':[
+        Part(**{ 'name':'FT240XS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT240XS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:SSOP-24_3.9x8.7mm_P0.635mm', 'keywords':'FTDI USB FIFO interface converter', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT240X.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nFT240XS\n\nFTDI USB FIFO interface converter', 'pins':[
             Pin(num='1',name='DATA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='~{SI/WU}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~{RD}',func=Pin.types.INPUT,unit=1),
@@ -1325,7 +1337,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DATA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DATA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='DATA3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FT245BM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT245BM'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'FTDI USB FIFO Interface Converter', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT245BM.pdf', 'pins':[
+        Part(**{ 'name':'FT245BM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT245BM'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'FTDI USB FIFO Interface Converter', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT245BM.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nFT245BM\n\nFTDI USB FIFO Interface Converter', 'pins':[
             Pin(num='1',name='EESK',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='~{PWREN}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='SI/WU',func=Pin.types.INPUT,unit=1),
@@ -1358,7 +1370,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='USBDP',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='USBDM',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FT4222HQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT4222HQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:VQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'USB SPI I2C FTDI Bridge Converter Interface', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT4222H.pdf', 'pins':[
+        Part(**{ 'name':'FT4222HQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT4222HQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:VQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'USB SPI I2C FTDI Bridge Converter Interface', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT4222H.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nFT4222HQ\n\nUSB SPI I2C FTDI Bridge Converter Interface', 'pins':[
             Pin(num='1',name='DEBUGGER',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='MOSI',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='IO2',func=Pin.types.BIDIR,unit=1),
@@ -1392,7 +1404,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCCIO',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='SCK',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='MISO',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FT4232H', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT4232H'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FTDI USB Quad UART FIFO', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT4232H.pdf', 'pins':[
+        Part(**{ 'name':'FT4232H', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT4232H'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FTDI USB Quad UART FIFO', 'description':'', 'datasheet':'https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT4232H.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nFT4232H\n\nFTDI USB Quad UART FIFO', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='AGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -1457,7 +1469,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DM',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DP',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VPLL',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FT601Q', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT601Q'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-76-1EP_9x9mm_P0.4mm_EP5.81x6.31mm'], 'footprint':'Package_DFN_QFN:QFN-76-1EP_9x9mm_P0.4mm_EP5.81x6.31mm', 'keywords':'FTDI USB 3.0 FIFO', 'description':'', 'datasheet':'https://ftdichip.com/wp-content/uploads/2020/07/DS_FT600Q-FT601Q-IC-Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'FT601Q', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FT601Q'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-76-1EP_9x9mm_P0.4mm_EP5.81x6.31mm'], 'footprint':'Package_DFN_QFN:QFN-76-1EP_9x9mm_P0.4mm_EP5.81x6.31mm', 'keywords':'FTDI USB 3.0 FIFO', 'description':'', 'datasheet':'https://ftdichip.com/wp-content/uploads/2020/07/DS_FT600Q-FT601Q-IC-Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nFT601Q\n\nFTDI USB 3.0 FIFO', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{SIWU}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~{WR}',func=Pin.types.INPUT,unit=1),
@@ -1535,7 +1547,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='77',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~{TXE}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='~{RXF}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FUSB302BMPX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FUSB302BMPX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:WQFN-14-1EP_2.5x2.5mm_P0.5mm_EP1.45x1.45mm'], 'footprint':'Package_DFN_QFN:WQFN-14-1EP_2.5x2.5mm_P0.5mm_EP1.45x1.45mm', 'keywords':'USB USB-C PD Power Delivery PHY', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/FUSB302B-D.PDF', 'pins':[
+        Part(**{ 'name':'FUSB302BMPX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FUSB302BMPX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:WQFN-14-1EP_2.5x2.5mm_P0.5mm_EP1.45x1.45mm'], 'footprint':'Package_DFN_QFN:WQFN-14-1EP_2.5x2.5mm_P0.5mm_EP1.45x1.45mm', 'keywords':'USB USB-C PD Power Delivery PHY', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/FUSB302B-D.PDF', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nFUSB302BMPX\n\nUSB USB-C PD Power Delivery PHY', 'pins':[
             Pin(num='1',name='CC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='CC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='CC1',func=Pin.types.BIDIR,unit=1),
@@ -1551,7 +1563,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FUSB303BTMX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FUSB303BTMX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_X2QFN-12_1.6x1.6mm_P0.4mm'], 'footprint':'Package_DFN_QFN:Texas_X2QFN-12_1.6x1.6mm_P0.4mm', 'keywords':'usb type-c controller i2c gpio source sink drp', 'description':'', 'datasheet':'https://www.onsemi.com/pdf/datasheet/fusb303b-d.pdf', 'pins':[
+        Part(**{ 'name':'FUSB303BTMX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FUSB303BTMX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_X2QFN-12_1.6x1.6mm_P0.4mm'], 'footprint':'Package_DFN_QFN:Texas_X2QFN-12_1.6x1.6mm_P0.4mm', 'keywords':'usb type-c controller i2c gpio source sink drp', 'description':'', 'datasheet':'https://www.onsemi.com/pdf/datasheet/fusb303b-d.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nFUSB303BTMX\n\nusb type-c controller i2c gpio source sink drp', 'pins':[
             Pin(num='1',name='CC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='~{EN}',func=Pin.types.INPUT,unit=1),
@@ -1564,7 +1576,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDA/OUT1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SCL/OUT2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='ID',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FUSB307BMPX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FUSB307BMPX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:WQFN-16-1EP_3x3mm_P0.5mm_EP1.75x1.75mm'], 'footprint':'Package_DFN_QFN:WQFN-16-1EP_3x3mm_P0.5mm_EP1.75x1.75mm', 'keywords':'USB USB-C PD Power Delivery PHY TCPC', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/FUSB307B-D.PDF', 'pins':[
+        Part(**{ 'name':'FUSB307BMPX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FUSB307BMPX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:WQFN-16-1EP_3x3mm_P0.5mm_EP1.75x1.75mm'], 'footprint':'Package_DFN_QFN:WQFN-16-1EP_3x3mm_P0.5mm_EP1.75x1.75mm', 'keywords':'USB USB-C PD Power Delivery PHY TCPC', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/FUSB307B-D.PDF', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nFUSB307BMPX\n\nUSB USB-C PD Power Delivery PHY TCPC', 'pins':[
             Pin(num='1',name='CC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='INT_N',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='SCL1/SDA2',func=Pin.types.BIDIR,unit=1),
@@ -1582,7 +1594,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='DBG_N',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='GPIO2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IP2721', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IP2721'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'USB TYPEC PD', 'description':'', 'datasheet':'https://datasheet.lcsc.com/lcsc/2006111335_INJOINIC-IP2721_C603176.pdf', 'pins':[
+        Part(**{ 'name':'IP2721', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IP2721'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'USB TYPEC PD', 'description':'', 'datasheet':'https://datasheet.lcsc.com/lcsc/2006111335_INJOINIC-IP2721_C603176.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nIP2721\n\nUSB TYPEC PD', 'pins':[
             Pin(num='1',name='VBUSG',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='SEL',func=Pin.types.INPUT,unit=1),
@@ -1599,7 +1611,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MA8601', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MA8601'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_3.9x9.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-28_3.9x9.9mm_P0.635mm', 'keywords':'4-Port, EEPROM, High Speed, Hub, USB2.0', 'description':'', 'datasheet':'https://datasheetspdf.com/pdf-file/1312067/Prolific/MA8601/1', 'pins':[
+        Part(**{ 'name':'MA8601', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MA8601'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_3.9x9.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-28_3.9x9.9mm_P0.635mm', 'keywords':'4-Port, EEPROM, High Speed, Hub, USB2.0', 'description':'', 'datasheet':'https://datasheetspdf.com/pdf-file/1312067/Prolific/MA8601/1', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nMA8601\n\n4-Port, EEPROM, High Speed, Hub, USB2.0', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DM1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='DP1',func=Pin.types.BIDIR,unit=1),
@@ -1628,7 +1640,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DP3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DM2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='DP2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2200-I-MQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2200-I-MQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_5x5mm_P0.65mm_EP3.35x3.35mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_5x5mm_P0.65mm_EP3.35x3.35mm', 'keywords':'USB UART Converter', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/200022228D.pdf', 'pins':[
+        Part(**{ 'name':'MCP2200-I-MQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2200-I-MQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_5x5mm_P0.65mm_EP3.35x3.35mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_5x5mm_P0.65mm_EP3.35x3.35mm', 'keywords':'USB UART Converter', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/200022228D.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nMCP2200-I-MQ\n\nUSB UART Converter', 'pins':[
             Pin(num='1',name='RST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='CTS',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='GP2',func=Pin.types.BIDIR,unit=1),
@@ -1650,7 +1662,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TX',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='RTS',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='RX',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2200-I-SO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2200-I-SO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'USB UART Converter', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/200022228D.pdf', 'pins':[
+        Part(**{ 'name':'MCP2200-I-SO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2200-I-SO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'USB UART Converter', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/200022228D.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nMCP2200-I-SO\n\nUSB UART Converter', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='TX',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='RTS',func=Pin.types.OUTPUT,unit=1),
@@ -1671,7 +1683,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GP4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='GP3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2200-I-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2200-I-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'USB UART Converter', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/200022228D.pdf', 'pins':[
+        Part(**{ 'name':'MCP2200-I-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2200-I-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'USB UART Converter', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/200022228D.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nMCP2200-I-SS\n\nUSB UART Converter', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='TX',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='RTS',func=Pin.types.OUTPUT,unit=1),
@@ -1692,7 +1704,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GP4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='GP3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2210x-MQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2210x-MQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_5x5mm_P0.65mm_EP3.35x3.35mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_5x5mm_P0.65mm_EP3.35x3.35mm', 'keywords':'USB SPI Master Converter Bridge', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/22288A.pdf', 'pins':[
+        Part(**{ 'name':'MCP2210x-MQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2210x-MQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_5x5mm_P0.65mm_EP3.35x3.35mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_5x5mm_P0.65mm_EP3.35x3.35mm', 'keywords':'USB SPI Master Converter Bridge', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/22288A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nMCP2210x-MQ\n\nUSB SPI Master Converter Bridge', 'pins':[
             Pin(num='1',name='~{RST}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='MISO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='GP6',func=Pin.types.BIDIR,unit=1),
@@ -1714,7 +1726,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GP4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SCK',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='GP5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2210x-SO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2210x-SO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'USB SPI Master Converter Bridge', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/22288A.pdf', 'pins':[
+        Part(**{ 'name':'MCP2210x-SO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2210x-SO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'USB SPI Master Converter Bridge', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/22288A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nMCP2210x-SO\n\nUSB SPI Master Converter Bridge', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GP4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SCK',func=Pin.types.OUTPUT,unit=1),
@@ -1735,7 +1747,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GP2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GP3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='MOSI',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2210x-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2210x-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'USB SPI Master Converter Bridge', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/22288A.pdf', 'pins':[
+        Part(**{ 'name':'MCP2210x-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2210x-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'USB SPI Master Converter Bridge', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/22288A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nMCP2210x-SS\n\nUSB SPI Master Converter Bridge', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GP4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SCK',func=Pin.types.OUTPUT,unit=1),
@@ -1756,7 +1768,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GP2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GP3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='MOSI',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2221AxML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2221AxML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.5x2.5mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.5x2.5mm', 'keywords':'USB I2C UART Converter Bridge', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005565B.pdf', 'pins':[
+        Part(**{ 'name':'MCP2221AxML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2221AxML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.5x2.5mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.5x2.5mm', 'keywords':'USB I2C UART Converter Bridge', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005565B.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nMCP2221AxML\n\nUSB I2C UART Converter Bridge', 'pins':[
             Pin(num='1',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VUSB',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='D-',func=Pin.types.BIDIR,unit=1),
@@ -1774,7 +1786,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GP3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SCL',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2221AxP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2221AxP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'USB I2C UART Converter Bridge', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005565B.pdf', 'pins':[
+        Part(**{ 'name':'MCP2221AxP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2221AxP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'USB I2C UART Converter Bridge', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005565B.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nMCP2221AxP\n\nUSB I2C UART Converter Bridge', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='SCL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VUSB',func=Pin.types.PASSIVE,unit=1),
@@ -1789,7 +1801,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GP2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GP3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SDA',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2221AxSL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2221AxSL'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'USB I2C UART Converter Bridge', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005565B.pdf', 'pins':[
+        Part(**{ 'name':'MCP2221AxSL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2221AxSL'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'USB I2C UART Converter Bridge', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005565B.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nMCP2221AxSL\n\nUSB I2C UART Converter Bridge', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='SCL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VUSB',func=Pin.types.PASSIVE,unit=1),
@@ -1804,7 +1816,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GP2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GP3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SDA',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2221AxST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2221AxST'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'USB I2C UART Converter Bridge', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005565B.pdf', 'pins':[
+        Part(**{ 'name':'MCP2221AxST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2221AxST'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'USB I2C UART Converter Bridge', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005565B.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nMCP2221AxST\n\nUSB I2C UART Converter Bridge', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='SCL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VUSB',func=Pin.types.PASSIVE,unit=1),
@@ -1819,7 +1831,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GP2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GP3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SDA',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MP5034GJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MP5034GJ'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TSOT-23-8'], 'footprint':'Package_TO_SOT_SMD:TSOT-23-8', 'keywords':'USB Quick Charge', 'description':'', 'datasheet':'https://www.monolithicpower.com/en/documentview/productdocument/index/version/2/document_type/Datasheet/lang/en/sku/MP5034/', 'pins':[
+        Part(**{ 'name':'MP5034GJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MP5034GJ'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TSOT-23-8'], 'footprint':'Package_TO_SOT_SMD:TSOT-23-8', 'keywords':'USB Quick Charge', 'description':'', 'datasheet':'https://www.monolithicpower.com/en/documentview/productdocument/index/version/2/document_type/Datasheet/lang/en/sku/MP5034/', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nMP5034GJ\n\nUSB Quick Charge', 'pins':[
             Pin(num='1',name='EN',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='IN',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='IN',func=Pin.types.PASSIVE,unit=1),
@@ -1828,7 +1840,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='7',name='DM',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DP',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STULPI01A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STULPI01A'}), 'ref_prefix':'U', 'fplist':['Package_BGA:ST_uTFBGA-36_3.6x3.6mm_Layout6x6_P0.5mm'], 'footprint':'Package_BGA:ST_uTFBGA-36_3.6x3.6mm_Layout6x6_P0.5mm', 'keywords':'USB OTG HS PHY ULPI Interface', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stulpi01a.pdf', 'pins':[
+        Part(**{ 'name':'STULPI01A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STULPI01A'}), 'ref_prefix':'U', 'fplist':['Package_BGA:ST_uTFBGA-36_3.6x3.6mm_Layout6x6_P0.5mm'], 'footprint':'Package_BGA:ST_uTFBGA-36_3.6x3.6mm_Layout6x6_P0.5mm', 'keywords':'USB OTG HS PHY ULPI Interface', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stulpi01a.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nSTULPI01A\n\nUSB OTG HS PHY ULPI Interface', 'pins':[
             Pin(num='A1',name='D1',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='D2',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='D3',func=Pin.types.BIDIR,unit=1),
@@ -1865,7 +1877,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='F4',name='VBUS',func=Pin.types.BIDIR,unit=1),
             Pin(num='F5',name='XI',func=Pin.types.INPUT,unit=1),
             Pin(num='F6',name='XO',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STUSB4500QTR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STUSB4500QTR'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm', 'keywords':'USB PD Type C Sink', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stusb4500.pdf', 'pins':[
+        Part(**{ 'name':'STUSB4500QTR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STUSB4500QTR'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm', 'keywords':'USB PD Type C Sink', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stusb4500.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nSTUSB4500QTR\n\nUSB PD Type C Sink', 'pins':[
             Pin(num='1',name='CC1DB',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='ATTACH',func=Pin.types.OPENCOLL,unit=1),
@@ -1891,7 +1903,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='DISCH',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TPS2500DRC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPS2500DRC'}), 'ref_prefix':'U', 'fplist':['Package_SON:Texas_S-PVSON-N10'], 'footprint':'Package_SON:Texas_S-PVSON-N10', 'keywords':'USB switch boost', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tps2500.pdf', 'pins':[
+        Part(**{ 'name':'TPS2500DRC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPS2500DRC'}), 'ref_prefix':'U', 'fplist':['Package_SON:Texas_S-PVSON-N10'], 'footprint':'Package_SON:Texas_S-PVSON-N10', 'keywords':'USB switch boost', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tps2500.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nTPS2500DRC\n\nUSB switch boost', 'pins':[
             Pin(num='1',name='SW',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='AUX',func=Pin.types.PWROUT,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -1903,21 +1915,21 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='ENUSB',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{FAULT}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='USB',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TPS2513', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPS2513'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'USB Charge', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tps2513.pdf', 'pins':[
+        Part(**{ 'name':'TPS2513', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPS2513'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'USB Charge', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tps2513.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nTPS2513\n\nUSB Charge', 'pins':[
             Pin(num='1',name='DP1',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='DP2',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='DM2',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='IN',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='DM1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TPS2514', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPS2514'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'USB Charge', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tps2513.pdf', 'pins':[
+        Part(**{ 'name':'TPS2514', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPS2514'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'USB Charge', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tps2513.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nTPS2514\n\nUSB Charge', 'pins':[
             Pin(num='1',name='DP1',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='4',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='5',name='IN',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='DM1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TPS2560', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPS2560'}), 'ref_prefix':'U', 'fplist':['Package_SON:VSON-10-1EP_3x3mm_P0.5mm_EP1.65x2.4mm_ThermalVias'], 'footprint':'Package_SON:VSON-10-1EP_3x3mm_P0.5mm_EP1.65x2.4mm_ThermalVias', 'keywords':'power switche current limited usb port', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tps2560.pdf', 'pins':[
+        Part(**{ 'name':'TPS2560', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPS2560'}), 'ref_prefix':'U', 'fplist':['Package_SON:VSON-10-1EP_3x3mm_P0.5mm_EP1.65x2.4mm_ThermalVias'], 'footprint':'Package_SON:VSON-10-1EP_3x3mm_P0.5mm_EP1.65x2.4mm_ThermalVias', 'keywords':'power switche current limited usb port', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tps2560.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nTPS2560\n\npower switche current limited usb port', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{FAULT1}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='PAD',func=Pin.types.PWRIN,unit=1),
@@ -1929,7 +1941,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='ILM',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='OUT2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='OUT1',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TPS2561', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPS2561'}), 'ref_prefix':'U', 'fplist':['Package_SON:VSON-10-1EP_3x3mm_P0.5mm_EP1.65x2.4mm_ThermalVias'], 'footprint':'Package_SON:VSON-10-1EP_3x3mm_P0.5mm_EP1.65x2.4mm_ThermalVias', 'keywords':'power switche current limited usb port', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tps2561.pdf', 'pins':[
+        Part(**{ 'name':'TPS2561', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPS2561'}), 'ref_prefix':'U', 'fplist':['Package_SON:VSON-10-1EP_3x3mm_P0.5mm_EP1.65x2.4mm_ThermalVias'], 'footprint':'Package_SON:VSON-10-1EP_3x3mm_P0.5mm_EP1.65x2.4mm_ThermalVias', 'keywords':'power switche current limited usb port', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tps2561.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nTPS2561\n\npower switche current limited usb port', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{FAULT1}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='PAD',func=Pin.types.PWRIN,unit=1),
@@ -1941,7 +1953,42 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='ILM',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='OUT2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='OUT1',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TS3USB30EDGSR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TS3USB30EDGSR'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:VSSOP-10_3x3mm_P0.5mm', 'keywords':'usb mux', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/ts3usb30e.pdf', 'pins':[
+        Part(**{ 'name':'TPS25730D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPS25730D'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_REF0038A_WQFN-38-2EP_6x4mm_P0.4'], 'footprint':'Package_DFN_QFN:Texas_REF0038A_WQFN-38-2EP_6x4mm_P0.4', 'keywords':'USB CC PD', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/tps25730.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nTPS25730D\n\nUSB CC PD', 'pins':[
+            Pin(num='1',name='LDO_3V3',func=Pin.types.PWROUT,unit=1),
+            Pin(num='10',name='DBG_ACC',func=Pin.types.OPENCOLL,unit=1),
+            Pin(num='11',name='GND',func=Pin.types.PWRIN,unit=1),
+            Pin(num='12',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='13',name='PLUG_FLIP',func=Pin.types.OPENCOLL,unit=1),
+            Pin(num='14',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='15',name='DRAIN',func=Pin.types.UNSPEC,unit=1),
+            Pin(num='16',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='17',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='18',name='~{FAULT_IN}',func=Pin.types.INPUT,unit=1),
+            Pin(num='19',name='~{SINK_EN}',func=Pin.types.OPENCOLL,unit=1),
+            Pin(num='2',name='ADCIN1',func=Pin.types.INPUT,unit=1),
+            Pin(num='20',name='PPHV',func=Pin.types.BIDIR,unit=1),
+            Pin(num='23',name='VBUS_IN',func=Pin.types.PWRIN,unit=1),
+            Pin(num='26',name='RESERVED',func=Pin.types.INPUT,unit=1),
+            Pin(num='27',name='RESERVED',func=Pin.types.INPUT,unit=1),
+            Pin(num='28',name='CC1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='29',name='CC2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='ADCIN2',func=Pin.types.INPUT,unit=1),
+            Pin(num='30',name='DRAIN',func=Pin.types.UNSPEC,unit=1),
+            Pin(num='31',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='32',name='VBUS',func=Pin.types.PWRIN,unit=1),
+            Pin(num='34',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='36',name='RESERVED',func=Pin.types.INPUT,unit=1),
+            Pin(num='37',name='PLUG_EVENT',func=Pin.types.OPENCOLL,unit=1),
+            Pin(num='38',name='VIN_3V3',func=Pin.types.PWRIN,unit=1),
+            Pin(num='39',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='4',name='LDO_1V5',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='40',name='DRAIN',func=Pin.types.UNSPEC,unit=1),
+            Pin(num='5',name='ADCIN3',func=Pin.types.INPUT,unit=1),
+            Pin(num='6',name='CAP_MIS',func=Pin.types.OPENCOLL,unit=1),
+            Pin(num='7',name='ADCIN4',func=Pin.types.INPUT,unit=1),
+            Pin(num='8',name='I2Ct_SDA',func=Pin.types.BIDIR,unit=1),
+            Pin(num='9',name='I2Ct_SCL',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'TS3USB30EDGSR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TS3USB30EDGSR'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:VSSOP-10_3x3mm_P0.5mm', 'keywords':'usb mux', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/ts3usb30e.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nTS3USB30EDGSR\n\nusb mux', 'pins':[
             Pin(num='1',name='S',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='D1+',func=Pin.types.BIDIR,unit=1),
@@ -1952,7 +1999,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D2-',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='D1-',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{OE}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TS3USB30ERSWR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TS3USB30ERSWR'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:UQFN-10_1.4x1.8mm_P0.4mm'], 'footprint':'Package_DFN_QFN:UQFN-10_1.4x1.8mm_P0.4mm', 'keywords':'usb mux', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/ts3usb30e.pdf', 'pins':[
+        Part(**{ 'name':'TS3USB30ERSWR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TS3USB30ERSWR'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:UQFN-10_1.4x1.8mm_P0.4mm'], 'footprint':'Package_DFN_QFN:UQFN-10_1.4x1.8mm_P0.4mm', 'keywords':'usb mux', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/ts3usb30e.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nTS3USB30ERSWR\n\nusb mux', 'pins':[
             Pin(num='1',name='D1+',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='S',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='D2+',func=Pin.types.BIDIR,unit=1),
@@ -1963,7 +2010,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D1-',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='~{OE}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TUSB2036', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TUSB2036'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'2-Port, 3-Port, 3.3V, EEPROM, Full Speed, Hub, Texas Instruments, USB1.1', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tusb2036.pdf', 'pins':[
+        Part(**{ 'name':'TUSB2036', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TUSB2036'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'2-Port, 3-Port, 3.3V, EEPROM, Full Speed, Hub, Texas Instruments, USB1.1', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tusb2036.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nTUSB2036\n\n2-Port, 3-Port, 3.3V, EEPROM, Full Speed, Hub, Texas Instruments, USB1.1', 'pins':[
             Pin(num='1',name='DP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='~{OVRCUR1}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DM1',func=Pin.types.BIDIR,unit=1),
@@ -1996,7 +2043,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='~{BUSPWR}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{PWRON1}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TUSB320', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TUSB320'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_X2QFN-12_1.6x1.6mm_P0.4mm'], 'footprint':'Package_DFN_QFN:Texas_X2QFN-12_1.6x1.6mm_P0.4mm', 'keywords':'USB PD CC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tusb320.pdf', 'pins':[
+        Part(**{ 'name':'TUSB320', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TUSB320'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_X2QFN-12_1.6x1.6mm_P0.4mm'], 'footprint':'Package_DFN_QFN:Texas_X2QFN-12_1.6x1.6mm_P0.4mm', 'keywords':'USB PD CC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tusb320.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nTUSB320\n\nUSB PD CC', 'pins':[
             Pin(num='1',name='CC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='~{EN}',func=Pin.types.INPUT,unit=1),
@@ -2009,7 +2056,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDA/OUT1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SCL/OUT2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='ID',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TUSB321', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TUSB321'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_X2QFN-12_1.6x1.6mm_P0.4mm'], 'footprint':'Package_DFN_QFN:Texas_X2QFN-12_1.6x1.6mm_P0.4mm', 'keywords':'USB CC PD VCONN', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tusb321.pdf', 'pins':[
+        Part(**{ 'name':'TUSB321', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TUSB321'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_X2QFN-12_1.6x1.6mm_P0.4mm'], 'footprint':'Package_DFN_QFN:Texas_X2QFN-12_1.6x1.6mm_P0.4mm', 'keywords':'USB CC PD VCONN', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tusb321.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nTUSB321\n\nUSB CC PD VCONN', 'pins':[
             Pin(num='1',name='CC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DIR',func=Pin.types.OPENCOLL,unit=1),
@@ -2022,7 +2069,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUT1',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='OUT2',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='ID',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TUSB322I', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TUSB322I'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_X2QFN-12_1.6x1.6mm_P0.4mm'], 'footprint':'Package_DFN_QFN:Texas_X2QFN-12_1.6x1.6mm_P0.4mm', 'keywords':'USB VCONN PD CC', 'description':'', 'datasheet':'www.ti.com/lit/ds/symlink/tusb322i.pdf', 'pins':[
+        Part(**{ 'name':'TUSB322I', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TUSB322I'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_X2QFN-12_1.6x1.6mm_P0.4mm'], 'footprint':'Package_DFN_QFN:Texas_X2QFN-12_1.6x1.6mm_P0.4mm', 'keywords':'USB VCONN PD CC', 'description':'', 'datasheet':'www.ti.com/lit/ds/symlink/tusb322i.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nTUSB322I\n\nUSB VCONN PD CC', 'pins':[
             Pin(num='1',name='CC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='~{EN}',func=Pin.types.INPUT,unit=1),
@@ -2035,7 +2082,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDA/OUT1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SCL/OUT2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='ID',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TUSB4041I', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TUSB4041I'}), 'ref_prefix':'U', 'fplist':['Package_QFP:HTQFP-64-1EP_10x10mm_P0.5mm_EP8x8mm_Mask4.4x4.4mm_ThermalVias'], 'footprint':'Package_QFP:HTQFP-64-1EP_10x10mm_P0.5mm_EP8x8mm_Mask4.4x4.4mm_ThermalVias', 'keywords':'USB2.0 hub', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tusb4041i.pdf', 'pins':[
+        Part(**{ 'name':'TUSB4041I', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TUSB4041I'}), 'ref_prefix':'U', 'fplist':['Package_QFP:HTQFP-64-1EP_10x10mm_P0.5mm_EP8x8mm_Mask4.4x4.4mm_ThermalVias'], 'footprint':'Package_QFP:HTQFP-64-1EP_10x10mm_P0.5mm_EP8x8mm_Mask4.4x4.4mm_ThermalVias', 'keywords':'USB2.0 hub', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tusb4041i.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nTUSB4041I\n\nUSB2.0 hub', 'pins':[
             Pin(num='1',name='PWRCTL3/BATEN3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='GANGED/SMBA2/HS_UP',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='OVERCUR4z',func=Pin.types.INPUT,unit=1),
@@ -2101,7 +2148,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SMBUSz',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='FULLPWRMGMTz/SMBA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PWRCTL_POL',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TUSB7340', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TUSB7340'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_S-PWQFN-N100_EP5.5x5.5mm_ThermalVias'], 'footprint':'Package_DFN_QFN:Texas_S-PWQFN-N100_EP5.5x5.5mm_ThermalVias', 'keywords':'USB HUB PCIE', 'description':'', 'datasheet':'http://www.ti.com/general/docs/lit/getliterature.tsp?genericPartNumber=tusb7320&fileType=pdf', 'pins':[
+        Part(**{ 'name':'TUSB7340', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TUSB7340'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_S-PWQFN-N100_EP5.5x5.5mm_ThermalVias'], 'footprint':'Package_DFN_QFN:Texas_S-PWQFN-N100_EP5.5x5.5mm_ThermalVias', 'keywords':'USB HUB PCIE', 'description':'', 'datasheet':'http://www.ti.com/general/docs/lit/getliterature.tsp?genericPartNumber=tusb7320&fileType=pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nTUSB7340\n\nUSB HUB PCIE', 'pins':[
             Pin(num='A1',name='VDD11',func=Pin.types.PWRIN,unit=1),
             Pin(num='A10',name='USB_SSRXN_DN2',func=Pin.types.INPUT,unit=1),
             Pin(num='A11',name='USB_SSTXP_DN2',func=Pin.types.OUTPUT,unit=1),
@@ -2207,7 +2254,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='C2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='C3',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='C4',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TUSB8041', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TUSB8041'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP6x6mm_ThermalVias'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP6x6mm_ThermalVias', 'keywords':'USB3.0 hub', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tusb8041.pdf', 'pins':[
+        Part(**{ 'name':'TUSB8041', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TUSB8041'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP6x6mm_ThermalVias'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP6x6mm_ThermalVias', 'keywords':'USB3.0 hub', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tusb8041.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nTUSB8041\n\nUSB3.0 hub', 'pins':[
             Pin(num='1',name='USB_DP_DN1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='USB_DM_DN2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='USB_SSTXP_DN2',func=Pin.types.OUTPUT,unit=1),
@@ -2273,7 +2320,57 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='USB_SSRXM_DN1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='USB_DP_DN2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'USB2504', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB2504'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'USB2.0 Hi-Speed-USB-Hub Hub-Controller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/00002250A.pdf', 'pins':[
+        Part(**{ 'name':'UPD720202K8-7x1-BAA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UPD720202K8-7x1-BAA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.7x5.7mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.7x5.7mm', 'keywords':'PCIe USB 3.0', 'description':'', 'datasheet':'https://www.renesas.com/us/en/document/dst/upd720201upd720202-datasheet', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nUPD720202K8-7x1-BAA\n\nPCIe USB 3.0', 'pins':[
+            Pin(num='1',name='PECLKP',func=Pin.types.INPUT,unit=1),
+            Pin(num='10',name='~{PECREQ}',func=Pin.types.OPENCOLL,unit=1),
+            Pin(num='11',name='PONRSTB',func=Pin.types.INPUT,unit=1),
+            Pin(num='12',name='VDD33',func=Pin.types.PWRIN,unit=1),
+            Pin(num='13',name='SPISO',func=Pin.types.INPUT,unit=1),
+            Pin(num='14',name='~{SPICS}',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='15',name='SPISCK',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='16',name='SPISI',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='17',name='~{OCI2}',func=Pin.types.INPUT,unit=1),
+            Pin(num='18',name='PPON2',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='19',name='~{OCI1}',func=Pin.types.INPUT,unit=1),
+            Pin(num='2',name='PECLKN',func=Pin.types.INPUT,unit=1),
+            Pin(num='20',name='PPON1',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='21',name='VDD10',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='22',name='VDD33',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='23',name='XT2',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='24',name='XT1',func=Pin.types.INPUT,unit=1),
+            Pin(num='25',name='AVDD33',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='26',name='RREF',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='27',name='GND',func=Pin.types.PWRIN,unit=1),
+            Pin(num='28',name='U3TXDP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='29',name='U3TXDN1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='AVDD33',func=Pin.types.PWRIN,unit=1),
+            Pin(num='30',name='VDD10',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='31',name='U3RXDP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='32',name='U3RXDN1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='33',name='VDD10',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='34',name='VDD33',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='35',name='U2DP1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='36',name='U2DM1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='37',name='U3TXDP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='38',name='U3TXDN2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='39',name='VDD10',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='4',name='PETXP',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='40',name='U3RXDP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='41',name='U3RXDN2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='42',name='VDD10',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='43',name='VDD33',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='44',name='U2DP2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='45',name='U2DM2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='46',name='SMIB',func=Pin.types.OPENCOLL,unit=1),
+            Pin(num='47',name='~{PERST}',func=Pin.types.INPUT,unit=1),
+            Pin(num='48',name='~{PEWAKE}',func=Pin.types.OPENCOLL,unit=1),
+            Pin(num='49',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='5',name='PETXN',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='6',name='VDD10',func=Pin.types.PWRIN,unit=1),
+            Pin(num='7',name='PERXP',func=Pin.types.INPUT,unit=1),
+            Pin(num='8',name='PERXN',func=Pin.types.INPUT,unit=1),
+            Pin(num='9',name='VDD10',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'USB2504', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB2504'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'USB2.0 Hi-Speed-USB-Hub Hub-Controller', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/00002250A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nUSB2504\n\nUSB2.0 Hi-Speed-USB-Hub Hub-Controller', 'pins':[
             Pin(num='1',name='VDDA33',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='USBD3_N',func=Pin.types.BIDIR,unit=1),
@@ -2331,14 +2428,14 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='59',name='CFG_SEL2',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='USBD1_P',func=Pin.types.BIDIR,unit=1),
             Pin(num='60',name='VDDA18PLL',func=Pin.types.PWRIN,unit=1),
-            Pin(num='61',name='VDD33PLL',func=Pin.types.PWRIN,unit=1),
+            Pin(num='61',name='VDDA33PLL',func=Pin.types.PWRIN,unit=1),
             Pin(num='62',name='ATEST/REG_EN',func=Pin.types.BIDIR,unit=1),
             Pin(num='63',name='RBIAS',func=Pin.types.INPUT,unit=1),
             Pin(num='64',name='VSS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='VDDA33',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='USBD2_P',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='USBD2_N',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'USB2514B_Bi', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB2514B_Bi'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-36-1EP_6x6mm_P0.5mm_EP3.7x3.7mm'], 'footprint':'Package_DFN_QFN:QFN-36-1EP_6x6mm_P0.5mm_EP3.7x3.7mm', 'keywords':'USB2.0 Hi-Speed-USB-Hub Hub-Controller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/00001692C.pdf', 'pins':[
+        Part(**{ 'name':'USB2514B_Bi', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB2514B_Bi'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-36-1EP_6x6mm_P0.5mm_EP3.7x3.7mm'], 'footprint':'Package_DFN_QFN:QFN-36-1EP_6x6mm_P0.5mm_EP3.7x3.7mm', 'keywords':'USB2.0 Hi-Speed-USB-Hub Hub-Controller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/00001692C.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nUSB2514B_Bi\n\nUSB2.0 Hi-Speed-USB-Hub Hub-Controller', 'pins':[
             Pin(num='1',name='USBDM_DN1/PRT_DIS_M1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDDA33',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='TEST',func=Pin.types.INPUT,unit=1),
@@ -2376,7 +2473,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='USBDP_DN3/PRT_DIS_P3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='USBDM_DN4/PRT_DIS_M4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='USBDP_DN4/PRT_DIS_P4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'USB3250-ABZJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB3250-ABZJ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-56-1EP_8x8mm_P0.5mm_EP4.3x4.3mm'], 'footprint':'Package_DFN_QFN:QFN-56-1EP_8x8mm_P0.5mm_EP4.3x4.3mm', 'keywords':'HS FS Device USB PHY UTMI', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/00002142A.pdf', 'pins':[
+        Part(**{ 'name':'USB3250-ABZJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB3250-ABZJ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-56-1EP_8x8mm_P0.5mm_EP4.3x4.3mm'], 'footprint':'Package_DFN_QFN:QFN-56-1EP_8x8mm_P0.5mm_EP4.3x4.3mm', 'keywords':'HS FS Device USB PHY UTMI', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/00002142A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nUSB3250-ABZJ\n\nHS FS Device USB PHY UTMI', 'pins':[
             Pin(num='1',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='XI',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='XO',func=Pin.types.OUTPUT,unit=1),
@@ -2434,7 +2531,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDDA3.3',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='VSSA',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'USB3300-EZK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB3300-EZK'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'USB OTG Hi-Speed PHY ULPI Interface', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/00001783C.pdf', 'pins':[
+        Part(**{ 'name':'USB3300-EZK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB3300-EZK'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'USB OTG Hi-Speed PHY ULPI Interface', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/00001783C.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nUSB3300-EZK\n\nUSB OTG Hi-Speed PHY ULPI Interface', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EXTVBUS',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='NXT',func=Pin.types.OUTPUT,unit=1),
@@ -2468,7 +2565,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DP',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DM',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RESET',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'USB3341', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB3341'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'USB ULPI Transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/334x.pdf', 'pins':[
+        Part(**{ 'name':'USB3341', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB3341'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'USB ULPI Transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/334x.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nUSB3341\n\nUSB ULPI Transceiver', 'pins':[
             Pin(num='1',name='CLKOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='DATA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SPK_L',func=Pin.types.BIDIR,unit=1),
@@ -2494,7 +2591,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DATA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DATA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='DATA6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'USB3343', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB3343'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'USB ULPI Transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/334x.pdf', 'pins':[
+        Part(**{ 'name':'USB3343', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB3343'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'USB ULPI Transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/334x.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nUSB3343\n\nUSB ULPI Transceiver', 'pins':[
             Pin(num='1',name='DIR',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='DATA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='DATA6',func=Pin.types.BIDIR,unit=1),
@@ -2520,7 +2617,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DATA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DATA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDIO',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'USB3740B-AI2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB3740B-AI2'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'USB 2.0 High Speed Switch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/00001725D.pdf', 'pins':[
+        Part(**{ 'name':'USB3740B-AI2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB3740B-AI2'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'USB 2.0 High Speed Switch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/00001725D.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nUSB3740B-AI2\n\nUSB 2.0 High Speed Switch', 'pins':[
             Pin(num='1',name='DM_1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='DP',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='DP_1',func=Pin.types.BIDIR,unit=1),
@@ -2531,7 +2628,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DM_2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='DM',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XR21B1424', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XR21B1424'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'USB Quad UART FIFO', 'description':'', 'datasheet':'https://assets.maxlinear.com/web/documents/xr21b1424.pdf', 'pins':[
+        Part(**{ 'name':'XR21B1424', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XR21B1424'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'USB Quad UART FIFO', 'description':'', 'datasheet':'https://assets.maxlinear.com/web/documents/xr21b1424.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nXR21B1424\n\nUSB Quad UART FIFO', 'pins':[
             Pin(num='1',name='RXA',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='USB_D-',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VIO',func=Pin.types.PWRIN,unit=1),
@@ -2596,7 +2693,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GPIOA0/~{RIA}/~{RWKA}',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='USB_D+',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADUM3160', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADUM3160'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'usb isolation', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM3160.pdf', 'pins':[
+        Part(**{ 'name':'ADUM3160', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADUM3160'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'usb isolation', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM3160.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nADUM3160\n\nusb isolation', 'pins':[
             Pin(num='1',name='VBUS1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DD+',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='DD-',func=Pin.types.BIDIR,unit=1),
@@ -2613,7 +2710,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='UD+',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CH340N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH340N'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOP-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'USB UART Serial Converter Interface', 'description':'', 'datasheet':'https://aitendo3.sakura.ne.jp/aitendo_data/product_img/ic/inteface/CH340N/ch340n.pdf', 'pins':[
+        Part(**{ 'name':'CH340N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CH340N'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOP-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'USB UART Serial Converter Interface', 'description':'', 'datasheet':'https://aitendo3.sakura.ne.jp/aitendo_data/product_img/ic/inteface/CH340N/ch340n.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nCH340N\n\nUSB UART Serial Converter Interface', 'pins':[
             Pin(num='1',name='UD+',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='UD-',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -2622,7 +2719,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='TXD',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='RXD',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='V3',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CY7C65211A-24LTXI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CY7C65211A-24LTXI'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'USB-Serial single channel bridge', 'description':'', 'datasheet':'http://www.cypress.com/file/139886/download', 'pins':[
+        Part(**{ 'name':'CY7C65211A-24LTXI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CY7C65211A-24LTXI'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'USB-Serial single channel bridge', 'description':'', 'datasheet':'http://www.cypress.com/file/139886/download', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nCY7C65211A-24LTXI\n\nUSB-Serial single channel bridge', 'pins':[
             Pin(num='1',name='SCB_0/GPIO_6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='USBDP',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='USBDM',func=Pin.types.BIDIR,unit=1),
@@ -2648,7 +2745,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GPIO_11',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='SUSPEND',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='WAKEUP',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CY7C65213A-28PVXI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CY7C65213A-28PVXI'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'USB-UART LP Bridge Controller, full speed 12Mbps', 'description':'', 'datasheet':'http://www.cypress.com/file/139881/download', 'pins':[
+        Part(**{ 'name':'CY7C65213A-28PVXI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CY7C65213A-28PVXI'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'USB-UART LP Bridge Controller, full speed 12Mbps', 'description':'', 'datasheet':'http://www.cypress.com/file/139881/download', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nCY7C65213A-28PVXI\n\nUSB-UART LP Bridge Controller, full speed 12Mbps', 'pins':[
             Pin(num='1',name='TXD',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='DCD',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='CTS',func=Pin.types.INPUT,unit=1),
@@ -2677,7 +2774,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GPIO5',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='DSR',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CY7C65213A-32LTXI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CY7C65213A-32LTXI'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'USB-UART LP Bridge Controller, full speed 12Mbps', 'description':'', 'datasheet':'http://www.cypress.com/file/139881/download', 'pins':[
+        Part(**{ 'name':'CY7C65213A-32LTXI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CY7C65213A-32LTXI'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'USB-UART LP Bridge Controller, full speed 12Mbps', 'description':'', 'datasheet':'http://www.cypress.com/file/139881/download', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nCY7C65213A-32LTXI\n\nUSB-UART LP Bridge Controller, full speed 12Mbps', 'pins':[
             Pin(num='1',name='VCCIO',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GPIO2',func=Pin.types.TRISTATE,unit=1),
             Pin(num='11',name='GPIO3',func=Pin.types.BIDIR,unit=1),
@@ -2711,7 +2808,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DCD',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CTS',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='GPIO4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CY7C65215A-32LTXI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CY7C65215A-32LTXI'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'USB-Serial single channel bridge', 'description':'', 'datasheet':'http://www.cypress.com/file/129956/download', 'pins':[
+        Part(**{ 'name':'CY7C65215A-32LTXI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CY7C65215A-32LTXI'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'USB-Serial single channel bridge', 'description':'', 'datasheet':'http://www.cypress.com/file/129956/download', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nCY7C65215A-32LTXI\n\nUSB-Serial single channel bridge', 'pins':[
             Pin(num='1',name='VDDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='SCB1_5/GPIO_15',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SUSPEND',func=Pin.types.OUTPUT,unit=1),
@@ -2745,7 +2842,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SCB1_2/GPIO_12',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SCB1_3/GPIO_13',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SCB1_4/GPIO_14',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CYPD3174-24LQXQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CYPD3174-24LQXQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.75x2.75mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.75x2.75mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.75x2.75mm', 'keywords':'USBPD Quickcharge', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-EZ-PD(TM)_CCG3PA_Datasheet_USB_Type-C_Port_Controller-DataSheet-v09_00-EN.pdf?fileId=8ac78c8c7d0d8da4017d0ee438366ac0', 'pins':[
+        Part(**{ 'name':'CYPD3174-24LQXQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CYPD3174-24LQXQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.75x2.75mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.75x2.75mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.75x2.75mm', 'keywords':'USBPD Quickcharge', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-EZ-PD(TM)_CCG3PA_Datasheet_USB_Type-C_Port_Controller-DataSheet-v09_00-EN.pdf?fileId=8ac78c8c7d0d8da4017d0ee438366ac0', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nCYPD3174-24LQXQ\n\nUSBPD Quickcharge', 'pins':[
             Pin(num='1',name='P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VBUS_C_MON_DIS',func=Pin.types.INPUT,unit=1),
@@ -2771,7 +2868,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P0.0/SWD_DAT_0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P0.1/SWD_CLK_0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.0/AXRES',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CYPD3175-24LQXQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CYPD3175-24LQXQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.75x2.75mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.75x2.75mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.75x2.75mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.75x2.75mm', 'keywords':'USBPD Quickcharge', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-EZ-PD(TM)_CCG3PA_Datasheet_USB_Type-C_Port_Controller-DataSheet-v09_00-EN.pdf?fileId=8ac78c8c7d0d8da4017d0ee438366ac0', 'pins':[
+        Part(**{ 'name':'CYPD3175-24LQXQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CYPD3175-24LQXQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.75x2.75mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.75x2.75mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.75x2.75mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.75x2.75mm', 'keywords':'USBPD Quickcharge', 'description':'', 'datasheet':'https://www.infineon.com/dgdl/Infineon-EZ-PD(TM)_CCG3PA_Datasheet_USB_Type-C_Port_Controller-DataSheet-v09_00-EN.pdf?fileId=8ac78c8c7d0d8da4017d0ee438366ac0', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nCYPD3175-24LQXQ\n\nUSBPD Quickcharge', 'pins':[
             Pin(num='1',name='P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VBUS_C_MON_DIS',func=Pin.types.INPUT,unit=1),
@@ -2797,7 +2894,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P0.0/SWD_DAT_0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P0.1/SWD_CLK_0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.0/AXRES',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FUSB302B01MPX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FUSB302B01MPX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:WQFN-14-1EP_2.5x2.5mm_P0.5mm_EP1.45x1.45mm', 'Package_DFN_QFN:WQFN-14-1EP_2.5x2.5mm_P0.5mm_EP1.45x1.45mm'], 'footprint':'Package_DFN_QFN:WQFN-14-1EP_2.5x2.5mm_P0.5mm_EP1.45x1.45mm', 'keywords':'USB USB-C PD Power Delivery PHY', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/FUSB302B-D.PDF', 'pins':[
+        Part(**{ 'name':'FUSB302B01MPX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FUSB302B01MPX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:WQFN-14-1EP_2.5x2.5mm_P0.5mm_EP1.45x1.45mm', 'Package_DFN_QFN:WQFN-14-1EP_2.5x2.5mm_P0.5mm_EP1.45x1.45mm'], 'footprint':'Package_DFN_QFN:WQFN-14-1EP_2.5x2.5mm_P0.5mm_EP1.45x1.45mm', 'keywords':'USB USB-C PD Power Delivery PHY', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/FUSB302B-D.PDF', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nFUSB302B01MPX\n\nUSB USB-C PD Power Delivery PHY', 'pins':[
             Pin(num='1',name='CC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='CC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='CC1',func=Pin.types.BIDIR,unit=1),
@@ -2813,7 +2910,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FUSB302B10MPX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FUSB302B10MPX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:WQFN-14-1EP_2.5x2.5mm_P0.5mm_EP1.45x1.45mm', 'Package_DFN_QFN:WQFN-14-1EP_2.5x2.5mm_P0.5mm_EP1.45x1.45mm', 'Package_DFN_QFN:WQFN-14-1EP_2.5x2.5mm_P0.5mm_EP1.45x1.45mm'], 'footprint':'Package_DFN_QFN:WQFN-14-1EP_2.5x2.5mm_P0.5mm_EP1.45x1.45mm', 'keywords':'USB USB-C PD Power Delivery PHY', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/FUSB302B-D.PDF', 'pins':[
+        Part(**{ 'name':'FUSB302B10MPX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FUSB302B10MPX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:WQFN-14-1EP_2.5x2.5mm_P0.5mm_EP1.45x1.45mm', 'Package_DFN_QFN:WQFN-14-1EP_2.5x2.5mm_P0.5mm_EP1.45x1.45mm', 'Package_DFN_QFN:WQFN-14-1EP_2.5x2.5mm_P0.5mm_EP1.45x1.45mm'], 'footprint':'Package_DFN_QFN:WQFN-14-1EP_2.5x2.5mm_P0.5mm_EP1.45x1.45mm', 'keywords':'USB USB-C PD Power Delivery PHY', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/FUSB302B-D.PDF', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nFUSB302B10MPX\n\nUSB USB-C PD Power Delivery PHY', 'pins':[
             Pin(num='1',name='CC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='CC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='CC1',func=Pin.types.BIDIR,unit=1),
@@ -2829,7 +2926,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FUSB302B11MPX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FUSB302B11MPX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:WQFN-14-1EP_2.5x2.5mm_P0.5mm_EP1.45x1.45mm', 'Package_DFN_QFN:WQFN-14-1EP_2.5x2.5mm_P0.5mm_EP1.45x1.45mm', 'Package_DFN_QFN:WQFN-14-1EP_2.5x2.5mm_P0.5mm_EP1.45x1.45mm', 'Package_DFN_QFN:WQFN-14-1EP_2.5x2.5mm_P0.5mm_EP1.45x1.45mm'], 'footprint':'Package_DFN_QFN:WQFN-14-1EP_2.5x2.5mm_P0.5mm_EP1.45x1.45mm', 'keywords':'USB USB-C PD Power Delivery PHY', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/FUSB302B-D.PDF', 'pins':[
+        Part(**{ 'name':'FUSB302B11MPX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FUSB302B11MPX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:WQFN-14-1EP_2.5x2.5mm_P0.5mm_EP1.45x1.45mm', 'Package_DFN_QFN:WQFN-14-1EP_2.5x2.5mm_P0.5mm_EP1.45x1.45mm', 'Package_DFN_QFN:WQFN-14-1EP_2.5x2.5mm_P0.5mm_EP1.45x1.45mm', 'Package_DFN_QFN:WQFN-14-1EP_2.5x2.5mm_P0.5mm_EP1.45x1.45mm'], 'footprint':'Package_DFN_QFN:WQFN-14-1EP_2.5x2.5mm_P0.5mm_EP1.45x1.45mm', 'keywords':'USB USB-C PD Power Delivery PHY', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/FUSB302B-D.PDF', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nFUSB302B11MPX\n\nUSB USB-C PD Power Delivery PHY', 'pins':[
             Pin(num='1',name='CC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='CC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='CC1',func=Pin.types.BIDIR,unit=1),
@@ -2845,7 +2942,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2200-E-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2200-E-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'USB UART Converter', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/200022228D.pdf', 'pins':[
+        Part(**{ 'name':'MCP2200-E-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2200-E-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'USB UART Converter', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/200022228D.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nMCP2200-E-SS\n\nUSB UART Converter', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='TX',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='RTS',func=Pin.types.OUTPUT,unit=1),
@@ -2866,7 +2963,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GP4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='GP3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2200T-E-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2200T-E-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'USB UART Converter', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/200022228D.pdf', 'pins':[
+        Part(**{ 'name':'MCP2200T-E-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2200T-E-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'USB UART Converter', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/200022228D.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nMCP2200T-E-SS\n\nUSB UART Converter', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='TX',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='RTS',func=Pin.types.OUTPUT,unit=1),
@@ -2887,7 +2984,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GP4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='GP3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2200T-I-MQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2200T-I-MQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_5x5mm_P0.65mm_EP3.35x3.35mm', 'Package_DFN_QFN:QFN-20-1EP_5x5mm_P0.65mm_EP3.35x3.35mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_5x5mm_P0.65mm_EP3.35x3.35mm', 'keywords':'USB UART Converter', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/200022228D.pdf', 'pins':[
+        Part(**{ 'name':'MCP2200T-I-MQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2200T-I-MQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_5x5mm_P0.65mm_EP3.35x3.35mm', 'Package_DFN_QFN:QFN-20-1EP_5x5mm_P0.65mm_EP3.35x3.35mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_5x5mm_P0.65mm_EP3.35x3.35mm', 'keywords':'USB UART Converter', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/200022228D.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nMCP2200T-I-MQ\n\nUSB UART Converter', 'pins':[
             Pin(num='1',name='RST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='CTS',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='GP2',func=Pin.types.BIDIR,unit=1),
@@ -2909,7 +3006,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TX',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='RTS',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='RX',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2200T-I-SO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2200T-I-SO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'USB UART Converter', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/200022228D.pdf', 'pins':[
+        Part(**{ 'name':'MCP2200T-I-SO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2200T-I-SO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'USB UART Converter', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/200022228D.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nMCP2200T-I-SO\n\nUSB UART Converter', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='TX',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='RTS',func=Pin.types.OUTPUT,unit=1),
@@ -2930,7 +3027,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GP4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='GP3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP2200T-I-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2200T-I-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'USB UART Converter', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/200022228D.pdf', 'pins':[
+        Part(**{ 'name':'MCP2200T-I-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP2200T-I-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'USB UART Converter', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/200022228D.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nMCP2200T-I-SS\n\nUSB UART Converter', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='TX',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='RTS',func=Pin.types.OUTPUT,unit=1),
@@ -2951,7 +3048,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GP5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GP4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='GP3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STULPI01B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STULPI01B'}), 'ref_prefix':'U', 'fplist':['Package_BGA:ST_uTFBGA-36_3.6x3.6mm_Layout6x6_P0.5mm', 'Package_BGA:ST_uTFBGA-36_3.6x3.6mm_Layout6x6_P0.5mm'], 'footprint':'Package_BGA:ST_uTFBGA-36_3.6x3.6mm_Layout6x6_P0.5mm', 'keywords':'USB OTG HS PHY ULPI Interface', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stulpi01b.pdf', 'pins':[
+        Part(**{ 'name':'STULPI01B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STULPI01B'}), 'ref_prefix':'U', 'fplist':['Package_BGA:ST_uTFBGA-36_3.6x3.6mm_Layout6x6_P0.5mm', 'Package_BGA:ST_uTFBGA-36_3.6x3.6mm_Layout6x6_P0.5mm'], 'footprint':'Package_BGA:ST_uTFBGA-36_3.6x3.6mm_Layout6x6_P0.5mm', 'keywords':'USB OTG HS PHY ULPI Interface', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stulpi01b.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nSTULPI01B\n\nUSB OTG HS PHY ULPI Interface', 'pins':[
             Pin(num='A1',name='D1',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='D2',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='D3',func=Pin.types.BIDIR,unit=1),
@@ -2988,7 +3085,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='F4',name='VBUS',func=Pin.types.BIDIR,unit=1),
             Pin(num='F5',name='XI',func=Pin.types.INPUT,unit=1),
             Pin(num='F6',name='XO',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TPS2501DRC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPS2501DRC'}), 'ref_prefix':'U', 'fplist':['Package_SON:Texas_S-PVSON-N10', 'Package_SON:Texas_S-PVSON-N10'], 'footprint':'Package_SON:Texas_S-PVSON-N10', 'keywords':'USB switch boost', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tps2500.pdf', 'pins':[
+        Part(**{ 'name':'TPS2501DRC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPS2501DRC'}), 'ref_prefix':'U', 'fplist':['Package_SON:Texas_S-PVSON-N10', 'Package_SON:Texas_S-PVSON-N10'], 'footprint':'Package_SON:Texas_S-PVSON-N10', 'keywords':'USB switch boost', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tps2500.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nTPS2501DRC\n\nUSB switch boost', 'pins':[
             Pin(num='1',name='SW',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='AUX',func=Pin.types.PWROUT,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -3000,21 +3097,21 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='ENUSB',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{FAULT}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='USB',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TPS2513A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPS2513A'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'USB Charge', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tps2513.pdf', 'pins':[
+        Part(**{ 'name':'TPS2513A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPS2513A'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'USB Charge', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tps2513.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nTPS2513A\n\nUSB Charge', 'pins':[
             Pin(num='1',name='DP1',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='DP2',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='DM2',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='IN',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='DM1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TPS2514A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPS2514A'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'USB Charge', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tps2513.pdf', 'pins':[
+        Part(**{ 'name':'TPS2514A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPS2514A'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'USB Charge', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tps2513.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nTPS2514A\n\nUSB Charge', 'pins':[
             Pin(num='1',name='DP1',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='4',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='5',name='IN',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='DM1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TUSB320I', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TUSB320I'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_X2QFN-12_1.6x1.6mm_P0.4mm', 'Package_DFN_QFN:Texas_X2QFN-12_1.6x1.6mm_P0.4mm'], 'footprint':'Package_DFN_QFN:Texas_X2QFN-12_1.6x1.6mm_P0.4mm', 'keywords':'USB PD CC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tusb320.pdf', 'pins':[
+        Part(**{ 'name':'TUSB320I', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TUSB320I'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_X2QFN-12_1.6x1.6mm_P0.4mm', 'Package_DFN_QFN:Texas_X2QFN-12_1.6x1.6mm_P0.4mm'], 'footprint':'Package_DFN_QFN:Texas_X2QFN-12_1.6x1.6mm_P0.4mm', 'keywords':'USB PD CC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tusb320.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nTUSB320I\n\nUSB PD CC', 'pins':[
             Pin(num='1',name='CC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='~{EN}',func=Pin.types.INPUT,unit=1),
@@ -3027,7 +3124,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDA/OUT1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SCL/OUT2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='ID',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'USB3346', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB3346'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'USB ULPI Transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/334x.pdf', 'pins':[
+        Part(**{ 'name':'USB3346', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB3346'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'USB ULPI Transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/334x.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nUSB3346\n\nUSB ULPI Transceiver', 'pins':[
             Pin(num='1',name='CLKOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='DATA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SPK_L',func=Pin.types.BIDIR,unit=1),
@@ -3053,7 +3150,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DATA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DATA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='DATA6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'USB3347', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB3347'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'USB ULPI Transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/334x.pdf', 'pins':[
+        Part(**{ 'name':'USB3347', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB3347'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'USB ULPI Transceiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/334x.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nUSB3347\n\nUSB ULPI Transceiver', 'pins':[
             Pin(num='1',name='CLKOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='DATA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SPK_L',func=Pin.types.BIDIR,unit=1),
@@ -3079,7 +3176,7 @@ Interface_USB = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DATA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DATA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='DATA6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'USB3740B-AI9', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB3740B-AI9'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'USB 2.0 High Speed Switch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/00001725D.pdf', 'pins':[
+        Part(**{ 'name':'USB3740B-AI9', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USB3740B-AI9'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'USB 2.0 High Speed Switch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/00001725D.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_USB.kicad_sym\nUSB3740B-AI9\n\nUSB 2.0 High Speed Switch', 'pins':[
             Pin(num='1',name='DM_1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='DP',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='DP_1',func=Pin.types.BIDIR,unit=1),

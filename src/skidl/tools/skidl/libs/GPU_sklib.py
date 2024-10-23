@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 GPU = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'MC6845', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC6845'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'CRT controller', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheet_pdf/motorola/MC6845L_and_MC6845P.pdf', 'pins':[
+        Part(**{ 'name':'MC6845', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC6845'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'CRT controller', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheet_pdf/motorola/MC6845L_and_MC6845P.pdf', 'search_text':'/usr/share/kicad/symbols/GPU.kicad_sym\nMC6845\n\nCRT controller', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='MA6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='MA7',func=Pin.types.OUTPUT,unit=1),
@@ -45,7 +45,7 @@ GPU = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='MA3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='MA4',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='MA5',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC68A45', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68A45'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'CRT controller', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheet_pdf/motorola/MC6845L_and_MC6845P.pdf', 'pins':[
+        Part(**{ 'name':'MC68A45', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68A45'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'CRT controller', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheet_pdf/motorola/MC6845L_and_MC6845P.pdf', 'search_text':'/usr/share/kicad/symbols/GPU.kicad_sym\nMC68A45\n\nCRT controller', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='MA6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='MA7',func=Pin.types.OUTPUT,unit=1),
@@ -86,7 +86,7 @@ GPU = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='MA3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='MA4',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='MA5',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC68B45', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68B45'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'CRT controller', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheet_pdf/motorola/MC6845L_and_MC6845P.pdf', 'pins':[
+        Part(**{ 'name':'MC68B45', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68B45'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'CRT controller', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheet_pdf/motorola/MC6845L_and_MC6845P.pdf', 'search_text':'/usr/share/kicad/symbols/GPU.kicad_sym\nMC68B45\n\nCRT controller', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='MA6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='MA7',func=Pin.types.OUTPUT,unit=1),

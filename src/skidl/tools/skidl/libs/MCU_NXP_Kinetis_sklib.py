@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'MK20DX128VFM5', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MK20DX128VFM5'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL27 ARM Cortex M4', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/K20P32M50SF0.pdf', 'pins':[
+        Part(**{ 'name':'MK20DX128VFM5', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MK20DX128VFM5'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL27 ARM Cortex M4', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/K20P32M50SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMK20DX128VFM5\n\nKinetis KL27 ARM Cortex M4', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN),
             Pin(num='10',name='EXTAL32',func=Pin.types.INPUT),
             Pin(num='11',name='VBAT',func=Pin.types.PWRIN),
@@ -38,7 +38,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='XTAL32',func=Pin.types.INPUT),
             Pin(num='33',name='EPAD',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='USB0_DM',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MK20FX512VMD12', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MK20FX512VMD12'}), 'ref_prefix':'U', 'fplist':['Package_BGA:BGA-144_13.0x13.0mm_Layout12x12_P1.0mm'], 'footprint':'Package_BGA:BGA-144_13.0x13.0mm_Layout12x12_P1.0mm', 'keywords':'Kinetis K20 ARM Cortex M4', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/K20P144M120SF3.pdf', 'pins':[
+        Part(**{ 'name':'MK20FX512VMD12', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MK20FX512VMD12'}), 'ref_prefix':'U', 'fplist':['Package_BGA:BGA-144_13.0x13.0mm_Layout12x12_P1.0mm'], 'footprint':'Package_BGA:BGA-144_13.0x13.0mm_Layout12x12_P1.0mm', 'keywords':'Kinetis K20 ARM Cortex M4', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/K20P144M120SF3.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMK20FX512VMD12\n\nKinetis K20 ARM Cortex M4', 'pins':[
             Pin(num='A1',name='PTD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='A11',name='PTC3/LLWU_P7',func=Pin.types.BIDIR,unit=1),
@@ -183,7 +183,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='XTAL32',func=Pin.types.OUTPUT,unit=1),
             Pin(num='M8',name='PTA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PTA10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MK26FN2M0VMD18', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MK26FN2M0VMD18'}), 'ref_prefix':'U', 'fplist':['Package_BGA:BGA-144_13.0x13.0mm_Layout12x12_P1.0mm'], 'footprint':'Package_BGA:BGA-144_13.0x13.0mm_Layout12x12_P1.0mm', 'keywords':'Kinetis K26 ARM Cortex M4', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/K26P169M180SF5.pdf', 'pins':[
+        Part(**{ 'name':'MK26FN2M0VMD18', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MK26FN2M0VMD18'}), 'ref_prefix':'U', 'fplist':['Package_BGA:BGA-144_13.0x13.0mm_Layout12x12_P1.0mm'], 'footprint':'Package_BGA:BGA-144_13.0x13.0mm_Layout12x12_P1.0mm', 'keywords':'Kinetis K26 ARM Cortex M4', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/K26P169M180SF5.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMK26FN2M0VMD18\n\nKinetis K26 ARM Cortex M4', 'pins':[
             Pin(num='A1',name='PTD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='A11',name='PTC3/LLWU_P7',func=Pin.types.BIDIR,unit=1),
@@ -328,7 +328,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='XTAL32',func=Pin.types.OUTPUT,unit=1),
             Pin(num='M8',name='PTA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PTA10/LLWU_P22',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKE02Z64VLC4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKE02Z64VLC4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP Kinetis Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/files-static/microcontrollers/doc/ref_manual/MKE02P64M40SF0RM.pdf', 'pins':[
+        Part(**{ 'name':'MKE02Z64VLC4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKE02Z64VLC4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP Kinetis Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/files-static/microcontrollers/doc/ref_manual/MKE02P64M40SF0RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKE02Z64VLC4\n\nNXP Kinetis Microcontroller', 'pins':[
             Pin(num='1',name='PTD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTC3',func=Pin.types.BIDIR,unit=1),
@@ -361,7 +361,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTB5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKE02Z64VLD4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKE02Z64VLD4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'NXP Kinetis Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/files-static/microcontrollers/doc/ref_manual/MKE02P64M40SF0RM.pdf', 'pins':[
+        Part(**{ 'name':'MKE02Z64VLD4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKE02Z64VLD4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'NXP Kinetis Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/files-static/microcontrollers/doc/ref_manual/MKE02P64M40SF0RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKE02Z64VLD4\n\nNXP Kinetis Microcontroller', 'pins':[
             Pin(num='1',name='PTD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VSS',func=Pin.types.PWRIN,unit=1),
@@ -406,7 +406,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VREFL',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS/VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTB7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKE02Z64VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKE02Z64VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP Kinetis Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/files-static/microcontrollers/doc/ref_manual/MKE02P64M40SF0RM.pdf', 'pins':[
+        Part(**{ 'name':'MKE02Z64VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKE02Z64VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP Kinetis Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/files-static/microcontrollers/doc/ref_manual/MKE02P64M40SF0RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKE02Z64VLH4\n\nNXP Kinetis Microcontroller', 'pins':[
             Pin(num='1',name='PTD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS/VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='PTB7',func=Pin.types.BIDIR,unit=1),
@@ -471,7 +471,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDDA/VREFH',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VREFL',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKE02Z64VQH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKE02Z64VQH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_14x14mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-64_14x14mm_P0.8mm', 'keywords':'NXP Kinetis Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/files-static/microcontrollers/doc/ref_manual/MKE02P64M40SF0RM.pdf', 'pins':[
+        Part(**{ 'name':'MKE02Z64VQH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKE02Z64VQH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_14x14mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-64_14x14mm_P0.8mm', 'keywords':'NXP Kinetis Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/files-static/microcontrollers/doc/ref_manual/MKE02P64M40SF0RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKE02Z64VQH4\n\nNXP Kinetis Microcontroller', 'pins':[
             Pin(num='1',name='PTD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS/VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='PTB7',func=Pin.types.BIDIR,unit=1),
@@ -536,7 +536,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDDA/VREFH',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VREFL',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKE16Z64VLF4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKE16Z64VLF4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Kinetis KE16 ARM Cortex M0+', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/KE1xZP48M48SF0.pdf', 'pins':[
+        Part(**{ 'name':'MKE16Z64VLF4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKE16Z64VLF4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Kinetis KE16 ARM Cortex M0+', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/KE1xZP48M48SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKE16Z64VLF4\n\nKinetis KE16 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS/VREFL',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='PTB7',func=Pin.types.BIDIR,unit=1),
@@ -585,7 +585,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDDA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VREFH',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL02Z32CAF4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL02Z32CAF4'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-20_1.994x1.94mm_Layout4x5_P0.4mm'], 'footprint':'Package_CSP:WLCSP-20_1.994x1.94mm_Layout4x5_P0.4mm', 'keywords':'Kinetis KL02 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL02P20M48SF0.pdf', 'pins':[
+        Part(**{ 'name':'MKL02Z32CAF4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL02Z32CAF4'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-20_1.994x1.94mm_Layout4x5_P0.4mm'], 'footprint':'Package_CSP:WLCSP-20_1.994x1.94mm_Layout4x5_P0.4mm', 'keywords':'Kinetis KL02 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL02P20M48SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL02Z32CAF4\n\nKinetis KL02 ARM Cortex M0+', 'pins':[
             Pin(num='A1',name='PTA12/IRQ_13/LPTMR0_ALT2',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='PTB13',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PTA0/IRQ_0',func=Pin.types.BIDIR,unit=1),
@@ -606,7 +606,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='E2',name='PTB0/IRQ_5',func=Pin.types.BIDIR,unit=1),
             Pin(num='E3',name='PTA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='E4',name='PTA6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL02Z32VFG4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL02Z32VFG4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.9x1.9mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.9x1.9mm', 'keywords':'Kinetis KL02 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL02P32M48SF0.pdf', 'pins':[
+        Part(**{ 'name':'MKL02Z32VFG4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL02Z32VFG4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.9x1.9mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.9x1.9mm', 'keywords':'Kinetis KL02 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL02P32M48SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL02Z32VFG4\n\nKinetis KL02 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='VDD/VREFH',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PTB2/IRQ_7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB3/IRQ_10',func=Pin.types.BIDIR,unit=1),
@@ -624,7 +624,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA7/IRQ_4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB0/IRQ_5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTB1/IRQ_6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL02Z32VFK4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL02Z32VFK4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'Kinetis KL02 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL02P32M48SF0.pdf', 'pins':[
+        Part(**{ 'name':'MKL02Z32VFK4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL02Z32VFK4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'Kinetis KL02 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL02P32M48SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL02Z32VFK4\n\nKinetis KL02 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTB6/IRQ_2/LPTMR0_ALT3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB11',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTA7/IRQ_4',func=Pin.types.BIDIR,unit=1),
@@ -650,7 +650,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTB10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL02Z32VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL02Z32VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL02 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL02P32M48SF0.pdf', 'pins':[
+        Part(**{ 'name':'MKL02Z32VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL02Z32VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL02 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL02P32M48SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL02Z32VFM4\n\nKinetis KL02 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTB6/IRQ_2/LPTMR0_ALT3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB8',func=Pin.types.BIDIR,unit=1),
@@ -684,7 +684,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTA5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL03Z32CAF4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL03Z32CAF4'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-20_1.994x1.609mm_Layout5x4_P0.4mm'], 'footprint':'Package_CSP:WLCSP-20_1.994x1.609mm_Layout5x4_P0.4mm', 'keywords':'Kinetis KL03 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL03P24M48SF0.pdf', 'pins':[
+        Part(**{ 'name':'MKL03Z32CAF4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL03Z32CAF4'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-20_1.994x1.609mm_Layout5x4_P0.4mm'], 'footprint':'Package_CSP:WLCSP-20_1.994x1.609mm_Layout5x4_P0.4mm', 'keywords':'Kinetis KL03 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL03P24M48SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL03Z32CAF4\n\nKinetis KL03 ARM Cortex M0+', 'pins':[
             Pin(num='A1',name='PTB3/IRQ_10',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='PTB5/IRQ_12',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PTB13/CLKOUT32K',func=Pin.types.BIDIR,unit=1),
@@ -705,7 +705,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='D3',name='PTA5/RTC_CLK_IN',func=Pin.types.BIDIR,unit=1),
             Pin(num='D4',name='PTA7/IRQ_4',func=Pin.types.BIDIR,unit=1),
             Pin(num='D5',name='PTA6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL03Z32VFG4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL03Z32VFG4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.9x1.9mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.9x1.9mm', 'keywords':'Kinetis KL03 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL03P24M48SF0.pdf', 'pins':[
+        Part(**{ 'name':'MKL03Z32VFG4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL03Z32VFG4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.9x1.9mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.9x1.9mm', 'keywords':'Kinetis KL03 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL03P24M48SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL03Z32VFG4\n\nKinetis KL03 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PTB2/IRQ_7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB3/IRQ_10',func=Pin.types.BIDIR,unit=1),
@@ -723,7 +723,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA7/IRQ_4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB0/IRQ_5/LLWU_P4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTB1/IRQ_6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL03Z32VFK4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL03Z32VFK4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'Kinetis KL03 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL03P24M48SF0.pdf', 'pins':[
+        Part(**{ 'name':'MKL03Z32VFK4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL03Z32VFK4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'Kinetis KL03 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL03P24M48SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL03Z32VFK4\n\nKinetis KL03 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTB6/IRQ_2/LPTMR0_ALT3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB11',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTA7/IRQ_4',func=Pin.types.BIDIR,unit=1),
@@ -749,7 +749,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA5/RTC_CLK_IN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTB10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL04Z32VFK4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL04Z32VFK4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'Kinetis KL04 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL04P48M48SF1.pdf', 'pins':[
+        Part(**{ 'name':'MKL04Z32VFK4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL04Z32VFK4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'Kinetis KL04 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL04P48M48SF1.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL04Z32VFK4\n\nKinetis KL04 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTB6/IRQ_2/LPTMR0_ALT3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB11',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTA7/IRQ_7/LLWU_P3',func=Pin.types.BIDIR,unit=1),
@@ -775,7 +775,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA5/LLWU_P1/RTC_CLK_IN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA6/LLWU_P2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTB10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL04Z32VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL04Z32VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL04 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL04P48M48SF1.pdf', 'pins':[
+        Part(**{ 'name':'MKL04Z32VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL04Z32VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL04 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL04P48M48SF1.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL04Z32VFM4\n\nKinetis KL04 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTB6/IRQ_2/LPTMR0_ALT3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA6/LLWU_P2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB8',func=Pin.types.BIDIR,unit=1),
@@ -809,7 +809,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA4/LLWU_P0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTA5/LLWU_P1/RTC_CLK_IN',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL04Z32VLC4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL04Z32VLC4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'Kinetis KL04 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL04P48M48SF1.pdf', 'pins':[
+        Part(**{ 'name':'MKL04Z32VLC4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL04Z32VLC4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'Kinetis KL04 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL04P48M48SF1.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL04Z32VLC4\n\nKinetis KL04 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTB6/IRQ_2/LPTMR0_ALT3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA6/LLWU_P2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB8',func=Pin.types.BIDIR,unit=1),
@@ -842,7 +842,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA4/LLWU_P0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTA5/LLWU_P1/RTC_CLK_IN',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL04Z32VLF4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL04Z32VLF4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Kinetis KL04 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL04P48M48SF1.pdf', 'pins':[
+        Part(**{ 'name':'MKL04Z32VLF4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL04Z32VLF4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Kinetis KL04 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL04P48M48SF1.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL04Z32VLF4\n\nKinetis KL04 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTB6/IRQ_2/LPTMR0_ALT3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA4/LLWU_P0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VSS',func=Pin.types.PASSIVE,unit=1),
@@ -891,7 +891,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VREFL',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTA3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL05Z32VFK4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL05Z32VFK4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'Kinetis KL05 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL05P48M48SF1.pdf', 'pins':[
+        Part(**{ 'name':'MKL05Z32VFK4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL05Z32VFK4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'Kinetis KL05 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL05P48M48SF1.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL05Z32VFK4\n\nKinetis KL05 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTB6/IRQ_2/LPTMR0_ALT3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB11',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTA7/IRQ_7/LLWU_P3',func=Pin.types.BIDIR,unit=1),
@@ -917,7 +917,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA5/LLWU_P1/RTC_CLK_IN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA6/LLWU_P2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTB10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL05Z32VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL05Z32VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL05 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL05P48M48SF1.pdf', 'pins':[
+        Part(**{ 'name':'MKL05Z32VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL05Z32VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL05 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL05P48M48SF1.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL05Z32VFM4\n\nKinetis KL05 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTB6/IRQ_2/LPTMR0_ALT3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA6/LLWU_P2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB8',func=Pin.types.BIDIR,unit=1),
@@ -951,7 +951,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA4/LLWU_P0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTA5/LLWU_P1/RTC_CLK_IN',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL05Z32VLC4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL05Z32VLC4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'Kinetis KL05 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL05P48M48SF1.pdf', 'pins':[
+        Part(**{ 'name':'MKL05Z32VLC4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL05Z32VLC4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'Kinetis KL05 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL05P48M48SF1.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL05Z32VLC4\n\nKinetis KL05 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTB6/IRQ_2/LPTMR0_ALT3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA6/LLWU_P2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB8',func=Pin.types.BIDIR,unit=1),
@@ -984,7 +984,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA4/LLWU_P0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTA5/LLWU_P1/RTC_CLK_IN',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL05Z32VLF4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL05Z32VLF4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Kinetis KL05 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL05P48M48SF1.pdf', 'pins':[
+        Part(**{ 'name':'MKL05Z32VLF4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL05Z32VLF4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Kinetis KL05 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL05P48M48SF1.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL05Z32VLF4\n\nKinetis KL05 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTB6/IRQ_2/LPTMR0_ALT3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA4/LLWU_P0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VSS',func=Pin.types.PASSIVE,unit=1),
@@ -1033,7 +1033,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VREFL',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTA3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL16Z128VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL16Z128VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL16 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL16P64M48SF5.pdf', 'pins':[
+        Part(**{ 'name':'MKL16Z128VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL16Z128VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL16 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL16P64M48SF5.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL16Z128VFM4\n\nKinetis KL16 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTA1',func=Pin.types.BIDIR,unit=1),
@@ -1066,7 +1066,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDDA',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTE30',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL16Z128VFT4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL16Z128VFT4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'Kinetis KL16 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL16P64M48SF5.pdf', 'pins':[
+        Part(**{ 'name':'MKL16Z128VFT4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL16Z128VFT4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'Kinetis KL16 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL16P64M48SF5.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL16Z128VFT4\n\nKinetis KL16 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VREFH',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='VREFL',func=Pin.types.PWRIN,unit=1),
@@ -1115,7 +1115,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE20',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL16Z128VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL16Z128VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL16 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL16P64M48SF5.pdf', 'pins':[
+        Part(**{ 'name':'MKL16Z128VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL16Z128VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL16 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL16P64M48SF5.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL16Z128VLH4\n\nKinetis KL16 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE22',func=Pin.types.BIDIR,unit=1),
@@ -1180,7 +1180,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE18',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE19',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE20',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL16Z256VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL16Z256VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL16 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL16P64M48SF4.pdf', 'pins':[
+        Part(**{ 'name':'MKL16Z256VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL16Z256VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL16 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL16P64M48SF4.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL16Z256VLH4\n\nKinetis KL16 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE22',func=Pin.types.BIDIR,unit=1),
@@ -1245,7 +1245,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE18',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE19',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE20',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL16Z256VMP4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL16Z256VMP4'}), 'ref_prefix':'U', 'fplist':['Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm', 'keywords':'Kinetis KL16 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL16P64M48SF4.pdf', 'pins':[
+        Part(**{ 'name':'MKL16Z256VMP4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL16Z256VMP4'}), 'ref_prefix':'U', 'fplist':['Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm', 'keywords':'Kinetis KL16 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL16P64M48SF4.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL16Z256VMP4\n\nKinetis KL16 ARM Cortex M0+', 'pins':[
             Pin(num='A1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='PTD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PTD4/LLWU_P14',func=Pin.types.BIDIR,unit=1),
@@ -1310,7 +1310,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='H6',name='PTA12',func=Pin.types.BIDIR,unit=1),
             Pin(num='H7',name='VSS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='H8',name='PTA18',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL17Z256CAL4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL17Z256CAL4'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-36_2.82x2.67mm_Layout6x6_P0.4mm'], 'footprint':'Package_CSP:WLCSP-36_2.82x2.67mm_Layout6x6_P0.4mm', 'keywords':'Kinetis KL17 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL17P64M48SF6.pdf', 'pins':[
+        Part(**{ 'name':'MKL17Z256CAL4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL17Z256CAL4'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-36_2.82x2.67mm_Layout6x6_P0.4mm'], 'footprint':'Package_CSP:WLCSP-36_2.82x2.67mm_Layout6x6_P0.4mm', 'keywords':'Kinetis KL17 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL17P64M48SF6.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL17Z256CAL4\n\nKinetis KL17 ARM Cortex M0+', 'pins':[
             Pin(num='A1',name='PTC3/LLWU_P7',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='PTC4/LLWU_P8',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PTC5/LLWU_P9',func=Pin.types.BIDIR,unit=1),
@@ -1347,7 +1347,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='F4',name='PTA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='F5',name='PTA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='F6',name='VSSA/VREFL',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL17Z256VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL17Z256VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL17 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL17P64M48SF6.pdf', 'pins':[
+        Part(**{ 'name':'MKL17Z256VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL17Z256VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL17 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL17P64M48SF6.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL17Z256VFM4\n\nKinetis KL17 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTA1',func=Pin.types.BIDIR,unit=1),
@@ -1381,7 +1381,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDDA',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTE30',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL17Z256VFT4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL17Z256VFT4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'Kinetis KL17 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL17P64M48SF6.pdf', 'pins':[
+        Part(**{ 'name':'MKL17Z256VFT4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL17Z256VFT4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'Kinetis KL17 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL17P64M48SF6.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL17Z256VFT4\n\nKinetis KL17 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VREFH',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='VREFL',func=Pin.types.PWRIN,unit=1),
@@ -1431,7 +1431,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE20',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL17Z256VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL17Z256VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL17 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL17P64M48SF6.pdf', 'pins':[
+        Part(**{ 'name':'MKL17Z256VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL17Z256VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL17 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL17P64M48SF6.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL17Z256VLH4\n\nKinetis KL17 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE22',func=Pin.types.BIDIR,unit=1),
@@ -1496,7 +1496,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE18',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE19',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE20',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL17Z256VMP4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL17Z256VMP4'}), 'ref_prefix':'U', 'fplist':['Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm', 'keywords':'Kinetis KL17 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL17P64M48SF6.pdf', 'pins':[
+        Part(**{ 'name':'MKL17Z256VMP4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL17Z256VMP4'}), 'ref_prefix':'U', 'fplist':['Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm', 'keywords':'Kinetis KL17 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL17P64M48SF6.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL17Z256VMP4\n\nKinetis KL17 ARM Cortex M0+', 'pins':[
             Pin(num='A1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='PTD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PTD4/LLWU_P14',func=Pin.types.BIDIR,unit=1),
@@ -1561,7 +1561,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='H6',name='PTA12',func=Pin.types.BIDIR,unit=1),
             Pin(num='H7',name='VSS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='H8',name='PTA18',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL17Z64VDA4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL17Z64VDA4'}), 'ref_prefix':'U', 'fplist':['Package_BGA:XFBGA-36_3.5x3.5mm_Layout6x6_P0.5mm'], 'footprint':'Package_BGA:XFBGA-36_3.5x3.5mm_Layout6x6_P0.5mm', 'keywords':'Kinetis KL17 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL17P64M48SF2.pdf', 'pins':[
+        Part(**{ 'name':'MKL17Z64VDA4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL17Z64VDA4'}), 'ref_prefix':'U', 'fplist':['Package_BGA:XFBGA-36_3.5x3.5mm_Layout6x6_P0.5mm'], 'footprint':'Package_BGA:XFBGA-36_3.5x3.5mm_Layout6x6_P0.5mm', 'keywords':'Kinetis KL17 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL17P64M48SF2.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL17Z64VDA4\n\nKinetis KL17 ARM Cortex M0+', 'pins':[
             Pin(num='A1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='PTD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PTD4/LLWU_P14',func=Pin.types.BIDIR,unit=1),
@@ -1598,7 +1598,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='F4',name='PTA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='F5',name='PTA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='F6',name='PTA18',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL17Z64VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL17Z64VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL17 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL17P64M48SF2.pdf', 'pins':[
+        Part(**{ 'name':'MKL17Z64VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL17Z64VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL17 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL17P64M48SF2.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL17Z64VFM4\n\nKinetis KL17 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTA1',func=Pin.types.BIDIR,unit=1),
@@ -1632,7 +1632,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDDA/VREFH',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSSA/VREFL',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTE30/VREF0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL17Z64VFT4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL17Z64VFT4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'Kinetis KL17 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL17P64M48SF6.pdf', 'pins':[
+        Part(**{ 'name':'MKL17Z64VFT4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL17Z64VFT4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'Kinetis KL17 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL17P64M48SF6.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL17Z64VFT4\n\nKinetis KL17 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VREFH/VREFO',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='VREFL',func=Pin.types.PWRIN,unit=1),
@@ -1682,7 +1682,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE20',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL17Z64VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL17Z64VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL17 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL17P64M48SF2.pdf', 'pins':[
+        Part(**{ 'name':'MKL17Z64VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL17Z64VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL17 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL17P64M48SF2.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL17Z64VLH4\n\nKinetis KL17 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE22',func=Pin.types.BIDIR,unit=1),
@@ -1747,7 +1747,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE18',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE19',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE20',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL17Z64VMP4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL17Z64VMP4'}), 'ref_prefix':'U', 'fplist':['Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm', 'keywords':'Kinetis KL17 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL17P64M48SF2.pdf', 'pins':[
+        Part(**{ 'name':'MKL17Z64VMP4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL17Z64VMP4'}), 'ref_prefix':'U', 'fplist':['Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm', 'keywords':'Kinetis KL17 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL17P64M48SF2.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL17Z64VMP4\n\nKinetis KL17 ARM Cortex M0+', 'pins':[
             Pin(num='A1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='PTD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PTD4/LLWU_P14',func=Pin.types.BIDIR,unit=1),
@@ -1812,7 +1812,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='H6',name='PTA12',func=Pin.types.BIDIR,unit=1),
             Pin(num='H7',name='VSS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='H8',name='PTA18',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL24Z64VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL24Z64VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL24 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL24P80M48SF0.pdf', 'pins':[
+        Part(**{ 'name':'MKL24Z64VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL24Z64VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL24 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL24P80M48SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL24Z64VFM4\n\nKinetis KL24 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTA1',func=Pin.types.BIDIR,unit=1),
@@ -1846,7 +1846,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDDA',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTE30',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL24Z64VFT4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL24Z64VFT4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'Kinetis KL24 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL24P80M48SF0.pdf', 'pins':[
+        Part(**{ 'name':'MKL24Z64VFT4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL24Z64VFT4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'Kinetis KL24 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL24P80M48SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL24Z64VFT4\n\nKinetis KL24 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VREFH',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='VREFL',func=Pin.types.PWRIN,unit=1),
@@ -1896,7 +1896,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE20',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL24Z64VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL24Z64VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL24 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL24P80M48SF0.pdf', 'pins':[
+        Part(**{ 'name':'MKL24Z64VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL24Z64VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL24 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL24P80M48SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL24Z64VLH4\n\nKinetis KL24 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE22',func=Pin.types.BIDIR,unit=1),
@@ -1961,7 +1961,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VOUT33',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='VREGIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTE20',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL24Z64VLK4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL24Z64VLK4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-80_12x12mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-80_12x12mm_P0.5mm', 'keywords':'Kinetis KL24 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL24P80M48SF0.pdf', 'pins':[
+        Part(**{ 'name':'MKL24Z64VLK4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL24Z64VLK4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-80_12x12mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-80_12x12mm_P0.5mm', 'keywords':'Kinetis KL24 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL24P80M48SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL24Z64VLK4\n\nKinetis KL24 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='USB0_DM',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VOUT33',func=Pin.types.PWROUT,unit=1),
@@ -2042,7 +2042,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='80',name='PTD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='USB0_DP',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL25Z128VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL25Z128VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL25 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL25P80M48SF0.pdf', 'pins':[
+        Part(**{ 'name':'MKL25Z128VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL25Z128VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL25 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL25P80M48SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL25Z128VFM4\n\nKinetis KL25 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTA1',func=Pin.types.BIDIR,unit=1),
@@ -2076,7 +2076,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDDA',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTE30',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL25Z128VFT4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL25Z128VFT4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'Kinetis KL25 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL25P80M48SF0.pdf', 'pins':[
+        Part(**{ 'name':'MKL25Z128VFT4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL25Z128VFT4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'Kinetis KL25 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL25P80M48SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL25Z128VFT4\n\nKinetis KL25 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VREFH',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='VREFL',func=Pin.types.PWRIN,unit=1),
@@ -2126,7 +2126,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE20',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL25Z128VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL25Z128VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL25 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL25P80M48SF0.pdf', 'pins':[
+        Part(**{ 'name':'MKL25Z128VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL25Z128VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL25 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL25P80M48SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL25Z128VLH4\n\nKinetis KL25 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE22',func=Pin.types.BIDIR,unit=1),
@@ -2191,7 +2191,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VOUT33',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='VREGIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTE20',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL25Z128VLK4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL25Z128VLK4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-80_12x12mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-80_12x12mm_P0.5mm', 'keywords':'Kinetis KL25 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL25P80M48SF0.pdf', 'pins':[
+        Part(**{ 'name':'MKL25Z128VLK4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL25Z128VLK4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-80_12x12mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-80_12x12mm_P0.5mm', 'keywords':'Kinetis KL25 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL25P80M48SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL25Z128VLK4\n\nKinetis KL25 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='USB0_DM',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VOUT33',func=Pin.types.PWROUT,unit=1),
@@ -2272,7 +2272,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='80',name='PTD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='USB0_DP',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL26Z128CAL4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL26Z128CAL4'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-36_2.374x2.459mm_Layout6x6_P0.35mm'], 'footprint':'Package_CSP:WLCSP-36_2.374x2.459mm_Layout6x6_P0.35mm', 'keywords':'Kinetis KL26 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL26P36M48SF5.pdf', 'pins':[
+        Part(**{ 'name':'MKL26Z128CAL4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL26Z128CAL4'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-36_2.374x2.459mm_Layout6x6_P0.35mm'], 'footprint':'Package_CSP:WLCSP-36_2.374x2.459mm_Layout6x6_P0.35mm', 'keywords':'Kinetis KL26 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL26P36M48SF5.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL26Z128CAL4\n\nKinetis KL26 ARM Cortex M0+', 'pins':[
             Pin(num='A1',name='PTC4/LLWU_P8',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='PTC6/LLWU_P10',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PTC7',func=Pin.types.BIDIR,unit=1),
@@ -2309,7 +2309,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='F4',name='PTA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='F5',name='PTA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='F6',name='VSSA/VREFL',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL26Z128VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL26Z128VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL26 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL26P64M48SF5.pdf', 'pins':[
+        Part(**{ 'name':'MKL26Z128VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL26Z128VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL26 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL26P64M48SF5.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL26Z128VFM4\n\nKinetis KL26 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTA1',func=Pin.types.BIDIR,unit=1),
@@ -2343,7 +2343,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDDA',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTE30',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL26Z128VFT4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL26Z128VFT4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'Kinetis KL26 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL26P64M48SF5.pdf', 'pins':[
+        Part(**{ 'name':'MKL26Z128VFT4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL26Z128VFT4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'Kinetis KL26 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL26P64M48SF5.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL26Z128VFT4\n\nKinetis KL26 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VREFH',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='VREFL',func=Pin.types.PWRIN,unit=1),
@@ -2393,7 +2393,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE20',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL26Z128VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL26Z128VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL26 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL26P64M48SF5.pdf', 'pins':[
+        Part(**{ 'name':'MKL26Z128VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL26Z128VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL26 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL26P64M48SF5.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL26Z128VLH4\n\nKinetis KL26 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE22',func=Pin.types.BIDIR,unit=1),
@@ -2458,7 +2458,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VOUT33',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='VREGIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTE20',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL26Z256VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL26Z256VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL26 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL26P121M48SF4.pdf', 'pins':[
+        Part(**{ 'name':'MKL26Z256VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL26Z256VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL26 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL26P121M48SF4.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL26Z256VLH4\n\nKinetis KL26 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE22',func=Pin.types.BIDIR,unit=1),
@@ -2523,7 +2523,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VOUT33',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='VREGIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTE20',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL26Z256VLL4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL26Z256VLL4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Kinetis KL26 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL26P121M48SF4.pdf', 'pins':[
+        Part(**{ 'name':'MKL26Z256VLL4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL26Z256VLL4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Kinetis KL26 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL26P121M48SF4.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL26Z256VLL4\n\nKinetis KL26 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='USB0_DP',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PTD7',func=Pin.types.BIDIR,unit=1),
@@ -2624,7 +2624,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PTD4/LLWU_P14',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PTD5',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PTD6/LLWU_P15',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL26Z256VMC4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL26Z256VMC4'}), 'ref_prefix':'U', 'fplist':['Package_BGA:XFBGA-121_8x8mm_Layout11x11_P0.65mm'], 'footprint':'Package_BGA:XFBGA-121_8x8mm_Layout11x11_P0.65mm', 'keywords':'Kinetis KL26 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL26P121M48SF4.pdf', 'pins':[
+        Part(**{ 'name':'MKL26Z256VMC4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL26Z256VMC4'}), 'ref_prefix':'U', 'fplist':['Package_BGA:XFBGA-121_8x8mm_Layout11x11_P0.65mm'], 'footprint':'Package_BGA:XFBGA-121_8x8mm_Layout11x11_P0.65mm', 'keywords':'Kinetis KL26 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL26P121M48SF4.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL26Z256VMC4\n\nKinetis KL26 ARM Cortex M0+', 'pins':[
             Pin(num='A1',name='PTD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PTC20',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -2746,7 +2746,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='L7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='L8',name='PTA13/LLWU_P4',func=Pin.types.BIDIR,unit=1),
             Pin(num='L9',name='PTA15',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL26Z256VMP4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL26Z256VMP4'}), 'ref_prefix':'U', 'fplist':['Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm', 'keywords':'Kinetis KL26 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL26P121M48SF4.pdf', 'pins':[
+        Part(**{ 'name':'MKL26Z256VMP4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL26Z256VMP4'}), 'ref_prefix':'U', 'fplist':['Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm', 'keywords':'Kinetis KL26 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL26P121M48SF4.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL26Z256VMP4\n\nKinetis KL26 ARM Cortex M0+', 'pins':[
             Pin(num='A1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='PTD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PTD4/LLWU_P14',func=Pin.types.BIDIR,unit=1),
@@ -2811,7 +2811,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='H6',name='PTA12',func=Pin.types.BIDIR,unit=1),
             Pin(num='H7',name='VSS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='H8',name='PTA18',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL27Z256VFT4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL27Z256VFT4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'Kinetis KL27 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL27P64M48SF6.pdf', 'pins':[
+        Part(**{ 'name':'MKL27Z256VFT4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL27Z256VFT4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'Kinetis KL27 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL27P64M48SF6.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL27Z256VFT4\n\nKinetis KL27 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VREFH',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='VREFL',func=Pin.types.PWRIN,unit=1),
@@ -2861,7 +2861,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE20',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL27Z256VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL27Z256VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL27 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL27P64M48SF6.pdf', 'pins':[
+        Part(**{ 'name':'MKL27Z256VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL27Z256VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL27 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL27P64M48SF6.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL27Z256VLH4\n\nKinetis KL27 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE22',func=Pin.types.BIDIR,unit=1),
@@ -2926,7 +2926,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VOUT33',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='VREGIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTE20',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL27Z64VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL27Z64VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL27 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL27P64M48SF2.pdf', 'pins':[
+        Part(**{ 'name':'MKL27Z64VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL27Z64VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL27 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL27P64M48SF2.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL27Z64VFM4\n\nKinetis KL27 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTA1',func=Pin.types.BIDIR,unit=1),
@@ -2960,7 +2960,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDDA/VREFH',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSSA/VREFL',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTE30/VREF0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL27Z64VFT4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL27Z64VFT4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'Kinetis KL27 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL27P64M48SF2.pdf', 'pins':[
+        Part(**{ 'name':'MKL27Z64VFT4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL27Z64VFT4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'Kinetis KL27 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL27P64M48SF2.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL27Z64VFT4\n\nKinetis KL27 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VREFH/VREFO',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='VREFL',func=Pin.types.PWRIN,unit=1),
@@ -3010,7 +3010,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE20',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL27Z64VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL27Z64VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL27 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL27P64M48SF2.pdf', 'pins':[
+        Part(**{ 'name':'MKL27Z64VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL27Z64VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL27 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL27P64M48SF2.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL27Z64VLH4\n\nKinetis KL27 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE22',func=Pin.types.BIDIR,unit=1),
@@ -3075,7 +3075,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='USB_VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='PTE16',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE20',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL28Z512VDC7', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL28Z512VDC7'}), 'ref_prefix':'U', 'fplist':['Package_BGA:XFBGA-121_8x8mm_Layout11x11_P0.65mm'], 'footprint':'Package_BGA:XFBGA-121_8x8mm_Layout11x11_P0.65mm', 'keywords':'Kinetis KL28 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/MKL28Z512Vxx7.pdf', 'pins':[
+        Part(**{ 'name':'MKL28Z512VDC7', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL28Z512VDC7'}), 'ref_prefix':'U', 'fplist':['Package_BGA:XFBGA-121_8x8mm_Layout11x11_P0.65mm'], 'footprint':'Package_BGA:XFBGA-121_8x8mm_Layout11x11_P0.65mm', 'keywords':'Kinetis KL28 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/MKL28Z512Vxx7.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL28Z512VDC7\n\nKinetis KL28 ARM Cortex M0+', 'pins':[
             Pin(num='A1',name='PTD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PTD8/LLWU_P24',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='VSS',func=Pin.types.PWRIN,unit=1),
@@ -3197,7 +3197,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='L7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='L8',name='PTA13/LLWU_P4',func=Pin.types.BIDIR,unit=1),
             Pin(num='L9',name='PTA15',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL28Z512VLL7', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL28Z512VLL7'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Kinetis KL28 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/MKL28Z512Vxx7.pdf', 'pins':[
+        Part(**{ 'name':'MKL28Z512VLL7', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL28Z512VLL7'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Kinetis KL28 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/MKL28Z512Vxx7.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL28Z512VLL7\n\nKinetis KL28 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='USB0_DP',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PTD7',func=Pin.types.BIDIR,unit=1),
@@ -3298,7 +3298,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PTD4/LLWU_P14',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PTD5',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PTD6/LLWU_P15',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL43Z256VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL43Z256VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL43 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL43P64M48SF6.pdf', 'pins':[
+        Part(**{ 'name':'MKL43Z256VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL43Z256VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL43 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL43P64M48SF6.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL43Z256VLH4\n\nKinetis KL43 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE22',func=Pin.types.BIDIR,unit=1),
@@ -3363,7 +3363,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VOUT33',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='VREGIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTE20',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL43Z256VMP4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL43Z256VMP4'}), 'ref_prefix':'U', 'fplist':['Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm', 'keywords':'Kinetis KL43 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL43P64M48SF6.pdf', 'pins':[
+        Part(**{ 'name':'MKL43Z256VMP4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL43Z256VMP4'}), 'ref_prefix':'U', 'fplist':['Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm', 'keywords':'Kinetis KL43 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL43P64M48SF6.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL43Z256VMP4\n\nKinetis KL43 ARM Cortex M0+', 'pins':[
             Pin(num='A1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='PTD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PTD4/LLWU_P14',func=Pin.types.BIDIR,unit=1),
@@ -3428,7 +3428,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='H6',name='PTA12',func=Pin.types.BIDIR,unit=1),
             Pin(num='H7',name='VSS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='H8',name='PTA18',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL46Z256VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL46Z256VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL46 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL46P121M48SF4.pdf', 'pins':[
+        Part(**{ 'name':'MKL46Z256VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL46Z256VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL46 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL46P121M48SF4.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL46Z256VLH4\n\nKinetis KL46 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE22',func=Pin.types.BIDIR,unit=1),
@@ -3493,7 +3493,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VOUT33',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='VREGIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTE20',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL46Z256VLL4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL46Z256VLL4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Kinetis KL46 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL46P121M48SF4.pdf', 'pins':[
+        Part(**{ 'name':'MKL46Z256VLL4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL46Z256VLL4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Kinetis KL46 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL46P121M48SF4.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL46Z256VLL4\n\nKinetis KL46 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='USB0_DP',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PTD7',func=Pin.types.BIDIR,unit=1),
@@ -3594,7 +3594,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PTD4/LLWU_P14',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PTD5',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PTD6/LLWU_P15',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL46Z256VMC4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL46Z256VMC4'}), 'ref_prefix':'U', 'fplist':['Package_BGA:XFBGA-121_8x8mm_Layout11x11_P0.65mm'], 'footprint':'Package_BGA:XFBGA-121_8x8mm_Layout11x11_P0.65mm', 'keywords':'Kinetis KL46 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL46P121M48SF4.pdf', 'pins':[
+        Part(**{ 'name':'MKL46Z256VMC4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL46Z256VMC4'}), 'ref_prefix':'U', 'fplist':['Package_BGA:XFBGA-121_8x8mm_Layout11x11_P0.65mm'], 'footprint':'Package_BGA:XFBGA-121_8x8mm_Layout11x11_P0.65mm', 'keywords':'Kinetis KL46 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL46P121M48SF4.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL46Z256VMC4\n\nKinetis KL46 ARM Cortex M0+', 'pins':[
             Pin(num='A1',name='PTD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='VLL2/PTC20',func=Pin.types.PWROUT,unit=1),
             Pin(num='A11',name='VLL3',func=Pin.types.PWROUT,unit=1),
@@ -3716,7 +3716,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='L7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='L8',name='PTA13',func=Pin.types.BIDIR,unit=1),
             Pin(num='L9',name='PTA15',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL46Z256VMP4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL46Z256VMP4'}), 'ref_prefix':'U', 'fplist':['Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm', 'keywords':'Kinetis KL46 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL46P121M48SF4.pdf', 'pins':[
+        Part(**{ 'name':'MKL46Z256VMP4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL46Z256VMP4'}), 'ref_prefix':'U', 'fplist':['Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm', 'keywords':'Kinetis KL46 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL46P121M48SF4.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL46Z256VMP4\n\nKinetis KL46 ARM Cortex M0+', 'pins':[
             Pin(num='A1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='PTD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PTD4/LLWU_P14',func=Pin.types.BIDIR,unit=1),
@@ -3781,7 +3781,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='H6',name='PTA12',func=Pin.types.BIDIR,unit=1),
             Pin(num='H7',name='VSS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='H8',name='PTA18',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKV11Z128VLF7', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKV11Z128VLF7'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Kinetis KV11 ARM Cortex M0+', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/KV11P64M75.pdf', 'pins':[
+        Part(**{ 'name':'MKV11Z128VLF7', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKV11Z128VLF7'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Kinetis KV11 ARM Cortex M0+', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/KV11P64M75.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKV11Z128VLF7\n\nKinetis KV11 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VREFH',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='VREFL',func=Pin.types.PWRIN,unit=1),
@@ -3830,7 +3830,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE20',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKV11Z128VLH7', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKV11Z128VLH7'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KV11 ARM Cortex M0+', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/KV11P64M75.pdf', 'pins':[
+        Part(**{ 'name':'MKV11Z128VLH7', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKV11Z128VLH7'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KV11 ARM Cortex M0+', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/KV11P64M75.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKV11Z128VLH7\n\nKinetis KV11 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE22',func=Pin.types.BIDIR,unit=1),
@@ -3895,7 +3895,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE18',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE19',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE20',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKW41Z512VHT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKW41Z512VHT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias'], 'footprint':'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'keywords':'Kinetis KW41Z ARM Cortex M0+', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MKW41Z512.pdf', 'pins':[
+        Part(**{ 'name':'MKW41Z512VHT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKW41Z512VHT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias'], 'footprint':'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'keywords':'Kinetis KW41Z ARM Cortex M0+', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MKW41Z512.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKW41Z512VHT\n\nKinetis KW41Z ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTA0',func=Pin.types.BIDIR),
             Pin(num='10',name='VDCDC_IN',func=Pin.types.PWRIN),
             Pin(num='11',name='DCDC_LP',func=Pin.types.PASSIVE),
@@ -3945,7 +3945,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA19',func=Pin.types.BIDIR),
             Pin(num='8',name='PSWITCH',func=Pin.types.INPUT),
             Pin(num='9',name='DCDC_CFG',func=Pin.types.INPUT)], 'unit_defs':[] }),
-        Part(**{ 'name':'MK20DN128VFM5', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MK20DN128VFM5'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL27 ARM Cortex M4', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/K20P32M50SF0.pdf', 'pins':[
+        Part(**{ 'name':'MK20DN128VFM5', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MK20DN128VFM5'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL27 ARM Cortex M4', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/K20P32M50SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMK20DN128VFM5\n\nKinetis KL27 ARM Cortex M4', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN),
             Pin(num='10',name='EXTAL32',func=Pin.types.INPUT),
             Pin(num='11',name='VBAT',func=Pin.types.PWRIN),
@@ -3979,7 +3979,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='XTAL32',func=Pin.types.INPUT),
             Pin(num='33',name='EPAD',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='USB0_DM',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MK20DN32VFM5', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MK20DN32VFM5'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL27 ARM Cortex M4', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/K20P32M50SF0.pdf', 'pins':[
+        Part(**{ 'name':'MK20DN32VFM5', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MK20DN32VFM5'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL27 ARM Cortex M4', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/K20P32M50SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMK20DN32VFM5\n\nKinetis KL27 ARM Cortex M4', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN),
             Pin(num='10',name='EXTAL32',func=Pin.types.INPUT),
             Pin(num='11',name='VBAT',func=Pin.types.PWRIN),
@@ -4013,7 +4013,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='XTAL32',func=Pin.types.INPUT),
             Pin(num='33',name='EPAD',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='USB0_DM',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MK20DN64VFM5', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MK20DN64VFM5'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL27 ARM Cortex M4', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/K20P32M50SF0.pdf', 'pins':[
+        Part(**{ 'name':'MK20DN64VFM5', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MK20DN64VFM5'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL27 ARM Cortex M4', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/K20P32M50SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMK20DN64VFM5\n\nKinetis KL27 ARM Cortex M4', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN),
             Pin(num='10',name='EXTAL32',func=Pin.types.INPUT),
             Pin(num='11',name='VBAT',func=Pin.types.PWRIN),
@@ -4047,7 +4047,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='XTAL32',func=Pin.types.INPUT),
             Pin(num='33',name='EPAD',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='USB0_DM',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MK20DX32VFM5', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MK20DX32VFM5'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL27 ARM Cortex M4', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/K20P32M50SF0.pdf', 'pins':[
+        Part(**{ 'name':'MK20DX32VFM5', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MK20DX32VFM5'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL27 ARM Cortex M4', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/K20P32M50SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMK20DX32VFM5\n\nKinetis KL27 ARM Cortex M4', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN),
             Pin(num='10',name='EXTAL32',func=Pin.types.INPUT),
             Pin(num='11',name='VBAT',func=Pin.types.PWRIN),
@@ -4081,7 +4081,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='XTAL32',func=Pin.types.INPUT),
             Pin(num='33',name='EPAD',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='USB0_DM',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MK20DX64VFM5', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MK20DX64VFM5'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL27 ARM Cortex M4', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/K20P32M50SF0.pdf', 'pins':[
+        Part(**{ 'name':'MK20DX64VFM5', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MK20DX64VFM5'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL27 ARM Cortex M4', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/K20P32M50SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMK20DX64VFM5\n\nKinetis KL27 ARM Cortex M4', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN),
             Pin(num='10',name='EXTAL32',func=Pin.types.INPUT),
             Pin(num='11',name='VBAT',func=Pin.types.PWRIN),
@@ -4115,7 +4115,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='9',name='XTAL32',func=Pin.types.INPUT),
             Pin(num='33',name='EPAD',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='USB0_DM',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MK20FN1M0VMD12', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MK20FN1M0VMD12'}), 'ref_prefix':'U', 'fplist':['Package_BGA:BGA-144_13.0x13.0mm_Layout12x12_P1.0mm', 'Package_BGA:BGA-144_13.0x13.0mm_Layout12x12_P1.0mm'], 'footprint':'Package_BGA:BGA-144_13.0x13.0mm_Layout12x12_P1.0mm', 'keywords':'Kinetis K20 ARM Cortex M4', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/K20P144M120SF3.pdf', 'pins':[
+        Part(**{ 'name':'MK20FN1M0VMD12', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MK20FN1M0VMD12'}), 'ref_prefix':'U', 'fplist':['Package_BGA:BGA-144_13.0x13.0mm_Layout12x12_P1.0mm', 'Package_BGA:BGA-144_13.0x13.0mm_Layout12x12_P1.0mm'], 'footprint':'Package_BGA:BGA-144_13.0x13.0mm_Layout12x12_P1.0mm', 'keywords':'Kinetis K20 ARM Cortex M4', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/K20P144M120SF3.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMK20FN1M0VMD12\n\nKinetis K20 ARM Cortex M4', 'pins':[
             Pin(num='A1',name='PTD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='A11',name='PTC3/LLWU_P7',func=Pin.types.BIDIR,unit=1),
@@ -4260,7 +4260,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='XTAL32',func=Pin.types.OUTPUT,unit=1),
             Pin(num='M8',name='PTA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='PTA10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKE02Z16VLC4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKE02Z16VLC4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP Kinetis Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/files-static/microcontrollers/doc/ref_manual/MKE02P64M40SF0RM.pdf', 'pins':[
+        Part(**{ 'name':'MKE02Z16VLC4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKE02Z16VLC4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP Kinetis Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/files-static/microcontrollers/doc/ref_manual/MKE02P64M40SF0RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKE02Z16VLC4\n\nNXP Kinetis Microcontroller', 'pins':[
             Pin(num='1',name='PTD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTC3',func=Pin.types.BIDIR,unit=1),
@@ -4293,7 +4293,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTB5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKE02Z16VLD4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKE02Z16VLD4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'NXP Kinetis Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/files-static/microcontrollers/doc/ref_manual/MKE02P64M40SF0RM.pdf', 'pins':[
+        Part(**{ 'name':'MKE02Z16VLD4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKE02Z16VLD4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'NXP Kinetis Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/files-static/microcontrollers/doc/ref_manual/MKE02P64M40SF0RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKE02Z16VLD4\n\nNXP Kinetis Microcontroller', 'pins':[
             Pin(num='1',name='PTD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VSS',func=Pin.types.PWRIN,unit=1),
@@ -4338,7 +4338,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VREFL',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS/VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTB7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKE02Z32VLC4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKE02Z32VLC4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP Kinetis Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/files-static/microcontrollers/doc/ref_manual/MKE02P64M40SF0RM.pdf', 'pins':[
+        Part(**{ 'name':'MKE02Z32VLC4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKE02Z32VLC4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'NXP Kinetis Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/files-static/microcontrollers/doc/ref_manual/MKE02P64M40SF0RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKE02Z32VLC4\n\nNXP Kinetis Microcontroller', 'pins':[
             Pin(num='1',name='PTD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTC3',func=Pin.types.BIDIR,unit=1),
@@ -4371,7 +4371,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTB5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKE02Z32VLD4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKE02Z32VLD4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'NXP Kinetis Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/files-static/microcontrollers/doc/ref_manual/MKE02P64M40SF0RM.pdf', 'pins':[
+        Part(**{ 'name':'MKE02Z32VLD4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKE02Z32VLD4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'NXP Kinetis Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/files-static/microcontrollers/doc/ref_manual/MKE02P64M40SF0RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKE02Z32VLD4\n\nNXP Kinetis Microcontroller', 'pins':[
             Pin(num='1',name='PTD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VSS',func=Pin.types.PWRIN,unit=1),
@@ -4416,7 +4416,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VREFL',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS/VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTB7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKE02Z32VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKE02Z32VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP Kinetis Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/files-static/microcontrollers/doc/ref_manual/MKE02P64M40SF0RM.pdf', 'pins':[
+        Part(**{ 'name':'MKE02Z32VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKE02Z32VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'NXP Kinetis Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/files-static/microcontrollers/doc/ref_manual/MKE02P64M40SF0RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKE02Z32VLH4\n\nNXP Kinetis Microcontroller', 'pins':[
             Pin(num='1',name='PTD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS/VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='PTB7',func=Pin.types.BIDIR,unit=1),
@@ -4481,7 +4481,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDDA/VREFH',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VREFL',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKE02Z32VQH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKE02Z32VQH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_14x14mm_P0.8mm', 'Package_QFP:TQFP-64_14x14mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-64_14x14mm_P0.8mm', 'keywords':'NXP Kinetis Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/files-static/microcontrollers/doc/ref_manual/MKE02P64M40SF0RM.pdf', 'pins':[
+        Part(**{ 'name':'MKE02Z32VQH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKE02Z32VQH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_14x14mm_P0.8mm', 'Package_QFP:TQFP-64_14x14mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-64_14x14mm_P0.8mm', 'keywords':'NXP Kinetis Microcontroller', 'description':'', 'datasheet':'https://www.nxp.com/files-static/microcontrollers/doc/ref_manual/MKE02P64M40SF0RM.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKE02Z32VQH4\n\nNXP Kinetis Microcontroller', 'pins':[
             Pin(num='1',name='PTD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS/VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='PTB7',func=Pin.types.BIDIR,unit=1),
@@ -4546,7 +4546,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDDA/VREFH',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VREFL',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL02Z16VFG4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL02Z16VFG4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.9x1.9mm', 'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.9x1.9mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.9x1.9mm', 'keywords':'Kinetis KL02 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL02P32M48SF0.pdf', 'pins':[
+        Part(**{ 'name':'MKL02Z16VFG4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL02Z16VFG4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.9x1.9mm', 'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.9x1.9mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.9x1.9mm', 'keywords':'Kinetis KL02 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL02P32M48SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL02Z16VFG4\n\nKinetis KL02 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='VDD/VREFH',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PTB2/IRQ_7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB3/IRQ_10',func=Pin.types.BIDIR,unit=1),
@@ -4564,7 +4564,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA7/IRQ_4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB0/IRQ_5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTB1/IRQ_6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL02Z16VFK4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL02Z16VFK4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'Kinetis KL02 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL02P32M48SF0.pdf', 'pins':[
+        Part(**{ 'name':'MKL02Z16VFK4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL02Z16VFK4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'Kinetis KL02 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL02P32M48SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL02Z16VFK4\n\nKinetis KL02 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTB6/IRQ_2/LPTMR0_ALT3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB11',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTA7/IRQ_4',func=Pin.types.BIDIR,unit=1),
@@ -4590,7 +4590,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTB10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL02Z16VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL02Z16VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL02 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL02P32M48SF0.pdf', 'pins':[
+        Part(**{ 'name':'MKL02Z16VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL02Z16VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL02 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL02P32M48SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL02Z16VFM4\n\nKinetis KL02 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTB6/IRQ_2/LPTMR0_ALT3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB8',func=Pin.types.BIDIR,unit=1),
@@ -4624,7 +4624,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTA5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL02Z8VFG4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL02Z8VFG4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.9x1.9mm', 'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.9x1.9mm', 'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.9x1.9mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.9x1.9mm', 'keywords':'Kinetis KL02 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL02P32M48SF0.pdf', 'pins':[
+        Part(**{ 'name':'MKL02Z8VFG4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL02Z8VFG4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.9x1.9mm', 'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.9x1.9mm', 'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.9x1.9mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.9x1.9mm', 'keywords':'Kinetis KL02 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL02P32M48SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL02Z8VFG4\n\nKinetis KL02 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='VDD/VREFH',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PTB2/IRQ_7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB3/IRQ_10',func=Pin.types.BIDIR,unit=1),
@@ -4642,7 +4642,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA7/IRQ_4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB0/IRQ_5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTB1/IRQ_6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL03Z16VFG4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL03Z16VFG4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.9x1.9mm', 'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.9x1.9mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.9x1.9mm', 'keywords':'Kinetis KL03 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL03P24M48SF0.pdf', 'pins':[
+        Part(**{ 'name':'MKL03Z16VFG4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL03Z16VFG4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.9x1.9mm', 'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.9x1.9mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.9x1.9mm', 'keywords':'Kinetis KL03 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL03P24M48SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL03Z16VFG4\n\nKinetis KL03 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PTB2/IRQ_7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB3/IRQ_10',func=Pin.types.BIDIR,unit=1),
@@ -4660,7 +4660,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA7/IRQ_4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB0/IRQ_5/LLWU_P4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTB1/IRQ_6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL03Z16VFK4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL03Z16VFK4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'Kinetis KL03 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL03P24M48SF0.pdf', 'pins':[
+        Part(**{ 'name':'MKL03Z16VFK4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL03Z16VFK4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'Kinetis KL03 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL03P24M48SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL03Z16VFK4\n\nKinetis KL03 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTB6/IRQ_2/LPTMR0_ALT3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB11',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTA7/IRQ_4',func=Pin.types.BIDIR,unit=1),
@@ -4686,7 +4686,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA5/RTC_CLK_IN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTB10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL03Z32CBF4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL03Z32CBF4'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-20_1.994x1.609mm_Layout5x4_P0.4mm', 'Package_CSP:WLCSP-20_1.994x1.609mm_Layout5x4_P0.4mm'], 'footprint':'Package_CSP:WLCSP-20_1.994x1.609mm_Layout5x4_P0.4mm', 'keywords':'Kinetis KL03 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL03P24M48SF0.pdf', 'pins':[
+        Part(**{ 'name':'MKL03Z32CBF4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL03Z32CBF4'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-20_1.994x1.609mm_Layout5x4_P0.4mm', 'Package_CSP:WLCSP-20_1.994x1.609mm_Layout5x4_P0.4mm'], 'footprint':'Package_CSP:WLCSP-20_1.994x1.609mm_Layout5x4_P0.4mm', 'keywords':'Kinetis KL03 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL03P24M48SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL03Z32CBF4\n\nKinetis KL03 ARM Cortex M0+', 'pins':[
             Pin(num='A1',name='PTB3/IRQ_10',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='PTB5/IRQ_12',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PTB13/CLKOUT32K',func=Pin.types.BIDIR,unit=1),
@@ -4707,7 +4707,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='D3',name='PTA5/RTC_CLK_IN',func=Pin.types.BIDIR,unit=1),
             Pin(num='D4',name='PTA7/IRQ_4',func=Pin.types.BIDIR,unit=1),
             Pin(num='D5',name='PTA6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL03Z8VFG4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL03Z8VFG4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.9x1.9mm', 'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.9x1.9mm', 'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.9x1.9mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.9x1.9mm', 'keywords':'Kinetis KL03 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL03P24M48SF0.pdf', 'pins':[
+        Part(**{ 'name':'MKL03Z8VFG4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL03Z8VFG4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.9x1.9mm', 'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.9x1.9mm', 'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.9x1.9mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.9x1.9mm', 'keywords':'Kinetis KL03 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL03P24M48SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL03Z8VFG4\n\nKinetis KL03 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PTB2/IRQ_7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB3/IRQ_10',func=Pin.types.BIDIR,unit=1),
@@ -4725,7 +4725,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA7/IRQ_4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTB0/IRQ_5/LLWU_P4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTB1/IRQ_6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL03Z8VFK4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL03Z8VFK4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'Kinetis KL03 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL03P24M48SF0.pdf', 'pins':[
+        Part(**{ 'name':'MKL03Z8VFK4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL03Z8VFK4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'Kinetis KL03 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL03P24M48SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL03Z8VFK4\n\nKinetis KL03 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTB6/IRQ_2/LPTMR0_ALT3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB11',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTA7/IRQ_4',func=Pin.types.BIDIR,unit=1),
@@ -4751,7 +4751,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA5/RTC_CLK_IN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTB10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL04Z16VFK4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL04Z16VFK4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'Kinetis KL04 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL04P48M48SF1.pdf', 'pins':[
+        Part(**{ 'name':'MKL04Z16VFK4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL04Z16VFK4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'Kinetis KL04 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL04P48M48SF1.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL04Z16VFK4\n\nKinetis KL04 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTB6/IRQ_2/LPTMR0_ALT3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB11',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTA7/IRQ_7/LLWU_P3',func=Pin.types.BIDIR,unit=1),
@@ -4777,7 +4777,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA5/LLWU_P1/RTC_CLK_IN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA6/LLWU_P2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTB10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL04Z16VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL04Z16VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL04 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL04P48M48SF1.pdf', 'pins':[
+        Part(**{ 'name':'MKL04Z16VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL04Z16VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL04 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL04P48M48SF1.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL04Z16VFM4\n\nKinetis KL04 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTB6/IRQ_2/LPTMR0_ALT3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA6/LLWU_P2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB8',func=Pin.types.BIDIR,unit=1),
@@ -4811,7 +4811,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA4/LLWU_P0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTA5/LLWU_P1/RTC_CLK_IN',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL04Z16VLC4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL04Z16VLC4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'Kinetis KL04 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL04P48M48SF1.pdf', 'pins':[
+        Part(**{ 'name':'MKL04Z16VLC4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL04Z16VLC4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'Kinetis KL04 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL04P48M48SF1.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL04Z16VLC4\n\nKinetis KL04 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTB6/IRQ_2/LPTMR0_ALT3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA6/LLWU_P2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB8',func=Pin.types.BIDIR,unit=1),
@@ -4844,7 +4844,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA4/LLWU_P0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTA5/LLWU_P1/RTC_CLK_IN',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL04Z16VLF4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL04Z16VLF4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Kinetis KL04 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL04P48M48SF1.pdf', 'pins':[
+        Part(**{ 'name':'MKL04Z16VLF4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL04Z16VLF4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Kinetis KL04 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL04P48M48SF1.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL04Z16VLF4\n\nKinetis KL04 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTB6/IRQ_2/LPTMR0_ALT3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA4/LLWU_P0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VSS',func=Pin.types.PASSIVE,unit=1),
@@ -4893,7 +4893,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VREFL',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTA3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL04Z8VFK4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL04Z8VFK4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'Kinetis KL04 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL04P48M48SF1.pdf', 'pins':[
+        Part(**{ 'name':'MKL04Z8VFK4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL04Z8VFK4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'Kinetis KL04 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL04P48M48SF1.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL04Z8VFK4\n\nKinetis KL04 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTB6/IRQ_2/LPTMR0_ALT3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB11',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTA7/IRQ_7/LLWU_P3',func=Pin.types.BIDIR,unit=1),
@@ -4919,7 +4919,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA5/LLWU_P1/RTC_CLK_IN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA6/LLWU_P2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTB10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL04Z8VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL04Z8VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL04 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL04P48M48SF1.pdf', 'pins':[
+        Part(**{ 'name':'MKL04Z8VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL04Z8VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL04 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL04P48M48SF1.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL04Z8VFM4\n\nKinetis KL04 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTB6/IRQ_2/LPTMR0_ALT3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA6/LLWU_P2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB8',func=Pin.types.BIDIR,unit=1),
@@ -4953,7 +4953,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA4/LLWU_P0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTA5/LLWU_P1/RTC_CLK_IN',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL04Z8VLC4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL04Z8VLC4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'Kinetis KL04 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL04P48M48SF1.pdf', 'pins':[
+        Part(**{ 'name':'MKL04Z8VLC4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL04Z8VLC4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'Kinetis KL04 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL04P48M48SF1.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL04Z8VLC4\n\nKinetis KL04 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTB6/IRQ_2/LPTMR0_ALT3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA6/LLWU_P2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB8',func=Pin.types.BIDIR,unit=1),
@@ -4986,7 +4986,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA4/LLWU_P0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTA5/LLWU_P1/RTC_CLK_IN',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL05Z16VFK4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL05Z16VFK4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'Kinetis KL05 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL05P48M48SF1.pdf', 'pins':[
+        Part(**{ 'name':'MKL05Z16VFK4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL05Z16VFK4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'Kinetis KL05 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL05P48M48SF1.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL05Z16VFK4\n\nKinetis KL05 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTB6/IRQ_2/LPTMR0_ALT3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB11',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTA7/IRQ_7/LLWU_P3',func=Pin.types.BIDIR,unit=1),
@@ -5012,7 +5012,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA5/LLWU_P1/RTC_CLK_IN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA6/LLWU_P2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTB10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL05Z16VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL05Z16VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL05 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL05P48M48SF1.pdf', 'pins':[
+        Part(**{ 'name':'MKL05Z16VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL05Z16VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL05 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL05P48M48SF1.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL05Z16VFM4\n\nKinetis KL05 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTB6/IRQ_2/LPTMR0_ALT3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA6/LLWU_P2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB8',func=Pin.types.BIDIR,unit=1),
@@ -5046,7 +5046,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA4/LLWU_P0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTA5/LLWU_P1/RTC_CLK_IN',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL05Z16VLC4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL05Z16VLC4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'Kinetis KL05 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL05P48M48SF1.pdf', 'pins':[
+        Part(**{ 'name':'MKL05Z16VLC4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL05Z16VLC4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'Kinetis KL05 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL05P48M48SF1.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL05Z16VLC4\n\nKinetis KL05 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTB6/IRQ_2/LPTMR0_ALT3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA6/LLWU_P2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB8',func=Pin.types.BIDIR,unit=1),
@@ -5079,7 +5079,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA4/LLWU_P0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTA5/LLWU_P1/RTC_CLK_IN',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL05Z16VLF4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL05Z16VLF4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Kinetis KL05 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL05P48M48SF1.pdf', 'pins':[
+        Part(**{ 'name':'MKL05Z16VLF4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL05Z16VLF4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Kinetis KL05 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL05P48M48SF1.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL05Z16VLF4\n\nKinetis KL05 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTB6/IRQ_2/LPTMR0_ALT3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA4/LLWU_P0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VSS',func=Pin.types.PASSIVE,unit=1),
@@ -5128,7 +5128,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VREFL',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTA3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL05Z8VFK4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL05Z8VFK4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'Kinetis KL05 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL05P48M48SF1.pdf', 'pins':[
+        Part(**{ 'name':'MKL05Z8VFK4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL05Z8VFK4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'Kinetis KL05 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL05P48M48SF1.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL05Z8VFK4\n\nKinetis KL05 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTB6/IRQ_2/LPTMR0_ALT3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTB11',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTA7/IRQ_7/LLWU_P3',func=Pin.types.BIDIR,unit=1),
@@ -5154,7 +5154,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA5/LLWU_P1/RTC_CLK_IN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA6/LLWU_P2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTB10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL05Z8VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL05Z8VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL05 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL05P48M48SF1.pdf', 'pins':[
+        Part(**{ 'name':'MKL05Z8VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL05Z8VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL05 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL05P48M48SF1.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL05Z8VFM4\n\nKinetis KL05 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTB6/IRQ_2/LPTMR0_ALT3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA6/LLWU_P2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB8',func=Pin.types.BIDIR,unit=1),
@@ -5188,7 +5188,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA4/LLWU_P0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTA5/LLWU_P1/RTC_CLK_IN',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL05Z8VLC4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL05Z8VLC4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'Kinetis KL05 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL05P48M48SF1.pdf', 'pins':[
+        Part(**{ 'name':'MKL05Z8VLC4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL05Z8VLC4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'Kinetis KL05 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL05P48M48SF1.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL05Z8VLC4\n\nKinetis KL05 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTB6/IRQ_2/LPTMR0_ALT3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA6/LLWU_P2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTB8',func=Pin.types.BIDIR,unit=1),
@@ -5221,7 +5221,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTA4/LLWU_P0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTA5/LLWU_P1/RTC_CLK_IN',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL16Z32VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL16Z32VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL16 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL16P64M48SF5.pdf', 'pins':[
+        Part(**{ 'name':'MKL16Z32VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL16Z32VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL16 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL16P64M48SF5.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL16Z32VFM4\n\nKinetis KL16 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTA1',func=Pin.types.BIDIR,unit=1),
@@ -5254,7 +5254,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDDA',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTE30',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL16Z32VFT4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL16Z32VFT4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'Kinetis KL16 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL16P64M48SF5.pdf', 'pins':[
+        Part(**{ 'name':'MKL16Z32VFT4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL16Z32VFT4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'Kinetis KL16 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL16P64M48SF5.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL16Z32VFT4\n\nKinetis KL16 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VREFH',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='VREFL',func=Pin.types.PWRIN,unit=1),
@@ -5303,7 +5303,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE20',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL16Z32VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL16Z32VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL16 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL16P64M48SF5.pdf', 'pins':[
+        Part(**{ 'name':'MKL16Z32VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL16Z32VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL16 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL16P64M48SF5.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL16Z32VLH4\n\nKinetis KL16 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE22',func=Pin.types.BIDIR,unit=1),
@@ -5368,7 +5368,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE18',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE19',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE20',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL16Z64VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL16Z64VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL16 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL16P64M48SF5.pdf', 'pins':[
+        Part(**{ 'name':'MKL16Z64VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL16Z64VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL16 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL16P64M48SF5.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL16Z64VFM4\n\nKinetis KL16 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTA1',func=Pin.types.BIDIR,unit=1),
@@ -5401,7 +5401,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDDA',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTE30',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL16Z64VFT4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL16Z64VFT4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'Kinetis KL16 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL16P64M48SF5.pdf', 'pins':[
+        Part(**{ 'name':'MKL16Z64VFT4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL16Z64VFT4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'Kinetis KL16 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL16P64M48SF5.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL16Z64VFT4\n\nKinetis KL16 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VREFH',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='VREFL',func=Pin.types.PWRIN,unit=1),
@@ -5450,7 +5450,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE20',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL16Z64VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL16Z64VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL16 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL16P64M48SF5.pdf', 'pins':[
+        Part(**{ 'name':'MKL16Z64VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL16Z64VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL16 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL16P64M48SF5.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL16Z64VLH4\n\nKinetis KL16 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE22',func=Pin.types.BIDIR,unit=1),
@@ -5515,7 +5515,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE18',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE19',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE20',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL17Z128VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL17Z128VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL17 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL17P64M48SF6.pdf', 'pins':[
+        Part(**{ 'name':'MKL17Z128VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL17Z128VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL17 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL17P64M48SF6.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL17Z128VFM4\n\nKinetis KL17 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTA1',func=Pin.types.BIDIR,unit=1),
@@ -5549,7 +5549,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDDA',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTE30',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL17Z128VFT4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL17Z128VFT4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'Kinetis KL17 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL17P64M48SF6.pdf', 'pins':[
+        Part(**{ 'name':'MKL17Z128VFT4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL17Z128VFT4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'Kinetis KL17 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL17P64M48SF6.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL17Z128VFT4\n\nKinetis KL17 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VREFH',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='VREFL',func=Pin.types.PWRIN,unit=1),
@@ -5599,7 +5599,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE20',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL17Z128VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL17Z128VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL17 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL17P64M48SF6.pdf', 'pins':[
+        Part(**{ 'name':'MKL17Z128VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL17Z128VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL17 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL17P64M48SF6.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL17Z128VLH4\n\nKinetis KL17 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE22',func=Pin.types.BIDIR,unit=1),
@@ -5664,7 +5664,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE18',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE19',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE20',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL17Z128VMP4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL17Z128VMP4'}), 'ref_prefix':'U', 'fplist':['Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm', 'Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm', 'keywords':'Kinetis KL17 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL17P64M48SF6.pdf', 'pins':[
+        Part(**{ 'name':'MKL17Z128VMP4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL17Z128VMP4'}), 'ref_prefix':'U', 'fplist':['Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm', 'Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm', 'keywords':'Kinetis KL17 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL17P64M48SF6.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL17Z128VMP4\n\nKinetis KL17 ARM Cortex M0+', 'pins':[
             Pin(num='A1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='PTD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PTD4/LLWU_P14',func=Pin.types.BIDIR,unit=1),
@@ -5729,7 +5729,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='H6',name='PTA12',func=Pin.types.BIDIR,unit=1),
             Pin(num='H7',name='VSS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='H8',name='PTA18',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL17Z32VDA4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL17Z32VDA4'}), 'ref_prefix':'U', 'fplist':['Package_BGA:XFBGA-36_3.5x3.5mm_Layout6x6_P0.5mm', 'Package_BGA:XFBGA-36_3.5x3.5mm_Layout6x6_P0.5mm'], 'footprint':'Package_BGA:XFBGA-36_3.5x3.5mm_Layout6x6_P0.5mm', 'keywords':'Kinetis KL17 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL17P64M48SF2.pdf', 'pins':[
+        Part(**{ 'name':'MKL17Z32VDA4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL17Z32VDA4'}), 'ref_prefix':'U', 'fplist':['Package_BGA:XFBGA-36_3.5x3.5mm_Layout6x6_P0.5mm', 'Package_BGA:XFBGA-36_3.5x3.5mm_Layout6x6_P0.5mm'], 'footprint':'Package_BGA:XFBGA-36_3.5x3.5mm_Layout6x6_P0.5mm', 'keywords':'Kinetis KL17 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL17P64M48SF2.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL17Z32VDA4\n\nKinetis KL17 ARM Cortex M0+', 'pins':[
             Pin(num='A1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='PTD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PTD4/LLWU_P14',func=Pin.types.BIDIR,unit=1),
@@ -5766,7 +5766,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='F4',name='PTA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='F5',name='PTA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='F6',name='PTA18',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL17Z32VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL17Z32VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL17 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL17P64M48SF2.pdf', 'pins':[
+        Part(**{ 'name':'MKL17Z32VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL17Z32VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL17 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL17P64M48SF2.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL17Z32VFM4\n\nKinetis KL17 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTA1',func=Pin.types.BIDIR,unit=1),
@@ -5800,7 +5800,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDDA/VREFH',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSSA/VREFL',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTE30/VREF0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL17Z32VFT4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL17Z32VFT4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'Kinetis KL17 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL17P64M48SF6.pdf', 'pins':[
+        Part(**{ 'name':'MKL17Z32VFT4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL17Z32VFT4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'Kinetis KL17 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL17P64M48SF6.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL17Z32VFT4\n\nKinetis KL17 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VREFH/VREFO',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='VREFL',func=Pin.types.PWRIN,unit=1),
@@ -5850,7 +5850,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE20',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL17Z32VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL17Z32VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL17 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL17P64M48SF2.pdf', 'pins':[
+        Part(**{ 'name':'MKL17Z32VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL17Z32VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL17 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL17P64M48SF2.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL17Z32VLH4\n\nKinetis KL17 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE22',func=Pin.types.BIDIR,unit=1),
@@ -5915,7 +5915,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE18',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE19',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE20',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL17Z32VMP4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL17Z32VMP4'}), 'ref_prefix':'U', 'fplist':['Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm', 'Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm', 'keywords':'Kinetis KL17 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL17P64M48SF2.pdf', 'pins':[
+        Part(**{ 'name':'MKL17Z32VMP4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL17Z32VMP4'}), 'ref_prefix':'U', 'fplist':['Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm', 'Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm', 'keywords':'Kinetis KL17 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL17P64M48SF2.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL17Z32VMP4\n\nKinetis KL17 ARM Cortex M0+', 'pins':[
             Pin(num='A1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='PTD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PTD4/LLWU_P14',func=Pin.types.BIDIR,unit=1),
@@ -5980,7 +5980,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='H6',name='PTA12',func=Pin.types.BIDIR,unit=1),
             Pin(num='H7',name='VSS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='H8',name='PTA18',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL24Z32VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL24Z32VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL24 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL24P80M48SF0.pdf', 'pins':[
+        Part(**{ 'name':'MKL24Z32VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL24Z32VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL24 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL24P80M48SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL24Z32VFM4\n\nKinetis KL24 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTA1',func=Pin.types.BIDIR,unit=1),
@@ -6014,7 +6014,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDDA',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTE30',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL24Z32VFT4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL24Z32VFT4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'Kinetis KL24 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL24P80M48SF0.pdf', 'pins':[
+        Part(**{ 'name':'MKL24Z32VFT4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL24Z32VFT4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'Kinetis KL24 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL24P80M48SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL24Z32VFT4\n\nKinetis KL24 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VREFH',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='VREFL',func=Pin.types.PWRIN,unit=1),
@@ -6064,7 +6064,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE20',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL24Z32VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL24Z32VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL24 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL24P80M48SF0.pdf', 'pins':[
+        Part(**{ 'name':'MKL24Z32VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL24Z32VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL24 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL24P80M48SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL24Z32VLH4\n\nKinetis KL24 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE22',func=Pin.types.BIDIR,unit=1),
@@ -6129,7 +6129,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VOUT33',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='VREGIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTE20',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL24Z32VLK4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL24Z32VLK4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-80_12x12mm_P0.5mm', 'Package_QFP:LQFP-80_12x12mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-80_12x12mm_P0.5mm', 'keywords':'Kinetis KL24 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL24P80M48SF0.pdf', 'pins':[
+        Part(**{ 'name':'MKL24Z32VLK4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL24Z32VLK4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-80_12x12mm_P0.5mm', 'Package_QFP:LQFP-80_12x12mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-80_12x12mm_P0.5mm', 'keywords':'Kinetis KL24 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL24P80M48SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL24Z32VLK4\n\nKinetis KL24 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='USB0_DM',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VOUT33',func=Pin.types.PWROUT,unit=1),
@@ -6210,7 +6210,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='80',name='PTD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='USB0_DP',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL25Z32VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL25Z32VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL25 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL25P80M48SF0.pdf', 'pins':[
+        Part(**{ 'name':'MKL25Z32VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL25Z32VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL25 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL25P80M48SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL25Z32VFM4\n\nKinetis KL25 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTA1',func=Pin.types.BIDIR,unit=1),
@@ -6244,7 +6244,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDDA',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTE30',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL25Z32VFT4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL25Z32VFT4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'Kinetis KL25 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL25P80M48SF0.pdf', 'pins':[
+        Part(**{ 'name':'MKL25Z32VFT4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL25Z32VFT4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'Kinetis KL25 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL25P80M48SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL25Z32VFT4\n\nKinetis KL25 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VREFH',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='VREFL',func=Pin.types.PWRIN,unit=1),
@@ -6294,7 +6294,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE20',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL25Z32VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL25Z32VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL25 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL25P80M48SF0.pdf', 'pins':[
+        Part(**{ 'name':'MKL25Z32VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL25Z32VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL25 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL25P80M48SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL25Z32VLH4\n\nKinetis KL25 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE22',func=Pin.types.BIDIR,unit=1),
@@ -6359,7 +6359,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VOUT33',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='VREGIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTE20',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL25Z32VLK4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL25Z32VLK4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-80_12x12mm_P0.5mm', 'Package_QFP:LQFP-80_12x12mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-80_12x12mm_P0.5mm', 'keywords':'Kinetis KL25 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL25P80M48SF0.pdf', 'pins':[
+        Part(**{ 'name':'MKL25Z32VLK4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL25Z32VLK4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-80_12x12mm_P0.5mm', 'Package_QFP:LQFP-80_12x12mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-80_12x12mm_P0.5mm', 'keywords':'Kinetis KL25 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL25P80M48SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL25Z32VLK4\n\nKinetis KL25 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='USB0_DM',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VOUT33',func=Pin.types.PWROUT,unit=1),
@@ -6440,7 +6440,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='80',name='PTD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='USB0_DP',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL25Z64VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL25Z64VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL25 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL25P80M48SF0.pdf', 'pins':[
+        Part(**{ 'name':'MKL25Z64VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL25Z64VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL25 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL25P80M48SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL25Z64VFM4\n\nKinetis KL25 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTA1',func=Pin.types.BIDIR,unit=1),
@@ -6474,7 +6474,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDDA',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTE30',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL25Z64VFT4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL25Z64VFT4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'Kinetis KL25 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL25P80M48SF0.pdf', 'pins':[
+        Part(**{ 'name':'MKL25Z64VFT4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL25Z64VFT4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'Kinetis KL25 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL25P80M48SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL25Z64VFT4\n\nKinetis KL25 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VREFH',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='VREFL',func=Pin.types.PWRIN,unit=1),
@@ -6524,7 +6524,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE20',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL25Z64VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL25Z64VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL25 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL25P80M48SF0.pdf', 'pins':[
+        Part(**{ 'name':'MKL25Z64VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL25Z64VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL25 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL25P80M48SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL25Z64VLH4\n\nKinetis KL25 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE22',func=Pin.types.BIDIR,unit=1),
@@ -6589,7 +6589,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VOUT33',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='VREGIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTE20',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL25Z64VLK4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL25Z64VLK4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-80_12x12mm_P0.5mm', 'Package_QFP:LQFP-80_12x12mm_P0.5mm', 'Package_QFP:LQFP-80_12x12mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-80_12x12mm_P0.5mm', 'keywords':'Kinetis KL25 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL25P80M48SF0.pdf', 'pins':[
+        Part(**{ 'name':'MKL25Z64VLK4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL25Z64VLK4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-80_12x12mm_P0.5mm', 'Package_QFP:LQFP-80_12x12mm_P0.5mm', 'Package_QFP:LQFP-80_12x12mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-80_12x12mm_P0.5mm', 'keywords':'Kinetis KL25 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL25P80M48SF0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL25Z64VLK4\n\nKinetis KL25 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='USB0_DM',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VOUT33',func=Pin.types.PWROUT,unit=1),
@@ -6670,7 +6670,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='80',name='PTD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='USB0_DP',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL26Z128VLL4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL26Z128VLL4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Kinetis KL26 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL26P121M48SF4.pdf', 'pins':[
+        Part(**{ 'name':'MKL26Z128VLL4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL26Z128VLL4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Kinetis KL26 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL26P121M48SF4.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL26Z128VLL4\n\nKinetis KL26 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='USB0_DP',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PTD7',func=Pin.types.BIDIR,unit=1),
@@ -6771,7 +6771,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PTD4/LLWU_P14',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PTD5',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PTD6/LLWU_P15',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL26Z128VMC4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL26Z128VMC4'}), 'ref_prefix':'U', 'fplist':['Package_BGA:XFBGA-121_8x8mm_Layout11x11_P0.65mm', 'Package_BGA:XFBGA-121_8x8mm_Layout11x11_P0.65mm'], 'footprint':'Package_BGA:XFBGA-121_8x8mm_Layout11x11_P0.65mm', 'keywords':'Kinetis KL26 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL26P121M48SF4.pdf', 'pins':[
+        Part(**{ 'name':'MKL26Z128VMC4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL26Z128VMC4'}), 'ref_prefix':'U', 'fplist':['Package_BGA:XFBGA-121_8x8mm_Layout11x11_P0.65mm', 'Package_BGA:XFBGA-121_8x8mm_Layout11x11_P0.65mm'], 'footprint':'Package_BGA:XFBGA-121_8x8mm_Layout11x11_P0.65mm', 'keywords':'Kinetis KL26 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL26P121M48SF4.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL26Z128VMC4\n\nKinetis KL26 ARM Cortex M0+', 'pins':[
             Pin(num='A1',name='PTD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='PTC20',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -6893,7 +6893,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='L7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='L8',name='PTA13/LLWU_P4',func=Pin.types.BIDIR,unit=1),
             Pin(num='L9',name='PTA15',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL26Z32VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL26Z32VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL26 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL26P64M48SF5.pdf', 'pins':[
+        Part(**{ 'name':'MKL26Z32VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL26Z32VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL26 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL26P64M48SF5.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL26Z32VFM4\n\nKinetis KL26 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTA1',func=Pin.types.BIDIR,unit=1),
@@ -6927,7 +6927,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDDA',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTE30',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL26Z32VFT4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL26Z32VFT4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'Kinetis KL26 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL26P64M48SF5.pdf', 'pins':[
+        Part(**{ 'name':'MKL26Z32VFT4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL26Z32VFT4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'Kinetis KL26 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL26P64M48SF5.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL26Z32VFT4\n\nKinetis KL26 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VREFH',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='VREFL',func=Pin.types.PWRIN,unit=1),
@@ -6977,7 +6977,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE20',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL26Z32VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL26Z32VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL26 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL26P64M48SF5.pdf', 'pins':[
+        Part(**{ 'name':'MKL26Z32VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL26Z32VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL26 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL26P64M48SF5.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL26Z32VLH4\n\nKinetis KL26 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE22',func=Pin.types.BIDIR,unit=1),
@@ -7042,7 +7042,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VOUT33',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='VREGIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTE20',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL26Z64VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL26Z64VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL26 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL26P64M48SF5.pdf', 'pins':[
+        Part(**{ 'name':'MKL26Z64VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL26Z64VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL26 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL26P64M48SF5.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL26Z64VFM4\n\nKinetis KL26 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTA1',func=Pin.types.BIDIR,unit=1),
@@ -7076,7 +7076,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDDA',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSSA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTE30',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL26Z64VFT4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL26Z64VFT4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'Kinetis KL26 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL26P64M48SF5.pdf', 'pins':[
+        Part(**{ 'name':'MKL26Z64VFT4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL26Z64VFT4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'Kinetis KL26 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL26P64M48SF5.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL26Z64VFT4\n\nKinetis KL26 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VREFH',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='VREFL',func=Pin.types.PWRIN,unit=1),
@@ -7126,7 +7126,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE20',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL26Z64VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL26Z64VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL26 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL26P64M48SF5.pdf', 'pins':[
+        Part(**{ 'name':'MKL26Z64VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL26Z64VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL26 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL26P64M48SF5.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL26Z64VLH4\n\nKinetis KL26 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE22',func=Pin.types.BIDIR,unit=1),
@@ -7191,7 +7191,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VOUT33',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='VREGIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTE20',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL27Z128VFT4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL27Z128VFT4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'Kinetis KL27 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL27P64M48SF6.pdf', 'pins':[
+        Part(**{ 'name':'MKL27Z128VFT4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL27Z128VFT4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'Kinetis KL27 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL27P64M48SF6.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL27Z128VFT4\n\nKinetis KL27 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VREFH',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='VREFL',func=Pin.types.PWRIN,unit=1),
@@ -7241,7 +7241,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE20',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL27Z128VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL27Z128VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL27 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL27P64M48SF6.pdf', 'pins':[
+        Part(**{ 'name':'MKL27Z128VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL27Z128VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL27 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL27P64M48SF6.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL27Z128VLH4\n\nKinetis KL27 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE22',func=Pin.types.BIDIR,unit=1),
@@ -7306,7 +7306,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VOUT33',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='VREGIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTE20',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL27Z32VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL27Z32VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL27 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL27P64M48SF2.pdf', 'pins':[
+        Part(**{ 'name':'MKL27Z32VFM4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL27Z32VFM4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'Kinetis KL27 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL27P64M48SF2.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL27Z32VFM4\n\nKinetis KL27 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTA1',func=Pin.types.BIDIR,unit=1),
@@ -7340,7 +7340,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDDA/VREFH',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSSA/VREFL',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTE30/VREF0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL27Z32VFT4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL27Z32VFT4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'Kinetis KL27 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL27P64M48SF2.pdf', 'pins':[
+        Part(**{ 'name':'MKL27Z32VFT4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL27Z32VFT4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'Kinetis KL27 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL27P64M48SF2.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL27Z32VFT4\n\nKinetis KL27 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VREFH/VREFO',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='VREFL',func=Pin.types.PWRIN,unit=1),
@@ -7390,7 +7390,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTE20',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL27Z32VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL27Z32VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL27 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL27P64M48SF2.pdf', 'pins':[
+        Part(**{ 'name':'MKL27Z32VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL27Z32VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL27 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL27P64M48SF2.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL27Z32VLH4\n\nKinetis KL27 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE22',func=Pin.types.BIDIR,unit=1),
@@ -7455,7 +7455,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='USB_VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='PTE16',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PTE20',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL43Z128VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL43Z128VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL43 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL43P64M48SF6.pdf', 'pins':[
+        Part(**{ 'name':'MKL43Z128VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL43Z128VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL43 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL43P64M48SF6.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL43Z128VLH4\n\nKinetis KL43 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE22',func=Pin.types.BIDIR,unit=1),
@@ -7520,7 +7520,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VOUT33',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='VREGIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTE20',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL43Z128VMP4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL43Z128VMP4'}), 'ref_prefix':'U', 'fplist':['Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm', 'Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm', 'keywords':'Kinetis KL43 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL43P64M48SF6.pdf', 'pins':[
+        Part(**{ 'name':'MKL43Z128VMP4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL43Z128VMP4'}), 'ref_prefix':'U', 'fplist':['Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm', 'Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm'], 'footprint':'Package_BGA:XFBGA-64_5.0x5.0mm_Layout8x8_P0.5mm', 'keywords':'Kinetis KL43 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL43P64M48SF6.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL43Z128VMP4\n\nKinetis KL43 ARM Cortex M0+', 'pins':[
             Pin(num='A1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='PTD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='PTD4/LLWU_P14',func=Pin.types.BIDIR,unit=1),
@@ -7585,7 +7585,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='H6',name='PTA12',func=Pin.types.BIDIR,unit=1),
             Pin(num='H7',name='VSS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='H8',name='PTA18',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL46Z128VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL46Z128VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL46 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL46P121M48SF4.pdf', 'pins':[
+        Part(**{ 'name':'MKL46Z128VLH4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL46Z128VLH4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'Kinetis KL46 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL46P121M48SF4.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL46Z128VLH4\n\nKinetis KL46 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PTE21',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PTE22',func=Pin.types.BIDIR,unit=1),
@@ -7650,7 +7650,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VOUT33',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='VREGIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PTE20',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL46Z128VLL4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL46Z128VLL4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Kinetis KL46 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL46P121M48SF4.pdf', 'pins':[
+        Part(**{ 'name':'MKL46Z128VLL4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL46Z128VLL4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'Kinetis KL46 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL46P121M48SF4.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL46Z128VLL4\n\nKinetis KL46 ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='USB0_DP',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PTD7',func=Pin.types.BIDIR,unit=1),
@@ -7751,7 +7751,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PTD4/LLWU_P14',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PTD5',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PTD6/LLWU_P15',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKL46Z128VMC4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL46Z128VMC4'}), 'ref_prefix':'U', 'fplist':['Package_BGA:XFBGA-121_8x8mm_Layout11x11_P0.65mm', 'Package_BGA:XFBGA-121_8x8mm_Layout11x11_P0.65mm'], 'footprint':'Package_BGA:XFBGA-121_8x8mm_Layout11x11_P0.65mm', 'keywords':'Kinetis KL46 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL46P121M48SF4.pdf', 'pins':[
+        Part(**{ 'name':'MKL46Z128VMC4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKL46Z128VMC4'}), 'ref_prefix':'U', 'fplist':['Package_BGA:XFBGA-121_8x8mm_Layout11x11_P0.65mm', 'Package_BGA:XFBGA-121_8x8mm_Layout11x11_P0.65mm'], 'footprint':'Package_BGA:XFBGA-121_8x8mm_Layout11x11_P0.65mm', 'keywords':'Kinetis KL46 ARM Cortex M0+', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/KL46P121M48SF4.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKL46Z128VMC4\n\nKinetis KL46 ARM Cortex M0+', 'pins':[
             Pin(num='A1',name='PTD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='VLL2/PTC20',func=Pin.types.PWROUT,unit=1),
             Pin(num='A11',name='VLL3',func=Pin.types.PWROUT,unit=1),
@@ -7873,7 +7873,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='L7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='L8',name='PTA13',func=Pin.types.BIDIR,unit=1),
             Pin(num='L9',name='PTA15',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKW21Z256VHT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKW21Z256VHT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias'], 'footprint':'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'keywords':'Kinetis KW21Z ARM Cortex M0+', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MKW41Z512.pdf', 'pins':[
+        Part(**{ 'name':'MKW21Z256VHT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKW21Z256VHT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias'], 'footprint':'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'keywords':'Kinetis KW21Z ARM Cortex M0+', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MKW41Z512.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKW21Z256VHT\n\nKinetis KW21Z ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTA0',func=Pin.types.BIDIR),
             Pin(num='10',name='VDCDC_IN',func=Pin.types.PWRIN),
             Pin(num='11',name='DCDC_LP',func=Pin.types.PASSIVE),
@@ -7923,7 +7923,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA19',func=Pin.types.BIDIR),
             Pin(num='8',name='PSWITCH',func=Pin.types.INPUT),
             Pin(num='9',name='DCDC_CFG',func=Pin.types.INPUT)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKW21Z512VHT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKW21Z512VHT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias'], 'footprint':'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'keywords':'Kinetis KW21Z ARM Cortex M0+', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MKW41Z512.pdf', 'pins':[
+        Part(**{ 'name':'MKW21Z512VHT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKW21Z512VHT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias'], 'footprint':'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'keywords':'Kinetis KW21Z ARM Cortex M0+', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MKW41Z512.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKW21Z512VHT\n\nKinetis KW21Z ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTA0',func=Pin.types.BIDIR),
             Pin(num='10',name='VDCDC_IN',func=Pin.types.PWRIN),
             Pin(num='11',name='DCDC_LP',func=Pin.types.PASSIVE),
@@ -7973,7 +7973,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA19',func=Pin.types.BIDIR),
             Pin(num='8',name='PSWITCH',func=Pin.types.INPUT),
             Pin(num='9',name='DCDC_CFG',func=Pin.types.INPUT)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKW31Z256VHT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKW31Z256VHT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias'], 'footprint':'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'keywords':'Kinetis KW31Z ARM Cortex M0+', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MKW41Z512.pdf', 'pins':[
+        Part(**{ 'name':'MKW31Z256VHT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKW31Z256VHT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias'], 'footprint':'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'keywords':'Kinetis KW31Z ARM Cortex M0+', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MKW41Z512.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKW31Z256VHT\n\nKinetis KW31Z ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTA0',func=Pin.types.BIDIR),
             Pin(num='10',name='VDCDC_IN',func=Pin.types.PWRIN),
             Pin(num='11',name='DCDC_LP',func=Pin.types.PASSIVE),
@@ -8023,7 +8023,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA19',func=Pin.types.BIDIR),
             Pin(num='8',name='PSWITCH',func=Pin.types.INPUT),
             Pin(num='9',name='DCDC_CFG',func=Pin.types.INPUT)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKW31Z512VHT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKW31Z512VHT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias'], 'footprint':'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'keywords':'Kinetis KW31Z ARM Cortex M0+', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MKW41Z512.pdf', 'pins':[
+        Part(**{ 'name':'MKW31Z512VHT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKW31Z512VHT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias'], 'footprint':'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'keywords':'Kinetis KW31Z ARM Cortex M0+', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MKW41Z512.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKW31Z512VHT\n\nKinetis KW31Z ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTA0',func=Pin.types.BIDIR),
             Pin(num='10',name='VDCDC_IN',func=Pin.types.PWRIN),
             Pin(num='11',name='DCDC_LP',func=Pin.types.PASSIVE),
@@ -8073,7 +8073,7 @@ MCU_NXP_Kinetis = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PTA19',func=Pin.types.BIDIR),
             Pin(num='8',name='PSWITCH',func=Pin.types.INPUT),
             Pin(num='9',name='DCDC_CFG',func=Pin.types.INPUT)], 'unit_defs':[] }),
-        Part(**{ 'name':'MKW41Z256VHT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKW41Z256VHT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias'], 'footprint':'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'keywords':'Kinetis KW41Z ARM Cortex M0+', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MKW41Z512.pdf', 'pins':[
+        Part(**{ 'name':'MKW41Z256VHT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MKW41Z256VHT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias'], 'footprint':'Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias', 'keywords':'Kinetis KW41Z ARM Cortex M0+', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MKW41Z512.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_Kinetis.kicad_sym\nMKW41Z256VHT\n\nKinetis KW41Z ARM Cortex M0+', 'pins':[
             Pin(num='1',name='PTA0',func=Pin.types.BIDIR),
             Pin(num='10',name='VDCDC_IN',func=Pin.types.PWRIN),
             Pin(num='11',name='DCDC_LP',func=Pin.types.PASSIVE),

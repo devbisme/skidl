@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 MCU_AnalogDevices = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'ADUC816', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADUC816'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8051 CORE MCU ADC DAC', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/ADUC816.pdf', 'pins':[
+        Part(**{ 'name':'ADUC816', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADUC816'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8051 CORE MCU ADC DAC', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/ADUC816.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_AnalogDevices.kicad_sym\nADUC816\n\n8051 CORE MCU ADC DAC', 'pins':[
             Pin(num='1',name='P1.0(T2)',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P1.5(AIN2)',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='P1.6(AIN3)',func=Pin.types.INPUT,unit=1),
@@ -57,7 +57,7 @@ MCU_AnalogDevices = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='REF-',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='REF+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='P1.4(AIN1)',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX32660GTP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX32660GTP'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-20-1EP_4x4mm_P0.5mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:TQFN-20-1EP_4x4mm_P0.5mm_EP2.7x2.7mm', 'keywords':'ARM 32-bit Cortex-M4 Maxim ADI Darwin', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/max32660.pdf', 'pins':[
+        Part(**{ 'name':'MAX32660GTP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX32660GTP'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-20-1EP_4x4mm_P0.5mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:TQFN-20-1EP_4x4mm_P0.5mm_EP2.7x2.7mm', 'keywords':'ARM 32-bit Cortex-M4 Maxim ADI Darwin', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/max32660.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_AnalogDevices.kicad_sym\nMAX32660GTP\n\nARM 32-bit Cortex-M4 Maxim ADI Darwin', 'pins':[
             Pin(num='1',name='P0.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VCORE',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='P0.9',func=Pin.types.BIDIR,unit=1),
@@ -79,7 +79,7 @@ MCU_AnalogDevices = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='32KOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='32KIN',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX32670GTL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX32670GTL'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-40-1EP_5x5mm_P0.4mm_EP3.5x3.5mm'], 'footprint':'Package_DFN_QFN:TQFN-40-1EP_5x5mm_P0.4mm_EP3.5x3.5mm', 'keywords':'ARM 32-bit Cortex-M4 Maxim ADI Darwin', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/max32670-max32671.pdf', 'pins':[
+        Part(**{ 'name':'MAX32670GTL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX32670GTL'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-40-1EP_5x5mm_P0.4mm_EP3.5x3.5mm'], 'footprint':'Package_DFN_QFN:TQFN-40-1EP_5x5mm_P0.4mm_EP3.5x3.5mm', 'keywords':'ARM 32-bit Cortex-M4 Maxim ADI Darwin', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/max32670-max32671.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_AnalogDevices.kicad_sym\nMAX32670GTL\n\nARM 32-bit Cortex-M4 Maxim ADI Darwin', 'pins':[
             Pin(num='1',name='P0.20',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P0.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P0.7',func=Pin.types.BIDIR,unit=1),

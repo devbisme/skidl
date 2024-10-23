@@ -4,14 +4,14 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Isolator = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'4N25', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4N25'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-6_W7.62mm'], 'footprint':'Package_DIP:DIP-6_W7.62mm', 'keywords':'NPN DC Optocoupler Base Connected', 'description':'', 'datasheet':'https://www.vishay.com/docs/83725/4n25.pdf', 'pins':[
+        Part(**{ 'name':'4N25', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4N25'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-6_W7.62mm'], 'footprint':'Package_DIP:DIP-6_W7.62mm', 'keywords':'NPN DC Optocoupler Base Connected', 'description':'', 'datasheet':'https://www.vishay.com/docs/83725/4n25.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\n4N25\n\nNPN DC Optocoupler Base Connected', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'6N135', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'6N135'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High Speed Optocoupler', 'description':'', 'datasheet':'https://optoelectronics.liteon.com/upload/download/DS70-2008-0032/6N135-L%206N136-L%20series.pdf', 'pins':[
+        Part(**{ 'name':'6N135', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'6N135'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High Speed Optocoupler', 'description':'', 'datasheet':'https://optoelectronics.liteon.com/upload/download/DS70-2008-0032/6N135-L%206N136-L%20series.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\n6N135\n\nHigh Speed Optocoupler', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -20,7 +20,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'6N135S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'6N135S'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-8_W9.53mm'], 'footprint':'Package_DIP:SMDIP-8_W9.53mm', 'keywords':'High Speed Optocoupler', 'description':'', 'datasheet':'https://optoelectronics.liteon.com/upload/download/DS70-2008-0032/6N135-L%206N136-L%20series.pdf', 'pins':[
+        Part(**{ 'name':'6N135S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'6N135S'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-8_W9.53mm'], 'footprint':'Package_DIP:SMDIP-8_W9.53mm', 'keywords':'High Speed Optocoupler', 'description':'', 'datasheet':'https://optoelectronics.liteon.com/upload/download/DS70-2008-0032/6N135-L%206N136-L%20series.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\n6N135S\n\nHigh Speed Optocoupler', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -29,7 +29,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'6N138', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'6N138'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'darlington optocoupler', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/HCPL2731-D.pdf', 'pins':[
+        Part(**{ 'name':'6N138', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'6N138'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'darlington optocoupler', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/HCPL2731-D.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\n6N138\n\ndarlington optocoupler', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='C1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C2',func=Pin.types.PASSIVE,unit=1),
@@ -38,7 +38,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='VO1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADN4650', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADN4650'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'LVDS Isolator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/adn4650-4651-4652.pdf', 'pins':[
+        Part(**{ 'name':'ADN4650', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADN4650'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'LVDS Isolator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/adn4650-4651-4652.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADN4650\n\nLVDS Isolator', 'pins':[
             Pin(num='12',name='VDD2',func=Pin.types.PWRIN),
             Pin(num='9',name='VDD1',func=Pin.types.PWRIN),
             Pin(num='1',name='VIN1',func=Pin.types.PWRIN,unit=1),
@@ -59,7 +59,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='DIN1-',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='DIN2+',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DIN2-',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADN4651', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADN4651'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'LVDS Isolator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/adn4650-4651-4652.pdf', 'pins':[
+        Part(**{ 'name':'ADN4651', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADN4651'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'LVDS Isolator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/adn4650-4651-4652.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADN4651\n\nLVDS Isolator', 'pins':[
             Pin(num='12',name='VDD2',func=Pin.types.PWRIN),
             Pin(num='9',name='VDD1',func=Pin.types.PWRIN),
             Pin(num='1',name='VIN1',func=Pin.types.PWRIN,unit=1),
@@ -80,7 +80,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='DIN1-',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='DOUT2+',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='DOUT2-',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADN4652', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADN4652'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'LVDS Isolator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/adn4650-4651-4652.pdf', 'pins':[
+        Part(**{ 'name':'ADN4652', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADN4652'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'LVDS Isolator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/adn4650-4651-4652.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADN4652\n\nLVDS Isolator', 'pins':[
             Pin(num='12',name='VDD2',func=Pin.types.PWRIN),
             Pin(num='9',name='VDD1',func=Pin.types.PWRIN),
             Pin(num='1',name='VIN1',func=Pin.types.PWRIN,unit=1),
@@ -101,7 +101,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='DOUT1-',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='DIN2+',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DIN2-',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM1200AR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1200AR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Dual-channel digital isolator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM1200_1201.pdf', 'pins':[
+        Part(**{ 'name':'ADuM1200AR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1200AR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Dual-channel digital isolator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM1200_1201.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM1200AR\n\nDual-channel digital isolator', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VIA',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='VIB',func=Pin.types.INPUT,unit=1),
@@ -110,7 +110,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VOB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VOA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VDD2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM1201AR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1201AR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Dual-channel digital isolator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM1200_1201.pdf', 'pins':[
+        Part(**{ 'name':'ADuM1201AR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1201AR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Dual-channel digital isolator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM1200_1201.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM1201AR\n\nDual-channel digital isolator', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VOA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='VIB',func=Pin.types.INPUT,unit=1),
@@ -119,7 +119,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VOB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VIA',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VDD2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM120N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM120N'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Dual-channel digital isolator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM120N_121N.pdf', 'pins':[
+        Part(**{ 'name':'ADuM120N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM120N'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Dual-channel digital isolator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM120N_121N.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM120N\n\nDual-channel digital isolator', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VIA',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='VIB',func=Pin.types.INPUT,unit=1),
@@ -128,7 +128,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VOB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VOA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VDD2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM121N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM121N'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Dual-channel digital isolator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM120N_121N.pdf', 'pins':[
+        Part(**{ 'name':'ADuM121N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM121N'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Dual-channel digital isolator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM120N_121N.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM121N\n\nDual-channel digital isolator', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VOA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='VIB',func=Pin.types.INPUT,unit=1),
@@ -137,7 +137,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VOB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VIA',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VDD2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM1250', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1250'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Dual-channel digital isolator I2C', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM1250_1251.pdf', 'pins':[
+        Part(**{ 'name':'ADuM1250', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1250'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Dual-channel digital isolator I2C', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM1250_1251.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM1250\n\nDual-channel digital isolator I2C', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='SDA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='SCL1',func=Pin.types.BIDIR,unit=1),
@@ -146,7 +146,24 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL2',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='SDA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VDD2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM1400xRW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1400xRW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'Digital Isolator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADUM1400_1401_1402.pdf', 'pins':[
+        Part(**{ 'name':'ADuM1300xRW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1300xRW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'Digital Isolator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/adum1300_1301.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM1300xRW\n\nDigital Isolator', 'pins':[
+            Pin(num='1',name='V_{DD1}',func=Pin.types.PWRIN,unit=1),
+            Pin(num='10',name='V_{E2}',func=Pin.types.INPUT,unit=1),
+            Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
+            Pin(num='12',name='V_{OC}',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='13',name='V_{OB}',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='14',name='V_{OA}',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='15',name='GND_{2}',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='16',name='V_{DD2}',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='GND_{1}',func=Pin.types.PWRIN,unit=1),
+            Pin(num='3',name='V_{IA}',func=Pin.types.INPUT,unit=1),
+            Pin(num='4',name='V_{IB}',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='V_{IC}',func=Pin.types.INPUT,unit=1),
+            Pin(num='6',name='NC',func=Pin.types.NOCONNECT,unit=1),
+            Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
+            Pin(num='8',name='GND_{1}',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='9',name='GND_{2}',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'ADuM1400xRW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1400xRW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'Digital Isolator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADUM1400_1401_1402.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM1400xRW\n\nDigital Isolator', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VE2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VOD',func=Pin.types.OUTPUT,unit=1),
@@ -163,7 +180,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM1401xRW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1401xRW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'Digital Isolator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADUM1400_1401_1402.pdf', 'pins':[
+        Part(**{ 'name':'ADuM1401xRW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1401xRW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'Digital Isolator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADUM1400_1401_1402.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM1401xRW\n\nDigital Isolator', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VE2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VID',func=Pin.types.INPUT,unit=1),
@@ -180,7 +197,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VE1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM1402xRW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1402xRW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'Digital Isolator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADUM1400_1401_1402.pdf', 'pins':[
+        Part(**{ 'name':'ADuM1402xRW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1402xRW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'Digital Isolator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADUM1400_1401_1402.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM1402xRW\n\nDigital Isolator', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VE2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VID',func=Pin.types.INPUT,unit=1),
@@ -197,7 +214,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VE1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM1410', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1410'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'Digital Isolator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADUM1410_1411_1412.pdf', 'pins':[
+        Part(**{ 'name':'ADuM1410', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1410'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'Digital Isolator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADUM1410_1411_1412.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM1410\n\nDigital Isolator', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='CTRL2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VOD',func=Pin.types.OUTPUT,unit=1),
@@ -214,7 +231,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DISABLE',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM1411', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1411'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'Digital Isolator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADUM1410_1411_1412.pdf', 'pins':[
+        Part(**{ 'name':'ADuM1411', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1411'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'Digital Isolator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADUM1410_1411_1412.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM1411\n\nDigital Isolator', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='CTRL2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VID',func=Pin.types.INPUT,unit=1),
@@ -231,7 +248,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CTRL1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM1412', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1412'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'Digital Isolator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADUM1410_1411_1412.pdf', 'pins':[
+        Part(**{ 'name':'ADuM1412', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1412'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'Digital Isolator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADUM1410_1411_1412.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM1412\n\nDigital Isolator', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='CTRL2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VID',func=Pin.types.INPUT,unit=1),
@@ -248,7 +265,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CTRL1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM260N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM260N'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x12.8mm_P1.27mm', 'keywords':'digital isolator galvanic isopower', 'description':'', 'datasheet':'http://www.analog.com/media/en/technical-documentation/data-sheets/ADuM260N-261N-262N-263N.pdf', 'pins':[
+        Part(**{ 'name':'ADuM260N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM260N'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x12.8mm_P1.27mm', 'keywords':'digital isolator galvanic isopower', 'description':'', 'datasheet':'http://www.analog.com/media/en/technical-documentation/data-sheets/ADuM260N-261N-262N-263N.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM260N\n\ndigital isolator galvanic isopower', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VOF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='VOE',func=Pin.types.OUTPUT,unit=1),
@@ -265,7 +282,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VIF',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM261N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM261N'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x12.8mm_P1.27mm', 'keywords':'digital isolator galvanic isopower', 'description':'', 'datasheet':'http://www.analog.com/media/en/technical-documentation/data-sheets/ADuM260N-261N-262N-263N.pdf', 'pins':[
+        Part(**{ 'name':'ADuM261N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM261N'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x12.8mm_P1.27mm', 'keywords':'digital isolator galvanic isopower', 'description':'', 'datasheet':'http://www.analog.com/media/en/technical-documentation/data-sheets/ADuM260N-261N-262N-263N.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM261N\n\ndigital isolator galvanic isopower', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VIF',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VOE',func=Pin.types.OUTPUT,unit=1),
@@ -282,7 +299,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VOF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM262N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM262N'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x12.8mm_P1.27mm', 'keywords':'digital isolator galvanic isopower', 'description':'', 'datasheet':'http://www.analog.com/media/en/technical-documentation/data-sheets/ADuM260N-261N-262N-263N.pdf', 'pins':[
+        Part(**{ 'name':'ADuM262N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM262N'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x12.8mm_P1.27mm', 'keywords':'digital isolator galvanic isopower', 'description':'', 'datasheet':'http://www.analog.com/media/en/technical-documentation/data-sheets/ADuM260N-261N-262N-263N.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM262N\n\ndigital isolator galvanic isopower', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VIF',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VIE',func=Pin.types.INPUT,unit=1),
@@ -299,7 +316,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VOF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM263N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM263N'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x12.8mm_P1.27mm', 'keywords':'digital isolator galvanic isopower', 'description':'', 'datasheet':'http://www.analog.com/media/en/technical-documentation/data-sheets/ADuM260N-261N-262N-263N.pdf', 'pins':[
+        Part(**{ 'name':'ADuM263N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM263N'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x12.8mm_P1.27mm', 'keywords':'digital isolator galvanic isopower', 'description':'', 'datasheet':'http://www.analog.com/media/en/technical-documentation/data-sheets/ADuM260N-261N-262N-263N.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM263N\n\ndigital isolator galvanic isopower', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VIF',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VIE',func=Pin.types.INPUT,unit=1),
@@ -316,7 +333,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VOF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM3151', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM3151'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'spi isolated', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM3151_3152_3153.pdf', 'pins':[
+        Part(**{ 'name':'ADuM3151', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM3151'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'spi isolated', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM3151_3152_3153.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM3151\n\nspi isolated', 'pins':[
             Pin(num='1',name='V_{DD1}',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND_{1}',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='GND_{2}',func=Pin.types.PWRIN,unit=1),
@@ -337,7 +354,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='V_{IA}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='V_{IB}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='V_{OC}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM3152', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM3152'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'spi isolated', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM3151_3152_3153.pdf', 'pins':[
+        Part(**{ 'name':'ADuM3152', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM3152'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'spi isolated', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM3151_3152_3153.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM3152\n\nspi isolated', 'pins':[
             Pin(num='1',name='V_{DD1}',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND_{1}',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='GND_{2}',func=Pin.types.PWRIN,unit=1),
@@ -358,7 +375,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='V_{IA}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='V_{OB}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='V_{OC}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM3153', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM3153'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'spi isolated', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM3151_3152_3153.pdf', 'pins':[
+        Part(**{ 'name':'ADuM3153', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM3153'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'spi isolated', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM3151_3152_3153.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM3153\n\nspi isolated', 'pins':[
             Pin(num='1',name='V_{DD1}',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND_{1}',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='GND_{2}',func=Pin.types.PWRIN,unit=1),
@@ -379,7 +396,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='V_{OA}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='V_{OB}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='V_{OC}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM5211', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM5211'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'digital isolator galvanic isopower', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM5210_5211_5212.pdf', 'pins':[
+        Part(**{ 'name':'ADuM5211', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM5211'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'digital isolator galvanic isopower', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM5210_5211_5212.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM5211\n\ndigital isolator galvanic isopower', 'pins':[
             Pin(num='1',name='V_{DD1}',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND_{P}',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='GND_{ISO}',func=Pin.types.PWRIN,unit=1),
@@ -400,7 +417,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='PDIS',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='V_{DDP}',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM5401', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM5401'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'digital isolator galvanic isopower', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM5401_5402_5403_5404.pdf', 'pins':[
+        Part(**{ 'name':'ADuM5401', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM5401'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'digital isolator galvanic isopower', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM5401_5402_5403_5404.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM5401\n\ndigital isolator galvanic isopower', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VSEL',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VID',func=Pin.types.INPUT,unit=1),
@@ -417,7 +434,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RCOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GNDISO',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM5402', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM5402'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'digital isolator galvanic isopower', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM5401_5402_5403_5404.pdf', 'pins':[
+        Part(**{ 'name':'ADuM5402', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM5402'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'digital isolator galvanic isopower', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM5401_5402_5403_5404.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM5402\n\ndigital isolator galvanic isopower', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VSEL',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VID',func=Pin.types.INPUT,unit=1),
@@ -434,7 +451,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RCOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GNDISO',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM5403', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM5403'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'digital isolator galvanic isopower', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM5401_5402_5403_5404.pdf', 'pins':[
+        Part(**{ 'name':'ADuM5403', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM5403'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'digital isolator galvanic isopower', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM5401_5402_5403_5404.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM5403\n\ndigital isolator galvanic isopower', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VSEL',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VID',func=Pin.types.INPUT,unit=1),
@@ -451,7 +468,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RCOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GNDISO',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM5404', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM5404'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'digital isolator galvanic isopower', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM5401_5402_5403_5404.pdf', 'pins':[
+        Part(**{ 'name':'ADuM5404', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM5404'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'digital isolator galvanic isopower', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM5401_5402_5403_5404.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM5404\n\ndigital isolator galvanic isopower', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VSEL',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VID',func=Pin.types.INPUT,unit=1),
@@ -468,7 +485,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RCOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GNDISO',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM5410', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM5410'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_5.3x8.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'keywords':'digital isolator galvanic isopower', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM5410-5411-5412.pdf', 'pins':[
+        Part(**{ 'name':'ADuM5410', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM5410'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_5.3x8.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'keywords':'digital isolator galvanic isopower', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM5410-5411-5412.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM5410\n\ndigital isolator galvanic isopower', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PDIS',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VDDP',func=Pin.types.PWRIN,unit=1),
@@ -493,7 +510,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='GND1',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM5411', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM5411'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_5.3x8.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'keywords':'digital isolator galvanic isopower', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM5410-5411-5412.pdf', 'pins':[
+        Part(**{ 'name':'ADuM5411', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM5411'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_5.3x8.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'keywords':'digital isolator galvanic isopower', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM5410-5411-5412.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM5411\n\ndigital isolator galvanic isopower', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PDIS',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VDDP',func=Pin.types.PWRIN,unit=1),
@@ -518,7 +535,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VE1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='GND1',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM5412', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM5412'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_5.3x8.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'keywords':'digital isolator galvanic isopower', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM5410-5411-5412.pdf', 'pins':[
+        Part(**{ 'name':'ADuM5412', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM5412'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_5.3x8.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'keywords':'digital isolator galvanic isopower', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM5410-5411-5412.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM5412\n\ndigital isolator galvanic isopower', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PDIS',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VDDP',func=Pin.types.PWRIN,unit=1),
@@ -543,7 +560,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VE1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='GND1',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM7640C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM7640C'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-20_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:QSOP-20_3.9x8.7mm_P0.635mm', 'keywords':'6-Channels Hex Digital Isolator 25Mbps', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM7640_7641_7642_7643.pdf', 'pins':[
+        Part(**{ 'name':'ADuM7640C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM7640C'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-20_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:QSOP-20_3.9x8.7mm_P0.635mm', 'keywords':'6-Channels Hex Digital Isolator 25Mbps', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM7640_7641_7642_7643.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM7640C\n\n6-Channels Hex Digital Isolator 25Mbps', 'pins':[
             Pin(num='1',name='VDD1A',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='GND2',func=Pin.types.PWRIN,unit=1),
@@ -564,7 +581,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD1B',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VIE',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VIF',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM7641C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM7641C'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-20_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:QSOP-20_3.9x8.7mm_P0.635mm', 'keywords':'6-Channels Hex Digital Isolator 25Mbps', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM7640_7641_7642_7643.pdf', 'pins':[
+        Part(**{ 'name':'ADuM7641C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM7641C'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-20_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:QSOP-20_3.9x8.7mm_P0.635mm', 'keywords':'6-Channels Hex Digital Isolator 25Mbps', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM7640_7641_7642_7643.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM7641C\n\n6-Channels Hex Digital Isolator 25Mbps', 'pins':[
             Pin(num='1',name='VDD1A',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='GND2',func=Pin.types.PWRIN,unit=1),
@@ -585,7 +602,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD1B',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VOE',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='VIF',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM7642C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM7642C'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-20_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:QSOP-20_3.9x8.7mm_P0.635mm', 'keywords':'6-Channels Hex Digital Isolator 25Mbps', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM7640_7641_7642_7643.pdf', 'pins':[
+        Part(**{ 'name':'ADuM7642C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM7642C'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-20_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:QSOP-20_3.9x8.7mm_P0.635mm', 'keywords':'6-Channels Hex Digital Isolator 25Mbps', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM7640_7641_7642_7643.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM7642C\n\n6-Channels Hex Digital Isolator 25Mbps', 'pins':[
             Pin(num='1',name='VDD1A',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='GND2',func=Pin.types.PWRIN,unit=1),
@@ -606,7 +623,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD1B',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VOE',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='VIF',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM7643C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM7643C'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-20_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:QSOP-20_3.9x8.7mm_P0.635mm', 'keywords':'6-Channels Hex Digital Isolator 25Mbps', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM7640_7641_7642_7643.pdf', 'pins':[
+        Part(**{ 'name':'ADuM7643C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM7643C'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-20_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:QSOP-20_3.9x8.7mm_P0.635mm', 'keywords':'6-Channels Hex Digital Isolator 25Mbps', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM7640_7641_7642_7643.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM7643C\n\n6-Channels Hex Digital Isolator 25Mbps', 'pins':[
             Pin(num='1',name='VDD1A',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='GND2',func=Pin.types.PWRIN,unit=1),
@@ -627,43 +644,43 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD1B',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VOE',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='VIF',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CNY17-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CNY17-1'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'NPN DC Optocoupler Base Connected', 'description':'', 'datasheet':'http://www.vishay.com/docs/83606/cny17.pdf', 'pins':[
+        Part(**{ 'name':'CNY17-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CNY17-1'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'NPN DC Optocoupler Base Connected', 'description':'', 'datasheet':'http://www.vishay.com/docs/83606/cny17.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nCNY17-1\n\nNPN DC Optocoupler Base Connected', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EL814', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EL814'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'NPN AC DC Optocoupler', 'description':'', 'datasheet':'http://www.everlight.com/file/ProductFile/EL814.pdf', 'pins':[
+        Part(**{ 'name':'EL814', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EL814'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'NPN AC DC Optocoupler', 'description':'', 'datasheet':'http://www.everlight.com/file/ProductFile/EL814.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nEL814\n\nNPN AC DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FODM214', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FODM214'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'AC DC Phototransistor Optocoupler', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/FODM214-D.PDF', 'pins':[
+        Part(**{ 'name':'FODM214', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FODM214'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'AC DC Phototransistor Optocoupler', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/FODM214-D.PDF', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nFODM214\n\nAC DC Phototransistor Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FODM217A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FODM217A'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'DC Phototransistor Optocoupler', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/FODM214-D.PDF', 'pins':[
+        Part(**{ 'name':'FODM217A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FODM217A'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'DC Phototransistor Optocoupler', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/FODM214-D.PDF', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nFODM217A\n\nDC Phototransistor Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'H11AA1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'H11AA1'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-6_W7.62mm'], 'footprint':'Package_DIP:DIP-6_W7.62mm', 'keywords':'NPN AC DC Optocoupler', 'description':'', 'datasheet':'https://www.vishay.com/docs/83608/h11aa1.pdf', 'pins':[
+        Part(**{ 'name':'H11AA1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'H11AA1'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-6_W7.62mm'], 'footprint':'Package_DIP:DIP-6_W7.62mm', 'keywords':'NPN AC DC Optocoupler', 'description':'', 'datasheet':'https://www.vishay.com/docs/83608/h11aa1.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nH11AA1\n\nNPN AC DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'H11L1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'H11L1'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'High Speed Schmitt Optocoupler', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/H11L3M-D.PDF', 'pins':[
+        Part(**{ 'name':'H11L1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'H11L1'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'High Speed Schmitt Optocoupler', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/H11L3M-D.PDF', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nH11L1\n\nHigh Speed Schmitt Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='4',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='5',name='~',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='~',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HCNW2201', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCNW2201'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W10.16mm'], 'footprint':'Package_DIP:DIP-8_W10.16mm', 'keywords':'opto coupler schmitt output', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0674EN', 'pins':[
+        Part(**{ 'name':'HCNW2201', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCNW2201'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W10.16mm'], 'footprint':'Package_DIP:DIP-8_W10.16mm', 'keywords':'opto coupler schmitt output', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0674EN', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nHCNW2201\n\nopto coupler schmitt output', 'pins':[
             Pin(num='1',name='~',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -672,7 +689,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='~',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HCPL-0201', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-0201'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'opto coupler schmitt output', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0674EN', 'pins':[
+        Part(**{ 'name':'HCPL-0201', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-0201'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'opto coupler schmitt output', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0674EN', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nHCPL-0201\n\nopto coupler schmitt output', 'pins':[
             Pin(num='1',name='~',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -681,7 +698,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='~',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HCPL-061A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-061A'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High speed optically coupled gates enable', 'description':'', 'datasheet':'http://docs.avagotech.com/docs/AV02-0391EN', 'pins':[
+        Part(**{ 'name':'HCPL-061A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-061A'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High speed optically coupled gates enable', 'description':'', 'datasheet':'http://docs.avagotech.com/docs/AV02-0391EN', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nHCPL-061A\n\nHigh speed optically coupled gates enable', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C',func=Pin.types.PASSIVE,unit=1),
@@ -689,7 +706,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='EN',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HCPL-063A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-063A'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High speed optically coupled gates', 'description':'', 'datasheet':'http://docs.avagotech.com/docs/AV02-0391EN', 'pins':[
+        Part(**{ 'name':'HCPL-063A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-063A'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High speed optically coupled gates', 'description':'', 'datasheet':'http://docs.avagotech.com/docs/AV02-0391EN', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nHCPL-063A\n\nHigh speed optically coupled gates', 'pins':[
             Pin(num='1',name='A1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='C1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C2',func=Pin.types.PASSIVE,unit=1),
@@ -698,7 +715,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO2',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='VO1',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HCPL-2201', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-2201'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'opto coupler schmitt output', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0674EN', 'pins':[
+        Part(**{ 'name':'HCPL-2201', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-2201'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'opto coupler schmitt output', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0674EN', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nHCPL-2201\n\nopto coupler schmitt output', 'pins':[
             Pin(num='1',name='~',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -707,7 +724,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='~',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HCPL-2202', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-2202'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'opto coupler schmitt output', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0674EN', 'pins':[
+        Part(**{ 'name':'HCPL-2202', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-2202'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'opto coupler schmitt output', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0674EN', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nHCPL-2202\n\nopto coupler schmitt output', 'pins':[
             Pin(num='1',name='~',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -716,7 +733,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='~',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='~',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HCPL-2601', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-2601'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High speed optically coupled gates enable', 'description':'', 'datasheet':'https://docs.broadcom.com/doc/6N137-HCNW137-2601-2611-HCPL-0600-0601-0611-0630-0631-0661-2601-2611-2630-2631-4661-High-CMR-High-Speed-TTL-Compatible-Optocouplers-DS', 'pins':[
+        Part(**{ 'name':'HCPL-2601', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-2601'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High speed optically coupled gates enable', 'description':'', 'datasheet':'https://docs.broadcom.com/doc/6N137-HCNW137-2601-2611-HCPL-0600-0601-0611-0630-0631-0661-2601-2611-2630-2631-4661-High-CMR-High-Speed-TTL-Compatible-Optocouplers-DS', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nHCPL-2601\n\nHigh speed optically coupled gates enable', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C',func=Pin.types.PASSIVE,unit=1),
@@ -725,7 +742,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='EN',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HCPL-261A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-261A'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High speed optically coupled gates enable', 'description':'', 'datasheet':'https://docs.broadcom.com/doc/AV02-0391EN', 'pins':[
+        Part(**{ 'name':'HCPL-261A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-261A'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High speed optically coupled gates enable', 'description':'', 'datasheet':'https://docs.broadcom.com/doc/AV02-0391EN', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nHCPL-261A\n\nHigh speed optically coupled gates enable', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C',func=Pin.types.PASSIVE,unit=1),
@@ -734,7 +751,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='EN',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HCPL-263A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-263A'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High speed optically coupled gates', 'description':'', 'datasheet':'https://docs.broadcom.com/doc/AV02-0391EN', 'pins':[
+        Part(**{ 'name':'HCPL-263A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-263A'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High speed optically coupled gates', 'description':'', 'datasheet':'https://docs.broadcom.com/doc/AV02-0391EN', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nHCPL-263A\n\nHigh speed optically coupled gates', 'pins':[
             Pin(num='1',name='A1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='C1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C2',func=Pin.types.PASSIVE,unit=1),
@@ -743,7 +760,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO2',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='VO1',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HCPL-9000', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-9000'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'digital isolator, high speed', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0137EN', 'pins':[
+        Part(**{ 'name':'HCPL-9000', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-9000'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'digital isolator, high speed', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0137EN', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nHCPL-9000\n\ndigital isolator, high speed', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -752,7 +769,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='OUT1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='V~{OE}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VDD2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HCPL2731', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL2731'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'darlington optocoupler', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/HCPL2731-D.pdf', 'pins':[
+        Part(**{ 'name':'HCPL2731', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL2731'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'darlington optocoupler', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/HCPL2731-D.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nHCPL2731\n\ndarlington optocoupler', 'pins':[
             Pin(num='1',name='A1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='C1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C2',func=Pin.types.PASSIVE,unit=1),
@@ -761,7 +778,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='VO1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ILD74', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ILD74'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'NPN DC Dual Optocoupler', 'description':'', 'datasheet':'https://www.vishay.com/docs/83640/ild74.pdf', 'pins':[
+        Part(**{ 'name':'ILD74', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ILD74'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'NPN DC Dual Optocoupler', 'description':'', 'datasheet':'https://www.vishay.com/docs/83640/ild74.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nILD74\n\nNPN DC Dual Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -769,8 +786,8 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '8', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '6', '4']}] }),
-        Part(**{ 'name':'ILQ74', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ILQ74'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'NPN DC Dual Optocoupler', 'description':'', 'datasheet':'https://www.vishay.com/docs/83640/ild74.pdf', 'pins':[
+            Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '7', '1', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3', '6', '5']}] }),
+        Part(**{ 'name':'ILQ74', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ILQ74'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'NPN DC Dual Optocoupler', 'description':'', 'datasheet':'https://www.vishay.com/docs/83640/ild74.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nILQ74\n\nNPN DC Dual Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='15',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='16',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -786,8 +803,8 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '16', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '4', '14', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['12', '11', '6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '10', '9', '8']}] }),
-        Part(**{ 'name':'ISO1211', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO1211'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'isolated digital input', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/iso1211.pdf', 'pins':[
+            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '1', '16', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '4', '14', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '5', '12', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '8', '7', '9']}] }),
+        Part(**{ 'name':'ISO1211', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO1211'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'isolated digital input', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/iso1211.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO1211\n\nisolated digital input', 'pins':[
             Pin(num='1',name='VCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='EN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='OUT',func=Pin.types.TRISTATE,unit=1),
@@ -796,7 +813,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='FGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SENSE',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO1212', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO1212'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'isolated digital input', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/iso1212.pdf', 'pins':[
+        Part(**{ 'name':'ISO1212', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO1212'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'isolated digital input', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/iso1212.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO1212\n\nisolated digital input', 'pins':[
             Pin(num='1',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='IN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SENSE2',func=Pin.types.INPUT,unit=1),
@@ -813,7 +830,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='FGND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO1540', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO1540'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'digital isolator i2c', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/iso1541.pdf', 'pins':[
+        Part(**{ 'name':'ISO1540', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO1540'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'digital isolator i2c', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/iso1541.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO1540\n\ndigital isolator i2c', 'pins':[
             Pin(num='1',name='VCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='SDA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='SCL1',func=Pin.types.BIDIR,unit=1),
@@ -822,7 +839,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL2',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='SDA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO1541', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO1541'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'digital isolator i2c', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/iso1541.pdf', 'pins':[
+        Part(**{ 'name':'ISO1541', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO1541'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'digital isolator i2c', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/iso1541.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO1541\n\ndigital isolator i2c', 'pins':[
             Pin(num='1',name='VCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='SDA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='SCL1',func=Pin.types.INPUT,unit=1),
@@ -831,7 +848,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='SDA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO1642DWR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO1642DWR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'i2c isolator additional gpio', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso1642.pdf', 'pins':[
+        Part(**{ 'name':'ISO1642DWR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO1642DWR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'i2c isolator additional gpio', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso1642.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO1642DWR\n\ni2c isolator additional gpio', 'pins':[
             Pin(num='1',name='VCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='SCL2',func=Pin.types.BIDIR,unit=1),
@@ -848,7 +865,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO1643DWR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO1643DWR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'i2c isolator additional gpio', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso1643.pdf', 'pins':[
+        Part(**{ 'name':'ISO1643DWR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO1643DWR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'i2c isolator additional gpio', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso1643.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO1643DWR\n\ni2c isolator additional gpio', 'pins':[
             Pin(num='1',name='VCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='SCL2',func=Pin.types.BIDIR,unit=1),
@@ -865,7 +882,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO1644DWR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO1644DWR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'i2c isolator additional gpio', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso1644.pdf', 'pins':[
+        Part(**{ 'name':'ISO1644DWR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO1644DWR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'i2c isolator additional gpio', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso1644.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO1644DWR\n\ni2c isolator additional gpio', 'pins':[
             Pin(num='1',name='VCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='INC',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SCL2',func=Pin.types.BIDIR,unit=1),
@@ -882,7 +899,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO6731', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO6731'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'3 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso6731.pdf', 'pins':[
+        Part(**{ 'name':'ISO6731', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO6731'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'3 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso6731.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO6731\n\n3 channel digital isolator', 'pins':[
             Pin(num='1',name='V_{CC1}',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -899,7 +916,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO6740', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO6740'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso6740.pdf', 'pins':[
+        Part(**{ 'name':'ISO6740', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO6740'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso6740.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO6740\n\n4 channel digital isolator', 'pins':[
             Pin(num='1',name='V_{CC1}',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='OUTD',func=Pin.types.OUTPUT,unit=1),
@@ -916,7 +933,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO6741', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO6741'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso6741.pdf', 'pins':[
+        Part(**{ 'name':'ISO6741', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO6741'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso6741.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO6741\n\n4 channel digital isolator', 'pins':[
             Pin(num='1',name='V_{CC1}',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='IND',func=Pin.types.INPUT,unit=1),
@@ -933,7 +950,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO6742', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO6742'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso6742.pdf', 'pins':[
+        Part(**{ 'name':'ISO6742', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO6742'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso6742.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO6742\n\n4 channel digital isolator', 'pins':[
             Pin(num='1',name='V_{CC1}',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='IND',func=Pin.types.INPUT,unit=1),
@@ -950,7 +967,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO7320C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7320C'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'2Ch Dual Digital Isolator 25Mbps', 'description':'', 'datasheet':'http://www.ti.com/general/docs/lit/getliterature.tsp?genericPartNumber=iso7320c&fileType=pdf', 'pins':[
+        Part(**{ 'name':'ISO7320C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7320C'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'2Ch Dual Digital Isolator 25Mbps', 'description':'', 'datasheet':'http://www.ti.com/general/docs/lit/getliterature.tsp?genericPartNumber=iso7320c&fileType=pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO7320C\n\n2Ch Dual Digital Isolator 25Mbps', 'pins':[
             Pin(num='1',name='VCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='INA',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='INB',func=Pin.types.INPUT,unit=1),
@@ -959,7 +976,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='OUTB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='OUTA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VCC2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO7321C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7321C'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'2Ch Dual Digital Isolator 25Mbps', 'description':'', 'datasheet':'http://www.ti.com/general/docs/lit/getliterature.tsp?genericPartNumber=iso7321c&fileType=pdf', 'pins':[
+        Part(**{ 'name':'ISO7321C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7321C'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'2Ch Dual Digital Isolator 25Mbps', 'description':'', 'datasheet':'http://www.ti.com/general/docs/lit/getliterature.tsp?genericPartNumber=iso7321c&fileType=pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO7321C\n\n2Ch Dual Digital Isolator 25Mbps', 'pins':[
             Pin(num='1',name='VCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='OUTA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='INB',func=Pin.types.INPUT,unit=1),
@@ -968,7 +985,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='OUTB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='INA',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO7330C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7330C'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'3Ch Quad Digital Isolator 25Mbps', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/iso7330-q1.pdf', 'pins':[
+        Part(**{ 'name':'ISO7330C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7330C'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'3Ch Quad Digital Isolator 25Mbps', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/iso7330-q1.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO7330C\n\n3Ch Quad Digital Isolator 25Mbps', 'pins':[
             Pin(num='1',name='VCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -985,7 +1002,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO7331C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7331C'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'3Ch Quad Digital Isolator 25Mbps', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/iso7331c.pdf', 'pins':[
+        Part(**{ 'name':'ISO7331C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7331C'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'3Ch Quad Digital Isolator 25Mbps', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/iso7331c.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO7331C\n\n3Ch Quad Digital Isolator 25Mbps', 'pins':[
             Pin(num='1',name='VCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -1002,7 +1019,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO7340C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7340C'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch Quad Digital Isolator 25Mbps', 'description':'', 'datasheet':'http://www.ti.com/general/docs/lit/getliterature.tsp?genericPartNumber=iso7340c&fileType=pdf', 'pins':[
+        Part(**{ 'name':'ISO7340C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7340C'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch Quad Digital Isolator 25Mbps', 'description':'', 'datasheet':'http://www.ti.com/general/docs/lit/getliterature.tsp?genericPartNumber=iso7340c&fileType=pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO7340C\n\n4Ch Quad Digital Isolator 25Mbps', 'pins':[
             Pin(num='1',name='VCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='OUTD',func=Pin.types.OUTPUT,unit=1),
@@ -1018,7 +1035,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='IND',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO7341C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7341C'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch Quad Digital Isolator 25Mbps', 'description':'', 'datasheet':'http://www.ti.com/general/docs/lit/getliterature.tsp?genericPartNumber=iso7341c&fileType=pdf', 'pins':[
+        Part(**{ 'name':'ISO7341C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7341C'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch Quad Digital Isolator 25Mbps', 'description':'', 'datasheet':'http://www.ti.com/general/docs/lit/getliterature.tsp?genericPartNumber=iso7341c&fileType=pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO7341C\n\n4Ch Quad Digital Isolator 25Mbps', 'pins':[
             Pin(num='1',name='VCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='IND',func=Pin.types.INPUT,unit=1),
@@ -1035,7 +1052,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO7342C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7342C'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch Quad Digital Isolator 25Mbps', 'description':'', 'datasheet':'http://www.ti.com/general/docs/lit/getliterature.tsp?genericPartNumber=iso7342c&fileType=pdf', 'pins':[
+        Part(**{ 'name':'ISO7342C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7342C'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch Quad Digital Isolator 25Mbps', 'description':'', 'datasheet':'http://www.ti.com/general/docs/lit/getliterature.tsp?genericPartNumber=iso7342c&fileType=pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO7342C\n\n4Ch Quad Digital Isolator 25Mbps', 'pins':[
             Pin(num='1',name='VCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='IND',func=Pin.types.INPUT,unit=1),
@@ -1052,7 +1069,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO7760DBQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7760DBQ'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'6 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso7763.pdf', 'pins':[
+        Part(**{ 'name':'ISO7760DBQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7760DBQ'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'6 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso7763.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO7760DBQ\n\n6 channel digital isolator', 'pins':[
             Pin(num='1',name='Vcc1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='OUTF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='OUTE',func=Pin.types.OUTPUT,unit=1),
@@ -1069,7 +1086,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='INF',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO7760DW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7760DW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'6 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso7763.pdf', 'pins':[
+        Part(**{ 'name':'ISO7760DW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7760DW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'6 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso7763.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO7760DW\n\n6 channel digital isolator', 'pins':[
             Pin(num='1',name='Vcc1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='OUTF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='OUTE',func=Pin.types.OUTPUT,unit=1),
@@ -1086,7 +1103,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='INF',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO7761DBQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7761DBQ'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'6 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso7763.pdf', 'pins':[
+        Part(**{ 'name':'ISO7761DBQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7761DBQ'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'6 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso7763.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO7761DBQ\n\n6 channel digital isolator', 'pins':[
             Pin(num='1',name='Vcc1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='INF',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='OUTE',func=Pin.types.OUTPUT,unit=1),
@@ -1103,7 +1120,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUTF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO7761DW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7761DW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'6 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso7763.pdf', 'pins':[
+        Part(**{ 'name':'ISO7761DW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7761DW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'6 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso7763.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO7761DW\n\n6 channel digital isolator', 'pins':[
             Pin(num='1',name='Vcc1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='INF',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='OUTE',func=Pin.types.OUTPUT,unit=1),
@@ -1120,7 +1137,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUTF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO7762DBQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7762DBQ'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'6 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso7763.pdf', 'pins':[
+        Part(**{ 'name':'ISO7762DBQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7762DBQ'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'6 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso7763.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO7762DBQ\n\n6 channel digital isolator', 'pins':[
             Pin(num='1',name='Vcc1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='INF',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='INE',func=Pin.types.INPUT,unit=1),
@@ -1137,7 +1154,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUTF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO7762DW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7762DW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'6 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso7763.pdf', 'pins':[
+        Part(**{ 'name':'ISO7762DW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7762DW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'6 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso7763.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO7762DW\n\n6 channel digital isolator', 'pins':[
             Pin(num='1',name='Vcc1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='INF',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='INE',func=Pin.types.INPUT,unit=1),
@@ -1154,7 +1171,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUTF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO7763DBQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7763DBQ'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'6 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso7763.pdf', 'pins':[
+        Part(**{ 'name':'ISO7763DBQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7763DBQ'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'6 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso7763.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO7763DBQ\n\n6 channel digital isolator', 'pins':[
             Pin(num='1',name='Vcc1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='INF',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='INE',func=Pin.types.INPUT,unit=1),
@@ -1171,7 +1188,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUTF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO7763DW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7763DW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'6 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso7763.pdf', 'pins':[
+        Part(**{ 'name':'ISO7763DW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7763DW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'6 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso7763.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO7763DW\n\n6 channel digital isolator', 'pins':[
             Pin(num='1',name='Vcc1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='INF',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='INE',func=Pin.types.INPUT,unit=1),
@@ -1188,7 +1205,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUTF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISOW7740', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISOW7740'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'4-channel-digital-isolator integrated-isolated-supply', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/isow7741.pdf', 'pins':[
+        Part(**{ 'name':'ISOW7740', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISOW7740'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'4-channel-digital-isolator integrated-isolated-supply', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/isow7741.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISOW7740\n\n4-channel-digital-isolator integrated-isolated-supply', 'pins':[
             Pin(num='1',name='V_{IO}',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='GND2',func=Pin.types.PWROUT,unit=1),
@@ -1209,7 +1226,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN_IO1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='EN/FLT',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='V_{DD}',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISOW7741', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISOW7741'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'4-channel-digital-isolator integrated-isolated-supply', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/isow7741.pdf', 'pins':[
+        Part(**{ 'name':'ISOW7741', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISOW7741'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'4-channel-digital-isolator integrated-isolated-supply', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/isow7741.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISOW7741\n\n4-channel-digital-isolator integrated-isolated-supply', 'pins':[
             Pin(num='1',name='V_{IO}',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='GND2',func=Pin.types.PWROUT,unit=1),
@@ -1230,7 +1247,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN_IO1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='EN/FLT',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='V_{DD}',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISOW7742', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISOW7742'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'4-channel-digital-isolator integrated-isolated-supply', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/isow7741.pdf', 'pins':[
+        Part(**{ 'name':'ISOW7742', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISOW7742'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'4-channel-digital-isolator integrated-isolated-supply', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/isow7741.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISOW7742\n\n4-channel-digital-isolator integrated-isolated-supply', 'pins':[
             Pin(num='1',name='V_{IO}',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='GND2',func=Pin.types.PWROUT,unit=1),
@@ -1251,7 +1268,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN_IO1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='EN/FLT',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='V_{DD}',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISOW7743', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISOW7743'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'4-channel-digital-isolator integrated-isolated-supply', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/isow7741.pdf', 'pins':[
+        Part(**{ 'name':'ISOW7743', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISOW7743'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'4-channel-digital-isolator integrated-isolated-supply', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/isow7741.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISOW7743\n\n4-channel-digital-isolator integrated-isolated-supply', 'pins':[
             Pin(num='1',name='V_{IO}',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='GND2',func=Pin.types.PWROUT,unit=1),
@@ -1272,7 +1289,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN_IO1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='EN/FLT',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='V_{DD}',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISOW7744', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISOW7744'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'4-channel-digital-isolator integrated-isolated-supply', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/isow7741.pdf', 'pins':[
+        Part(**{ 'name':'ISOW7744', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISOW7744'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'4-channel-digital-isolator integrated-isolated-supply', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/isow7741.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISOW7744\n\n4-channel-digital-isolator integrated-isolated-supply', 'pins':[
             Pin(num='1',name='V_{IO}',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='GND2',func=Pin.types.PWROUT,unit=1),
@@ -1293,7 +1310,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN_IO1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='EN/FLT',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='V_{DD}',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTV-247', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-247'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-16_4.4x10.4mm_P1.27mm'], 'footprint':'Package_SO:SOP-16_4.4x10.4mm_P1.27mm', 'keywords':'NPN DC Quad Optocoupler', 'description':'', 'datasheet':'http://optoelectronics.liteon.com/upload/download/DS70-2009-0014/LTV-2X7%20sereis%20Mar17.PDF', 'pins':[
+        Part(**{ 'name':'LTV-247', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-247'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-16_4.4x10.4mm_P1.27mm'], 'footprint':'Package_SO:SOP-16_4.4x10.4mm_P1.27mm', 'keywords':'NPN DC Quad Optocoupler', 'description':'', 'datasheet':'http://optoelectronics.liteon.com/upload/download/DS70-2009-0014/LTV-2X7%20sereis%20Mar17.PDF', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nLTV-247\n\nNPN DC Quad Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='15',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='16',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1309,48 +1326,48 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '16', '15']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '4', '13', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['12', '11', '6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '10', '9', '8']}] }),
-        Part(**{ 'name':'LTV-352T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-352T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-4_4.4x3.6mm_P2.54mm'], 'footprint':'Package_SO:SO-4_4.4x3.6mm_P2.54mm', 'keywords':'NPN Darlington DC Optocoupler', 'description':'', 'datasheet':'http://optoelectronics.liteon.com/upload/download/DS70-2001-002/S_110_LTV-352T%2020140520.pdf', 'pins':[
+            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '15', '16', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '14', '3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '12', '6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['9', '7', '8', '10']}] }),
+        Part(**{ 'name':'LTV-352T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-352T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-4_4.4x3.6mm_P2.54mm'], 'footprint':'Package_SO:SO-4_4.4x3.6mm_P2.54mm', 'keywords':'NPN Darlington DC Optocoupler', 'description':'', 'datasheet':'http://optoelectronics.liteon.com/upload/download/DS70-2001-002/S_110_LTV-352T%2020140520.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nLTV-352T\n\nNPN Darlington DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTV-354T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-354T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-4_4.4x3.6mm_P2.54mm'], 'footprint':'Package_SO:SO-4_4.4x3.6mm_P2.54mm', 'keywords':'NPN AC DC Optocoupler', 'description':'', 'datasheet':'http://optoelectronics.liteon.com/upload/download/DS70-2001-004/S_110_LTV-354T%2020140520.pdf', 'pins':[
+        Part(**{ 'name':'LTV-354T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-354T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-4_4.4x3.6mm_P2.54mm'], 'footprint':'Package_SO:SO-4_4.4x3.6mm_P2.54mm', 'keywords':'NPN AC DC Optocoupler', 'description':'', 'datasheet':'http://optoelectronics.liteon.com/upload/download/DS70-2001-004/S_110_LTV-354T%2020140520.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nLTV-354T\n\nNPN AC DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTV-355T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-355T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-4_4.4x3.6mm_P2.54mm'], 'footprint':'Package_SO:SO-4_4.4x3.6mm_P2.54mm', 'keywords':'NPN Darlington DC Optocoupler', 'description':'', 'datasheet':'http://optoelectronics.liteon.com/upload/download/DS70-2001-006/S_110_LTV-355T%2020140520.pdf', 'pins':[
+        Part(**{ 'name':'LTV-355T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-355T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-4_4.4x3.6mm_P2.54mm'], 'footprint':'Package_SO:SO-4_4.4x3.6mm_P2.54mm', 'keywords':'NPN Darlington DC Optocoupler', 'description':'', 'datasheet':'http://optoelectronics.liteon.com/upload/download/DS70-2001-006/S_110_LTV-355T%2020140520.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nLTV-355T\n\nNPN Darlington DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTV-356T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-356T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-4_4.4x3.6mm_P2.54mm'], 'footprint':'Package_SO:SO-4_4.4x3.6mm_P2.54mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://optoelectronics.liteon.com/upload/download/DS70-2001-010/S_110_LTV-356T%2020140520.pdf', 'pins':[
+        Part(**{ 'name':'LTV-356T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-356T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-4_4.4x3.6mm_P2.54mm'], 'footprint':'Package_SO:SO-4_4.4x3.6mm_P2.54mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://optoelectronics.liteon.com/upload/download/DS70-2001-010/S_110_LTV-356T%2020140520.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nLTV-356T\n\nNPN DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTV-814', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-814'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'NPN AC DC Optocoupler', 'description':'', 'datasheet':'https://optoelectronics.liteon.com/upload/download/DS-70-96-0013/LTV-8X4%20series%20201509.pdf', 'pins':[
+        Part(**{ 'name':'LTV-814', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-814'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'NPN AC DC Optocoupler', 'description':'', 'datasheet':'https://optoelectronics.liteon.com/upload/download/DS-70-96-0013/LTV-8X4%20series%20201509.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nLTV-814\n\nNPN AC DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTV-817', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-817'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.us.liteon.com/downloads/LTV-817-827-847.PDF', 'pins':[
+        Part(**{ 'name':'LTV-817', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-817'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.us.liteon.com/downloads/LTV-817-827-847.PDF', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nLTV-817\n\nNPN DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTV-817M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-817M'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W10.16mm'], 'footprint':'Package_DIP:DIP-4_W10.16mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.us.liteon.com/downloads/LTV-817-827-847.PDF', 'pins':[
+        Part(**{ 'name':'LTV-817M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-817M'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W10.16mm'], 'footprint':'Package_DIP:DIP-4_W10.16mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.us.liteon.com/downloads/LTV-817-827-847.PDF', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nLTV-817M\n\nNPN DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTV-817S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-817S'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-4_W9.53mm'], 'footprint':'Package_DIP:SMDIP-4_W9.53mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.us.liteon.com/downloads/LTV-817-827-847.PDF', 'pins':[
+        Part(**{ 'name':'LTV-817S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-817S'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-4_W9.53mm'], 'footprint':'Package_DIP:SMDIP-4_W9.53mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.us.liteon.com/downloads/LTV-817-827-847.PDF', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nLTV-817S\n\nNPN DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTV-824', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-824'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'Dual NPN AC DC Optocoupler', 'description':'', 'datasheet':'http://optoelectronics.liteon.com/upload/download/DS-70-96-0013/S_110_LTV-814%20824%20844%20(M,%20S,%20S-TA,%20S-TA1,%20S-TP)%20Series.pdf', 'pins':[
+        Part(**{ 'name':'LTV-824', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-824'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'Dual NPN AC DC Optocoupler', 'description':'', 'datasheet':'http://optoelectronics.liteon.com/upload/download/DS-70-96-0013/S_110_LTV-814%20824%20844%20(M,%20S,%20S-TA,%20S-TA1,%20S-TP)%20Series.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nLTV-824\n\nDual NPN AC DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1358,8 +1375,8 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '7', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '6', '5']}] }),
-        Part(**{ 'name':'LTV-827M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-827M'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W10.16mm'], 'footprint':'Package_DIP:DIP-8_W10.16mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.us.liteon.com/downloads/LTV-817-827-847.PDF', 'pins':[
+            Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '8', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5', '3']}] }),
+        Part(**{ 'name':'LTV-827M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-827M'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W10.16mm'], 'footprint':'Package_DIP:DIP-8_W10.16mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.us.liteon.com/downloads/LTV-817-827-847.PDF', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nLTV-827M\n\nNPN DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1367,8 +1384,8 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '8', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '3', '4']}] }),
-        Part(**{ 'name':'LTV-827S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-827S'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-8_W9.53mm'], 'footprint':'Package_DIP:SMDIP-8_W9.53mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.us.liteon.com/downloads/LTV-817-827-847.PDF', 'pins':[
+            Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '8', '1', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '3', '4']}] }),
+        Part(**{ 'name':'LTV-827S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-827S'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-8_W9.53mm'], 'footprint':'Package_DIP:SMDIP-8_W9.53mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.us.liteon.com/downloads/LTV-817-827-847.PDF', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nLTV-827S\n\nNPN DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1376,8 +1393,8 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '7', '1', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '3', '5']}] }),
-        Part(**{ 'name':'LTV-844', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-844'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'Quad NPN AC DC Optocoupler', 'description':'', 'datasheet':'http://optoelectronics.liteon.com/upload/download/DS-70-96-0013/S_110_LTV-814%20824%20844%20(M,%20S,%20S-TA,%20S-TA1,%20S-TP)%20Series.pdf', 'pins':[
+            Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '7', '2', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3', '6', '5']}] }),
+        Part(**{ 'name':'LTV-844', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-844'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'Quad NPN AC DC Optocoupler', 'description':'', 'datasheet':'http://optoelectronics.liteon.com/upload/download/DS-70-96-0013/S_110_LTV-814%20824%20844%20(M,%20S,%20S-TA,%20S-TA1,%20S-TP)%20Series.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nLTV-844\n\nQuad NPN AC DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='15',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='16',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1393,8 +1410,8 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '16', '2', '15']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '13', '14', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '5', '6', '12']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '8', '10', '9']}] }),
-        Part(**{ 'name':'LTV-847M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-847M'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W10.16mm'], 'footprint':'Package_DIP:DIP-16_W10.16mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.us.liteon.com/downloads/LTV-817-827-847.PDF', 'pins':[
+            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '15', '2', '16']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '13', '3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['12', '5', '11', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '8', '10', '9']}] }),
+        Part(**{ 'name':'LTV-847M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-847M'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W10.16mm'], 'footprint':'Package_DIP:DIP-16_W10.16mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.us.liteon.com/downloads/LTV-817-827-847.PDF', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nLTV-847M\n\nNPN DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='15',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='16',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1410,8 +1427,8 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '16', '15']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '3', '13', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6', '12', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '9', '8', '7']}] }),
-        Part(**{ 'name':'LTV-847S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-847S'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-16_W9.53mm'], 'footprint':'Package_DIP:SMDIP-16_W9.53mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.us.liteon.com/downloads/LTV-817-827-847.PDF', 'pins':[
+            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '15', '1', '16']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '13', '3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '11', '12', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '9', '10', '8']}] }),
+        Part(**{ 'name':'LTV-847S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-847S'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-16_W9.53mm'], 'footprint':'Package_DIP:SMDIP-16_W9.53mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.us.liteon.com/downloads/LTV-817-827-847.PDF', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nLTV-847S\n\nNPN DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='15',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='16',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1427,8 +1444,8 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '1', '2', '16']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '3', '4', '14']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '12', '11', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '8', '9', '7']}] }),
-        Part(**{ 'name':'MAX14850AEE+', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX14850AEE+'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'6 channel digital isolator bidirectional', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX14850.pdf', 'pins':[
+            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['16', '1', '15', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '14', '4', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '5', '12', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '9', '7', '8']}] }),
+        Part(**{ 'name':'MAX14850AEE+', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX14850AEE+'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'6 channel digital isolator bidirectional', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX14850.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nMAX14850AEE+\n\n6 channel digital isolator bidirectional', 'pins':[
             Pin(num='1',name='VCCA',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='I/OB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='I/OB1',func=Pin.types.BIDIR,unit=1),
@@ -1445,7 +1462,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I/OA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GNDA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GNDB',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MID400', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MID400'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'AC line monitor', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/MID400-D.pdf', 'pins':[
+        Part(**{ 'name':'MID400', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MID400'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'AC line monitor', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/MID400-D.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nMID400\n\nAC line monitor', 'pins':[
             Pin(num='1',name='VIN1',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='3',name='VIN2',func=Pin.types.INPUT,unit=1),
@@ -1454,22 +1471,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='AUX',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NSL-32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NSL-32'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Luna_NSL-32'], 'footprint':'OptoDevice:Luna_NSL-32', 'keywords':'optocoupler', 'description':'', 'datasheet':'http://lunainc.com/wp-content/uploads/2016/06/NSL-32.pdf', 'pins':[
-            Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='2',name='K',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='3',name='R',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='4',name='R',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PC3H4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PC3H4'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-4_W7.62mm'], 'footprint':'Package_DIP:SMDIP-4_W7.62mm', 'keywords':'NPN AC DC Optocoupler', 'description':'', 'datasheet':'http://www.sharpsme.com/download/pc3h4-epdf', 'pins':[
-            Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PC817', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PC817'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.soselectronic.cz/a_info/resource/d/pc817.pdf', 'pins':[
-            Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PC827', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PC827'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'NPN DC Dual Optocoupler', 'description':'', 'datasheet':'http://optoelectronics.liteon.com/upload/download/DS-70-96-0016/LTV-8X7%20series.PDF', 'pins':[
+        Part(**{ 'name':'MOCD207M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MOCD207M'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'NPN DC Dual Optocoupler', 'description':'', 'datasheet':'https://www.onsemi.com/pdf/datasheet/mocd217m-d.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nMOCD207M\n\nNPN DC Dual Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1477,8 +1479,32 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '7', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '3', '4']}] }),
-        Part(**{ 'name':'PC837', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PC837'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-12_W7.62mm'], 'footprint':'Package_DIP:DIP-12_W7.62mm', 'keywords':'NPN DC Triple Optocoupler', 'description':'', 'datasheet':'http://www.soselectronic.cz/a_info/resource/d/pc817.pdf', 'pins':[
+            Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '7', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '3', '6']}] }),
+        Part(**{ 'name':'NSL-32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NSL-32'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Luna_NSL-32'], 'footprint':'OptoDevice:Luna_NSL-32', 'keywords':'optocoupler', 'description':'', 'datasheet':'http://lunainc.com/wp-content/uploads/2016/06/NSL-32.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nNSL-32\n\noptocoupler', 'pins':[
+            Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='2',name='K',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='3',name='R',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='4',name='R',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PC3H4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PC3H4'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-4_W7.62mm'], 'footprint':'Package_DIP:SMDIP-4_W7.62mm', 'keywords':'NPN AC DC Optocoupler', 'description':'', 'datasheet':'http://www.sharpsme.com/download/pc3h4-epdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nPC3H4\n\nNPN AC DC Optocoupler', 'pins':[
+            Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PC817', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PC817'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.soselectronic.cz/a_info/resource/d/pc817.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nPC817\n\nNPN DC Optocoupler', 'pins':[
+            Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PC827', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PC827'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'NPN DC Dual Optocoupler', 'description':'', 'datasheet':'http://optoelectronics.liteon.com/upload/download/DS-70-96-0016/LTV-8X7%20series.PDF', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nPC827\n\nNPN DC Dual Optocoupler', 'pins':[
+            Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=2),
+            Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=2),
+            Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=2),
+            Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '8', '2', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '6', '3']}] }),
+        Part(**{ 'name':'PC837', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PC837'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-12_W7.62mm'], 'footprint':'Package_DIP:DIP-12_W7.62mm', 'keywords':'NPN DC Triple Optocoupler', 'description':'', 'datasheet':'http://www.soselectronic.cz/a_info/resource/d/pc817.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nPC837\n\nNPN DC Triple Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='12',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1490,8 +1516,8 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=3),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=3),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=3),
-            Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '11', '12', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '3', '4', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '8', '6', '7']}] }),
-        Part(**{ 'name':'PC847', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PC847'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'NPN DC Quad Optocoupler', 'description':'', 'datasheet':'http://www.soselectronic.cz/a_info/resource/d/pc817.pdf', 'pins':[
+            Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '12', '2', '11']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '3', '10', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '8', '7', '6']}] }),
+        Part(**{ 'name':'PC847', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PC847'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'NPN DC Quad Optocoupler', 'description':'', 'datasheet':'http://www.soselectronic.cz/a_info/resource/d/pc817.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nPC847\n\nNPN DC Quad Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='15',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='16',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1507,8 +1533,8 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '16', '15']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '14', '13', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '6', '5', '12']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '9', '7', '8']}] }),
-        Part(**{ 'name':'PS8802-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PS8802-1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-8_3.95x5.21x3.27mm_P1.27mm'], 'footprint':'Package_SO:SSOP-8_3.95x5.21x3.27mm_P1.27mm', 'keywords':'NPN DC Optocoupler Base Connected', 'description':'', 'datasheet':'http://www.cel.com/pdf/datasheets/ps8802.pdf', 'pins':[
+            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '16', '15']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '3', '4', '13']},{'label': 'uC', 'num': 3, 'pin_nums': ['12', '5', '6', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9', '7', '10']}] }),
+        Part(**{ 'name':'PS8802-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PS8802-1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-8_3.95x5.21x3.27mm_P1.27mm'], 'footprint':'Package_SO:SSOP-8_3.95x5.21x3.27mm_P1.27mm', 'keywords':'NPN DC Optocoupler Base Connected', 'description':'', 'datasheet':'http://www.cel.com/pdf/datasheets/ps8802.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nPS8802-1\n\nNPN DC Optocoupler Base Connected', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C',func=Pin.types.PASSIVE,unit=1),
@@ -1517,7 +1543,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PS8802-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PS8802-2'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-8_3.95x5.21x3.27mm_P1.27mm'], 'footprint':'Package_SO:SSOP-8_3.95x5.21x3.27mm_P1.27mm', 'keywords':'Dual NPN DC Optocoupler Base Connected', 'description':'', 'datasheet':'http://www.cel.com/pdf/datasheets/ps8802.pdf', 'pins':[
+        Part(**{ 'name':'PS8802-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PS8802-2'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-8_3.95x5.21x3.27mm_P1.27mm'], 'footprint':'Package_SO:SSOP-8_3.95x5.21x3.27mm_P1.27mm', 'keywords':'Dual NPN DC Optocoupler Base Connected', 'description':'', 'datasheet':'http://www.cel.com/pdf/datasheets/ps8802.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nPS8802-2\n\nDual NPN DC Optocoupler Base Connected', 'pins':[
             Pin(num='1',name='A1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='C1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C2',func=Pin.types.PASSIVE,unit=1),
@@ -1526,32 +1552,32 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='VO1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH617A-1X007T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-1X007T'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-4_W9.53mm_Clearance8mm'], 'footprint':'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 40-80', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'pins':[
+        Part(**{ 'name':'SFH617A-1X007T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-1X007T'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-4_W9.53mm_Clearance8mm'], 'footprint':'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 40-80', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH617A-1X007T\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 40-80', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH617A-2X009T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-2X009T'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-4_W7.62mm'], 'footprint':'Package_DIP:SMDIP-4_W7.62mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-125', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'pins':[
+        Part(**{ 'name':'SFH617A-2X009T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-2X009T'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-4_W7.62mm'], 'footprint':'Package_DIP:SMDIP-4_W7.62mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-125', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH617A-2X009T\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-125', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH620A-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH620A-1'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 40-125', 'description':'', 'datasheet':'http://www.vishay.com/docs/83675/sfh620a.pdf', 'pins':[
+        Part(**{ 'name':'SFH620A-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH620A-1'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 40-125', 'description':'', 'datasheet':'http://www.vishay.com/docs/83675/sfh620a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH620A-1\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 40-125', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH620A-1X006', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH620A-1X006'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W10.16mm'], 'footprint':'Package_DIP:DIP-4_W10.16mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 40-125', 'description':'', 'datasheet':'http://www.vishay.com/docs/83675/sfh620a.pdf', 'pins':[
+        Part(**{ 'name':'SFH620A-1X006', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH620A-1X006'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W10.16mm'], 'footprint':'Package_DIP:DIP-4_W10.16mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 40-125', 'description':'', 'datasheet':'http://www.vishay.com/docs/83675/sfh620a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH620A-1X006\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 40-125', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH620A-2X007T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH620A-2X007T'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-4_W9.53mm_Clearance8mm'], 'footprint':'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-200', 'description':'', 'datasheet':'http://www.vishay.com/docs/83675/sfh620a.pdf', 'pins':[
+        Part(**{ 'name':'SFH620A-2X007T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH620A-2X007T'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-4_W9.53mm_Clearance8mm'], 'footprint':'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-200', 'description':'', 'datasheet':'http://www.vishay.com/docs/83675/sfh620a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH620A-2X007T\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-200', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8640BA-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8640BA-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'4Ch 4In Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8640BA-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8640BA-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'4Ch 4In Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8640BA-B-IU\n\n4Ch 4In Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.OUTPUT,unit=1),
@@ -1568,7 +1594,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8640BB-B-IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8640BB-B-IS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch 4In Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8640BB-B-IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8640BB-B-IS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch 4In Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8640BB-B-IS\n\n4Ch 4In Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.OUTPUT,unit=1),
@@ -1585,7 +1611,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8640BB-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8640BB-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'4Ch 4In Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8640BB-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8640BB-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'4Ch 4In Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8640BB-B-IS1\n\n4Ch 4In Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.OUTPUT,unit=1),
@@ -1602,7 +1628,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8641BA-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8641BA-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'4Ch 3In 1Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8641BA-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8641BA-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'4Ch 3In 1Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8641BA-B-IU\n\n4Ch 3In 1Out Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.INPUT,unit=1),
@@ -1619,7 +1645,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8641BB-B-IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8641BB-B-IS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch 3In 1Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8641BB-B-IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8641BB-B-IS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch 3In 1Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8641BB-B-IS\n\n4Ch 3In 1Out Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.INPUT,unit=1),
@@ -1636,7 +1662,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8641BB-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8641BB-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'4Ch 3In 1Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8641BB-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8641BB-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'4Ch 3In 1Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8641BB-B-IS1\n\n4Ch 3In 1Out Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.INPUT,unit=1),
@@ -1653,7 +1679,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8642BA-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8642BA-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'4Ch 2In 2Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8642BA-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8642BA-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'4Ch 2In 2Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8642BA-B-IU\n\n4Ch 2In 2Out Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.INPUT,unit=1),
@@ -1670,7 +1696,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8642BB-B-IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8642BB-B-IS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch 2In 2Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8642BB-B-IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8642BB-B-IS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch 2In 2Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8642BB-B-IS\n\n4Ch 2In 2Out Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.INPUT,unit=1),
@@ -1687,7 +1713,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8642BB-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8642BB-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'4Ch 2In 2Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8642BB-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8642BB-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'4Ch 2In 2Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8642BB-B-IS1\n\n4Ch 2In 2Out Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.INPUT,unit=1),
@@ -1704,7 +1730,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8645BA-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8645BA-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'4Ch 4In Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8645BA-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8645BA-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'4Ch 4In Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8645BA-B-IU\n\n4Ch 4In Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.OUTPUT,unit=1),
@@ -1721,7 +1747,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8645BB-B-IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8645BB-B-IS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch 4In Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8645BB-B-IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8645BB-B-IS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch 4In Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8645BB-B-IS\n\n4Ch 4In Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.OUTPUT,unit=1),
@@ -1738,7 +1764,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8645BB-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8645BB-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'4Ch 4In Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8645BB-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8645BB-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'4Ch 4In Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8645BB-B-IS1\n\n4Ch 4In Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.OUTPUT,unit=1),
@@ -1755,7 +1781,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8660BA-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8660BA-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 6In Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8660BA-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8660BA-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 6In Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8660BA-B-IS1\n\n6Ch 6In Hex Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.OUTPUT,unit=1),
@@ -1772,7 +1798,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8661BB-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8661BB-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 5In 1Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8661BB-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8661BB-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 5In 1Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8661BB-B-IS1\n\n6Ch 5In 1Out Hex Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.OUTPUT,unit=1),
@@ -1789,7 +1815,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8662BB-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8662BB-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 4In 2Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8662BB-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8662BB-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 4In 2Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8662BB-B-IS1\n\n6Ch 4In 2Out Hex Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.INPUT,unit=1),
@@ -1806,7 +1832,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8663BB-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8663BB-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 3In 3Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8663BB-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8663BB-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 3In 3Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8663BB-B-IS1\n\n6Ch 3In 3Out Hex Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.INPUT,unit=1),
@@ -1823,12 +1849,12 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCMT1100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCMT1100'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'NPN DC opto', 'description':'', 'datasheet':'http://www.vishay.com/docs/83510/tcmt1100.pdf', 'pins':[
+        Part(**{ 'name':'TCMT1100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCMT1100'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'NPN DC opto', 'description':'', 'datasheet':'http://www.vishay.com/docs/83510/tcmt1100.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTCMT1100\n\nNPN DC opto', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCMT4100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCMT4100'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-16_4.4x10.4mm_P1.27mm'], 'footprint':'Package_SO:SOP-16_4.4x10.4mm_P1.27mm', 'keywords':'NPN DC opto', 'description':'', 'datasheet':'https://www.vishay.com/docs/84181/tcmt4100.pdf', 'pins':[
+        Part(**{ 'name':'TCMT4100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCMT4100'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-16_4.4x10.4mm_P1.27mm'], 'footprint':'Package_SO:SOP-16_4.4x10.4mm_P1.27mm', 'keywords':'NPN DC opto', 'description':'', 'datasheet':'https://www.vishay.com/docs/84181/tcmt4100.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTCMT4100\n\nNPN DC opto', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='15',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='16',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1844,80 +1870,80 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '15', '2', '16']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '14', '3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '5', '6', '12']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '7', '8', '9']}] }),
-        Part(**{ 'name':'TLP127', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP127'}), 'ref_prefix':'U', 'fplist':['Package_SO:MFSOP6-4_4.4x3.6mm_P1.27mm'], 'footprint':'Package_SO:MFSOP6-4_4.4x3.6mm_P1.27mm', 'keywords':'NPN Darlington DC Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=16902&prodName=TLP127', 'pins':[
+            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '15', '1', '16']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '3', '4', '14']},{'label': 'uC', 'num': 3, 'pin_nums': ['12', '5', '11', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '9', '7', '8']}] }),
+        Part(**{ 'name':'TLP127', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP127'}), 'ref_prefix':'U', 'fplist':['Package_SO:MFSOP6-4_4.4x3.6mm_P1.27mm'], 'footprint':'Package_SO:MFSOP6-4_4.4x3.6mm_P1.27mm', 'keywords':'NPN Darlington DC Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=16902&prodName=TLP127', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTLP127\n\nNPN Darlington DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLP130', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP130'}), 'ref_prefix':'U', 'fplist':['Package_SO:MFSOP6-5_4.4x3.6mm_P1.27mm'], 'footprint':'Package_SO:MFSOP6-5_4.4x3.6mm_P1.27mm', 'keywords':'NPN AC DC Optocoupler Base Connected', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=16740&prodName=TLP130', 'pins':[
+        Part(**{ 'name':'TLP130', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP130'}), 'ref_prefix':'U', 'fplist':['Package_SO:MFSOP6-5_4.4x3.6mm_P1.27mm'], 'footprint':'Package_SO:MFSOP6-5_4.4x3.6mm_P1.27mm', 'keywords':'NPN AC DC Optocoupler Base Connected', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=16740&prodName=TLP130', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTLP130\n\nNPN AC DC Optocoupler Base Connected', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='~',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLP131', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP131'}), 'ref_prefix':'U', 'fplist':['Package_SO:MFSOP6-5_4.4x3.6mm_P1.27mm'], 'footprint':'Package_SO:MFSOP6-5_4.4x3.6mm_P1.27mm', 'keywords':'NPN DC Optocoupler Base Connected', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=16742&prodName=TLP131', 'pins':[
+        Part(**{ 'name':'TLP131', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP131'}), 'ref_prefix':'U', 'fplist':['Package_SO:MFSOP6-5_4.4x3.6mm_P1.27mm'], 'footprint':'Package_SO:MFSOP6-5_4.4x3.6mm_P1.27mm', 'keywords':'NPN DC Optocoupler Base Connected', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=16742&prodName=TLP131', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTLP131\n\nNPN DC Optocoupler Base Connected', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='~',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLP137', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP137'}), 'ref_prefix':'U', 'fplist':['Package_SO:MFSOP6-5_4.4x3.6mm_P1.27mm'], 'footprint':'Package_SO:MFSOP6-5_4.4x3.6mm_P1.27mm', 'keywords':'NPN DC Optocoupler Base Connected', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=16744&prodName=TLP137', 'pins':[
+        Part(**{ 'name':'TLP137', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP137'}), 'ref_prefix':'U', 'fplist':['Package_SO:MFSOP6-5_4.4x3.6mm_P1.27mm'], 'footprint':'Package_SO:MFSOP6-5_4.4x3.6mm_P1.27mm', 'keywords':'NPN DC Optocoupler Base Connected', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=16744&prodName=TLP137', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTLP137\n\nNPN DC Optocoupler Base Connected', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='~',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLP184', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP184'}), 'ref_prefix':'U', 'fplist':['Package_SO:MFSOP6-4_4.4x3.6mm_P1.27mm'], 'footprint':'Package_SO:MFSOP6-4_4.4x3.6mm_P1.27mm', 'keywords':'NPN AC DC Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=11793&prodName=TLP184', 'pins':[
+        Part(**{ 'name':'TLP184', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP184'}), 'ref_prefix':'U', 'fplist':['Package_SO:MFSOP6-4_4.4x3.6mm_P1.27mm'], 'footprint':'Package_SO:MFSOP6-4_4.4x3.6mm_P1.27mm', 'keywords':'NPN AC DC Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=11793&prodName=TLP184', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTLP184\n\nNPN AC DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLP185', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP185'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-4_4.55x3.7mm_P2.54mm'], 'footprint':'Package_SO:SOIC-4_4.55x3.7mm_P2.54mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=11791&prodName=TLP185', 'pins':[
+        Part(**{ 'name':'TLP185', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP185'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-4_4.55x3.7mm_P2.54mm'], 'footprint':'Package_SO:SOIC-4_4.55x3.7mm_P2.54mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=11791&prodName=TLP185', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTLP185\n\nNPN DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLP2310', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP2310'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-5-6_4.55x3.7mm_P1.27mm'], 'footprint':'Package_SO:SO-5-6_4.55x3.7mm_P1.27mm', 'keywords':'Optocoupler high-speed Toshiba', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/TLP2310_datasheet_en_20220913.pdf?did=29657&prodName=TLP2310', 'pins':[
+        Part(**{ 'name':'TLP2310', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP2310'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-5-6_4.55x3.7mm_P1.27mm'], 'footprint':'Package_SO:SO-5-6_4.55x3.7mm_P1.27mm', 'keywords':'Optocoupler high-speed Toshiba', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/TLP2310_datasheet_en_20220913.pdf?did=29657&prodName=TLP2310', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTLP2310\n\nOptocoupler high-speed Toshiba', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='VO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='6',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLP2703', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP2703'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-6L_10x3.84mm_P1.27mm'], 'footprint':'Package_SO:SO-6L_10x3.84mm_P1.27mm', 'keywords':'NPN Darlington DC Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=15216&prodName=TLP2703', 'pins':[
+        Part(**{ 'name':'TLP2703', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP2703'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-6L_10x3.84mm_P1.27mm'], 'footprint':'Package_SO:SO-6L_10x3.84mm_P1.27mm', 'keywords':'NPN Darlington DC Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=15216&prodName=TLP2703', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTLP2703\n\nNPN Darlington DC Optocoupler', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='3',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='Out',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='6',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLP2745', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP2745'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-6L_10x3.84mm_P1.27mm'], 'footprint':'Package_SO:SO-6L_10x3.84mm_P1.27mm', 'keywords':'Photocouple highspeed non inverting push-pull output', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=29405&prodName=TLP2745', 'pins':[
+        Part(**{ 'name':'TLP2745', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP2745'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-6L_10x3.84mm_P1.27mm'], 'footprint':'Package_SO:SO-6L_10x3.84mm_P1.27mm', 'keywords':'Photocouple highspeed non inverting push-pull output', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=29405&prodName=TLP2745', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTLP2745\n\nPhotocouple highspeed non inverting push-pull output', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='3',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='VO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='6',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLP2748', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP2748'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-6L_10x3.84mm_P1.27mm'], 'footprint':'Package_SO:SO-6L_10x3.84mm_P1.27mm', 'keywords':'Photocouple highspeed inverting push-pull output', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=29407&prodName=TLP2748', 'pins':[
+        Part(**{ 'name':'TLP2748', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP2748'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-6L_10x3.84mm_P1.27mm'], 'footprint':'Package_SO:SO-6L_10x3.84mm_P1.27mm', 'keywords':'Photocouple highspeed inverting push-pull output', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=29407&prodName=TLP2748', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTLP2748\n\nPhotocouple highspeed inverting push-pull output', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='3',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='VO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='6',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLP2768A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP2768A'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-6L_10x3.84mm_P1.27mm'], 'footprint':'Package_SO:SO-6L_10x3.84mm_P1.27mm', 'keywords':'Photocouple highspeed inverting open collector output', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=36717&prodName=TLP2768A', 'pins':[
+        Part(**{ 'name':'TLP2768A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP2768A'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-6L_10x3.84mm_P1.27mm'], 'footprint':'Package_SO:SO-6L_10x3.84mm_P1.27mm', 'keywords':'Photocouple highspeed inverting open collector output', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=36717&prodName=TLP2768A', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTLP2768A\n\nPhotocouple highspeed inverting open collector output', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='3',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='VO',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='6',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLP290', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP290'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'NPN AC DC Phototransistor Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=12882&prodName=TLP290', 'pins':[
+        Part(**{ 'name':'TLP290', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP290'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'NPN AC DC Phototransistor Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=12882&prodName=TLP290', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTLP290\n\nNPN AC DC Phototransistor Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLP290-4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP290-4'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-16_4.55x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOP-16_4.55x10.3mm_P1.27mm', 'keywords':'NPN AC DC Quad Phototransistor Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=12855&prodName=TLP290-4', 'pins':[
+        Part(**{ 'name':'TLP290-4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP290-4'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-16_4.55x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOP-16_4.55x10.3mm_P1.27mm', 'keywords':'NPN AC DC Quad Phototransistor Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=12855&prodName=TLP290-4', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTLP290-4\n\nNPN AC DC Quad Phototransistor Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='15',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='16',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1933,13 +1959,13 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '15', '2', '16']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '14', '4', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '12', '5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '7', '8', '9']}] }),
-        Part(**{ 'name':'TLP291', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP291'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-4_4.55x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOIC-4_4.55x2.6mm_P1.27mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=12884&prodName=TLP291', 'pins':[
+            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '15', '16', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '14', '3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '6', '5', '12']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '8', '7', '9']}] }),
+        Part(**{ 'name':'TLP291', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP291'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-4_4.55x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOIC-4_4.55x2.6mm_P1.27mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=12884&prodName=TLP291', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTLP291\n\nNPN DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLP291-4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP291-4'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_4.55x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_4.55x10.3mm_P1.27mm', 'keywords':'NPN DC Quad Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=12858&prodName=TLP291-4', 'pins':[
+        Part(**{ 'name':'TLP291-4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP291-4'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_4.55x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_4.55x10.3mm_P1.27mm', 'keywords':'NPN DC Quad Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=12858&prodName=TLP291-4', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTLP291-4\n\nNPN DC Quad Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='15',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='16',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1955,19 +1981,19 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '15', '16', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '3', '13', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '5', '11', '12']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '7', '9', '8']}] }),
-        Part(**{ 'name':'TLP3021', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP3021'}), 'ref_prefix':'U', 'fplist':['Package_DIP:Toshiba_11-7A9'], 'footprint':'Package_DIP:Toshiba_11-7A9', 'keywords':'Photo-Triac Opto Triac', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=1421&prodName=TLP3021(S)', 'pins':[
+            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '15', '16']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '13', '14', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['12', '11', '6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['9', '10', '8', '7']}] }),
+        Part(**{ 'name':'TLP3021', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP3021'}), 'ref_prefix':'U', 'fplist':['Package_DIP:Toshiba_11-7A9'], 'footprint':'Package_DIP:Toshiba_11-7A9', 'keywords':'Photo-Triac Opto Triac', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=1421&prodName=TLP3021(S)', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTLP3021\n\nPhoto-Triac Opto Triac', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLP627', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP627'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'NPN Darlington DC Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=16914&prodName=TLP627', 'pins':[
+        Part(**{ 'name':'TLP627', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP627'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'NPN Darlington DC Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=16914&prodName=TLP627', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTLP627\n\nNPN Darlington DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLP627-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP627-2'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'NPN Dual Darlington DC Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=16914&prodName=TLP627', 'pins':[
+        Part(**{ 'name':'TLP627-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP627-2'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'NPN Dual Darlington DC Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=16914&prodName=TLP627', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTLP627-2\n\nNPN Dual Darlington DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1975,8 +2001,8 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '8', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '4', '5', '3']}] }),
-        Part(**{ 'name':'TLP627-4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP627-4'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'NPN Quad Darlington DC Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=16914&prodName=TLP627', 'pins':[
+            Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '7', '8', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '5', '6']}] }),
+        Part(**{ 'name':'TLP627-4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP627-4'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'NPN Quad Darlington DC Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=16914&prodName=TLP627', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTLP627-4\n\nNPN Quad Darlington DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='15',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='16',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -1992,23 +2018,23 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '1', '16', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '3', '4', '14']},{'label': 'uC', 'num': 3, 'pin_nums': ['12', '5', '11', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '7', '8', '9']}] }),
-        Part(**{ 'name':'TLP785', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP785'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=10569&prodName=TLP785', 'pins':[
+            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '16', '15']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '14', '13', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['12', '5', '11', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '7', '9', '8']}] }),
+        Part(**{ 'name':'TLP785', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP785'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=10569&prodName=TLP785', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTLP785\n\nNPN DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLP785F', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP785F'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W10.16mm'], 'footprint':'Package_DIP:DIP-4_W10.16mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=10569&prodName=TLP785F', 'pins':[
+        Part(**{ 'name':'TLP785F', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP785F'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W10.16mm'], 'footprint':'Package_DIP:DIP-4_W10.16mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=10569&prodName=TLP785F', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTLP785F\n\nNPN DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'VO615A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO615A'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.vishay.com/docs/81753/vo615a.pdf', 'pins':[
+        Part(**{ 'name':'VO615A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO615A'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.vishay.com/docs/81753/vo615a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nVO615A\n\nNPN DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'VOA300', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VOA300'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'optically coupled gates automotive', 'description':'', 'datasheet':'https://mouser.com/pdfDocs/Vishay_VOA300_DS.pdf', 'pins':[
+        Part(**{ 'name':'VOA300', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VOA300'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'optically coupled gates automotive', 'description':'', 'datasheet':'https://mouser.com/pdfDocs/Vishay_VOA300_DS.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nVOA300\n\noptically coupled gates automotive', 'pins':[
             Pin(num='1',name='C',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C',func=Pin.types.OPENCOLL,unit=1),
@@ -2017,60 +2043,60 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='C',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'VTL5C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VTL5C'}), 'ref_prefix':'U', 'fplist':['OptoDevice:PerkinElmer_VTL5C'], 'footprint':'OptoDevice:PerkinElmer_VTL5C', 'keywords':'vactrol', 'description':'', 'datasheet':'http://www.qsl.net/wa1ion/vactrol/vactrol.pdf', 'pins':[
+        Part(**{ 'name':'VTL5C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VTL5C'}), 'ref_prefix':'U', 'fplist':['OptoDevice:PerkinElmer_VTL5C'], 'footprint':'OptoDevice:PerkinElmer_VTL5C', 'keywords':'vactrol', 'description':'', 'datasheet':'http://www.qsl.net/wa1ion/vactrol/vactrol.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nVTL5C\n\nvactrol', 'pins':[
             Pin(num='1',name='-',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'VTL5Cx2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VTL5Cx2'}), 'ref_prefix':'U', 'fplist':['OptoDevice:PerkinElmer_VTL5Cx2'], 'footprint':'OptoDevice:PerkinElmer_VTL5Cx2', 'keywords':'vactrol', 'description':'', 'datasheet':'http://www.alliedelec.com/m/d/ecb1ed91959ae54d97cf67f5103d9b2b.pdf', 'pins':[
+        Part(**{ 'name':'VTL5Cx2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VTL5Cx2'}), 'ref_prefix':'U', 'fplist':['OptoDevice:PerkinElmer_VTL5Cx2'], 'footprint':'OptoDevice:PerkinElmer_VTL5Cx2', 'keywords':'vactrol', 'description':'', 'datasheet':'http://www.alliedelec.com/m/d/ecb1ed91959ae54d97cf67f5103d9b2b.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nVTL5Cx2\n\nvactrol', 'pins':[
             Pin(num='1',name='-',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'4N26', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4N26'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm'], 'footprint':'Package_DIP:DIP-6_W7.62mm', 'keywords':'NPN DC Optocoupler Base Connected', 'description':'', 'datasheet':'https://www.vishay.com/docs/83725/4n25.pdf', 'pins':[
+        Part(**{ 'name':'4N26', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4N26'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm'], 'footprint':'Package_DIP:DIP-6_W7.62mm', 'keywords':'NPN DC Optocoupler Base Connected', 'description':'', 'datasheet':'https://www.vishay.com/docs/83725/4n25.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\n4N26\n\nNPN DC Optocoupler Base Connected', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'4N27', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4N27'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm'], 'footprint':'Package_DIP:DIP-6_W7.62mm', 'keywords':'NPN DC Optocoupler Base Connected', 'description':'', 'datasheet':'https://www.vishay.com/docs/83725/4n25.pdf', 'pins':[
+        Part(**{ 'name':'4N27', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4N27'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm'], 'footprint':'Package_DIP:DIP-6_W7.62mm', 'keywords':'NPN DC Optocoupler Base Connected', 'description':'', 'datasheet':'https://www.vishay.com/docs/83725/4n25.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\n4N27\n\nNPN DC Optocoupler Base Connected', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'4N28', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4N28'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm'], 'footprint':'Package_DIP:DIP-6_W7.62mm', 'keywords':'NPN DC Optocoupler Base Connected', 'description':'', 'datasheet':'https://www.vishay.com/docs/83725/4n25.pdf', 'pins':[
+        Part(**{ 'name':'4N28', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4N28'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm'], 'footprint':'Package_DIP:DIP-6_W7.62mm', 'keywords':'NPN DC Optocoupler Base Connected', 'description':'', 'datasheet':'https://www.vishay.com/docs/83725/4n25.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\n4N28\n\nNPN DC Optocoupler Base Connected', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'4N35', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4N35'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm'], 'footprint':'Package_DIP:DIP-6_W7.62mm', 'keywords':'NPN DC Optocoupler Base Connected', 'description':'', 'datasheet':'https://www.vishay.com/docs/81181/4n35.pdf', 'pins':[
+        Part(**{ 'name':'4N35', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4N35'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm'], 'footprint':'Package_DIP:DIP-6_W7.62mm', 'keywords':'NPN DC Optocoupler Base Connected', 'description':'', 'datasheet':'https://www.vishay.com/docs/81181/4n35.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\n4N35\n\nNPN DC Optocoupler Base Connected', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'4N36', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4N36'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm'], 'footprint':'Package_DIP:DIP-6_W7.62mm', 'keywords':'NPN DC Optocoupler Base Connected', 'description':'', 'datasheet':'https://www.vishay.com/docs/81181/4n35.pdf', 'pins':[
+        Part(**{ 'name':'4N36', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4N36'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm'], 'footprint':'Package_DIP:DIP-6_W7.62mm', 'keywords':'NPN DC Optocoupler Base Connected', 'description':'', 'datasheet':'https://www.vishay.com/docs/81181/4n35.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\n4N36\n\nNPN DC Optocoupler Base Connected', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'4N37', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4N37'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm'], 'footprint':'Package_DIP:DIP-6_W7.62mm', 'keywords':'NPN DC Optocoupler Base Connected', 'description':'', 'datasheet':'https://www.vishay.com/docs/81181/4n35.pdf', 'pins':[
+        Part(**{ 'name':'4N37', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4N37'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm'], 'footprint':'Package_DIP:DIP-6_W7.62mm', 'keywords':'NPN DC Optocoupler Base Connected', 'description':'', 'datasheet':'https://www.vishay.com/docs/81181/4n35.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\n4N37\n\nNPN DC Optocoupler Base Connected', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'6N136', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'6N136'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High Speed Optocoupler', 'description':'', 'datasheet':'https://optoelectronics.liteon.com/upload/download/DS70-2008-0032/6N135-L%206N136-L%20series.pdf', 'pins':[
+        Part(**{ 'name':'6N136', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'6N136'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High Speed Optocoupler', 'description':'', 'datasheet':'https://optoelectronics.liteon.com/upload/download/DS70-2008-0032/6N135-L%206N136-L%20series.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\n6N136\n\nHigh Speed Optocoupler', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -2079,7 +2105,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'6N136S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'6N136S'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-8_W9.53mm', 'Package_DIP:SMDIP-8_W9.53mm'], 'footprint':'Package_DIP:SMDIP-8_W9.53mm', 'keywords':'High Speed Optocoupler', 'description':'', 'datasheet':'https://optoelectronics.liteon.com/upload/download/DS70-2008-0032/6N135-L%206N136-L%20series.pdf', 'pins':[
+        Part(**{ 'name':'6N136S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'6N136S'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-8_W9.53mm', 'Package_DIP:SMDIP-8_W9.53mm'], 'footprint':'Package_DIP:SMDIP-8_W9.53mm', 'keywords':'High Speed Optocoupler', 'description':'', 'datasheet':'https://optoelectronics.liteon.com/upload/download/DS70-2008-0032/6N135-L%206N136-L%20series.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\n6N136S\n\nHigh Speed Optocoupler', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -2088,7 +2114,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'6N137', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'6N137'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High speed optically coupled gates enable', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0940EN', 'pins':[
+        Part(**{ 'name':'6N137', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'6N137'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High speed optically coupled gates enable', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0940EN', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\n6N137\n\nHigh speed optically coupled gates enable', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C',func=Pin.types.PASSIVE,unit=1),
@@ -2097,7 +2123,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='EN',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'6N139', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'6N139'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'darlington optocoupler', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/HCPL2731-D.pdf', 'pins':[
+        Part(**{ 'name':'6N139', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'6N139'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'darlington optocoupler', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/HCPL2731-D.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\n6N139\n\ndarlington optocoupler', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='C1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C2',func=Pin.types.PASSIVE,unit=1),
@@ -2106,12 +2132,12 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='VO1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ACPL-214-500E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ACPL-214-500E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'npn ac dc ac-dc acdc phototransistor optocoupler optoisolator', 'description':'', 'datasheet':'https://docs.broadcom.com/doc/AV02-0469EN', 'pins':[
+        Part(**{ 'name':'ACPL-214-500E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ACPL-214-500E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'npn ac dc ac-dc acdc phototransistor optocoupler optoisolator', 'description':'', 'datasheet':'https://docs.broadcom.com/doc/AV02-0469EN', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nACPL-214-500E\n\nnpn ac dc ac-dc acdc phototransistor optocoupler optoisolator', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM1200BR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1200BR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'2Ch Dual Digital Isolator 10Mbps', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/ADuM1200_1201.pdf', 'pins':[
+        Part(**{ 'name':'ADuM1200BR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1200BR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'2Ch Dual Digital Isolator 10Mbps', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/ADuM1200_1201.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM1200BR\n\n2Ch Dual Digital Isolator 10Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VIA',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='VIB',func=Pin.types.INPUT,unit=1),
@@ -2120,7 +2146,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VOB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VOA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VDD2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM1200CR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1200CR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'2Ch Dual Digital Isolator 25Mbps', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/ADuM1200_1201.pdf', 'pins':[
+        Part(**{ 'name':'ADuM1200CR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1200CR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'2Ch Dual Digital Isolator 25Mbps', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/ADuM1200_1201.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM1200CR\n\n2Ch Dual Digital Isolator 25Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VIA',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='VIB',func=Pin.types.INPUT,unit=1),
@@ -2129,7 +2155,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VOB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VOA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VDD2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM1200WS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1200WS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'2Ch Dual Digital Isolator 1Mbps', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/ADuM1200_1201.pdf', 'pins':[
+        Part(**{ 'name':'ADuM1200WS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1200WS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'2Ch Dual Digital Isolator 1Mbps', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/ADuM1200_1201.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM1200WS\n\n2Ch Dual Digital Isolator 1Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VIA',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='VIB',func=Pin.types.INPUT,unit=1),
@@ -2138,7 +2164,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VOB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VOA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VDD2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM1200WT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1200WT'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'2Ch Dual Digital Isolator 10Mbps', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/ADuM1200_1201.pdf', 'pins':[
+        Part(**{ 'name':'ADuM1200WT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1200WT'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'2Ch Dual Digital Isolator 10Mbps', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/ADuM1200_1201.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM1200WT\n\n2Ch Dual Digital Isolator 10Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VIA',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='VIB',func=Pin.types.INPUT,unit=1),
@@ -2147,7 +2173,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VOB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VOA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VDD2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM1200WU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1200WU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'2Ch Dual Digital Isolator 25Mbps', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/ADuM1200_1201.pdf', 'pins':[
+        Part(**{ 'name':'ADuM1200WU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1200WU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'2Ch Dual Digital Isolator 25Mbps', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/ADuM1200_1201.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM1200WU\n\n2Ch Dual Digital Isolator 25Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VIA',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='VIB',func=Pin.types.INPUT,unit=1),
@@ -2156,7 +2182,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VOB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VOA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VDD2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM1201BR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1201BR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'2Ch Dual Digital Isolator 10Mbps', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/ADuM1200_1201.pdf', 'pins':[
+        Part(**{ 'name':'ADuM1201BR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1201BR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'2Ch Dual Digital Isolator 10Mbps', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/ADuM1200_1201.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM1201BR\n\n2Ch Dual Digital Isolator 10Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VOA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='VIB',func=Pin.types.INPUT,unit=1),
@@ -2165,7 +2191,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VOB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VIA',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VDD2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM1201CR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1201CR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'2Ch Dual Digital Isolator 25Mbps', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/ADuM1200_1201.pdf', 'pins':[
+        Part(**{ 'name':'ADuM1201CR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1201CR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'2Ch Dual Digital Isolator 25Mbps', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/ADuM1200_1201.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM1201CR\n\n2Ch Dual Digital Isolator 25Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VOA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='VIB',func=Pin.types.INPUT,unit=1),
@@ -2174,7 +2200,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VOB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VIA',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VDD2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM1201WS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1201WS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'2Ch Dual Digital Isolator 1Mbps', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/ADuM1200_1201.pdf', 'pins':[
+        Part(**{ 'name':'ADuM1201WS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1201WS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'2Ch Dual Digital Isolator 1Mbps', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/ADuM1200_1201.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM1201WS\n\n2Ch Dual Digital Isolator 1Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VOA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='VIB',func=Pin.types.INPUT,unit=1),
@@ -2183,7 +2209,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VOB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VIA',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VDD2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM1201WT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1201WT'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'2Ch Dual Digital Isolator 10Mbps', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/ADuM1200_1201.pdf', 'pins':[
+        Part(**{ 'name':'ADuM1201WT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1201WT'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'2Ch Dual Digital Isolator 10Mbps', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/ADuM1200_1201.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM1201WT\n\n2Ch Dual Digital Isolator 10Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VOA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='VIB',func=Pin.types.INPUT,unit=1),
@@ -2192,7 +2218,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VOB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VIA',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VDD2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM1201WU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1201WU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'2Ch Dual Digital Isolator 25Mbps', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/ADuM1200_1201.pdf', 'pins':[
+        Part(**{ 'name':'ADuM1201WU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1201WU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'2Ch Dual Digital Isolator 25Mbps', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/ADuM1200_1201.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM1201WU\n\n2Ch Dual Digital Isolator 25Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VOA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='VIB',func=Pin.types.INPUT,unit=1),
@@ -2201,7 +2227,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VOB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VIA',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VDD2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM1281', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1281'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Dual-channel digital isolator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM1280_1281_1285_1286.pdf', 'pins':[
+        Part(**{ 'name':'ADuM1281', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM1281'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Dual-channel digital isolator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM1280_1281_1285_1286.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM1281\n\nDual-channel digital isolator', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VOA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='VIB',func=Pin.types.INPUT,unit=1),
@@ -2210,7 +2236,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VOB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VIA',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VDD2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM7640A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM7640A'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-20_3.9x8.7mm_P0.635mm', 'Package_SO:QSOP-20_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:QSOP-20_3.9x8.7mm_P0.635mm', 'keywords':'6-Channels Hex Digital Isolator 1Mbps', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM7640_7641_7642_7643.pdf', 'pins':[
+        Part(**{ 'name':'ADuM7640A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM7640A'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-20_3.9x8.7mm_P0.635mm', 'Package_SO:QSOP-20_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:QSOP-20_3.9x8.7mm_P0.635mm', 'keywords':'6-Channels Hex Digital Isolator 1Mbps', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM7640_7641_7642_7643.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM7640A\n\n6-Channels Hex Digital Isolator 1Mbps', 'pins':[
             Pin(num='1',name='VDD1A',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='GND2',func=Pin.types.PWRIN,unit=1),
@@ -2231,7 +2257,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD1B',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VIE',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VIF',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM7641A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM7641A'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-20_3.9x8.7mm_P0.635mm', 'Package_SO:QSOP-20_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:QSOP-20_3.9x8.7mm_P0.635mm', 'keywords':'6-Channels Hex Digital Isolator 1Mbps', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM7640_7641_7642_7643.pdf', 'pins':[
+        Part(**{ 'name':'ADuM7641A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM7641A'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-20_3.9x8.7mm_P0.635mm', 'Package_SO:QSOP-20_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:QSOP-20_3.9x8.7mm_P0.635mm', 'keywords':'6-Channels Hex Digital Isolator 1Mbps', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM7640_7641_7642_7643.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM7641A\n\n6-Channels Hex Digital Isolator 1Mbps', 'pins':[
             Pin(num='1',name='VDD1A',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='GND2',func=Pin.types.PWRIN,unit=1),
@@ -2252,7 +2278,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD1B',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VOE',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='VIF',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM7642A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM7642A'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-20_3.9x8.7mm_P0.635mm', 'Package_SO:QSOP-20_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:QSOP-20_3.9x8.7mm_P0.635mm', 'keywords':'6-Channels Hex Digital Isolator 1Mbps', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM7640_7641_7642_7643.pdf', 'pins':[
+        Part(**{ 'name':'ADuM7642A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM7642A'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-20_3.9x8.7mm_P0.635mm', 'Package_SO:QSOP-20_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:QSOP-20_3.9x8.7mm_P0.635mm', 'keywords':'6-Channels Hex Digital Isolator 1Mbps', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM7640_7641_7642_7643.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM7642A\n\n6-Channels Hex Digital Isolator 1Mbps', 'pins':[
             Pin(num='1',name='VDD1A',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='GND2',func=Pin.types.PWRIN,unit=1),
@@ -2273,7 +2299,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD1B',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VOE',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='VIF',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADuM7643A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM7643A'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-20_3.9x8.7mm_P0.635mm', 'Package_SO:QSOP-20_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:QSOP-20_3.9x8.7mm_P0.635mm', 'keywords':'6-Channels Hex Digital Isolator 1Mbps', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM7640_7641_7642_7643.pdf', 'pins':[
+        Part(**{ 'name':'ADuM7643A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADuM7643A'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-20_3.9x8.7mm_P0.635mm', 'Package_SO:QSOP-20_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:QSOP-20_3.9x8.7mm_P0.635mm', 'keywords':'6-Channels Hex Digital Isolator 1Mbps', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADuM7640_7641_7642_7643.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nADuM7643A\n\n6-Channels Hex Digital Isolator 1Mbps', 'pins':[
             Pin(num='1',name='VDD1A',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='GND2',func=Pin.types.PWRIN,unit=1),
@@ -2294,28 +2320,28 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD1B',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VOE',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='VIF',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CNY17-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CNY17-2'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'NPN DC Optocoupler Base Connected', 'description':'', 'datasheet':'http://www.vishay.com/docs/83606/cny17.pdf', 'pins':[
+        Part(**{ 'name':'CNY17-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CNY17-2'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'NPN DC Optocoupler Base Connected', 'description':'', 'datasheet':'http://www.vishay.com/docs/83606/cny17.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nCNY17-2\n\nNPN DC Optocoupler Base Connected', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CNY17-3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CNY17-3'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'NPN DC Optocoupler Base Connected', 'description':'', 'datasheet':'http://www.vishay.com/docs/83606/cny17.pdf', 'pins':[
+        Part(**{ 'name':'CNY17-3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CNY17-3'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'NPN DC Optocoupler Base Connected', 'description':'', 'datasheet':'http://www.vishay.com/docs/83606/cny17.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nCNY17-3\n\nNPN DC Optocoupler Base Connected', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CNY17-4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CNY17-4'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'NPN DC Optocoupler Base Connected', 'description':'', 'datasheet':'http://www.vishay.com/docs/83606/cny17.pdf', 'pins':[
+        Part(**{ 'name':'CNY17-4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CNY17-4'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'NPN DC Optocoupler Base Connected', 'description':'', 'datasheet':'http://www.vishay.com/docs/83606/cny17.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nCNY17-4\n\nNPN DC Optocoupler Base Connected', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CPC-5002', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CPC-5002'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High speed optically coupled gates', 'description':'', 'datasheet':'http://www.ixysic.com/home/pdfs.nsf/www/CPC5002.pdf', 'pins':[
+        Part(**{ 'name':'CPC-5002', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CPC-5002'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High speed optically coupled gates', 'description':'', 'datasheet':'http://www.ixysic.com/home/pdfs.nsf/www/CPC5002.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nCPC-5002\n\nHigh speed optically coupled gates', 'pins':[
             Pin(num='1',name='A1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='C1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C2',func=Pin.types.PASSIVE,unit=1),
@@ -2324,46 +2350,46 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO2',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='VO1',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EL817', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EL817'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.everlight.com/file/ProductFile/EL817.pdf', 'pins':[
+        Part(**{ 'name':'EL817', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EL817'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.everlight.com/file/ProductFile/EL817.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nEL817\n\nNPN DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FODM214A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FODM214A'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'AC DC Phototransistor Optocoupler', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/FODM214-D.PDF', 'pins':[
+        Part(**{ 'name':'FODM214A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FODM214A'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'AC DC Phototransistor Optocoupler', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/FODM214-D.PDF', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nFODM214A\n\nAC DC Phototransistor Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FODM217B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FODM217B'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'DC Phototransistor Optocoupler', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/FODM214-D.PDF', 'pins':[
+        Part(**{ 'name':'FODM217B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FODM217B'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'DC Phototransistor Optocoupler', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/FODM214-D.PDF', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nFODM217B\n\nDC Phototransistor Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FODM217C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FODM217C'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'DC Phototransistor Optocoupler', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/FODM214-D.PDF', 'pins':[
+        Part(**{ 'name':'FODM217C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FODM217C'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'DC Phototransistor Optocoupler', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/FODM214-D.PDF', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nFODM217C\n\nDC Phototransistor Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'FODM217D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FODM217D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'DC Phototransistor Optocoupler', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/FODM214-D.PDF', 'pins':[
+        Part(**{ 'name':'FODM217D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FODM217D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'DC Phototransistor Optocoupler', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/FODM214-D.PDF', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nFODM217D\n\nDC Phototransistor Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'H11L2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'H11L2'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'High Speed Schmitt Optocoupler', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/H11L3M-D.PDF', 'pins':[
+        Part(**{ 'name':'H11L2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'H11L2'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'High Speed Schmitt Optocoupler', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/H11L3M-D.PDF', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nH11L2\n\nHigh Speed Schmitt Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='4',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='5',name='~',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='~',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'H11L3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'H11L3'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'High Speed Schmitt Optocoupler', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/H11L3M-D.PDF', 'pins':[
+        Part(**{ 'name':'H11L3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'H11L3'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'High Speed Schmitt Optocoupler', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/H11L3M-D.PDF', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nH11L3\n\nHigh Speed Schmitt Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='4',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='5',name='~',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='~',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HCNW2211', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCNW2211'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W10.16mm', 'Package_DIP:DIP-8_W10.16mm'], 'footprint':'Package_DIP:DIP-8_W10.16mm', 'keywords':'opto coupler schmitt output', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0674EN', 'pins':[
+        Part(**{ 'name':'HCNW2211', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCNW2211'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W10.16mm', 'Package_DIP:DIP-8_W10.16mm'], 'footprint':'Package_DIP:DIP-8_W10.16mm', 'keywords':'opto coupler schmitt output', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0674EN', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nHCNW2211\n\nopto coupler schmitt output', 'pins':[
             Pin(num='1',name='~',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -2372,7 +2398,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='~',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HCPL-0211', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-0211'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'opto coupler schmitt output', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0674EN', 'pins':[
+        Part(**{ 'name':'HCPL-0211', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-0211'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'opto coupler schmitt output', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0674EN', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nHCPL-0211\n\nopto coupler schmitt output', 'pins':[
             Pin(num='1',name='~',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -2381,7 +2407,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='~',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HCPL-0600', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-0600'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High speed optically coupled gates enable', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0940EN', 'pins':[
+        Part(**{ 'name':'HCPL-0600', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-0600'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High speed optically coupled gates enable', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0940EN', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nHCPL-0600\n\nHigh speed optically coupled gates enable', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C',func=Pin.types.PASSIVE,unit=1),
@@ -2389,7 +2415,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='EN',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HCPL-0601', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-0601'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High speed optically coupled gates enable', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0940EN', 'pins':[
+        Part(**{ 'name':'HCPL-0601', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-0601'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High speed optically coupled gates enable', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0940EN', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nHCPL-0601\n\nHigh speed optically coupled gates enable', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C',func=Pin.types.PASSIVE,unit=1),
@@ -2397,7 +2423,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='EN',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HCPL-0611', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-0611'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High speed optically coupled gates enable', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0940EN', 'pins':[
+        Part(**{ 'name':'HCPL-0611', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-0611'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High speed optically coupled gates enable', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0940EN', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nHCPL-0611\n\nHigh speed optically coupled gates enable', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C',func=Pin.types.PASSIVE,unit=1),
@@ -2405,7 +2431,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='EN',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HCPL-061N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-061N'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High speed optically coupled gates enable', 'description':'', 'datasheet':'http://docs.avagotech.com/docs/AV02-0391EN', 'pins':[
+        Part(**{ 'name':'HCPL-061N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-061N'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High speed optically coupled gates enable', 'description':'', 'datasheet':'http://docs.avagotech.com/docs/AV02-0391EN', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nHCPL-061N\n\nHigh speed optically coupled gates enable', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C',func=Pin.types.PASSIVE,unit=1),
@@ -2413,7 +2439,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='EN',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HCPL-0630', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-0630'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High speed optically coupled gates', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0940EN', 'pins':[
+        Part(**{ 'name':'HCPL-0630', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-0630'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High speed optically coupled gates', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0940EN', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nHCPL-0630\n\nHigh speed optically coupled gates', 'pins':[
             Pin(num='1',name='A1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='C1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C2',func=Pin.types.PASSIVE,unit=1),
@@ -2422,7 +2448,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO2',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='VO1',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HCPL-0631', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-0631'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High speed optically coupled gates', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0940EN', 'pins':[
+        Part(**{ 'name':'HCPL-0631', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-0631'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High speed optically coupled gates', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0940EN', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nHCPL-0631\n\nHigh speed optically coupled gates', 'pins':[
             Pin(num='1',name='A1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='C1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C2',func=Pin.types.PASSIVE,unit=1),
@@ -2431,7 +2457,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO2',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='VO1',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HCPL-063N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-063N'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High speed optically coupled gates', 'description':'', 'datasheet':'http://docs.avagotech.com/docs/AV02-0391EN', 'pins':[
+        Part(**{ 'name':'HCPL-063N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-063N'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High speed optically coupled gates', 'description':'', 'datasheet':'http://docs.avagotech.com/docs/AV02-0391EN', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nHCPL-063N\n\nHigh speed optically coupled gates', 'pins':[
             Pin(num='1',name='A1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='C1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C2',func=Pin.types.PASSIVE,unit=1),
@@ -2440,7 +2466,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO2',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='VO1',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HCPL-0661', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-0661'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High speed optically coupled gates', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0940EN', 'pins':[
+        Part(**{ 'name':'HCPL-0661', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-0661'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High speed optically coupled gates', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0940EN', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nHCPL-0661\n\nHigh speed optically coupled gates', 'pins':[
             Pin(num='1',name='A1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='C1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C2',func=Pin.types.PASSIVE,unit=1),
@@ -2449,7 +2475,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO2',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='VO1',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HCPL-2211', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-2211'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'opto coupler schmitt output', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0674EN', 'pins':[
+        Part(**{ 'name':'HCPL-2211', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-2211'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'opto coupler schmitt output', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0674EN', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nHCPL-2211\n\nopto coupler schmitt output', 'pins':[
             Pin(num='1',name='~',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -2458,7 +2484,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='7',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='~',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HCPL-2212', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-2212'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'opto coupler schmitt output', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0674EN', 'pins':[
+        Part(**{ 'name':'HCPL-2212', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-2212'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'opto coupler schmitt output', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0674EN', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nHCPL-2212\n\nopto coupler schmitt output', 'pins':[
             Pin(num='1',name='~',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -2467,7 +2493,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='~',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='~',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HCPL-2611', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-2611'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High speed optically coupled gates enable', 'description':'', 'datasheet':'https://docs.broadcom.com/doc/6N137-HCNW137-2601-2611-HCPL-0600-0601-0611-0630-0631-0661-2601-2611-2630-2631-4661-High-CMR-High-Speed-TTL-Compatible-Optocouplers-DS', 'pins':[
+        Part(**{ 'name':'HCPL-2611', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-2611'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High speed optically coupled gates enable', 'description':'', 'datasheet':'https://docs.broadcom.com/doc/6N137-HCNW137-2601-2611-HCPL-0600-0601-0611-0630-0631-0661-2601-2611-2630-2631-4661-High-CMR-High-Speed-TTL-Compatible-Optocouplers-DS', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nHCPL-2611\n\nHigh speed optically coupled gates enable', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C',func=Pin.types.PASSIVE,unit=1),
@@ -2476,7 +2502,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='EN',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HCPL-261N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-261N'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High speed optically coupled gates enable', 'description':'', 'datasheet':'https://docs.broadcom.com/doc/AV02-0391EN', 'pins':[
+        Part(**{ 'name':'HCPL-261N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-261N'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High speed optically coupled gates enable', 'description':'', 'datasheet':'https://docs.broadcom.com/doc/AV02-0391EN', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nHCPL-261N\n\nHigh speed optically coupled gates enable', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C',func=Pin.types.PASSIVE,unit=1),
@@ -2485,7 +2511,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='EN',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HCPL-2630', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-2630'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High speed optically coupled gates', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0940EN', 'pins':[
+        Part(**{ 'name':'HCPL-2630', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-2630'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High speed optically coupled gates', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0940EN', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nHCPL-2630\n\nHigh speed optically coupled gates', 'pins':[
             Pin(num='1',name='A1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='C1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C2',func=Pin.types.PASSIVE,unit=1),
@@ -2494,7 +2520,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO2',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='VO1',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HCPL-2631', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-2631'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High speed optically coupled gates', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0940EN', 'pins':[
+        Part(**{ 'name':'HCPL-2631', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-2631'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High speed optically coupled gates', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0940EN', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nHCPL-2631\n\nHigh speed optically coupled gates', 'pins':[
             Pin(num='1',name='A1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='C1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C2',func=Pin.types.PASSIVE,unit=1),
@@ -2503,7 +2529,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO2',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='VO1',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HCPL-263N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-263N'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High speed optically coupled gates', 'description':'', 'datasheet':'https://docs.broadcom.com/doc/AV02-0391EN', 'pins':[
+        Part(**{ 'name':'HCPL-263N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-263N'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High speed optically coupled gates', 'description':'', 'datasheet':'https://docs.broadcom.com/doc/AV02-0391EN', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nHCPL-263N\n\nHigh speed optically coupled gates', 'pins':[
             Pin(num='1',name='A1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='C1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C2',func=Pin.types.PASSIVE,unit=1),
@@ -2512,7 +2538,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO2',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='VO1',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HCPL-4661', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-4661'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High speed optically coupled gates', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0940EN', 'pins':[
+        Part(**{ 'name':'HCPL-4661', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL-4661'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High speed optically coupled gates', 'description':'', 'datasheet':'https://docs.broadcom.com/docs/AV02-0940EN', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nHCPL-4661\n\nHigh speed optically coupled gates', 'pins':[
             Pin(num='1',name='A1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='C1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C2',func=Pin.types.PASSIVE,unit=1),
@@ -2521,7 +2547,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO2',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='VO1',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HCPL2730', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL2730'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'darlington optocoupler', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/HCPL2731-D.pdf', 'pins':[
+        Part(**{ 'name':'HCPL2730', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HCPL2730'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'darlington optocoupler', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/HCPL2731-D.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nHCPL2730\n\ndarlington optocoupler', 'pins':[
             Pin(num='1',name='A1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='C1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C2',func=Pin.types.PASSIVE,unit=1),
@@ -2530,7 +2556,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='VO1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO7320FC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7320FC'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'2Ch Dual Digital Isolator 25Mbps', 'description':'', 'datasheet':'http://www.ti.com/general/docs/lit/getliterature.tsp?genericPartNumber=iso7320fc&fileType=pdf', 'pins':[
+        Part(**{ 'name':'ISO7320FC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7320FC'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'2Ch Dual Digital Isolator 25Mbps', 'description':'', 'datasheet':'http://www.ti.com/general/docs/lit/getliterature.tsp?genericPartNumber=iso7320fc&fileType=pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO7320FC\n\n2Ch Dual Digital Isolator 25Mbps', 'pins':[
             Pin(num='1',name='VCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='INA',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='INB',func=Pin.types.INPUT,unit=1),
@@ -2539,7 +2565,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='OUTB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='OUTA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VCC2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO7321FC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7321FC'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'2Ch Dual Digital Isolator 25Mbps', 'description':'', 'datasheet':'http://www.ti.com/general/docs/lit/getliterature.tsp?genericPartNumber=iso7321fc&fileType=pdf', 'pins':[
+        Part(**{ 'name':'ISO7321FC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7321FC'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'2Ch Dual Digital Isolator 25Mbps', 'description':'', 'datasheet':'http://www.ti.com/general/docs/lit/getliterature.tsp?genericPartNumber=iso7321fc&fileType=pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO7321FC\n\n2Ch Dual Digital Isolator 25Mbps', 'pins':[
             Pin(num='1',name='VCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='OUTA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='INB',func=Pin.types.INPUT,unit=1),
@@ -2548,7 +2574,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='OUTB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='INA',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO7330FC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7330FC'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'3Ch Quad Digital Isolator 25Mbps', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/iso7330-q1.pdf', 'pins':[
+        Part(**{ 'name':'ISO7330FC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7330FC'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'3Ch Quad Digital Isolator 25Mbps', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/iso7330-q1.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO7330FC\n\n3Ch Quad Digital Isolator 25Mbps', 'pins':[
             Pin(num='1',name='VCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -2565,7 +2591,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO7331FC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7331FC'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'3Ch Quad Digital Isolator 25Mbps', 'description':'', 'datasheet':'http://www.ti.com/general/docs/lit/getliterature.tsp?genericPartNumber=iso7341c&fileType=pdf', 'pins':[
+        Part(**{ 'name':'ISO7331FC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7331FC'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'3Ch Quad Digital Isolator 25Mbps', 'description':'', 'datasheet':'http://www.ti.com/general/docs/lit/getliterature.tsp?genericPartNumber=iso7341c&fileType=pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO7331FC\n\n3Ch Quad Digital Isolator 25Mbps', 'pins':[
             Pin(num='1',name='VCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -2582,7 +2608,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO7340FC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7340FC'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch Quad Digital Isolator 25Mbps', 'description':'', 'datasheet':'http://www.ti.com/general/docs/lit/getliterature.tsp?genericPartNumber=iso7340fc&fileType=pdf', 'pins':[
+        Part(**{ 'name':'ISO7340FC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7340FC'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch Quad Digital Isolator 25Mbps', 'description':'', 'datasheet':'http://www.ti.com/general/docs/lit/getliterature.tsp?genericPartNumber=iso7340fc&fileType=pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO7340FC\n\n4Ch Quad Digital Isolator 25Mbps', 'pins':[
             Pin(num='1',name='VCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='OUTD',func=Pin.types.OUTPUT,unit=1),
@@ -2598,7 +2624,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='IND',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO7341FC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7341FC'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch Quad Digital Isolator 25Mbps', 'description':'', 'datasheet':'http://www.ti.com/general/docs/lit/getliterature.tsp?genericPartNumber=iso7341fc&fileType=pdf', 'pins':[
+        Part(**{ 'name':'ISO7341FC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7341FC'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch Quad Digital Isolator 25Mbps', 'description':'', 'datasheet':'http://www.ti.com/general/docs/lit/getliterature.tsp?genericPartNumber=iso7341fc&fileType=pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO7341FC\n\n4Ch Quad Digital Isolator 25Mbps', 'pins':[
             Pin(num='1',name='VCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='IND',func=Pin.types.INPUT,unit=1),
@@ -2615,7 +2641,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO7342FC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7342FC'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch Quad Digital Isolator 25Mbps', 'description':'', 'datasheet':'http://www.ti.com/general/docs/lit/getliterature.tsp?genericPartNumber=iso7342fc&fileType=pdf', 'pins':[
+        Part(**{ 'name':'ISO7342FC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7342FC'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch Quad Digital Isolator 25Mbps', 'description':'', 'datasheet':'http://www.ti.com/general/docs/lit/getliterature.tsp?genericPartNumber=iso7342fc&fileType=pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO7342FC\n\n4Ch Quad Digital Isolator 25Mbps', 'pins':[
             Pin(num='1',name='VCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='IND',func=Pin.types.INPUT,unit=1),
@@ -2632,7 +2658,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO7760FDBQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7760FDBQ'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'6 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso7763.pdf?ts=1596905577895', 'pins':[
+        Part(**{ 'name':'ISO7760FDBQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7760FDBQ'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'6 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso7763.pdf?ts=1596905577895', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO7760FDBQ\n\n6 channel digital isolator', 'pins':[
             Pin(num='1',name='Vcc1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='OUTF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='OUTE',func=Pin.types.OUTPUT,unit=1),
@@ -2649,7 +2675,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='INF',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO7760FDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7760FDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'6 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso7763.pdf?ts=1596905577895', 'pins':[
+        Part(**{ 'name':'ISO7760FDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7760FDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'6 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso7763.pdf?ts=1596905577895', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO7760FDW\n\n6 channel digital isolator', 'pins':[
             Pin(num='1',name='Vcc1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='OUTF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='OUTE',func=Pin.types.OUTPUT,unit=1),
@@ -2666,7 +2692,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='INF',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO7761FDBQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7761FDBQ'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'6 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso7763.pdf?ts=1596905577895', 'pins':[
+        Part(**{ 'name':'ISO7761FDBQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7761FDBQ'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'6 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso7763.pdf?ts=1596905577895', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO7761FDBQ\n\n6 channel digital isolator', 'pins':[
             Pin(num='1',name='Vcc1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='INF',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='OUTE',func=Pin.types.OUTPUT,unit=1),
@@ -2683,7 +2709,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUTF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO7761FDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7761FDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'6 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso7763.pdf?ts=1596905577895', 'pins':[
+        Part(**{ 'name':'ISO7761FDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7761FDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'6 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso7763.pdf?ts=1596905577895', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO7761FDW\n\n6 channel digital isolator', 'pins':[
             Pin(num='1',name='Vcc1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='INF',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='OUTE',func=Pin.types.OUTPUT,unit=1),
@@ -2700,7 +2726,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUTF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO7762FDBQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7762FDBQ'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'6 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso7763.pdf?ts=1596905577895', 'pins':[
+        Part(**{ 'name':'ISO7762FDBQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7762FDBQ'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'6 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso7763.pdf?ts=1596905577895', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO7762FDBQ\n\n6 channel digital isolator', 'pins':[
             Pin(num='1',name='Vcc1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='INF',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='INE',func=Pin.types.INPUT,unit=1),
@@ -2717,7 +2743,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUTF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO7762FDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7762FDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'6 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso7763.pdf?ts=1596905577895', 'pins':[
+        Part(**{ 'name':'ISO7762FDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7762FDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'6 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso7763.pdf?ts=1596905577895', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO7762FDW\n\n6 channel digital isolator', 'pins':[
             Pin(num='1',name='Vcc1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='INF',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='INE',func=Pin.types.INPUT,unit=1),
@@ -2734,7 +2760,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUTF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO7763FDBQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7763FDBQ'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'6 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso7763.pdf?ts=1596905577895', 'pins':[
+        Part(**{ 'name':'ISO7763FDBQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7763FDBQ'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'6 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso7763.pdf?ts=1596905577895', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO7763FDBQ\n\n6 channel digital isolator', 'pins':[
             Pin(num='1',name='Vcc1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='INF',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='INE',func=Pin.types.INPUT,unit=1),
@@ -2751,7 +2777,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUTF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISO7763FDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7763FDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'6 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso7763.pdf?ts=1596905577895', 'pins':[
+        Part(**{ 'name':'ISO7763FDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISO7763FDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'6 channel digital isolator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/iso7763.pdf?ts=1596905577895', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nISO7763FDW\n\n6 channel digital isolator', 'pins':[
             Pin(num='1',name='Vcc1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='INF',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='INE',func=Pin.types.INPUT,unit=1),
@@ -2768,17 +2794,17 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUTF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTV-357T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-357T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-4_4.4x3.6mm_P2.54mm', 'Package_SO:SO-4_4.4x3.6mm_P2.54mm'], 'footprint':'Package_SO:SO-4_4.4x3.6mm_P2.54mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'https://www.buerklin.com/medias/sys_master/download/download/h91/ha0/8892020588574.pdf', 'pins':[
+        Part(**{ 'name':'LTV-357T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-357T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-4_4.4x3.6mm_P2.54mm', 'Package_SO:SO-4_4.4x3.6mm_P2.54mm'], 'footprint':'Package_SO:SO-4_4.4x3.6mm_P2.54mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'https://www.buerklin.com/medias/sys_master/download/download/h91/ha0/8892020588574.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nLTV-357T\n\nNPN DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTV-358T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-358T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-4_4.4x3.6mm_P2.54mm', 'Package_SO:SO-4_4.4x3.6mm_P2.54mm', 'Package_SO:SO-4_4.4x3.6mm_P2.54mm'], 'footprint':'Package_SO:SO-4_4.4x3.6mm_P2.54mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://optoelectronics.liteon.com/upload/download/DS70-2001-022/S_110_LTV-358T%2020140520.pdf', 'pins':[
+        Part(**{ 'name':'LTV-358T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-358T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-4_4.4x3.6mm_P2.54mm', 'Package_SO:SO-4_4.4x3.6mm_P2.54mm', 'Package_SO:SO-4_4.4x3.6mm_P2.54mm'], 'footprint':'Package_SO:SO-4_4.4x3.6mm_P2.54mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://optoelectronics.liteon.com/upload/download/DS70-2001-022/S_110_LTV-358T%2020140520.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nLTV-358T\n\nNPN DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTV-827', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-827'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'NPN DC Dual Optocoupler', 'description':'', 'datasheet':'http://optoelectronics.liteon.com/upload/download/DS-70-96-0016/LTV-8X7%20series%20201610%20.pdf', 'pins':[
+        Part(**{ 'name':'LTV-827', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-827'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'NPN DC Dual Optocoupler', 'description':'', 'datasheet':'http://optoelectronics.liteon.com/upload/download/DS-70-96-0016/LTV-8X7%20series%20201610%20.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nLTV-827\n\nNPN DC Dual Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -2786,8 +2812,8 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=2),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '7', '8', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '5', '3', '4']}] }),
-        Part(**{ 'name':'LTV-847', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-847'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm', 'Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'NPN DC Quad Optocoupler', 'description':'', 'datasheet':'http://optoelectronics.liteon.com/upload/download/DS-70-96-0016/LTV-8X7%20series.PDF', 'pins':[
+            Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '8', '2', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3', '6', '5']}] }),
+        Part(**{ 'name':'LTV-847', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTV-847'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm', 'Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'NPN DC Quad Optocoupler', 'description':'', 'datasheet':'http://optoelectronics.liteon.com/upload/download/DS-70-96-0016/LTV-8X7%20series.PDF', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nLTV-847\n\nNPN DC Quad Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='15',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='16',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -2803,8 +2829,8 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '16', '15']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '13', '4', '14']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '6', '12', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '8', '9', '7']}] }),
-        Part(**{ 'name':'MAX14850ASE+', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX14850ASE+'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'6 channel digital isolator bidirectional', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX14850.pdf', 'pins':[
+            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['16', '2', '1', '15']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '14', '4', '13']},{'label': 'uC', 'num': 3, 'pin_nums': ['12', '11', '5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '9', '8', '10']}] }),
+        Part(**{ 'name':'MAX14850ASE+', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX14850ASE+'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'6 channel digital isolator bidirectional', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX14850.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nMAX14850ASE+\n\n6 channel digital isolator bidirectional', 'pins':[
             Pin(num='1',name='VCCA',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='I/OB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='I/OB1',func=Pin.types.BIDIR,unit=1),
@@ -2821,187 +2847,223 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I/OA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GNDA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GNDB',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PC3H4A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PC3H4A'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-4_W7.62mm', 'Package_DIP:SMDIP-4_W7.62mm'], 'footprint':'Package_DIP:SMDIP-4_W7.62mm', 'keywords':'NPN AC DC Optocoupler', 'description':'', 'datasheet':'http://www.sharpsma.com/webfm_send/395', 'pins':[
+        Part(**{ 'name':'MOCD208M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MOCD208M'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'NPN DC Dual Optocoupler', 'description':'', 'datasheet':'https://www.onsemi.com/pdf/datasheet/mocd217m-d.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nMOCD208M\n\nNPN DC Dual Optocoupler', 'pins':[
+            Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=2),
+            Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=2),
+            Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=2),
+            Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['8', '2', '7', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '3', '5']}] }),
+        Part(**{ 'name':'MOCD211M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MOCD211M'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'NPN DC Dual Optocoupler', 'description':'', 'datasheet':'https://www.onsemi.com/pdf/datasheet/mocd217m-d.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nMOCD211M\n\nNPN DC Dual Optocoupler', 'pins':[
+            Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=2),
+            Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=2),
+            Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=2),
+            Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '1', '8', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '3', '6']}] }),
+        Part(**{ 'name':'MOCD213M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MOCD213M'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'NPN DC Dual Optocoupler', 'description':'', 'datasheet':'https://www.onsemi.com/pdf/datasheet/mocd217m-d.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nMOCD213M\n\nNPN DC Dual Optocoupler', 'pins':[
+            Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=2),
+            Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=2),
+            Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=2),
+            Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '8', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '6', '5']}] }),
+        Part(**{ 'name':'MOCD217M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MOCD217M'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'NPN DC Dual Optocoupler', 'description':'', 'datasheet':'https://www.onsemi.com/pdf/datasheet/mocd217m-d.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nMOCD217M\n\nNPN DC Dual Optocoupler', 'pins':[
+            Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=2),
+            Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=2),
+            Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=2),
+            Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '8', '1', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '3', '6']}] }),
+        Part(**{ 'name':'PC3H4A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PC3H4A'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-4_W7.62mm', 'Package_DIP:SMDIP-4_W7.62mm'], 'footprint':'Package_DIP:SMDIP-4_W7.62mm', 'keywords':'NPN AC DC Optocoupler', 'description':'', 'datasheet':'http://www.sharpsma.com/webfm_send/395', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nPC3H4A\n\nNPN AC DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH617A-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-1'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 40-80', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'pins':[
+        Part(**{ 'name':'SFH617A-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-1'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 40-80', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH617A-1\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 40-80', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH617A-1X001', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-1X001'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 40-80', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'pins':[
+        Part(**{ 'name':'SFH617A-1X001', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-1X001'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 40-80', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH617A-1X001\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 40-80', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH617A-1X006', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-1X006'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm'], 'footprint':'Package_DIP:DIP-4_W10.16mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 40-80', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'pins':[
+        Part(**{ 'name':'SFH617A-1X006', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-1X006'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm'], 'footprint':'Package_DIP:DIP-4_W10.16mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 40-80', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH617A-1X006\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 40-80', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH617A-1X016', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-1X016'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm'], 'footprint':'Package_DIP:DIP-4_W10.16mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 40-80', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'pins':[
+        Part(**{ 'name':'SFH617A-1X016', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-1X016'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm'], 'footprint':'Package_DIP:DIP-4_W10.16mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 40-80', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH617A-1X016\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 40-80', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH617A-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-2'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-125', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'pins':[
+        Part(**{ 'name':'SFH617A-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-2'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-125', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH617A-2\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-125', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH617A-2X001', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-2X001'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-125', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'pins':[
+        Part(**{ 'name':'SFH617A-2X001', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-2X001'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-125', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH617A-2X001\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-125', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH617A-2X006', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-2X006'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm'], 'footprint':'Package_DIP:DIP-4_W10.16mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-125', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'pins':[
+        Part(**{ 'name':'SFH617A-2X006', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-2X006'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm'], 'footprint':'Package_DIP:DIP-4_W10.16mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-125', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH617A-2X006\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-125', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH617A-2X016', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-2X016'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm'], 'footprint':'Package_DIP:DIP-4_W10.16mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-125', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'pins':[
+        Part(**{ 'name':'SFH617A-2X016', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-2X016'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm'], 'footprint':'Package_DIP:DIP-4_W10.16mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-125', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH617A-2X016\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-125', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH617A-2X017T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-2X017T'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm'], 'footprint':'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-125', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'pins':[
+        Part(**{ 'name':'SFH617A-2X017T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-2X017T'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm'], 'footprint':'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-125', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH617A-2X017T\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-125', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH617A-2X019T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-2X019T'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-4_W7.62mm', 'Package_DIP:SMDIP-4_W7.62mm'], 'footprint':'Package_DIP:SMDIP-4_W7.62mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-125', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'pins':[
+        Part(**{ 'name':'SFH617A-2X019T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-2X019T'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-4_W7.62mm', 'Package_DIP:SMDIP-4_W7.62mm'], 'footprint':'Package_DIP:SMDIP-4_W7.62mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-125', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH617A-2X019T\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-125', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH617A-3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-3'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 100-200', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'pins':[
+        Part(**{ 'name':'SFH617A-3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-3'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 100-200', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH617A-3\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 100-200', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH617A-3X001', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-3X001'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 100-200', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'pins':[
+        Part(**{ 'name':'SFH617A-3X001', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-3X001'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 100-200', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH617A-3X001\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 100-200', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH617A-3X006', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-3X006'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm'], 'footprint':'Package_DIP:DIP-4_W10.16mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 100-200', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'pins':[
+        Part(**{ 'name':'SFH617A-3X006', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-3X006'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm'], 'footprint':'Package_DIP:DIP-4_W10.16mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 100-200', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH617A-3X006\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 100-200', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH617A-3X007T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-3X007T'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm'], 'footprint':'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 40-80', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'pins':[
+        Part(**{ 'name':'SFH617A-3X007T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-3X007T'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm'], 'footprint':'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 40-80', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH617A-3X007T\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 40-80', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH617A-3X016', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-3X016'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm'], 'footprint':'Package_DIP:DIP-4_W10.16mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 100-200', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'pins':[
+        Part(**{ 'name':'SFH617A-3X016', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-3X016'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm'], 'footprint':'Package_DIP:DIP-4_W10.16mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 100-200', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH617A-3X016\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 100-200', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH617A-3X017T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-3X017T'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm'], 'footprint':'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 100-200', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'pins':[
+        Part(**{ 'name':'SFH617A-3X017T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-3X017T'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm'], 'footprint':'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 100-200', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH617A-3X017T\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 100-200', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH617A-4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-4'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 160-320', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'pins':[
+        Part(**{ 'name':'SFH617A-4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-4'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 160-320', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH617A-4\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 160-320', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH617A-4X001', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-4X001'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 160-320', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'pins':[
+        Part(**{ 'name':'SFH617A-4X001', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-4X001'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 160-320', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH617A-4X001\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 160-320', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH617A-4X006', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-4X006'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm'], 'footprint':'Package_DIP:DIP-4_W10.16mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 160-320', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'pins':[
+        Part(**{ 'name':'SFH617A-4X006', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-4X006'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm'], 'footprint':'Package_DIP:DIP-4_W10.16mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 160-320', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH617A-4X006\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 160-320', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH617A-4X016', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-4X016'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm'], 'footprint':'Package_DIP:DIP-4_W10.16mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 160-320', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'pins':[
+        Part(**{ 'name':'SFH617A-4X016', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH617A-4X016'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm'], 'footprint':'Package_DIP:DIP-4_W10.16mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 160-320', 'description':'', 'datasheet':'http://www.vishay.com/docs/83740/sfh617a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH617A-4X016\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 160-320', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH6206-1T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH6206-1T'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm'], 'footprint':'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 40-125', 'description':'', 'datasheet':'http://www.vishay.com/docs/83675/sfh620a.pdf', 'pins':[
+        Part(**{ 'name':'SFH6206-1T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH6206-1T'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm'], 'footprint':'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 40-125', 'description':'', 'datasheet':'http://www.vishay.com/docs/83675/sfh620a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH6206-1T\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 40-125', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH6206-2T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH6206-2T'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm'], 'footprint':'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-200', 'description':'', 'datasheet':'http://www.vishay.com/docs/83675/sfh620a.pdf', 'pins':[
+        Part(**{ 'name':'SFH6206-2T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH6206-2T'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm'], 'footprint':'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-200', 'description':'', 'datasheet':'http://www.vishay.com/docs/83675/sfh620a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH6206-2T\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-200', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH6206-2X001T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH6206-2X001T'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm'], 'footprint':'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-200', 'description':'', 'datasheet':'http://www.vishay.com/docs/83675/sfh620a.pdf', 'pins':[
+        Part(**{ 'name':'SFH6206-2X001T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH6206-2X001T'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm'], 'footprint':'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-200', 'description':'', 'datasheet':'http://www.vishay.com/docs/83675/sfh620a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH6206-2X001T\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-200', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH6206-3T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH6206-3T'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm'], 'footprint':'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 100-320', 'description':'', 'datasheet':'http://www.vishay.com/docs/83675/sfh620a.pdf', 'pins':[
+        Part(**{ 'name':'SFH6206-3T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH6206-3T'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm'], 'footprint':'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 100-320', 'description':'', 'datasheet':'http://www.vishay.com/docs/83675/sfh620a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH6206-3T\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 100-320', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH6206-3X001T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH6206-3X001T'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm'], 'footprint':'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 100-320', 'description':'', 'datasheet':'http://www.vishay.com/docs/83675/sfh620a.pdf', 'pins':[
+        Part(**{ 'name':'SFH6206-3X001T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH6206-3X001T'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm'], 'footprint':'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 100-320', 'description':'', 'datasheet':'http://www.vishay.com/docs/83675/sfh620a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH6206-3X001T\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 100-320', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH620A-1X001', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH620A-1X001'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 40-125', 'description':'', 'datasheet':'http://www.vishay.com/docs/83675/sfh620a.pdf', 'pins':[
+        Part(**{ 'name':'SFH620A-1X001', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH620A-1X001'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 40-125', 'description':'', 'datasheet':'http://www.vishay.com/docs/83675/sfh620a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH620A-1X001\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 40-125', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH620A-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH620A-2'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-200', 'description':'', 'datasheet':'http://www.vishay.com/docs/83675/sfh620a.pdf', 'pins':[
+        Part(**{ 'name':'SFH620A-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH620A-2'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-200', 'description':'', 'datasheet':'http://www.vishay.com/docs/83675/sfh620a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH620A-2\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-200', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH620A-2X001', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH620A-2X001'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-200', 'description':'', 'datasheet':'http://www.vishay.com/docs/83675/sfh620a.pdf', 'pins':[
+        Part(**{ 'name':'SFH620A-2X001', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH620A-2X001'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-200', 'description':'', 'datasheet':'http://www.vishay.com/docs/83675/sfh620a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH620A-2X001\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-200', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH620A-2X006', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH620A-2X006'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm'], 'footprint':'Package_DIP:DIP-4_W10.16mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-200', 'description':'', 'datasheet':'http://www.vishay.com/docs/83675/sfh620a.pdf', 'pins':[
+        Part(**{ 'name':'SFH620A-2X006', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH620A-2X006'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm'], 'footprint':'Package_DIP:DIP-4_W10.16mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-200', 'description':'', 'datasheet':'http://www.vishay.com/docs/83675/sfh620a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH620A-2X006\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-200', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH620A-2X016', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH620A-2X016'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm'], 'footprint':'Package_DIP:DIP-4_W10.16mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-200', 'description':'', 'datasheet':'http://www.vishay.com/docs/83675/sfh620a.pdf', 'pins':[
+        Part(**{ 'name':'SFH620A-2X016', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH620A-2X016'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm'], 'footprint':'Package_DIP:DIP-4_W10.16mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-200', 'description':'', 'datasheet':'http://www.vishay.com/docs/83675/sfh620a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH620A-2X016\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-200', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH620A-2X017T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH620A-2X017T'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm'], 'footprint':'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-200', 'description':'', 'datasheet':'http://www.vishay.com/docs/83675/sfh620a.pdf', 'pins':[
+        Part(**{ 'name':'SFH620A-2X017T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH620A-2X017T'}), 'ref_prefix':'U', 'fplist':['Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm'], 'footprint':'Package_DIP:SMDIP-4_W9.53mm_Clearance8mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-200', 'description':'', 'datasheet':'http://www.vishay.com/docs/83675/sfh620a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH620A-2X017T\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 63-200', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH620A-3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH620A-3'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 100-320', 'description':'', 'datasheet':'http://www.vishay.com/docs/83675/sfh620a.pdf', 'pins':[
+        Part(**{ 'name':'SFH620A-3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH620A-3'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 100-320', 'description':'', 'datasheet':'http://www.vishay.com/docs/83675/sfh620a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH620A-3\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 100-320', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH620A-3X001', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH620A-3X001'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 100-320', 'description':'', 'datasheet':'http://www.vishay.com/docs/83675/sfh620a.pdf', 'pins':[
+        Part(**{ 'name':'SFH620A-3X001', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH620A-3X001'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 100-320', 'description':'', 'datasheet':'http://www.vishay.com/docs/83675/sfh620a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH620A-3X001\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 100-320', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH620A-3X006', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH620A-3X006'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm'], 'footprint':'Package_DIP:DIP-4_W10.16mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 100-320', 'description':'', 'datasheet':'http://www.vishay.com/docs/83675/sfh620a.pdf', 'pins':[
+        Part(**{ 'name':'SFH620A-3X006', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH620A-3X006'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm'], 'footprint':'Package_DIP:DIP-4_W10.16mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 100-320', 'description':'', 'datasheet':'http://www.vishay.com/docs/83675/sfh620a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH620A-3X006\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 100-320', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SFH620A-3X016', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH620A-3X016'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm'], 'footprint':'Package_DIP:DIP-4_W10.16mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 100-320', 'description':'', 'datasheet':'http://www.vishay.com/docs/83675/sfh620a.pdf', 'pins':[
+        Part(**{ 'name':'SFH620A-3X016', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SFH620A-3X016'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm', 'Package_DIP:DIP-4_W10.16mm'], 'footprint':'Package_DIP:DIP-4_W10.16mm', 'keywords':'Optocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 100-320', 'description':'', 'datasheet':'http://www.vishay.com/docs/83675/sfh620a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSFH620A-3X016\n\nOptocoupler, Phototransistor Output, 5300 VRMS, VCEO 70V, CTR% 100-320', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8640BB-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8640BB-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'4Ch 4In Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8640BB-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8640BB-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'4Ch 4In Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8640BB-B-IU\n\n4Ch 4In Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.OUTPUT,unit=1),
@@ -3018,7 +3080,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8640BC-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8640BC-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'4Ch 4In Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8640BC-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8640BC-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'4Ch 4In Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8640BC-B-IS1\n\n4Ch 4In Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.OUTPUT,unit=1),
@@ -3035,7 +3097,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8640BD-B-IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8640BD-B-IS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch 4In Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8640BD-B-IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8640BD-B-IS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch 4In Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8640BD-B-IS\n\n4Ch 4In Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.OUTPUT,unit=1),
@@ -3052,7 +3114,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8640BD-B-IS2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8640BD-B-IS2'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch 4In Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8640BD-B-IS2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8640BD-B-IS2'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch 4In Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8640BD-B-IS2\n\n4Ch 4In Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.OUTPUT,unit=1),
@@ -3069,7 +3131,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8640EB-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8640EB-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'4Ch 4In Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8640EB-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8640EB-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'4Ch 4In Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8640EB-B-IU\n\n4Ch 4In Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.OUTPUT,unit=1),
@@ -3086,7 +3148,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8640EC-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8640EC-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'4Ch 4In Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8640EC-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8640EC-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'4Ch 4In Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8640EC-B-IS1\n\n4Ch 4In Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.OUTPUT,unit=1),
@@ -3103,7 +3165,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8640ED-B-IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8640ED-B-IS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch 4In Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8640ED-B-IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8640ED-B-IS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch 4In Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8640ED-B-IS\n\n4Ch 4In Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.OUTPUT,unit=1),
@@ -3120,7 +3182,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8640ED-B-IS2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8640ED-B-IS2'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch 4In Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8640ED-B-IS2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8640ED-B-IS2'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch 4In Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8640ED-B-IS2\n\n4Ch 4In Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.OUTPUT,unit=1),
@@ -3137,7 +3199,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8641BB-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8641BB-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'4Ch 3In 1Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8641BB-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8641BB-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'4Ch 3In 1Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8641BB-B-IU\n\n4Ch 3In 1Out Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.INPUT,unit=1),
@@ -3154,7 +3216,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8641BC-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8641BC-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'4Ch 3In 1Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8641BC-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8641BC-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'4Ch 3In 1Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8641BC-B-IS1\n\n4Ch 3In 1Out Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.INPUT,unit=1),
@@ -3171,7 +3233,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8641BD-B-IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8641BD-B-IS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch 3In 1Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8641BD-B-IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8641BD-B-IS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch 3In 1Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8641BD-B-IS\n\n4Ch 3In 1Out Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.INPUT,unit=1),
@@ -3188,7 +3250,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8641BD-B-IS2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8641BD-B-IS2'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch 3In 1Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8641BD-B-IS2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8641BD-B-IS2'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch 3In 1Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8641BD-B-IS2\n\n4Ch 3In 1Out Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.INPUT,unit=1),
@@ -3205,7 +3267,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8641EB-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8641EB-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'4Ch 3In 1Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8641EB-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8641EB-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'4Ch 3In 1Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8641EB-B-IU\n\n4Ch 3In 1Out Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.INPUT,unit=1),
@@ -3222,7 +3284,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8641EC-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8641EC-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'4Ch 3In 1Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8641EC-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8641EC-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'4Ch 3In 1Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8641EC-B-IS1\n\n4Ch 3In 1Out Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.INPUT,unit=1),
@@ -3239,7 +3301,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8641ED-B-IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8641ED-B-IS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch 3In 1Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8641ED-B-IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8641ED-B-IS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch 3In 1Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8641ED-B-IS\n\n4Ch 3In 1Out Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.INPUT,unit=1),
@@ -3256,7 +3318,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8641ED-B-IS2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8641ED-B-IS2'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch 3In 1Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8641ED-B-IS2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8641ED-B-IS2'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch 3In 1Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8641ED-B-IS2\n\n4Ch 3In 1Out Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.INPUT,unit=1),
@@ -3273,7 +3335,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8642BB-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8642BB-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'4Ch 2In 2Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8642BB-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8642BB-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'4Ch 2In 2Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8642BB-B-IU\n\n4Ch 2In 2Out Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.INPUT,unit=1),
@@ -3290,7 +3352,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8642BC-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8642BC-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'4Ch 2In 2Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8642BC-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8642BC-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'4Ch 2In 2Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8642BC-B-IS1\n\n4Ch 2In 2Out Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.INPUT,unit=1),
@@ -3307,7 +3369,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8642BD-B-IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8642BD-B-IS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch 2In 2Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8642BD-B-IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8642BD-B-IS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch 2In 2Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8642BD-B-IS\n\n4Ch 2In 2Out Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.INPUT,unit=1),
@@ -3324,7 +3386,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8642BD-B-IS2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8642BD-B-IS2'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch 2In 2Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8642BD-B-IS2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8642BD-B-IS2'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch 2In 2Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8642BD-B-IS2\n\n4Ch 2In 2Out Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.INPUT,unit=1),
@@ -3341,7 +3403,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8642EA-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8642EA-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'4Ch 2In 2Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8642EA-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8642EA-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'4Ch 2In 2Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8642EA-B-IU\n\n4Ch 2In 2Out Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.INPUT,unit=1),
@@ -3358,7 +3420,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8642EB-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8642EB-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'4Ch 2In 2Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8642EB-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8642EB-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'4Ch 2In 2Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8642EB-B-IU\n\n4Ch 2In 2Out Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.INPUT,unit=1),
@@ -3375,7 +3437,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8642EC-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8642EC-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'4Ch 2In 2Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8642EC-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8642EC-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'4Ch 2In 2Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8642EC-B-IS1\n\n4Ch 2In 2Out Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.INPUT,unit=1),
@@ -3392,7 +3454,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8642ED-B-IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8642ED-B-IS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch 2In 2Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8642ED-B-IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8642ED-B-IS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch 2In 2Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8642ED-B-IS\n\n4Ch 2In 2Out Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.INPUT,unit=1),
@@ -3409,7 +3471,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8642ED-B-IS2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8642ED-B-IS2'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch 2In 2Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8642ED-B-IS2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8642ED-B-IS2'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch 2In 2Out Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8642ED-B-IS2\n\n4Ch 2In 2Out Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='EN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.INPUT,unit=1),
@@ -3426,7 +3488,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8645BB-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8645BB-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'4Ch 4In Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8645BB-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8645BB-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'4Ch 4In Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8645BB-B-IU\n\n4Ch 4In Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.OUTPUT,unit=1),
@@ -3443,7 +3505,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8645BC-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8645BC-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'4Ch 4In Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8645BC-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8645BC-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'4Ch 4In Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8645BC-B-IS1\n\n4Ch 4In Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.OUTPUT,unit=1),
@@ -3460,7 +3522,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8645BD-B-IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8645BD-B-IS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch 4In Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Si8645BD-B-IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8645BD-B-IS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'4Ch 4In Quad Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/si864x-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8645BD-B-IS\n\n4Ch 4In Quad Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='B4',func=Pin.types.OUTPUT,unit=1),
@@ -3477,7 +3539,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8660BA-AS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8660BA-AS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 6In Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8660BA-AS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8660BA-AS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 6In Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8660BA-AS1\n\n6Ch 6In Hex Digital Isolator 150Mbps AEC-Q100', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.OUTPUT,unit=1),
@@ -3494,7 +3556,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8660BB-AS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8660BB-AS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 6In Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8660BB-AS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8660BB-AS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 6In Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8660BB-AS1\n\n6Ch 6In Hex Digital Isolator 150Mbps AEC-Q100', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.OUTPUT,unit=1),
@@ -3511,7 +3573,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8660BB-AU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8660BB-AU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 6In Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8660BB-AU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8660BB-AU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 6In Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8660BB-AU\n\n6Ch 6In Hex Digital Isolator 150Mbps AEC-Q100', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.OUTPUT,unit=1),
@@ -3528,7 +3590,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8660BB-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8660BB-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 6In Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8660BB-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8660BB-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 6In Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8660BB-B-IS1\n\n6Ch 6In Hex Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.OUTPUT,unit=1),
@@ -3545,7 +3607,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8660BB-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8660BB-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 6In Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8660BB-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8660BB-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 6In Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8660BB-B-IU\n\n6Ch 6In Hex Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.OUTPUT,unit=1),
@@ -3562,7 +3624,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8660BC-AS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8660BC-AS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 6In Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8660BC-AS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8660BC-AS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 6In Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8660BC-AS1\n\n6Ch 6In Hex Digital Isolator 150Mbps AEC-Q100', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.OUTPUT,unit=1),
@@ -3579,7 +3641,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8660BC-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8660BC-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 6In Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8660BC-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8660BC-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 6In Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8660BC-B-IS1\n\n6Ch 6In Hex Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.OUTPUT,unit=1),
@@ -3596,7 +3658,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8660BD-AS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8660BD-AS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 6In Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8660BD-AS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8660BD-AS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 6In Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8660BD-AS\n\n6Ch 6In Hex Digital Isolator 150Mbps AEC-Q100', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.OUTPUT,unit=1),
@@ -3613,7 +3675,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8660BD-B-IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8660BD-B-IS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 6In Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8660BD-B-IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8660BD-B-IS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 6In Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8660BD-B-IS\n\n6Ch 6In Hex Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.OUTPUT,unit=1),
@@ -3630,7 +3692,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8660EB-AU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8660EB-AU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 6In Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8660EB-AU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8660EB-AU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 6In Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8660EB-AU\n\n6Ch 6In Hex Digital Isolator 150Mbps AEC-Q100', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.OUTPUT,unit=1),
@@ -3647,7 +3709,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8660EB-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8660EB-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 6In Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8660EB-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8660EB-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 6In Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8660EB-B-IU\n\n6Ch 6In Hex Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.OUTPUT,unit=1),
@@ -3664,7 +3726,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8660EC-AS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8660EC-AS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 6In Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8660EC-AS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8660EC-AS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 6In Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8660EC-AS1\n\n6Ch 6In Hex Digital Isolator 150Mbps AEC-Q100', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.OUTPUT,unit=1),
@@ -3681,7 +3743,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8660EC-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8660EC-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 6In Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8660EC-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8660EC-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 6In Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8660EC-B-IS1\n\n6Ch 6In Hex Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.OUTPUT,unit=1),
@@ -3698,7 +3760,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8660ED-AS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8660ED-AS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 6In Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8660ED-AS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8660ED-AS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 6In Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8660ED-AS\n\n6Ch 6In Hex Digital Isolator 150Mbps AEC-Q100', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.OUTPUT,unit=1),
@@ -3715,7 +3777,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8660ED-B-IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8660ED-B-IS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 6In Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8660ED-B-IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8660ED-B-IS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 6In Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8660ED-B-IS\n\n6Ch 6In Hex Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.OUTPUT,unit=1),
@@ -3732,7 +3794,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8661BB-AS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8661BB-AS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 5In 1Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8661BB-AS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8661BB-AS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 5In 1Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8661BB-AS1\n\n6Ch 5In 1Out Hex Digital Isolator 150Mbps AEC-Q100', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.OUTPUT,unit=1),
@@ -3749,7 +3811,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8661BB-AU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8661BB-AU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 5In 1Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8661BB-AU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8661BB-AU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 5In 1Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8661BB-AU\n\n6Ch 5In 1Out Hex Digital Isolator 150Mbps AEC-Q100', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.OUTPUT,unit=1),
@@ -3766,7 +3828,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8661BB-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8661BB-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 5In 1Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8661BB-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8661BB-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 5In 1Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8661BB-B-IU\n\n6Ch 5In 1Out Hex Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.OUTPUT,unit=1),
@@ -3783,7 +3845,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8661BC-AS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8661BC-AS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 5In 1Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8661BC-AS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8661BC-AS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 5In 1Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8661BC-AS1\n\n6Ch 5In 1Out Hex Digital Isolator 150Mbps AEC-Q100', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.OUTPUT,unit=1),
@@ -3800,7 +3862,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8661BC-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8661BC-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 5In 1Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8661BC-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8661BC-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 5In 1Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8661BC-B-IS1\n\n6Ch 5In 1Out Hex Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.OUTPUT,unit=1),
@@ -3817,7 +3879,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8661BD-AS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8661BD-AS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 5In 1Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8661BD-AS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8661BD-AS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 5In 1Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8661BD-AS\n\n6Ch 5In 1Out Hex Digital Isolator 150Mbps AEC-Q100', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.OUTPUT,unit=1),
@@ -3834,7 +3896,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8661BD-AS2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8661BD-AS2'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 5In 1Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8661BD-AS2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8661BD-AS2'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 5In 1Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8661BD-AS2\n\n6Ch 5In 1Out Hex Digital Isolator 150Mbps AEC-Q100', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.OUTPUT,unit=1),
@@ -3851,7 +3913,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8661BD-B-IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8661BD-B-IS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 5In 1Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8661BD-B-IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8661BD-B-IS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 5In 1Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8661BD-B-IS\n\n6Ch 5In 1Out Hex Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.OUTPUT,unit=1),
@@ -3868,7 +3930,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8661BD-B-IS2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8661BD-B-IS2'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 5In 1Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8661BD-B-IS2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8661BD-B-IS2'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 5In 1Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8661BD-B-IS2\n\n6Ch 5In 1Out Hex Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.OUTPUT,unit=1),
@@ -3885,7 +3947,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8661EB-AU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8661EB-AU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 5In 1Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8661EB-AU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8661EB-AU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 5In 1Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8661EB-AU\n\n6Ch 5In 1Out Hex Digital Isolator 150Mbps AEC-Q100', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.OUTPUT,unit=1),
@@ -3902,7 +3964,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8661EB-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8661EB-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 5In 1Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8661EB-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8661EB-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 5In 1Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8661EB-B-IU\n\n6Ch 5In 1Out Hex Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.OUTPUT,unit=1),
@@ -3919,7 +3981,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8661EC-AS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8661EC-AS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 5In 1Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8661EC-AS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8661EC-AS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 5In 1Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8661EC-AS1\n\n6Ch 5In 1Out Hex Digital Isolator 150Mbps AEC-Q100', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.OUTPUT,unit=1),
@@ -3936,7 +3998,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8661EC-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8661EC-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 5In 1Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8661EC-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8661EC-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 5In 1Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8661EC-B-IS1\n\n6Ch 5In 1Out Hex Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.OUTPUT,unit=1),
@@ -3953,7 +4015,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8661ED-AS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8661ED-AS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 5In 1Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8661ED-AS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8661ED-AS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 5In 1Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8661ED-AS\n\n6Ch 5In 1Out Hex Digital Isolator 150Mbps AEC-Q100', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.OUTPUT,unit=1),
@@ -3970,7 +4032,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8661ED-B-IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8661ED-B-IS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 5In 1Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8661ED-B-IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8661ED-B-IS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 5In 1Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8661ED-B-IS\n\n6Ch 5In 1Out Hex Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.OUTPUT,unit=1),
@@ -3987,7 +4049,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8662BB-AS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8662BB-AS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 4In 2Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8662BB-AS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8662BB-AS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 4In 2Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8662BB-AS1\n\n6Ch 4In 2Out Hex Digital Isolator 150Mbps AEC-Q100', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.INPUT,unit=1),
@@ -4004,7 +4066,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8662BB-AU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8662BB-AU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 4In 2Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8662BB-AU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8662BB-AU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 4In 2Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8662BB-AU\n\n6Ch 4In 2Out Hex Digital Isolator 150Mbps AEC-Q100', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.INPUT,unit=1),
@@ -4021,7 +4083,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8662BB-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8662BB-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 4In 2Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8662BB-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8662BB-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 4In 2Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8662BB-B-IU\n\n6Ch 4In 2Out Hex Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.INPUT,unit=1),
@@ -4038,7 +4100,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8662BC-AS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8662BC-AS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 4In 2Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8662BC-AS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8662BC-AS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 4In 2Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8662BC-AS1\n\n6Ch 4In 2Out Hex Digital Isolator 150Mbps AEC-Q100', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.INPUT,unit=1),
@@ -4055,7 +4117,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8662BC-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8662BC-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 4In 2Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8662BC-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8662BC-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 4In 2Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8662BC-B-IS1\n\n6Ch 4In 2Out Hex Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.INPUT,unit=1),
@@ -4072,7 +4134,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8662BD-AS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8662BD-AS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 4In 2Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8662BD-AS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8662BD-AS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 4In 2Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8662BD-AS\n\n6Ch 4In 2Out Hex Digital Isolator 150Mbps AEC-Q100', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.INPUT,unit=1),
@@ -4089,7 +4151,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8662BD-B-IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8662BD-B-IS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 4In 2Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8662BD-B-IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8662BD-B-IS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 4In 2Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8662BD-B-IS\n\n6Ch 4In 2Out Hex Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.INPUT,unit=1),
@@ -4106,7 +4168,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8662EB-AU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8662EB-AU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 4In 2Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8662EB-AU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8662EB-AU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 4In 2Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8662EB-AU\n\n6Ch 4In 2Out Hex Digital Isolator 150Mbps AEC-Q100', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.INPUT,unit=1),
@@ -4123,7 +4185,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8662EB-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8662EB-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 4In 2Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8662EB-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8662EB-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 4In 2Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8662EB-B-IU\n\n6Ch 4In 2Out Hex Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.INPUT,unit=1),
@@ -4140,7 +4202,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8662EC-AS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8662EC-AS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 4In 2Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8662EC-AS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8662EC-AS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 4In 2Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8662EC-AS1\n\n6Ch 4In 2Out Hex Digital Isolator 150Mbps AEC-Q100', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.INPUT,unit=1),
@@ -4157,7 +4219,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8662EC-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8662EC-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 4In 2Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8662EC-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8662EC-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 4In 2Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8662EC-B-IS1\n\n6Ch 4In 2Out Hex Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.INPUT,unit=1),
@@ -4174,7 +4236,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8662ED-AS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8662ED-AS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 4In 2Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8662ED-AS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8662ED-AS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 4In 2Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8662ED-AS\n\n6Ch 4In 2Out Hex Digital Isolator 150Mbps AEC-Q100', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.INPUT,unit=1),
@@ -4191,7 +4253,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8662ED-B-IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8662ED-B-IS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 4In 2Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8662ED-B-IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8662ED-B-IS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 4In 2Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8662ED-B-IS\n\n6Ch 4In 2Out Hex Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.INPUT,unit=1),
@@ -4208,7 +4270,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8663BB-AS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8663BB-AS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 3In 3Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8663BB-AS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8663BB-AS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 3In 3Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8663BB-AS1\n\n6Ch 3In 3Out Hex Digital Isolator 150Mbps AEC-Q100', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.INPUT,unit=1),
@@ -4225,7 +4287,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8663BB-AU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8663BB-AU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 3In 3Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8663BB-AU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8663BB-AU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 3In 3Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8663BB-AU\n\n6Ch 3In 3Out Hex Digital Isolator 150Mbps AEC-Q100', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.INPUT,unit=1),
@@ -4242,7 +4304,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8663BB-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8663BB-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 3In 3Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8663BB-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8663BB-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 3In 3Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8663BB-B-IU\n\n6Ch 3In 3Out Hex Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.INPUT,unit=1),
@@ -4259,7 +4321,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8663BC-AS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8663BC-AS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 3In 3Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8663BC-AS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8663BC-AS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 3In 3Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8663BC-AS1\n\n6Ch 3In 3Out Hex Digital Isolator 150Mbps AEC-Q100', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.INPUT,unit=1),
@@ -4276,7 +4338,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8663BC-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8663BC-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 3In 3Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8663BC-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8663BC-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 3In 3Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8663BC-B-IS1\n\n6Ch 3In 3Out Hex Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.INPUT,unit=1),
@@ -4293,7 +4355,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8663BD-AS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8663BD-AS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 3In 3Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8663BD-AS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8663BD-AS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 3In 3Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8663BD-AS\n\n6Ch 3In 3Out Hex Digital Isolator 150Mbps AEC-Q100', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.INPUT,unit=1),
@@ -4310,7 +4372,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8663BD-B-IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8663BD-B-IS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 3In 3Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8663BD-B-IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8663BD-B-IS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 3In 3Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8663BD-B-IS\n\n6Ch 3In 3Out Hex Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.INPUT,unit=1),
@@ -4327,7 +4389,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8663EB-AU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8663EB-AU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 3In 3Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8663EB-AU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8663EB-AU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 3In 3Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8663EB-AU\n\n6Ch 3In 3Out Hex Digital Isolator 150Mbps AEC-Q100', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.INPUT,unit=1),
@@ -4344,7 +4406,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8663EB-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8663EB-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 3In 3Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8663EB-B-IU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8663EB-B-IU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 3In 3Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8663EB-B-IU\n\n6Ch 3In 3Out Hex Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.INPUT,unit=1),
@@ -4361,7 +4423,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8663EC-AS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8663EC-AS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 3In 3Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8663EC-AS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8663EC-AS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 3In 3Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8663EC-AS1\n\n6Ch 3In 3Out Hex Digital Isolator 150Mbps AEC-Q100', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.INPUT,unit=1),
@@ -4378,7 +4440,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8663EC-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8663EC-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 3In 3Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8663EC-B-IS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8663EC-B-IS1'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 3In 3Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8663EC-B-IS1\n\n6Ch 3In 3Out Hex Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.INPUT,unit=1),
@@ -4395,7 +4457,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8663ED-AS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8663ED-AS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 3In 3Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8663ED-AS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8663ED-AS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 3In 3Out Hex Digital Isolator 150Mbps AEC-Q100', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8663ED-AS\n\n6Ch 3In 3Out Hex Digital Isolator 150Mbps AEC-Q100', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.INPUT,unit=1),
@@ -4412,7 +4474,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si8663ED-B-IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8663ED-B-IS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 3In 3Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'pins':[
+        Part(**{ 'name':'Si8663ED-B-IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si8663ED-B-IS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'6Ch 3In 3Out Hex Digital Isolator 150Mbps', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/Skyworks/SL/documents/public/data-sheets/Si866x.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nSi8663ED-B-IS\n\n6Ch 3In 3Out Hex Digital Isolator 150Mbps', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='B6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B5',func=Pin.types.INPUT,unit=1),
@@ -4429,57 +4491,57 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCMT1101', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCMT1101'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'NPN DC opto', 'description':'', 'datasheet':'http://www.vishay.com/docs/83510/tcmt1100.pdf', 'pins':[
+        Part(**{ 'name':'TCMT1101', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCMT1101'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'NPN DC opto', 'description':'', 'datasheet':'http://www.vishay.com/docs/83510/tcmt1100.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTCMT1101\n\nNPN DC opto', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCMT1102', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCMT1102'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'NPN DC opto', 'description':'', 'datasheet':'http://www.vishay.com/docs/83510/tcmt1100.pdf', 'pins':[
+        Part(**{ 'name':'TCMT1102', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCMT1102'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'NPN DC opto', 'description':'', 'datasheet':'http://www.vishay.com/docs/83510/tcmt1100.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTCMT1102\n\nNPN DC opto', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCMT1103', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCMT1103'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'NPN DC opto', 'description':'', 'datasheet':'http://www.vishay.com/docs/83510/tcmt1100.pdf', 'pins':[
+        Part(**{ 'name':'TCMT1103', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCMT1103'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'NPN DC opto', 'description':'', 'datasheet':'http://www.vishay.com/docs/83510/tcmt1100.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTCMT1103\n\nNPN DC opto', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCMT1104', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCMT1104'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'NPN DC opto', 'description':'', 'datasheet':'http://www.vishay.com/docs/83510/tcmt1100.pdf', 'pins':[
+        Part(**{ 'name':'TCMT1104', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCMT1104'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'NPN DC opto', 'description':'', 'datasheet':'http://www.vishay.com/docs/83510/tcmt1100.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTCMT1104\n\nNPN DC opto', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCMT1105', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCMT1105'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'NPN DC opto', 'description':'', 'datasheet':'http://www.vishay.com/docs/83510/tcmt1100.pdf', 'pins':[
+        Part(**{ 'name':'TCMT1105', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCMT1105'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'NPN DC opto', 'description':'', 'datasheet':'http://www.vishay.com/docs/83510/tcmt1100.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTCMT1105\n\nNPN DC opto', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCMT1106', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCMT1106'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'NPN DC opto', 'description':'', 'datasheet':'http://www.vishay.com/docs/83510/tcmt1100.pdf', 'pins':[
+        Part(**{ 'name':'TCMT1106', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCMT1106'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'NPN DC opto', 'description':'', 'datasheet':'http://www.vishay.com/docs/83510/tcmt1100.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTCMT1106\n\nNPN DC opto', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCMT1107', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCMT1107'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'NPN DC opto', 'description':'', 'datasheet':'http://www.vishay.com/docs/83510/tcmt1100.pdf', 'pins':[
+        Part(**{ 'name':'TCMT1107', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCMT1107'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'NPN DC opto', 'description':'', 'datasheet':'http://www.vishay.com/docs/83510/tcmt1100.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTCMT1107\n\nNPN DC opto', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCMT1108', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCMT1108'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'NPN DC opto', 'description':'', 'datasheet':'http://www.vishay.com/docs/83510/tcmt1100.pdf', 'pins':[
+        Part(**{ 'name':'TCMT1108', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCMT1108'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'NPN DC opto', 'description':'', 'datasheet':'http://www.vishay.com/docs/83510/tcmt1100.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTCMT1108\n\nNPN DC opto', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCMT1109', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCMT1109'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'NPN DC opto', 'description':'', 'datasheet':'http://www.vishay.com/docs/83510/tcmt1100.pdf', 'pins':[
+        Part(**{ 'name':'TCMT1109', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCMT1109'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'NPN DC opto', 'description':'', 'datasheet':'http://www.vishay.com/docs/83510/tcmt1100.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTCMT1109\n\nNPN DC opto', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCMT1600', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCMT1600'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'NPN AC DC Phototransistor Optocoupler', 'description':'', 'datasheet':'http://www.vishay.com/docs/83512/tcmt1600.pdf', 'pins':[
+        Part(**{ 'name':'TCMT1600', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCMT1600'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'NPN AC DC Phototransistor Optocoupler', 'description':'', 'datasheet':'http://www.vishay.com/docs/83512/tcmt1600.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTCMT1600\n\nNPN AC DC Phototransistor Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCMT4106', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCMT4106'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-16_4.4x10.4mm_P1.27mm', 'Package_SO:SOP-16_4.4x10.4mm_P1.27mm'], 'footprint':'Package_SO:SOP-16_4.4x10.4mm_P1.27mm', 'keywords':'NPN DC opto', 'description':'', 'datasheet':'https://www.vishay.com/docs/84181/tcmt4100.pdf', 'pins':[
+        Part(**{ 'name':'TCMT4106', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCMT4106'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-16_4.4x10.4mm_P1.27mm', 'Package_SO:SOP-16_4.4x10.4mm_P1.27mm'], 'footprint':'Package_SO:SOP-16_4.4x10.4mm_P1.27mm', 'keywords':'NPN DC opto', 'description':'', 'datasheet':'https://www.vishay.com/docs/84181/tcmt4100.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTCMT4106\n\nNPN DC opto', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='15',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='16',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -4495,8 +4557,8 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '1', '2', '16']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '3', '4', '14']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '12', '11', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '9', '10', '8']}] }),
-        Part(**{ 'name':'TCMT4600', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCMT4600'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-16_4.55x10.3mm_P1.27mm', 'Package_SO:SOP-16_4.55x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOP-16_4.55x10.3mm_P1.27mm', 'keywords':'NPN AC DC Quad Phototransistor Optocoupler', 'description':'', 'datasheet':'http://www.vishay.com/docs/83512/tcmt1600.pdf', 'pins':[
+            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '16', '15']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '4', '14', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6', '11', '12']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '10', '8', '9']}] }),
+        Part(**{ 'name':'TCMT4600', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCMT4600'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-16_4.55x10.3mm_P1.27mm', 'Package_SO:SOP-16_4.55x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOP-16_4.55x10.3mm_P1.27mm', 'keywords':'NPN AC DC Quad Phototransistor Optocoupler', 'description':'', 'datasheet':'http://www.vishay.com/docs/83512/tcmt1600.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTCMT4600\n\nNPN AC DC Quad Phototransistor Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='15',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='16',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -4512,8 +4574,8 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '2', '16', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '14', '3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '12', '11', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['9', '7', '10', '8']}] }),
-        Part(**{ 'name':'TCMT4606', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCMT4606'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-16_4.55x10.3mm_P1.27mm', 'Package_SO:SOP-16_4.55x10.3mm_P1.27mm', 'Package_SO:SOP-16_4.55x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOP-16_4.55x10.3mm_P1.27mm', 'keywords':'NPN AC DC Quad Phototransistor Optocoupler', 'description':'', 'datasheet':'http://www.vishay.com/docs/83512/tcmt1600.pdf', 'pins':[
+            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '16', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '13', '3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '6', '5', '12']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '8', '7', '9']}] }),
+        Part(**{ 'name':'TCMT4606', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCMT4606'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-16_4.55x10.3mm_P1.27mm', 'Package_SO:SOP-16_4.55x10.3mm_P1.27mm', 'Package_SO:SOP-16_4.55x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOP-16_4.55x10.3mm_P1.27mm', 'keywords':'NPN AC DC Quad Phototransistor Optocoupler', 'description':'', 'datasheet':'http://www.vishay.com/docs/83512/tcmt1600.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTCMT4606\n\nNPN AC DC Quad Phototransistor Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='15',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='16',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -4529,51 +4591,51 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '15', '16']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '14', '3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '12', '6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '9', '8', '7']}] }),
-        Part(**{ 'name':'TIL111', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TIL111'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm'], 'footprint':'Package_DIP:DIP-6_W7.62mm', 'keywords':'NPN DC Optocoupler Base Connected', 'description':'', 'datasheet':'https://www.egr.msu.edu/eceshop/Parts_Inventory/datasheets/til111.pdf', 'pins':[
+            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '16', '15', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '13', '3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '11', '6', '12']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '9', '10', '8']}] }),
+        Part(**{ 'name':'TIL111', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TIL111'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm', 'Package_DIP:DIP-6_W7.62mm'], 'footprint':'Package_DIP:DIP-6_W7.62mm', 'keywords':'NPN DC Optocoupler Base Connected', 'description':'', 'datasheet':'https://www.egr.msu.edu/eceshop/Parts_Inventory/datasheets/til111.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTIL111\n\nNPN DC Optocoupler Base Connected', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLP184xSE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP184xSE'}), 'ref_prefix':'U', 'fplist':['Package_SO:MFSOP6-4_4.4x3.6mm_P1.27mm', 'Package_SO:MFSOP6-4_4.4x3.6mm_P1.27mm'], 'footprint':'Package_SO:MFSOP6-4_4.4x3.6mm_P1.27mm', 'keywords':'NPN AC DC Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=14118&prodName=TLP184(SE', 'pins':[
+        Part(**{ 'name':'TLP184xSE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP184xSE'}), 'ref_prefix':'U', 'fplist':['Package_SO:MFSOP6-4_4.4x3.6mm_P1.27mm', 'Package_SO:MFSOP6-4_4.4x3.6mm_P1.27mm'], 'footprint':'Package_SO:MFSOP6-4_4.4x3.6mm_P1.27mm', 'keywords':'NPN AC DC Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=14118&prodName=TLP184(SE', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTLP184xSE\n\nNPN AC DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLP185xSE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP185xSE'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-4_4.55x3.7mm_P2.54mm', 'Package_SO:SOIC-4_4.55x3.7mm_P2.54mm'], 'footprint':'Package_SO:SOIC-4_4.55x3.7mm_P2.54mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=14111&prodName=TLP185(SE', 'pins':[
+        Part(**{ 'name':'TLP185xSE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP185xSE'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-4_4.55x3.7mm_P2.54mm', 'Package_SO:SOIC-4_4.55x3.7mm_P2.54mm'], 'footprint':'Package_SO:SOIC-4_4.55x3.7mm_P2.54mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=14111&prodName=TLP185(SE', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTLP185xSE\n\nNPN DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLP2761', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP2761'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-6L_10x3.84mm_P1.27mm', 'Package_SO:SO-6L_10x3.84mm_P1.27mm'], 'footprint':'Package_SO:SO-6L_10x3.84mm_P1.27mm', 'keywords':'Photocouple highspeed inverting push-pull output', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=28819&prodName=TLP2761', 'pins':[
+        Part(**{ 'name':'TLP2761', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP2761'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-6L_10x3.84mm_P1.27mm', 'Package_SO:SO-6L_10x3.84mm_P1.27mm'], 'footprint':'Package_SO:SO-6L_10x3.84mm_P1.27mm', 'keywords':'Photocouple highspeed inverting push-pull output', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=28819&prodName=TLP2761', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTLP2761\n\nPhotocouple highspeed inverting push-pull output', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='3',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='VO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='6',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLP2767', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP2767'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-6L_10x3.84mm_P1.27mm', 'Package_SO:SO-6L_10x3.84mm_P1.27mm', 'Package_SO:SO-6L_10x3.84mm_P1.27mm'], 'footprint':'Package_SO:SO-6L_10x3.84mm_P1.27mm', 'keywords':'Photocouple highspeed inverting push-pull output', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=36717&prodName=TLP2767', 'pins':[
+        Part(**{ 'name':'TLP2767', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP2767'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-6L_10x3.84mm_P1.27mm', 'Package_SO:SO-6L_10x3.84mm_P1.27mm', 'Package_SO:SO-6L_10x3.84mm_P1.27mm'], 'footprint':'Package_SO:SO-6L_10x3.84mm_P1.27mm', 'keywords':'Photocouple highspeed inverting push-pull output', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=36717&prodName=TLP2767', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTLP2767\n\nPhotocouple highspeed inverting push-pull output', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='3',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='VO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='6',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLP2770', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP2770'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-6L_10x3.84mm_P1.27mm', 'Package_SO:SO-6L_10x3.84mm_P1.27mm'], 'footprint':'Package_SO:SO-6L_10x3.84mm_P1.27mm', 'keywords':'Photocouple highspeed non inverting push-pull output', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=53548&prodName=TLP2770', 'pins':[
+        Part(**{ 'name':'TLP2770', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP2770'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-6L_10x3.84mm_P1.27mm', 'Package_SO:SO-6L_10x3.84mm_P1.27mm'], 'footprint':'Package_SO:SO-6L_10x3.84mm_P1.27mm', 'keywords':'Photocouple highspeed non inverting push-pull output', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=53548&prodName=TLP2770', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTLP2770\n\nPhotocouple highspeed non inverting push-pull output', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='3',name='K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='VO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='6',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLP292', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP292'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOIC-4_4.55x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'NPN AC DC Phototransistor Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/TLP292_datasheet_en_20191129.pdf?did=14425&prodName=TLP292', 'pins':[
+        Part(**{ 'name':'TLP292', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP292'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'Package_SO:SOIC-4_4.55x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOP-4_4.4x2.6mm_P1.27mm', 'keywords':'NPN AC DC Phototransistor Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/TLP292_datasheet_en_20191129.pdf?did=14425&prodName=TLP292', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTLP292\n\nNPN AC DC Phototransistor Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLP292-4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP292-4'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-16_4.55x10.3mm_P1.27mm', 'Package_SO:SOP-16_4.55x10.3mm_P1.27mm', 'Package_SO:SOP-16_4.55x10.3mm_P1.27mm', 'Package_SO:SOP-16_4.55x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOP-16_4.55x10.3mm_P1.27mm', 'keywords':'NPN AC DC Quad Phototransistor Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/TLP292-4_datasheet_en_20190520.pdf?did=15284&prodName=TLP292-4', 'pins':[
+        Part(**{ 'name':'TLP292-4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP292-4'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-16_4.55x10.3mm_P1.27mm', 'Package_SO:SOP-16_4.55x10.3mm_P1.27mm', 'Package_SO:SOP-16_4.55x10.3mm_P1.27mm', 'Package_SO:SOP-16_4.55x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOP-16_4.55x10.3mm_P1.27mm', 'keywords':'NPN AC DC Quad Phototransistor Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/TLP292-4_datasheet_en_20190520.pdf?did=15284&prodName=TLP292-4', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTLP292-4\n\nNPN AC DC Quad Phototransistor Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='15',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='16',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -4589,13 +4651,13 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '2', '1', '16']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '4', '13', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '5', '12', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '8', '7', '9']}] }),
-        Part(**{ 'name':'TLP293', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP293'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-4_4.55x2.6mm_P1.27mm', 'Package_SO:SOIC-4_4.55x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOIC-4_4.55x2.6mm_P1.27mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/TLP293_datasheet_en_20191129.pdf?did=14419&prodName=TLP293', 'pins':[
+            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '16', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '13', '14']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '5', '11', '12']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '10', '9', '8']}] }),
+        Part(**{ 'name':'TLP293', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP293'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-4_4.55x2.6mm_P1.27mm', 'Package_SO:SOIC-4_4.55x2.6mm_P1.27mm'], 'footprint':'Package_SO:SOIC-4_4.55x2.6mm_P1.27mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/TLP293_datasheet_en_20191129.pdf?did=14419&prodName=TLP293', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTLP293\n\nNPN DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLP293-4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP293-4'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_4.55x10.3mm_P1.27mm', 'Package_SO:SOIC-16_4.55x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_4.55x10.3mm_P1.27mm', 'keywords':'NPN DC Quad Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/TLP293-4_datasheet_en_20190520.pdf?did=15287&prodName=TLP293-4', 'pins':[
+        Part(**{ 'name':'TLP293-4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP293-4'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_4.55x10.3mm_P1.27mm', 'Package_SO:SOIC-16_4.55x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_4.55x10.3mm_P1.27mm', 'keywords':'NPN DC Quad Optocoupler', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/TLP293-4_datasheet_en_20190520.pdf?did=15287&prodName=TLP293-4', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTLP293-4\n\nNPN DC Quad Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='15',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='16',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -4611,20 +4673,20 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='10',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='7',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='8',name='~',func=Pin.types.PASSIVE,unit=4),
-            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '15', '16', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '4', '3', '14']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6', '11', '12']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '7', '9', '8']}] }),
-        Part(**{ 'name':'TLP3022', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP3022'}), 'ref_prefix':'U', 'fplist':['Package_DIP:Toshiba_11-7A9', 'Package_DIP:Toshiba_11-7A9'], 'footprint':'Package_DIP:Toshiba_11-7A9', 'keywords':'Photo-Triac Opto Triac', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=1421&prodName=TLP3021(S)', 'pins':[
+            Pin(num='9',name='~',func=Pin.types.PASSIVE,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '15', '16']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '13', '4', '14']},{'label': 'uC', 'num': 3, 'pin_nums': ['12', '11', '6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9', '10', '7']}] }),
+        Part(**{ 'name':'TLP3022', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP3022'}), 'ref_prefix':'U', 'fplist':['Package_DIP:Toshiba_11-7A9', 'Package_DIP:Toshiba_11-7A9'], 'footprint':'Package_DIP:Toshiba_11-7A9', 'keywords':'Photo-Triac Opto Triac', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=1421&prodName=TLP3021(S)', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTLP3022\n\nPhoto-Triac Opto Triac', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLP3023', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP3023'}), 'ref_prefix':'U', 'fplist':['Package_DIP:Toshiba_11-7A9', 'Package_DIP:Toshiba_11-7A9', 'Package_DIP:Toshiba_11-7A9'], 'footprint':'Package_DIP:Toshiba_11-7A9', 'keywords':'Photo-Triac Opto Triac', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=1421&prodName=TLP3021(S)', 'pins':[
+        Part(**{ 'name':'TLP3023', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLP3023'}), 'ref_prefix':'U', 'fplist':['Package_DIP:Toshiba_11-7A9', 'Package_DIP:Toshiba_11-7A9', 'Package_DIP:Toshiba_11-7A9'], 'footprint':'Package_DIP:Toshiba_11-7A9', 'keywords':'Photo-Triac Opto Triac', 'description':'', 'datasheet':'https://toshiba.semicon-storage.com/info/docget.jsp?did=1421&prodName=TLP3021(S)', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nTLP3023\n\nPhoto-Triac Opto Triac', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'VO0600T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO0600T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High speed optically coupled gates enable', 'description':'', 'datasheet':'http://www.vishay.com/doc?84607', 'pins':[
+        Part(**{ 'name':'VO0600T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO0600T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High speed optically coupled gates enable', 'description':'', 'datasheet':'http://www.vishay.com/doc?84607', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nVO0600T\n\nHigh speed optically coupled gates enable', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C',func=Pin.types.PASSIVE,unit=1),
@@ -4632,7 +4694,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='EN',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'VO0601T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO0601T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High speed optically coupled gates enable', 'description':'', 'datasheet':'http://www.vishay.com/doc?84607', 'pins':[
+        Part(**{ 'name':'VO0601T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO0601T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High speed optically coupled gates enable', 'description':'', 'datasheet':'http://www.vishay.com/doc?84607', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nVO0601T\n\nHigh speed optically coupled gates enable', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C',func=Pin.types.PASSIVE,unit=1),
@@ -4640,7 +4702,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='EN',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'VO0611T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO0611T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High speed optically coupled gates enable', 'description':'', 'datasheet':'http://www.vishay.com/doc?84607', 'pins':[
+        Part(**{ 'name':'VO0611T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO0611T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High speed optically coupled gates enable', 'description':'', 'datasheet':'http://www.vishay.com/doc?84607', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nVO0611T\n\nHigh speed optically coupled gates enable', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C',func=Pin.types.PASSIVE,unit=1),
@@ -4648,7 +4710,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='EN',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'VO0630T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO0630T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High speed optically coupled gates', 'description':'', 'datasheet':'http://www.vishay.com/doc?84607', 'pins':[
+        Part(**{ 'name':'VO0630T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO0630T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High speed optically coupled gates', 'description':'', 'datasheet':'http://www.vishay.com/doc?84607', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nVO0630T\n\nHigh speed optically coupled gates', 'pins':[
             Pin(num='1',name='A1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='C1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C2',func=Pin.types.PASSIVE,unit=1),
@@ -4657,7 +4719,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO2',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='VO1',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'VO0631T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO0631T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High speed optically coupled gates', 'description':'', 'datasheet':'http://www.vishay.com/doc?84607', 'pins':[
+        Part(**{ 'name':'VO0631T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO0631T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High speed optically coupled gates', 'description':'', 'datasheet':'http://www.vishay.com/doc?84607', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nVO0631T\n\nHigh speed optically coupled gates', 'pins':[
             Pin(num='1',name='A1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='C1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C2',func=Pin.types.PASSIVE,unit=1),
@@ -4666,7 +4728,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO2',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='VO1',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'VO0661T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO0661T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High speed optically coupled gates', 'description':'', 'datasheet':'http://www.vishay.com/doc?84607', 'pins':[
+        Part(**{ 'name':'VO0661T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO0661T'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'High speed optically coupled gates', 'description':'', 'datasheet':'http://www.vishay.com/doc?84607', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nVO0661T\n\nHigh speed optically coupled gates', 'pins':[
             Pin(num='1',name='A1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='C1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C2',func=Pin.types.PASSIVE,unit=1),
@@ -4675,7 +4737,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO2',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='VO1',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'VO2601', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO2601'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High speed optically coupled gates enable', 'description':'', 'datasheet':'https://www.vishay.com/doc?84732', 'pins':[
+        Part(**{ 'name':'VO2601', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO2601'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High speed optically coupled gates enable', 'description':'', 'datasheet':'https://www.vishay.com/doc?84732', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nVO2601\n\nHigh speed optically coupled gates enable', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C',func=Pin.types.PASSIVE,unit=1),
@@ -4684,7 +4746,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='EN',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'VO2611', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO2611'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High speed optically coupled gates enable', 'description':'', 'datasheet':'https://www.vishay.com/doc?84732', 'pins':[
+        Part(**{ 'name':'VO2611', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO2611'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High speed optically coupled gates enable', 'description':'', 'datasheet':'https://www.vishay.com/doc?84732', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nVO2611\n\nHigh speed optically coupled gates enable', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C',func=Pin.types.PASSIVE,unit=1),
@@ -4693,7 +4755,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='EN',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'VO2630', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO2630'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High speed optically coupled gates', 'description':'', 'datasheet':'https://www.vishay.com/doc?84732', 'pins':[
+        Part(**{ 'name':'VO2630', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO2630'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High speed optically coupled gates', 'description':'', 'datasheet':'https://www.vishay.com/doc?84732', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nVO2630\n\nHigh speed optically coupled gates', 'pins':[
             Pin(num='1',name='A1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='C1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C2',func=Pin.types.PASSIVE,unit=1),
@@ -4702,7 +4764,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO2',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='VO1',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'VO2631', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO2631'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High speed optically coupled gates', 'description':'', 'datasheet':'https://www.vishay.com/doc?84732', 'pins':[
+        Part(**{ 'name':'VO2631', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO2631'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High speed optically coupled gates', 'description':'', 'datasheet':'https://www.vishay.com/doc?84732', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nVO2631\n\nHigh speed optically coupled gates', 'pins':[
             Pin(num='1',name='A1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='C1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C2',func=Pin.types.PASSIVE,unit=1),
@@ -4711,7 +4773,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO2',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='VO1',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'VO4661', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO4661'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High speed optically coupled gates', 'description':'', 'datasheet':'https://www.vishay.com/doc?84732', 'pins':[
+        Part(**{ 'name':'VO4661', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO4661'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'High speed optically coupled gates', 'description':'', 'datasheet':'https://www.vishay.com/doc?84732', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nVO4661\n\nHigh speed optically coupled gates', 'pins':[
             Pin(num='1',name='A1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='C1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='C2',func=Pin.types.PASSIVE,unit=1),
@@ -4720,52 +4782,57 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VO2',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='VO1',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'VO615A-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO615A-1'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.vishay.com/docs/81753/vo615a.pdf', 'pins':[
+        Part(**{ 'name':'VO615A-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO615A-1'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.vishay.com/docs/81753/vo615a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nVO615A-1\n\nNPN DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'VO615A-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO615A-2'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.vishay.com/docs/81753/vo615a.pdf', 'pins':[
+        Part(**{ 'name':'VO615A-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO615A-2'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.vishay.com/docs/81753/vo615a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nVO615A-2\n\nNPN DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'VO615A-3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO615A-3'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.vishay.com/docs/81753/vo615a.pdf', 'pins':[
+        Part(**{ 'name':'VO615A-3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO615A-3'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.vishay.com/docs/81753/vo615a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nVO615A-3\n\nNPN DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'VO615A-4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO615A-4'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.vishay.com/docs/81753/vo615a.pdf', 'pins':[
+        Part(**{ 'name':'VO615A-4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO615A-4'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.vishay.com/docs/81753/vo615a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nVO615A-4\n\nNPN DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'VO615A-5', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO615A-5'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', ''], 'footprint':'', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.vishay.com/docs/81753/vo615a.pdf', 'pins':[
+        Part(**{ 'name':'VO615A-5', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO615A-5'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', ''], 'footprint':'', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.vishay.com/docs/81753/vo615a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nVO615A-5\n\nNPN DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'VO615A-6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO615A-6'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', ''], 'footprint':'', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.vishay.com/docs/81753/vo615a.pdf', 'pins':[
+        Part(**{ 'name':'VO615A-6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO615A-6'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', ''], 'footprint':'', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.vishay.com/docs/81753/vo615a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nVO615A-6\n\nNPN DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'VO615A-7', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO615A-7'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.vishay.com/docs/81753/vo615a.pdf', 'pins':[
+        Part(**{ 'name':'VO615A-7', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO615A-7'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.vishay.com/docs/81753/vo615a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nVO615A-7\n\nNPN DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'VO615A-8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO615A-8'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.vishay.com/docs/81753/vo615a.pdf', 'pins':[
+        Part(**{ 'name':'VO615A-8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO615A-8'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.vishay.com/docs/81753/vo615a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nVO615A-8\n\nNPN DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'VO615A-9', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO615A-9'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.vishay.com/docs/81753/vo615a.pdf', 'pins':[
+        Part(**{ 'name':'VO615A-9', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VO615A-9'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'http://www.vishay.com/docs/81753/vo615a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nVO615A-9\n\nNPN DC Optocoupler', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Ï\x80120U30', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Ï\x80120U30'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Dual-channel digital isolator pi120U30', 'description':'', 'datasheet':'http://www.rpsemi.com/public/doc/2Pai_%CF%8012xUxx_20200416_EN.pdf', 'pins':[
+        Part(**{ 'name':'VOS618A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VOS618A'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_DIP:DIP-4_W7.62mm', 'Package_SO:SSOP-4_4.4x2.6mm_P1.27mm'], 'footprint':'Package_DIP:DIP-4_W7.62mm', 'keywords':'NPN DC Optocoupler', 'description':'', 'datasheet':'https://www.vishay.com/docs/83465/vos618a.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nVOS618A\n\nNPN DC Optocoupler', 'pins':[
+            Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='4',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'Ï\x80120U30', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Ï\x80120U30'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Dual-channel digital isolator pi120U30', 'description':'', 'datasheet':'http://www.rpsemi.com/public/doc/2Pai_%CF%8012xUxx_20200416_EN.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nÏ\x80120U30\n\nDual-channel digital isolator pi120U30', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VIA',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='VIB',func=Pin.types.INPUT,unit=1),
@@ -4774,7 +4841,7 @@ Isolator = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VOB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VOA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VDD2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Ï\x80120U31', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Ï\x80120U31'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Dual-channel digital isolator pi120U31', 'description':'', 'datasheet':'http://www.rpsemi.com/public/doc/2Pai_%CF%8012xUxx_20200416_EN.pdf', 'pins':[
+        Part(**{ 'name':'Ï\x80120U31', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Ï\x80120U31'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Dual-channel digital isolator pi120U31', 'description':'', 'datasheet':'http://www.rpsemi.com/public/doc/2Pai_%CF%8012xUxx_20200416_EN.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator.kicad_sym\nÏ\x80120U31\n\nDual-channel digital isolator pi120U31', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VIA',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='VIB',func=Pin.types.INPUT,unit=1),

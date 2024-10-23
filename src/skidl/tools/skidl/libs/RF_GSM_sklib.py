@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 RF_GSM = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'BC66', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BC66'}), 'ref_prefix':'U', 'fplist':['RF_GSM:Quectel_BC66'], 'footprint':'RF_GSM:Quectel_BC66', 'keywords':'NB-IoT Data SMS', 'description':'', 'datasheet':'https://www.quectel.com/UploadImage/Downlad/Quectel_BC66_Hardware_Design_V1.1.pdf', 'pins':[
+        Part(**{ 'name':'BC66', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BC66'}), 'ref_prefix':'U', 'fplist':['RF_GSM:Quectel_BC66'], 'footprint':'RF_GSM:Quectel_BC66', 'keywords':'NB-IoT Data SMS', 'description':'', 'datasheet':'https://www.quectel.com/UploadImage/Downlad/Quectel_BC66_Hardware_Design_V1.1.pdf', 'search_text':'/usr/share/kicad/symbols/RF_GSM.kicad_sym\nBC66\n\nNB-IoT Data SMS', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='SIM_GND',func=Pin.types.PWROUT,unit=1),
             Pin(num='11',name='SIM_DATA',func=Pin.types.BIDIR,unit=1),
@@ -63,7 +63,7 @@ RF_GSM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PWRKEY',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='RESERVED',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='ADC0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'BC95', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BC95'}), 'ref_prefix':'U', 'fplist':['RF_GSM:Quectel_BC95'], 'footprint':'RF_GSM:Quectel_BC95', 'keywords':'NB-IoT GSM GPRS Quad-Band SMS', 'description':'', 'datasheet':'https://www.quectel.com/UploadImage/Downlad/Quectel_BC95_Hardware_Design_V1.3.pdf', 'pins':[
+        Part(**{ 'name':'BC95', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BC95'}), 'ref_prefix':'U', 'fplist':['RF_GSM:Quectel_BC95'], 'footprint':'RF_GSM:Quectel_BC95', 'keywords':'NB-IoT GSM GPRS Quad-Band SMS', 'description':'', 'datasheet':'https://www.quectel.com/UploadImage/Downlad/Quectel_BC95_Hardware_Design_V1.3.pdf', 'search_text':'/usr/share/kicad/symbols/RF_GSM.kicad_sym\nBC95\n\nNB-IoT GSM GPRS Quad-Band SMS', 'pins':[
             Pin(num='15',name='RESET',func=Pin.types.INPUT,unit=1),
             Pin(num='18',name='NETLIGHT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='19',name='DBG_RXD',func=Pin.types.INPUT,unit=1),
@@ -106,7 +106,7 @@ RF_GSM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='92',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='93',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='94',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'M95', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'M95'}), 'ref_prefix':'U', 'fplist':['RF_GSM:Quectel_M95'], 'footprint':'RF_GSM:Quectel_M95', 'keywords':'GSM GPRS AT SMS voice TCP/IP', 'description':'', 'datasheet':'https://www.quectel.com/UploadImage/Downlad/M95_Hardware_Design_V1.3.pdf', 'pins':[
+        Part(**{ 'name':'M95', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'M95'}), 'ref_prefix':'U', 'fplist':['RF_GSM:Quectel_M95'], 'footprint':'RF_GSM:Quectel_M95', 'keywords':'GSM GPRS AT SMS voice TCP/IP', 'description':'', 'datasheet':'https://www.quectel.com/UploadImage/Downlad/M95_Hardware_Design_V1.3.pdf', 'search_text':'/usr/share/kicad/symbols/RF_GSM.kicad_sym\nM95\n\nGSM GPRS AT SMS voice TCP/IP', 'pins':[
             Pin(num='1',name='AGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{PWRKEY}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~{EMERG_OFF}',func=Pin.types.INPUT,unit=1),
@@ -149,7 +149,7 @@ RF_GSM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SPK1P',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='LOUDSPKN',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='LOUDSPKP',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SARA-U201', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SARA-U201'}), 'ref_prefix':'U', 'fplist':['RF_GSM:ublox_SARA_LGA-96'], 'footprint':'RF_GSM:ublox_SARA_LGA-96', 'keywords':'GSM HSPA 2G 3G', 'description':'', 'datasheet':'https://www.u-blox.com/sites/default/files/SARA-U2_DataSheet_(UBX-13005287).pdf', 'pins':[
+        Part(**{ 'name':'SARA-U201', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SARA-U201'}), 'ref_prefix':'U', 'fplist':['RF_GSM:ublox_SARA_LGA-96'], 'footprint':'RF_GSM:ublox_SARA_LGA-96', 'keywords':'GSM HSPA 2G 3G', 'description':'', 'datasheet':'https://www.u-blox.com/sites/default/files/SARA-U2_DataSheet_(UBX-13005287).pdf', 'search_text':'/usr/share/kicad/symbols/RF_GSM.kicad_sym\nSARA-U201\n\nGSM HSPA 2G 3G', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RTS',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='CTS',func=Pin.types.OUTPUT,unit=1),
@@ -246,7 +246,7 @@ RF_GSM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='94',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='95',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='96',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SIM7020E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SIM7020E'}), 'ref_prefix':'U', 'fplist':['RF_GSM:SIMCom_SIM800C'], 'footprint':'RF_GSM:SIMCom_SIM800C', 'keywords':'NB-IoT Data SMS', 'description':'', 'datasheet':'https://simcom.ee/documents/SIM7020/SIM7020%20Hardware%20Design_V1.02.pdf', 'pins':[
+        Part(**{ 'name':'SIM7020E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SIM7020E'}), 'ref_prefix':'U', 'fplist':['RF_GSM:SIMCom_SIM800C'], 'footprint':'RF_GSM:SIMCom_SIM800C', 'keywords':'NB-IoT Data SMS', 'description':'', 'datasheet':'https://simcom.ee/documents/SIM7020/SIM7020%20Hardware%20Design_V1.02.pdf', 'search_text':'/usr/share/kicad/symbols/RF_GSM.kicad_sym\nSIM7020E\n\nNB-IoT Data SMS', 'pins':[
             Pin(num='1',name='UART1_TXD',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='GPIO0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RTC_GPIO0',func=Pin.types.OUTPUT,unit=1),
@@ -289,7 +289,7 @@ RF_GSM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='UART1_RI',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDD_3V3',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SIM800C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SIM800C'}), 'ref_prefix':'U', 'fplist':['RF_GSM:SIMCom_SIM800C'], 'footprint':'RF_GSM:SIMCom_SIM800C', 'keywords':'GSM GPRS Quad-Band SMS', 'description':'', 'datasheet':'http://simcom.ee/documents/SIM800C/SIM800C_Hardware_Design_V1.05.pdf', 'pins':[
+        Part(**{ 'name':'SIM800C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SIM800C'}), 'ref_prefix':'U', 'fplist':['RF_GSM:SIMCom_SIM800C'], 'footprint':'RF_GSM:SIMCom_SIM800C', 'keywords':'GSM GPRS Quad-Band SMS', 'description':'', 'datasheet':'http://simcom.ee/documents/SIM800C/SIM800C_Hardware_Design_V1.05.pdf', 'search_text':'/usr/share/kicad/symbols/RF_GSM.kicad_sym\nSIM800C\n\nGSM GPRS Quad-Band SMS', 'pins':[
             Pin(num='1',name='UART1_TXD',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='MICN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SPKP',func=Pin.types.OUTPUT,unit=1),
@@ -332,7 +332,7 @@ RF_GSM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='UART1_RI',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='MICP',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SIM900', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SIM900'}), 'ref_prefix':'U', 'fplist':['RF_GSM:SIMCom_SIM900'], 'footprint':'RF_GSM:SIMCom_SIM900', 'keywords':'GSM GPRS Quad-Band SMS FAX', 'description':'', 'datasheet':'http://simcom.ee/documents/SIM900/SIM900_Hardware%20Design_V2.05.pdf', 'pins':[
+        Part(**{ 'name':'SIM900', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SIM900'}), 'ref_prefix':'U', 'fplist':['RF_GSM:SIMCom_SIM900'], 'footprint':'RF_GSM:SIMCom_SIM900', 'keywords':'GSM GPRS Quad-Band SMS FAX', 'description':'', 'datasheet':'http://simcom.ee/documents/SIM900/SIM900_Hardware%20Design_V2.05.pdf', 'search_text':'/usr/share/kicad/symbols/RF_GSM.kicad_sym\nSIM900\n\nGSM GPRS Quad-Band SMS FAX', 'pins':[
             Pin(num='1',name='PWRKEY',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RXD',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DISP_CLK',func=Pin.types.OUTPUT,unit=1),
@@ -401,7 +401,7 @@ RF_GSM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CTS',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='RTS',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='TXD',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'UL865', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UL865'}), 'ref_prefix':'U', 'fplist':['RF_GSM:Telit_xL865'], 'footprint':'RF_GSM:Telit_xL865', 'keywords':'gsm 3g gprs umts hspa', 'description':'', 'datasheet':'http://www.telit.com/fileadmin/user_upload/products/Downloads/3G/Telit_UL865_Hardware_User_Guide_r8.pdf', 'pins':[
+        Part(**{ 'name':'UL865', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'UL865'}), 'ref_prefix':'U', 'fplist':['RF_GSM:Telit_xL865'], 'footprint':'RF_GSM:Telit_xL865', 'keywords':'gsm 3g gprs umts hspa', 'description':'', 'datasheet':'http://www.telit.com/fileadmin/user_upload/products/Downloads/3G/Telit_UL865_Hardware_User_Guide_r8.pdf', 'search_text':'/usr/share/kicad/symbols/RF_GSM.kicad_sym\nUL865\n\ngsm 3g gprs umts hspa', 'pins':[
             Pin(num='1',name='C109/DCD/GPO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='SIMRST',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='SIMCLK',func=Pin.types.OUTPUT,unit=1),
@@ -450,7 +450,7 @@ RF_GSM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='C103/TXD',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='C104/RXD',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='SIMVCC',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SARA-U260', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SARA-U260'}), 'ref_prefix':'U', 'fplist':['RF_GSM:ublox_SARA_LGA-96', 'RF_GSM:ublox_SARA_LGA-96'], 'footprint':'RF_GSM:ublox_SARA_LGA-96', 'keywords':'GSM HSPA 2G 3G', 'description':'', 'datasheet':'https://www.u-blox.com/sites/default/files/SARA-U2_DataSheet_(UBX-13005287).pdf', 'pins':[
+        Part(**{ 'name':'SARA-U260', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SARA-U260'}), 'ref_prefix':'U', 'fplist':['RF_GSM:ublox_SARA_LGA-96', 'RF_GSM:ublox_SARA_LGA-96'], 'footprint':'RF_GSM:ublox_SARA_LGA-96', 'keywords':'GSM HSPA 2G 3G', 'description':'', 'datasheet':'https://www.u-blox.com/sites/default/files/SARA-U2_DataSheet_(UBX-13005287).pdf', 'search_text':'/usr/share/kicad/symbols/RF_GSM.kicad_sym\nSARA-U260\n\nGSM HSPA 2G 3G', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RTS',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='CTS',func=Pin.types.OUTPUT,unit=1),
@@ -547,7 +547,7 @@ RF_GSM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='94',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='95',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='96',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SARA-U270', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SARA-U270'}), 'ref_prefix':'U', 'fplist':['RF_GSM:ublox_SARA_LGA-96', 'RF_GSM:ublox_SARA_LGA-96', 'RF_GSM:ublox_SARA_LGA-96'], 'footprint':'RF_GSM:ublox_SARA_LGA-96', 'keywords':'GSM HSPA 2G 3G', 'description':'', 'datasheet':'https://www.u-blox.com/sites/default/files/SARA-U2_DataSheet_(UBX-13005287).pdf', 'pins':[
+        Part(**{ 'name':'SARA-U270', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SARA-U270'}), 'ref_prefix':'U', 'fplist':['RF_GSM:ublox_SARA_LGA-96', 'RF_GSM:ublox_SARA_LGA-96', 'RF_GSM:ublox_SARA_LGA-96'], 'footprint':'RF_GSM:ublox_SARA_LGA-96', 'keywords':'GSM HSPA 2G 3G', 'description':'', 'datasheet':'https://www.u-blox.com/sites/default/files/SARA-U2_DataSheet_(UBX-13005287).pdf', 'search_text':'/usr/share/kicad/symbols/RF_GSM.kicad_sym\nSARA-U270\n\nGSM HSPA 2G 3G', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RTS',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='CTS',func=Pin.types.OUTPUT,unit=1),
@@ -644,7 +644,7 @@ RF_GSM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='94',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='95',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='96',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SARA-U280', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SARA-U280'}), 'ref_prefix':'U', 'fplist':['RF_GSM:ublox_SARA_LGA-96', 'RF_GSM:ublox_SARA_LGA-96', 'RF_GSM:ublox_SARA_LGA-96', 'RF_GSM:ublox_SARA_LGA-96'], 'footprint':'RF_GSM:ublox_SARA_LGA-96', 'keywords':'GSM HSPA 2G 3G', 'description':'', 'datasheet':'https://www.u-blox.com/sites/default/files/SARA-U2_DataSheet_(UBX-13005287).pdf', 'pins':[
+        Part(**{ 'name':'SARA-U280', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SARA-U280'}), 'ref_prefix':'U', 'fplist':['RF_GSM:ublox_SARA_LGA-96', 'RF_GSM:ublox_SARA_LGA-96', 'RF_GSM:ublox_SARA_LGA-96', 'RF_GSM:ublox_SARA_LGA-96'], 'footprint':'RF_GSM:ublox_SARA_LGA-96', 'keywords':'GSM HSPA 2G 3G', 'description':'', 'datasheet':'https://www.u-blox.com/sites/default/files/SARA-U2_DataSheet_(UBX-13005287).pdf', 'search_text':'/usr/share/kicad/symbols/RF_GSM.kicad_sym\nSARA-U280\n\nGSM HSPA 2G 3G', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RTS',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='CTS',func=Pin.types.OUTPUT,unit=1),
@@ -741,7 +741,7 @@ RF_GSM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='94',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='95',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='96',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SIM7020C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SIM7020C'}), 'ref_prefix':'U', 'fplist':['RF_GSM:SIMCom_SIM800C', 'RF_GSM:SIMCom_SIM800C'], 'footprint':'RF_GSM:SIMCom_SIM800C', 'keywords':'NB-IoT Data SMS', 'description':'', 'datasheet':'https://simcom.ee/documents/SIM7020/SIM7020%20Hardware%20Design_V1.02.pdf', 'pins':[
+        Part(**{ 'name':'SIM7020C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SIM7020C'}), 'ref_prefix':'U', 'fplist':['RF_GSM:SIMCom_SIM800C', 'RF_GSM:SIMCom_SIM800C'], 'footprint':'RF_GSM:SIMCom_SIM800C', 'keywords':'NB-IoT Data SMS', 'description':'', 'datasheet':'https://simcom.ee/documents/SIM7020/SIM7020%20Hardware%20Design_V1.02.pdf', 'search_text':'/usr/share/kicad/symbols/RF_GSM.kicad_sym\nSIM7020C\n\nNB-IoT Data SMS', 'pins':[
             Pin(num='1',name='UART1_TXD',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='GPIO0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RTC_GPIO0',func=Pin.types.OUTPUT,unit=1),

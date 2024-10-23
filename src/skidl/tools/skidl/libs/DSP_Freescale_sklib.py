@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 DSP_Freescale = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'DSP96002', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSP96002'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'DSP 32bit Dual Port Processor', 'description':'', 'datasheet':'http://cache.freescale.com/files/dsp/doc/inactive/DSP96002.pdf', 'pins':[
+        Part(**{ 'name':'DSP96002', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSP96002'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'DSP 32bit Dual Port Processor', 'description':'', 'datasheet':'http://cache.freescale.com/files/dsp/doc/inactive/DSP96002.pdf', 'search_text':'/usr/share/kicad/symbols/DSP_Freescale.kicad_sym\nDSP96002\n\nDSP 32bit Dual Port Processor', 'pins':[
             Pin(num='A1',name='B.A23',func=Pin.types.TRISTATE,unit=1),
             Pin(num='A10',name='A.S0',func=Pin.types.TRISTATE,unit=1),
             Pin(num='A11',name='A.T_STROBE',func=Pin.types.TRISTATE,unit=1),

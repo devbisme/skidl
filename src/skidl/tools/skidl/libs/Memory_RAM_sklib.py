@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'628128_DIP32_SSOP32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'628128_DIP32_SSOP32'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'RAM SRAM CMOS MEMORY', 'description':'', 'datasheet':'http://www.futurlec.com/Datasheet/Memory/628128.pdf', 'pins':[
+        Part(**{ 'name':'628128_DIP32_SSOP32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'628128_DIP32_SSOP32'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'RAM SRAM CMOS MEMORY', 'description':'', 'datasheet':'http://www.futurlec.com/Datasheet/Memory/628128.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\n628128_DIP32_SSOP32\n\nRAM SRAM CMOS MEMORY', 'pins':[
             Pin(num='16',name='GND',func=Pin.types.PWRIN),
             Pin(num='32',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -37,7 +37,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A5',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A4',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'628128_TSOP32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'628128_TSOP32'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'RAM SRAM CMOS MEMORY', 'description':'', 'datasheet':'http://www.futurlec.com/Datasheet/Memory/628128.pdf', 'pins':[
+        Part(**{ 'name':'628128_TSOP32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'628128_TSOP32'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'RAM SRAM CMOS MEMORY', 'description':'', 'datasheet':'http://www.futurlec.com/Datasheet/Memory/628128.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\n628128_TSOP32\n\nRAM SRAM CMOS MEMORY', 'pins':[
             Pin(num='24',name='GND',func=Pin.types.PWRIN),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='A11',func=Pin.types.INPUT,unit=1),
@@ -70,7 +70,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CS2',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='A15',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AS4C256M16D3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AS4C256M16D3'}), 'ref_prefix':'U', 'fplist':['Package_BGA:BGA-96_9.0x13.0mm_Layout2x3x16_P0.8mm'], 'footprint':'Package_BGA:BGA-96_9.0x13.0mm_Layout2x3x16_P0.8mm', 'keywords':'DDR3 DRAM MEMORY', 'description':'', 'datasheet':'https://www.alliancememory.com/wp-content/uploads/pdf/ddr3/4GB-AS4C256M16D3.pdf', 'pins':[
+        Part(**{ 'name':'AS4C256M16D3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AS4C256M16D3'}), 'ref_prefix':'U', 'fplist':['Package_BGA:BGA-96_9.0x13.0mm_Layout2x3x16_P0.8mm'], 'footprint':'Package_BGA:BGA-96_9.0x13.0mm_Layout2x3x16_P0.8mm', 'keywords':'DDR3 DRAM MEMORY', 'description':'', 'datasheet':'https://www.alliancememory.com/wp-content/uploads/pdf/ddr3/4GB-AS4C256M16D3.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nAS4C256M16D3\n\nDDR3 DRAM MEMORY', 'pins':[
             Pin(num='A1',name='VDDQ',func=Pin.types.PWRIN),
             Pin(num='A8',name='VDDQ',func=Pin.types.PASSIVE),
             Pin(num='A9',name='VSS',func=Pin.types.PWRIN),
@@ -167,7 +167,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='M8',name='VREFCA',func=Pin.types.PWRIN,unit=1),
             Pin(num='N8',name='BA1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AS4C4M16SA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AS4C4M16SA'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm'], 'footprint':'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'keywords':'SDRAM Synchronous DRAM PC166 PC143 64Mb 16Mbx4 MEMORY', 'description':'', 'datasheet':'https://www.alliancememory.com/wp-content/uploads/pdf/dram/64M-AS4C4M16SA-CI_v3.0_March%202015.pdf', 'pins':[
+        Part(**{ 'name':'AS4C4M16SA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AS4C4M16SA'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm'], 'footprint':'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'keywords':'SDRAM Synchronous DRAM PC166 PC143 64Mb 16Mbx4 MEMORY', 'description':'', 'datasheet':'https://www.alliancememory.com/wp-content/uploads/pdf/dram/64M-AS4C4M16SA-CI_v3.0_March%202015.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nAS4C4M16SA\n\nSDRAM Synchronous DRAM PC166 PC143 64Mb 16Mbx4 MEMORY', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DQ5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='DQ6',func=Pin.types.BIDIR,unit=1),
@@ -222,7 +222,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DQ3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DQ4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDQ',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AS6C1616', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AS6C1616'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSOP-I-48_18.4x12mm_P0.5mm'], 'footprint':'Package_SO:TSOP-I-48_18.4x12mm_P0.5mm', 'keywords':'memory SRAM', 'description':'', 'datasheet':'https://www.alliancememory.com/wp-content/uploads/pdf/AS6C1616-TSOPI.pdf', 'pins':[
+        Part(**{ 'name':'AS6C1616', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AS6C1616'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSOP-I-48_18.4x12mm_P0.5mm'], 'footprint':'Package_SO:TSOP-I-48_18.4x12mm_P0.5mm', 'keywords':'memory SRAM', 'description':'', 'datasheet':'https://www.alliancememory.com/wp-content/uploads/pdf/AS6C1616-TSOPI.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nAS6C1616\n\nmemory SRAM', 'pins':[
             Pin(num='1',name='A15',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='WE#',func=Pin.types.INPUT,unit=1),
@@ -271,7 +271,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A9',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A8',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A19',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AS6C4008-55PCN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AS6C4008-55PCN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-32_W15.24mm'], 'footprint':'Package_DIP:DIP-32_W15.24mm', 'keywords':'RAM SRAM CMOS MEMORY', 'description':'', 'datasheet':'https://www.alliancememory.com/wp-content/uploads/pdf/AS6C4008.pdf', 'pins':[
+        Part(**{ 'name':'AS6C4008-55PCN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AS6C4008-55PCN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-32_W15.24mm'], 'footprint':'Package_DIP:DIP-32_W15.24mm', 'keywords':'RAM SRAM CMOS MEMORY', 'description':'', 'datasheet':'https://www.alliancememory.com/wp-content/uploads/pdf/AS6C4008.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nAS6C4008-55PCN\n\nRAM SRAM CMOS MEMORY', 'pins':[
             Pin(num='16',name='VSS',func=Pin.types.PWRIN),
             Pin(num='32',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='A18',func=Pin.types.INPUT,unit=1),
@@ -304,7 +304,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A5',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A4',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CY7C199', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CY7C199'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'CY7C199', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CY7C199'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nCY7C199\n\n', 'pins':[
             Pin(num='14',name='GND',func=Pin.types.PWRIN),
             Pin(num='28',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='A5',func=Pin.types.INPUT,unit=1),
@@ -333,7 +333,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A11',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A12',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A13',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ESP-PSRAM32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP-PSRAM32'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'32 Mbit serial pseudo SRAM MEMORY', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp-psram32_datasheet_en.pdf', 'pins':[
+        Part(**{ 'name':'ESP-PSRAM32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP-PSRAM32'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'32 Mbit serial pseudo SRAM MEMORY', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp-psram32_datasheet_en.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nESP-PSRAM32\n\n32 Mbit serial pseudo SRAM MEMORY', 'pins':[
             Pin(num='1',name='~{CE}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='SO/SIO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='SIO2',func=Pin.types.BIDIR,unit=1),
@@ -342,7 +342,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCLK',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='SIO3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'H5AN8G8NAFR-UHC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'H5AN8G8NAFR-UHC'}), 'ref_prefix':'U', 'fplist':['Package_BGA:FBGA-78_7.5x11mm_Layout2x3x13_P0.8mm'], 'footprint':'Package_BGA:FBGA-78_7.5x11mm_Layout2x3x13_P0.8mm', 'keywords':'DDR4 DRAM MEMORY', 'description':'', 'datasheet':'https://www.skhynix.com/product/filedata/fileDownload.do?seq=7687', 'pins':[
+        Part(**{ 'name':'H5AN8G8NAFR-UHC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'H5AN8G8NAFR-UHC'}), 'ref_prefix':'U', 'fplist':['Package_BGA:FBGA-78_7.5x11mm_Layout2x3x13_P0.8mm'], 'footprint':'Package_BGA:FBGA-78_7.5x11mm_Layout2x3x13_P0.8mm', 'keywords':'DDR4 DRAM MEMORY', 'description':'', 'datasheet':'https://www.skhynix.com/product/filedata/fileDownload.do?seq=7687', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nH5AN8G8NAFR-UHC\n\nDDR4 DRAM MEMORY', 'pins':[
             Pin(num='A1',name='VDD',func=Pin.types.PWRIN),
             Pin(num='A2',name='VSSQ',func=Pin.types.PWRIN),
             Pin(num='A3',name='TDQS_c',func=Pin.types.OUTPUT),
@@ -421,7 +421,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='N7',name='A17/NC',func=Pin.types.PASSIVE),
             Pin(num='N8',name='A13',func=Pin.types.INPUT),
             Pin(num='N9',name='VDD',func=Pin.types.PASSIVE)], 'unit_defs':[] }),
-        Part(**{ 'name':'IDT7006PF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IDT7006PF'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_14x14mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-64_14x14mm_P0.8mm', 'keywords':'dual-port ram', 'description':'', 'datasheet':'https://www.idt.com/document/dst/7006-data-sheet', 'pins':[
+        Part(**{ 'name':'IDT7006PF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IDT7006PF'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_14x14mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-64_14x14mm_P0.8mm', 'keywords':'dual-port ram', 'description':'', 'datasheet':'https://www.idt.com/document/dst/7006-data-sheet', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nIDT7006PF\n\ndual-port ram', 'pins':[
             Pin(num='1',name='I/O2L',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='I/O0R',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='I/O1R',func=Pin.types.BIDIR,unit=1),
@@ -486,7 +486,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I/O7L',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IDT7027_TQ100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IDT7027_TQ100'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'IDT7027_TQ100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IDT7027_TQ100'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nIDT7027_TQ100\n\n', 'pins':[
             Pin(num='1',name='A9L',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='LBL',func=Pin.types.INPUT,unit=1),
             Pin(num='100',name='A8L',func=Pin.types.INPUT,unit=1),
@@ -579,7 +579,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='A5L',func=Pin.types.INPUT,unit=1),
             Pin(num='98',name='A6L',func=Pin.types.INPUT,unit=1),
             Pin(num='99',name='A7L',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IDT7132', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IDT7132'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'IDT7132', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IDT7132'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nIDT7132\n\n', 'pins':[
             Pin(num='1',name='/CEL',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A4L',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='A5L',func=Pin.types.INPUT,unit=1),
@@ -628,7 +628,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A1L',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A2L',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A3L',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IDT71V65903S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IDT71V65903S'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'IDT71V65903S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IDT71V65903S'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nIDT71V65903S\n\n', 'pins':[
             Pin(num='A10',name='A8',func=Pin.types.INPUT,unit=1),
             Pin(num='A11',name='A10',func=Pin.types.INPUT,unit=1),
             Pin(num='A2',name='A7',func=Pin.types.INPUT,unit=1),
@@ -753,7 +753,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='R6',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='R8',name='A12',func=Pin.types.INPUT,unit=1),
             Pin(num='R9',name='A13',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IDT7201', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IDT7201'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'IDT7201', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IDT7201'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nIDT7201\n\n', 'pins':[
             Pin(num='1',name='WR',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Q1',func=Pin.types.TRISTATE,unit=1),
             Pin(num='11',name='Q2',func=Pin.types.TRISTATE,unit=1),
@@ -782,7 +782,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='FF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='Q0',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IDT7204', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IDT7204'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'asynchronous fifo memory', 'description':'', 'datasheet':'http://www.idt.com/document/7203-7208-datasheet', 'pins':[
+        Part(**{ 'name':'IDT7204', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IDT7204'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'asynchronous fifo memory', 'description':'', 'datasheet':'http://www.idt.com/document/7203-7208-datasheet', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nIDT7204\n\nasynchronous fifo memory', 'pins':[
             Pin(num='1',name='~{W}',func=Pin.types.INPUT),
             Pin(num='10',name='Q1',func=Pin.types.OUTPUT),
             Pin(num='11',name='Q2',func=Pin.types.OUTPUT),
@@ -811,7 +811,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{XI}',func=Pin.types.INPUT),
             Pin(num='8',name='~{FF}',func=Pin.types.OUTPUT),
             Pin(num='9',name='Q0',func=Pin.types.OUTPUT)], 'unit_defs':[] }),
-        Part(**{ 'name':'IS42S16400J-xC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS42S16400J-xC'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm'], 'footprint':'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'keywords':'DRAM MEMORY', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/42-45S16400J.pdf', 'pins':[
+        Part(**{ 'name':'IS42S16400J-xC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS42S16400J-xC'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm'], 'footprint':'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'keywords':'DRAM MEMORY', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/42-45S16400J.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nIS42S16400J-xC\n\nDRAM MEMORY', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DQ5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='DQ6',func=Pin.types.BIDIR,unit=1),
@@ -866,7 +866,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DQ3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DQ4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDQ',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IS43LQ32256A-062BLI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS43LQ32256A-062BLI'}), 'ref_prefix':'U', 'fplist':['Package_BGA:BGA-200_10.0x14.5mm_Layout12x22_P0.80x0.65mm'], 'footprint':'Package_BGA:BGA-200_10.0x14.5mm_Layout12x22_P0.80x0.65mm', 'keywords':'DRAM MEMORY', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/43-46LQ32256A-AL.pdf', 'pins':[
+        Part(**{ 'name':'IS43LQ32256A-062BLI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS43LQ32256A-062BLI'}), 'ref_prefix':'U', 'fplist':['Package_BGA:BGA-200_10.0x14.5mm_Layout12x22_P0.80x0.65mm'], 'footprint':'Package_BGA:BGA-200_10.0x14.5mm_Layout12x22_P0.80x0.65mm', 'keywords':'DRAM MEMORY', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/43-46LQ32256A-AL.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nIS43LQ32256A-062BLI\n\nDRAM MEMORY', 'pins':[
             Pin(num='A1',name='DNU',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='A10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='A11',name='DNU',func=Pin.types.NOCONNECT,unit=1),
@@ -1066,8 +1066,8 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='Y4',name='DQ6_B',func=Pin.types.BIDIR,unit=2),
             Pin(num='Y5',name='VSS',func=Pin.types.PASSIVE,unit=2),
             Pin(num='Y8',name='VSS',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='Y9',name='DQ14_B',func=Pin.types.BIDIR,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['J5', 'F10', 'F1', 'A11', 'A10', 'F12', 'F11', 'J8', 'K1', 'A12', 'F3', 'J9', 'F2', 'A2', 'K10', 'A3', 'F5', 'F4', 'K11', 'F8', 'A9', 'K12', 'A4', 'G1', 'F9', 'K2', 'B1', 'G10', 'K3', 'G12', 'B10', 'K4', 'B12', 'G3', 'G2', 'K5', 'B11', 'G4', 'K8', 'B3', 'G5', 'K9', 'B2', 'G8', 'B5', 'G9', 'B4', 'H1', 'B8', 'D5', 'C1', 'H10', 'H12', 'B9', 'H11', 'D3', 'D9', 'H3', 'C10', 'C12', 'H2', 'C11', 'H5', 'H4', 'C2', 'D2', 'H8', 'D4', 'D12', 'C3', 'E10', 'C5', 'E1', 'D8', 'J1', 'C4', 'H9', 'C8', 'E12', 'J10', 'C9', 'J12', 'E2', 'J11', 'E3', 'D1', 'E5', 'J3', 'E4', 'D11', 'J2', 'A1', 'E8', 'J4', 'D10', 'E11', 'E9']},{'label': 'uB', 'num': 2, 'pin_nums': ['R5', 'AB4', 'R8', 'V9', 'AB8', 'W11', 'T1', 'AB9', 'R9', 'W10', 'G11', 'W12', 'T10', 'N1', 'W2', 'T12', 'N10', 'T11', 'W4', 'N11', 'W3', 'T3', 'N12', 'W5', 'T2', 'N2', 'W8', 'T5', 'N3', 'T4', 'W9', 'N4', 'T8', 'Y1', 'N5', 'T9', 'N8', 'U1', 'Y10', 'Y12', 'A8', 'N9', 'U10', 'Y11', 'A5', 'P1', 'U12', 'AA1', 'P10', 'U11', 'Y2', 'P12', 'Y3', 'U3', 'Y5', 'AA10', 'P11', 'AA12', 'U2', 'Y4', 'AA11', 'P3', 'Y8', 'U5', 'P2', 'AA3', 'U4', 'AA2', 'P5', 'U8', 'Y9', 'P4', 'AA5', 'V1', 'AA4', 'U9', 'AA8', 'P8', 'R1', 'P9', 'AB1', 'V10', 'V12', 'AA9', 'V11', 'R10', 'AB11', 'R12', 'AB10', 'R11', 'V2', 'AB12', 'R3', 'V3', 'V5', 'AB2', 'R2', 'V4', 'AB3', 'V8', 'R4', 'AB5', 'W1']}] }),
-        Part(**{ 'name':'IS61C5128AL-10KLI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS61C5128AL-10KLI'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOJ-36_10.16x23.49mm_P1.27mm'], 'footprint':'Package_SO:SOJ-36_10.16x23.49mm_P1.27mm', 'keywords':'SRAM MEMORY', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/61-64C5128AL.pdf', 'pins':[
+            Pin(num='Y9',name='DQ14_B',func=Pin.types.BIDIR,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['H10', 'C1', 'D3', 'H12', 'B9', 'D5', 'H11', 'D8', 'H3', 'C10', 'C12', 'H2', 'C11', 'H5', 'D1', 'H4', 'C2', 'D4', 'H8', 'E11', 'C3', 'C5', 'J1', 'C4', 'H9', 'C8', 'E12', 'J10', 'D2', 'J12', 'A11', 'E10', 'E2', 'J11', 'C9', 'E3', 'E5', 'J3', 'E4', 'J2', 'E8', 'D12', 'J5', 'E9', 'J4', 'F10', 'F1', 'A10', 'F12', 'D10', 'F11', 'J8', 'D11', 'K1', 'A12', 'J9', 'F3', 'A2', 'F2', 'K10', 'A3', 'F5', 'F4', 'K11', 'F8', 'A9', 'K12', 'A4', 'G1', 'K2', 'F9', 'B1', 'G10', 'K3', 'E1', 'G12', 'B10', 'K4', 'B12', 'G3', 'K5', 'D9', 'G2', 'B11', 'G4', 'K8', 'B3', 'G5', 'K9', 'B2', 'G8', 'A1', 'B5', 'G9', 'B4', 'H1', 'B8']},{'label': 'uB', 'num': 2, 'pin_nums': ['Y5', 'U3', 'P11', 'AA10', 'AA12', 'U2', 'Y4', 'AA11', 'Y8', 'P3', 'U5', 'P2', 'AA3', 'U4', 'AA2', 'P5', 'Y9', 'U8', 'P4', 'AA5', 'V1', 'AA4', 'U9', 'AA8', 'P8', 'R1', 'P9', 'AB1', 'V10', 'V12', 'AA9', 'V11', 'R10', 'AB11', 'R12', 'P12', 'AB10', 'R11', 'V2', 'AB12', 'R3', 'V3', 'V5', 'AB2', 'R2', 'V4', 'AB3', 'R5', 'V8', 'R4', 'AB5', 'W1', 'AB4', 'R8', 'V9', 'AB8', 'T1', 'W11', 'AB9', 'R9', 'W10', 'G11', 'T10', 'W12', 'N1', 'T12', 'W2', 'N10', 'T11', 'W4', 'N11', 'T3', 'W3', 'N12', 'T2', 'W5', 'N2', 'T5', 'W8', 'N3', 'T4', 'W9', 'N4', 'T8', 'Y1', 'N5', 'T9', 'N8', 'U1', 'Y10', 'Y12', 'A8', 'N9', 'U10', 'Y11', 'A5', 'P1', 'U12', 'AA1', 'P10', 'U11', 'Y2', 'Y3']}] }),
+        Part(**{ 'name':'IS61C5128AL-10KLI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS61C5128AL-10KLI'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOJ-36_10.16x23.49mm_P1.27mm'], 'footprint':'Package_SO:SOJ-36_10.16x23.49mm_P1.27mm', 'keywords':'SRAM MEMORY', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/61-64C5128AL.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nIS61C5128AL-10KLI\n\nSRAM MEMORY', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='I/O2',func=Pin.types.BIDIR,unit=1),
@@ -1104,7 +1104,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I/O0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='I/O1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IS61C5128AL-10TLI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS61C5128AL-10TLI'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSOP-II-44_10.16x18.41mm_P0.8mm'], 'footprint':'Package_SO:TSOP-II-44_10.16x18.41mm_P0.8mm', 'keywords':'SRAM MEMORY', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/61-64C5128AL.pdf', 'pins':[
+        Part(**{ 'name':'IS61C5128AL-10TLI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS61C5128AL-10TLI'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSOP-II-44_10.16x18.41mm_P0.8mm'], 'footprint':'Package_SO:TSOP-II-44_10.16x18.41mm_P0.8mm', 'keywords':'SRAM MEMORY', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/61-64C5128AL.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nIS61C5128AL-10TLI\n\nSRAM MEMORY', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='I/O1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -1149,7 +1149,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A4',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{CE}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='I/O0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IS61C5128AS-25HLI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS61C5128AS-25HLI'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSOP-I-32_11.8x8mm_P0.5mm'], 'footprint':'Package_SO:TSOP-I-32_11.8x8mm_P0.5mm', 'keywords':'SRAM MEMORY', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/61-64C5128AL.pdf', 'pins':[
+        Part(**{ 'name':'IS61C5128AS-25HLI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS61C5128AS-25HLI'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSOP-I-32_11.8x8mm_P0.5mm'], 'footprint':'Package_SO:TSOP-I-32_11.8x8mm_P0.5mm', 'keywords':'SRAM MEMORY', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/61-64C5128AL.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nIS61C5128AS-25HLI\n\nSRAM MEMORY', 'pins':[
             Pin(num='1',name='A11',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A16',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='A14',func=Pin.types.INPUT,unit=1),
@@ -1182,7 +1182,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A15',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='A17',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IS61C5128AS-25QLI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS61C5128AS-25QLI'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-32_11.305x20.495mm_P1.27mm'], 'footprint':'Package_SO:SSOP-32_11.305x20.495mm_P1.27mm', 'keywords':'SRAM MEMORY', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/61-64C5128AL.pdf', 'pins':[
+        Part(**{ 'name':'IS61C5128AS-25QLI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS61C5128AS-25QLI'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-32_11.305x20.495mm_P1.27mm'], 'footprint':'Package_SO:SSOP-32_11.305x20.495mm_P1.27mm', 'keywords':'SRAM MEMORY', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/61-64C5128AL.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nIS61C5128AS-25QLI\n\nSRAM MEMORY', 'pins':[
             Pin(num='1',name='A17',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='A1',func=Pin.types.INPUT,unit=1),
@@ -1215,7 +1215,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A5',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A4',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IS61C5128AS-25TLI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS61C5128AS-25TLI'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSOP-II-32_21.0x10.2mm_P1.27mm'], 'footprint':'Package_SO:TSOP-II-32_21.0x10.2mm_P1.27mm', 'keywords':'SRAM MEMORY', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/61-64C5128AL.pdf', 'pins':[
+        Part(**{ 'name':'IS61C5128AS-25TLI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS61C5128AS-25TLI'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSOP-II-32_21.0x10.2mm_P1.27mm'], 'footprint':'Package_SO:TSOP-II-32_21.0x10.2mm_P1.27mm', 'keywords':'SRAM MEMORY', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/61-64C5128AL.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nIS61C5128AS-25TLI\n\nSRAM MEMORY', 'pins':[
             Pin(num='1',name='A17',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='A1',func=Pin.types.INPUT,unit=1),
@@ -1248,7 +1248,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A5',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A4',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IS62C256AL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS62C256AL'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-28_8.4x18.16mm_P1.27mm'], 'footprint':'Package_SO:SOP-28_8.4x18.16mm_P1.27mm', 'keywords':'SRAM MEMORY ISSI parallel-interface', 'description':'', 'datasheet':'https://www.issi.com/WW/pdf/62-65C256AL.pdf', 'pins':[
+        Part(**{ 'name':'IS62C256AL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS62C256AL'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-28_8.4x18.16mm_P1.27mm'], 'footprint':'Package_SO:SOP-28_8.4x18.16mm_P1.27mm', 'keywords':'SRAM MEMORY ISSI parallel-interface', 'description':'', 'datasheet':'https://www.issi.com/WW/pdf/62-65C256AL.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nIS62C256AL\n\nSRAM MEMORY ISSI parallel-interface', 'pins':[
             Pin(num='14',name='GND',func=Pin.types.PWRIN),
             Pin(num='28',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='1',name='A14',func=Pin.types.INPUT,unit=1),
@@ -1277,7 +1277,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'KM62256CLP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KM62256CLP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'RAM SRAM CMOS MEMORY', 'description':'', 'datasheet':'https://www.futurlec.com/Datasheet/Memory/62256.pdf', 'pins':[
+        Part(**{ 'name':'KM62256CLP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KM62256CLP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'RAM SRAM CMOS MEMORY', 'description':'', 'datasheet':'https://www.futurlec.com/Datasheet/Memory/62256.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nKM62256CLP\n\nRAM SRAM CMOS MEMORY', 'pins':[
             Pin(num='14',name='GND',func=Pin.types.PWRIN),
             Pin(num='28',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='A14',func=Pin.types.INPUT,unit=1),
@@ -1306,7 +1306,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MT48LC16M16A2TG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MT48LC16M16A2TG'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm'], 'footprint':'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'keywords':'SDRAM Synchronous DRAM PC100 PC133 256Mb 16Mbx16 MEMORY', 'description':'', 'datasheet':'https://www.micron.com/-/media/client/global/documents/products/data-sheet/dram/256mb_sdr.pdf', 'pins':[
+        Part(**{ 'name':'MT48LC16M16A2TG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MT48LC16M16A2TG'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm'], 'footprint':'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'keywords':'SDRAM Synchronous DRAM PC100 PC133 256Mb 16Mbx16 MEMORY', 'description':'', 'datasheet':'https://www.micron.com/-/media/client/global/documents/products/data-sheet/dram/256mb_sdr.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nMT48LC16M16A2TG\n\nSDRAM Synchronous DRAM PC100 PC133 256Mb 16Mbx16 MEMORY', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DQ5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='DQ6',func=Pin.types.BIDIR,unit=1),
@@ -1361,7 +1361,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DQ3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DQ4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDQ',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MT48LC32M8A2TG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MT48LC32M8A2TG'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm'], 'footprint':'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'keywords':'SDRAM Synchronous DRAM PC100 PC133 256Mb 32Mbx8 MEMORY', 'description':'', 'datasheet':'https://www.micron.com/-/media/client/global/documents/products/data-sheet/dram/256mb_sdr.pdf', 'pins':[
+        Part(**{ 'name':'MT48LC32M8A2TG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MT48LC32M8A2TG'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm'], 'footprint':'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'keywords':'SDRAM Synchronous DRAM PC100 PC133 256Mb 32Mbx8 MEMORY', 'description':'', 'datasheet':'https://www.micron.com/-/media/client/global/documents/products/data-sheet/dram/256mb_sdr.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nMT48LC32M8A2TG\n\nSDRAM Synchronous DRAM PC100 PC133 256Mb 32Mbx8 MEMORY', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='DQ3',func=Pin.types.BIDIR,unit=1),
@@ -1416,7 +1416,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='DQ2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDQ',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MT48LC64M4A2TG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MT48LC64M4A2TG'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm'], 'footprint':'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'keywords':'SDRAM Synchronous DRAM PC100 PC133 256Mb 64Mbx4 MEMORY', 'description':'', 'datasheet':'https://www.micron.com/-/media/client/global/documents/products/data-sheet/dram/256mb_sdr.pdf', 'pins':[
+        Part(**{ 'name':'MT48LC64M4A2TG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MT48LC64M4A2TG'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm'], 'footprint':'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'keywords':'SDRAM Synchronous DRAM PC100 PC133 256Mb 64Mbx4 MEMORY', 'description':'', 'datasheet':'https://www.micron.com/-/media/client/global/documents/products/data-sheet/dram/256mb_sdr.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nMT48LC64M4A2TG\n\nSDRAM Synchronous DRAM PC100 PC133 256Mb 64Mbx4 MEMORY', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='DQ1',func=Pin.types.BIDIR,unit=1),
@@ -1471,7 +1471,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='VDDQ',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'W9812G6KH-5', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'W9812G6KH-5'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm'], 'footprint':'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'keywords':'DRAM MEMORY', 'description':'', 'datasheet':'https://www.winbond.com/resource-files/da00-w9812g6khc1.pdf', 'pins':[
+        Part(**{ 'name':'W9812G6KH-5', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'W9812G6KH-5'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm'], 'footprint':'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'keywords':'DRAM MEMORY', 'description':'', 'datasheet':'https://www.winbond.com/resource-files/da00-w9812g6khc1.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nW9812G6KH-5\n\nDRAM MEMORY', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DQ5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='DQ6',func=Pin.types.BIDIR,unit=1),
@@ -1526,7 +1526,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DQ3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DQ4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDQ',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CY62256-70PC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CY62256-70PC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm', 'Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'RAM SRAM CMOS MEMORY', 'description':'', 'datasheet':'https://ecee.colorado.edu/~mcclurel/Cypress_SRAM_CY62256.pdf', 'pins':[
+        Part(**{ 'name':'CY62256-70PC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CY62256-70PC'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm', 'Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'RAM SRAM CMOS MEMORY', 'description':'', 'datasheet':'https://ecee.colorado.edu/~mcclurel/Cypress_SRAM_CY62256.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nCY62256-70PC\n\nRAM SRAM CMOS MEMORY', 'pins':[
             Pin(num='14',name='GND',func=Pin.types.PWRIN),
             Pin(num='28',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='A14',func=Pin.types.INPUT,unit=1),
@@ -1555,7 +1555,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HM62256BLP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HM62256BLP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm', 'Package_DIP:DIP-28_W15.24mm', 'Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'RAM SRAM CMOS MEMORY', 'description':'', 'datasheet':'https://web.mit.edu/6.115/www/document/62256.pdf', 'pins':[
+        Part(**{ 'name':'HM62256BLP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HM62256BLP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W15.24mm', 'Package_DIP:DIP-28_W15.24mm', 'Package_DIP:DIP-28_W15.24mm'], 'footprint':'Package_DIP:DIP-28_W15.24mm', 'keywords':'RAM SRAM CMOS MEMORY', 'description':'', 'datasheet':'https://web.mit.edu/6.115/www/document/62256.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nHM62256BLP\n\nRAM SRAM CMOS MEMORY', 'pins':[
             Pin(num='14',name='GND',func=Pin.types.PWRIN),
             Pin(num='28',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='A14',func=Pin.types.INPUT,unit=1),
@@ -1584,7 +1584,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IDT7202', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IDT7202'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'IDT7202', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IDT7202'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nIDT7202\n\n', 'pins':[
             Pin(num='1',name='WR',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Q1',func=Pin.types.TRISTATE,unit=1),
             Pin(num='11',name='Q2',func=Pin.types.TRISTATE,unit=1),
@@ -1613,7 +1613,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='FF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='Q0',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IDT7203', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IDT7203'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'asynchronous fifo memory', 'description':'', 'datasheet':'http://www.idt.com/document/7203-7208-datasheet', 'pins':[
+        Part(**{ 'name':'IDT7203', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IDT7203'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'asynchronous fifo memory', 'description':'', 'datasheet':'http://www.idt.com/document/7203-7208-datasheet', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nIDT7203\n\nasynchronous fifo memory', 'pins':[
             Pin(num='1',name='~{W}',func=Pin.types.INPUT),
             Pin(num='10',name='Q1',func=Pin.types.OUTPUT),
             Pin(num='11',name='Q2',func=Pin.types.OUTPUT),
@@ -1642,7 +1642,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{XI}',func=Pin.types.INPUT),
             Pin(num='8',name='~{FF}',func=Pin.types.OUTPUT),
             Pin(num='9',name='Q0',func=Pin.types.OUTPUT)], 'unit_defs':[] }),
-        Part(**{ 'name':'IDT7205', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IDT7205'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'asynchronous fifo memory', 'description':'', 'datasheet':'http://www.idt.com/document/7203-7208-datasheet', 'pins':[
+        Part(**{ 'name':'IDT7205', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IDT7205'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'asynchronous fifo memory', 'description':'', 'datasheet':'http://www.idt.com/document/7203-7208-datasheet', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nIDT7205\n\nasynchronous fifo memory', 'pins':[
             Pin(num='1',name='~{W}',func=Pin.types.INPUT),
             Pin(num='10',name='Q1',func=Pin.types.OUTPUT),
             Pin(num='11',name='Q2',func=Pin.types.OUTPUT),
@@ -1671,7 +1671,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{XI}',func=Pin.types.INPUT),
             Pin(num='8',name='~{FF}',func=Pin.types.OUTPUT),
             Pin(num='9',name='Q0',func=Pin.types.OUTPUT)], 'unit_defs':[] }),
-        Part(**{ 'name':'IDT7206', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IDT7206'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'asynchronous fifo memory', 'description':'', 'datasheet':'http://www.idt.com/document/7203-7208-datasheet', 'pins':[
+        Part(**{ 'name':'IDT7206', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IDT7206'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'asynchronous fifo memory', 'description':'', 'datasheet':'http://www.idt.com/document/7203-7208-datasheet', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nIDT7206\n\nasynchronous fifo memory', 'pins':[
             Pin(num='1',name='~{W}',func=Pin.types.INPUT),
             Pin(num='10',name='Q1',func=Pin.types.OUTPUT),
             Pin(num='11',name='Q2',func=Pin.types.OUTPUT),
@@ -1700,7 +1700,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{XI}',func=Pin.types.INPUT),
             Pin(num='8',name='~{FF}',func=Pin.types.OUTPUT),
             Pin(num='9',name='Q0',func=Pin.types.OUTPUT)], 'unit_defs':[] }),
-        Part(**{ 'name':'IDT7207', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IDT7207'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'asynchronous fifo memory', 'description':'', 'datasheet':'http://www.idt.com/document/7203-7208-datasheet', 'pins':[
+        Part(**{ 'name':'IDT7207', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IDT7207'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'asynchronous fifo memory', 'description':'', 'datasheet':'http://www.idt.com/document/7203-7208-datasheet', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nIDT7207\n\nasynchronous fifo memory', 'pins':[
             Pin(num='1',name='~{W}',func=Pin.types.INPUT),
             Pin(num='10',name='Q1',func=Pin.types.OUTPUT),
             Pin(num='11',name='Q2',func=Pin.types.OUTPUT),
@@ -1729,7 +1729,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{XI}',func=Pin.types.INPUT),
             Pin(num='8',name='~{FF}',func=Pin.types.OUTPUT),
             Pin(num='9',name='Q0',func=Pin.types.OUTPUT)], 'unit_defs':[] }),
-        Part(**{ 'name':'IDT7208', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IDT7208'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'asynchronous fifo memory', 'description':'', 'datasheet':'http://www.idt.com/document/7203-7208-datasheet', 'pins':[
+        Part(**{ 'name':'IDT7208', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IDT7208'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'asynchronous fifo memory', 'description':'', 'datasheet':'http://www.idt.com/document/7203-7208-datasheet', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nIDT7208\n\nasynchronous fifo memory', 'pins':[
             Pin(num='1',name='~{W}',func=Pin.types.INPUT),
             Pin(num='10',name='Q1',func=Pin.types.OUTPUT),
             Pin(num='11',name='Q2',func=Pin.types.OUTPUT),
@@ -1758,7 +1758,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{XI}',func=Pin.types.INPUT),
             Pin(num='8',name='~{FF}',func=Pin.types.OUTPUT),
             Pin(num='9',name='Q0',func=Pin.types.OUTPUT)], 'unit_defs':[] }),
-        Part(**{ 'name':'IS42S16400J-xT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS42S16400J-xT'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm'], 'footprint':'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'keywords':'DRAM MEMORY', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/42-45S16400J.pdf', 'pins':[
+        Part(**{ 'name':'IS42S16400J-xT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS42S16400J-xT'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm'], 'footprint':'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'keywords':'DRAM MEMORY', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/42-45S16400J.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nIS42S16400J-xT\n\nDRAM MEMORY', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DQ5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='DQ6',func=Pin.types.BIDIR,unit=1),
@@ -1813,7 +1813,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DQ3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DQ4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDQ',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IS43LQ32256AL-062BLI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS43LQ32256AL-062BLI'}), 'ref_prefix':'U', 'fplist':['Package_BGA:BGA-200_10.0x14.5mm_Layout12x22_P0.80x0.65mm', 'Package_BGA:BGA-200_10.0x14.5mm_Layout12x22_P0.80x0.65mm'], 'footprint':'Package_BGA:BGA-200_10.0x14.5mm_Layout12x22_P0.80x0.65mm', 'keywords':'DRAM MEMORY', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/43-46LQ32256AL-AL.pdf', 'pins':[
+        Part(**{ 'name':'IS43LQ32256AL-062BLI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS43LQ32256AL-062BLI'}), 'ref_prefix':'U', 'fplist':['Package_BGA:BGA-200_10.0x14.5mm_Layout12x22_P0.80x0.65mm', 'Package_BGA:BGA-200_10.0x14.5mm_Layout12x22_P0.80x0.65mm'], 'footprint':'Package_BGA:BGA-200_10.0x14.5mm_Layout12x22_P0.80x0.65mm', 'keywords':'DRAM MEMORY', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/43-46LQ32256AL-AL.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nIS43LQ32256AL-062BLI\n\nDRAM MEMORY', 'pins':[
             Pin(num='A1',name='DNU',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='A10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='A11',name='DNU',func=Pin.types.NOCONNECT,unit=1),
@@ -2013,8 +2013,8 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='Y4',name='DQ6_B',func=Pin.types.BIDIR,unit=2),
             Pin(num='Y5',name='VSS',func=Pin.types.PASSIVE,unit=2),
             Pin(num='Y8',name='VSS',func=Pin.types.PASSIVE,unit=2),
-            Pin(num='Y9',name='DQ14_B',func=Pin.types.BIDIR,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['C10', 'J4', 'F12', 'A12', 'C11', 'J5', 'F2', 'A1', 'A11', 'C12', 'J8', 'F3', 'A10', 'C2', 'J9', 'F4', 'C3', 'K1', 'F5', 'C4', 'K10', 'F8', 'C5', 'K11', 'F9', 'C8', 'K12', 'G1', 'C9', 'K2', 'G10', 'D1', 'K3', 'G12', 'D10', 'K4', 'G2', 'D11', 'G3', 'K5', 'D12', 'G4', 'K8', 'D2', 'G5', 'K9', 'D3', 'G8', 'D4', 'G9', 'D5', 'H1', 'D8', 'H10', 'D9', 'H11', 'E1', 'H12', 'E10', 'H2', 'B11', 'E11', 'H3', 'E12', 'H4', 'E2', 'H5', 'B12', 'E3', 'H8', 'B2', 'E4', 'H9', 'B3', 'E5', 'B1', 'J1', 'B10', 'B4', 'E8', 'J10', 'B5', 'E9', 'A4', 'J11', 'F1', 'A9', 'B8', 'J12', 'F10', 'B9', 'J2', 'F11', 'A3', 'C1', 'J3', 'A2']},{'label': 'uB', 'num': 2, 'pin_nums': ['R5', 'AB4', 'V9', 'R8', 'AB5', 'W1', 'AB8', 'R9', 'W10', 'T1', 'AB9', 'W11', 'G11', 'T10', 'W12', 'N1', 'T11', 'W2', 'T12', 'N10', 'W3', 'N11', 'T2', 'W4', 'T3', 'N12', 'W5', 'N2', 'T4', 'W8', 'T5', 'N3', 'W9', 'N4', 'T8', 'Y1', 'V8', 'N5', 'T9', 'Y10', 'N8', 'U1', 'Y11', 'A5', 'N9', 'U10', 'Y12', 'A8', 'P1', 'U11', 'Y2', 'AA1', 'U12', 'P10', 'Y3', 'AA10', 'P11', 'U2', 'Y4', 'AA11', 'P12', 'U3', 'Y5', 'AA12', 'P2', 'U4', 'Y8', 'AA2', 'P3', 'U5', 'Y9', 'AA3', 'U8', 'P4', 'AA4', 'P5', 'U9', 'AA5', 'V1', 'P8', 'AA8', 'P9', 'V10', 'AA9', 'R1', 'V11', 'AB1', 'V12', 'R10', 'AB10', 'R11', 'V2', 'AB11', 'R12', 'V3', 'AB12', 'R2', 'V4', 'AB2', 'R3', 'V5', 'AB3', 'R4']}] }),
-        Part(**{ 'name':'IS64C5128AL-12CTLA3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS64C5128AL-12CTLA3'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSOP-II-44_10.16x18.41mm_P0.8mm', 'Package_SO:TSOP-II-44_10.16x18.41mm_P0.8mm'], 'footprint':'Package_SO:TSOP-II-44_10.16x18.41mm_P0.8mm', 'keywords':'SRAM MEMORY', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/61-64C5128AL.pdf', 'pins':[
+            Pin(num='Y9',name='DQ14_B',func=Pin.types.BIDIR,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['D8', 'H10', 'D9', 'H11', 'E1', 'H12', 'B12', 'E10', 'H2', 'B2', 'E11', 'B11', 'H3', 'B3', 'E12', 'H4', 'E2', 'B4', 'H5', 'B5', 'E3', 'H8', 'E4', 'H9', 'E5', 'J1', 'B10', 'E8', 'J10', 'B1', 'E9', 'J11', 'A9', 'F1', 'J12', 'A2', 'A4', 'F10', 'J2', 'A3', 'F11', 'J3', 'A11', 'F12', 'J4', 'A12', 'B9', 'F2', 'J5', 'C2', 'F3', 'J8', 'B8', 'A10', 'A1', 'F4', 'J9', 'F5', 'K1', 'F8', 'K10', 'C1', 'F9', 'K11', 'C10', 'G1', 'K12', 'C11', 'G10', 'K2', 'C12', 'D1', 'G12', 'K3', 'D10', 'G2', 'K4', 'C3', 'D11', 'G3', 'C4', 'K5', 'D12', 'G4', 'K8', 'C5', 'D2', 'G5', 'C8', 'K9', 'D5', 'D3', 'G8', 'C9', 'D4', 'G9', 'H1']},{'label': 'uB', 'num': 2, 'pin_nums': ['U12', 'Y3', 'AA10', 'U2', 'P11', 'Y4', 'AA11', 'U3', 'P12', 'Y5', 'AA12', 'P2', 'U4', 'Y8', 'AA2', 'P3', 'U5', 'AA1', 'Y9', 'AA3', 'U8', 'P4', 'AA4', 'P5', 'U9', 'AA5', 'V1', 'P8', 'AA8', 'P9', 'V10', 'AA9', 'R1', 'V11', 'AB1', 'V12', 'R10', 'AB10', 'R11', 'V2', 'AB11', 'R12', 'V3', 'AB12', 'R2', 'V4', 'AB2', 'R3', 'V5', 'AB3', 'V8', 'R4', 'AB4', 'R5', 'V9', 'AB5', 'W1', 'R8', 'AB8', 'R9', 'W10', 'AB9', 'T1', 'W11', 'G11', 'T10', 'W12', 'N1', 'W2', 'T11', 'N10', 'T12', 'W3', 'N11', 'W4', 'T2', 'N12', 'T3', 'W5', 'N2', 'W8', 'T4', 'N3', 'T5', 'W9', 'N4', 'T8', 'Y1', 'N5', 'T9', 'Y10', 'N8', 'U1', 'Y11', 'N9', 'A5', 'Y12', 'U10', 'A8', 'P1', 'U11', 'Y2', 'P10']}] }),
+        Part(**{ 'name':'IS64C5128AL-12CTLA3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS64C5128AL-12CTLA3'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSOP-II-44_10.16x18.41mm_P0.8mm', 'Package_SO:TSOP-II-44_10.16x18.41mm_P0.8mm'], 'footprint':'Package_SO:TSOP-II-44_10.16x18.41mm_P0.8mm', 'keywords':'SRAM MEMORY', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/61-64C5128AL.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nIS64C5128AL-12CTLA3\n\nSRAM MEMORY', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='I/O1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -2059,7 +2059,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A4',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{CE}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='I/O0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IS64C5128AL-12KLA3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS64C5128AL-12KLA3'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOJ-36_10.16x23.49mm_P1.27mm', 'Package_SO:SOJ-36_10.16x23.49mm_P1.27mm'], 'footprint':'Package_SO:SOJ-36_10.16x23.49mm_P1.27mm', 'keywords':'SRAM MEMORY', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/61-64C5128AL.pdf', 'pins':[
+        Part(**{ 'name':'IS64C5128AL-12KLA3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS64C5128AL-12KLA3'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOJ-36_10.16x23.49mm_P1.27mm', 'Package_SO:SOJ-36_10.16x23.49mm_P1.27mm'], 'footprint':'Package_SO:SOJ-36_10.16x23.49mm_P1.27mm', 'keywords':'SRAM MEMORY', 'description':'', 'datasheet':'http://www.issi.com/WW/pdf/61-64C5128AL.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nIS64C5128AL-12KLA3\n\nSRAM MEMORY', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='I/O2',func=Pin.types.BIDIR,unit=1),
@@ -2096,7 +2096,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I/O0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='I/O1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IS65C256AL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS65C256AL'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-28_8.4x18.16mm_P1.27mm', 'Package_SO:SOP-28_8.4x18.16mm_P1.27mm'], 'footprint':'Package_SO:SOP-28_8.4x18.16mm_P1.27mm', 'keywords':'SRAM MEMORY ISSI parallel-interface', 'description':'', 'datasheet':'https://www.issi.com/WW/pdf/62-65C256AL.pdf', 'pins':[
+        Part(**{ 'name':'IS65C256AL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IS65C256AL'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-28_8.4x18.16mm_P1.27mm', 'Package_SO:SOP-28_8.4x18.16mm_P1.27mm'], 'footprint':'Package_SO:SOP-28_8.4x18.16mm_P1.27mm', 'keywords':'SRAM MEMORY ISSI parallel-interface', 'description':'', 'datasheet':'https://www.issi.com/WW/pdf/62-65C256AL.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nIS65C256AL\n\nSRAM MEMORY ISSI parallel-interface', 'pins':[
             Pin(num='14',name='GND',func=Pin.types.PWRIN),
             Pin(num='28',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='1',name='A14',func=Pin.types.INPUT,unit=1),
@@ -2125,7 +2125,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MT48LC16M16A2P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MT48LC16M16A2P'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm'], 'footprint':'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'keywords':'SDRAM Synchronous DRAM PC100 PC133 256Mb 16Mbx16 MEMORY', 'description':'', 'datasheet':'https://www.micron.com/-/media/client/global/documents/products/data-sheet/dram/256mb_sdr.pdf', 'pins':[
+        Part(**{ 'name':'MT48LC16M16A2P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MT48LC16M16A2P'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm'], 'footprint':'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'keywords':'SDRAM Synchronous DRAM PC100 PC133 256Mb 16Mbx16 MEMORY', 'description':'', 'datasheet':'https://www.micron.com/-/media/client/global/documents/products/data-sheet/dram/256mb_sdr.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nMT48LC16M16A2P\n\nSDRAM Synchronous DRAM PC100 PC133 256Mb 16Mbx16 MEMORY', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DQ5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='DQ6',func=Pin.types.BIDIR,unit=1),
@@ -2180,7 +2180,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DQ3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DQ4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDQ',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MT48LC32M8A2P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MT48LC32M8A2P'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm'], 'footprint':'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'keywords':'SDRAM Synchronous DRAM PC100 PC133 256Mb 32Mbx8 MEMORY', 'description':'', 'datasheet':'https://www.micron.com/-/media/client/global/documents/products/data-sheet/dram/256mb_sdr.pdf', 'pins':[
+        Part(**{ 'name':'MT48LC32M8A2P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MT48LC32M8A2P'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm'], 'footprint':'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'keywords':'SDRAM Synchronous DRAM PC100 PC133 256Mb 32Mbx8 MEMORY', 'description':'', 'datasheet':'https://www.micron.com/-/media/client/global/documents/products/data-sheet/dram/256mb_sdr.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nMT48LC32M8A2P\n\nSDRAM Synchronous DRAM PC100 PC133 256Mb 32Mbx8 MEMORY', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='DQ3',func=Pin.types.BIDIR,unit=1),
@@ -2235,7 +2235,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='DQ2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDQ',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MT48LC64M4A2P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MT48LC64M4A2P'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm'], 'footprint':'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'keywords':'SDRAM Synchronous DRAM PC100 PC133 256Mb 64Mbx4 MEMORY', 'description':'', 'datasheet':'https://www.micron.com/-/media/client/global/documents/products/data-sheet/dram/256mb_sdr.pdf', 'pins':[
+        Part(**{ 'name':'MT48LC64M4A2P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MT48LC64M4A2P'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm'], 'footprint':'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'keywords':'SDRAM Synchronous DRAM PC100 PC133 256Mb 64Mbx4 MEMORY', 'description':'', 'datasheet':'https://www.micron.com/-/media/client/global/documents/products/data-sheet/dram/256mb_sdr.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nMT48LC64M4A2P\n\nSDRAM Synchronous DRAM PC100 PC133 256Mb 64Mbx4 MEMORY', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='DQ1',func=Pin.types.BIDIR,unit=1),
@@ -2290,7 +2290,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='VDDQ',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'W9812G6KH-6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'W9812G6KH-6'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm'], 'footprint':'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'keywords':'DRAM MEMORY', 'description':'', 'datasheet':'https://www.winbond.com/resource-files/da00-w9812g6khc1.pdf', 'pins':[
+        Part(**{ 'name':'W9812G6KH-6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'W9812G6KH-6'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm'], 'footprint':'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'keywords':'DRAM MEMORY', 'description':'', 'datasheet':'https://www.winbond.com/resource-files/da00-w9812g6khc1.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nW9812G6KH-6\n\nDRAM MEMORY', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DQ5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='DQ6',func=Pin.types.BIDIR,unit=1),
@@ -2345,7 +2345,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DQ3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DQ4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDQ',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'W9812G6KH-6I', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'W9812G6KH-6I'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm'], 'footprint':'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'keywords':'DRAM MEMORY', 'description':'', 'datasheet':'https://www.winbond.com/resource-files/da00-w9812g6khc1.pdf', 'pins':[
+        Part(**{ 'name':'W9812G6KH-6I', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'W9812G6KH-6I'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm'], 'footprint':'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'keywords':'DRAM MEMORY', 'description':'', 'datasheet':'https://www.winbond.com/resource-files/da00-w9812g6khc1.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nW9812G6KH-6I\n\nDRAM MEMORY', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DQ5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='DQ6',func=Pin.types.BIDIR,unit=1),
@@ -2400,7 +2400,7 @@ Memory_RAM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DQ3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DQ4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDQ',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'W9812G6KH-75', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'W9812G6KH-75'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm'], 'footprint':'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'keywords':'DRAM MEMORY', 'description':'', 'datasheet':'https://www.winbond.com/resource-files/da00-w9812g6khc1.pdf', 'pins':[
+        Part(**{ 'name':'W9812G6KH-75', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'W9812G6KH-75'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm'], 'footprint':'Package_SO:TSOP-II-54_22.2x10.16mm_P0.8mm', 'keywords':'DRAM MEMORY', 'description':'', 'datasheet':'https://www.winbond.com/resource-files/da00-w9812g6khc1.pdf', 'search_text':'/usr/share/kicad/symbols/Memory_RAM.kicad_sym\nW9812G6KH-75\n\nDRAM MEMORY', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DQ5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='DQ6',func=Pin.types.BIDIR,unit=1),

@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Timer_PLL = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'ADF4002BCPZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADF4002BCPZ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-20-1EP_4x4mm_P0.5mm_EP2.1x2.1mm'], 'footprint':'Package_CSP:LFCSP-20-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'keywords':'Analog Devices PFD', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADF4002.pdf', 'pins':[
+        Part(**{ 'name':'ADF4002BCPZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADF4002BCPZ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-20-1EP_4x4mm_P0.5mm_EP2.1x2.1mm'], 'footprint':'Package_CSP:LFCSP-20-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'keywords':'Analog Devices PFD', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADF4002.pdf', 'search_text':'/usr/share/kicad/symbols/Timer_PLL.kicad_sym\nADF4002BCPZ\n\nAnalog Devices PFD', 'pins':[
             Pin(num='1',name='CPGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DGND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='CE',func=Pin.types.INPUT,unit=1),
@@ -26,7 +26,7 @@ Timer_PLL = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='REFIN',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DGND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADF4002BRUZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADF4002BRUZ'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'Analog Devices PFD', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADF4002.pdf', 'pins':[
+        Part(**{ 'name':'ADF4002BRUZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADF4002BRUZ'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'Analog Devices PFD', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADF4002.pdf', 'search_text':'/usr/share/kicad/symbols/Timer_PLL.kicad_sym\nADF4002BRUZ\n\nAnalog Devices PFD', 'pins':[
             Pin(num='1',name='RSET',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='CE',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='CLK',func=Pin.types.INPUT,unit=1),
@@ -43,7 +43,7 @@ Timer_PLL = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='REFIN',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DGND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADF4158', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADF4158'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm'], 'footprint':'Package_CSP:LFCSP-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'keywords':'fractional-N PLL', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADF4158.pdf', 'pins':[
+        Part(**{ 'name':'ADF4158', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADF4158'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm'], 'footprint':'Package_CSP:LFCSP-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'keywords':'fractional-N PLL', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADF4158.pdf', 'search_text':'/usr/share/kicad/symbols/Timer_PLL.kicad_sym\nADF4158\n\nfractional-N PLL', 'pins':[
             Pin(num='1',name='CPGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='SDGND',func=Pin.types.PWRIN,unit=1),
@@ -69,7 +69,7 @@ Timer_PLL = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AVDD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='AVDD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='REFIN',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADF4351', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADF4351'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-32-1EP_5x5mm_P0.5mm_EP3.25x3.25mm'], 'footprint':'Package_CSP:LFCSP-32-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'keywords':'fractional-N PLL', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADF4351.pdf', 'pins':[
+        Part(**{ 'name':'ADF4351', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADF4351'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-32-1EP_5x5mm_P0.5mm_EP3.25x3.25mm'], 'footprint':'Package_CSP:LFCSP-32-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'keywords':'fractional-N PLL', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADF4351.pdf', 'search_text':'/usr/share/kicad/symbols/Timer_PLL.kicad_sym\nADF4351\n\nfractional-N PLL', 'pins':[
             Pin(num='1',name='CLK',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='AVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='AGNDVCO',func=Pin.types.PWRIN,unit=1),
@@ -103,7 +103,7 @@ Timer_PLL = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CPout',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CPGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='AGND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CDCVF2505', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CDCVF2505'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'pll clock driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cdcvf2505.pdf', 'pins':[
+        Part(**{ 'name':'CDCVF2505', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CDCVF2505'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'pll clock driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cdcvf2505.pdf', 'search_text':'/usr/share/kicad/symbols/Timer_PLL.kicad_sym\nCDCVF2505\n\npll clock driver', 'pins':[
             Pin(num='1',name='CLKIN',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='1Y1',func=Pin.types.TRISTATE,unit=1),
             Pin(num='3',name='1Y0',func=Pin.types.TRISTATE,unit=1),
@@ -112,7 +112,7 @@ Timer_PLL = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='1Y3',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='CLKOUT',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CS2000-CP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CS2000-CP'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'Clock Synthesizer Multiplier', 'description':'', 'datasheet':'https://statics.cirrus.com/pubs/proDatasheet/CS2000-CP_F3.pdf', 'pins':[
+        Part(**{ 'name':'CS2000-CP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CS2000-CP'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'Clock Synthesizer Multiplier', 'description':'', 'datasheet':'https://statics.cirrus.com/pubs/proDatasheet/CS2000-CP_F3.pdf', 'search_text':'/usr/share/kicad/symbols/Timer_PLL.kicad_sym\nCS2000-CP\n\nClock Synthesizer Multiplier', 'pins':[
             Pin(num='1',name='VD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='SDA/CDIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -123,7 +123,7 @@ Timer_PLL = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XTI/REF_CLK',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='AD0/~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='SCL/CCLK',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ICS525-01R', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICS525-01R'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_3.9x9.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-28_3.9x9.9mm_P0.635mm', 'keywords':'Configurable clock', 'description':'', 'datasheet':'https://www.idt.com/document/dst/525-01-02-datasheet', 'pins':[
+        Part(**{ 'name':'ICS525-01R', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICS525-01R'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_3.9x9.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-28_3.9x9.9mm_P0.635mm', 'keywords':'Configurable clock', 'description':'', 'datasheet':'https://www.idt.com/document/dst/525-01-02-datasheet', 'search_text':'/usr/share/kicad/symbols/Timer_PLL.kicad_sym\nICS525-01R\n\nConfigurable clock', 'pins':[
             Pin(num='1',name='R5',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='V0',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='V1',func=Pin.types.INPUT,unit=1),
@@ -152,7 +152,7 @@ Timer_PLL = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='X1/ICLK',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='X2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si5342A-D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si5342A-D'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'keywords':'Clock Jitter Attenuator Multiplier', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/Si5345-44-42-D-DataSheet.pdf', 'pins':[
+        Part(**{ 'name':'Si5342A-D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si5342A-D'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'keywords':'Clock Jitter Attenuator Multiplier', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/Si5345-44-42-D-DataSheet.pdf', 'search_text':'/usr/share/kicad/symbols/Timer_PLL.kicad_sym\nSi5342A-D\n\nClock Jitter Attenuator Multiplier', 'pins':[
             Pin(num='1',name='IN1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='IN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='IN2b',func=Pin.types.INPUT,unit=1),
@@ -198,7 +198,7 @@ Timer_PLL = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='X2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VDDA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si5344A-D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si5344A-D'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'keywords':'Clock Jitter Attenuator Multiplier', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/Si5345-44-42-D-DataSheet.pdf', 'pins':[
+        Part(**{ 'name':'Si5344A-D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si5344A-D'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'keywords':'Clock Jitter Attenuator Multiplier', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/Si5345-44-42-D-DataSheet.pdf', 'search_text':'/usr/share/kicad/symbols/Timer_PLL.kicad_sym\nSi5344A-D\n\nClock Jitter Attenuator Multiplier', 'pins':[
             Pin(num='1',name='IN1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='IN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='IN2b',func=Pin.types.INPUT,unit=1),
@@ -244,7 +244,7 @@ Timer_PLL = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='X2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VDDA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si5345A-D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si5345A-D'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.2x5.2mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.2x5.2mm', 'keywords':'Clock Jitter Attenuator Multiplier', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/Si5345-44-42-D-DataSheet.pdf', 'pins':[
+        Part(**{ 'name':'Si5345A-D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si5345A-D'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.2x5.2mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.2x5.2mm', 'keywords':'Clock Jitter Attenuator Multiplier', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/Si5345-44-42-D-DataSheet.pdf', 'search_text':'/usr/share/kicad/symbols/Timer_PLL.kicad_sym\nSi5345A-D\n\nClock Jitter Attenuator Multiplier', 'pins':[
             Pin(num='1',name='IN1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='X2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~{OE}',func=Pin.types.INPUT,unit=1),
@@ -310,7 +310,7 @@ Timer_PLL = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='X1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='XA',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='XB',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADF4350', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADF4350'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-32-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'Package_CSP:LFCSP-32-1EP_5x5mm_P0.5mm_EP3.25x3.25mm'], 'footprint':'Package_CSP:LFCSP-32-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'keywords':'fractional-N PLL', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADF4350.pdf', 'pins':[
+        Part(**{ 'name':'ADF4350', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADF4350'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-32-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'Package_CSP:LFCSP-32-1EP_5x5mm_P0.5mm_EP3.25x3.25mm'], 'footprint':'Package_CSP:LFCSP-32-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'keywords':'fractional-N PLL', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADF4350.pdf', 'search_text':'/usr/share/kicad/symbols/Timer_PLL.kicad_sym\nADF4350\n\nfractional-N PLL', 'pins':[
             Pin(num='1',name='CLK',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='AVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='AGNDVCO',func=Pin.types.PWRIN,unit=1),
@@ -344,7 +344,7 @@ Timer_PLL = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CPout',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CPGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='AGND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ICS525R-02', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICS525R-02'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_3.9x9.9mm_P0.635mm', 'Package_SO:SSOP-28_3.9x9.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-28_3.9x9.9mm_P0.635mm', 'keywords':'Configurable clock', 'description':'', 'datasheet':'https://www.idt.com/document/dst/525-01-02-datasheet', 'pins':[
+        Part(**{ 'name':'ICS525R-02', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICS525R-02'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_3.9x9.9mm_P0.635mm', 'Package_SO:SSOP-28_3.9x9.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-28_3.9x9.9mm_P0.635mm', 'keywords':'Configurable clock', 'description':'', 'datasheet':'https://www.idt.com/document/dst/525-01-02-datasheet', 'search_text':'/usr/share/kicad/symbols/Timer_PLL.kicad_sym\nICS525R-02\n\nConfigurable clock', 'pins':[
             Pin(num='1',name='R5',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='V0',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='V1',func=Pin.types.INPUT,unit=1),
@@ -373,7 +373,7 @@ Timer_PLL = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='X1/ICLK',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='X2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si5342B-D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si5342B-D'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'keywords':'Clock Jitter Attenuator Multiplier', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/Si5345-44-42-D-DataSheet.pdf', 'pins':[
+        Part(**{ 'name':'Si5342B-D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si5342B-D'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'keywords':'Clock Jitter Attenuator Multiplier', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/Si5345-44-42-D-DataSheet.pdf', 'search_text':'/usr/share/kicad/symbols/Timer_PLL.kicad_sym\nSi5342B-D\n\nClock Jitter Attenuator Multiplier', 'pins':[
             Pin(num='1',name='IN1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='IN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='IN2b',func=Pin.types.INPUT,unit=1),
@@ -419,7 +419,7 @@ Timer_PLL = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='X2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VDDA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si5342C-D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si5342C-D'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'keywords':'Clock Jitter Attenuator Multiplier', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/Si5345-44-42-D-DataSheet.pdf', 'pins':[
+        Part(**{ 'name':'Si5342C-D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si5342C-D'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'keywords':'Clock Jitter Attenuator Multiplier', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/Si5345-44-42-D-DataSheet.pdf', 'search_text':'/usr/share/kicad/symbols/Timer_PLL.kicad_sym\nSi5342C-D\n\nClock Jitter Attenuator Multiplier', 'pins':[
             Pin(num='1',name='IN1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='IN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='IN2b',func=Pin.types.INPUT,unit=1),
@@ -465,7 +465,7 @@ Timer_PLL = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='X2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VDDA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si5342D-D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si5342D-D'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'keywords':'Clock Jitter Attenuator Multiplier', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/Si5345-44-42-D-DataSheet.pdf', 'pins':[
+        Part(**{ 'name':'Si5342D-D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si5342D-D'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'keywords':'Clock Jitter Attenuator Multiplier', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/Si5345-44-42-D-DataSheet.pdf', 'search_text':'/usr/share/kicad/symbols/Timer_PLL.kicad_sym\nSi5342D-D\n\nClock Jitter Attenuator Multiplier', 'pins':[
             Pin(num='1',name='IN1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='IN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='IN2b',func=Pin.types.INPUT,unit=1),
@@ -511,7 +511,7 @@ Timer_PLL = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='X2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VDDA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si5344B-D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si5344B-D'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'keywords':'Clock Jitter Attenuator Multiplier', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/Si5345-44-42-D-DataSheet.pdf', 'pins':[
+        Part(**{ 'name':'Si5344B-D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si5344B-D'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'keywords':'Clock Jitter Attenuator Multiplier', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/Si5345-44-42-D-DataSheet.pdf', 'search_text':'/usr/share/kicad/symbols/Timer_PLL.kicad_sym\nSi5344B-D\n\nClock Jitter Attenuator Multiplier', 'pins':[
             Pin(num='1',name='IN1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='IN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='IN2b',func=Pin.types.INPUT,unit=1),
@@ -557,7 +557,7 @@ Timer_PLL = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='X2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VDDA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si5344C-D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si5344C-D'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'keywords':'Clock Jitter Attenuator Multiplier', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/Si5345-44-42-D-DataSheet.pdf', 'pins':[
+        Part(**{ 'name':'Si5344C-D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si5344C-D'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'keywords':'Clock Jitter Attenuator Multiplier', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/Si5345-44-42-D-DataSheet.pdf', 'search_text':'/usr/share/kicad/symbols/Timer_PLL.kicad_sym\nSi5344C-D\n\nClock Jitter Attenuator Multiplier', 'pins':[
             Pin(num='1',name='IN1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='IN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='IN2b',func=Pin.types.INPUT,unit=1),
@@ -603,7 +603,7 @@ Timer_PLL = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='X2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VDDA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si5344D-D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si5344D-D'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'keywords':'Clock Jitter Attenuator Multiplier', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/Si5345-44-42-D-DataSheet.pdf', 'pins':[
+        Part(**{ 'name':'Si5344D-D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si5344D-D'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_7x7mm_P0.5mm_EP5.2x5.2mm', 'keywords':'Clock Jitter Attenuator Multiplier', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/Si5345-44-42-D-DataSheet.pdf', 'search_text':'/usr/share/kicad/symbols/Timer_PLL.kicad_sym\nSi5344D-D\n\nClock Jitter Attenuator Multiplier', 'pins':[
             Pin(num='1',name='IN1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='IN2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='IN2b',func=Pin.types.INPUT,unit=1),
@@ -649,7 +649,7 @@ Timer_PLL = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='X2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VDDA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDA',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si5345B-D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si5345B-D'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.2x5.2mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.2x5.2mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.2x5.2mm', 'keywords':'Clock Jitter Attenuator Multiplier', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/Si5345-44-42-D-DataSheet.pdf', 'pins':[
+        Part(**{ 'name':'Si5345B-D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si5345B-D'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.2x5.2mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.2x5.2mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.2x5.2mm', 'keywords':'Clock Jitter Attenuator Multiplier', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/Si5345-44-42-D-DataSheet.pdf', 'search_text':'/usr/share/kicad/symbols/Timer_PLL.kicad_sym\nSi5345B-D\n\nClock Jitter Attenuator Multiplier', 'pins':[
             Pin(num='1',name='IN1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='X2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~{OE}',func=Pin.types.INPUT,unit=1),
@@ -715,7 +715,7 @@ Timer_PLL = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='X1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='XA',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='XB',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si5345C-D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si5345C-D'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.2x5.2mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.2x5.2mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.2x5.2mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.2x5.2mm', 'keywords':'Clock Jitter Attenuator Multiplier', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/Si5345-44-42-D-DataSheet.pdf', 'pins':[
+        Part(**{ 'name':'Si5345C-D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si5345C-D'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.2x5.2mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.2x5.2mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.2x5.2mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.2x5.2mm', 'keywords':'Clock Jitter Attenuator Multiplier', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/Si5345-44-42-D-DataSheet.pdf', 'search_text':'/usr/share/kicad/symbols/Timer_PLL.kicad_sym\nSi5345C-D\n\nClock Jitter Attenuator Multiplier', 'pins':[
             Pin(num='1',name='IN1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='X2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~{OE}',func=Pin.types.INPUT,unit=1),
@@ -781,7 +781,7 @@ Timer_PLL = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='X1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='XA',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='XB',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si5345D-D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si5345D-D'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.2x5.2mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.2x5.2mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.2x5.2mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.2x5.2mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.2x5.2mm', 'keywords':'Clock Jitter Attenuator Multiplier', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/Si5345-44-42-D-DataSheet.pdf', 'pins':[
+        Part(**{ 'name':'Si5345D-D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si5345D-D'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.2x5.2mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.2x5.2mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.2x5.2mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.2x5.2mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.2x5.2mm', 'keywords':'Clock Jitter Attenuator Multiplier', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/Si5345-44-42-D-DataSheet.pdf', 'search_text':'/usr/share/kicad/symbols/Timer_PLL.kicad_sym\nSi5345D-D\n\nClock Jitter Attenuator Multiplier', 'pins':[
             Pin(num='1',name='IN1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='X2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~{OE}',func=Pin.types.INPUT,unit=1),

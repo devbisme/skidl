@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 MCU_Module = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'Adafruit_Feather_32u4_BluefruitLE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Adafruit_Feather_32u4_BluefruitLE'}), 'ref_prefix':'A', 'fplist':['Module:Adafruit_Feather'], 'footprint':'Module:Adafruit_Feather', 'keywords':'Adafruit feather microcontroller module USB AVR ATmega32U4  Bluetooth BLE', 'description':'', 'datasheet':'https://cdn-learn.adafruit.com/downloads/pdf/adafruit-feather-32u4-bluefruit-le.pdf', 'pins':[
+        Part(**{ 'name':'Adafruit_Feather_32u4_BluefruitLE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Adafruit_Feather_32u4_BluefruitLE'}), 'ref_prefix':'A', 'fplist':['Module:Adafruit_Feather'], 'footprint':'Module:Adafruit_Feather', 'keywords':'Adafruit feather microcontroller module USB AVR ATmega32U4  Bluetooth BLE', 'description':'', 'datasheet':'https://cdn-learn.adafruit.com/downloads/pdf/adafruit-feather-32u4-bluefruit-le.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nAdafruit_Feather_32u4_BluefruitLE\n\nAdafruit feather microcontroller module USB AVR ATmega32U4  Bluetooth BLE', 'pins':[
             Pin(num='1',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SCK/D15',func=Pin.types.BIDIR,unit=1),
@@ -33,7 +33,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='A3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='A4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Adafruit_Feather_Generic', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Adafruit_Feather_Generic'}), 'ref_prefix':'A', 'fplist':['Module:Adafruit_Feather'], 'footprint':'Module:Adafruit_Feather', 'keywords':'Adafruit feather microcontroller module', 'description':'', 'datasheet':'https://cdn-learn.adafruit.com/downloads/pdf/adafruit-feather.pdf', 'pins':[
+        Part(**{ 'name':'Adafruit_Feather_Generic', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Adafruit_Feather_Generic'}), 'ref_prefix':'A', 'fplist':['Module:Adafruit_Feather'], 'footprint':'Module:Adafruit_Feather', 'keywords':'Adafruit feather microcontroller module', 'description':'', 'datasheet':'https://cdn-learn.adafruit.com/downloads/pdf/adafruit-feather.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nAdafruit_Feather_Generic\n\nAdafruit feather microcontroller module', 'pins':[
             Pin(num='1',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SCK',func=Pin.types.BIDIR,unit=1),
@@ -62,7 +62,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='A3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='A4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Adafruit_Feather_HUZZAH32_ESP32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Adafruit_Feather_HUZZAH32_ESP32'}), 'ref_prefix':'A', 'fplist':['Module:Adafruit_Feather'], 'footprint':'Module:Adafruit_Feather', 'keywords':'Adafruit feather microcontroller module USB', 'description':'', 'datasheet':'https://cdn-learn.adafruit.com/downloads/pdf/adafruit-huzzah32-esp32-feather.pdf', 'pins':[
+        Part(**{ 'name':'Adafruit_Feather_HUZZAH32_ESP32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Adafruit_Feather_HUZZAH32_ESP32'}), 'ref_prefix':'A', 'fplist':['Module:Adafruit_Feather'], 'footprint':'Module:Adafruit_Feather', 'keywords':'Adafruit feather microcontroller module USB', 'description':'', 'datasheet':'https://cdn-learn.adafruit.com/downloads/pdf/adafruit-huzzah32-esp32-feather.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nAdafruit_Feather_HUZZAH32_ESP32\n\nAdafruit feather microcontroller module USB', 'pins':[
             Pin(num='1',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='IO4/A5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SCK/IO5',func=Pin.types.BIDIR,unit=1),
@@ -91,7 +91,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I34/A2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='I39/A3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='IO36/A4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Adafruit_Feather_HUZZAH_ESP8266', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Adafruit_Feather_HUZZAH_ESP8266'}), 'ref_prefix':'A', 'fplist':['Module:Adafruit_Feather'], 'footprint':'Module:Adafruit_Feather', 'keywords':'Adafruit feather microcontroller module USB', 'description':'', 'datasheet':'https://cdn-learn.adafruit.com/downloads/pdf/adafruit-feather-huzzah-esp8266.pdf', 'pins':[
+        Part(**{ 'name':'Adafruit_Feather_HUZZAH_ESP8266', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Adafruit_Feather_HUZZAH_ESP8266'}), 'ref_prefix':'A', 'fplist':['Module:Adafruit_Feather'], 'footprint':'Module:Adafruit_Feather', 'keywords':'Adafruit feather microcontroller module USB', 'description':'', 'datasheet':'https://cdn-learn.adafruit.com/downloads/pdf/adafruit-feather-huzzah-esp8266.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nAdafruit_Feather_HUZZAH_ESP8266\n\nAdafruit feather microcontroller module USB', 'pins':[
             Pin(num='1',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='SCK/IO14',func=Pin.types.BIDIR,unit=1),
@@ -120,7 +120,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Adafruit_Feather_M0_Basic_Proto', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Adafruit_Feather_M0_Basic_Proto'}), 'ref_prefix':'A', 'fplist':['Module:Adafruit_Feather'], 'footprint':'Module:Adafruit_Feather', 'keywords':'Adafruit feather microcontroller module USB M0 SAMD21', 'description':'', 'datasheet':'https://cdn-learn.adafruit.com/downloads/pdf/adafruit-feather-m0-basic-proto.pdf', 'pins':[
+        Part(**{ 'name':'Adafruit_Feather_M0_Basic_Proto', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Adafruit_Feather_M0_Basic_Proto'}), 'ref_prefix':'A', 'fplist':['Module:Adafruit_Feather'], 'footprint':'Module:Adafruit_Feather', 'keywords':'Adafruit feather microcontroller module USB M0 SAMD21', 'description':'', 'datasheet':'https://cdn-learn.adafruit.com/downloads/pdf/adafruit-feather-m0-basic-proto.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nAdafruit_Feather_M0_Basic_Proto\n\nAdafruit feather microcontroller module USB M0 SAMD21', 'pins':[
             Pin(num='1',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SCK/D24',func=Pin.types.BIDIR,unit=1),
@@ -149,7 +149,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='A3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='A4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Adafruit_Feather_M0_BluefruitLE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Adafruit_Feather_M0_BluefruitLE'}), 'ref_prefix':'A', 'fplist':['Module:Adafruit_Feather'], 'footprint':'Module:Adafruit_Feather', 'keywords':'Adafruit feather microcontroller module USB M0 SAMD21 Bluetooth BLE', 'description':'', 'datasheet':'https://cdn-learn.adafruit.com/downloads/pdf/adafruit-feather-m0-bluefruit-le.pdf', 'pins':[
+        Part(**{ 'name':'Adafruit_Feather_M0_BluefruitLE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Adafruit_Feather_M0_BluefruitLE'}), 'ref_prefix':'A', 'fplist':['Module:Adafruit_Feather'], 'footprint':'Module:Adafruit_Feather', 'keywords':'Adafruit feather microcontroller module USB M0 SAMD21 Bluetooth BLE', 'description':'', 'datasheet':'https://cdn-learn.adafruit.com/downloads/pdf/adafruit-feather-m0-bluefruit-le.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nAdafruit_Feather_M0_BluefruitLE\n\nAdafruit feather microcontroller module USB M0 SAMD21 Bluetooth BLE', 'pins':[
             Pin(num='1',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SCK/D24',func=Pin.types.BIDIR,unit=1),
@@ -178,7 +178,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='A3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='A4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Adafruit_Feather_M0_RFM69HCW_Packet_Radio', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Adafruit_Feather_M0_RFM69HCW_Packet_Radio'}), 'ref_prefix':'A', 'fplist':['Module:Adafruit_Feather_M0_RFM'], 'footprint':'Module:Adafruit_Feather_M0_RFM', 'keywords':'Adafruit feather microcontroller module USB M0 SAMD21 Radio', 'description':'', 'datasheet':'https://cdn-learn.adafruit.com/downloads/pdf/adafruit-feather-m0-radio-with-rfm69-packet-radio.pdf', 'pins':[
+        Part(**{ 'name':'Adafruit_Feather_M0_RFM69HCW_Packet_Radio', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Adafruit_Feather_M0_RFM69HCW_Packet_Radio'}), 'ref_prefix':'A', 'fplist':['Module:Adafruit_Feather_M0_RFM'], 'footprint':'Module:Adafruit_Feather_M0_RFM', 'keywords':'Adafruit feather microcontroller module USB M0 SAMD21 Radio', 'description':'', 'datasheet':'https://cdn-learn.adafruit.com/downloads/pdf/adafruit-feather-m0-radio-with-rfm69-packet-radio.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nAdafruit_Feather_M0_RFM69HCW_Packet_Radio\n\nAdafruit feather microcontroller module USB M0 SAMD21 Radio', 'pins':[
             Pin(num='1',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SCK/D24',func=Pin.types.BIDIR,unit=1),
@@ -211,7 +211,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='A3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='A4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Adafruit_Feather_M0_Wifi', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Adafruit_Feather_M0_Wifi'}), 'ref_prefix':'A', 'fplist':['Module:Adafruit_Feather_M0_Wifi'], 'footprint':'Module:Adafruit_Feather_M0_Wifi', 'keywords':'Adafruit feather microcontroller module USB M0 SAMD21 Wifi ATWINC1500', 'description':'', 'datasheet':'https://cdn-learn.adafruit.com/downloads/pdf/adafruit-feather-m0-wifi-atwinc1500.pdf', 'pins':[
+        Part(**{ 'name':'Adafruit_Feather_M0_Wifi', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Adafruit_Feather_M0_Wifi'}), 'ref_prefix':'A', 'fplist':['Module:Adafruit_Feather_M0_Wifi'], 'footprint':'Module:Adafruit_Feather_M0_Wifi', 'keywords':'Adafruit feather microcontroller module USB M0 SAMD21 Wifi ATWINC1500', 'description':'', 'datasheet':'https://cdn-learn.adafruit.com/downloads/pdf/adafruit-feather-m0-wifi-atwinc1500.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nAdafruit_Feather_M0_Wifi\n\nAdafruit feather microcontroller module USB M0 SAMD21 Wifi ATWINC1500', 'pins':[
             Pin(num='1',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SCK/D24',func=Pin.types.BIDIR,unit=1),
@@ -240,7 +240,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='A3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='A4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Adafruit_Feather_WICED_Wifi', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Adafruit_Feather_WICED_Wifi'}), 'ref_prefix':'A', 'fplist':['Module:Adafruit_Feather_WICED'], 'footprint':'Module:Adafruit_Feather_WICED', 'keywords':'Adafruit feather microcontroller module USB M3 STM32F205 Wifi', 'description':'', 'datasheet':'https://cdn-learn.adafruit.com/downloads/pdf/introducing-the-adafruit-wiced-feather-wifi.pdf', 'pins':[
+        Part(**{ 'name':'Adafruit_Feather_WICED_Wifi', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Adafruit_Feather_WICED_Wifi'}), 'ref_prefix':'A', 'fplist':['Module:Adafruit_Feather_WICED'], 'footprint':'Module:Adafruit_Feather_WICED', 'keywords':'Adafruit feather microcontroller module USB M3 STM32F205 Wifi', 'description':'', 'datasheet':'https://cdn-learn.adafruit.com/downloads/pdf/introducing-the-adafruit-wiced-feather-wifi.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nAdafruit_Feather_WICED_Wifi\n\nAdafruit feather microcontroller module USB M3 STM32F205 Wifi', 'pins':[
             Pin(num='1',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SCK/A5',func=Pin.types.BIDIR,unit=1),
@@ -270,7 +270,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='C2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='A3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='A2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Adafruit_HUZZAH_ESP8266_breakout', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Adafruit_HUZZAH_ESP8266_breakout'}), 'ref_prefix':'A', 'fplist':[''], 'footprint':'', 'keywords':'ESP8266 WiFi microcontroller', 'description':'', 'datasheet':'https://www.adafruit.com/product/2471', 'pins':[
+        Part(**{ 'name':'Adafruit_HUZZAH_ESP8266_breakout', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Adafruit_HUZZAH_ESP8266_breakout'}), 'ref_prefix':'A', 'fplist':[''], 'footprint':'', 'keywords':'ESP8266 WiFi microcontroller', 'description':'', 'datasheet':'https://www.adafruit.com/product/2471', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nAdafruit_HUZZAH_ESP8266_breakout\n\nESP8266 WiFi microcontroller', 'pins':[
             Pin(num='1',name='~{RST}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -291,7 +291,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='13',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VBat',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Arduino_Leonardo', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Arduino_Leonardo'}), 'ref_prefix':'A', 'fplist':['Module:Arduino_UNO_R3'], 'footprint':'Module:Arduino_UNO_R3', 'keywords':'Arduino LEONARDO Microcontroller Module Atmel AVR USB', 'description':'', 'datasheet':'https://www.arduino.cc/en/Main/ArduinoBoardLeonardo', 'pins':[
+        Part(**{ 'name':'Arduino_Leonardo', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Arduino_Leonardo'}), 'ref_prefix':'A', 'fplist':['Module:Arduino_UNO_R3'], 'footprint':'Module:Arduino_UNO_R3', 'keywords':'Arduino LEONARDO Microcontroller Module Atmel AVR USB', 'description':'', 'datasheet':'https://www.arduino.cc/en/Main/ArduinoBoardLeonardo', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nArduino_Leonardo\n\nArduino LEONARDO Microcontroller Module Atmel AVR USB', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='A1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='A2',func=Pin.types.BIDIR,unit=1),
@@ -324,7 +324,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='A0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Arduino_Nano_Every', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Arduino_Nano_Every'}), 'ref_prefix':'A', 'fplist':['Module:Arduino_Nano'], 'footprint':'Module:Arduino_Nano', 'keywords':'Arduino nano microcontroller module USB UPDI AATMega4809 AVR', 'description':'', 'datasheet':'https://content.arduino.cc/assets/NANOEveryV3.0_sch.pdf', 'pins':[
+        Part(**{ 'name':'Arduino_Nano_Every', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Arduino_Nano_Every'}), 'ref_prefix':'A', 'fplist':['Module:Arduino_Nano'], 'footprint':'Module:Arduino_Nano', 'keywords':'Arduino nano microcontroller module USB UPDI AATMega4809 AVR', 'description':'', 'datasheet':'https://content.arduino.cc/assets/NANOEveryV3.0_sch.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nArduino_Nano_Every\n\nArduino nano microcontroller module USB UPDI AATMega4809 AVR', 'pins':[
             Pin(num='1',name='TX1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='D7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='D8',func=Pin.types.BIDIR,unit=1),
@@ -355,7 +355,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='D5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='D6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Arduino_Nano_v2.x', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Arduino_Nano_v2.x'}), 'ref_prefix':'A', 'fplist':['Module:Arduino_Nano'], 'footprint':'Module:Arduino_Nano', 'keywords':'Arduino nano microcontroller module USB', 'description':'', 'datasheet':'https://www.arduino.cc/en/uploads/Main/ArduinoNanoManual23.pdf', 'pins':[
+        Part(**{ 'name':'Arduino_Nano_v2.x', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Arduino_Nano_v2.x'}), 'ref_prefix':'A', 'fplist':['Module:Arduino_Nano'], 'footprint':'Module:Arduino_Nano', 'keywords':'Arduino nano microcontroller module USB', 'description':'', 'datasheet':'https://www.arduino.cc/en/uploads/Main/ArduinoNanoManual23.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nArduino_Nano_v2.x\n\nArduino nano microcontroller module USB', 'pins':[
             Pin(num='1',name='D1/TX',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='D7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='D8',func=Pin.types.BIDIR,unit=1),
@@ -386,7 +386,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='D5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='D6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Arduino_UNO_R2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Arduino_UNO_R2'}), 'ref_prefix':'A', 'fplist':['Module:Arduino_UNO_R2'], 'footprint':'Module:Arduino_UNO_R2', 'keywords':'Arduino UNO R3 Microcontroller Module Atmel AVR USB', 'description':'', 'datasheet':'https://www.arduino.cc/en/Main/arduinoBoardUno', 'pins':[
+        Part(**{ 'name':'Arduino_UNO_R2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Arduino_UNO_R2'}), 'ref_prefix':'A', 'fplist':['Module:Arduino_UNO_R2'], 'footprint':'Module:Arduino_UNO_R2', 'keywords':'Arduino UNO R3 Microcontroller Module Atmel AVR USB', 'description':'', 'datasheet':'https://www.arduino.cc/en/Main/arduinoBoardUno', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nArduino_UNO_R2\n\nArduino UNO R3 Microcontroller Module Atmel AVR USB', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='A1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='A2',func=Pin.types.BIDIR,unit=1),
@@ -417,7 +417,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='A0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Arduino_UNO_R3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Arduino_UNO_R3'}), 'ref_prefix':'A', 'fplist':['Module:Arduino_UNO_R3'], 'footprint':'Module:Arduino_UNO_R3', 'keywords':'Arduino UNO R3 Microcontroller Module Atmel AVR USB', 'description':'', 'datasheet':'https://www.arduino.cc/en/Main/arduinoBoardUno', 'pins':[
+        Part(**{ 'name':'Arduino_UNO_R3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Arduino_UNO_R3'}), 'ref_prefix':'A', 'fplist':['Module:Arduino_UNO_R3'], 'footprint':'Module:Arduino_UNO_R3', 'keywords':'Arduino UNO R3 Microcontroller Module Atmel AVR USB', 'description':'', 'datasheet':'https://www.arduino.cc/en/Main/arduinoBoardUno', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nArduino_UNO_R3\n\nArduino UNO R3 Microcontroller Module Atmel AVR USB', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='A1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='A2',func=Pin.types.BIDIR,unit=1),
@@ -450,7 +450,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='A0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CHIP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CHIP'}), 'ref_prefix':'U', 'fplist':['Module:MODULE_NEXTTHINGCO_CHIP'], 'footprint':'Module:MODULE_NEXTTHINGCO_CHIP', 'keywords':'nextthingco chip module', 'description':'', 'datasheet':'https://github.com/NextThingCo/CHIP-Hardware/tree/master/CHIP%5Bv1_0%5D', 'pins':[
+        Part(**{ 'name':'CHIP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CHIP'}), 'ref_prefix':'U', 'fplist':['Module:MODULE_NEXTTHINGCO_CHIP'], 'footprint':'Module:MODULE_NEXTTHINGCO_CHIP', 'keywords':'nextthingco chip module', 'description':'', 'datasheet':'https://github.com/NextThingCo/CHIP-Hardware/tree/master/CHIP%5Bv1_0%5D', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nCHIP\n\nnextthingco chip module', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{POWER-ON}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='PB15/TWI1-SCK',func=Pin.types.BIDIR,unit=1),
@@ -531,7 +531,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='BAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='80',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PB16/TWI1-SDA',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CHIP-PRO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CHIP-PRO'}), 'ref_prefix':'U', 'fplist':['Module:MODULE_NEXTTHINGCO_CHIPPRO'], 'footprint':'Module:MODULE_NEXTTHINGCO_CHIPPRO', 'keywords':'nextthingco chip pro module', 'description':'', 'datasheet':'https://github.com/NextThingCo/CHIP_Pro-Hardware/blob/master/Datasheets/CHIP_PRO_Datasheet_v1.0.pdf', 'pins':[
+        Part(**{ 'name':'CHIP-PRO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CHIP-PRO'}), 'ref_prefix':'U', 'fplist':['Module:MODULE_NEXTTHINGCO_CHIPPRO'], 'footprint':'Module:MODULE_NEXTTHINGCO_CHIPPRO', 'keywords':'nextthingco chip pro module', 'description':'', 'datasheet':'https://github.com/NextThingCo/CHIP_Pro-Hardware/blob/master/Datasheets/CHIP_PRO_Datasheet_v1.0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nCHIP-PRO\n\nnextthingco chip pro module', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PG13/EINT13/PWM1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB16/TWI1-SDA',func=Pin.types.BIDIR,unit=1),
@@ -585,7 +585,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TS',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='BAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PB2/SPDIF-DO/PWM0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Carambola2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Carambola2'}), 'ref_prefix':'U', 'fplist':['Module:Carambola2'], 'footprint':'Module:Carambola2', 'keywords':'carambola, 8devices, openwrt, board, wlan', 'description':'', 'datasheet':'https://www.8devices.com/media/products/carambola2/downloads/carambola2-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Carambola2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Carambola2'}), 'ref_prefix':'U', 'fplist':['Module:Carambola2'], 'footprint':'Module:Carambola2', 'keywords':'carambola, 8devices, openwrt, board, wlan', 'description':'', 'datasheet':'https://www.8devices.com/media/products/carambola2/downloads/carambola2-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nCarambola2\n\ncarambola, 8devices, openwrt, board, wlan', 'pins':[
             Pin(num='1',name='SPDIF_OUT/GPIO_23',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='ETH1_TXP',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='ETH1_TXM',func=Pin.types.OUTPUT,unit=1),
@@ -638,7 +638,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='ETH1_RXP',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='ETH1_RXM',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Electrosmith_Daisy_Seed_Rev4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Electrosmith_Daisy_Seed_Rev4'}), 'ref_prefix':'A', 'fplist':['Module:Electrosmith_Daisy_Seed'], 'footprint':'Module:Electrosmith_Daisy_Seed', 'keywords':'Electrosmith Daisy Seed Microcontroller Module ARM Cortex-M7', 'description':'', 'datasheet':'https://static1.squarespace.com/static/58d03fdc1b10e3bf442567b8/t/6227e6236f02fb68d1577146/1646781988478/Daisy_Seed_datasheet_v1.0.3.pdf', 'pins':[
+        Part(**{ 'name':'Electrosmith_Daisy_Seed_Rev4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Electrosmith_Daisy_Seed_Rev4'}), 'ref_prefix':'A', 'fplist':['Module:Electrosmith_Daisy_Seed'], 'footprint':'Module:Electrosmith_Daisy_Seed', 'keywords':'Electrosmith Daisy Seed Microcontroller Module ARM Cortex-M7', 'description':'', 'datasheet':'https://static1.squarespace.com/static/58d03fdc1b10e3bf442567b8/t/6227e6236f02fb68d1577146/1646781988478/Daisy_Seed_datasheet_v1.0.3.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nElectrosmith_Daisy_Seed_Rev4\n\nElectrosmith Daisy Seed Microcontroller Module ARM Cortex-M7', 'pins':[
             Pin(num='1',name='USB_ID',func=Pin.types.BIDIR),
             Pin(num='10',name='SPI1_POCI',func=Pin.types.BIDIR),
             Pin(num='11',name='SPI1_PICO',func=Pin.types.BIDIR),
@@ -679,7 +679,128 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SD_CLK',func=Pin.types.BIDIR),
             Pin(num='8',name='SPI1_CS',func=Pin.types.BIDIR),
             Pin(num='9',name='SPI1_SCK',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'Maple_Mini', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Maple_Mini'}), 'ref_prefix':'A', 'fplist':['Module:Maple_Mini'], 'footprint':'Module:Maple_Mini', 'keywords':'Maple Mini Microcontroller Module LeafLabs STM32 STM32F103', 'description':'', 'datasheet':'http://docs.leaflabs.com/static.leaflabs.com/pub/leaflabs/maple-docs/0.0.12/hardware/maple-mini.html', 'pins':[
+        Part(**{ 'name':'Google_Coral', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Google_Coral'}), 'ref_prefix':'U', 'fplist':['Module:Google_Coral_SMT_TPU_Module'], 'footprint':'Module:Google_Coral_SMT_TPU_Module', 'keywords':'TPU Coral', 'description':'', 'datasheet':'https://coral.ai/static/files/Coral-Accelerator-Module-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nGoogle_Coral\n\nTPU Coral', 'pins':[
+            Pin(num='1',name='GND',func=Pin.types.PWRIN),
+            Pin(num='10',name='PCIE_REFCLK_N',func=Pin.types.INPUT),
+            Pin(num='11',name='PCIE_REFCLK_P',func=Pin.types.INPUT),
+            Pin(num='13',name='USB2_D_P',func=Pin.types.BIDIR),
+            Pin(num='14',name='USB2_D_N',func=Pin.types.BIDIR),
+            Pin(num='37',name='PGOOD4',func=Pin.types.OUTPUT),
+            Pin(num='53',name='PMIC_EN',func=Pin.types.INPUT),
+            Pin(num='54',name='AON',func=Pin.types.PWRIN),
+            Pin(num='56',name='VIN',func=Pin.types.PWRIN),
+            Pin(num='76',name='RST_L',func=Pin.types.INPUT),
+            Pin(num='77',name='INTR',func=Pin.types.OUTPUT),
+            Pin(num='78',name='CLKREQ_L',func=Pin.types.BIDIR),
+            Pin(num='82',name='SD_ALARM',func=Pin.types.OUTPUT),
+            Pin(num='83',name='USB_SEL',func=Pin.types.INPUT),
+            Pin(num='100',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='101',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='102',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='103',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='104',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='105',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='106',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='107',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='108',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='109',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='110',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='111',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='112',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='113',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='114',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='115',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='116',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='117',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='118',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='119',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='12',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='120',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='15',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='16',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='17',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='18',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='19',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='2',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='20',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='21',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='22',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='23',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='24',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='25',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='26',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='27',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='28',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='29',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='3',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='30',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='31',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='32',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='33',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='34',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='35',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='36',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='38',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='39',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='4',name='PCIE_TX_N',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='40',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='41',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='42',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='43',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='44',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='45',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='46',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='47',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='48',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='49',name='RESERVED',func=Pin.types.NOCONNECT,unit=1),
+            Pin(num='5',name='PCIE_TX_P',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='50',name='RESERVED',func=Pin.types.NOCONNECT,unit=1),
+            Pin(num='51',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='52',name='RESERVED',func=Pin.types.NOCONNECT,unit=1),
+            Pin(num='55',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='57',name='VIN',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='58',name='VIN',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='59',name='VIN',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='6',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='60',name='VIN',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='61',name='VIN',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='62',name='VIN',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='63',name='VIN',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='64',name='VIN',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='65',name='VIN',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='66',name='VIN',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='67',name='VIN',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='68',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='69',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='7',name='PCIE_RX_P',func=Pin.types.INPUT,unit=1),
+            Pin(num='70',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='71',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='72',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='73',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='74',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='75',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='79',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='8',name='PCIE_RX_N',func=Pin.types.INPUT,unit=1),
+            Pin(num='80',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='81',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='84',name='RESERVED',func=Pin.types.NOCONNECT,unit=1),
+            Pin(num='85',name='RESERVED',func=Pin.types.NOCONNECT,unit=1),
+            Pin(num='86',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='87',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='88',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='89',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='90',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='91',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='92',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='93',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='94',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='95',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='96',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='97',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='98',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='99',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'Maple_Mini', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Maple_Mini'}), 'ref_prefix':'A', 'fplist':['Module:Maple_Mini'], 'footprint':'Module:Maple_Mini', 'keywords':'Maple Mini Microcontroller Module LeafLabs STM32 STM32F103', 'description':'', 'datasheet':'http://docs.leaflabs.com/static.leaflabs.com/pub/leaflabs/maple-docs/0.0.12/hardware/maple-mini.html', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nMaple_Mini\n\nMaple Mini Microcontroller Module LeafLabs STM32 STM32F103', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='D21',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='D22',func=Pin.types.BIDIR,unit=1),
@@ -720,7 +841,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D18',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='D19',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='D20',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NUCLEO144-F429ZI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NUCLEO144-F429ZI'}), 'ref_prefix':'U', 'fplist':['Module:ST_Morpho_Connector_144_STLink'], 'footprint':'Module:ST_Morpho_Connector_144_STLink', 'keywords':'STM32 Nucleo ST', 'description':'', 'datasheet':'http://www.st.com/content/ccc/resource/technical/document/data_brief/group0/7b/df/1d/e9/64/55/43/8d/DM00247910/files/DM00247910.pdf/jcr:content/translations/en.DM00247910.pdf', 'pins':[
+        Part(**{ 'name':'NUCLEO144-F429ZI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NUCLEO144-F429ZI'}), 'ref_prefix':'U', 'fplist':['Module:ST_Morpho_Connector_144_STLink'], 'footprint':'Module:ST_Morpho_Connector_144_STLink', 'keywords':'STM32 Nucleo ST', 'description':'', 'datasheet':'http://www.st.com/content/ccc/resource/technical/document/data_brief/group0/7b/df/1d/e9/64/55/43/8d/DM00247910/files/DM00247910.pdf/jcr:content/translations/en.DM00247910.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nNUCLEO144-F429ZI\n\nSTM32 Nucleo ST', 'pins':[
             Pin(num='1',name='PC10',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='100',name='LD3/PB14',func=Pin.types.BIDIR,unit=1),
@@ -730,7 +851,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='104',name='AGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='105',name='USB_ID/PA10',func=Pin.types.BIDIR,unit=1),
             Pin(num='106',name='ETH_RXD0/PC4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='107',name='PA2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='107',name='ETH_MDIO/PA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='108',name='PF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='109',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PF7',func=Pin.types.BIDIR,unit=1),
@@ -786,10 +907,10 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='25',name='RTC_CRYSTAL/PC14',func=Pin.types.BIDIR,unit=1),
             Pin(num='26',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='27',name='RTC_CRYSTAL/PC15',func=Pin.types.BIDIR,unit=1),
-            Pin(num='28',name='ETH_REF_CLK/PA0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='28',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='29',name='PH0',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='PC12',func=Pin.types.BIDIR,unit=1),
-            Pin(num='30',name='ETH_MDIO/PA1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='30',name='ETH_REF_CLK/PA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='31',name='PH1',func=Pin.types.BIDIR,unit=1),
             Pin(num='32',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='33',name='VBAT',func=Pin.types.PWRIN,unit=1),
@@ -865,7 +986,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PB10',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PB15',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PB4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NUCLEO64-F411RE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NUCLEO64-F411RE'}), 'ref_prefix':'U', 'fplist':['Module:ST_Morpho_Connector_144_STLink'], 'footprint':'Module:ST_Morpho_Connector_144_STLink', 'keywords':'STM32 Nucleo ST', 'description':'', 'datasheet':'http://www.st.com/st-web-ui/static/active/en/resource/technical/document/data_brief/DM00105918.pdf', 'pins':[
+        Part(**{ 'name':'NUCLEO64-F411RE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NUCLEO64-F411RE'}), 'ref_prefix':'U', 'fplist':['Module:ST_Morpho_Connector_144_STLink'], 'footprint':'Module:ST_Morpho_Connector_144_STLink', 'keywords':'STM32 Nucleo ST', 'description':'', 'datasheet':'http://www.st.com/st-web-ui/static/active/en/resource/technical/document/data_brief/DM00105918.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nNUCLEO64-F411RE\n\nSTM32 Nucleo ST', 'pins':[
             Pin(num='1',name='PC10',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -946,7 +1067,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='80',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'OPOS6UL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPOS6UL'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'armadeus systems opos6ul sbc som compute module', 'description':'', 'datasheet':'http://www.opossom.com/_downloads/opos6ul/documentation/datasheet_opos6ul.pdf', 'pins':[
+        Part(**{ 'name':'OPOS6UL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPOS6UL'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'armadeus systems opos6ul sbc som compute module', 'description':'', 'datasheet':'http://www.opossom.com/_downloads/opos6ul/documentation/datasheet_opos6ul.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nOPOS6UL\n\narmadeus systems opos6ul sbc som compute module', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='TAMPER6',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='LCD_D5',func=Pin.types.BIDIR,unit=1),
@@ -1151,7 +1272,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='LCD_D21',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='LCD_D6',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='LCD_D20',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'OPOS6UL_NANO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPOS6UL_NANO'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'opos6ul compute module', 'description':'', 'datasheet':'http://www.opossom.com/_downloads/opos6ul_nano/datasheet_opos6ul_nano.pdf', 'pins':[
+        Part(**{ 'name':'OPOS6UL_NANO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'OPOS6UL_NANO'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'opos6ul compute module', 'description':'', 'datasheet':'http://www.opossom.com/_downloads/opos6ul_nano/datasheet_opos6ul_nano.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nOPOS6UL_NANO\n\nopos6ul compute module', 'pins':[
             Pin(num='1',name='+3V3',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -1219,7 +1340,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='75',name='ETH_TXN',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='USB_OTG2_DP',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='USB_OTG1_DP',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Olimex_MOD-WIFI-ESP8266-DEV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Olimex_MOD-WIFI-ESP8266-DEV'}), 'ref_prefix':'U', 'fplist':['Module:Olimex_MOD-WIFI-ESP8266-DEV'], 'footprint':'Module:Olimex_MOD-WIFI-ESP8266-DEV', 'keywords':'ESP8266', 'description':'', 'datasheet':'https://raw.githubusercontent.com/OLIMEX/ESP8266/master/HARDWARE/MOD-WIFI-ESP8266-DEV/MOD-WiFi-ESP8266-DEV%20revision%20B2/MOD-WiFi-ESP8266-DEV_Rev_B2.pdf', 'pins':[
+        Part(**{ 'name':'Olimex_MOD-WIFI-ESP8266-DEV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Olimex_MOD-WIFI-ESP8266-DEV'}), 'ref_prefix':'U', 'fplist':['Module:Olimex_MOD-WIFI-ESP8266-DEV'], 'footprint':'Module:Olimex_MOD-WIFI-ESP8266-DEV', 'keywords':'ESP8266', 'description':'', 'datasheet':'https://raw.githubusercontent.com/OLIMEX/ESP8266/master/HARDWARE/MOD-WIFI-ESP8266-DEV/MOD-WiFi-ESP8266-DEV%20revision%20B2/MOD-WiFi-ESP8266-DEV_Rev_B2.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nOlimex_MOD-WIFI-ESP8266-DEV\n\nESP8266', 'pins':[
             Pin(num='1',name='3.3V',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='SD_D3',func=Pin.types.UNSPEC,unit=1),
             Pin(num='11',name='GPIO5',func=Pin.types.BIDIR,unit=1),
@@ -1242,7 +1363,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SD_D1',func=Pin.types.UNSPEC,unit=1),
             Pin(num='8',name='SD_CMD',func=Pin.types.UNSPEC,unit=1),
             Pin(num='9',name='SD_D0',func=Pin.types.UNSPEC,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Omega2+', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Omega2+'}), 'ref_prefix':'U', 'fplist':['Module:Onion_Omega2+'], 'footprint':'Module:Onion_Omega2+', 'keywords':'onion omega module', 'description':'', 'datasheet':'https://docs.onion.io/omega2-docs/omega2p.html', 'pins':[
+        Part(**{ 'name':'Omega2+', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Omega2+'}), 'ref_prefix':'U', 'fplist':['Module:Onion_Omega2+'], 'footprint':'Module:Onion_Omega2+', 'keywords':'onion omega module', 'description':'', 'datasheet':'https://docs.onion.io/omega2-docs/omega2p.html', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nOmega2+\n\nonion omega module', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='9/SPI_MISO',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='8/SPI_MOSI',func=Pin.types.BIDIR,unit=1),
@@ -1275,7 +1396,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='15',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SER1_RX/46',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SER1_TX/45',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Omega2S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Omega2S'}), 'ref_prefix':'U', 'fplist':['Module:Onion_Omega2S'], 'footprint':'Module:Onion_Omega2S', 'keywords':'onion omega module', 'description':'', 'datasheet':'https://github.com/OnionIoT/Omega2/raw/master/Documents/Omega2S%20Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Omega2S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Omega2S'}), 'ref_prefix':'U', 'fplist':['Module:Onion_Omega2S'], 'footprint':'Module:Onion_Omega2S', 'keywords':'onion omega module', 'description':'', 'datasheet':'https://github.com/OnionIoT/Omega2/raw/master/Documents/Omega2S%20Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nOmega2S\n\nonion omega module', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PCIE_TXN0',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='PCIE_TXP0',func=Pin.types.OUTPUT,unit=1),
@@ -1340,7 +1461,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GPIO_40/LINK3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='3.3V',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='3.3V',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PocketBeagle', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PocketBeagle'}), 'ref_prefix':'U', 'fplist':['Module:BeagleBoard_PocketBeagle'], 'footprint':'Module:BeagleBoard_PocketBeagle', 'keywords':'beagleboard pocketbeagle', 'description':'', 'datasheet':'https://github.com/beagleboard/pocketbeagle/wiki/System-Reference-Manual', 'pins':[
+        Part(**{ 'name':'PocketBeagle', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PocketBeagle'}), 'ref_prefix':'U', 'fplist':['Module:BeagleBoard_PocketBeagle'], 'footprint':'Module:BeagleBoard_PocketBeagle', 'keywords':'beagleboard pocketbeagle', 'description':'', 'datasheet':'https://github.com/beagleboard/pocketbeagle/wiki/System-Reference-Manual', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nPocketBeagle\n\nbeagleboard pocketbeagle', 'pins':[
             Pin(num='1',name='VIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='SPI0.MISO',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='USB1.D+',func=Pin.types.BIDIR,unit=1),
@@ -1413,7 +1534,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='72',name='AIN7(1.8V)',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SPI0.CLK',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='USB1.D-',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RaspberryPi-CM1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RaspberryPi-CM1'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'raspberry pi compute module', 'description':'', 'datasheet':'https://www.raspberrypi.org/documentation/hardware/computemodule/datasheets/rpi_DATA_CM_1p0.pdf', 'pins':[
+        Part(**{ 'name':'RaspberryPi-CM1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RaspberryPi-CM1'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'raspberry pi compute module', 'description':'', 'datasheet':'https://www.raspberrypi.org/documentation/hardware/computemodule/datasheets/rpi_DATA_CM_1p0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nRaspberryPi-CM1\n\nraspberry pi compute module', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='100',name='DSI1_CP',func=Pin.types.OUTPUT,unit=1),
@@ -1614,7 +1735,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='98',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='99',name='DSI0_DN0',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RaspberryPi-CM3+', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RaspberryPi-CM3+'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'raspberry pi compute module', 'description':'', 'datasheet':'https://www.raspberrypi.org/documentation/hardware/computemodule/datasheets/rpi_DATA_CM3plus_1p0.pdf', 'pins':[
+        Part(**{ 'name':'RaspberryPi-CM3+', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RaspberryPi-CM3+'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'raspberry pi compute module', 'description':'', 'datasheet':'https://www.raspberrypi.org/documentation/hardware/computemodule/datasheets/rpi_DATA_CM3plus_1p0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nRaspberryPi-CM3+\n\nraspberry pi compute module', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='100',name='DSI1_CP',func=Pin.types.OUTPUT,unit=1),
@@ -1815,7 +1936,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='98',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='99',name='DSI0_DN0',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RaspberryPi-CM3+L', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RaspberryPi-CM3+L'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'raspberry pi compute module', 'description':'', 'datasheet':'https://www.raspberrypi.org/documentation/hardware/computemodule/datasheets/rpi_DATA_CM3plus_1p0.pdf', 'pins':[
+        Part(**{ 'name':'RaspberryPi-CM3+L', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RaspberryPi-CM3+L'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'raspberry pi compute module', 'description':'', 'datasheet':'https://www.raspberrypi.org/documentation/hardware/computemodule/datasheets/rpi_DATA_CM3plus_1p0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nRaspberryPi-CM3+L\n\nraspberry pi compute module', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='SDX_CLK',func=Pin.types.OUTPUT,unit=1),
             Pin(num='100',name='DSI1_CP',func=Pin.types.OUTPUT,unit=1),
@@ -2016,7 +2137,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='98',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='99',name='DSI0_DN0',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Sipeed-M1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Sipeed-M1'}), 'ref_prefix':'A', 'fplist':['Module:Sipeed-M1'], 'footprint':'Module:Sipeed-M1', 'keywords':'AI Kendryte K210 RISC-V', 'description':'', 'datasheet':'https://dl.sipeed.com/MAIX/HDK/Sipeed-M1&M1W/Specifications', 'pins':[
+        Part(**{ 'name':'Sipeed-M1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Sipeed-M1'}), 'ref_prefix':'A', 'fplist':['Module:Sipeed-M1'], 'footprint':'Module:Sipeed-M1', 'keywords':'AI Kendryte K210 RISC-V', 'description':'', 'datasheet':'https://dl.sipeed.com/MAIX/HDK/Sipeed-M1&M1W/Specifications', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nSipeed-M1\n\nAI Kendryte K210 RISC-V', 'pins':[
             Pin(num='1',name='IO0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='IO9',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='IO10',func=Pin.types.BIDIR,unit=1),
@@ -2094,7 +2215,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='77',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='IO7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='IO8',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'VisionSOM-6UL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VisionSOM-6UL'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'somlabs module', 'description':'', 'datasheet':'https://wiki.somlabs.com/extensions/JZPDFGen/pdf/VisionSOM-6UL%20Datasheet%20and%20Pinout-41.pdf', 'pins':[
+        Part(**{ 'name':'VisionSOM-6UL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VisionSOM-6UL'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'somlabs module', 'description':'', 'datasheet':'https://wiki.somlabs.com/extensions/JZPDFGen/pdf/VisionSOM-6UL%20Datasheet%20and%20Pinout-41.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nVisionSOM-6UL\n\nsomlabs module', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='SNVS-TAMPER9',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='+5VIN',func=Pin.types.PASSIVE,unit=1),
@@ -2295,7 +2416,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='ENET1-RXD0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='+5VIN',func=Pin.types.PASSIVE,unit=1),
             Pin(num='99',name='ENET1-RXD1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'VisionSOM-RT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VisionSOM-RT'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'somlabs module', 'description':'', 'datasheet':'https://wiki.somlabs.com/index.php/VisionSOM-RT_Datasheet_and_Pinout', 'pins':[
+        Part(**{ 'name':'VisionSOM-RT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VisionSOM-RT'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'somlabs module', 'description':'', 'datasheet':'https://wiki.somlabs.com/index.php/VisionSOM-RT_Datasheet_and_Pinout', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nVisionSOM-RT\n\nsomlabs module', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='SNVS-TAMPER9',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='+5VIN',func=Pin.types.PASSIVE,unit=1),
@@ -2496,7 +2617,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='ENET1-RXD0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='+5VIN',func=Pin.types.PASSIVE,unit=1),
             Pin(num='99',name='ENET1-RXD1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'VisionSOM-STM32MP1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VisionSOM-STM32MP1'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'somlabs module', 'description':'', 'datasheet':'https://wiki.somlabs.com/index.php/VisionSOM-STM32MP1_Datasheet_and_Pinout', 'pins':[
+        Part(**{ 'name':'VisionSOM-STM32MP1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VisionSOM-STM32MP1'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'somlabs module', 'description':'', 'datasheet':'https://wiki.somlabs.com/index.php/VisionSOM-STM32MP1_Datasheet_and_Pinout', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nVisionSOM-STM32MP1\n\nsomlabs module', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='BOOT2',func=Pin.types.INPUT,unit=1),
             Pin(num='100',name='VDD-5V',func=Pin.types.PASSIVE,unit=1),
@@ -2697,7 +2818,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='ENET1-RXD0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='VDD-5V',func=Pin.types.PASSIVE,unit=1),
             Pin(num='99',name='ENET1-RXD1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'WeMos_D1_mini', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'WeMos_D1_mini'}), 'ref_prefix':'U', 'fplist':['Module:WEMOS_D1_mini_light'], 'footprint':'Module:WEMOS_D1_mini_light', 'keywords':'ESP8266 WiFi microcontroller ESP8266EX', 'description':'', 'datasheet':'https://wiki.wemos.cc/products:d1:d1_mini#documentation', 'pins':[
+        Part(**{ 'name':'WeMos_D1_mini', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'WeMos_D1_mini'}), 'ref_prefix':'U', 'fplist':['Module:WEMOS_D1_mini_light'], 'footprint':'Module:WEMOS_D1_mini_light', 'keywords':'ESP8266 WiFi microcontroller ESP8266EX', 'description':'', 'datasheet':'https://wiki.wemos.cc/products:d1:d1_mini#documentation', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nWeMos_D1_mini\n\nESP8266 WiFi microcontroller ESP8266EX', 'pins':[
             Pin(num='1',name='~{RST}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='D4',func=Pin.types.BIDIR,unit=1),
@@ -2714,7 +2835,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CS/D8',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='3V3',func=Pin.types.PWROUT,unit=1),
             Pin(num='9',name='5V',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Adafruit_Feather_M0_Adalogger', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Adafruit_Feather_M0_Adalogger'}), 'ref_prefix':'A', 'fplist':['Module:Adafruit_Feather', 'Module:Adafruit_Feather'], 'footprint':'Module:Adafruit_Feather', 'keywords':'Adafruit feather microcontroller module USB SD', 'description':'', 'datasheet':'https://cdn-learn.adafruit.com/downloads/pdf/adafruit-feather-m0-adalogger.pdf', 'pins':[
+        Part(**{ 'name':'Adafruit_Feather_M0_Adalogger', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Adafruit_Feather_M0_Adalogger'}), 'ref_prefix':'A', 'fplist':['Module:Adafruit_Feather', 'Module:Adafruit_Feather'], 'footprint':'Module:Adafruit_Feather', 'keywords':'Adafruit feather microcontroller module USB SD', 'description':'', 'datasheet':'https://cdn-learn.adafruit.com/downloads/pdf/adafruit-feather-m0-adalogger.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nAdafruit_Feather_M0_Adalogger\n\nAdafruit feather microcontroller module USB SD', 'pins':[
             Pin(num='1',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SCK/D24',func=Pin.types.BIDIR,unit=1),
@@ -2743,7 +2864,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='A3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='A4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Adafruit_Feather_M0_Express', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Adafruit_Feather_M0_Express'}), 'ref_prefix':'A', 'fplist':['Module:Adafruit_Feather', 'Module:Adafruit_Feather', 'Module:Adafruit_Feather'], 'footprint':'Module:Adafruit_Feather', 'keywords':'Adafruit feather microcontroller module USB SPI Flash CircuitPython', 'description':'', 'datasheet':'https://cdn-learn.adafruit.com/downloads/pdf/adafruit-feather-m0-express-designed-for-circuit-python-circuitpython.pdf', 'pins':[
+        Part(**{ 'name':'Adafruit_Feather_M0_Express', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Adafruit_Feather_M0_Express'}), 'ref_prefix':'A', 'fplist':['Module:Adafruit_Feather', 'Module:Adafruit_Feather', 'Module:Adafruit_Feather'], 'footprint':'Module:Adafruit_Feather', 'keywords':'Adafruit feather microcontroller module USB SPI Flash CircuitPython', 'description':'', 'datasheet':'https://cdn-learn.adafruit.com/downloads/pdf/adafruit-feather-m0-express-designed-for-circuit-python-circuitpython.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nAdafruit_Feather_M0_Express\n\nAdafruit feather microcontroller module USB SPI Flash CircuitPython', 'pins':[
             Pin(num='1',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SCK/D24',func=Pin.types.BIDIR,unit=1),
@@ -2772,7 +2893,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='A3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='A4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Adafruit_Feather_M0_RFM9x_LoRa_Radio', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Adafruit_Feather_M0_RFM9x_LoRa_Radio'}), 'ref_prefix':'A', 'fplist':['Module:Adafruit_Feather_M0_RFM', 'Module:Adafruit_Feather_M0_RFM'], 'footprint':'Module:Adafruit_Feather_M0_RFM', 'keywords':'Adafruit feather microcontroller module USB M0 SAMD21 LoRa Radio', 'description':'', 'datasheet':'https://cdn-learn.adafruit.com/downloads/pdf/adafruit-feather-m0-radio-with-lora-radio-module.pdf', 'pins':[
+        Part(**{ 'name':'Adafruit_Feather_M0_RFM9x_LoRa_Radio', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Adafruit_Feather_M0_RFM9x_LoRa_Radio'}), 'ref_prefix':'A', 'fplist':['Module:Adafruit_Feather_M0_RFM', 'Module:Adafruit_Feather_M0_RFM'], 'footprint':'Module:Adafruit_Feather_M0_RFM', 'keywords':'Adafruit feather microcontroller module USB M0 SAMD21 LoRa Radio', 'description':'', 'datasheet':'https://cdn-learn.adafruit.com/downloads/pdf/adafruit-feather-m0-radio-with-lora-radio-module.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nAdafruit_Feather_M0_RFM9x_LoRa_Radio\n\nAdafruit feather microcontroller module USB M0 SAMD21 LoRa Radio', 'pins':[
             Pin(num='1',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SCK/D24',func=Pin.types.BIDIR,unit=1),
@@ -2805,7 +2926,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='A3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='A4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Arduino_Nano_v3.x', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Arduino_Nano_v3.x'}), 'ref_prefix':'A', 'fplist':['Module:Arduino_Nano', 'Module:Arduino_Nano'], 'footprint':'Module:Arduino_Nano', 'keywords':'Arduino nano microcontroller module USB', 'description':'', 'datasheet':'http://www.mouser.com/pdfdocs/Gravitech_Arduino_Nano3_0.pdf', 'pins':[
+        Part(**{ 'name':'Arduino_Nano_v3.x', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Arduino_Nano_v3.x'}), 'ref_prefix':'A', 'fplist':['Module:Arduino_Nano', 'Module:Arduino_Nano'], 'footprint':'Module:Arduino_Nano', 'keywords':'Arduino nano microcontroller module USB', 'description':'', 'datasheet':'http://www.mouser.com/pdfdocs/Gravitech_Arduino_Nano3_0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nArduino_Nano_v3.x\n\nArduino nano microcontroller module USB', 'pins':[
             Pin(num='1',name='D1/TX',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='D7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='D8',func=Pin.types.BIDIR,unit=1),
@@ -2836,7 +2957,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='D5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='D6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NUCLEO144-F207ZG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NUCLEO144-F207ZG'}), 'ref_prefix':'U', 'fplist':['Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink'], 'footprint':'Module:ST_Morpho_Connector_144_STLink', 'keywords':'STM32 Nucleo ST', 'description':'', 'datasheet':'https://www.st.com/resource/en/user_manual/dm00244518-stm32-nucleo144-boards-stmicroelectronics.pdf', 'pins':[
+        Part(**{ 'name':'NUCLEO144-F207ZG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NUCLEO144-F207ZG'}), 'ref_prefix':'U', 'fplist':['Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink'], 'footprint':'Module:ST_Morpho_Connector_144_STLink', 'keywords':'STM32 Nucleo ST', 'description':'', 'datasheet':'https://www.st.com/resource/en/user_manual/dm00244518-stm32-nucleo144-boards-stmicroelectronics.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nNUCLEO144-F207ZG\n\nSTM32 Nucleo ST', 'pins':[
             Pin(num='1',name='PC10',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='100',name='LD3/PB14',func=Pin.types.BIDIR,unit=1),
@@ -2846,7 +2967,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='104',name='AGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='105',name='USB_ID/PA10',func=Pin.types.BIDIR,unit=1),
             Pin(num='106',name='ETH_RXD0/PC4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='107',name='PA2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='107',name='ETH_MDIO/PA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='108',name='PF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='109',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PF7',func=Pin.types.BIDIR,unit=1),
@@ -2902,10 +3023,10 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='25',name='RTC_CRYSTAL/PC14',func=Pin.types.BIDIR,unit=1),
             Pin(num='26',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='27',name='RTC_CRYSTAL/PC15',func=Pin.types.BIDIR,unit=1),
-            Pin(num='28',name='ETH_REF_CLK/PA0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='28',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='29',name='PH0',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='PC12',func=Pin.types.BIDIR,unit=1),
-            Pin(num='30',name='ETH_MDIO/PA1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='30',name='ETH_REF_CLK/PA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='31',name='PH1',func=Pin.types.BIDIR,unit=1),
             Pin(num='32',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='33',name='VBAT',func=Pin.types.PWRIN,unit=1),
@@ -2981,7 +3102,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PB10',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PB15',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PB4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NUCLEO144-F412ZG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NUCLEO144-F412ZG'}), 'ref_prefix':'U', 'fplist':['Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink'], 'footprint':'Module:ST_Morpho_Connector_144_STLink', 'keywords':'STM32 Nucleo ST', 'description':'', 'datasheet':'https://www.st.com/resource/en/user_manual/dm00244518-stm32-nucleo144-boards-stmicroelectronics.pdf', 'pins':[
+        Part(**{ 'name':'NUCLEO144-F412ZG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NUCLEO144-F412ZG'}), 'ref_prefix':'U', 'fplist':['Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink'], 'footprint':'Module:ST_Morpho_Connector_144_STLink', 'keywords':'STM32 Nucleo ST', 'description':'', 'datasheet':'https://www.st.com/resource/en/user_manual/dm00244518-stm32-nucleo144-boards-stmicroelectronics.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nNUCLEO144-F412ZG\n\nSTM32 Nucleo ST', 'pins':[
             Pin(num='1',name='PC10',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='100',name='LD3/PB14',func=Pin.types.BIDIR,unit=1),
@@ -2991,7 +3112,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='104',name='AGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='105',name='USB_ID/PA10',func=Pin.types.BIDIR,unit=1),
             Pin(num='106',name='ETH_RXD0/PC4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='107',name='PA2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='107',name='ETH_MDIO/PA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='108',name='PF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='109',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PF7',func=Pin.types.BIDIR,unit=1),
@@ -3047,10 +3168,10 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='25',name='RTC_CRYSTAL/PC14',func=Pin.types.BIDIR,unit=1),
             Pin(num='26',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='27',name='RTC_CRYSTAL/PC15',func=Pin.types.BIDIR,unit=1),
-            Pin(num='28',name='ETH_REF_CLK/PA0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='28',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='29',name='PH0',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='PC12',func=Pin.types.BIDIR,unit=1),
-            Pin(num='30',name='ETH_MDIO/PA1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='30',name='ETH_REF_CLK/PA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='31',name='PH1',func=Pin.types.BIDIR,unit=1),
             Pin(num='32',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='33',name='VBAT',func=Pin.types.PWRIN,unit=1),
@@ -3126,7 +3247,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PB10',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PB15',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PB4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NUCLEO144-F413ZH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NUCLEO144-F413ZH'}), 'ref_prefix':'U', 'fplist':['Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink'], 'footprint':'Module:ST_Morpho_Connector_144_STLink', 'keywords':'STM32 Nucleo ST', 'description':'', 'datasheet':'https://www.st.com/resource/en/user_manual/dm00244518-stm32-nucleo144-boards-stmicroelectronics.pdf', 'pins':[
+        Part(**{ 'name':'NUCLEO144-F413ZH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NUCLEO144-F413ZH'}), 'ref_prefix':'U', 'fplist':['Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink'], 'footprint':'Module:ST_Morpho_Connector_144_STLink', 'keywords':'STM32 Nucleo ST', 'description':'', 'datasheet':'https://www.st.com/resource/en/user_manual/dm00244518-stm32-nucleo144-boards-stmicroelectronics.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nNUCLEO144-F413ZH\n\nSTM32 Nucleo ST', 'pins':[
             Pin(num='1',name='PC10',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='100',name='LD3/PB14',func=Pin.types.BIDIR,unit=1),
@@ -3136,7 +3257,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='104',name='AGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='105',name='USB_ID/PA10',func=Pin.types.BIDIR,unit=1),
             Pin(num='106',name='ETH_RXD0/PC4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='107',name='PA2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='107',name='ETH_MDIO/PA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='108',name='PF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='109',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PF7',func=Pin.types.BIDIR,unit=1),
@@ -3192,10 +3313,10 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='25',name='RTC_CRYSTAL/PC14',func=Pin.types.BIDIR,unit=1),
             Pin(num='26',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='27',name='RTC_CRYSTAL/PC15',func=Pin.types.BIDIR,unit=1),
-            Pin(num='28',name='ETH_REF_CLK/PA0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='28',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='29',name='PH0',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='PC12',func=Pin.types.BIDIR,unit=1),
-            Pin(num='30',name='ETH_MDIO/PA1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='30',name='ETH_REF_CLK/PA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='31',name='PH1',func=Pin.types.BIDIR,unit=1),
             Pin(num='32',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='33',name='VBAT',func=Pin.types.PWRIN,unit=1),
@@ -3271,7 +3392,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PB10',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PB15',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PB4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NUCLEO144-F439ZI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NUCLEO144-F439ZI'}), 'ref_prefix':'U', 'fplist':['Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink'], 'footprint':'Module:ST_Morpho_Connector_144_STLink', 'keywords':'STM32 Nucleo ST', 'description':'', 'datasheet':'https://www.st.com/resource/en/user_manual/dm00244518-stm32-nucleo144-boards-stmicroelectronics.pdf', 'pins':[
+        Part(**{ 'name':'NUCLEO144-F439ZI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NUCLEO144-F439ZI'}), 'ref_prefix':'U', 'fplist':['Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink'], 'footprint':'Module:ST_Morpho_Connector_144_STLink', 'keywords':'STM32 Nucleo ST', 'description':'', 'datasheet':'https://www.st.com/resource/en/user_manual/dm00244518-stm32-nucleo144-boards-stmicroelectronics.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nNUCLEO144-F439ZI\n\nSTM32 Nucleo ST', 'pins':[
             Pin(num='1',name='PC10',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='100',name='LD3/PB14',func=Pin.types.BIDIR,unit=1),
@@ -3281,7 +3402,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='104',name='AGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='105',name='USB_ID/PA10',func=Pin.types.BIDIR,unit=1),
             Pin(num='106',name='ETH_RXD0/PC4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='107',name='PA2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='107',name='ETH_MDIO/PA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='108',name='PF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='109',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PF7',func=Pin.types.BIDIR,unit=1),
@@ -3337,10 +3458,10 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='25',name='RTC_CRYSTAL/PC14',func=Pin.types.BIDIR,unit=1),
             Pin(num='26',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='27',name='RTC_CRYSTAL/PC15',func=Pin.types.BIDIR,unit=1),
-            Pin(num='28',name='ETH_REF_CLK/PA0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='28',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='29',name='PH0',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='PC12',func=Pin.types.BIDIR,unit=1),
-            Pin(num='30',name='ETH_MDIO/PA1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='30',name='ETH_REF_CLK/PA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='31',name='PH1',func=Pin.types.BIDIR,unit=1),
             Pin(num='32',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='33',name='VBAT',func=Pin.types.PWRIN,unit=1),
@@ -3416,7 +3537,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PB10',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PB15',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PB4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NUCLEO144-F446ZE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NUCLEO144-F446ZE'}), 'ref_prefix':'U', 'fplist':['Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink'], 'footprint':'Module:ST_Morpho_Connector_144_STLink', 'keywords':'STM32 Nucleo ST', 'description':'', 'datasheet':'https://www.st.com/resource/en/user_manual/dm00244518-stm32-nucleo144-boards-stmicroelectronics.pdf', 'pins':[
+        Part(**{ 'name':'NUCLEO144-F446ZE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NUCLEO144-F446ZE'}), 'ref_prefix':'U', 'fplist':['Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink'], 'footprint':'Module:ST_Morpho_Connector_144_STLink', 'keywords':'STM32 Nucleo ST', 'description':'', 'datasheet':'https://www.st.com/resource/en/user_manual/dm00244518-stm32-nucleo144-boards-stmicroelectronics.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nNUCLEO144-F446ZE\n\nSTM32 Nucleo ST', 'pins':[
             Pin(num='1',name='PC10',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='100',name='LD3/PB14',func=Pin.types.BIDIR,unit=1),
@@ -3426,7 +3547,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='104',name='AGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='105',name='USB_ID/PA10',func=Pin.types.BIDIR,unit=1),
             Pin(num='106',name='ETH_RXD0/PC4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='107',name='PA2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='107',name='ETH_MDIO/PA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='108',name='PF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='109',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PF7',func=Pin.types.BIDIR,unit=1),
@@ -3482,10 +3603,10 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='25',name='RTC_CRYSTAL/PC14',func=Pin.types.BIDIR,unit=1),
             Pin(num='26',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='27',name='RTC_CRYSTAL/PC15',func=Pin.types.BIDIR,unit=1),
-            Pin(num='28',name='ETH_REF_CLK/PA0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='28',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='29',name='PH0',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='PC12',func=Pin.types.BIDIR,unit=1),
-            Pin(num='30',name='ETH_MDIO/PA1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='30',name='ETH_REF_CLK/PA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='31',name='PH1',func=Pin.types.BIDIR,unit=1),
             Pin(num='32',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='33',name='VBAT',func=Pin.types.PWRIN,unit=1),
@@ -3561,7 +3682,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PB10',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PB15',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PB4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NUCLEO144-F722ZE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NUCLEO144-F722ZE'}), 'ref_prefix':'U', 'fplist':['Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink'], 'footprint':'Module:ST_Morpho_Connector_144_STLink', 'keywords':'STM32 Nucleo ST', 'description':'', 'datasheet':'https://www.st.com/resource/en/user_manual/dm00244518-stm32-nucleo144-boards-stmicroelectronics.pdf', 'pins':[
+        Part(**{ 'name':'NUCLEO144-F722ZE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NUCLEO144-F722ZE'}), 'ref_prefix':'U', 'fplist':['Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink'], 'footprint':'Module:ST_Morpho_Connector_144_STLink', 'keywords':'STM32 Nucleo ST', 'description':'', 'datasheet':'https://www.st.com/resource/en/user_manual/dm00244518-stm32-nucleo144-boards-stmicroelectronics.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nNUCLEO144-F722ZE\n\nSTM32 Nucleo ST', 'pins':[
             Pin(num='1',name='PC10',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='100',name='LD3/PB14',func=Pin.types.BIDIR,unit=1),
@@ -3571,7 +3692,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='104',name='AGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='105',name='USB_ID/PA10',func=Pin.types.BIDIR,unit=1),
             Pin(num='106',name='ETH_RXD0/PC4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='107',name='PA2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='107',name='ETH_MDIO/PA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='108',name='PF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='109',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PF7',func=Pin.types.BIDIR,unit=1),
@@ -3627,10 +3748,10 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='25',name='RTC_CRYSTAL/PC14',func=Pin.types.BIDIR,unit=1),
             Pin(num='26',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='27',name='RTC_CRYSTAL/PC15',func=Pin.types.BIDIR,unit=1),
-            Pin(num='28',name='ETH_REF_CLK/PA0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='28',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='29',name='PH0',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='PC12',func=Pin.types.BIDIR,unit=1),
-            Pin(num='30',name='ETH_MDIO/PA1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='30',name='ETH_REF_CLK/PA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='31',name='PH1',func=Pin.types.BIDIR,unit=1),
             Pin(num='32',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='33',name='VBAT',func=Pin.types.PWRIN,unit=1),
@@ -3706,7 +3827,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PB10',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PB15',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PB4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NUCLEO144-F746ZG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NUCLEO144-F746ZG'}), 'ref_prefix':'U', 'fplist':['Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink'], 'footprint':'Module:ST_Morpho_Connector_144_STLink', 'keywords':'STM32 Nucleo ST', 'description':'', 'datasheet':'https://www.st.com/resource/en/user_manual/dm00244518-stm32-nucleo144-boards-stmicroelectronics.pdf', 'pins':[
+        Part(**{ 'name':'NUCLEO144-F746ZG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NUCLEO144-F746ZG'}), 'ref_prefix':'U', 'fplist':['Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink'], 'footprint':'Module:ST_Morpho_Connector_144_STLink', 'keywords':'STM32 Nucleo ST', 'description':'', 'datasheet':'https://www.st.com/resource/en/user_manual/dm00244518-stm32-nucleo144-boards-stmicroelectronics.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nNUCLEO144-F746ZG\n\nSTM32 Nucleo ST', 'pins':[
             Pin(num='1',name='PC10',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='100',name='LD3/PB14',func=Pin.types.BIDIR,unit=1),
@@ -3716,7 +3837,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='104',name='AGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='105',name='USB_ID/PA10',func=Pin.types.BIDIR,unit=1),
             Pin(num='106',name='ETH_RXD0/PC4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='107',name='PA2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='107',name='ETH_MDIO/PA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='108',name='PF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='109',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PF7',func=Pin.types.BIDIR,unit=1),
@@ -3772,10 +3893,10 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='25',name='RTC_CRYSTAL/PC14',func=Pin.types.BIDIR,unit=1),
             Pin(num='26',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='27',name='RTC_CRYSTAL/PC15',func=Pin.types.BIDIR,unit=1),
-            Pin(num='28',name='ETH_REF_CLK/PA0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='28',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='29',name='PH0',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='PC12',func=Pin.types.BIDIR,unit=1),
-            Pin(num='30',name='ETH_MDIO/PA1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='30',name='ETH_REF_CLK/PA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='31',name='PH1',func=Pin.types.BIDIR,unit=1),
             Pin(num='32',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='33',name='VBAT',func=Pin.types.PWRIN,unit=1),
@@ -3851,7 +3972,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PB10',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PB15',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PB4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NUCLEO144-F756ZG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NUCLEO144-F756ZG'}), 'ref_prefix':'U', 'fplist':['Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink'], 'footprint':'Module:ST_Morpho_Connector_144_STLink', 'keywords':'STM32 Nucleo ST', 'description':'', 'datasheet':'https://www.st.com/resource/en/user_manual/dm00244518-stm32-nucleo144-boards-stmicroelectronics.pdf', 'pins':[
+        Part(**{ 'name':'NUCLEO144-F756ZG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NUCLEO144-F756ZG'}), 'ref_prefix':'U', 'fplist':['Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink'], 'footprint':'Module:ST_Morpho_Connector_144_STLink', 'keywords':'STM32 Nucleo ST', 'description':'', 'datasheet':'https://www.st.com/resource/en/user_manual/dm00244518-stm32-nucleo144-boards-stmicroelectronics.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nNUCLEO144-F756ZG\n\nSTM32 Nucleo ST', 'pins':[
             Pin(num='1',name='PC10',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='100',name='LD3/PB14',func=Pin.types.BIDIR,unit=1),
@@ -3861,7 +3982,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='104',name='AGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='105',name='USB_ID/PA10',func=Pin.types.BIDIR,unit=1),
             Pin(num='106',name='ETH_RXD0/PC4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='107',name='PA2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='107',name='ETH_MDIO/PA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='108',name='PF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='109',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PF7',func=Pin.types.BIDIR,unit=1),
@@ -3917,10 +4038,10 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='25',name='RTC_CRYSTAL/PC14',func=Pin.types.BIDIR,unit=1),
             Pin(num='26',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='27',name='RTC_CRYSTAL/PC15',func=Pin.types.BIDIR,unit=1),
-            Pin(num='28',name='ETH_REF_CLK/PA0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='28',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='29',name='PH0',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='PC12',func=Pin.types.BIDIR,unit=1),
-            Pin(num='30',name='ETH_MDIO/PA1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='30',name='ETH_REF_CLK/PA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='31',name='PH1',func=Pin.types.BIDIR,unit=1),
             Pin(num='32',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='33',name='VBAT',func=Pin.types.PWRIN,unit=1),
@@ -3996,7 +4117,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PB10',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PB15',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PB4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NUCLEO144-F767ZI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NUCLEO144-F767ZI'}), 'ref_prefix':'U', 'fplist':['Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink'], 'footprint':'Module:ST_Morpho_Connector_144_STLink', 'keywords':'STM32 Nucleo ST', 'description':'', 'datasheet':'https://www.st.com/resource/en/user_manual/dm00244518-stm32-nucleo144-boards-stmicroelectronics.pdf', 'pins':[
+        Part(**{ 'name':'NUCLEO144-F767ZI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NUCLEO144-F767ZI'}), 'ref_prefix':'U', 'fplist':['Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink'], 'footprint':'Module:ST_Morpho_Connector_144_STLink', 'keywords':'STM32 Nucleo ST', 'description':'', 'datasheet':'https://www.st.com/resource/en/user_manual/dm00244518-stm32-nucleo144-boards-stmicroelectronics.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nNUCLEO144-F767ZI\n\nSTM32 Nucleo ST', 'pins':[
             Pin(num='1',name='PC10',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='100',name='LD3/PB14',func=Pin.types.BIDIR,unit=1),
@@ -4006,7 +4127,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='104',name='AGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='105',name='USB_ID/PA10',func=Pin.types.BIDIR,unit=1),
             Pin(num='106',name='ETH_RXD0/PC4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='107',name='PA2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='107',name='ETH_MDIO/PA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='108',name='PF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='109',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PF7',func=Pin.types.BIDIR,unit=1),
@@ -4062,10 +4183,10 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='25',name='RTC_CRYSTAL/PC14',func=Pin.types.BIDIR,unit=1),
             Pin(num='26',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='27',name='RTC_CRYSTAL/PC15',func=Pin.types.BIDIR,unit=1),
-            Pin(num='28',name='ETH_REF_CLK/PA0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='28',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='29',name='PH0',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='PC12',func=Pin.types.BIDIR,unit=1),
-            Pin(num='30',name='ETH_MDIO/PA1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='30',name='ETH_REF_CLK/PA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='31',name='PH1',func=Pin.types.BIDIR,unit=1),
             Pin(num='32',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='33',name='VBAT',func=Pin.types.PWRIN,unit=1),
@@ -4141,7 +4262,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PB10',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PB15',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PB4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NUCLEO144-H743ZI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NUCLEO144-H743ZI'}), 'ref_prefix':'U', 'fplist':['Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink'], 'footprint':'Module:ST_Morpho_Connector_144_STLink', 'keywords':'STM32 Nucleo ST', 'description':'', 'datasheet':'https://www.st.com/resource/en/user_manual/dm00244518-stm32-nucleo144-boards-stmicroelectronics.pdf', 'pins':[
+        Part(**{ 'name':'NUCLEO144-H743ZI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NUCLEO144-H743ZI'}), 'ref_prefix':'U', 'fplist':['Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink', 'Module:ST_Morpho_Connector_144_STLink'], 'footprint':'Module:ST_Morpho_Connector_144_STLink', 'keywords':'STM32 Nucleo ST', 'description':'', 'datasheet':'https://www.st.com/resource/en/user_manual/dm00244518-stm32-nucleo144-boards-stmicroelectronics.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nNUCLEO144-H743ZI\n\nSTM32 Nucleo ST', 'pins':[
             Pin(num='1',name='PC10',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='100',name='LD3/PB14',func=Pin.types.BIDIR,unit=1),
@@ -4151,7 +4272,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='104',name='AGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='105',name='USB_ID/PA10',func=Pin.types.BIDIR,unit=1),
             Pin(num='106',name='ETH_RXD0/PC4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='107',name='PA2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='107',name='ETH_MDIO/PA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='108',name='PF5',func=Pin.types.BIDIR,unit=1),
             Pin(num='109',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PF7',func=Pin.types.BIDIR,unit=1),
@@ -4207,10 +4328,10 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='25',name='RTC_CRYSTAL/PC14',func=Pin.types.BIDIR,unit=1),
             Pin(num='26',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='27',name='RTC_CRYSTAL/PC15',func=Pin.types.BIDIR,unit=1),
-            Pin(num='28',name='ETH_REF_CLK/PA0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='28',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='29',name='PH0',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='PC12',func=Pin.types.BIDIR,unit=1),
-            Pin(num='30',name='ETH_MDIO/PA1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='30',name='ETH_REF_CLK/PA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='31',name='PH1',func=Pin.types.BIDIR,unit=1),
             Pin(num='32',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='33',name='VBAT',func=Pin.types.PWRIN,unit=1),
@@ -4286,7 +4407,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PB10',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PB15',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PB4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Omega2S+', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Omega2S+'}), 'ref_prefix':'U', 'fplist':['Module:Onion_Omega2S', 'Module:Onion_Omega2S'], 'footprint':'Module:Onion_Omega2S', 'keywords':'onion omega module', 'description':'', 'datasheet':'https://github.com/OnionIoT/Omega2/raw/master/Documents/Omega2S%20Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'Omega2S+', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Omega2S+'}), 'ref_prefix':'U', 'fplist':['Module:Onion_Omega2S', 'Module:Onion_Omega2S'], 'footprint':'Module:Onion_Omega2S', 'keywords':'onion omega module', 'description':'', 'datasheet':'https://github.com/OnionIoT/Omega2/raw/master/Documents/Omega2S%20Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nOmega2S+\n\nonion omega module', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PCIE_TXN0',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='PCIE_TXP0',func=Pin.types.OUTPUT,unit=1),
@@ -4351,7 +4472,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GPIO_40/LINK3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='3.3V',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='3.3V',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RaspberryPi-CM3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RaspberryPi-CM3'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'raspberry pi compute module', 'description':'', 'datasheet':'https://www.raspberrypi.org/documentation/hardware/computemodule/datasheets/rpi_DATA_CM_1p0.pdf', 'pins':[
+        Part(**{ 'name':'RaspberryPi-CM3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RaspberryPi-CM3'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'raspberry pi compute module', 'description':'', 'datasheet':'https://www.raspberrypi.org/documentation/hardware/computemodule/datasheets/rpi_DATA_CM_1p0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nRaspberryPi-CM3\n\nraspberry pi compute module', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='100',name='DSI1_CP',func=Pin.types.OUTPUT,unit=1),
@@ -4552,7 +4673,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='98',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='99',name='DSI0_DN0',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RaspberryPi-CM3-L', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RaspberryPi-CM3-L'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'raspberry pi compute module', 'description':'', 'datasheet':'https://www.raspberrypi.org/documentation/hardware/computemodule/datasheets/rpi_DATA_CM_1p0.pdf', 'pins':[
+        Part(**{ 'name':'RaspberryPi-CM3-L', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RaspberryPi-CM3-L'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'raspberry pi compute module', 'description':'', 'datasheet':'https://www.raspberrypi.org/documentation/hardware/computemodule/datasheets/rpi_DATA_CM_1p0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nRaspberryPi-CM3-L\n\nraspberry pi compute module', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='SDX_CLK',func=Pin.types.OUTPUT,unit=1),
             Pin(num='100',name='DSI1_CP',func=Pin.types.OUTPUT,unit=1),
@@ -4753,7 +4874,7 @@ MCU_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='98',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='99',name='DSI0_DN0',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'VisionSOM-6ULL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VisionSOM-6ULL'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'somlabs module', 'description':'', 'datasheet':'https://wiki.somlabs.com/extensions/JZPDFGen/pdf/VisionSOM-6ULL%20Datasheet%20and%20Pinout-21.pdf', 'pins':[
+        Part(**{ 'name':'VisionSOM-6ULL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VisionSOM-6ULL'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'somlabs module', 'description':'', 'datasheet':'https://wiki.somlabs.com/extensions/JZPDFGen/pdf/VisionSOM-6ULL%20Datasheet%20and%20Pinout-21.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Module.kicad_sym\nVisionSOM-6ULL\n\nsomlabs module', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='SNVS-TAMPER9',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='+5VIN',func=Pin.types.PASSIVE,unit=1),

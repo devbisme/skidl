@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Isolator_Analog = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'ACPL-C790', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ACPL-C790'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSO-8_6.8x5.9mm_P1.27mm_Clearance8mm'], 'footprint':'Package_SO:SSO-8_6.8x5.9mm_P1.27mm_Clearance8mm', 'keywords':'Isolation Amplifer', 'description':'', 'datasheet':'http://docs.avagotech.com/docs/AV02-2460EN', 'pins':[
+        Part(**{ 'name':'ACPL-C790', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ACPL-C790'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSO-8_6.8x5.9mm_P1.27mm_Clearance8mm'], 'footprint':'Package_SO:SSO-8_6.8x5.9mm_P1.27mm_Clearance8mm', 'keywords':'Isolation Amplifer', 'description':'', 'datasheet':'http://docs.avagotech.com/docs/AV02-2460EN', 'search_text':'/usr/share/kicad/symbols/Isolator_Analog.kicad_sym\nACPL-C790\n\nIsolation Amplifer', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN+',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='IN-',func=Pin.types.INPUT,unit=1),
@@ -13,7 +13,7 @@ Isolator_Analog = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='OUT-',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='OUT+',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VDD2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ACPL-C870', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ACPL-C870'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSO-8_6.8x5.9mm_P1.27mm_Clearance8mm'], 'footprint':'Package_SO:SSO-8_6.8x5.9mm_P1.27mm_Clearance8mm', 'keywords':'Optycally Isolated Voltage Sensor', 'description':'', 'datasheet':'www.avagotech.com/docs/AV02-3563EN', 'pins':[
+        Part(**{ 'name':'ACPL-C870', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ACPL-C870'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSO-8_6.8x5.9mm_P1.27mm_Clearance8mm'], 'footprint':'Package_SO:SSO-8_6.8x5.9mm_P1.27mm_Clearance8mm', 'keywords':'Optycally Isolated Voltage Sensor', 'description':'', 'datasheet':'www.avagotech.com/docs/AV02-3563EN', 'search_text':'/usr/share/kicad/symbols/Isolator_Analog.kicad_sym\nACPL-C870\n\nOptycally Isolated Voltage Sensor', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='IN-',func=Pin.types.INPUT,unit=1),
@@ -22,7 +22,7 @@ Isolator_Analog = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='OUT-',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='OUT+',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VDD2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AMC3330', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AMC3330'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'isolated analog amplifier integrated power supply', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/amc3330.pdf', 'pins':[
+        Part(**{ 'name':'AMC3330', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AMC3330'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'isolated analog amplifier integrated power supply', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/amc3330.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator_Analog.kicad_sym\nAMC3330\n\nisolated analog amplifier integrated power supply', 'pins':[
             Pin(num='1',name='DCDC_OUT',func=Pin.types.PWROUT,unit=1),
             Pin(num='10',name='OUTN',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='OUTP',func=Pin.types.OUTPUT,unit=1),
@@ -39,7 +39,7 @@ Isolator_Analog = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='INN',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='HGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IL300', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IL300'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Vishay', 'description':'', 'datasheet':'http://www.vishay.com/docs/83622/il300.pdf', 'pins':[
+        Part(**{ 'name':'IL300', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IL300'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Vishay', 'description':'', 'datasheet':'http://www.vishay.com/docs/83622/il300.pdf', 'search_text':'/usr/share/kicad/symbols/Isolator_Analog.kicad_sym\nIL300\n\nVishay', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -48,7 +48,7 @@ Isolator_Analog = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ACPL-C79A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ACPL-C79A'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSO-8_6.8x5.9mm_P1.27mm_Clearance8mm', 'Package_SO:SSO-8_6.8x5.9mm_P1.27mm_Clearance8mm'], 'footprint':'Package_SO:SSO-8_6.8x5.9mm_P1.27mm_Clearance8mm', 'keywords':'Isolation Amplifer', 'description':'', 'datasheet':'http://docs.avagotech.com/docs/AV02-2460EN', 'pins':[
+        Part(**{ 'name':'ACPL-C79A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ACPL-C79A'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSO-8_6.8x5.9mm_P1.27mm_Clearance8mm', 'Package_SO:SSO-8_6.8x5.9mm_P1.27mm_Clearance8mm'], 'footprint':'Package_SO:SSO-8_6.8x5.9mm_P1.27mm_Clearance8mm', 'keywords':'Isolation Amplifer', 'description':'', 'datasheet':'http://docs.avagotech.com/docs/AV02-2460EN', 'search_text':'/usr/share/kicad/symbols/Isolator_Analog.kicad_sym\nACPL-C79A\n\nIsolation Amplifer', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN+',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='IN-',func=Pin.types.INPUT,unit=1),
@@ -57,7 +57,7 @@ Isolator_Analog = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='OUT-',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='OUT+',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VDD2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ACPL-C79B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ACPL-C79B'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSO-8_6.8x5.9mm_P1.27mm_Clearance8mm', 'Package_SO:SSO-8_6.8x5.9mm_P1.27mm_Clearance8mm', 'Package_SO:SSO-8_6.8x5.9mm_P1.27mm_Clearance8mm'], 'footprint':'Package_SO:SSO-8_6.8x5.9mm_P1.27mm_Clearance8mm', 'keywords':'Isolation Amplifer', 'description':'', 'datasheet':'http://docs.avagotech.com/docs/AV02-2460EN', 'pins':[
+        Part(**{ 'name':'ACPL-C79B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ACPL-C79B'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSO-8_6.8x5.9mm_P1.27mm_Clearance8mm', 'Package_SO:SSO-8_6.8x5.9mm_P1.27mm_Clearance8mm', 'Package_SO:SSO-8_6.8x5.9mm_P1.27mm_Clearance8mm'], 'footprint':'Package_SO:SSO-8_6.8x5.9mm_P1.27mm_Clearance8mm', 'keywords':'Isolation Amplifer', 'description':'', 'datasheet':'http://docs.avagotech.com/docs/AV02-2460EN', 'search_text':'/usr/share/kicad/symbols/Isolator_Analog.kicad_sym\nACPL-C79B\n\nIsolation Amplifer', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN+',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='IN-',func=Pin.types.INPUT,unit=1),
@@ -66,7 +66,7 @@ Isolator_Analog = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='OUT-',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='OUT+',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VDD2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ACPL-C87A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ACPL-C87A'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSO-8_6.8x5.9mm_P1.27mm_Clearance8mm', 'Package_SO:SSO-8_6.8x5.9mm_P1.27mm_Clearance8mm'], 'footprint':'Package_SO:SSO-8_6.8x5.9mm_P1.27mm_Clearance8mm', 'keywords':'Optycally Isolated Voltage Sensor', 'description':'', 'datasheet':'www.avagotech.com/docs/AV02-3563EN', 'pins':[
+        Part(**{ 'name':'ACPL-C87A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ACPL-C87A'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSO-8_6.8x5.9mm_P1.27mm_Clearance8mm', 'Package_SO:SSO-8_6.8x5.9mm_P1.27mm_Clearance8mm'], 'footprint':'Package_SO:SSO-8_6.8x5.9mm_P1.27mm_Clearance8mm', 'keywords':'Optycally Isolated Voltage Sensor', 'description':'', 'datasheet':'www.avagotech.com/docs/AV02-3563EN', 'search_text':'/usr/share/kicad/symbols/Isolator_Analog.kicad_sym\nACPL-C87A\n\nOptycally Isolated Voltage Sensor', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='IN-',func=Pin.types.INPUT,unit=1),
@@ -75,7 +75,7 @@ Isolator_Analog = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='OUT-',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='OUT+',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VDD2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ACPL-C87B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ACPL-C87B'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSO-8_6.8x5.9mm_P1.27mm_Clearance8mm', 'Package_SO:SSO-8_6.8x5.9mm_P1.27mm_Clearance8mm', 'Package_SO:SSO-8_6.8x5.9mm_P1.27mm_Clearance8mm'], 'footprint':'Package_SO:SSO-8_6.8x5.9mm_P1.27mm_Clearance8mm', 'keywords':'Optycally Isolated Voltage Sensor', 'description':'', 'datasheet':'www.avagotech.com/docs/AV02-3563EN', 'pins':[
+        Part(**{ 'name':'ACPL-C87B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ACPL-C87B'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSO-8_6.8x5.9mm_P1.27mm_Clearance8mm', 'Package_SO:SSO-8_6.8x5.9mm_P1.27mm_Clearance8mm', 'Package_SO:SSO-8_6.8x5.9mm_P1.27mm_Clearance8mm'], 'footprint':'Package_SO:SSO-8_6.8x5.9mm_P1.27mm_Clearance8mm', 'keywords':'Optycally Isolated Voltage Sensor', 'description':'', 'datasheet':'www.avagotech.com/docs/AV02-3563EN', 'search_text':'/usr/share/kicad/symbols/Isolator_Analog.kicad_sym\nACPL-C87B\n\nOptycally Isolated Voltage Sensor', 'pins':[
             Pin(num='1',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='IN-',func=Pin.types.INPUT,unit=1),
@@ -84,7 +84,7 @@ Isolator_Analog = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='OUT-',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='OUT+',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VDD2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LOC112', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LOC112'}), 'ref_prefix':'U', 'fplist':['', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'', 'keywords':'ixys littlefuse', 'description':'', 'datasheet':'https://www.littelfuse.com/media?resourcetype=datasheets&itemid=996c6e8f-cc1b-44f6-811e-251c6e004c56&filename=littelfuse-integrated-circuits-loc112-datasheet', 'pins':[
+        Part(**{ 'name':'LOC112', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LOC112'}), 'ref_prefix':'U', 'fplist':['', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'', 'keywords':'ixys littlefuse', 'description':'', 'datasheet':'https://www.littelfuse.com/media?resourcetype=datasheets&itemid=996c6e8f-cc1b-44f6-811e-251c6e004c56&filename=littelfuse-integrated-circuits-loc112-datasheet', 'search_text':'/usr/share/kicad/symbols/Isolator_Analog.kicad_sym\nLOC112\n\nixys littlefuse', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -93,7 +93,7 @@ Isolator_Analog = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LOC112P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LOC112P'}), 'ref_prefix':'U', 'fplist':['', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:IXYS_Flatpak-8_6.3x9.7mm_P2.54mm'], 'footprint':'', 'keywords':'ixys littlefuse', 'description':'', 'datasheet':'https://www.littelfuse.com/media?resourcetype=datasheets&itemid=996c6e8f-cc1b-44f6-811e-251c6e004c56&filename=littelfuse-integrated-circuits-loc112-datasheet', 'pins':[
+        Part(**{ 'name':'LOC112P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LOC112P'}), 'ref_prefix':'U', 'fplist':['', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:IXYS_Flatpak-8_6.3x9.7mm_P2.54mm'], 'footprint':'', 'keywords':'ixys littlefuse', 'description':'', 'datasheet':'https://www.littelfuse.com/media?resourcetype=datasheets&itemid=996c6e8f-cc1b-44f6-811e-251c6e004c56&filename=littelfuse-integrated-circuits-loc112-datasheet', 'search_text':'/usr/share/kicad/symbols/Isolator_Analog.kicad_sym\nLOC112P\n\nixys littlefuse', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -102,7 +102,7 @@ Isolator_Analog = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LOC112S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LOC112S'}), 'ref_prefix':'U', 'fplist':['', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:IXYS_Flatpak-8_6.3x9.7mm_P2.54mm', 'Package_DIP:IXYS_SMD-8_6.3x9.7mm_P2.54mm'], 'footprint':'', 'keywords':'ixys littlefuse', 'description':'', 'datasheet':'https://www.littelfuse.com/media?resourcetype=datasheets&itemid=996c6e8f-cc1b-44f6-811e-251c6e004c56&filename=littelfuse-integrated-circuits-loc112-datasheet', 'pins':[
+        Part(**{ 'name':'LOC112S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LOC112S'}), 'ref_prefix':'U', 'fplist':['', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:IXYS_Flatpak-8_6.3x9.7mm_P2.54mm', 'Package_DIP:IXYS_SMD-8_6.3x9.7mm_P2.54mm'], 'footprint':'', 'keywords':'ixys littlefuse', 'description':'', 'datasheet':'https://www.littelfuse.com/media?resourcetype=datasheets&itemid=996c6e8f-cc1b-44f6-811e-251c6e004c56&filename=littelfuse-integrated-circuits-loc112-datasheet', 'search_text':'/usr/share/kicad/symbols/Isolator_Analog.kicad_sym\nLOC112S\n\nixys littlefuse', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='~',func=Pin.types.PASSIVE,unit=1),

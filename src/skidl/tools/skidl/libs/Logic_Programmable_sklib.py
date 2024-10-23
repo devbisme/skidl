@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Logic_Programmable = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'GAL16V8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'GAL16V8'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'GAL PLD 16V8', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'GAL16V8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'GAL16V8'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'GAL PLD 16V8', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/Logic_Programmable.kicad_sym\nGAL16V8\n\nGAL PLD 16V8', 'pins':[
             Pin(num='10',name='GND',func=Pin.types.PWRIN),
             Pin(num='20',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='I1/CLK',func=Pin.types.INPUT,unit=1),
@@ -25,7 +25,7 @@ Logic_Programmable = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I7',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='I8',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='I9',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAL16L8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAL16L8'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'PAL PLD 16L8', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'PAL16L8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAL16L8'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'PAL PLD 16L8', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/Logic_Programmable.kicad_sym\nPAL16L8\n\nPAL PLD 16L8', 'pins':[
             Pin(num='10',name='GND',func=Pin.types.PWRIN),
             Pin(num='20',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='I1',func=Pin.types.INPUT,unit=1),
@@ -46,7 +46,7 @@ Logic_Programmable = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I7',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='I8',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='I9',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAL20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAL20'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'logic programmable PAL', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'PAL20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAL20'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'logic programmable PAL', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Logic_Programmable.kicad_sym\nPAL20\n\nlogic programmable PAL', 'pins':[
             Pin(num='1',name='OD/CLK',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='CLK/OD',func=Pin.types.PASSIVE,unit=1),
@@ -67,7 +67,7 @@ Logic_Programmable = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I5',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='I6',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='I7',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAL20L8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAL20L8'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'PAL PLD 20L8', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'PAL20L8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAL20L8'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'PAL PLD 20L8', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/Logic_Programmable.kicad_sym\nPAL20L8\n\nPAL PLD 20L8', 'pins':[
             Pin(num='12',name='GND',func=Pin.types.PWRIN),
             Pin(num='24',name='VCC',func=Pin.types.PWRIN),
             Pin(num='1',name='I1',func=Pin.types.INPUT,unit=1),
@@ -92,7 +92,7 @@ Logic_Programmable = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I7',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='I8',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='I9',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAL20RS10', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAL20RS10'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'PAL PLD 20RS10', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'PAL20RS10', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAL20RS10'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'PAL PLD 20RS10', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/Logic_Programmable.kicad_sym\nPAL20RS10\n\nPAL PLD 20RS10', 'pins':[
             Pin(num='1',name='CLK',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='I8',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='I9',func=Pin.types.INPUT,unit=1),
@@ -117,7 +117,7 @@ Logic_Programmable = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I5',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='I6',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='I7',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAL24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAL24'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'logic programmable PAL', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'PAL24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAL24'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'logic programmable PAL', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Logic_Programmable.kicad_sym\nPAL24\n\nlogic programmable PAL', 'pins':[
             Pin(num='1',name='OD/CLK',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='I8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='I9',func=Pin.types.PASSIVE,unit=1),

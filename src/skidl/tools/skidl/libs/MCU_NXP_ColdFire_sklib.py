@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 MCU_NXP_ColdFire = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'MCF5212CAE66', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCF5212CAE66'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'MCU', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MCF5213EC.pdf', 'pins':[
+        Part(**{ 'name':'MCF5212CAE66', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCF5212CAE66'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'MCU', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MCF5213EC.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_ColdFire.kicad_sym\nMCF5212CAE66\n\nMCU', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -69,7 +69,7 @@ MCU_NXP_ColdFire = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{URTS0}/CANTX/PUA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SCL/PAS0/UTxD2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SDA/PAS1/URxD2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCF5213-LQFP100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCF5213-LQFP100'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'COLDFIRE', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'MCF5213-LQFP100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCF5213-LQFP100'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'COLDFIRE', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_ColdFire.kicad_sym\nMCF5213-LQFP100\n\nCOLDFIRE', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='SCL/CANTX/PAS0/UTXD2',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='URXD1/PUB1',func=Pin.types.BIDIR,unit=1),
@@ -170,7 +170,7 @@ MCU_NXP_ColdFire = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='RSTO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='98',name='~{UCTS1}/SYNCA/URXD2/PUB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='UTXD1/PUB0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCF5282', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCF5282'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'COLDFIRE', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'MCF5282', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCF5282'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'COLDFIRE', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_ColdFire.kicad_sym\nMCF5282\n\nCOLDFIRE', 'pins':[
             Pin(num='A1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='A10',name='ERXCLK/PEH3',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='ECRS/PEH0',func=Pin.types.BIDIR,unit=1),
@@ -419,7 +419,7 @@ MCU_NXP_ColdFire = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='T7',name='UTXD0/PUA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='T8',name='CLKIN/EXTAL',func=Pin.types.INPUT,unit=1),
             Pin(num='T9',name='TCLK',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCF5328-BGA256', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCF5328-BGA256'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'MCF5328-BGA256', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCF5328-BGA256'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_ColdFire.kicad_sym\nMCF5328-BGA256\n\n', 'pins':[
             Pin(num='A10',name='LCD_LSCLK',func=Pin.types.OUTPUT,unit=1),
             Pin(num='A11',name='LCD_PS',func=Pin.types.OUTPUT,unit=1),
             Pin(num='A12',name='FB_CS3',func=Pin.types.OUTPUT,unit=1),
@@ -672,7 +672,7 @@ MCU_NXP_ColdFire = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='T7',name='D3/FB_D19',func=Pin.types.OUTPUT,unit=1),
             Pin(num='T8',name='D0/FB_D16',func=Pin.types.OUTPUT,unit=1),
             Pin(num='T9',name='PSTCLK/TCLK',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCF5407', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCF5407'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'COLDFIRE', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'MCF5407', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCF5407'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'COLDFIRE', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_ColdFire.kicad_sym\nMCF5407\n\nCOLDFIRE', 'pins':[
             Pin(num='1',name='IVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='/BE3',func=Pin.types.BIDIR,unit=1),
@@ -880,7 +880,7 @@ MCU_NXP_ColdFire = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='EVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='98',name='/BE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='/BE2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCF5211CAE66', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCF5211CAE66'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'MCU', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MCF5213EC.pdf', 'pins':[
+        Part(**{ 'name':'MCF5211CAE66', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCF5211CAE66'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'MCU', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MCF5213EC.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_ColdFire.kicad_sym\nMCF5211CAE66\n\nMCU', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PWRIN,unit=1),

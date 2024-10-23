@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 CPLD_Microchip = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'ATF1502AS-xAx44', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATF1502AS-xAx44'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'CPLD', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0995-CPLD-ATF1502AS(L)-Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATF1502AS-xAx44', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATF1502AS-xAx44'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'CPLD', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0995-CPLD-ATF1502AS(L)-Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/CPLD_Microchip.kicad_sym\nATF1502AS-xAx44\n\nCPLD', 'pins':[
             Pin(num='1',name='I/O/TDI',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='I/O',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='I/O',func=Pin.types.BIDIR,unit=1),
@@ -49,7 +49,7 @@ CPLD_Microchip = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I/O/TMS',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='I/O',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATF1502ASL-xAx44', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATF1502ASL-xAx44'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'CPLD', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0995-CPLD-ATF1502AS(L)-Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATF1502ASL-xAx44', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATF1502ASL-xAx44'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'CPLD', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0995-CPLD-ATF1502AS(L)-Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/CPLD_Microchip.kicad_sym\nATF1502ASL-xAx44\n\nCPLD', 'pins':[
             Pin(num='1',name='I/O/TDI',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='I/O',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='I/O',func=Pin.types.BIDIR,unit=1),
@@ -94,7 +94,7 @@ CPLD_Microchip = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I/O/TMS',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='I/O',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATF1502ASV-xAx44', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATF1502ASV-xAx44'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'CPLD', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc1615.pdf', 'pins':[
+        Part(**{ 'name':'ATF1502ASV-xAx44', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATF1502ASV-xAx44'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'CPLD', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/doc1615.pdf', 'search_text':'/usr/share/kicad/symbols/CPLD_Microchip.kicad_sym\nATF1502ASV-xAx44\n\nCPLD', 'pins':[
             Pin(num='1',name='I/O/TDI',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='I/O',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='I/O',func=Pin.types.BIDIR,unit=1),
@@ -139,7 +139,7 @@ CPLD_Microchip = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I/O/TMS',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='I/O',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATF1504AS-xAx44', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATF1504AS-xAx44'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'CPLD', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0950-CPLD-ATF1504AS(L)-Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATF1504AS-xAx44', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATF1504AS-xAx44'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'CPLD', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0950-CPLD-ATF1504AS(L)-Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/CPLD_Microchip.kicad_sym\nATF1504AS-xAx44\n\nCPLD', 'pins':[
             Pin(num='1',name='I/O/TDI',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='I/O',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='I/O',func=Pin.types.BIDIR,unit=1),
@@ -184,7 +184,7 @@ CPLD_Microchip = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I/O/TMS',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='I/O',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATF1504ASL-xAx44', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATF1504ASL-xAx44'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'CPLD', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0950-CPLD-ATF1504AS(L)-Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATF1504ASL-xAx44', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATF1504ASL-xAx44'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'CPLD', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-0950-CPLD-ATF1504AS(L)-Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/CPLD_Microchip.kicad_sym\nATF1504ASL-xAx44\n\nCPLD', 'pins':[
             Pin(num='1',name='I/O/TDI',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='I/O',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='I/O',func=Pin.types.BIDIR,unit=1),
@@ -229,7 +229,7 @@ CPLD_Microchip = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I/O/TMS',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='I/O',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATF1504ASV-xAx44', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATF1504ASV-xAx44'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'CPLD', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/ATF1504ASV-ATF1504ASVL-Data-Sheet-20006185A.pdf', 'pins':[
+        Part(**{ 'name':'ATF1504ASV-xAx44', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATF1504ASV-xAx44'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'CPLD', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/ATF1504ASV-ATF1504ASVL-Data-Sheet-20006185A.pdf', 'search_text':'/usr/share/kicad/symbols/CPLD_Microchip.kicad_sym\nATF1504ASV-xAx44\n\nCPLD', 'pins':[
             Pin(num='1',name='I/O/TDI',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='I/O',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='I/O',func=Pin.types.BIDIR,unit=1),
@@ -274,7 +274,7 @@ CPLD_Microchip = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I/O/TMS',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='I/O',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATF1504ASVL-xAx44', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATF1504ASVL-xAx44'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'CPLD', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/ATF1504ASV-ATF1504ASVL-Data-Sheet-20006185A.pdf', 'pins':[
+        Part(**{ 'name':'ATF1504ASVL-xAx44', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATF1504ASVL-xAx44'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'CPLD', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/ATF1504ASV-ATF1504ASVL-Data-Sheet-20006185A.pdf', 'search_text':'/usr/share/kicad/symbols/CPLD_Microchip.kicad_sym\nATF1504ASVL-xAx44\n\nCPLD', 'pins':[
             Pin(num='1',name='I/O/TDI',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='I/O',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='I/O',func=Pin.types.BIDIR,unit=1),

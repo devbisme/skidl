@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 MCU_Espressif = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'ESP32-C3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP32-C3'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.7x3.7mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.7x3.7mm', 'keywords':'WiFi BLE ESP32 Espressif', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp32-c3_datasheet_en.pdf', 'pins':[
+        Part(**{ 'name':'ESP32-C3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP32-C3'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.7x3.7mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.7x3.7mm', 'keywords':'WiFi BLE ESP32 Espressif', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp32-c3_datasheet_en.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Espressif.kicad_sym\nESP32-C3\n\nWiFi BLE ESP32 Espressif', 'pins':[
             Pin(num='1',name='LNA_IN',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='MTDI',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD3P3_RTC',func=Pin.types.PWRIN,unit=1),
@@ -38,7 +38,7 @@ MCU_Espressif = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CHIP_EN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GPIO3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='MTMS',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ESP32-PICO-D4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP32-PICO-D4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.3x5.3mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.3x5.3mm', 'keywords':'RF Radio BT ESP ESP32 Espressif external antenna', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp32-pico-d4_datasheet_en.pdf', 'pins':[
+        Part(**{ 'name':'ESP32-PICO-D4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP32-PICO-D4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.3x5.3mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.3x5.3mm', 'keywords':'RF Radio BT ESP ESP32 Espressif external antenna', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp32-pico-d4_datasheet_en.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Espressif.kicad_sym\nESP32-PICO-D4\n\nRF Radio BT ESP ESP32 Espressif external antenna', 'pins':[
             Pin(num='1',name='VDDA',func=Pin.types.PWRIN),
             Pin(num='10',name='IO34',func=Pin.types.INPUT),
             Pin(num='11',name='IO35',func=Pin.types.INPUT),
@@ -88,7 +88,7 @@ MCU_Espressif = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SENSOR_CAPN',func=Pin.types.INPUT),
             Pin(num='8',name='SENSOR_VN',func=Pin.types.INPUT),
             Pin(num='9',name='EN',func=Pin.types.INPUT)], 'unit_defs':[] }),
-        Part(**{ 'name':'ESP32-S2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP32-S2'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-56-1EP_7x7mm_P0.4mm_EP4x4mm'], 'footprint':'Package_DFN_QFN:QFN-56-1EP_7x7mm_P0.4mm_EP4x4mm', 'keywords':'Microcontroller Wi-Fi BT ESP ESP32 Espressif', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp32-s2_datasheet_en.pdf', 'pins':[
+        Part(**{ 'name':'ESP32-S2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP32-S2'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-56-1EP_7x7mm_P0.4mm_EP4x4mm'], 'footprint':'Package_DFN_QFN:QFN-56-1EP_7x7mm_P0.4mm_EP4x4mm', 'keywords':'Microcontroller Wi-Fi BT ESP ESP32 Espressif', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp32-s2_datasheet_en.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Espressif.kicad_sym\nESP32-S2\n\nMicrocontroller Wi-Fi BT ESP ESP32 Espressif', 'pins':[
             Pin(num='1',name='VDDA',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GPIO5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='GPIO6',func=Pin.types.BIDIR,unit=1),
@@ -146,7 +146,7 @@ MCU_Espressif = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GPIO2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GPIO3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='GPIO4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ESP32-S3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP32-S3'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-56-1EP_7x7mm_P0.4mm_EP4x4mm'], 'footprint':'Package_DFN_QFN:QFN-56-1EP_7x7mm_P0.4mm_EP4x4mm', 'keywords':'Microcontroller Wi-Fi BT ESP ESP32 Espressif', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp32-s3_datasheet_en.pdf', 'pins':[
+        Part(**{ 'name':'ESP32-S3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP32-S3'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-56-1EP_7x7mm_P0.4mm_EP4x4mm'], 'footprint':'Package_DFN_QFN:QFN-56-1EP_7x7mm_P0.4mm_EP4x4mm', 'keywords':'Microcontroller Wi-Fi BT ESP ESP32 Espressif', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp32-s3_datasheet_en.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Espressif.kicad_sym\nESP32-S3\n\nMicrocontroller Wi-Fi BT ESP ESP32 Espressif', 'pins':[
             Pin(num='36',name='SPICLK_N',func=Pin.types.BIDIR,unit=1),
             Pin(num='45',name='MTDO',func=Pin.types.BIDIR,unit=1),
             Pin(num='51',name='GPIO45',func=Pin.types.BIDIR,unit=1),
@@ -204,7 +204,7 @@ MCU_Espressif = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GPIO2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GPIO3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='GPIO4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ESP8266EX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP8266EX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'wifi soc', 'description':'', 'datasheet':'http://espressif.com/sites/default/files/documentation/0a-esp8266ex_datasheet_en.pdf', 'pins':[
+        Part(**{ 'name':'ESP8266EX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP8266EX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'wifi soc', 'description':'', 'datasheet':'http://espressif.com/sites/default/files/documentation/0a-esp8266ex_datasheet_en.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Espressif.kicad_sym\nESP8266EX\n\nwifi soc', 'pins':[
             Pin(num='1',name='VDDA',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='MTDI',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDDPST',func=Pin.types.PWRIN,unit=1),

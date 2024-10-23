@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Interface_Ethernet = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'DP83848C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DP83848C'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Ethernet PHY MII RMII 10/100Mpbs', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/dp83848c.pdf', 'pins':[
+        Part(**{ 'name':'DP83848C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DP83848C'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Ethernet PHY MII RMII 10/100Mpbs', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/dp83848c.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Ethernet.kicad_sym\nDP83848C\n\nEthernet PHY MII RMII 10/100Mpbs', 'pins':[
             Pin(num='1',name='TX_CLK',func=Pin.types.OUTPUT,unit=1),
             Pin(num='13',name='RD-',func=Pin.types.PASSIVE,unit=1),
             Pin(num='14',name='RD+',func=Pin.types.PASSIVE,unit=1),
@@ -48,7 +48,7 @@ Interface_Ethernet = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='TXD_2',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='TXD_3/SNI_MODE',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='PWR_DOWN/INT',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ENC28J60x-ML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ENC28J60x-ML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'ENC Ethernet', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/39662e.pdf', 'pins':[
+        Part(**{ 'name':'ENC28J60x-ML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ENC28J60x-ML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'ENC Ethernet', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/39662e.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Ethernet.kicad_sym\nENC28J60x-ML\n\nENC Ethernet', 'pins':[
             Pin(num='1',name='~{WOL}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='RBIAS',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VDDTX',func=Pin.types.PWRIN,unit=1),
@@ -77,7 +77,7 @@ Interface_Ethernet = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSSRX',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='TPIN-',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='TPIN+',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ENC28J60x-SO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ENC28J60x-SO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'ENC Ethernet', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/39662e.pdf', 'pins':[
+        Part(**{ 'name':'ENC28J60x-SO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ENC28J60x-SO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'ENC Ethernet', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/39662e.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Ethernet.kicad_sym\nENC28J60x-SO\n\nENC Ethernet', 'pins':[
             Pin(num='1',name='VCAP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VSSRX',func=Pin.types.PWRIN,unit=1),
@@ -106,7 +106,7 @@ Interface_Ethernet = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{CS}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ENC28J60x-SP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ENC28J60x-SP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'ENC Ethernet', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/39662e.pdf', 'pins':[
+        Part(**{ 'name':'ENC28J60x-SP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ENC28J60x-SP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'ENC Ethernet', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/39662e.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Ethernet.kicad_sym\nENC28J60x-SP\n\nENC Ethernet', 'pins':[
             Pin(num='1',name='VCAP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VSSRX',func=Pin.types.PWRIN,unit=1),
@@ -135,7 +135,7 @@ Interface_Ethernet = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{CS}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ENC28J60x-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ENC28J60x-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'ENC Ethernet', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/39662e.pdf', 'pins':[
+        Part(**{ 'name':'ENC28J60x-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ENC28J60x-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'ENC Ethernet', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/39662e.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Ethernet.kicad_sym\nENC28J60x-SS\n\nENC Ethernet', 'pins':[
             Pin(num='1',name='VCAP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VSSRX',func=Pin.types.PWRIN,unit=1),
@@ -164,7 +164,7 @@ Interface_Ethernet = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{CS}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ENC424J600-ML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ENC424J600-ML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'ENC Ethernet', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39935c.pdf', 'pins':[
+        Part(**{ 'name':'ENC424J600-ML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ENC424J600-ML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'ENC Ethernet', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39935c.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Ethernet.kicad_sym\nENC424J600-ML\n\nENC Ethernet', 'pins':[
             Pin(num='1',name='VSSOSC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='LEDA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='RBIAS',func=Pin.types.INPUT,unit=1),
@@ -210,7 +210,7 @@ Interface_Ethernet = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AD6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='AD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='LEDB',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ENC424J600-PT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ENC424J600-PT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'ENC Ethernet', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39935c.pdf', 'pins':[
+        Part(**{ 'name':'ENC424J600-PT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ENC424J600-PT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'ENC Ethernet', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39935c.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Ethernet.kicad_sym\nENC424J600-PT\n\nENC Ethernet', 'pins':[
             Pin(num='1',name='VSSOSC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='LEDA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='RBIAS',func=Pin.types.INPUT,unit=1),
@@ -255,7 +255,7 @@ Interface_Ethernet = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AD6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='AD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='LEDB',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'KSZ8081MLX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KSZ8081MLX'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'ETH PHY RMII MII', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/KSZ8081MLX.pdf', 'pins':[
+        Part(**{ 'name':'KSZ8081MLX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KSZ8081MLX'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'ETH PHY RMII MII', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/KSZ8081MLX.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Ethernet.kicad_sym\nKSZ8081MLX\n\nETH PHY RMII MII', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RXP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='TXM',func=Pin.types.PASSIVE,unit=1),
@@ -303,7 +303,7 @@ Interface_Ethernet = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDDA_3.3',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='RXM',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'KSZ8081RNA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KSZ8081RNA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'ETH PHY RMII', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/00002199A.pdf', 'pins':[
+        Part(**{ 'name':'KSZ8081RNA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KSZ8081RNA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'ETH PHY RMII', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/00002199A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Ethernet.kicad_sym\nKSZ8081RNA\n\nETH PHY RMII', 'pins':[
             Pin(num='1',name='VDD_1.2',func=Pin.types.PWROUT,unit=1),
             Pin(num='10',name='MDIO',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='MDC',func=Pin.types.INPUT,unit=1),
@@ -329,7 +329,7 @@ Interface_Ethernet = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='XI',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='REXT',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'KSZ9031RNXCA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KSZ9031RNXCA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'ETHERNET PHY RGMII WOL IEEE 802.3 MICROCHIP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/00002117C.pdf', 'pins':[
+        Part(**{ 'name':'KSZ9031RNXCA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KSZ9031RNXCA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'ETHERNET PHY RGMII WOL IEEE 802.3 MICROCHIP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/00002117C.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Ethernet.kicad_sym\nKSZ9031RNXCA\n\nETHERNET PHY RGMII WOL IEEE 802.3 MICROCHIP', 'pins':[
             Pin(num='1',name='AVDDH',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='TXRXP_D',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='TXRXM_D',func=Pin.types.INPUT,unit=1),
@@ -379,7 +379,7 @@ Interface_Ethernet = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TXRXP_C',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='TXRXM_C',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='AVDDL',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'KSZ9563RNX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KSZ9563RNX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_8x8mm_P0.4mm_EP6.5x6.5mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_8x8mm_P0.4mm_EP6.5x6.5mm', 'keywords':'Gigabit Ethernet Switch RGMII MII RMII ieee1588v2', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/KSZ9563R-Data-Sheet-DS00002419C.pdf', 'pins':[
+        Part(**{ 'name':'KSZ9563RNX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KSZ9563RNX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_8x8mm_P0.4mm_EP6.5x6.5mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_8x8mm_P0.4mm_EP6.5x6.5mm', 'keywords':'Gigabit Ethernet Switch RGMII MII RMII ieee1588v2', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/KSZ9563R-Data-Sheet-DS00002419C.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Ethernet.kicad_sym\nKSZ9563RNX\n\nGigabit Ethernet Switch RGMII MII RMII ieee1588v2', 'pins':[
             Pin(num='1',name='TXRX1P_B',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='TXRX2M_A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='AVDDL',func=Pin.types.PWRIN,unit=1),
@@ -445,7 +445,7 @@ Interface_Ethernet = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TXRX1M_D',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='AVDDH',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='TXRX2P_A',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'KSZ9893RNX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KSZ9893RNX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_8x8mm_P0.4mm_EP6.5x6.5mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_8x8mm_P0.4mm_EP6.5x6.5mm', 'keywords':'Gigabit Ethernet Switch RGMII MII RMII', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/KSZ9893R-Data-Sheet-DS00002420C.pdf', 'pins':[
+        Part(**{ 'name':'KSZ9893RNX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KSZ9893RNX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_8x8mm_P0.4mm_EP6.5x6.5mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_8x8mm_P0.4mm_EP6.5x6.5mm', 'keywords':'Gigabit Ethernet Switch RGMII MII RMII', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/KSZ9893R-Data-Sheet-DS00002420C.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Ethernet.kicad_sym\nKSZ9893RNX\n\nGigabit Ethernet Switch RGMII MII RMII', 'pins':[
             Pin(num='1',name='TXRX1P_B',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='TXRX2M_A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='AVDDL',func=Pin.types.PWRIN,unit=1),
@@ -511,7 +511,7 @@ Interface_Ethernet = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TXRX1M_D',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='AVDDH',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='TXRX2P_A',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LAN7500-ABJZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LAN7500-ABJZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-56-1EP_8x8mm_P0.5mm_EP5.9x5.9mm'], 'footprint':'Package_DFN_QFN:QFN-56-1EP_8x8mm_P0.5mm_EP5.9x5.9mm', 'keywords':'USB Ethernet 10/100/1000', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/00001734B.pdf', 'pins':[
+        Part(**{ 'name':'LAN7500-ABJZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LAN7500-ABJZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-56-1EP_8x8mm_P0.5mm_EP5.9x5.9mm'], 'footprint':'Package_DFN_QFN:QFN-56-1EP_8x8mm_P0.5mm_EP5.9x5.9mm', 'keywords':'USB Ethernet 10/100/1000', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/00001734B.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Ethernet.kicad_sym\nLAN7500-ABJZ\n\nUSB Ethernet 10/100/1000', 'pins':[
             Pin(num='1',name='TDI',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GPIO7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD12CORE',func=Pin.types.PASSIVE,unit=1),
@@ -568,8 +568,8 @@ Interface_Ethernet = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='51',name='TR2N',func=Pin.types.BIDIR,unit=2),
             Pin(num='52',name='TR2P',func=Pin.types.BIDIR,unit=2),
             Pin(num='54',name='TR3N',func=Pin.types.BIDIR,unit=2),
-            Pin(num='55',name='TR3P',func=Pin.types.BIDIR,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['24', '9', '5', '53', '1', '31', '15', '39', '50', '17', '25', '32', '19', '4', '56', '18', '11', '26', '33', '40', '20', '27', '34', '2', '36', '42', '57', '48', '28', '35', '45', '6', '21', '29', '37', '23', '30', '7', '10', '22', '3', '38', '49', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['12', '14', '13', '43', '16', '44', '46', '47', '51', '52', '54', '55', '41']}] }),
-        Part(**{ 'name':'LAN8710A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LAN8710A'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm_ThermalVias'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm_ThermalVias', 'keywords':'ETH PHY MII RMII', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/8710a.pdf', 'pins':[
+            Pin(num='55',name='TR3P',func=Pin.types.BIDIR,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['17', '15', '53', '25', '4', '32', '19', '56', '18', '11', '33', '26', '40', '20', '1', '27', '34', '42', '2', '36', '48', '57', '28', '35', '45', '6', '21', '29', '37', '23', '30', '7', '10', '22', '3', '49', '8', '24', '38', '5', '9', '31', '39', '50']},{'label': 'uB', 'num': 2, 'pin_nums': ['12', '14', '41', '44', '47', '52', '55', '13', '16', '43', '46', '51', '54']}] }),
+        Part(**{ 'name':'LAN8710A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LAN8710A'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm_ThermalVias'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm_ThermalVias', 'keywords':'ETH PHY MII RMII', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/8710a.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Ethernet.kicad_sym\nLAN8710A\n\nETH PHY MII RMII', 'pins':[
             Pin(num='1',name='VDD2A',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RXD1/~{MODE1}',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RXD0/~{MODE0}',func=Pin.types.BIDIR,unit=1),
@@ -603,7 +603,7 @@ Interface_Ethernet = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RXCLK/~{PHYAD1}',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RXD3/~{PHYAD2}',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RXD2/~{RMIISEL}',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LAN8720A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LAN8720A'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm_ThermalVias'], 'footprint':'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm_ThermalVias', 'keywords':'ETH PHY RMII', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/8720a.pdf', 'pins':[
+        Part(**{ 'name':'LAN8720A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LAN8720A'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm_ThermalVias'], 'footprint':'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm_ThermalVias', 'keywords':'ETH PHY RMII', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/8720a.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Ethernet.kicad_sym\nLAN8720A\n\nETH PHY RMII', 'pins':[
             Pin(num='1',name='VDD2A',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RXER/PHYAD0',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='CRS_DV/MODE2',func=Pin.types.BIDIR,unit=1),
@@ -629,7 +629,7 @@ Interface_Ethernet = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RXD1/MODE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RXD0/MODE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDIO',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LAN8742A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LAN8742A'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm_ThermalVias'], 'footprint':'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm_ThermalVias', 'keywords':'ETH PHY RMII', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/8742a.pdf', 'pins':[
+        Part(**{ 'name':'LAN8742A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LAN8742A'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm_ThermalVias'], 'footprint':'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm_ThermalVias', 'keywords':'ETH PHY RMII', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/8742a.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Ethernet.kicad_sym\nLAN8742A\n\nETH PHY RMII', 'pins':[
             Pin(num='1',name='VDD2A',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RXER/PHYAD0',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='CRS_DV/MODE2',func=Pin.types.BIDIR,unit=1),
@@ -655,7 +655,7 @@ Interface_Ethernet = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RXD1/MODE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RXD0/MODE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDIO',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LAN9303', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LAN9303'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-56-1EP_8x8mm_P0.5mm_EP5.9x5.9mm_ThermalVias'], 'footprint':'Package_DFN_QFN:QFN-56-1EP_8x8mm_P0.5mm_EP5.9x5.9mm_ThermalVias', 'keywords':'ETH PHY RMII switch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/9303.pdf', 'pins':[
+        Part(**{ 'name':'LAN9303', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LAN9303'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-56-1EP_8x8mm_P0.5mm_EP5.9x5.9mm_ThermalVias'], 'footprint':'Package_DFN_QFN:QFN-56-1EP_8x8mm_P0.5mm_EP5.9x5.9mm_ThermalVias', 'keywords':'ETH PHY RMII switch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/9303.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Ethernet.kicad_sym\nLAN9303\n\nETH PHY RMII switch', 'pins':[
             Pin(num='1',name='TXN2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDD18CORE',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='P0_OUTD3/~{DUPLEX_POL_0}',func=Pin.types.PASSIVE,unit=1),
@@ -713,7 +713,7 @@ Interface_Ethernet = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P0_INER',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='P0_INCLK',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='VDD33IO',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LAN9512', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LAN9512'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.3x7.3mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.3x7.3mm', 'keywords':'USB HUB Ethernet 10/100', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/00002304A.pdf', 'pins':[
+        Part(**{ 'name':'LAN9512', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LAN9512'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.3x7.3mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.3x7.3mm', 'keywords':'USB HUB Ethernet 10/100', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/00002304A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Ethernet.kicad_sym\nLAN9512\n\nUSB HUB Ethernet 10/100', 'pins':[
             Pin(num='10',name='VDD33A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='12',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='13',name='TEST1',func=Pin.types.INPUT,unit=1),
@@ -778,8 +778,8 @@ Interface_Ethernet = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='63',name='USBRBIAS',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=2),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=2),
-            Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['23', '61', '47', '24', '15', '27', '36', '49', '26', '64', '10', '38', '48', '62', '37', '25', '39', '28', '22', '51', '29', '20', '5', '65', '40', '30', '19', '42', '54', '31', '13', '33', '43', '32', '57', '44', '21', '46', '35', '45', '12', '34', '60']},{'label': 'uB', 'num': 2, 'pin_nums': ['16', '8', '52', '53', '18', '9', '55', '2', '56', '3', '58', '6', '1', '4', '59', '11', '41', '7', '63', '14', '50', '17']}] }),
-        Part(**{ 'name':'LAN9513', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LAN9513'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.3x7.3mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.3x7.3mm', 'keywords':'USB HUB Ethernet 10/100', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/00002305A.pdf', 'pins':[
+            Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['54', '12', '21', '40', '51', '31', '57', '22', '42', '25', '19', '30', '43', '29', '60', '28', '44', '61', '23', '10', '34', '46', '24', '45', '64', '27', '62', '13', '20', '33', '47', '32', '65', '36', '49', '48', '35', '38', '37', '15', '26', '39', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '14', '50', '17', '63', '16', '52', '8', '18', '53', '9', '55', '2', '56', '3', '58', '6', '59', '4', '1', '11', '41']}] }),
+        Part(**{ 'name':'LAN9513', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LAN9513'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.3x7.3mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.3x7.3mm', 'keywords':'USB HUB Ethernet 10/100', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/00002305A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Ethernet.kicad_sym\nLAN9513\n\nUSB HUB Ethernet 10/100', 'pins':[
             Pin(num='10',name='VDD33A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='12',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='13',name='TEST1',func=Pin.types.INPUT,unit=1),
@@ -844,8 +844,8 @@ Interface_Ethernet = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='63',name='USBRBIAS',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='USBDP4',func=Pin.types.BIDIR,unit=2),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=2),
-            Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['21', '37', '60', '29', '39', '47', '61', '22', '64', '49', '30', '10', '12', '23', '31', '48', '24', '33', '62', '32', '40', '51', '13', '25', '45', '27', '42', '5', '65', '15', '26', '34', '43', '54', '19', '35', '44', '57', '20', '46', '28', '36', '38']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '7', '16', '52', '18', '53', '9', '17', '55', '2', '56', '3', '58', '1', '4', '59', '50', '63', '11', '41', '6', '14']}] }),
-        Part(**{ 'name':'LAN9514', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LAN9514'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.3x7.3mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.3x7.3mm', 'keywords':'USB HUB Ethernet 10/100', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/00002306A.pdf', 'pins':[
+            Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['20', '38', '45', '12', '29', '37', '60', '21', '39', '47', '61', '30', '22', '49', '64', '31', '48', '62', '10', '23', '33', '24', '32', '40', '51', '13', '25', '42', '5', '27', '65', '26', '15', '34', '43', '54', '28', '19', '35', '44', '57', '46', '36']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '63', '8', '16', '18', '52', '7', '17', '53', '9', '55', '2', '56', '3', '58', '1', '4', '50', '59', '11', '41', '6']}] }),
+        Part(**{ 'name':'LAN9514', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LAN9514'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.3x7.3mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.3x7.3mm', 'keywords':'USB HUB Ethernet 10/100', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/00002306A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Ethernet.kicad_sym\nLAN9514\n\nUSB HUB Ethernet 10/100', 'pins':[
             Pin(num='10',name='VDD33A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='12',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='13',name='TEST1',func=Pin.types.INPUT,unit=1),
@@ -910,8 +910,8 @@ Interface_Ethernet = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='63',name='USBRBIAS',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='USBDP4',func=Pin.types.BIDIR,unit=2),
             Pin(num='8',name='USBDM5',func=Pin.types.BIDIR,unit=2),
-            Pin(num='9',name='USBDP5',func=Pin.types.BIDIR,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['35', '28', '36', '38', '20', '51', '12', '45', '5', '29', '37', '21', '54', '30', '39', '57', '22', '44', '31', '23', '33', '24', '60', '32', '40', '61', '64', '13', '25', '42', '27', '62', '10', '15', '47', '26', '34', '43', '46', '48', '19', '49', '65']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '58', '1', '4', '59', '11', '41', '6', '14', '50', '63', '16', '52', '7', '17', '53', '8', '18', '55', '9', '2', '56']}] }),
-        Part(**{ 'name':'RTL8211EG-VB-CG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RTL8211EG-VB-CG'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP3.8x3.8mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP3.8x3.8mm', 'keywords':'Ethernet Phy Gigabit', 'description':'', 'datasheet':'https://datasheet.lcsc.com/szlcsc/Realtek-Semicon-RTL8211EG-VB-CG_C69264.pdf', 'pins':[
+            Pin(num='9',name='USBDP5',func=Pin.types.BIDIR,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['46', '45', '28', '36', '10', '20', '38', '12', '37', '60', '29', '21', '30', '39', '47', '61', '22', '49', '64', '31', '48', '62', '23', '33', '65', '24', '32', '40', '51', '25', '13', '42', '5', '27', '19', '44', '15', '26', '34', '43', '54', '57', '35']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '53', '18', '9', '55', '2', '56', '3', '58', '4', '59', '1', '41', '6', '11', '50', '63', '14', '17', '16', '52', '7']}] }),
+        Part(**{ 'name':'RTL8211EG-VB-CG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RTL8211EG-VB-CG'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP3.8x3.8mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP3.8x3.8mm', 'keywords':'Ethernet Phy Gigabit', 'description':'', 'datasheet':'https://datasheet.lcsc.com/szlcsc/Realtek-Semicon-RTL8211EG-VB-CG_C69264.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Ethernet.kicad_sym\nRTL8211EG-VB-CG\n\nEthernet Phy Gigabit', 'pins':[
             Pin(num='1',name='CLK125',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='AVDD33',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='MDI[2]+',func=Pin.types.BIDIR,unit=1),
@@ -977,7 +977,7 @@ Interface_Ethernet = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AVDD10',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='MDI[1]+',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='MDI[1]-',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'VSC8541XMV-0x', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VSC8541XMV-0x'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-68-1EP_8x8mm_P0.4mm_EP5.2x5.2mm'], 'footprint':'Package_DFN_QFN:QFN-68-1EP_8x8mm_P0.4mm_EP5.2x5.2mm', 'keywords':'Gigabit Ethernet PHY GMII RGMII MII RMII', 'description':'', 'datasheet':'https://ethernet.microsemi.com/products/download.php?fid=7978&number=vsc8541', 'pins':[
+        Part(**{ 'name':'VSC8541XMV-0x', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'VSC8541XMV-0x'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-68-1EP_8x8mm_P0.4mm_EP5.2x5.2mm'], 'footprint':'Package_DFN_QFN:QFN-68-1EP_8x8mm_P0.4mm_EP5.2x5.2mm', 'keywords':'Gigabit Ethernet PHY GMII RGMII MII RMII', 'description':'', 'datasheet':'https://ethernet.microsemi.com/products/download.php?fid=7978&number=vsc8541', 'search_text':'/usr/share/kicad/symbols/Interface_Ethernet.kicad_sym\nVSC8541XMV-0x\n\nGigabit Ethernet PHY GMII RGMII MII RMII', 'pins':[
             Pin(num='1',name='REF_REXT',func=Pin.types.PASSIVE),
             Pin(num='10',name='P0_D1P',func=Pin.types.PASSIVE),
             Pin(num='11',name='VDD25A',func=Pin.types.PWRIN),
@@ -1047,7 +1047,7 @@ Interface_Ethernet = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P0_D2P',func=Pin.types.PASSIVE),
             Pin(num='8',name='VDD25A',func=Pin.types.PWRIN),
             Pin(num='9',name='P0_D1N',func=Pin.types.PASSIVE)], 'unit_defs':[] }),
-        Part(**{ 'name':'W5100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'W5100'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-80_10x10mm_P0.4mm'], 'footprint':'Package_QFP:LQFP-80_10x10mm_P0.4mm', 'keywords':'Wiznet Ethernet controller', 'description':'', 'datasheet':'http://www.wiznet.io/wp-content/uploads/wiznethome/Chip/W5100/Document/W5100_Datasheet_v1.2.7.pdf', 'pins':[
+        Part(**{ 'name':'W5100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'W5100'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-80_10x10mm_P0.4mm'], 'footprint':'Package_QFP:LQFP-80_10x10mm_P0.4mm', 'keywords':'Wiznet Ethernet controller', 'description':'', 'datasheet':'http://www.wiznet.io/wp-content/uploads/wiznethome/Chip/W5100/Document/W5100_Datasheet_v1.2.7.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Ethernet.kicad_sym\nW5100\n\nWiznet Ethernet controller', 'pins':[
             Pin(num='1',name='RSET_BG',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='GNDA',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='1V8_OUT',func=Pin.types.PWROUT,unit=1),
@@ -1128,7 +1128,56 @@ Interface_Ethernet = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='TXOP',func=Pin.types.OUTPUT,unit=1),
             Pin(num='80',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='TXON',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'W5500', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'W5500'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'WIZnet Ethernet controller', 'description':'', 'datasheet':'http://wizwiki.net/wiki/lib/exe/fetch.php/products:w5500:w5500_ds_v109e.pdf', 'pins':[
+        Part(**{ 'name':'W5100S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'W5100S'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Wiznet Ethernet controller', 'description':'', 'datasheet':'https://docs.wiznet.io/img/products/w5100s/w5100s-ds-v128e.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Ethernet.kicad_sym\nW5100S\n\nWiznet Ethernet controller', 'pins':[
+            Pin(num='48',name='~{RST}',func=Pin.types.INPUT,unit=1),
+            Pin(num='1',name='GNDA',func=Pin.types.PWRIN,unit=1),
+            Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
+            Pin(num='11',name='XSCO',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='12',name='XSCI',func=Pin.types.INPUT,unit=1),
+            Pin(num='13',name='1V2D',func=Pin.types.PWRIN,unit=1),
+            Pin(num='14',name='1V2O',func=Pin.types.PWROUT,unit=1),
+            Pin(num='15',name='3V3A',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='16',name='GNDA',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='17',name='~{LNK}',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='18',name='~{SPD}',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='19',name='~{DPX}',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='2',name='TXON',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='20',name='~{ACT}',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='21',name='~{COL}',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='22',name='1V2D',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='23',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='24',name='3V3D',func=Pin.types.PWRIN,unit=1),
+            Pin(num='25',name='MOD[0]',func=Pin.types.INPUT,unit=1),
+            Pin(num='26',name='MOD[1]',func=Pin.types.INPUT,unit=1),
+            Pin(num='27',name='MOD[2]',func=Pin.types.INPUT,unit=1),
+            Pin(num='28',name='MOD[3]',func=Pin.types.INPUT,unit=1),
+            Pin(num='29',name='~{CS}',func=Pin.types.INPUT,unit=1),
+            Pin(num='3',name='TXOP',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='30',name='SCLK',func=Pin.types.INPUT,unit=1),
+            Pin(num='31',name='1V2D',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='32',name='MOSI',func=Pin.types.INPUT,unit=1),
+            Pin(num='33',name='MISO',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='34',name='~{RD}',func=Pin.types.INPUT,unit=1),
+            Pin(num='35',name='~{WR}',func=Pin.types.INPUT,unit=1),
+            Pin(num='36',name='3V3D',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='37',name='DATA0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='38',name='DATA1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='39',name='DATA2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='1V2A',func=Pin.types.PWRIN,unit=1),
+            Pin(num='40',name='DATA3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='41',name='DATA4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='42',name='DATA5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='43',name='DATA6',func=Pin.types.BIDIR,unit=1),
+            Pin(num='44',name='DATA7',func=Pin.types.BIDIR,unit=1),
+            Pin(num='45',name='1V2D',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='46',name='GND',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='47',name='~{INT}',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='5',name='RXIN',func=Pin.types.INPUT,unit=1),
+            Pin(num='6',name='RXIP',func=Pin.types.INPUT,unit=1),
+            Pin(num='7',name='GNDA',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='8',name='3V3A',func=Pin.types.PWRIN,unit=1),
+            Pin(num='9',name='RSET_BG',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'W5500', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'W5500'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'WIZnet Ethernet controller', 'description':'', 'datasheet':'http://wizwiki.net/wiki/lib/exe/fetch.php/products:w5500:w5500_ds_v109e.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Ethernet.kicad_sym\nW5500\n\nWIZnet Ethernet controller', 'pins':[
             Pin(num='1',name='TXN',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='EXRES1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='AVDD',func=Pin.types.PASSIVE,unit=1),
@@ -1177,7 +1226,7 @@ Interface_Ethernet = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DNC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='AVDD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='AGND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'WGI210AT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'WGI210AT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP3.4x3.4mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP3.4x3.4mm', 'keywords':'Gigabit ethernet PHY PCIe', 'description':'', 'datasheet':'http://www.intel.com/content/www/us/en/ethernet-controllers/i210-ethernet-controller-datasheet.html', 'pins':[
+        Part(**{ 'name':'WGI210AT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'WGI210AT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP3.4x3.4mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP3.4x3.4mm', 'keywords':'Gigabit ethernet PHY PCIe', 'description':'', 'datasheet':'http://www.intel.com/content/www/us/en/ethernet-controllers/i210-ethernet-controller-datasheet.html', 'search_text':'/usr/share/kicad/symbols/Interface_Ethernet.kicad_sym\nWGI210AT\n\nGigabit ethernet PHY PCIe', 'pins':[
             Pin(num='1',name='LAN_PWR_GOOD',func=Pin.types.INPUT),
             Pin(num='10',name='VDD3p3',func=Pin.types.PWRIN),
             Pin(num='11',name='VDD0p9',func=Pin.types.PWRIN),
@@ -1243,7 +1292,7 @@ Interface_Ethernet = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC_SI_TX_EN',func=Pin.types.INPUT),
             Pin(num='8',name='NC_SI_TXD1',func=Pin.types.INPUT),
             Pin(num='9',name='NC_SI_TXD0',func=Pin.types.INPUT)], 'unit_defs':[] }),
-        Part(**{ 'name':'DP83848I', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DP83848I'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Ethernet PHY MII RMII 10/100Mpbs', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/dp83848c.pdf', 'pins':[
+        Part(**{ 'name':'DP83848I', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DP83848I'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'Ethernet PHY MII RMII 10/100Mpbs', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/dp83848c.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Ethernet.kicad_sym\nDP83848I\n\nEthernet PHY MII RMII 10/100Mpbs', 'pins':[
             Pin(num='1',name='TX_CLK',func=Pin.types.OUTPUT,unit=1),
             Pin(num='13',name='RD-',func=Pin.types.PASSIVE,unit=1),
             Pin(num='14',name='RD+',func=Pin.types.PASSIVE,unit=1),
@@ -1287,7 +1336,7 @@ Interface_Ethernet = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='TXD_2',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='TXD_3/SNI_MODE',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='PWR_DOWN/INT',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'KSZ8081RND', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KSZ8081RND'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'ETH PHY RMII', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/00002199A.pdf', 'pins':[
+        Part(**{ 'name':'KSZ8081RND', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KSZ8081RND'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'ETH PHY RMII', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/00002199A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Ethernet.kicad_sym\nKSZ8081RND\n\nETH PHY RMII', 'pins':[
             Pin(num='1',name='VDD_1.2',func=Pin.types.PWROUT,unit=1),
             Pin(num='10',name='MDIO',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='MDC',func=Pin.types.INPUT,unit=1),
@@ -1313,7 +1362,7 @@ Interface_Ethernet = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='XO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='XI',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='REXT',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LAN9303i', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LAN9303i'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-56-1EP_8x8mm_P0.5mm_EP5.9x5.9mm_ThermalVias', 'Package_DFN_QFN:QFN-56-1EP_8x8mm_P0.5mm_EP5.9x5.9mm_ThermalVias'], 'footprint':'Package_DFN_QFN:QFN-56-1EP_8x8mm_P0.5mm_EP5.9x5.9mm_ThermalVias', 'keywords':'ETH PHY RMII switch industrial', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/9303.pdf', 'pins':[
+        Part(**{ 'name':'LAN9303i', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LAN9303i'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-56-1EP_8x8mm_P0.5mm_EP5.9x5.9mm_ThermalVias', 'Package_DFN_QFN:QFN-56-1EP_8x8mm_P0.5mm_EP5.9x5.9mm_ThermalVias'], 'footprint':'Package_DFN_QFN:QFN-56-1EP_8x8mm_P0.5mm_EP5.9x5.9mm_ThermalVias', 'keywords':'ETH PHY RMII switch industrial', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/9303.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Ethernet.kicad_sym\nLAN9303i\n\nETH PHY RMII switch industrial', 'pins':[
             Pin(num='1',name='TXN2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDD18CORE',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='P0_OUTD3/~{DUPLEX_POL_0}',func=Pin.types.PASSIVE,unit=1),
@@ -1371,7 +1420,7 @@ Interface_Ethernet = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P0_INER',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='P0_INCLK',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='VDD33IO',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LAN9512i', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LAN9512i'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.3x7.3mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.3x7.3mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.3x7.3mm', 'keywords':'USB HUB Ethernet 10/100', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/00002304A.pdf', 'pins':[
+        Part(**{ 'name':'LAN9512i', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LAN9512i'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.3x7.3mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.3x7.3mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.3x7.3mm', 'keywords':'USB HUB Ethernet 10/100', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/00002304A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Ethernet.kicad_sym\nLAN9512i\n\nUSB HUB Ethernet 10/100', 'pins':[
             Pin(num='10',name='VDD33A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='12',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='13',name='TEST1',func=Pin.types.INPUT,unit=1),
@@ -1436,8 +1485,8 @@ Interface_Ethernet = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='63',name='USBRBIAS',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=2),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=2),
-            Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['15', '46', '60', '26', '10', '61', '47', '38', '13', '23', '37', '27', '12', '24', '48', '62', '39', '28', '49', '64', '40', '34', '29', '21', '5', '65', '30', '42', '22', '51', '43', '31', '54', '32', '44', '20', '36', '19', '57', '45', '33', '35', '25']},{'label': 'uB', 'num': 2, 'pin_nums': ['16', '7', '52', '8', '53', '17', '18', '9', '55', '2', '56', '3', '58', '1', '4', '59', '6', '11', '41', '63', '14', '50']}] }),
-        Part(**{ 'name':'LAN9513i', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LAN9513i'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.3x7.3mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.3x7.3mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.3x7.3mm', 'keywords':'USB HUB Ethernet 10/100', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/00002305A.pdf', 'pins':[
+            Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['45', '28', '36', '57', '15', '19', '29', '60', '46', '25', '37', '30', '61', '47', '38', '13', '31', '62', '48', '39', '23', '12', '40', '10', '64', '32', '24', '49', '42', '33', '65', '5', '21', '51', '43', '34', '26', '22', '54', '44', '27', '35', '20']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '50', '63', '52', '16', '7', '17', '53', '8', '18', '55', '9', '2', '56', '3', '58', '59', '4', '1', '6', '11', '41']}] }),
+        Part(**{ 'name':'LAN9513i', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LAN9513i'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.3x7.3mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.3x7.3mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.3x7.3mm', 'keywords':'USB HUB Ethernet 10/100', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/00002305A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Ethernet.kicad_sym\nLAN9513i\n\nUSB HUB Ethernet 10/100', 'pins':[
             Pin(num='10',name='VDD33A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='12',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='13',name='TEST1',func=Pin.types.INPUT,unit=1),
@@ -1502,8 +1551,8 @@ Interface_Ethernet = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='63',name='USBRBIAS',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='USBDP4',func=Pin.types.BIDIR,unit=2),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=2),
-            Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['21', '37', '60', '46', '10', '47', '61', '22', '30', '38', '39', '23', '31', '48', '62', '24', '64', '49', '32', '40', '25', '33', '42', '5', '65', '13', '12', '26', '51', '34', '43', '27', '15', '19', '54', '35', '44', '28', '45', '57', '20', '36', '29']},{'label': 'uB', 'num': 2, 'pin_nums': ['52', '7', '16', '53', '8', '17', '18', '9', '55', '2', '56', '3', '58', '1', '4', '59', '11', '41', '6', '50', '63', '14']}] }),
-        Part(**{ 'name':'LAN9514i', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LAN9514i'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.3x7.3mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.3x7.3mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.3x7.3mm', 'keywords':'USB HUB Ethernet 10/100', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/00002306A.pdf', 'pins':[
+            Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['57', '45', '36', '28', '20', '29', '37', '60', '46', '21', '10', '38', '47', '61', '30', '22', '15', '39', '31', '48', '62', '23', '49', '64', '24', '32', '40', '33', '25', '42', '5', '65', '13', '12', '51', '26', '34', '43', '27', '54', '19', '35', '44']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '63', '50', '16', '7', '52', '17', '8', '53', '18', '9', '55', '2', '56', '3', '58', '1', '4', '59', '11', '41', '6']}] }),
+        Part(**{ 'name':'LAN9514i', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LAN9514i'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.3x7.3mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.3x7.3mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.3x7.3mm', 'keywords':'USB HUB Ethernet 10/100', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/00002306A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Ethernet.kicad_sym\nLAN9514i\n\nUSB HUB Ethernet 10/100', 'pins':[
             Pin(num='10',name='VDD33A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='12',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='13',name='TEST1',func=Pin.types.INPUT,unit=1),
@@ -1568,4 +1617,4 @@ Interface_Ethernet = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='63',name='USBRBIAS',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='USBDP4',func=Pin.types.BIDIR,unit=2),
             Pin(num='8',name='USBDM5',func=Pin.types.BIDIR,unit=2),
-            Pin(num='9',name='USBDP5',func=Pin.types.BIDIR,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['29', '46', '37', '60', '21', '38', '30', '61', '15', '22', '47', '39', '31', '62', '10', '23', '48', '24', '32', '40', '64', '49', '5', '33', '25', '42', '13', '65', '12', '51', '26', '34', '43', '19', '35', '54', '44', '27', '20', '36', '28', '45', '57']},{'label': 'uB', 'num': 2, 'pin_nums': ['16', '7', '52', '17', '53', '8', '18', '55', '9', '2', '56', '58', '3', '1', '4', '59', '11', '41', '6', '14', '50', '63']}] })])
+            Pin(num='9',name='USBDP5',func=Pin.types.BIDIR,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['45', '28', '36', '57', '20', '46', '37', '60', '29', '21', '15', '38', '30', '47', '61', '22', '39', '31', '48', '62', '23', '10', '49', '64', '24', '32', '40', '33', '65', '25', '42', '5', '13', '12', '51', '26', '34', '43', '27', '19', '44', '54', '35']},{'label': 'uB', 'num': 2, 'pin_nums': ['41', '14', '50', '63', '52', '7', '16', '8', '53', '17', '55', '9', '18', '2', '56', '3', '58', '1', '4', '59', '11', '6']}] })])

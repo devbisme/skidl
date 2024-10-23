@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 RF_Mixer = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'AD831AP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD831AP'}), 'ref_prefix':'U', 'fplist':['Package_LCC:PLCC-20'], 'footprint':'Package_LCC:PLCC-20', 'keywords':'mixer rf', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD831.pdf', 'pins':[
+        Part(**{ 'name':'AD831AP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD831AP'}), 'ref_prefix':'U', 'fplist':['Package_LCC:PLCC-20'], 'footprint':'Package_LCC:PLCC-20', 'keywords':'mixer rf', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD831.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Mixer.kicad_sym\nAD831AP\n\nmixer rf', 'pins':[
             Pin(num='1',name='VP',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='LON',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='LOP',func=Pin.types.INPUT,unit=1),
@@ -25,14 +25,14 @@ RF_Mixer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RFN',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VN',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VP',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADE-6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADE-6'}), 'ref_prefix':'U', 'fplist':['RF_Mini-Circuits:Mini-Circuits_CD542_LandPatternPL-052'], 'footprint':'RF_Mini-Circuits:Mini-Circuits_CD542_LandPatternPL-052', 'keywords':'mixer rf', 'description':'', 'datasheet':'https://www.minicircuits.com/pdfs/ADE-6.pdf', 'pins':[
+        Part(**{ 'name':'ADE-6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADE-6'}), 'ref_prefix':'U', 'fplist':['RF_Mini-Circuits:Mini-Circuits_CD542_LandPatternPL-052'], 'footprint':'RF_Mini-Circuits:Mini-Circuits_CD542_LandPatternPL-052', 'keywords':'mixer rf', 'description':'', 'datasheet':'https://www.minicircuits.com/pdfs/ADE-6.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Mixer.kicad_sym\nADE-6\n\nmixer rf', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='RF',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='LO',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADL5801', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADL5801'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-VQ-24-1EP_4x4mm_P0.5mm_EP2.642x2.642mm'], 'footprint':'Package_CSP:LFCSP-VQ-24-1EP_4x4mm_P0.5mm_EP2.642x2.642mm', 'keywords':'mixer active', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADL5801.pdf', 'pins':[
+        Part(**{ 'name':'ADL5801', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADL5801'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-VQ-24-1EP_4x4mm_P0.5mm_EP2.642x2.642mm'], 'footprint':'Package_CSP:LFCSP-VQ-24-1EP_4x4mm_P0.5mm_EP2.642x2.642mm', 'keywords':'mixer active', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADL5801.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Mixer.kicad_sym\nADL5801\n\nmixer active', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VSET',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DETO',func=Pin.types.OUTPUT,unit=1),
@@ -58,7 +58,7 @@ RF_Mixer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VPLO',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='~{ENBL}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADL5802', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADL5802'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm'], 'footprint':'Package_CSP:LFCSP-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'keywords':'mixer rf', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADL5802.pdf', 'pins':[
+        Part(**{ 'name':'ADL5802', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADL5802'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm'], 'footprint':'Package_CSP:LFCSP-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'keywords':'mixer rf', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADL5802.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Mixer.kicad_sym\nADL5802\n\nmixer rf', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='LOIN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -84,7 +84,7 @@ RF_Mixer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{ENBL}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='LOIP',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HMC213A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HMC213A'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'mixer active', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/hmc213a.pdf', 'pins':[
+        Part(**{ 'name':'HMC213A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HMC213A'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'mixer active', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/hmc213a.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Mixer.kicad_sym\nHMC213A\n\nmixer active', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='LO',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -93,7 +93,7 @@ RF_Mixer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='RF',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LT5560', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT5560'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm', 'keywords':'rf mixer', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/5560f.pdf', 'pins':[
+        Part(**{ 'name':'LT5560', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LT5560'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm', 'keywords':'rf mixer', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/5560f.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Mixer.kicad_sym\nLT5560\n\nrf mixer', 'pins':[
             Pin(num='1',name='LO-',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='EN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='IN+',func=Pin.types.INPUT,unit=1),
@@ -103,14 +103,14 @@ RF_Mixer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='LO+',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='PGND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADEX-10', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADEX-10'}), 'ref_prefix':'U', 'fplist':['RF_Mini-Circuits:Mini-Circuits_CD542_LandPatternPL-052', 'RF_Mini-Circuits:Mini-Circuits_CD542_LandPatternPL-052'], 'footprint':'RF_Mini-Circuits:Mini-Circuits_CD542_LandPatternPL-052', 'keywords':'mixer rf', 'description':'', 'datasheet':'https://www.minicircuits.com/pdfs/ADEX-10.pdf', 'pins':[
+        Part(**{ 'name':'ADEX-10', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADEX-10'}), 'ref_prefix':'U', 'fplist':['RF_Mini-Circuits:Mini-Circuits_CD542_LandPatternPL-052', 'RF_Mini-Circuits:Mini-Circuits_CD542_LandPatternPL-052'], 'footprint':'RF_Mini-Circuits:Mini-Circuits_CD542_LandPatternPL-052', 'keywords':'mixer rf', 'description':'', 'datasheet':'https://www.minicircuits.com/pdfs/ADEX-10.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Mixer.kicad_sym\nADEX-10\n\nmixer rf', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='RF',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='LO',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HMC213B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HMC213B'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'mixer active', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/hmc213B.pdf', 'pins':[
+        Part(**{ 'name':'HMC213B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HMC213B'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'mixer active', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/hmc213B.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Mixer.kicad_sym\nHMC213B\n\nmixer active', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='LO',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PASSIVE,unit=1),

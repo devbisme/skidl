@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 MCU_ST_STM8 = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'STM8AF6223', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8AF6223'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'STM8 Microcontroller Automotive Line', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/stm8af6223.pdf', 'pins':[
+        Part(**{ 'name':'STM8AF6223', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8AF6223'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'STM8 Microcontroller Automotive Line', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/stm8af6223.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM8.kicad_sym\nSTM8AF6223\n\nSTM8 Microcontroller Automotive Line', 'pins':[
             Pin(num='1',name='PD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB5',func=Pin.types.BIDIR,unit=1),
@@ -25,7 +25,7 @@ MCU_ST_STM8 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VCAP',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM8AF6223A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8AF6223A'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'STM8 Microcontroller Automotive Line', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/stm8af6223.pdf', 'pins':[
+        Part(**{ 'name':'STM8AF6223A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8AF6223A'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'STM8 Microcontroller Automotive Line', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/stm8af6223.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM8.kicad_sym\nSTM8AF6223A\n\nSTM8 Microcontroller Automotive Line', 'pins':[
             Pin(num='1',name='PD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB4',func=Pin.types.BIDIR,unit=1),
@@ -46,7 +46,7 @@ MCU_ST_STM8 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VCAP',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM8AL3188T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8AL3188T'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'STM8 automotive ultra-low-power', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8al3188.pdf', 'pins':[
+        Part(**{ 'name':'STM8AL3188T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8AL3188T'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'STM8 automotive ultra-low-power', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8al3188.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM8.kicad_sym\nSTM8AL3188T\n\nSTM8 automotive ultra-low-power', 'pins':[
             Pin(num='1',name='PA0',func=Pin.types.BIDIR),
             Pin(num='10',name='VDD1',func=Pin.types.PWRIN),
             Pin(num='11',name='VDDA',func=Pin.types.PWRIN),
@@ -95,7 +95,7 @@ MCU_ST_STM8 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR),
             Pin(num='8',name='PA7',func=Pin.types.BIDIR),
             Pin(num='9',name='VSS1/VSSA/VREF-',func=Pin.types.PWRIN)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM8AL3189T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8AL3189T'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'STM8 automotive ultra-low-power', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8al3188.pdf', 'pins':[
+        Part(**{ 'name':'STM8AL3189T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8AL3189T'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'STM8 automotive ultra-low-power', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8al3188.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM8.kicad_sym\nSTM8AL3189T\n\nSTM8 automotive ultra-low-power', 'pins':[
             Pin(num='1',name='PA0',func=Pin.types.BIDIR),
             Pin(num='10',name='VSS1',func=Pin.types.PWRIN),
             Pin(num='11',name='VDD1',func=Pin.types.PWRIN),
@@ -160,7 +160,7 @@ MCU_ST_STM8 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR),
             Pin(num='8',name='PA7',func=Pin.types.BIDIR),
             Pin(num='9',name='VSSA/VREF-',func=Pin.types.PWRIN)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM8AL318AT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8AL318AT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-80_14x14mm_P0.65mm'], 'footprint':'Package_QFP:LQFP-80_14x14mm_P0.65mm', 'keywords':'STM8 automotive ultra-low-power', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8al3188.pdf', 'pins':[
+        Part(**{ 'name':'STM8AL318AT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8AL318AT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-80_14x14mm_P0.65mm'], 'footprint':'Package_QFP:LQFP-80_14x14mm_P0.65mm', 'keywords':'STM8 automotive ultra-low-power', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8al3188.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM8.kicad_sym\nSTM8AL318AT\n\nSTM8 automotive ultra-low-power', 'pins':[
             Pin(num='1',name='PH0',func=Pin.types.BIDIR),
             Pin(num='10',name='PA5',func=Pin.types.BIDIR),
             Pin(num='11',name='PA6',func=Pin.types.BIDIR),
@@ -241,7 +241,7 @@ MCU_ST_STM8 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='PA3',func=Pin.types.BIDIR),
             Pin(num='80',name='PI3',func=Pin.types.BIDIR),
             Pin(num='9',name='PA4',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM8AL3L88T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8AL3L88T'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'STM8 automotive ultra-low-power', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8al3188.pdf', 'pins':[
+        Part(**{ 'name':'STM8AL3L88T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8AL3L88T'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'STM8 automotive ultra-low-power', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8al3188.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM8.kicad_sym\nSTM8AL3L88T\n\nSTM8 automotive ultra-low-power', 'pins':[
             Pin(num='1',name='PA0',func=Pin.types.BIDIR),
             Pin(num='10',name='VDD1',func=Pin.types.PWRIN),
             Pin(num='11',name='VDDA',func=Pin.types.PWRIN),
@@ -290,7 +290,7 @@ MCU_ST_STM8 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR),
             Pin(num='8',name='PA7',func=Pin.types.BIDIR),
             Pin(num='9',name='VSS1/VSSA/VREF-',func=Pin.types.PWRIN)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM8AL3L89T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8AL3L89T'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'STM8 automotive ultra-low-power', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8al3188.pdf', 'pins':[
+        Part(**{ 'name':'STM8AL3L89T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8AL3L89T'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'STM8 automotive ultra-low-power', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8al3188.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM8.kicad_sym\nSTM8AL3L89T\n\nSTM8 automotive ultra-low-power', 'pins':[
             Pin(num='1',name='PA0',func=Pin.types.BIDIR),
             Pin(num='10',name='VSS1',func=Pin.types.PWRIN),
             Pin(num='11',name='VDD1',func=Pin.types.PWRIN),
@@ -355,7 +355,7 @@ MCU_ST_STM8 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR),
             Pin(num='8',name='PA7',func=Pin.types.BIDIR),
             Pin(num='9',name='VSSA/VREF-',func=Pin.types.PWRIN)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM8AL3L8AT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8AL3L8AT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-80_14x14mm_P0.65mm'], 'footprint':'Package_QFP:LQFP-80_14x14mm_P0.65mm', 'keywords':'STM8 automotive ultra-low-power', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8al3188.pdf', 'pins':[
+        Part(**{ 'name':'STM8AL3L8AT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8AL3L8AT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-80_14x14mm_P0.65mm'], 'footprint':'Package_QFP:LQFP-80_14x14mm_P0.65mm', 'keywords':'STM8 automotive ultra-low-power', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8al3188.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM8.kicad_sym\nSTM8AL3L8AT\n\nSTM8 automotive ultra-low-power', 'pins':[
             Pin(num='1',name='PH0',func=Pin.types.BIDIR),
             Pin(num='10',name='PA5',func=Pin.types.BIDIR),
             Pin(num='11',name='PA6',func=Pin.types.BIDIR),
@@ -436,7 +436,7 @@ MCU_ST_STM8 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='PA3',func=Pin.types.BIDIR),
             Pin(num='80',name='PI3',func=Pin.types.BIDIR),
             Pin(num='9',name='PA4',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM8L051F3P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8L051F3P'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'STM8L Microcontroller Value Line Low Power', 'description':'', 'datasheet':'http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/DM00060484.pdf', 'pins':[
+        Part(**{ 'name':'STM8L051F3P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8L051F3P'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'STM8L Microcontroller Value Line Low Power', 'description':'', 'datasheet':'http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/DM00060484.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM8.kicad_sym\nSTM8L051F3P\n\nSTM8L Microcontroller Value Line Low Power', 'pins':[
             Pin(num='1',name='PC5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB1',func=Pin.types.BIDIR,unit=1),
@@ -457,7 +457,7 @@ MCU_ST_STM8 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PD0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM8L101F1U', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8L101F1U'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:ST_UFQFPN-20_3x3mm_P0.5mm'], 'footprint':'Package_DFN_QFN:ST_UFQFPN-20_3x3mm_P0.5mm', 'keywords':'STM8L Microcontroller Value Line Low Power', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8l101f1.pdf', 'pins':[
+        Part(**{ 'name':'STM8L101F1U', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8L101F1U'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:ST_UFQFPN-20_3x3mm_P0.5mm'], 'footprint':'Package_DFN_QFN:ST_UFQFPN-20_3x3mm_P0.5mm', 'keywords':'STM8L Microcontroller Value Line Low Power', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8l101f1.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM8.kicad_sym\nSTM8L101F1U\n\nSTM8L Microcontroller Value Line Low Power', 'pins':[
             Pin(num='1',name='NRST/PA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB4',func=Pin.types.BIDIR,unit=1),
@@ -478,7 +478,7 @@ MCU_ST_STM8 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM8L101F2P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8L101F2P'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'STM8L Microcontroller Value Line Low Power', 'description':'', 'datasheet':'http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/CD00220591.pdf', 'pins':[
+        Part(**{ 'name':'STM8L101F2P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8L101F2P'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'STM8L Microcontroller Value Line Low Power', 'description':'', 'datasheet':'http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/CD00220591.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM8.kicad_sym\nSTM8L101F2P\n\nSTM8L Microcontroller Value Line Low Power', 'pins':[
             Pin(num='1',name='PC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB1',func=Pin.types.BIDIR,unit=1),
@@ -499,7 +499,7 @@ MCU_ST_STM8 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PD0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM8L151C2T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8L151C2T'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'STM8 ultra-low-power', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8l151c3.pdf', 'pins':[
+        Part(**{ 'name':'STM8L151C2T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8L151C2T'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'STM8 ultra-low-power', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8l151c3.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM8.kicad_sym\nSTM8L151C2T\n\nSTM8 ultra-low-power', 'pins':[
             Pin(num='1',name='PA0',func=Pin.types.BIDIR),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN),
             Pin(num='11',name='VDDA',func=Pin.types.PWRIN),
@@ -548,7 +548,7 @@ MCU_ST_STM8 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR),
             Pin(num='8',name='PA7',func=Pin.types.BIDIR),
             Pin(num='9',name='VSS1/VSSA/VREF-',func=Pin.types.PWRIN)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM8L152R8T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8L152R8T'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'STM8L Microcontroller Low Power LCD', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8l152r8.pdf', 'pins':[
+        Part(**{ 'name':'STM8L152R8T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8L152R8T'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'STM8L Microcontroller Low Power LCD', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8l152r8.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM8.kicad_sym\nSTM8L152R8T\n\nSTM8L Microcontroller Low Power LCD', 'pins':[
             Pin(num='10',name='GND',func=Pin.types.PASSIVE),
             Pin(num='21',name='PE2',func=Pin.types.BIDIR),
             Pin(num='22',name='PE3',func=Pin.types.BIDIR),
@@ -613,7 +613,7 @@ MCU_ST_STM8 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VSSA/VREF-',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM8S001J3M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8S001J3M'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SO-8_3.9x4.9mm_P1.27mm', 'keywords':'STM8 Microcontroller Value Line', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8s001j3.pdf', 'pins':[
+        Part(**{ 'name':'STM8S001J3M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8S001J3M'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SO-8_3.9x4.9mm_P1.27mm', 'keywords':'STM8 Microcontroller Value Line', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8s001j3.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM8.kicad_sym\nSTM8S001J3M\n\nSTM8 Microcontroller Value Line', 'pins':[
             Pin(num='1',name='PD6',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VCAP',func=Pin.types.PASSIVE,unit=1),
@@ -622,7 +622,7 @@ MCU_ST_STM8 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='PC5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PD5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM8S003F3P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8S003F3P'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'STM8S Mainstream Value line 8-bit, 16MHz, 1k RAM, 128 EEPROM', 'description':'', 'datasheet':'http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/DM00024550.pdf', 'pins':[
+        Part(**{ 'name':'STM8S003F3P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8S003F3P'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'STM8S Mainstream Value line 8-bit, 16MHz, 1k RAM, 128 EEPROM', 'description':'', 'datasheet':'http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/DM00024550.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM8.kicad_sym\nSTM8S003F3P\n\nSTM8S Mainstream Value line 8-bit, 16MHz, 1k RAM, 128 EEPROM', 'pins':[
             Pin(num='1',name='PD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB5',func=Pin.types.BIDIR,unit=1),
@@ -643,7 +643,7 @@ MCU_ST_STM8 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VCAP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM8S003F3U', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8S003F3U'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:ST_UFQFPN-20_3x3mm_P0.5mm'], 'footprint':'Package_DFN_QFN:ST_UFQFPN-20_3x3mm_P0.5mm', 'keywords':'STM8S Mainstream Value line 8-bit, 16MHz, 1k RAM, 128 EEPROM', 'description':'', 'datasheet':'http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/DM00024550.pdf', 'pins':[
+        Part(**{ 'name':'STM8S003F3U', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8S003F3U'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:ST_UFQFPN-20_3x3mm_P0.5mm'], 'footprint':'Package_DFN_QFN:ST_UFQFPN-20_3x3mm_P0.5mm', 'keywords':'STM8S Mainstream Value line 8-bit, 16MHz, 1k RAM, 128 EEPROM', 'description':'', 'datasheet':'http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/DM00024550.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM8.kicad_sym\nSTM8S003F3U\n\nSTM8S Mainstream Value line 8-bit, 16MHz, 1k RAM, 128 EEPROM', 'pins':[
             Pin(num='1',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC4',func=Pin.types.BIDIR,unit=1),
@@ -664,7 +664,7 @@ MCU_ST_STM8 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM8S003K3T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8S003K3T'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'STM8 Microcontroller Value Line', 'description':'', 'datasheet':'http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/DM00024550.pdf', 'pins':[
+        Part(**{ 'name':'STM8S003K3T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8S003K3T'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'STM8 Microcontroller Value Line', 'description':'', 'datasheet':'http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/DM00024550.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM8.kicad_sym\nSTM8S003K3T\n\nSTM8 Microcontroller Value Line', 'pins':[
             Pin(num='1',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB5',func=Pin.types.BIDIR,unit=1),
@@ -697,7 +697,7 @@ MCU_ST_STM8 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PF4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM8S207MB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8S207MB'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-80_14x14mm_P0.65mm'], 'footprint':'Package_QFP:LQFP-80_14x14mm_P0.65mm', 'keywords':'STM8 Microcontroller Performance Line', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8s207mb.pdf', 'pins':[
+        Part(**{ 'name':'STM8S207MB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8S207MB'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-80_14x14mm_P0.65mm'], 'footprint':'Package_QFP:LQFP-80_14x14mm_P0.65mm', 'keywords':'STM8 Microcontroller Performance Line', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8s207mb.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM8.kicad_sym\nSTM8S207MB\n\nSTM8 Microcontroller Performance Line', 'pins':[
             Pin(num='13',name='PH0',func=Pin.types.BIDIR,unit=1),
             Pin(num='14',name='PH1',func=Pin.types.BIDIR,unit=1),
             Pin(num='15',name='PH2',func=Pin.types.BIDIR,unit=1),
@@ -778,7 +778,7 @@ MCU_ST_STM8 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='VDDIO_1',func=Pin.types.PWRIN,unit=1),
             Pin(num='80',name='PD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM8S208CB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8S208CB'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'STM8 Microcontroller Performance Line', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8s208cb.pdf', 'pins':[
+        Part(**{ 'name':'STM8S208CB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8S208CB'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'STM8 Microcontroller Performance Line', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8s208cb.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM8.kicad_sym\nSTM8S208CB\n\nSTM8 Microcontroller Performance Line', 'pins':[
             Pin(num='1',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA5',func=Pin.types.BIDIR,unit=1),
@@ -827,7 +827,7 @@ MCU_ST_STM8 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDDIO_1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PA3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM8S208RB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8S208RB'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'STM8 Microcontroller Performance Line', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8s208rb.pdf', 'pins':[
+        Part(**{ 'name':'STM8S208RB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8S208RB'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'STM8 Microcontroller Performance Line', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8s208rb.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM8.kicad_sym\nSTM8S208RB\n\nSTM8 Microcontroller Performance Line', 'pins':[
             Pin(num='1',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA5',func=Pin.types.BIDIR,unit=1),
@@ -892,7 +892,7 @@ MCU_ST_STM8 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDDIO_1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PA3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM8L101F2U', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8L101F2U'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:ST_UFQFPN-20_3x3mm_P0.5mm', 'Package_DFN_QFN:ST_UFQFPN-20_3x3mm_P0.5mm'], 'footprint':'Package_DFN_QFN:ST_UFQFPN-20_3x3mm_P0.5mm', 'keywords':'STM8L Microcontroller Value Line Low Power', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8l101f1.pdf', 'pins':[
+        Part(**{ 'name':'STM8L101F2U', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8L101F2U'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:ST_UFQFPN-20_3x3mm_P0.5mm', 'Package_DFN_QFN:ST_UFQFPN-20_3x3mm_P0.5mm'], 'footprint':'Package_DFN_QFN:ST_UFQFPN-20_3x3mm_P0.5mm', 'keywords':'STM8L Microcontroller Value Line Low Power', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8l101f1.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM8.kicad_sym\nSTM8L101F2U\n\nSTM8L Microcontroller Value Line Low Power', 'pins':[
             Pin(num='1',name='NRST/PA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB4',func=Pin.types.BIDIR,unit=1),
@@ -913,7 +913,7 @@ MCU_ST_STM8 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM8L101F3P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8L101F3P'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'STM8L Microcontroller Value Line Low Power', 'description':'', 'datasheet':'http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/CD00220591.pdf', 'pins':[
+        Part(**{ 'name':'STM8L101F3P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8L101F3P'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'STM8L Microcontroller Value Line Low Power', 'description':'', 'datasheet':'http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/CD00220591.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM8.kicad_sym\nSTM8L101F3P\n\nSTM8L Microcontroller Value Line Low Power', 'pins':[
             Pin(num='1',name='PC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB1',func=Pin.types.BIDIR,unit=1),
@@ -934,7 +934,7 @@ MCU_ST_STM8 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PD0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM8L101F3U', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8L101F3U'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:ST_UFQFPN-20_3x3mm_P0.5mm', 'Package_DFN_QFN:ST_UFQFPN-20_3x3mm_P0.5mm', 'Package_DFN_QFN:ST_UFQFPN-20_3x3mm_P0.5mm'], 'footprint':'Package_DFN_QFN:ST_UFQFPN-20_3x3mm_P0.5mm', 'keywords':'STM8L Microcontroller Value Line Low Power', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8l101f1.pdf', 'pins':[
+        Part(**{ 'name':'STM8L101F3U', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8L101F3U'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:ST_UFQFPN-20_3x3mm_P0.5mm', 'Package_DFN_QFN:ST_UFQFPN-20_3x3mm_P0.5mm', 'Package_DFN_QFN:ST_UFQFPN-20_3x3mm_P0.5mm'], 'footprint':'Package_DFN_QFN:ST_UFQFPN-20_3x3mm_P0.5mm', 'keywords':'STM8L Microcontroller Value Line Low Power', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8l101f1.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM8.kicad_sym\nSTM8L101F3U\n\nSTM8L Microcontroller Value Line Low Power', 'pins':[
             Pin(num='1',name='NRST/PA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB4',func=Pin.types.BIDIR,unit=1),
@@ -955,7 +955,7 @@ MCU_ST_STM8 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM8L151C3T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8L151C3T'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'STM8 ultra-low-power', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8l151c3.pdf', 'pins':[
+        Part(**{ 'name':'STM8L151C3T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8L151C3T'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'STM8 ultra-low-power', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8l151c3.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM8.kicad_sym\nSTM8L151C3T\n\nSTM8 ultra-low-power', 'pins':[
             Pin(num='1',name='PA0',func=Pin.types.BIDIR),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN),
             Pin(num='11',name='VDDA',func=Pin.types.PWRIN),
@@ -1004,7 +1004,7 @@ MCU_ST_STM8 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR),
             Pin(num='8',name='PA7',func=Pin.types.BIDIR),
             Pin(num='9',name='VSS1/VSSA/VREF-',func=Pin.types.PWRIN)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM8L152R6T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8L152R6T'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'STM8L Microcontroller Low Power LCD', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8l152r6.pdf', 'pins':[
+        Part(**{ 'name':'STM8L152R6T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8L152R6T'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'STM8L Microcontroller Low Power LCD', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8l152r6.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM8.kicad_sym\nSTM8L152R6T\n\nSTM8L Microcontroller Low Power LCD', 'pins':[
             Pin(num='10',name='GND',func=Pin.types.PASSIVE),
             Pin(num='21',name='PE2',func=Pin.types.BIDIR),
             Pin(num='22',name='PE3',func=Pin.types.BIDIR),
@@ -1069,7 +1069,7 @@ MCU_ST_STM8 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VSSA/VREF-',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM8S207C6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8S207C6'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'STM8 Microcontroller Performance Line', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8s208cb.pdf', 'pins':[
+        Part(**{ 'name':'STM8S207C6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8S207C6'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'STM8 Microcontroller Performance Line', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8s208cb.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM8.kicad_sym\nSTM8S207C6\n\nSTM8 Microcontroller Performance Line', 'pins':[
             Pin(num='1',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA5',func=Pin.types.BIDIR,unit=1),
@@ -1118,7 +1118,7 @@ MCU_ST_STM8 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDDIO_1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PA3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM8S207C8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8S207C8'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'STM8 Microcontroller Performance Line', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8s208cb.pdf', 'pins':[
+        Part(**{ 'name':'STM8S207C8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8S207C8'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'STM8 Microcontroller Performance Line', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8s208cb.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM8.kicad_sym\nSTM8S207C8\n\nSTM8 Microcontroller Performance Line', 'pins':[
             Pin(num='1',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA5',func=Pin.types.BIDIR,unit=1),
@@ -1167,7 +1167,7 @@ MCU_ST_STM8 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDDIO_1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PA3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM8S207CB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8S207CB'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'STM8 Microcontroller Performance Line', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8s208cb.pdf', 'pins':[
+        Part(**{ 'name':'STM8S207CB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8S207CB'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'STM8 Microcontroller Performance Line', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8s208cb.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM8.kicad_sym\nSTM8S207CB\n\nSTM8 Microcontroller Performance Line', 'pins':[
             Pin(num='1',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA5',func=Pin.types.BIDIR,unit=1),
@@ -1216,7 +1216,7 @@ MCU_ST_STM8 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDDIO_1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PA3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM8S207R6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8S207R6'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'STM8 Microcontroller Performance Line', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8s208rb.pdf', 'pins':[
+        Part(**{ 'name':'STM8S207R6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8S207R6'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'STM8 Microcontroller Performance Line', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8s208rb.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM8.kicad_sym\nSTM8S207R6\n\nSTM8 Microcontroller Performance Line', 'pins':[
             Pin(num='1',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA5',func=Pin.types.BIDIR,unit=1),
@@ -1281,7 +1281,7 @@ MCU_ST_STM8 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDDIO_1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PA3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM8S207R8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8S207R8'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'STM8 Microcontroller Performance Line', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8s208rb.pdf', 'pins':[
+        Part(**{ 'name':'STM8S207R8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8S207R8'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'STM8 Microcontroller Performance Line', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8s208rb.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM8.kicad_sym\nSTM8S207R8\n\nSTM8 Microcontroller Performance Line', 'pins':[
             Pin(num='1',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA5',func=Pin.types.BIDIR,unit=1),
@@ -1346,7 +1346,7 @@ MCU_ST_STM8 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDDIO_1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PA3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM8S207RB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8S207RB'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'STM8 Microcontroller Performance Line', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8s208rb.pdf', 'pins':[
+        Part(**{ 'name':'STM8S207RB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8S207RB'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'STM8 Microcontroller Performance Line', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8s208rb.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM8.kicad_sym\nSTM8S207RB\n\nSTM8 Microcontroller Performance Line', 'pins':[
             Pin(num='1',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA5',func=Pin.types.BIDIR,unit=1),
@@ -1411,7 +1411,7 @@ MCU_ST_STM8 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDDIO_1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PA3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM8S208C6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8S208C6'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'STM8 Microcontroller Performance Line', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8s208cb.pdf', 'pins':[
+        Part(**{ 'name':'STM8S208C6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8S208C6'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'STM8 Microcontroller Performance Line', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8s208cb.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM8.kicad_sym\nSTM8S208C6\n\nSTM8 Microcontroller Performance Line', 'pins':[
             Pin(num='1',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA5',func=Pin.types.BIDIR,unit=1),
@@ -1460,7 +1460,7 @@ MCU_ST_STM8 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDDIO_1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PA3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM8S208C8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8S208C8'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'STM8 Microcontroller Performance Line', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8s208cb.pdf', 'pins':[
+        Part(**{ 'name':'STM8S208C8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8S208C8'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'STM8 Microcontroller Performance Line', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8s208cb.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM8.kicad_sym\nSTM8S208C8\n\nSTM8 Microcontroller Performance Line', 'pins':[
             Pin(num='1',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA5',func=Pin.types.BIDIR,unit=1),
@@ -1509,7 +1509,7 @@ MCU_ST_STM8 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDDIO_1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PA3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM8S208MB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8S208MB'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-80_14x14mm_P0.65mm', 'Package_QFP:LQFP-80_14x14mm_P0.65mm'], 'footprint':'Package_QFP:LQFP-80_14x14mm_P0.65mm', 'keywords':'STM8 Microcontroller Performance Line', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8s208mb.pdf', 'pins':[
+        Part(**{ 'name':'STM8S208MB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8S208MB'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-80_14x14mm_P0.65mm', 'Package_QFP:LQFP-80_14x14mm_P0.65mm'], 'footprint':'Package_QFP:LQFP-80_14x14mm_P0.65mm', 'keywords':'STM8 Microcontroller Performance Line', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8s208mb.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM8.kicad_sym\nSTM8S208MB\n\nSTM8 Microcontroller Performance Line', 'pins':[
             Pin(num='13',name='PH0',func=Pin.types.BIDIR,unit=1),
             Pin(num='14',name='PH1',func=Pin.types.BIDIR,unit=1),
             Pin(num='15',name='PH2',func=Pin.types.BIDIR,unit=1),
@@ -1590,7 +1590,7 @@ MCU_ST_STM8 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='VDDIO_1',func=Pin.types.PWRIN,unit=1),
             Pin(num='80',name='PD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM8S208R6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8S208R6'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'STM8 Microcontroller Performance Line', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8s208rb.pdf', 'pins':[
+        Part(**{ 'name':'STM8S208R6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8S208R6'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'STM8 Microcontroller Performance Line', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8s208rb.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM8.kicad_sym\nSTM8S208R6\n\nSTM8 Microcontroller Performance Line', 'pins':[
             Pin(num='1',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA5',func=Pin.types.BIDIR,unit=1),
@@ -1655,7 +1655,7 @@ MCU_ST_STM8 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDDIO_1',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PA3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM8S208R8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8S208R8'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'STM8 Microcontroller Performance Line', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8s208rb.pdf', 'pins':[
+        Part(**{ 'name':'STM8S208R8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM8S208R8'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'STM8 Microcontroller Performance Line', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm8s208rb.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM8.kicad_sym\nSTM8S208R8\n\nSTM8 Microcontroller Performance Line', 'pins':[
             Pin(num='1',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA5',func=Pin.types.BIDIR,unit=1),

@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'PIC16F1454-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1454-IML'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41639A.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1454-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1454-IML'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41639A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1454-IML\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='RA5/SOSCI/T1CKI/PWM2/CLKIN/OSC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='Vusb3v3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RA1/D-/ICSPCLK',func=Pin.types.BIDIR,unit=1),
@@ -19,7 +19,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDO/RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='ICSPCLK/SDI/SDA/RC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='ICSPDAT/SCK/SCL/RC0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1454-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1454-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41639A.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1454-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1454-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41639A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1454-IP\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='ICSPDAT/SCK/SCL/RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='Vusb3v3',func=Pin.types.BIDIR,unit=1),
@@ -34,7 +34,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CLKR/~{SS}/PWM2/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SDO/RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='ICSPCLK/SDI/SDA/RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1455-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1455-IML'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41639A.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1455-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1455-IML'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41639A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1455-IML\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='RA5/SOSCI/T1CKI/PWM2/CLKIN/OSC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='Vusb3v3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RA1/D-/ICSPCLK',func=Pin.types.BIDIR,unit=1),
@@ -49,7 +49,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDO/C2IN2-/C1IN2-/DACOUT1/AN6/RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='ICSPCLK/SDI/SDA/~{CWGFLT}/C2IN-/C1IN-/AN5/RC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='ICSPDAT/SCK/SCL/C2IN+/C1IN+/Vref+/AN4/RC0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1455-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1455-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41639A.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1455-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1455-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41639A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1455-IP\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='ICSPDAT/SCK/SCL/C2IN+/C1IN+/Vref+/AN4/RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='Vusb3v3',func=Pin.types.BIDIR,unit=1),
@@ -64,7 +64,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CLKR/~{SS}/PWM2/C1IN3-/C2IN3-/DACOUT2/AN7/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SDO/C2IN2-/C1IN2-/DACOUT1/AN6/RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='ICSPCLK/SDI/SDA/~{CWGFLT}/C2IN-/C1IN-/AN5/RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1459-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1459-IML'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41639A.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1459-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1459-IML'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41639A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1459-IML\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='RA3/T1G/~{SS}/~{MCLR}/Vpp',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RB4/AN10/SDA/SDI',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='C2IN2-/C1IN2-/DACOUT1/AN6/RC2',func=Pin.types.BIDIR,unit=1),
@@ -85,7 +85,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB7/TX/CK',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB6/SCL/SCK',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB5/AN11/RX/DX',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1459-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1459-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41639A.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1459-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1459-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41639A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1459-IP\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7/TX/CK',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6/SCL/SCK',func=Pin.types.BIDIR,unit=1),
@@ -106,7 +106,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CLKR/C1IN3-/C2IN3-/DACOUT2/AN7/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='~{SS}/PWM2/AN8/RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SDO/AN9/RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1503-IMG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1503-IMG'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41607A.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1503-IMG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1503-IMG'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41607A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1503-IMG\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='RA5/T1CKI/NCO1CLK/CLCIN1/CLKIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RA2/AN2/DACOUT2/C1OUT/T0CKI/~{CWG1FLT}/CLC1/PWM3/INT',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RA1/AN1/Vref+/C1IN0-/C2IN0-/ICSPCLK',func=Pin.types.BIDIR,unit=1),
@@ -121,7 +121,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDO/C2IN2-/C1IN2-/AN6/RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SDI/SDA/PWM4/NCO1/C2IN1-/C1IN1-/AN5/RC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SCK/SCL/CLC2/C2IN+/AN4/RC0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1503-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1503-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41607A.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1503-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1503-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41607A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1503-IP\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='SCK/SCL/CLC2/C2IN+/AN4/RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RA2/AN2/DACOUT2/C1OUT/T0CKI/~{CWG1FLT}/CLC1/PWM3/INT',func=Pin.types.BIDIR,unit=1),
@@ -136,7 +136,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{SS}/PWM2/CLCIN0/C2IN3-/C1IN3-/AN7/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SDO/C2IN2-/C1IN2-/AN6/RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SDI/SDA/PWM4/NCO1/C2IN1-/C1IN1-/AN5/RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1507-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1507-IML'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41586A.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1507-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1507-IML'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41586A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1507-IML\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='RA3/CLC1IN0/~{MCLR}/Vpp',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RB4/AN10',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AN6/RC2',func=Pin.types.BIDIR,unit=1),
@@ -157,7 +157,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB5/AN11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1507-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1507-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41586A.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1507-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1507-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41586A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1507-IP\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6',func=Pin.types.BIDIR,unit=1),
@@ -178,7 +178,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PWM2/CLC2IN0/AN7/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='NCO1/AN8/RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='CLCIN1/AN9/RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1508-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1508-IML'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41609A.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1508-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1508-IML'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41609A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1508-IML\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='RA3/T1G/~{SS}/CLC1IN0/~{MCLR}/Vpp',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RB4/AN10/SDA/SDI/CLC3IN0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='C1IN2-/C2IN2-/AN6/RC2',func=Pin.types.BIDIR,unit=1),
@@ -199,7 +199,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB7/TX/CK/CLC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB6/SCL/SCK',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB5/AN11/RX/DT/CLC4IN0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1508-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1508-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41609A.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1508-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1508-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41609A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1508-IP\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7/TX/CK/CLC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6/SCL/SCK',func=Pin.types.BIDIR,unit=1),
@@ -220,7 +220,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PWM2/CLC2IN0/C1IN3-/AN7/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='CLC3IN1/NCO1/~{SS}/AN8/RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='CLC1IN1/SDO/AN9/RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1509-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1509-IML'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41609A.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1509-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1509-IML'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41609A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1509-IML\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='RA3/T1G/~{SS}/CLC1IN0/~{MCLR}/Vpp',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RB4/AN10/SDA/SDI/CLC3IN0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='C1IN2-/C2IN2-/AN6/RC2',func=Pin.types.BIDIR,unit=1),
@@ -241,7 +241,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB7/TX/CK/CLC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB6/SCL/SCK',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB5/AN11/RX/DT/CLC4IN0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1509-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1509-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41609A.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1509-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1509-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41609A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1509-IP\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7/TX/CK/CLC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6/SCL/SCK',func=Pin.types.BIDIR,unit=1),
@@ -262,7 +262,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PWM2/CLC2IN0/C1IN3-/AN7/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='CLC3IN1/NCO1/~{SS}/AN8/RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='CLC1IN1/SDO/AN9/RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1512-IMV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1512-IMV'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41624A.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1512-IMV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1512-IMV'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41624A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1512-IMV\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='RA2/AN2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='CCP1/AN14/RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SCK/SCL/AN15/RC3',func=Pin.types.BIDIR,unit=1),
@@ -291,7 +291,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA6/OSC2/CLKOUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SOSCO/T1CKI/RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SOSCI/CCP2/RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1512-ISP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1512-ISP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41624A.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1512-ISP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1512-ISP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41624A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1512-ISP\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKOUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SOSCO/T1CKI/RC0',func=Pin.types.BIDIR,unit=1),
@@ -320,7 +320,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/Vcap/~{SS}',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1/CLKIN',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1513-IMV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1513-IMV'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41624A.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1513-IMV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1513-IMV'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41624A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1513-IMV\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='RA2/AN2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='CCP1/AN14/RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SCK/SCL/AN15/RC3',func=Pin.types.BIDIR,unit=1),
@@ -349,7 +349,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA6/OSC2/CLKOUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SOSCO/T1CKI/RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SOSCI/CCP2/RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1513-ISP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1513-ISP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41624A.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1513-ISP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1513-ISP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41624A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1513-ISP\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKOUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SOSCO/T1CKI/RC0',func=Pin.types.BIDIR,unit=1),
@@ -378,7 +378,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/Vcap/~{SS}',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1/CLKIN',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1516-IMV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1516-IMV'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41452B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1516-IMV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1516-IMV'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41452B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1516-IMV\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='RA2/AN2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='CCP1/AN14/RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SCK/SCL/AN15/RC3',func=Pin.types.BIDIR,unit=1),
@@ -407,7 +407,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA6/OSC2/CLKOUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SOSCO/T1CKI/RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SOSCI/CCP2/RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1516-ISP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1516-ISP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41452B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1516-ISP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1516-ISP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41452B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1516-ISP\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKOUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SOSCO/T1CKI/RC0',func=Pin.types.BIDIR,unit=1),
@@ -436,7 +436,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/Vcap/~{SS}',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1/CLKIN',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1517-IMV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1517-IMV'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41452B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1517-IMV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1517-IMV'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41452B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1517-IMV\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='RX/DT/AN19/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB2/AN8',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB3/AN9/CCP2',func=Pin.types.BIDIR,unit=1),
@@ -477,7 +477,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0/AN12/INT',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1/AN10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1517-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1517-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41452B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1517-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1517-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41452B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1517-IP\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='RE3/~{MCLR}/Vpp',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RE2/AN7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -518,7 +518,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/VCAP/~{SS}',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RE0/AN5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RE1/AN6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1517-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1517-IPT'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41452B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1517-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1517-IPT'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41452B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1517-IPT\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='RX/DT/AN19/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB2/AN8',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB3/AN9/CCP2',func=Pin.types.BIDIR,unit=1),
@@ -559,7 +559,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0/AN12/INT',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1/AN10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1518-IMV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1518-IMV'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41452B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1518-IMV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1518-IMV'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41452B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1518-IMV\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='RA2/AN2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='CCP1/AN14/RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SCK/SCL/AN15/RC3',func=Pin.types.BIDIR,unit=1),
@@ -588,7 +588,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA6/OSC2/CLKOUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SOSCO/T1CKI/RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SOSCI/CCP2/RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1518-ISP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1518-ISP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41452B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1518-ISP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1518-ISP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41452B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1518-ISP\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKOUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SOSCO/T1CKI/RC0',func=Pin.types.BIDIR,unit=1),
@@ -617,7 +617,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/VCAP/~{SS}',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1/CLKIN',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1519-IMV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1519-IMV'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41452B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1519-IMV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1519-IMV'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41452B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1519-IMV\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='RX/DT/AN19/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB2/AN8',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB3/AN9/CCP2',func=Pin.types.BIDIR,unit=1),
@@ -658,7 +658,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0/AN12/INT',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1/AN10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1519-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1519-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41452B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1519-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1519-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41452B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1519-IP\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='RE3/~{MCLR}/Vpp',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RE2/AN7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -699,7 +699,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/VCAP/~{SS}',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RE0/AN5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RE1/AN6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1519-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1519-IPT'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41452B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1519-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1519-IPT'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41452B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1519-IPT\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='RX/DT/AN19/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB2/AN8',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB3/AN9/CCP2',func=Pin.types.BIDIR,unit=1),
@@ -740,7 +740,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0/AN12/INT',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1/AN10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1526-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1526-IPT'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41458B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1526-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1526-IPT'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41458B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1526-IPT\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='AN28/RE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='~{SS1}/AN5/RF7',func=Pin.types.BIDIR,unit=1),
@@ -805,7 +805,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Vpp/~{MCLR}/RG5',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CCP5/T5G/AN12/RG4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1527-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1527-IPT'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41458B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1527-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1527-IPT'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41458B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1527-IPT\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='AN28/RE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='~{SS1}/AN5/RF7',func=Pin.types.BIDIR,unit=1),
@@ -870,7 +870,22 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Vpp/~{MCLR}/RG5',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CCP5/T5G/AN12/RG4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F15356-xML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F15356-xML'}), 'ref_prefix':'U?', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F15323-xSL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F15323-xSL'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-14_3.9x8.65mm_P1.27mm'], 'footprint':'Package_SO:SO-14_3.9x8.65mm_P1.27mm', 'keywords':'8-bit microcontroller low power', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/PIC16_L_F15313_23_Data_Sheet_40001897C.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F15323-xSL\n\n8-bit microcontroller low power', 'pins':[
+            Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='10',name='RC0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='11',name='RA2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='12',name='RA1/ICSPCLK',func=Pin.types.BIDIR,unit=1),
+            Pin(num='13',name='RA0/ICSPDAT',func=Pin.types.BIDIR,unit=1),
+            Pin(num='14',name='VSS',func=Pin.types.PWRIN,unit=1),
+            Pin(num='2',name='RA5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='RA4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='~{MCLR}/VPP/RA3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='5',name='RC5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='RC4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='RC3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='RC2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='9',name='RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC16F15356-xML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F15356-xML'}), 'ref_prefix':'U?', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F15356-xML\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='29',name='PAD',func=Pin.types.PWRIN),
             Pin(num='1',name='RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RC2',func=Pin.types.BIDIR,unit=1),
@@ -900,7 +915,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F15356-xMV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F15356-xMV'}), 'ref_prefix':'U?', 'fplist':['Package_DFN_QFN:QFN-28-1EP_4x4mm_P0.4mm_EP2.3x2.3mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_4x4mm_P0.4mm_EP2.3x2.3mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F15356-xMV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F15356-xMV'}), 'ref_prefix':'U?', 'fplist':['Package_DFN_QFN:QFN-28-1EP_4x4mm_P0.4mm_EP2.3x2.3mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_4x4mm_P0.4mm_EP2.3x2.3mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F15356-xMV\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='29',name='PAD',func=Pin.types.PWRIN),
             Pin(num='1',name='RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RC2',func=Pin.types.BIDIR,unit=1),
@@ -930,7 +945,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F15356-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F15356-xSO'}), 'ref_prefix':'U?', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F15356-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F15356-xSO'}), 'ref_prefix':'U?', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F15356-xSO\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VPP/~{MCLR}/RE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC0',func=Pin.types.BIDIR,unit=1),
@@ -959,7 +974,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F15356-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F15356-xSP'}), 'ref_prefix':'U?', 'fplist':['Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F15356-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F15356-xSP'}), 'ref_prefix':'U?', 'fplist':['Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F15356-xSP\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VPP/~{MCLR}/RE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC0',func=Pin.types.BIDIR,unit=1),
@@ -988,7 +1003,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F15356-xSS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F15356-xSS'}), 'ref_prefix':'U?', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F15356-xSS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F15356-xSS'}), 'ref_prefix':'U?', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F15356-xSS\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VPP/~{MCLR}/RE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC0',func=Pin.types.BIDIR,unit=1),
@@ -1017,7 +1032,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F15375-xML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F15375-xML'}), 'ref_prefix':'U?', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F15375-xML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F15375-xML'}), 'ref_prefix':'U?', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F15375-xML\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='13',name='NC',func=Pin.types.NOCONNECT),
             Pin(num='29',name='NC',func=Pin.types.NOCONNECT),
             Pin(num='31',name='NC',func=Pin.types.NOCONNECT),
@@ -1063,7 +1078,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RB0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F15375-xMV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F15375-xMV'}), 'ref_prefix':'U?', 'fplist':['Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.8x3.8mm'], 'footprint':'Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.8x3.8mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F15375-xMV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F15375-xMV'}), 'ref_prefix':'U?', 'fplist':['Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.8x3.8mm'], 'footprint':'Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.8x3.8mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F15375-xMV\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='41',name='PAD',func=Pin.types.PWRIN),
             Pin(num='1',name='RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB2',func=Pin.types.BIDIR,unit=1),
@@ -1105,7 +1120,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F15375-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F15375-xP'}), 'ref_prefix':'U?', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F15375-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F15375-xP'}), 'ref_prefix':'U?', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F15375-xP\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VPP/MCLR/RE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -1146,7 +1161,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F15375-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F15375-xPT'}), 'ref_prefix':'U?', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F15375-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F15375-xPT'}), 'ref_prefix':'U?', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F15375-xPT\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='12',name='NC',func=Pin.types.NOCONNECT),
             Pin(num='13',name='NC',func=Pin.types.NOCONNECT),
             Pin(num='33',name='NC',func=Pin.types.NOCONNECT),
@@ -1191,7 +1206,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F15386-xMV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F15386-xMV'}), 'ref_prefix':'U?', 'fplist':['Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F15386-xMV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F15386-xMV'}), 'ref_prefix':'U?', 'fplist':['Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F15386-xMV\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='3',name='RD5',func=Pin.types.BIDIR),
             Pin(num='4',name='RD6',func=Pin.types.BIDIR),
             Pin(num='49',name='PAD',func=Pin.types.PWRIN),
@@ -1241,7 +1256,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F15386-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F15386-xPT'}), 'ref_prefix':'U?', 'fplist':['Package_QFP:TQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F15386-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F15386-xPT'}), 'ref_prefix':'U?', 'fplist':['Package_QFP:TQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F15386-xPT\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='3',name='RD5',func=Pin.types.BIDIR),
             Pin(num='4',name='RD6',func=Pin.types.BIDIR),
             Pin(num='1',name='RC7',func=Pin.types.BIDIR,unit=1),
@@ -1290,7 +1305,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1619-xGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1619-xGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:UQFN-20-1EP_4x4mm_P0.5mm_EP2.8x2.8mm'], 'footprint':'Package_DFN_QFN:UQFN-20-1EP_4x4mm_P0.5mm_EP2.8x2.8mm', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001770D.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1619-xGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1619-xGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:UQFN-20-1EP_4x4mm_P0.5mm_EP2.8x2.8mm'], 'footprint':'Package_DFN_QFN:UQFN-20-1EP_4x4mm_P0.5mm_EP2.8x2.8mm', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001770D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1619-xGZ\n\nFlash-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='21',name='EP',func=Pin.types.PASSIVE),
             Pin(num='1',name='RA3/~{MCLR}/VPP',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB4',func=Pin.types.BIDIR,unit=1),
@@ -1312,7 +1327,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1619-xML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1619-xML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001770D.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1619-xML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1619-xML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001770D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1619-xML\n\nFlash-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='21',name='EP',func=Pin.types.PASSIVE),
             Pin(num='1',name='RA3/~{MCLR}/VPP',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB4',func=Pin.types.BIDIR,unit=1),
@@ -1334,7 +1349,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1619-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1619-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001770D.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1619-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1619-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001770D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1619-xP\n\nFlash-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6',func=Pin.types.BIDIR,unit=1),
@@ -1355,7 +1370,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1619-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1619-xSO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001770D.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1619-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1619-xSO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001770D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1619-xSO\n\nFlash-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6',func=Pin.types.BIDIR,unit=1),
@@ -1376,7 +1391,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1619-xSS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1619-xSS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001770D.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1619-xSS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1619-xSS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001770D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1619-xSS\n\nFlash-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6',func=Pin.types.BIDIR,unit=1),
@@ -1397,7 +1412,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1786-xML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1786-xML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001637C.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1786-xML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1786-xML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001637C.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1786-xML\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC3',func=Pin.types.BIDIR,unit=1),
@@ -1426,7 +1441,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1786-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1786-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001637C.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1786-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1786-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001637C.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1786-xP\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='RE3/~{MCLR}/V_{PP}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='V_{DD}',func=Pin.types.PWRIN,unit=1),
@@ -1467,7 +1482,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1786-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1786-xSP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001637C.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1786-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1786-xSP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001637C.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1786-xSP\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='RE3/~{MCLR}/V_{PP}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC0',func=Pin.types.BIDIR,unit=1),
@@ -1496,7 +1511,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='V_{SS}',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1829-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1829-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41440C.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1829-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1829-IML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41440C.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1829-IML\n\nFlash-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='RA3/MCLR/VPP',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC2',func=Pin.types.BIDIR,unit=1),
@@ -1517,7 +1532,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1829-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1829-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41440C.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1829-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1829-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41440C.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1829-IP\n\nFlash-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6',func=Pin.types.BIDIR,unit=1),
@@ -1538,7 +1553,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1829LIN-ESS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1829LIN-ESS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'Flash-Based 8-Bit CMOS microcontroller regulator LIN', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41673A.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1829LIN-ESS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1829LIN-ESS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'Flash-Based 8-Bit CMOS microcontroller regulator LIN', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41673A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1829LIN-ESS\n\nFlash-Based 8-Bit CMOS microcontroller regulator LIN', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VREG',func=Pin.types.PWROUT,unit=1),
             Pin(num='11',name='VBAT',func=Pin.types.PWRIN,unit=1),
@@ -1559,7 +1574,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='LINVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='LBUS',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F18324-xSL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F18324-xSL'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/40001800c.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F18324-xSL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F18324-xSL'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/40001800c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F18324-xSL\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RA2',func=Pin.types.BIDIR,unit=1),
@@ -1574,7 +1589,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F18325-ISL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F18325-ISL'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/40001795b.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F18325-ISL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F18325-ISL'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/40001795b.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F18325-ISL\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='SCL1/SCK/T5CKI/C2IN0+/ANC0/RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RA2/ANA2/Vref-/DAC1Ref-/T0CKI/CCP3/CWG1IN/CWG2IN',func=Pin.types.BIDIR,unit=1),
@@ -1589,7 +1604,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CLCIN0/~{SS1}/CCP2/T5G/MDMIN/C2IN3-/C1IN3-/ANC3/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='MDCIN1/C2IN2-/C1IN2-/ANC2/RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='CLCIN2/SDA1/SDI/CCP4/C2IN1-/C1IN1-/ANC1/RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F18325-xGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F18325-xGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:UQFN-20-1EP_4x4mm_P0.5mm_EP2.8x2.8mm'], 'footprint':'Package_DFN_QFN:UQFN-20-1EP_4x4mm_P0.5mm_EP2.8x2.8mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001795E.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F18325-xGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F18325-xGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:UQFN-20-1EP_4x4mm_P0.5mm_EP2.8x2.8mm'], 'footprint':'Package_DFN_QFN:UQFN-20-1EP_4x4mm_P0.5mm_EP2.8x2.8mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001795E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F18325-xGZ\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='RA3/~{MCLR}/VPP',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC2',func=Pin.types.BIDIR,unit=1),
@@ -1611,7 +1626,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F18325-xJQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F18325-xJQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:UQFN-16-1EP_4x4mm_P0.65mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:UQFN-16-1EP_4x4mm_P0.65mm_EP2.6x2.6mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001795E.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F18325-xJQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F18325-xJQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:UQFN-16-1EP_4x4mm_P0.65mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:UQFN-16-1EP_4x4mm_P0.65mm_EP2.6x2.6mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001795E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F18325-xJQ\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RA1/ICSPCLK',func=Pin.types.BIDIR,unit=1),
@@ -1628,7 +1643,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F18344-GZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F18344-GZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:UQFN-20-1EP_4x4mm_P0.5mm_EP2.8x2.8mm'], 'footprint':'Package_DFN_QFN:UQFN-20-1EP_4x4mm_P0.5mm_EP2.8x2.8mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001839B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F18344-GZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F18344-GZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:UQFN-20-1EP_4x4mm_P0.5mm_EP2.8x2.8mm'], 'footprint':'Package_DFN_QFN:UQFN-20-1EP_4x4mm_P0.5mm_EP2.8x2.8mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001839B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F18344-GZ\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='RA3/~{MCLR}/VPP',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC2',func=Pin.types.BIDIR,unit=1),
@@ -1649,7 +1664,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F18344-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F18344-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/40001800a.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F18344-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F18344-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/40001800a.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F18344-P\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6',func=Pin.types.BIDIR,unit=1),
@@ -1670,7 +1685,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F18344-SO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F18344-SO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/40001800a.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F18344-SO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F18344-SO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/40001800a.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F18344-SO\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6',func=Pin.types.BIDIR,unit=1),
@@ -1691,7 +1706,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F18344-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F18344-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/40001800a.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F18344-SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F18344-SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/40001800a.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F18344-SS\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6',func=Pin.types.BIDIR,unit=1),
@@ -1712,7 +1727,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F18346-GZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F18346-GZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:UQFN-20-1EP_4x4mm_P0.5mm_EP2.8x2.8mm'], 'footprint':'Package_DFN_QFN:UQFN-20-1EP_4x4mm_P0.5mm_EP2.8x2.8mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001839B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F18346-GZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F18346-GZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:UQFN-20-1EP_4x4mm_P0.5mm_EP2.8x2.8mm'], 'footprint':'Package_DFN_QFN:UQFN-20-1EP_4x4mm_P0.5mm_EP2.8x2.8mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001839B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F18346-GZ\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='RA3/~{MCLR}/VPP',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC2',func=Pin.types.BIDIR,unit=1),
@@ -1733,7 +1748,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F18346-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F18346-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001839B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F18346-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F18346-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001839B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F18346-P\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6',func=Pin.types.BIDIR,unit=1),
@@ -1754,7 +1769,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F18346-SO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F18346-SO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001839B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F18346-SO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F18346-SO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001839B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F18346-SO\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6',func=Pin.types.BIDIR,unit=1),
@@ -1775,7 +1790,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F18346-SS_0', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F18346-SS_0'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001839B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F18346-SS_0', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F18346-SS_0'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001839B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F18346-SS_0\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6',func=Pin.types.BIDIR,unit=1),
@@ -1796,7 +1811,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F18854-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F18854-xSO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power CRC DSM  ADC^2 CLC PLL 32MHz', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF18855-75-Data-Sheet-40001802F.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F18854-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F18854-xSO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power CRC DSM  ADC^2 CLC PLL 32MHz', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF18855-75-Data-Sheet-40001802F.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F18854-xSO\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power CRC DSM  ADC^2 CLC PLL 32MHz', 'pins':[
             Pin(num='19',name='VSS',func=Pin.types.PASSIVE),
             Pin(num='1',name='RE3/~{MCLR}/VPP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6',func=Pin.types.BIDIR,unit=1),
@@ -1825,7 +1840,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F18855-xMV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F18855-xMV'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:UQFN-28-1EP_4x4mm_P0.4mm_EP2.35x2.35mm'], 'footprint':'Package_DFN_QFN:UQFN-28-1EP_4x4mm_P0.4mm_EP2.35x2.35mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power CRC DSM  ADC^2 CLC PLL 32MHz', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF18855-75-Data-Sheet-40001802F.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F18855-xMV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F18855-xMV'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:UQFN-28-1EP_4x4mm_P0.4mm_EP2.35x2.35mm'], 'footprint':'Package_DFN_QFN:UQFN-28-1EP_4x4mm_P0.4mm_EP2.35x2.35mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power CRC DSM  ADC^2 CLC PLL 32MHz', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF18855-75-Data-Sheet-40001802F.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F18855-xMV\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power CRC DSM  ADC^2 CLC PLL 32MHz', 'pins':[
             Pin(num='29',name='VSS',func=Pin.types.PASSIVE),
             Pin(num='1',name='RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RC2',func=Pin.types.BIDIR,unit=1),
@@ -1855,7 +1870,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F19195-x5LX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F19195-x5LX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm'], 'footprint':'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF19195-6-7-Data-Sheet-40001873D.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F19195-x5LX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F19195-x5LX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm'], 'footprint':'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF19195-6-7-Data-Sheet-40001873D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F19195-x5LX\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VLCD2/RE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='SEG25/RF7',func=Pin.types.BIDIR,unit=1),
@@ -1921,7 +1936,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VPP/~{MCLR}/RG5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SEG26/RG4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F19195-xMR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F19195-xMR'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF19195-6-7-Data-Sheet-40001873D.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F19195-xMR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F19195-xMR'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF19195-6-7-Data-Sheet-40001873D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F19195-xMR\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VLCD2/RE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='SEG25/RF7',func=Pin.types.BIDIR,unit=1),
@@ -1987,7 +2002,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VPP/~{MCLR}/RG5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SEG26/RG4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F19195-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F19195-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF19195-6-7-Data-Sheet-40001873D.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F19195-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F19195-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF19195-6-7-Data-Sheet-40001873D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F19195-xPT\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VLCD2/RE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='SEG25/RF7',func=Pin.types.BIDIR,unit=1),
@@ -2052,7 +2067,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VPP/~{MCLR}/RG5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SEG26/RG4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1934-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1934-IML'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41364E.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1934-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1934-IML'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41364E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1934-IML\n\n', 'pins':[
             Pin(num='1',name='SEG8/DT/RX/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB1/AN10/C12IN3-/CPS1/VLCD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB2/AN8/CPS2/VLCD2',func=Pin.types.BIDIR,unit=1),
@@ -2097,7 +2112,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB0/AN12/CPS0/SRI/INT/SEG0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1934-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1934-IPT'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41364E.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1934-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1934-IPT'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41364E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1934-IPT\n\n', 'pins':[
             Pin(num='1',name='SEG8/DT/RX/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB2/AN8/CPS2/VLCD2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB3/AN9/C12IN2-/CPS3/CCP2/P2A/VLCD3',func=Pin.types.BIDIR,unit=1),
@@ -2142,7 +2157,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB0/AN12/CPS0/SRI/INT/SEG0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1/AN10/C12IN3-/CPS1/VLCD1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F505-IMG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F505-IMG'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41236E.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F505-IMG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F505-IMG'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41236E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F505-IMG\n\nFLASH-Based 8bit Microcontroller', 'pins':[
             Pin(num='1',name='CLKIN/OSC1/RB5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='ICSPCLK/RB1',func=Pin.types.BIDIR,unit=1),
@@ -2157,7 +2172,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F505-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F505-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41236E.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F505-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F505-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41236E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F505-IP\n\nFLASH-Based 8bit Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB2',func=Pin.types.BIDIR,unit=1),
@@ -2172,7 +2187,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F505-ISL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F505-ISL'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41236E.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F505-ISL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F505-ISL'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41236E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F505-ISL\n\nFLASH-Based 8bit Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB2',func=Pin.types.BIDIR,unit=1),
@@ -2187,7 +2202,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F505-IST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F505-IST'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41236E.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F505-IST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F505-IST'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41236E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F505-IST\n\nFLASH-Based 8bit Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB2',func=Pin.types.BIDIR,unit=1),
@@ -2202,7 +2217,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F54-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F54-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41213D.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F54-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F54-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41213D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F54-IP\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB5',func=Pin.types.BIDIR,unit=1),
@@ -2221,7 +2236,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F54-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F54-ISO'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41213D.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F54-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F54-ISO'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41213D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F54-ISO\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB5',func=Pin.types.BIDIR,unit=1),
@@ -2240,7 +2255,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F54-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F54-ISS'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41213D.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F54-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F54-ISS'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41213D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F54-ISS\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB4',func=Pin.types.BIDIR,unit=1),
@@ -2261,7 +2276,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F610-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F610-IML'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41288F.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F610-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F610-IML'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41288F.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F610-IML\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='RA5/T1CKI/OSC1/CLKIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RA2/T0CKI/INT/C1OUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RA1/C12IN0-/ICSPCLK',func=Pin.types.BIDIR,unit=1),
@@ -2276,7 +2291,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='C12IN2-/RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='C12IN1-/RC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='C2IN+/RC0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F610-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F610-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41288F.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F610-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F610-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41288F.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F610-IP\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='C2IN+/RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RA2/T0CKI/INT/C1OUT',func=Pin.types.BIDIR,unit=1),
@@ -2291,7 +2306,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='C12IN3-/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='C12IN2-/RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='C12IN1-/RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F616-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F616-IML'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41288F.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F616-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F616-IML'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41288F.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F616-IML\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='RA5/T1CKI/OSC1/CLKIN',func=Pin.types.BIDIR),
             Pin(num='10',name='RA2/AN2/T0CKI/INT/C1OUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RA1/AN1/C12IN0-/Vref/ICSPCLK',func=Pin.types.BIDIR,unit=1),
@@ -2306,7 +2321,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P1D/C12IN2-/AN6/RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='C12IN1-/AN5/RC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='C2IN+/AN4/RC0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F616-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F616-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41288F.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F616-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F616-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41288F.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F616-IP\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='C2IN+/AN4/RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RA2/AN2/T0CKI/INT/C1OUT',func=Pin.types.BIDIR,unit=1),
@@ -2321,7 +2336,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P1C/C12IN3-/AN7/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P1D/C12IN2-/AN6/RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='C12IN1-/AN5/RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F627-xxIP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F627-xxIP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40300c.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F627-xxIP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F627-xxIP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40300c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F627-xxIP\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='Vref/AN2/RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB4/PGM',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB5',func=Pin.types.BIDIR,unit=1),
@@ -2340,7 +2355,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB1/RX/DT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB2/TX/CK',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB3/CCP1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F627-xxISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F627-xxISO'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40300c.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F627-xxISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F627-xxISO'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40300c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F627-xxISO\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='Vref/AN2/RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB4/PGM',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB5',func=Pin.types.BIDIR,unit=1),
@@ -2359,7 +2374,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB1/RX/DT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB2/TX/CK',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB3/CCP1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F627-xxISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F627-xxISS'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40300c.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F627-xxISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F627-xxISS'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40300c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F627-xxISS\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='Vref/AN2/RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB3/CCP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB4/PGM',func=Pin.types.BIDIR,unit=1),
@@ -2380,7 +2395,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB0/INT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB1/RX/DT',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB2/TX/CK',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F627A-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F627A-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40300c.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F627A-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F627A-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40300c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F627A-IP\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='Vref/AN2/RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB4/PGM',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB5',func=Pin.types.BIDIR,unit=1),
@@ -2399,7 +2414,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB1/RX/DT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB2/TX/CK',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB3/CCP1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F627A-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F627A-ISO'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40300c.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F627A-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F627A-ISO'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40300c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F627A-ISO\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='Vref/AN2/RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB4/PGM',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB5',func=Pin.types.BIDIR,unit=1),
@@ -2418,7 +2433,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB1/RX/DT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB2/TX/CK',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB3/CCP1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F627A-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F627A-ISS'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40044G.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F627A-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F627A-ISS'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40044G.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F627A-ISS\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='Vref/AN2/RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB3/CCP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB4/PGM',func=Pin.types.BIDIR,unit=1),
@@ -2439,7 +2454,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB0/INT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB1/RX/DT',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB2/TX/CK',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F631-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F631-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41262E.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F631-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F631-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41262E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F631-IP\n\nFlash-Based 8-Bit CMOS Microcontroller nanoWatt', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6',func=Pin.types.BIDIR,unit=1),
@@ -2460,7 +2475,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3/C12IN3-',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F631-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F631-ISO'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41262E.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F631-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F631-ISO'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41262E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F631-ISO\n\nFlash-Based 8-Bit CMOS Microcontroller nanoWatt', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6',func=Pin.types.BIDIR,unit=1),
@@ -2481,7 +2496,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3/C12IN3-',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F631-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F631-ISS'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41262E.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F631-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F631-ISS'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41262E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F631-ISS\n\nFlash-Based 8-Bit CMOS Microcontroller nanoWatt', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6',func=Pin.types.BIDIR,unit=1),
@@ -2502,7 +2517,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3/C12IN3-',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F677-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F677-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41262E.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F677-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F677-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41262E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F677-IP\n\nFlash-Based 8-Bit CMOS Microcontroller nanoWatt', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SCL/SCK/RB6',func=Pin.types.BIDIR,unit=1),
@@ -2523,7 +2538,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3/AN7/C12IN3-',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC6/AN8/~{SS}',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC7/AN9/SDO',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F677-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F677-ISO'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41262E.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F677-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F677-ISO'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41262E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F677-ISO\n\nFlash-Based 8-Bit CMOS Microcontroller nanoWatt', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SCL/SCK/RB6',func=Pin.types.BIDIR,unit=1),
@@ -2544,7 +2559,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3/AN7/C12IN3-',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC6/AN8/~{SS}',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC7/AN9/SDO',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F677-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F677-ISS'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41262E.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F677-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F677-ISS'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41262E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F677-ISS\n\nFlash-Based 8-Bit CMOS Microcontroller nanoWatt', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SCL/SCK/RB6',func=Pin.types.BIDIR,unit=1),
@@ -2565,7 +2580,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3/AN7/C12IN3-',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC6/AN8/~{SS}',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC7/AN9/SDO',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F684-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F684-IML'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41202F-print.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F684-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F684-IML'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41202F-print.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F684-IML\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='RA5/T1CKI/OSC1/CLKIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RA2/AN2/T0CKI/INT/C1OUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RA1/AN1/C1IN-/Vref/ICSPCLK',func=Pin.types.BIDIR,unit=1),
@@ -2580,7 +2595,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P1D/AN6/RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='C2IN-/AN5/RC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='C2IN+/AN4/RC0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F684-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F684-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41202F-print.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F684-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F684-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41202F-print.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F684-IP\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='C2IN+/AN4/RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RA2/AN2/T0CKI/INT/C1OUT',func=Pin.types.BIDIR,unit=1),
@@ -2595,7 +2610,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P1C/AN7/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P1D/AN6/RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='C2IN-/AN5/RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F685-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F685-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41262E.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F685-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F685-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41262E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F685-IP\n\nFlash-Based 8-Bit CMOS Microcontroller nanoWatt', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6',func=Pin.types.BIDIR,unit=1),
@@ -2616,7 +2631,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3/AN7/C12IN3-/P1C',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC6/AN8',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC7/AN9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F685-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F685-ISO'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41262E.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F685-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F685-ISO'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41262E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F685-ISO\n\nFlash-Based 8-Bit CMOS Microcontroller nanoWatt', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6',func=Pin.types.BIDIR,unit=1),
@@ -2637,7 +2652,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3/AN7/C12IN3-/P1C',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC6/AN8',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC7/AN9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F685-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F685-ISS'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41262E.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F685-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F685-ISS'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41262E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F685-ISS\n\nFlash-Based 8-Bit CMOS Microcontroller nanoWatt', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6',func=Pin.types.BIDIR,unit=1),
@@ -2658,7 +2673,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3/AN7/C12IN3-/P1C',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC6/AN8',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC7/AN9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F687-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F687-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41262E.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F687-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F687-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41262E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F687-IP\n\nFlash-Based 8-Bit CMOS Microcontroller nanoWatt', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='TX/CK/RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SCK/SCL/RB6',func=Pin.types.BIDIR,unit=1),
@@ -2679,7 +2694,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3/AN7/C12IN3-',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC6/AN8/~{SS}',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC7/AN9/SDO',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F687-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F687-ISO'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41262E.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F687-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F687-ISO'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41262E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F687-ISO\n\nFlash-Based 8-Bit CMOS Microcontroller nanoWatt', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='TX/CK/RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SCK/SCL/RB6',func=Pin.types.BIDIR,unit=1),
@@ -2700,7 +2715,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3/AN7/C12IN3-',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC6/AN8/~{SS}',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC7/AN9/SDO',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F687-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F687-ISS'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41262E.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F687-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F687-ISS'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41262E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F687-ISS\n\nFlash-Based 8-Bit CMOS Microcontroller nanoWatt', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='TX/CK/RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SCK/SCL/RB6',func=Pin.types.BIDIR,unit=1),
@@ -2721,7 +2736,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3/AN7/C12IN3-',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC6/AN8/~{SS}',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC7/AN9/SDO',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F690-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F690-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41262E.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F690-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F690-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41262E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F690-IP\n\nFlash-Based 8-Bit CMOS Microcontroller nanoWatt', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='TX/CK/RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SCK/SCL/RB6',func=Pin.types.BIDIR,unit=1),
@@ -2742,7 +2757,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3/AN7/C12IN3-/P1C',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC6/AN8/~{SS}',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC7/AN9/SDO',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F690-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F690-ISO'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41262E.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F690-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F690-ISO'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41262E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F690-ISO\n\nFlash-Based 8-Bit CMOS Microcontroller nanoWatt', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='TX/CK/RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SCK/SCL/RB6',func=Pin.types.BIDIR,unit=1),
@@ -2763,7 +2778,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3/AN7/C12IN3-/P1C',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC6/AN8/~{SS}',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC7/AN9/SDO',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F690-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F690-ISS'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41262E.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F690-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F690-ISS'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41262E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F690-ISS\n\nFlash-Based 8-Bit CMOS Microcontroller nanoWatt', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='TX/CK/RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SCK/SCL/RB6',func=Pin.types.BIDIR,unit=1),
@@ -2784,7 +2799,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3/AN7/C12IN3-/P1C',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC6/AN8/~{SS}',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC7/AN9/SDO',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F716-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F716-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41206B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F716-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F716-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41206B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F716-IP\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='AN2/RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='~{ECCPAS0}/RB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P1B/RB5',func=Pin.types.BIDIR,unit=1),
@@ -2803,7 +2818,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='T1OSO/T1CKI/RB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='T1OSI/RB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='CCP1/P1A/RB3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F716-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F716-ISO'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41206B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F716-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F716-ISO'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41206B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F716-ISO\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='AN2/RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='~{ECCPAS0}/RB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P1B/RB5',func=Pin.types.BIDIR,unit=1),
@@ -2822,7 +2837,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='T1OSO/T1CKI/RB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='T1OSI/RB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='CCP1/P1A/RB3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F716-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F716-ISS'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41206B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F716-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F716-ISS'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41206B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F716-ISS\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='AN2/RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='CCP1/P1A/RB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='~{ECCPAS0}/RB4',func=Pin.types.BIDIR,unit=1),
@@ -2843,7 +2858,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='INT/~{ECCPAS2}/RB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='T1OSO/T1CKI/RB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='T1OSI/RB2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F73-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F73-IML'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30325b.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F73-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F73-IML'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30325b.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F73-IML\n\nFlash-Based 8-Bit Microcontroller', 'pins':[
             Pin(num='1',name='AN2/RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RC2/CCP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC3/SCK/SCL',func=Pin.types.BIDIR,unit=1),
@@ -2872,7 +2887,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OSC2/CLKOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='RC0/T10S0/T1CKI',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC1/CCP2/T1OSI',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F73-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F73-ISO'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30325b.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F73-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F73-ISO'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30325b.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F73-ISO\n\nFlash-Based 8-Bit Microcontroller', 'pins':[
             Pin(num='1',name='~{MCLR}/Vpp',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OSC2/CLKOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='RC0/T10S0/T1CKI',func=Pin.types.BIDIR,unit=1),
@@ -2901,7 +2916,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{SS}/AN4/RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OSC1/CLKIN',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F73-ISP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F73-ISP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30325b.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F73-ISP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F73-ISP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30325b.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F73-ISP\n\nFlash-Based 8-Bit Microcontroller', 'pins':[
             Pin(num='1',name='~{MCLR}/Vpp',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OSC2/CLKOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='RC0/T10S0/T1CKI',func=Pin.types.BIDIR,unit=1),
@@ -2930,7 +2945,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{SS}/AN4/RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OSC1/CLKIN',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F73-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F73-ISS'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30325b.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F73-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F73-ISS'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30325b.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F73-ISS\n\nFlash-Based 8-Bit Microcontroller', 'pins':[
             Pin(num='1',name='~{MCLR}/Vpp',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OSC2/CLKOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='RC0/T10S0/T1CKI',func=Pin.types.BIDIR,unit=1),
@@ -2959,7 +2974,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{SS}/AN4/RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OSC1/CLKIN',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F74-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F74-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30325b.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F74-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F74-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30325b.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F74-IP\n\nFlash-Based 8-Bit Microcontroller', 'pins':[
             Pin(num='1',name='~{MCLR}/Vpp',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RE2/~{CS}/AN7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -3000,7 +3015,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{SS}/C2OUT/AN4/RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RE0/~{RD}/AN5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RE1/~{WR}/AN6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F818-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F818-IML'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39598F.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F818-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F818-IML'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39598F.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F818-IML\n\nFlash-Based 8-Bit Microcontroller nanoWatt', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RA5',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RB3/CCP1/PGM',func=Pin.types.BIDIR,unit=1),
             Pin(num='12',name='RB4/SCK/SCL',func=Pin.types.BIDIR,unit=1),
@@ -3021,7 +3036,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB0/INT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB1/SDI/SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB2/SDO/CCP1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F818-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F818-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39598F.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F818-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F818-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39598F.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F818-IP\n\nFlash-Based 8-Bit Microcontroller nanoWatt', 'pins':[
             Pin(num='1',name='Vref-/AN2/RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB4/SCK/SCL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB5/~{SS}',func=Pin.types.BIDIR,unit=1),
@@ -3040,7 +3055,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB1/SDI/SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB2/SDO/CCP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB3/CCP1/PGM',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F818-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F818-ISO'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39598F.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F818-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F818-ISO'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39598F.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F818-ISO\n\nFlash-Based 8-Bit Microcontroller nanoWatt', 'pins':[
             Pin(num='1',name='Vref-/AN2/RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB4/SCK/SCL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB5/~{SS}',func=Pin.types.BIDIR,unit=1),
@@ -3059,7 +3074,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB1/SDI/SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB2/SDO/CCP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB3/CCP1/PGM',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F818-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F818-ISS'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39598F.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F818-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F818-ISS'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39598F.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F818-ISS\n\nFlash-Based 8-Bit Microcontroller nanoWatt', 'pins':[
             Pin(num='1',name='Vref-/AN2/RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB3/CCP1/PGM',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB4/SCK/SCL',func=Pin.types.BIDIR,unit=1),
@@ -3080,7 +3095,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB0/INT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB1/SDI/SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB2/SDO/CCP1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F83-XXP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F83-XXP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30430c.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F83-XXP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F83-XXP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30430c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F83-XXP\n\nFlash-Based 8-Bit Microcontroller', 'pins':[
             Pin(num='1',name='RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB5',func=Pin.types.BIDIR,unit=1),
@@ -3099,7 +3114,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F83-XXSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F83-XXSO'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30430c.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F83-XXSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F83-XXSO'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30430c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F83-XXSO\n\nFlash-Based 8-Bit Microcontroller', 'pins':[
             Pin(num='1',name='RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB5',func=Pin.types.BIDIR,unit=1),
@@ -3118,7 +3133,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F84A-XXP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F84A-XXP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/35007b.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F84A-XXP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F84A-XXP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/35007b.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F84A-XXP\n\nFlash-Based 8-Bit Microcontroller', 'pins':[
             Pin(num='1',name='RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB5',func=Pin.types.BIDIR,unit=1),
@@ -3137,7 +3152,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F84A-XXSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F84A-XXSO'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/35007b.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F84A-XXSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F84A-XXSO'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/35007b.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F84A-XXSO\n\nFlash-Based 8-Bit Microcontroller', 'pins':[
             Pin(num='1',name='RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB5',func=Pin.types.BIDIR,unit=1),
@@ -3156,7 +3171,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F84A-XXSS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F84A-XXSS'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/35007b.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F84A-XXSS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F84A-XXSS'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/35007b.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F84A-XXSS\n\nFlash-Based 8-Bit Microcontroller', 'pins':[
             Pin(num='1',name='RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB4',func=Pin.types.BIDIR,unit=1),
@@ -3177,7 +3192,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='INT/RB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F870-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F870-ISO'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30569b.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F870-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F870-ISO'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30569b.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F870-ISO\n\nFlash-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='~{MCLR}/Vpp/THV',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OSC2/CLKOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='RC0/T10S0/T1CKI',func=Pin.types.BIDIR,unit=1),
@@ -3206,7 +3221,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AN4/RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OSC1/CLKIN',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F870-ISP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F870-ISP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30569b.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F870-ISP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F870-ISP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30569b.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F870-ISP\n\nFlash-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='~{MCLR}/Vpp/THV',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OSC2/CLKOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='RC0/T10S0/T1CKI',func=Pin.types.BIDIR,unit=1),
@@ -3235,7 +3250,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AN4/RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OSC1/CLKIN',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F870-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F870-ISS'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30569b.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F870-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F870-ISS'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30569b.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F870-ISS\n\nFlash-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='~{MCLR}/Vpp/THV',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OSC2/CLKOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='RC0/T10S0/T1CKI',func=Pin.types.BIDIR,unit=1),
@@ -3264,7 +3279,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AN4/RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OSC1/CLKIN',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F871-IL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F871-IL'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30569b.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F871-IL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F871-IL'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30569b.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F871-IL\n\nFlash-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='10',name='RE1/~{WR}/AN6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RE2/~{CS}/AN7',func=Pin.types.BIDIR,unit=1),
             Pin(num='12',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -3305,7 +3320,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='T0CKI/RA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='AN4/RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RE0/~{RD}/AN5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F871-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F871-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30569b.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F871-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F871-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30569b.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F871-IP\n\nFlash-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='~{MCLR}/Vpp/THV',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RE2/~{CS}/AN7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -3346,7 +3361,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AN4/RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RE0/~{RD}/AN5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RE1/~{WR}/AN6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F871-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F871-IPT'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30569b.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F871-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F871-IPT'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30569b.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F871-IPT\n\nFlash-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='PGD/RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PGM/RB3',func=Pin.types.BIDIR,unit=1),
@@ -3387,7 +3402,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='INT/RB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F873-XXISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F873-XXISO'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30292C.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F873-XXISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F873-XXISO'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30292C.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F873-XXISO\n\nFlash-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='~{MCLR}/Vpp',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OSC2/CLKO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='RC0/T1OSO/T1CKI',func=Pin.types.BIDIR,unit=1),
@@ -3416,7 +3431,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{SS}/AN4/RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OSC1/CLKI',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F873-XXISP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F873-XXISP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30292C.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F873-XXISP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F873-XXISP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30292C.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F873-XXISP\n\nFlash-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='~{MCLR}/Vpp',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OSC2/CLKO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='RC0/T1OSO/T1CKI',func=Pin.types.BIDIR,unit=1),
@@ -3445,7 +3460,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{SS}/AN4/RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OSC1/CLKI',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F874-XXIP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F874-XXIP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30292C.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F874-XXIP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F874-XXIP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30292C.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F874-XXIP\n\nFlash-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='~{MCLR}/Vpp',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RE2/~{CS}/AN7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -3486,7 +3501,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{SS}/AN4/RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RE0/~{RD}/AN5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RE1/~{WR}/AN6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F874A-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F874A-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39582b.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F874A-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F874A-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39582b.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F874A-IP\n\nFlash-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='~{MCLR}/Vpp',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RE2/~{CS}/AN7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -3527,7 +3542,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{SS}/C2OUT/AN4/RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RE0/~{RD}/AN5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RE1/~{WR}/AN6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F874A-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F874A-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39582b.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F874A-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F874A-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39582b.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F874A-IPT\n\nFlash-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='DT/RX/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PGM/RB3',func=Pin.types.BIDIR,unit=1),
@@ -3572,7 +3587,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='INT/RB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F88-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F88-IML'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30487D.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F88-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F88-IML'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30487D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F88-IML\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='~{MCLR}/Vpp/RA5',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RB3/PGM/CCP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='12',name='RB4/SCK/SCL',func=Pin.types.BIDIR,unit=1),
@@ -3593,7 +3608,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB0/INT/CCP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB1/SDI/SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB2/SDO/RX/DT',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F88-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F88-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30487D.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F88-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F88-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30487D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F88-IP\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='Vref-/CVref/AN2/RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB4/SCK/SCL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB5/~{SS}/TX/CK',func=Pin.types.BIDIR,unit=1),
@@ -3612,7 +3627,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB1/SDI/SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB2/SDO/RX/DT',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB3/PGM/CCP1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F882-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F882-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41291D.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F882-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F882-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41291D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F882-IP\n\nFlash-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='RE3/~{MCLR}/Vpp',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='CLKOUT/OSC2/RA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC0/T1OSO/T1CK1',func=Pin.types.BIDIR,unit=1),
@@ -3641,7 +3656,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{SS}/C2OUT/AN4/RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='CLKIN/OSC1/RA7',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F884-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F884-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41291D.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F884-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F884-IP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41291D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F884-IP\n\nFlash-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='RE3/~{MCLR}/Vpp',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RE2/AN7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -3682,7 +3697,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='C2OUT/~{SS}/AN4/RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RE0/AN5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RE1/AN6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16LF1904-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF1904-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/40001569D.pdf', 'pins':[
+        Part(**{ 'name':'PIC16LF1904-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF1904-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/40001569D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16LF1904-IP\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='~{MCLR}/RE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -3723,7 +3738,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16C505-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16C505-IP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'ROM-Based 8bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41236E.pdf', 'pins':[
+        Part(**{ 'name':'PIC16C505-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16C505-IP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'ROM-Based 8bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41236E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16C505-IP\n\nROM-Based 8bit Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB2',func=Pin.types.BIDIR,unit=1),
@@ -3738,7 +3753,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16C505-ISL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16C505-ISL'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'ROM-Based 8bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41236E.pdf', 'pins':[
+        Part(**{ 'name':'PIC16C505-ISL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16C505-ISL'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'ROM-Based 8bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41236E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16C505-ISL\n\nROM-Based 8bit Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB2',func=Pin.types.BIDIR,unit=1),
@@ -3753,7 +3768,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16C505-IST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16C505-IST'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'ROM-Based 8bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41236E.pdf', 'pins':[
+        Part(**{ 'name':'PIC16C505-IST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16C505-IST'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'ROM-Based 8bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41236E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16C505-IST\n\nROM-Based 8bit Microcontroller', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB2',func=Pin.types.BIDIR,unit=1),
@@ -3768,7 +3783,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1454-ISL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1454-ISL'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'PIC16F1454-ISL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1454-ISL'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1454-ISL\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='ICSPDAT/SCK/SCL/RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='Vusb3v3',func=Pin.types.BIDIR,unit=1),
@@ -3783,7 +3798,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CLKR/~{SS}/PWM2/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SDO/RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='ICSPCLK/SDI/SDA/RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1454-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1454-ISS'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'PIC16F1454-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1454-ISS'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1454-ISS\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='ICSPDAT/SCK/SCL/RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='Vusb3v3',func=Pin.types.BIDIR,unit=1),
@@ -3798,7 +3813,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CLKR/~{SS}/PWM2/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SDO/RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='ICSPCLK/SDI/SDA/RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1454-IST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1454-IST'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'PIC16F1454-IST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1454-IST'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1454-IST\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='ICSPDAT/SCK/SCL/RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='Vusb3v3',func=Pin.types.BIDIR,unit=1),
@@ -3813,7 +3828,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CLKR/~{SS}/PWM2/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SDO/RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='ICSPCLK/SDI/SDA/RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1455-ISL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1455-ISL'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'PIC16F1455-ISL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1455-ISL'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1455-ISL\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='ICSPDAT/SCK/SCL/C2IN+/C1IN+/Vref+/AN4/RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='Vusb3v3',func=Pin.types.BIDIR,unit=1),
@@ -3828,7 +3843,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CLKR/~{SS}/PWM2/C1IN3-/C2IN3-/DACOUT2/AN7/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SDO/C2IN2-/C1IN2-/DACOUT1/AN6/RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='ICSPCLK/SDI/SDA/~{CWGFLT}/C2IN-/C1IN-/AN5/RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1455-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1455-ISS'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'PIC16F1455-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1455-ISS'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1455-ISS\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='ICSPDAT/SCK/SCL/C2IN+/C1IN+/Vref+/AN4/RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='Vusb3v3',func=Pin.types.BIDIR,unit=1),
@@ -3843,7 +3858,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CLKR/~{SS}/PWM2/C1IN3-/C2IN3-/DACOUT2/AN7/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SDO/C2IN2-/C1IN2-/DACOUT1/AN6/RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='ICSPCLK/SDI/SDA/~{CWGFLT}/C2IN-/C1IN-/AN5/RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1455-IST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1455-IST'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'PIC16F1455-IST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1455-IST'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1455-IST\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='ICSPDAT/SCK/SCL/C2IN+/C1IN+/Vref+/AN4/RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='Vusb3v3',func=Pin.types.BIDIR,unit=1),
@@ -3858,7 +3873,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CLKR/~{SS}/PWM2/C1IN3-/C2IN3-/DACOUT2/AN7/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SDO/C2IN2-/C1IN2-/DACOUT1/AN6/RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='ICSPCLK/SDI/SDA/~{CWGFLT}/C2IN-/C1IN-/AN5/RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1459-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1459-ISO'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'PIC16F1459-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1459-ISO'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1459-ISO\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7/TX/CK',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6/SCL/SCK',func=Pin.types.BIDIR,unit=1),
@@ -3879,7 +3894,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CLKR/C1IN3-/C2IN3-/DACOUT2/AN7/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='~{SS}/PWM2/AN8/RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SDO/AN9/RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1459-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1459-ISS'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'PIC16F1459-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1459-ISS'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1459-ISS\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7/TX/CK',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6/SCL/SCK',func=Pin.types.BIDIR,unit=1),
@@ -3900,7 +3915,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CLKR/C1IN3-/C2IN3-/DACOUT2/AN7/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='~{SS}/PWM2/AN8/RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SDO/AN9/RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1459-IST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1459-IST'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'PIC16F1459-IST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1459-IST'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1459-IST\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7/TX/CK',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6/SCL/SCK',func=Pin.types.BIDIR,unit=1),
@@ -3921,7 +3936,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CLKR/C1IN3-/C2IN3-/DACOUT2/AN7/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='~{SS}/PWM2/AN8/RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SDO/AN9/RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1503-ISL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1503-ISL'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41607A.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1503-ISL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1503-ISL'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41607A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1503-ISL\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='SCK/SCL/CLC2/C2IN+/AN4/RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RA2/AN2/DACOUT2/C1OUT/T0CKI/~{CWG1FLT}/CLC1/PWM3/INT',func=Pin.types.BIDIR,unit=1),
@@ -3936,7 +3951,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{SS}/PWM2/CLCIN0/C2IN3-/C1IN3-/AN7/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SDO/C2IN2-/C1IN2-/AN6/RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SDI/SDA/PWM4/NCO1/C2IN1-/C1IN1-/AN5/RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1503-IST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1503-IST'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41607A.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1503-IST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1503-IST'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41607A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1503-IST\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='SCK/SCL/CLC2/C2IN+/AN4/RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RA2/AN2/DACOUT2/C1OUT/T0CKI/~{CWG1FLT}/CLC1/PWM3/INT',func=Pin.types.BIDIR,unit=1),
@@ -3951,7 +3966,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{SS}/PWM2/CLCIN0/C2IN3-/C1IN3-/AN7/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SDO/C2IN2-/C1IN2-/AN6/RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SDI/SDA/PWM4/NCO1/C2IN1-/C1IN1-/AN5/RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1507-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1507-ISO'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41586A.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1507-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1507-ISO'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41586A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1507-ISO\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6',func=Pin.types.BIDIR,unit=1),
@@ -3972,7 +3987,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PWM2/CLC2IN0/AN7/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='NCO1/AN8/RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='CLCIN1/AN9/RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1507-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1507-ISS'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41586A.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1507-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1507-ISS'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41586A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1507-ISS\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6',func=Pin.types.BIDIR,unit=1),
@@ -3993,7 +4008,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PWM2/CLC2IN0/AN7/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='NCO1/AN8/RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='CLCIN1/AN9/RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1508-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1508-ISO'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41609A.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1508-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1508-ISO'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41609A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1508-ISO\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7/TX/CK/CLC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6/SCL/SCK',func=Pin.types.BIDIR,unit=1),
@@ -4014,7 +4029,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PWM2/CLC2IN0/C1IN3-/AN7/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='CLC3IN1/NCO1/~{SS}/AN8/RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='CLC1IN1/SDO/AN9/RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1508-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1508-ISS'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41609A.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1508-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1508-ISS'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41609A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1508-ISS\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7/TX/CK/CLC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6/SCL/SCK',func=Pin.types.BIDIR,unit=1),
@@ -4035,7 +4050,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PWM2/CLC2IN0/C1IN3-/AN7/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='CLC3IN1/NCO1/~{SS}/AN8/RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='CLC1IN1/SDO/AN9/RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1509-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1509-ISO'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41609A.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1509-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1509-ISO'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41609A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1509-ISO\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7/TX/CK/CLC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6/SCL/SCK',func=Pin.types.BIDIR,unit=1),
@@ -4056,7 +4071,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PWM2/CLC2IN0/C1IN3-/AN7/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='CLC3IN1/NCO1/~{SS}/AN8/RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='CLC1IN1/SDO/AN9/RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1509-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1509-ISS'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41609A.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1509-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1509-ISS'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41609A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1509-ISS\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7/TX/CK/CLC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6/SCL/SCK',func=Pin.types.BIDIR,unit=1),
@@ -4077,7 +4092,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PWM2/CLC2IN0/C1IN3-/AN7/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='CLC3IN1/NCO1/~{SS}/AN8/RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='CLC1IN1/SDO/AN9/RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1512-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1512-ISO'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41624A.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1512-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1512-ISO'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41624A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1512-ISO\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKOUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SOSCO/T1CKI/RC0',func=Pin.types.BIDIR,unit=1),
@@ -4106,7 +4121,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/Vcap/~{SS}',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1/CLKIN',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1512-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1512-ISS'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41624A.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1512-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1512-ISS'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41624A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1512-ISS\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKOUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SOSCO/T1CKI/RC0',func=Pin.types.BIDIR,unit=1),
@@ -4135,7 +4150,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/Vcap/~{SS}',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1/CLKIN',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1513-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1513-ISO'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41624A.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1513-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1513-ISO'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41624A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1513-ISO\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKOUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SOSCO/T1CKI/RC0',func=Pin.types.BIDIR,unit=1),
@@ -4164,7 +4179,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/Vcap/~{SS}',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1/CLKIN',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1513-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1513-ISS'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41624A.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1513-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1513-ISS'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41624A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1513-ISS\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKOUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SOSCO/T1CKI/RC0',func=Pin.types.BIDIR,unit=1),
@@ -4193,7 +4208,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/Vcap/~{SS}',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1/CLKIN',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1516-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1516-ISO'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41452B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1516-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1516-ISO'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41452B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1516-ISO\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKOUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SOSCO/T1CKI/RC0',func=Pin.types.BIDIR,unit=1),
@@ -4222,7 +4237,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/Vcap/~{SS}',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1/CLKIN',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1516-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1516-ISS'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41452B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1516-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1516-ISS'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41452B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1516-ISS\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKOUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SOSCO/T1CKI/RC0',func=Pin.types.BIDIR,unit=1),
@@ -4251,7 +4266,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/Vcap/~{SS}',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1/CLKIN',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1518-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1518-ISO'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41452B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1518-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1518-ISO'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41452B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1518-ISO\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKOUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SOSCO/T1CKI/RC0',func=Pin.types.BIDIR,unit=1),
@@ -4280,7 +4295,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/VCAP/~{SS}',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1/CLKIN',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1518-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1518-ISS'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41452B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1518-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1518-ISS'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41452B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1518-ISS\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RE3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6/OSC2/CLKOUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SOSCO/T1CKI/RC0',func=Pin.types.BIDIR,unit=1),
@@ -4309,7 +4324,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5/AN4/VCAP/~{SS}',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7/OSC1/CLKIN',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1526-IMR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1526-IMR'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41458B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1526-IMR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1526-IMR'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41458B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1526-IMR\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='AN28/RE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='~{SS1}/AN5/RF7',func=Pin.types.BIDIR,unit=1),
@@ -4374,7 +4389,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Vpp/~{MCLR}/RG5',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CCP5/T5G/AN12/RG4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1527-IMR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1527-IMR'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41458B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1527-IMR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1527-IMR'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41458B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1527-IMR\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='AN28/RE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='~{SS1}/AN5/RF7',func=Pin.types.BIDIR,unit=1),
@@ -4439,7 +4454,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Vpp/~{MCLR}/RG5',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CCP5/T5G/AN12/RG4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F15376-xML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F15376-xML'}), 'ref_prefix':'U?', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F15376-xML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F15376-xML'}), 'ref_prefix':'U?', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F15376-xML\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='13',name='NC',func=Pin.types.NOCONNECT),
             Pin(num='29',name='NC',func=Pin.types.NOCONNECT),
             Pin(num='31',name='NC',func=Pin.types.NOCONNECT),
@@ -4485,7 +4500,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RB0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F15376-xMV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F15376-xMV'}), 'ref_prefix':'U?', 'fplist':['Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.8x3.8mm', 'Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.8x3.8mm'], 'footprint':'Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.8x3.8mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F15376-xMV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F15376-xMV'}), 'ref_prefix':'U?', 'fplist':['Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.8x3.8mm', 'Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.8x3.8mm'], 'footprint':'Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.8x3.8mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F15376-xMV\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='41',name='PAD',func=Pin.types.PWRIN),
             Pin(num='1',name='RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB2',func=Pin.types.BIDIR,unit=1),
@@ -4527,7 +4542,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F15376-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F15376-xP'}), 'ref_prefix':'U?', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F15376-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F15376-xP'}), 'ref_prefix':'U?', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F15376-xP\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VPP/MCLR/RE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -4568,7 +4583,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F15376-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F15376-xPT'}), 'ref_prefix':'U?', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F15376-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F15376-xPT'}), 'ref_prefix':'U?', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F15376-xPT\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='12',name='NC',func=Pin.types.NOCONNECT),
             Pin(num='13',name='NC',func=Pin.types.NOCONNECT),
             Pin(num='33',name='NC',func=Pin.types.NOCONNECT),
@@ -4613,7 +4628,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F15385-xMV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F15385-xMV'}), 'ref_prefix':'U?', 'fplist':['Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm', 'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F15385-xMV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F15385-xMV'}), 'ref_prefix':'U?', 'fplist':['Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm', 'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F15385-xMV\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='3',name='RD5',func=Pin.types.BIDIR),
             Pin(num='4',name='RD6',func=Pin.types.BIDIR),
             Pin(num='49',name='PAD',func=Pin.types.PWRIN),
@@ -4663,7 +4678,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F15385-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F15385-xPT'}), 'ref_prefix':'U?', 'fplist':['Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F15385-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F15385-xPT'}), 'ref_prefix':'U?', 'fplist':['Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F15385-xPT\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='3',name='RD5',func=Pin.types.BIDIR),
             Pin(num='4',name='RD6',func=Pin.types.BIDIR),
             Pin(num='1',name='RC7',func=Pin.types.BIDIR,unit=1),
@@ -4712,7 +4727,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1786-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1786-xSO'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001637C.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1786-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1786-xSO'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001637C.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1786-xSO\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='RE3/~{MCLR}/V_{PP}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC0',func=Pin.types.BIDIR,unit=1),
@@ -4741,7 +4756,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='V_{SS}',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1786-xSS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1786-xSS'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001637C.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1786-xSS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1786-xSS'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001637C.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1786-xSS\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='RE3/~{MCLR}/V_{PP}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC0',func=Pin.types.BIDIR,unit=1),
@@ -4770,7 +4785,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='V_{SS}',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1829-ISL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1829-ISL'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41440C.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1829-ISL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1829-ISL'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41440C.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1829-ISL\n\nFlash-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6',func=Pin.types.BIDIR,unit=1),
@@ -4791,7 +4806,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1829-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1829-ISO'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41440C.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1829-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1829-ISO'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41440C.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1829-ISO\n\nFlash-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6',func=Pin.types.BIDIR,unit=1),
@@ -4812,7 +4827,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1829-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1829-ISS'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41440C.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1829-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1829-ISS'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41440C.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1829-ISS\n\nFlash-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6',func=Pin.types.BIDIR,unit=1),
@@ -4833,7 +4848,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1829-IST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1829-IST'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41440C.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1829-IST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1829-IST'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41440C.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1829-IST\n\nFlash-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB6',func=Pin.types.BIDIR,unit=1),
@@ -4854,7 +4869,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F18344-xSL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F18344-xSL'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/40001800c.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F18344-xSL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F18344-xSL'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/40001800c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F18344-xSL\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RA2',func=Pin.types.BIDIR,unit=1),
@@ -4869,7 +4884,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F18855-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F18855-xSO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power CRC DSM  ADC^2 CLC PLL 32MHz', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001802G.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F18855-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F18855-xSO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power CRC DSM  ADC^2 CLC PLL 32MHz', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001802G.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F18855-xSO\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power CRC DSM  ADC^2 CLC PLL 32MHz', 'pins':[
             Pin(num='19',name='VSS',func=Pin.types.PASSIVE),
             Pin(num='1',name='RE3/~{MCLR}/VPP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6',func=Pin.types.BIDIR,unit=1),
@@ -4898,7 +4913,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F19196-x5LX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F19196-x5LX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm'], 'footprint':'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF19195-6-7-Data-Sheet-40001873D.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F19196-x5LX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F19196-x5LX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm'], 'footprint':'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF19195-6-7-Data-Sheet-40001873D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F19196-x5LX\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VLCD2/RE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='SEG25/RF7',func=Pin.types.BIDIR,unit=1),
@@ -4964,7 +4979,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VPP/~{MCLR}/RG5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SEG26/RG4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F19196-xMR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F19196-xMR'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF19195-6-7-Data-Sheet-40001873D.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F19196-xMR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F19196-xMR'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF19195-6-7-Data-Sheet-40001873D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F19196-xMR\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VLCD2/RE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='SEG25/RF7',func=Pin.types.BIDIR,unit=1),
@@ -5030,7 +5045,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VPP/~{MCLR}/RG5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SEG26/RG4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F19196-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F19196-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF19195-6-7-Data-Sheet-40001873D.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F19196-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F19196-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF19195-6-7-Data-Sheet-40001873D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F19196-xPT\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VLCD2/RE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='SEG25/RF7',func=Pin.types.BIDIR,unit=1),
@@ -5095,73 +5110,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VPP/~{MCLR}/RG5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SEG26/RG4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F19197-x5LX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F19197-x5LX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm'], 'footprint':'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF19195-6-7-Data-Sheet-40001873D.pdf', 'pins':[
-            Pin(num='1',name='VLCD2/RE1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='11',name='SEG25/RF7',func=Pin.types.BIDIR,unit=1),
-            Pin(num='12',name='SEG24/RF6',func=Pin.types.BIDIR,unit=1),
-            Pin(num='13',name='SEG23/RF5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='14',name='SEG22/RF4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='15',name='SEG21/RF3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='16',name='SEG20/RF2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='17',name='SEG19/RF1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='18',name='SEG41/RF0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='19',name='COM7/SEG15/RG7',func=Pin.types.BIDIR,unit=1),
-            Pin(num='2',name='VLCD1/RE0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='20',name='COM6/RG6',func=Pin.types.BIDIR,unit=1),
-            Pin(num='21',name='RA3/SEG35',func=Pin.types.BIDIR,unit=1),
-            Pin(num='22',name='RA2/SEG34',func=Pin.types.BIDIR,unit=1),
-            Pin(num='23',name='RA1/SEG18',func=Pin.types.BIDIR,unit=1),
-            Pin(num='24',name='RA0/SEG33',func=Pin.types.BIDIR,unit=1),
-            Pin(num='25',name='COM5/RH1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='26',name='COM4/RH0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='27',name='RA5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='28',name='RA4/SEG14',func=Pin.types.BIDIR,unit=1),
-            Pin(num='29',name='RC1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='SEG42/RG0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='30',name='RC0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='31',name='RC6/SEG27',func=Pin.types.BIDIR,unit=1),
-            Pin(num='32',name='RC7/SEG28',func=Pin.types.BIDIR,unit=1),
-            Pin(num='33',name='RC2/SEG13',func=Pin.types.BIDIR,unit=1),
-            Pin(num='34',name='RC3/SEG17',func=Pin.types.BIDIR,unit=1),
-            Pin(num='35',name='RC4/SEG16',func=Pin.types.BIDIR,unit=1),
-            Pin(num='36',name='RC5/SEG12',func=Pin.types.BIDIR,unit=1),
-            Pin(num='37',name='RB7/SEG39/ICSPDAT',func=Pin.types.BIDIR,unit=1),
-            Pin(num='38',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='39',name='RA7/SEG37',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='SEG43/RG1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='40',name='RA6/SEG36',func=Pin.types.BIDIR,unit=1),
-            Pin(num='41',name='VSS',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='42',name='RB6/SEG38/ICSPCLK',func=Pin.types.BIDIR,unit=1),
-            Pin(num='43',name='RB5/SEG29',func=Pin.types.BIDIR,unit=1),
-            Pin(num='44',name='RB4/SEG11',func=Pin.types.BIDIR,unit=1),
-            Pin(num='45',name='RB3/SEG10',func=Pin.types.BIDIR,unit=1),
-            Pin(num='46',name='RB2/SEG9',func=Pin.types.BIDIR,unit=1),
-            Pin(num='47',name='RB1/SEG8',func=Pin.types.BIDIR,unit=1),
-            Pin(num='48',name='RB0/SEG30',func=Pin.types.BIDIR,unit=1),
-            Pin(num='49',name='RD7/SEG7',func=Pin.types.BIDIR,unit=1),
-            Pin(num='5',name='SEG44/RG2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='50',name='RD6/SEG6',func=Pin.types.BIDIR,unit=1),
-            Pin(num='51',name='RD5/SEG5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='52',name='RD4/SEG4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='53',name='RD3/SEG3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='54',name='RD2/SEG2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='55',name='RD1/SEG1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='56',name='CFLY2/SEG40/RH3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='57',name='CFLY1/SEG32/RH2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='58',name='RD0/SEG0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='59',name='SEG31/RE7',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='SEG45/RG3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='60',name='COM3/RE6',func=Pin.types.BIDIR,unit=1),
-            Pin(num='61',name='COM2/RE5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='62',name='COM1/RE4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='63',name='COM0/RE3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='64',name='VLCD3',func=Pin.types.INPUT,unit=1),
-            Pin(num='65',name='VSS',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='7',name='VPP/~{MCLR}/RG5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='SEG26/RG4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F19197-xMR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F19197-xMR'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF19195-6-7-Data-Sheet-40001873D.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F19197-x5LX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F19197-x5LX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm'], 'footprint':'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF19195-6-7-Data-Sheet-40001873D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F19197-x5LX\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VLCD2/RE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='SEG25/RF7',func=Pin.types.BIDIR,unit=1),
@@ -5227,7 +5176,73 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VPP/~{MCLR}/RG5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SEG26/RG4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F19197-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F19197-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF19195-6-7-Data-Sheet-40001873D.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F19197-xMR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F19197-xMR'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF19195-6-7-Data-Sheet-40001873D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F19197-xMR\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
+            Pin(num='1',name='VLCD2/RE1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='11',name='SEG25/RF7',func=Pin.types.BIDIR,unit=1),
+            Pin(num='12',name='SEG24/RF6',func=Pin.types.BIDIR,unit=1),
+            Pin(num='13',name='SEG23/RF5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='14',name='SEG22/RF4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='15',name='SEG21/RF3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='16',name='SEG20/RF2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='17',name='SEG19/RF1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='18',name='SEG41/RF0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='19',name='COM7/SEG15/RG7',func=Pin.types.BIDIR,unit=1),
+            Pin(num='2',name='VLCD1/RE0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='20',name='COM6/RG6',func=Pin.types.BIDIR,unit=1),
+            Pin(num='21',name='RA3/SEG35',func=Pin.types.BIDIR,unit=1),
+            Pin(num='22',name='RA2/SEG34',func=Pin.types.BIDIR,unit=1),
+            Pin(num='23',name='RA1/SEG18',func=Pin.types.BIDIR,unit=1),
+            Pin(num='24',name='RA0/SEG33',func=Pin.types.BIDIR,unit=1),
+            Pin(num='25',name='COM5/RH1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='26',name='COM4/RH0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='27',name='RA5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='28',name='RA4/SEG14',func=Pin.types.BIDIR,unit=1),
+            Pin(num='29',name='RC1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='SEG42/RG0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='30',name='RC0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='31',name='RC6/SEG27',func=Pin.types.BIDIR,unit=1),
+            Pin(num='32',name='RC7/SEG28',func=Pin.types.BIDIR,unit=1),
+            Pin(num='33',name='RC2/SEG13',func=Pin.types.BIDIR,unit=1),
+            Pin(num='34',name='RC3/SEG17',func=Pin.types.BIDIR,unit=1),
+            Pin(num='35',name='RC4/SEG16',func=Pin.types.BIDIR,unit=1),
+            Pin(num='36',name='RC5/SEG12',func=Pin.types.BIDIR,unit=1),
+            Pin(num='37',name='RB7/SEG39/ICSPDAT',func=Pin.types.BIDIR,unit=1),
+            Pin(num='38',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='39',name='RA7/SEG37',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='SEG43/RG1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='40',name='RA6/SEG36',func=Pin.types.BIDIR,unit=1),
+            Pin(num='41',name='VSS',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='42',name='RB6/SEG38/ICSPCLK',func=Pin.types.BIDIR,unit=1),
+            Pin(num='43',name='RB5/SEG29',func=Pin.types.BIDIR,unit=1),
+            Pin(num='44',name='RB4/SEG11',func=Pin.types.BIDIR,unit=1),
+            Pin(num='45',name='RB3/SEG10',func=Pin.types.BIDIR,unit=1),
+            Pin(num='46',name='RB2/SEG9',func=Pin.types.BIDIR,unit=1),
+            Pin(num='47',name='RB1/SEG8',func=Pin.types.BIDIR,unit=1),
+            Pin(num='48',name='RB0/SEG30',func=Pin.types.BIDIR,unit=1),
+            Pin(num='49',name='RD7/SEG7',func=Pin.types.BIDIR,unit=1),
+            Pin(num='5',name='SEG44/RG2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='50',name='RD6/SEG6',func=Pin.types.BIDIR,unit=1),
+            Pin(num='51',name='RD5/SEG5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='52',name='RD4/SEG4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='53',name='RD3/SEG3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='54',name='RD2/SEG2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='55',name='RD1/SEG1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='56',name='CFLY2/SEG40/RH3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='57',name='CFLY1/SEG32/RH2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='58',name='RD0/SEG0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='59',name='SEG31/RE7',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='SEG45/RG3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='60',name='COM3/RE6',func=Pin.types.BIDIR,unit=1),
+            Pin(num='61',name='COM2/RE5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='62',name='COM1/RE4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='63',name='COM0/RE3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='64',name='VLCD3',func=Pin.types.INPUT,unit=1),
+            Pin(num='65',name='VSS',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='7',name='VPP/~{MCLR}/RG5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='SEG26/RG4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC16F19197-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F19197-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF19195-6-7-Data-Sheet-40001873D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F19197-xPT\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='VLCD2/RE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='SEG25/RF7',func=Pin.types.BIDIR,unit=1),
@@ -5292,7 +5307,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VPP/~{MCLR}/RG5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SEG26/RG4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1937-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1937-IML'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41364E.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1937-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1937-IML'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41364E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1937-IML\n\n', 'pins':[
             Pin(num='1',name='SEG8/DT/RX/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB1/AN10/C12IN3-/CPS1/VLCD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB2/AN8/CPS2/VLCD2',func=Pin.types.BIDIR,unit=1),
@@ -5337,7 +5352,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB0/AN12/CPS0/SRI/INT/SEG0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1937-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1937-IPT'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41364E.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1937-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1937-IPT'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41364E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1937-IPT\n\n', 'pins':[
             Pin(num='1',name='SEG8/DT/RX/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB2/AN8/CPS2/VLCD2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB3/AN9/C12IN2-/CPS3/CCP2/P2A/VLCD3',func=Pin.types.BIDIR,unit=1),
@@ -5382,7 +5397,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB0/AN12/CPS0/SRI/INT/SEG0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1/AN10/C12IN3-/CPS1/VLCD1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1939-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1939-IML'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41364E.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1939-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1939-IML'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41364E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1939-IML\n\n', 'pins':[
             Pin(num='1',name='SEG8/DT/RX/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB1/AN10/C12IN3-/CPS1/VLCD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB2/AN8/CPS2/VLCD2',func=Pin.types.BIDIR,unit=1),
@@ -5427,7 +5442,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB0/AN12/CPS0/SRI/INT/SEG0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F1939-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1939-IPT'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41364E.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F1939-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F1939-IPT'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41364E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F1939-IPT\n\n', 'pins':[
             Pin(num='1',name='SEG8/DT/RX/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB2/AN8/CPS2/VLCD2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB3/AN9/C12IN2-/CPS3/CCP2/P2A/VLCD3',func=Pin.types.BIDIR,unit=1),
@@ -5472,7 +5487,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB0/AN12/CPS0/SRI/INT/SEG0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1/AN10/C12IN3-/CPS1/VLCD1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F628-xxIP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F628-xxIP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40300c.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F628-xxIP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F628-xxIP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40300c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F628-xxIP\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='Vref/AN2/RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB4/PGM',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB5',func=Pin.types.BIDIR,unit=1),
@@ -5491,7 +5506,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB1/RX/DT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB2/TX/CK',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB3/CCP1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F628-xxISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F628-xxISO'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40300c.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F628-xxISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F628-xxISO'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40300c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F628-xxISO\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='Vref/AN2/RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB4/PGM',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB5',func=Pin.types.BIDIR,unit=1),
@@ -5510,7 +5525,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB1/RX/DT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB2/TX/CK',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB3/CCP1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F628-xxISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F628-xxISS'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40300c.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F628-xxISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F628-xxISS'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40300c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F628-xxISS\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='Vref/AN2/RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB3/CCP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB4/PGM',func=Pin.types.BIDIR,unit=1),
@@ -5531,7 +5546,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB0/INT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB1/RX/DT',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB2/TX/CK',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F628A-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F628A-IP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40300c.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F628A-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F628A-IP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40300c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F628A-IP\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='Vref/AN2/RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB4/PGM',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB5',func=Pin.types.BIDIR,unit=1),
@@ -5550,7 +5565,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB1/RX/DT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB2/TX/CK',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB3/CCP1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F628A-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F628A-ISO'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40300c.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F628A-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F628A-ISO'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40300c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F628A-ISO\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='Vref/AN2/RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB4/PGM',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB5',func=Pin.types.BIDIR,unit=1),
@@ -5569,7 +5584,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB1/RX/DT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB2/TX/CK',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB3/CCP1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F628A-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F628A-ISS'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40044G.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F628A-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F628A-ISS'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40044G.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F628A-ISS\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='Vref/AN2/RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB3/CCP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB4/PGM',func=Pin.types.BIDIR,unit=1),
@@ -5590,7 +5605,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB0/INT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB1/RX/DT',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB2/TX/CK',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F648A-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F648A-IP'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40300c.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F648A-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F648A-IP'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40300c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F648A-IP\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='Vref/AN2/RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB4/PGM',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB5',func=Pin.types.BIDIR,unit=1),
@@ -5609,7 +5624,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB1/RX/DT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB2/TX/CK',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB3/CCP1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F648A-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F648A-ISO'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40300c.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F648A-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F648A-ISO'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40300c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F648A-ISO\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='Vref/AN2/RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB4/PGM',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB5',func=Pin.types.BIDIR,unit=1),
@@ -5628,7 +5643,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB1/RX/DT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB2/TX/CK',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB3/CCP1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F648A-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F648A-ISS'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40044G.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F648A-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F648A-ISS'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40044G.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F648A-ISS\n\nFLASH-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='Vref/AN2/RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB3/CCP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB4/PGM',func=Pin.types.BIDIR,unit=1),
@@ -5649,7 +5664,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB0/INT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB1/RX/DT',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB2/TX/CK',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F689-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F689-IP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41262E.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F689-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F689-IP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41262E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F689-IP\n\nFlash-Based 8-Bit CMOS Microcontroller nanoWatt', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='TX/CK/RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SCK/SCL/RB6',func=Pin.types.BIDIR,unit=1),
@@ -5670,7 +5685,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3/AN7/C12IN3-',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC6/AN8/~{SS}',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC7/AN9/SDO',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F689-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F689-ISO'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41262E.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F689-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F689-ISO'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41262E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F689-ISO\n\nFlash-Based 8-Bit CMOS Microcontroller nanoWatt', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='TX/CK/RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SCK/SCL/RB6',func=Pin.types.BIDIR,unit=1),
@@ -5691,7 +5706,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3/AN7/C12IN3-',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC6/AN8/~{SS}',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC7/AN9/SDO',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F689-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F689-ISS'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41262E.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F689-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F689-ISS'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41262E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F689-ISS\n\nFlash-Based 8-Bit CMOS Microcontroller nanoWatt', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='TX/CK/RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SCK/SCL/RB6',func=Pin.types.BIDIR,unit=1),
@@ -5712,7 +5727,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC3/AN7/C12IN3-',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC6/AN8/~{SS}',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC7/AN9/SDO',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F76-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F76-IML'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30325b.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F76-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F76-IML'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30325b.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F76-IML\n\nFlash-Based 8-Bit Microcontroller', 'pins':[
             Pin(num='1',name='AN2/RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RC2/CCP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC3/SCK/SCL',func=Pin.types.BIDIR,unit=1),
@@ -5741,7 +5756,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OSC2/CLKOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='RC0/T10S0/T1CKI',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC1/CCP2/T1OSI',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F76-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F76-ISO'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30325b.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F76-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F76-ISO'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30325b.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F76-ISO\n\nFlash-Based 8-Bit Microcontroller', 'pins':[
             Pin(num='1',name='~{MCLR}/Vpp',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OSC2/CLKOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='RC0/T10S0/T1CKI',func=Pin.types.BIDIR,unit=1),
@@ -5770,7 +5785,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{SS}/AN4/RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OSC1/CLKIN',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F76-ISP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F76-ISP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30325b.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F76-ISP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F76-ISP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30325b.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F76-ISP\n\nFlash-Based 8-Bit Microcontroller', 'pins':[
             Pin(num='1',name='~{MCLR}/Vpp',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OSC2/CLKOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='RC0/T10S0/T1CKI',func=Pin.types.BIDIR,unit=1),
@@ -5799,7 +5814,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{SS}/AN4/RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OSC1/CLKIN',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F76-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F76-ISS'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30325b.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F76-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F76-ISS'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30325b.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F76-ISS\n\nFlash-Based 8-Bit Microcontroller', 'pins':[
             Pin(num='1',name='~{MCLR}/Vpp',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OSC2/CLKOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='RC0/T10S0/T1CKI',func=Pin.types.BIDIR,unit=1),
@@ -5828,7 +5843,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{SS}/AN4/RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OSC1/CLKIN',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F77-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F77-IP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30325b.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F77-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F77-IP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30325b.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F77-IP\n\nFlash-Based 8-Bit Microcontroller', 'pins':[
             Pin(num='1',name='~{MCLR}/Vpp',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RE2/~{CS}/AN7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -5869,7 +5884,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{SS}/C2OUT/AN4/RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RE0/~{RD}/AN5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RE1/~{WR}/AN6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F819-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F819-IML'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39598F.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F819-IML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F819-IML'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39598F.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F819-IML\n\nFlash-Based 8-Bit Microcontroller nanoWatt', 'pins':[
             Pin(num='1',name='Vpp/~{MCLR}/RA5',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RB3/CCP1/PGM',func=Pin.types.BIDIR,unit=1),
             Pin(num='12',name='RB4/SCK/SCL',func=Pin.types.BIDIR,unit=1),
@@ -5890,7 +5905,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB0/INT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB1/SDI/SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB2/SDO/CCP1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F819-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F819-IP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39598F.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F819-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F819-IP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39598F.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F819-IP\n\nFlash-Based 8-Bit Microcontroller nanoWatt', 'pins':[
             Pin(num='1',name='Vref-/AN2/RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB4/SCK/SCL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB5/~{SS}',func=Pin.types.BIDIR,unit=1),
@@ -5909,7 +5924,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB1/SDI/SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB2/SDO/CCP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB3/CCP1/PGM',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F819-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F819-ISO'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39598F.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F819-ISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F819-ISO'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39598F.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F819-ISO\n\nFlash-Based 8-Bit Microcontroller nanoWatt', 'pins':[
             Pin(num='1',name='Vref-/AN2/RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB4/SCK/SCL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB5/~{SS}',func=Pin.types.BIDIR,unit=1),
@@ -5928,7 +5943,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB1/SDI/SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB2/SDO/CCP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB3/CCP1/PGM',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F819-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F819-ISS'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39598F.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F819-ISS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F819-ISS'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller nanoWatt', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39598F.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F819-ISS\n\nFlash-Based 8-Bit Microcontroller nanoWatt', 'pins':[
             Pin(num='1',name='Vref-/AN2/RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB3/CCP1/PGM',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB4/SCK/SCL',func=Pin.types.BIDIR,unit=1),
@@ -5949,7 +5964,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB0/INT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB1/SDI/SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB2/SDO/CCP1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F84-XXP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F84-XXP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30430c.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F84-XXP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F84-XXP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30430c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F84-XXP\n\nFlash-Based 8-Bit Microcontroller', 'pins':[
             Pin(num='1',name='RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB5',func=Pin.types.BIDIR,unit=1),
@@ -5968,7 +5983,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F84-XXSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F84-XXSO'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30430c.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F84-XXSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F84-XXSO'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30430c.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F84-XXSO\n\nFlash-Based 8-Bit Microcontroller', 'pins':[
             Pin(num='1',name='RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RB5',func=Pin.types.BIDIR,unit=1),
@@ -5987,7 +6002,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F876-XXISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F876-XXISO'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30292C.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F876-XXISO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F876-XXISO'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30292C.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F876-XXISO\n\nFlash-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='~{MCLR}/Vpp',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OSC2/CLKO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='RC0/T1OSO/T1CKI',func=Pin.types.BIDIR,unit=1),
@@ -6016,7 +6031,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{SS}/AN4/RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OSC1/CLKI',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F876-XXISP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F876-XXISP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30292C.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F876-XXISP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F876-XXISP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30292C.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F876-XXISP\n\nFlash-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='~{MCLR}/Vpp',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OSC2/CLKO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='RC0/T1OSO/T1CKI',func=Pin.types.BIDIR,unit=1),
@@ -6045,7 +6060,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{SS}/AN4/RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OSC1/CLKI',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F877-XXIP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F877-XXIP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30292C.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F877-XXIP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F877-XXIP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/30292C.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F877-XXIP\n\nFlash-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='~{MCLR}/Vpp',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RE2/~{CS}/AN7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -6086,7 +6101,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{SS}/AN4/RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RE0/~{RD}/AN5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RE1/~{WR}/AN6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F877A-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F877A-IP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39582b.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F877A-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F877A-IP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/39582b.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F877A-IP\n\nFlash-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='~{MCLR}/Vpp',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RE2/~{CS}/AN7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -6127,7 +6142,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{SS}/C2OUT/AN4/RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RE0/~{RD}/AN5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RE1/~{WR}/AN6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F877A-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F877A-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', ''], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'PIC16F877A-IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F877A-IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', ''], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F877A-IPT\n\nFlash-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='DT/RX/RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PGM/RB3',func=Pin.types.BIDIR,unit=1),
@@ -6172,7 +6187,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='INT/RB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F883-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F883-IP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41291D.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F883-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F883-IP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41291D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F883-IP\n\nFlash-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='RE3/~{MCLR}/Vpp',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='CLKOUT/OSC2/RA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC0/T1OSO/T1CK1',func=Pin.types.BIDIR,unit=1),
@@ -6201,7 +6216,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{SS}/C2OUT/AN4/RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='CLKIN/OSC1/RA7',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F886-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F886-IP'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41291D.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F886-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F886-IP'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41291D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F886-IP\n\nFlash-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='RE3/~{MCLR}/Vpp',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='CLKOUT/OSC2/RA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC0/T1OSO/T1CK1',func=Pin.types.BIDIR,unit=1),
@@ -6230,7 +6245,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{SS}/C2OUT/AN4/RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='CLKIN/OSC1/RA7',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16F887-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F887-IP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41291D.pdf', 'pins':[
+        Part(**{ 'name':'PIC16F887-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16F887-IP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Flash-Based 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41291D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16F887-IP\n\nFlash-Based 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='RE3/~{MCLR}/Vpp',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RE2/AN7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -6271,7 +6286,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='C2OUT/~{SS}/AN4/RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RE0/AN5',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RE1/AN6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16LF15356-xML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF15356-xML'}), 'ref_prefix':'U?', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16LF15356-xML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF15356-xML'}), 'ref_prefix':'U?', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16LF15356-xML\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='29',name='PAD',func=Pin.types.PWRIN),
             Pin(num='1',name='RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RC2',func=Pin.types.BIDIR,unit=1),
@@ -6301,7 +6316,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16LF15356-xMV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF15356-xMV'}), 'ref_prefix':'U?', 'fplist':['Package_DFN_QFN:QFN-28-1EP_4x4mm_P0.4mm_EP2.3x2.3mm', 'Package_DFN_QFN:QFN-28-1EP_4x4mm_P0.4mm_EP2.3x2.3mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_4x4mm_P0.4mm_EP2.3x2.3mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16LF15356-xMV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF15356-xMV'}), 'ref_prefix':'U?', 'fplist':['Package_DFN_QFN:QFN-28-1EP_4x4mm_P0.4mm_EP2.3x2.3mm', 'Package_DFN_QFN:QFN-28-1EP_4x4mm_P0.4mm_EP2.3x2.3mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_4x4mm_P0.4mm_EP2.3x2.3mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16LF15356-xMV\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='29',name='PAD',func=Pin.types.PWRIN),
             Pin(num='1',name='RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RC2',func=Pin.types.BIDIR,unit=1),
@@ -6331,7 +6346,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16LF15356-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF15356-xSO'}), 'ref_prefix':'U?', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16LF15356-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF15356-xSO'}), 'ref_prefix':'U?', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16LF15356-xSO\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VPP/~{MCLR}/RE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC0',func=Pin.types.BIDIR,unit=1),
@@ -6360,7 +6375,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16LF15356-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF15356-xSP'}), 'ref_prefix':'U?', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16LF15356-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF15356-xSP'}), 'ref_prefix':'U?', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16LF15356-xSP\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VPP/~{MCLR}/RE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC0',func=Pin.types.BIDIR,unit=1),
@@ -6389,7 +6404,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16LF15356-xSS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF15356-xSS'}), 'ref_prefix':'U?', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16LF15356-xSS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF15356-xSS'}), 'ref_prefix':'U?', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16LF15356-xSS\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VPP/~{MCLR}/RE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC0',func=Pin.types.BIDIR,unit=1),
@@ -6418,7 +6433,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16LF15375-xML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF15375-xML'}), 'ref_prefix':'U?', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16LF15375-xML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF15375-xML'}), 'ref_prefix':'U?', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16LF15375-xML\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='13',name='NC',func=Pin.types.NOCONNECT),
             Pin(num='29',name='NC',func=Pin.types.NOCONNECT),
             Pin(num='31',name='NC',func=Pin.types.NOCONNECT),
@@ -6464,7 +6479,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RB0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16LF15375-xMV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF15375-xMV'}), 'ref_prefix':'U?', 'fplist':['Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.8x3.8mm', 'Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.8x3.8mm', 'Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.8x3.8mm'], 'footprint':'Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.8x3.8mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16LF15375-xMV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF15375-xMV'}), 'ref_prefix':'U?', 'fplist':['Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.8x3.8mm', 'Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.8x3.8mm', 'Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.8x3.8mm'], 'footprint':'Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.8x3.8mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16LF15375-xMV\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='41',name='PAD',func=Pin.types.PWRIN),
             Pin(num='1',name='RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB2',func=Pin.types.BIDIR,unit=1),
@@ -6506,7 +6521,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16LF15375-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF15375-xP'}), 'ref_prefix':'U?', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16LF15375-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF15375-xP'}), 'ref_prefix':'U?', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16LF15375-xP\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VPP/MCLR/RE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -6547,7 +6562,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16LF15375-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF15375-xPT'}), 'ref_prefix':'U?', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16LF15375-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF15375-xPT'}), 'ref_prefix':'U?', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16LF15375-xPT\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='12',name='NC',func=Pin.types.NOCONNECT),
             Pin(num='13',name='NC',func=Pin.types.NOCONNECT),
             Pin(num='33',name='NC',func=Pin.types.NOCONNECT),
@@ -6592,7 +6607,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16LF15376-xML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF15376-xML'}), 'ref_prefix':'U?', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16LF15376-xML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF15376-xML'}), 'ref_prefix':'U?', 'fplist':['Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_8x8mm_P0.65mm_EP6.45x6.45mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16LF15376-xML\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='13',name='NC',func=Pin.types.NOCONNECT),
             Pin(num='29',name='NC',func=Pin.types.NOCONNECT),
             Pin(num='31',name='NC',func=Pin.types.NOCONNECT),
@@ -6638,7 +6653,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RB0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16LF15376-xMV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF15376-xMV'}), 'ref_prefix':'U?', 'fplist':['Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.8x3.8mm', 'Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.8x3.8mm', 'Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.8x3.8mm', 'Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.8x3.8mm'], 'footprint':'Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.8x3.8mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16LF15376-xMV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF15376-xMV'}), 'ref_prefix':'U?', 'fplist':['Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.8x3.8mm', 'Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.8x3.8mm', 'Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.8x3.8mm', 'Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.8x3.8mm'], 'footprint':'Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.8x3.8mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16LF15376-xMV\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='41',name='PAD',func=Pin.types.PWRIN),
             Pin(num='1',name='RC7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB2',func=Pin.types.BIDIR,unit=1),
@@ -6680,7 +6695,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16LF15376-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF15376-xP'}), 'ref_prefix':'U?', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16LF15376-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF15376-xP'}), 'ref_prefix':'U?', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16LF15376-xP\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VPP/MCLR/RE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -6721,7 +6736,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16LF15376-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF15376-xPT'}), 'ref_prefix':'U?', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16LF15376-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF15376-xPT'}), 'ref_prefix':'U?', 'fplist':['Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'Package_QFP:TQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:TQFP-44_10x10mm_P0.8mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16LF15376-xPT\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='12',name='NC',func=Pin.types.NOCONNECT),
             Pin(num='13',name='NC',func=Pin.types.NOCONNECT),
             Pin(num='33',name='NC',func=Pin.types.NOCONNECT),
@@ -6766,7 +6781,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16LF15385-xMV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF15385-xMV'}), 'ref_prefix':'U?', 'fplist':['Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm', 'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm', 'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16LF15385-xMV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF15385-xMV'}), 'ref_prefix':'U?', 'fplist':['Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm', 'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm', 'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16LF15385-xMV\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='3',name='RD5',func=Pin.types.BIDIR),
             Pin(num='4',name='RD6',func=Pin.types.BIDIR),
             Pin(num='49',name='PAD',func=Pin.types.PWRIN),
@@ -6816,7 +6831,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16LF15385-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF15385-xPT'}), 'ref_prefix':'U?', 'fplist':['Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16LF15385-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF15385-xPT'}), 'ref_prefix':'U?', 'fplist':['Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16LF15385-xPT\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='3',name='RD5',func=Pin.types.BIDIR),
             Pin(num='4',name='RD6',func=Pin.types.BIDIR),
             Pin(num='1',name='RC7',func=Pin.types.BIDIR,unit=1),
@@ -6865,7 +6880,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16LF15386-xMV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF15386-xMV'}), 'ref_prefix':'U?', 'fplist':['Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm', 'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm', 'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm', 'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16LF15386-xMV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF15386-xMV'}), 'ref_prefix':'U?', 'fplist':['Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm', 'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm', 'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm', 'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16LF15386-xMV\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='3',name='RD5',func=Pin.types.BIDIR),
             Pin(num='4',name='RD6',func=Pin.types.BIDIR),
             Pin(num='49',name='PAD',func=Pin.types.PWRIN),
@@ -6915,7 +6930,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16LF15386-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF15386-xPT'}), 'ref_prefix':'U?', 'fplist':['Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'pins':[
+        Part(**{ 'name':'PIC16LF15386-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF15386-xPT'}), 'ref_prefix':'U?', 'fplist':['Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF15356-75-76-85-86-Data%20Sheet-40001866B.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16LF15386-xPT\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='3',name='RD5',func=Pin.types.BIDIR),
             Pin(num='4',name='RD6',func=Pin.types.BIDIR),
             Pin(num='1',name='RC7',func=Pin.types.BIDIR,unit=1),
@@ -6964,7 +6979,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16LF1786-xML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF1786-xML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001637C.pdf', 'pins':[
+        Part(**{ 'name':'PIC16LF1786-xML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF1786-xML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001637C.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16LF1786-xML\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC3',func=Pin.types.BIDIR,unit=1),
@@ -6993,7 +7008,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16LF1786-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF1786-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001637C.pdf', 'pins':[
+        Part(**{ 'name':'PIC16LF1786-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF1786-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001637C.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16LF1786-xP\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='RE3/~{MCLR}/V_{PP}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='V_{DD}',func=Pin.types.PWRIN,unit=1),
@@ -7034,7 +7049,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16LF1786-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF1786-xSO'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001637C.pdf', 'pins':[
+        Part(**{ 'name':'PIC16LF1786-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF1786-xSO'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001637C.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16LF1786-xSO\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='RE3/~{MCLR}/V_{PP}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC0',func=Pin.types.BIDIR,unit=1),
@@ -7063,7 +7078,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='V_{SS}',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16LF1786-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF1786-xSP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001637C.pdf', 'pins':[
+        Part(**{ 'name':'PIC16LF1786-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF1786-xSP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001637C.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16LF1786-xSP\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='RE3/~{MCLR}/V_{PP}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC0',func=Pin.types.BIDIR,unit=1),
@@ -7092,7 +7107,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='V_{SS}',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16LF1786-xSS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF1786-xSS'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001637C.pdf', 'pins':[
+        Part(**{ 'name':'PIC16LF1786-xSS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF1786-xSS'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_DIP:DIP-28_W7.62mm', 'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001637C.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16LF1786-xSS\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='RE3/~{MCLR}/V_{PP}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC0',func=Pin.types.BIDIR,unit=1),
@@ -7121,7 +7136,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='V_{SS}',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RA7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16LF18325-ISL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF18325-ISL'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/40001795b.pdf', 'pins':[
+        Part(**{ 'name':'PIC16LF18325-ISL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF18325-ISL'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/40001795b.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16LF18325-ISL\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='SCL1/SCK/T5CKI/C2IN0+/ANC0/RC0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RA2/ANA2/Vref-/DAC1Ref-/T0CKI/CCP3/CWG1IN/CWG2IN',func=Pin.types.BIDIR,unit=1),
@@ -7136,7 +7151,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CLCIN0/~{SS1}/CCP2/T5G/MDMIN/C2IN3-/C1IN3-/ANC3/RC3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='MDCIN1/C2IN2-/C1IN2-/ANC2/RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='CLCIN2/SDA1/SDI/CCP4/C2IN1-/C1IN1-/ANC1/RC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16LF18325-xGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF18325-xGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:UQFN-20-1EP_4x4mm_P0.5mm_EP2.8x2.8mm', 'Package_DFN_QFN:UQFN-20-1EP_4x4mm_P0.5mm_EP2.8x2.8mm'], 'footprint':'Package_DFN_QFN:UQFN-20-1EP_4x4mm_P0.5mm_EP2.8x2.8mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001795E.pdf', 'pins':[
+        Part(**{ 'name':'PIC16LF18325-xGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF18325-xGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:UQFN-20-1EP_4x4mm_P0.5mm_EP2.8x2.8mm', 'Package_DFN_QFN:UQFN-20-1EP_4x4mm_P0.5mm_EP2.8x2.8mm'], 'footprint':'Package_DFN_QFN:UQFN-20-1EP_4x4mm_P0.5mm_EP2.8x2.8mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001795E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16LF18325-xGZ\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='RA3/~{MCLR}/VPP',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RC2',func=Pin.types.BIDIR,unit=1),
@@ -7158,7 +7173,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RB5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16LF18325-xJQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF18325-xJQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:UQFN-16-1EP_4x4mm_P0.65mm_EP2.6x2.6mm', 'Package_DFN_QFN:UQFN-16-1EP_4x4mm_P0.65mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:UQFN-16-1EP_4x4mm_P0.65mm_EP2.6x2.6mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001795E.pdf', 'pins':[
+        Part(**{ 'name':'PIC16LF18325-xJQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF18325-xJQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:UQFN-16-1EP_4x4mm_P0.65mm_EP2.6x2.6mm', 'Package_DFN_QFN:UQFN-16-1EP_4x4mm_P0.65mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:UQFN-16-1EP_4x4mm_P0.65mm_EP2.6x2.6mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001795E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16LF18325-xJQ\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RA1/ICSPCLK',func=Pin.types.BIDIR,unit=1),
@@ -7175,7 +7190,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RC2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RC0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16LF1907-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF1907-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/40001569D.pdf', 'pins':[
+        Part(**{ 'name':'PIC16LF1907-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF1907-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller XLP', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/40001569D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16LF1907-IP\n\nFLASH-Based 8-Bit CMOS Microcontroller XLP', 'pins':[
             Pin(num='1',name='~{MCLR}/RE3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -7216,7 +7231,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='RE0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='RE1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16LF19195-x5LX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF19195-x5LX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm'], 'footprint':'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF19195-6-7-Data-Sheet-40001873D.pdf', 'pins':[
+        Part(**{ 'name':'PIC16LF19195-x5LX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF19195-x5LX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm'], 'footprint':'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF19195-6-7-Data-Sheet-40001873D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16LF19195-x5LX\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VLCD2/RE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='SEG25/RF7',func=Pin.types.BIDIR,unit=1),
@@ -7282,7 +7297,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VPP/~{MCLR}/RG5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SEG26/RG4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16LF19195-xMR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF19195-xMR'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF19195-6-7-Data-Sheet-40001873D.pdf', 'pins':[
+        Part(**{ 'name':'PIC16LF19195-xMR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF19195-xMR'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF19195-6-7-Data-Sheet-40001873D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16LF19195-xMR\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VLCD2/RE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='SEG25/RF7',func=Pin.types.BIDIR,unit=1),
@@ -7348,7 +7363,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VPP/~{MCLR}/RG5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SEG26/RG4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16LF19195-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF19195-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF19195-6-7-Data-Sheet-40001873D.pdf', 'pins':[
+        Part(**{ 'name':'PIC16LF19195-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF19195-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF19195-6-7-Data-Sheet-40001873D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16LF19195-xPT\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VLCD2/RE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='SEG25/RF7',func=Pin.types.BIDIR,unit=1),
@@ -7413,73 +7428,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VPP/~{MCLR}/RG5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SEG26/RG4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16LF19196-x5LX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF19196-x5LX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm'], 'footprint':'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF19195-6-7-Data-Sheet-40001873D.pdf', 'pins':[
-            Pin(num='1',name='VLCD2/RE1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='11',name='SEG25/RF7',func=Pin.types.BIDIR,unit=1),
-            Pin(num='12',name='SEG24/RF6',func=Pin.types.BIDIR,unit=1),
-            Pin(num='13',name='SEG23/RF5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='14',name='SEG22/RF4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='15',name='SEG21/RF3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='16',name='SEG20/RF2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='17',name='SEG19/RF1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='18',name='SEG41/RF0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='19',name='COM7/SEG15/RG7',func=Pin.types.BIDIR,unit=1),
-            Pin(num='2',name='VLCD1/RE0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='20',name='COM6/RG6',func=Pin.types.BIDIR,unit=1),
-            Pin(num='21',name='RA3/SEG35',func=Pin.types.BIDIR,unit=1),
-            Pin(num='22',name='RA2/SEG34',func=Pin.types.BIDIR,unit=1),
-            Pin(num='23',name='RA1/SEG18',func=Pin.types.BIDIR,unit=1),
-            Pin(num='24',name='RA0/SEG33',func=Pin.types.BIDIR,unit=1),
-            Pin(num='25',name='COM5/RH1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='26',name='COM4/RH0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='27',name='RA5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='28',name='RA4/SEG14',func=Pin.types.BIDIR,unit=1),
-            Pin(num='29',name='RC1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='SEG42/RG0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='30',name='RC0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='31',name='RC6/SEG27',func=Pin.types.BIDIR,unit=1),
-            Pin(num='32',name='RC7/SEG28',func=Pin.types.BIDIR,unit=1),
-            Pin(num='33',name='RC2/SEG13',func=Pin.types.BIDIR,unit=1),
-            Pin(num='34',name='RC3/SEG17',func=Pin.types.BIDIR,unit=1),
-            Pin(num='35',name='RC4/SEG16',func=Pin.types.BIDIR,unit=1),
-            Pin(num='36',name='RC5/SEG12',func=Pin.types.BIDIR,unit=1),
-            Pin(num='37',name='RB7/SEG39/ICSPDAT',func=Pin.types.BIDIR,unit=1),
-            Pin(num='38',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='39',name='RA7/SEG37',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='SEG43/RG1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='40',name='RA6/SEG36',func=Pin.types.BIDIR,unit=1),
-            Pin(num='41',name='VSS',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='42',name='RB6/SEG38/ICSPCLK',func=Pin.types.BIDIR,unit=1),
-            Pin(num='43',name='RB5/SEG29',func=Pin.types.BIDIR,unit=1),
-            Pin(num='44',name='RB4/SEG11',func=Pin.types.BIDIR,unit=1),
-            Pin(num='45',name='RB3/SEG10',func=Pin.types.BIDIR,unit=1),
-            Pin(num='46',name='RB2/SEG9',func=Pin.types.BIDIR,unit=1),
-            Pin(num='47',name='RB1/SEG8',func=Pin.types.BIDIR,unit=1),
-            Pin(num='48',name='RB0/SEG30',func=Pin.types.BIDIR,unit=1),
-            Pin(num='49',name='RD7/SEG7',func=Pin.types.BIDIR,unit=1),
-            Pin(num='5',name='SEG44/RG2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='50',name='RD6/SEG6',func=Pin.types.BIDIR,unit=1),
-            Pin(num='51',name='RD5/SEG5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='52',name='RD4/SEG4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='53',name='RD3/SEG3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='54',name='RD2/SEG2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='55',name='RD1/SEG1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='56',name='CFLY2/SEG40/RH3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='57',name='CFLY1/SEG32/RH2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='58',name='RD0/SEG0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='59',name='SEG31/RE7',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='SEG45/RG3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='60',name='COM3/RE6',func=Pin.types.BIDIR,unit=1),
-            Pin(num='61',name='COM2/RE5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='62',name='COM1/RE4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='63',name='COM0/RE3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='64',name='VLCD3',func=Pin.types.INPUT,unit=1),
-            Pin(num='65',name='VSS',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='7',name='VPP/~{MCLR}/RG5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='SEG26/RG4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16LF19196-xMR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF19196-xMR'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF19195-6-7-Data-Sheet-40001873D.pdf', 'pins':[
+        Part(**{ 'name':'PIC16LF19196-x5LX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF19196-x5LX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm'], 'footprint':'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF19195-6-7-Data-Sheet-40001873D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16LF19196-x5LX\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VLCD2/RE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='SEG25/RF7',func=Pin.types.BIDIR,unit=1),
@@ -7545,72 +7494,7 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VPP/~{MCLR}/RG5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SEG26/RG4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16LF19196-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF19196-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF19195-6-7-Data-Sheet-40001873D.pdf', 'pins':[
-            Pin(num='1',name='VLCD2/RE1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='11',name='SEG25/RF7',func=Pin.types.BIDIR,unit=1),
-            Pin(num='12',name='SEG24/RF6',func=Pin.types.BIDIR,unit=1),
-            Pin(num='13',name='SEG23/RF5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='14',name='SEG22/RF4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='15',name='SEG21/RF3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='16',name='SEG20/RF2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='17',name='SEG19/RF1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='18',name='SEG41/RF0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='19',name='COM7/SEG15/RG7',func=Pin.types.BIDIR,unit=1),
-            Pin(num='2',name='VLCD1/RE0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='20',name='COM6/RG6',func=Pin.types.BIDIR,unit=1),
-            Pin(num='21',name='RA3/SEG35',func=Pin.types.BIDIR,unit=1),
-            Pin(num='22',name='RA2/SEG34',func=Pin.types.BIDIR,unit=1),
-            Pin(num='23',name='RA1/SEG18',func=Pin.types.BIDIR,unit=1),
-            Pin(num='24',name='RA0/SEG33',func=Pin.types.BIDIR,unit=1),
-            Pin(num='25',name='COM5/RH1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='26',name='COM4/RH0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='27',name='RA5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='28',name='RA4/SEG14',func=Pin.types.BIDIR,unit=1),
-            Pin(num='29',name='RC1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='3',name='SEG42/RG0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='30',name='RC0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='31',name='RC6/SEG27',func=Pin.types.BIDIR,unit=1),
-            Pin(num='32',name='RC7/SEG28',func=Pin.types.BIDIR,unit=1),
-            Pin(num='33',name='RC2/SEG13',func=Pin.types.BIDIR,unit=1),
-            Pin(num='34',name='RC3/SEG17',func=Pin.types.BIDIR,unit=1),
-            Pin(num='35',name='RC4/SEG16',func=Pin.types.BIDIR,unit=1),
-            Pin(num='36',name='RC5/SEG12',func=Pin.types.BIDIR,unit=1),
-            Pin(num='37',name='RB7/SEG39/ICSPDAT',func=Pin.types.BIDIR,unit=1),
-            Pin(num='38',name='VDD',func=Pin.types.PWRIN,unit=1),
-            Pin(num='39',name='RA7/SEG37',func=Pin.types.BIDIR,unit=1),
-            Pin(num='4',name='SEG43/RG1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='40',name='RA6/SEG36',func=Pin.types.BIDIR,unit=1),
-            Pin(num='41',name='VSS',func=Pin.types.PASSIVE,unit=1),
-            Pin(num='42',name='RB6/SEG38/ICSPCLK',func=Pin.types.BIDIR,unit=1),
-            Pin(num='43',name='RB5/SEG29',func=Pin.types.BIDIR,unit=1),
-            Pin(num='44',name='RB4/SEG11',func=Pin.types.BIDIR,unit=1),
-            Pin(num='45',name='RB3/SEG10',func=Pin.types.BIDIR,unit=1),
-            Pin(num='46',name='RB2/SEG9',func=Pin.types.BIDIR,unit=1),
-            Pin(num='47',name='RB1/SEG8',func=Pin.types.BIDIR,unit=1),
-            Pin(num='48',name='RB0/SEG30',func=Pin.types.BIDIR,unit=1),
-            Pin(num='49',name='RD7/SEG7',func=Pin.types.BIDIR,unit=1),
-            Pin(num='5',name='SEG44/RG2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='50',name='RD6/SEG6',func=Pin.types.BIDIR,unit=1),
-            Pin(num='51',name='RD5/SEG5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='52',name='RD4/SEG4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='53',name='RD3/SEG3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='54',name='RD2/SEG2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='55',name='RD1/SEG1',func=Pin.types.BIDIR,unit=1),
-            Pin(num='56',name='CFLY2/SEG40/RH3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='57',name='CFLY1/SEG32/RH2',func=Pin.types.BIDIR,unit=1),
-            Pin(num='58',name='RD0/SEG0',func=Pin.types.BIDIR,unit=1),
-            Pin(num='59',name='SEG31/RE7',func=Pin.types.BIDIR,unit=1),
-            Pin(num='6',name='SEG45/RG3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='60',name='COM3/RE6',func=Pin.types.BIDIR,unit=1),
-            Pin(num='61',name='COM2/RE5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='62',name='COM1/RE4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='63',name='COM0/RE3',func=Pin.types.BIDIR,unit=1),
-            Pin(num='64',name='VLCD3',func=Pin.types.INPUT,unit=1),
-            Pin(num='7',name='VPP/~{MCLR}/RG5',func=Pin.types.BIDIR,unit=1),
-            Pin(num='8',name='SEG26/RG4',func=Pin.types.BIDIR,unit=1),
-            Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16LF19197-x5LX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF19197-x5LX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm'], 'footprint':'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF19195-6-7-Data-Sheet-40001873D.pdf', 'pins':[
+        Part(**{ 'name':'PIC16LF19196-xMR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF19196-xMR'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF19195-6-7-Data-Sheet-40001873D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16LF19196-xMR\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VLCD2/RE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='SEG25/RF7',func=Pin.types.BIDIR,unit=1),
@@ -7676,7 +7560,72 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VPP/~{MCLR}/RG5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SEG26/RG4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16LF19197-xMR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF19197-xMR'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF19195-6-7-Data-Sheet-40001873D.pdf', 'pins':[
+        Part(**{ 'name':'PIC16LF19196-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF19196-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF19195-6-7-Data-Sheet-40001873D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16LF19196-xPT\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
+            Pin(num='1',name='VLCD2/RE1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='11',name='SEG25/RF7',func=Pin.types.BIDIR,unit=1),
+            Pin(num='12',name='SEG24/RF6',func=Pin.types.BIDIR,unit=1),
+            Pin(num='13',name='SEG23/RF5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='14',name='SEG22/RF4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='15',name='SEG21/RF3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='16',name='SEG20/RF2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='17',name='SEG19/RF1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='18',name='SEG41/RF0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='19',name='COM7/SEG15/RG7',func=Pin.types.BIDIR,unit=1),
+            Pin(num='2',name='VLCD1/RE0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='20',name='COM6/RG6',func=Pin.types.BIDIR,unit=1),
+            Pin(num='21',name='RA3/SEG35',func=Pin.types.BIDIR,unit=1),
+            Pin(num='22',name='RA2/SEG34',func=Pin.types.BIDIR,unit=1),
+            Pin(num='23',name='RA1/SEG18',func=Pin.types.BIDIR,unit=1),
+            Pin(num='24',name='RA0/SEG33',func=Pin.types.BIDIR,unit=1),
+            Pin(num='25',name='COM5/RH1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='26',name='COM4/RH0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='27',name='RA5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='28',name='RA4/SEG14',func=Pin.types.BIDIR,unit=1),
+            Pin(num='29',name='RC1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='SEG42/RG0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='30',name='RC0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='31',name='RC6/SEG27',func=Pin.types.BIDIR,unit=1),
+            Pin(num='32',name='RC7/SEG28',func=Pin.types.BIDIR,unit=1),
+            Pin(num='33',name='RC2/SEG13',func=Pin.types.BIDIR,unit=1),
+            Pin(num='34',name='RC3/SEG17',func=Pin.types.BIDIR,unit=1),
+            Pin(num='35',name='RC4/SEG16',func=Pin.types.BIDIR,unit=1),
+            Pin(num='36',name='RC5/SEG12',func=Pin.types.BIDIR,unit=1),
+            Pin(num='37',name='RB7/SEG39/ICSPDAT',func=Pin.types.BIDIR,unit=1),
+            Pin(num='38',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='39',name='RA7/SEG37',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='SEG43/RG1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='40',name='RA6/SEG36',func=Pin.types.BIDIR,unit=1),
+            Pin(num='41',name='VSS',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='42',name='RB6/SEG38/ICSPCLK',func=Pin.types.BIDIR,unit=1),
+            Pin(num='43',name='RB5/SEG29',func=Pin.types.BIDIR,unit=1),
+            Pin(num='44',name='RB4/SEG11',func=Pin.types.BIDIR,unit=1),
+            Pin(num='45',name='RB3/SEG10',func=Pin.types.BIDIR,unit=1),
+            Pin(num='46',name='RB2/SEG9',func=Pin.types.BIDIR,unit=1),
+            Pin(num='47',name='RB1/SEG8',func=Pin.types.BIDIR,unit=1),
+            Pin(num='48',name='RB0/SEG30',func=Pin.types.BIDIR,unit=1),
+            Pin(num='49',name='RD7/SEG7',func=Pin.types.BIDIR,unit=1),
+            Pin(num='5',name='SEG44/RG2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='50',name='RD6/SEG6',func=Pin.types.BIDIR,unit=1),
+            Pin(num='51',name='RD5/SEG5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='52',name='RD4/SEG4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='53',name='RD3/SEG3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='54',name='RD2/SEG2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='55',name='RD1/SEG1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='56',name='CFLY2/SEG40/RH3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='57',name='CFLY1/SEG32/RH2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='58',name='RD0/SEG0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='59',name='SEG31/RE7',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='SEG45/RG3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='60',name='COM3/RE6',func=Pin.types.BIDIR,unit=1),
+            Pin(num='61',name='COM2/RE5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='62',name='COM1/RE4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='63',name='COM0/RE3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='64',name='VLCD3',func=Pin.types.INPUT,unit=1),
+            Pin(num='7',name='VPP/~{MCLR}/RG5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='SEG26/RG4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC16LF19197-x5LX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF19197-x5LX'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm'], 'footprint':'Package_DFN_QFN:VQFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF19195-6-7-Data-Sheet-40001873D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16LF19197-x5LX\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VLCD2/RE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='SEG25/RF7',func=Pin.types.BIDIR,unit=1),
@@ -7742,7 +7691,73 @@ MCU_Microchip_PIC16 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VPP/~{MCLR}/RG5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SEG26/RG4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC16LF19197-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF19197-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF19195-6-7-Data-Sheet-40001873D.pdf', 'pins':[
+        Part(**{ 'name':'PIC16LF19197-xMR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF19197-xMR'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF19195-6-7-Data-Sheet-40001873D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16LF19197-xMR\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
+            Pin(num='1',name='VLCD2/RE1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='11',name='SEG25/RF7',func=Pin.types.BIDIR,unit=1),
+            Pin(num='12',name='SEG24/RF6',func=Pin.types.BIDIR,unit=1),
+            Pin(num='13',name='SEG23/RF5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='14',name='SEG22/RF4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='15',name='SEG21/RF3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='16',name='SEG20/RF2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='17',name='SEG19/RF1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='18',name='SEG41/RF0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='19',name='COM7/SEG15/RG7',func=Pin.types.BIDIR,unit=1),
+            Pin(num='2',name='VLCD1/RE0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='20',name='COM6/RG6',func=Pin.types.BIDIR,unit=1),
+            Pin(num='21',name='RA3/SEG35',func=Pin.types.BIDIR,unit=1),
+            Pin(num='22',name='RA2/SEG34',func=Pin.types.BIDIR,unit=1),
+            Pin(num='23',name='RA1/SEG18',func=Pin.types.BIDIR,unit=1),
+            Pin(num='24',name='RA0/SEG33',func=Pin.types.BIDIR,unit=1),
+            Pin(num='25',name='COM5/RH1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='26',name='COM4/RH0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='27',name='RA5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='28',name='RA4/SEG14',func=Pin.types.BIDIR,unit=1),
+            Pin(num='29',name='RC1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='3',name='SEG42/RG0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='30',name='RC0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='31',name='RC6/SEG27',func=Pin.types.BIDIR,unit=1),
+            Pin(num='32',name='RC7/SEG28',func=Pin.types.BIDIR,unit=1),
+            Pin(num='33',name='RC2/SEG13',func=Pin.types.BIDIR,unit=1),
+            Pin(num='34',name='RC3/SEG17',func=Pin.types.BIDIR,unit=1),
+            Pin(num='35',name='RC4/SEG16',func=Pin.types.BIDIR,unit=1),
+            Pin(num='36',name='RC5/SEG12',func=Pin.types.BIDIR,unit=1),
+            Pin(num='37',name='RB7/SEG39/ICSPDAT',func=Pin.types.BIDIR,unit=1),
+            Pin(num='38',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='39',name='RA7/SEG37',func=Pin.types.BIDIR,unit=1),
+            Pin(num='4',name='SEG43/RG1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='40',name='RA6/SEG36',func=Pin.types.BIDIR,unit=1),
+            Pin(num='41',name='VSS',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='42',name='RB6/SEG38/ICSPCLK',func=Pin.types.BIDIR,unit=1),
+            Pin(num='43',name='RB5/SEG29',func=Pin.types.BIDIR,unit=1),
+            Pin(num='44',name='RB4/SEG11',func=Pin.types.BIDIR,unit=1),
+            Pin(num='45',name='RB3/SEG10',func=Pin.types.BIDIR,unit=1),
+            Pin(num='46',name='RB2/SEG9',func=Pin.types.BIDIR,unit=1),
+            Pin(num='47',name='RB1/SEG8',func=Pin.types.BIDIR,unit=1),
+            Pin(num='48',name='RB0/SEG30',func=Pin.types.BIDIR,unit=1),
+            Pin(num='49',name='RD7/SEG7',func=Pin.types.BIDIR,unit=1),
+            Pin(num='5',name='SEG44/RG2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='50',name='RD6/SEG6',func=Pin.types.BIDIR,unit=1),
+            Pin(num='51',name='RD5/SEG5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='52',name='RD4/SEG4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='53',name='RD3/SEG3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='54',name='RD2/SEG2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='55',name='RD1/SEG1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='56',name='CFLY2/SEG40/RH3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='57',name='CFLY1/SEG32/RH2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='58',name='RD0/SEG0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='59',name='SEG31/RE7',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='SEG45/RG3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='60',name='COM3/RE6',func=Pin.types.BIDIR,unit=1),
+            Pin(num='61',name='COM2/RE5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='62',name='COM1/RE4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='63',name='COM0/RE3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='64',name='VLCD3',func=Pin.types.INPUT,unit=1),
+            Pin(num='65',name='VSS',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='7',name='VPP/~{MCLR}/RG5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='SEG26/RG4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PIC16LF19197-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC16LF19197-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'FLASH-Based 8-Bit CMOS Microcontroller Low Power', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16LF19195-6-7-Data-Sheet-40001873D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC16.kicad_sym\nPIC16LF19197-xPT\n\nFLASH-Based 8-Bit CMOS Microcontroller Low Power', 'pins':[
             Pin(num='1',name='VLCD2/RE1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='SEG25/RF7',func=Pin.types.BIDIR,unit=1),

@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 _4xxx = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'14529', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'14529'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS MUX MUX4', 'description':'', 'datasheet':'http://www.alldatasheet.com/datasheet-pdf/pdf/97272/HITACHI/HD14529B.html', 'pins':[
+        Part(**{ 'name':'14529', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'14529'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS MUX MUX4', 'description':'', 'datasheet':'http://www.alldatasheet.com/datasheet-pdf/pdf/97272/HITACHI/HD14529B.html', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n14529\n\nCMOS MUX MUX4', 'pins':[
             Pin(num='1',name='STX',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='W',func=Pin.types.TRISTATE,unit=1),
             Pin(num='11',name='Y3',func=Pin.types.INPUT,unit=1),
@@ -21,7 +21,7 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Z',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'4001', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4001'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS Nor2', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4000bms-01bms-02bms-25bms.pdf', 'pins':[
+        Part(**{ 'name':'4001', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4001'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS Nor2', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4000bms-01bms-02bms-25bms.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4001\n\nCMOS Nor2', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -35,8 +35,8 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VDD',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '13', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'4002', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4002'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS Nor4', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4000bms-01bms-02bms-25bms.pdf', 'pins':[
+            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '4', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'4002', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4002'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS Nor4', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4000bms-01bms-02bms-25bms.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4002\n\nCMOS Nor4', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=1),
@@ -48,8 +48,8 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='14',name='VDD',func=Pin.types.PWRIN,unit=3),
-            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '5', '4', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['12', '11', '10', '13', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '14']}] }),
-        Part(**{ 'name':'4009', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4009'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS INV BUFFER high sink, VCC and VDD sep. VDD>VI>VCC!', 'description':'', 'datasheet':'http://www.sycelectronica.com.ar/semiconductores/CD4009.pdf', 'pins':[
+            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '1', '3', '2', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '9', '12', '10', '13']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '14']}] }),
+        Part(**{ 'name':'4009', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4009'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS INV BUFFER high sink, VCC and VDD sep. VDD>VI>VCC!', 'description':'', 'datasheet':'http://www.sycelectronica.com.ar/semiconductores/CD4009.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4009\n\nCMOS INV BUFFER high sink, VCC and VDD sep. VDD>VI>VCC!', 'pins':[
             Pin(num='2',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='~',func=Pin.types.OUTPUT,unit=2),
@@ -64,8 +64,8 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='15',name='~',func=Pin.types.OUTPUT,unit=6),
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=7),
             Pin(num='16',name='VDD',func=Pin.types.PWRIN,unit=7),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '12']},{'label': 'uF', 'num': 6, 'pin_nums': ['14', '15']},{'label': 'uG', 'num': 7, 'pin_nums': ['8', '16', '1']}] }),
-        Part(**{ 'name':'4010', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4010'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS BUFFER high sink, VCC and VDD sep. VDD>VI>VCC!', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cd4010b-q1.pdf', 'pins':[
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '12']},{'label': 'uF', 'num': 6, 'pin_nums': ['14', '15']},{'label': 'uG', 'num': 7, 'pin_nums': ['1', '16', '8']}] }),
+        Part(**{ 'name':'4010', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4010'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS BUFFER high sink, VCC and VDD sep. VDD>VI>VCC!', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cd4010b-q1.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4010\n\nCMOS BUFFER high sink, VCC and VDD sep. VDD>VI>VCC!', 'pins':[
             Pin(num='2',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='~',func=Pin.types.OUTPUT,unit=2),
@@ -80,8 +80,8 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='15',name='~',func=Pin.types.OUTPUT,unit=6),
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=7),
             Pin(num='16',name='VDD',func=Pin.types.PWRIN,unit=7),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '7']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '12']},{'label': 'uF', 'num': 6, 'pin_nums': ['14', '15']},{'label': 'uG', 'num': 7, 'pin_nums': ['16', '1', '8']}] }),
-        Part(**{ 'name':'40106', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'40106'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/HEF40106B.pdf', 'pins':[
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '12']},{'label': 'uF', 'num': 6, 'pin_nums': ['14', '15']},{'label': 'uG', 'num': 7, 'pin_nums': ['1', '16', '8']}] }),
+        Part(**{ 'name':'40106', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'40106'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/HEF40106B.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n40106\n\nCMOS', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=2),
@@ -95,8 +95,8 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.OUTPUT,unit=6),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=6),
             Pin(num='14',name='VDD',func=Pin.types.PWRIN,unit=7),
-            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['7', '14']}] }),
-        Part(**{ 'name':'4011', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4011'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS Nand2', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4011bms-12bms-23bms.pdf', 'pins':[
+            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '5']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '10']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'4011', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4011'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS Nand2', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4011bms-12bms-23bms.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4011\n\nCMOS Nand2', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -110,8 +110,8 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VDD',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '4', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '11', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
-        Part(**{ 'name':'4012', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4012'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS Nand4', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4011bms-12bms-23bms.pdf', 'pins':[
+            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '10', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'4012', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4012'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS Nand4', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4011bms-12bms-23bms.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4012\n\nCMOS Nand4', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=1),
@@ -123,8 +123,8 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='14',name='VDD',func=Pin.types.PWRIN,unit=3),
-            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '4', '3', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '11', '9', '12', '10']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '14']}] }),
-        Part(**{ 'name':'4013', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4013'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS DFF', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/MC14013B-D.PDF', 'pins':[
+            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '5', '4', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['12', '10', '13', '9', '11']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'4013', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4013'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS DFF', 'description':'', 'datasheet':'http://www.onsemi.com/pub/Collateral/MC14013B-D.PDF', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4013\n\nCMOS DFF', 'pins':[
             Pin(num='1',name='Q',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{Q}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='C',func=Pin.types.INPUT,unit=1),
@@ -138,8 +138,8 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='S',func=Pin.types.INPUT,unit=2),
             Pin(num='9',name='D',func=Pin.types.INPUT,unit=2),
             Pin(num='14',name='VDD',func=Pin.types.PWRIN,unit=3),
-            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '5', '2', '6', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['12', '10', '13', '9', '11', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'4016', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4016'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS SWITCH', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cd4016b.pdf', 'pins':[
+            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '2', '4', '1', '3', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '8', '12', '10', '13', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'4016', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4016'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS SWITCH', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cd4016b.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4016\n\nCMOS SWITCH', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -153,8 +153,8 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='11',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VDD',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '13', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '10']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'4017', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4017'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CNT CNT10', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4017bms-22bms.pdf', 'pins':[
+            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['13', '2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '4', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '11', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'4017', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4017'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CNT CNT10', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4017bms-22bms.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4017\n\nCNT CNT10', 'pins':[
             Pin(num='1',name='Q5',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='Q4',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='Q9',func=Pin.types.OUTPUT,unit=1),
@@ -171,7 +171,7 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Q3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Q8',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'4020', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4020'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS CNT CNT14', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4020bms-24bms-40bms.pdf', 'pins':[
+        Part(**{ 'name':'4020', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4020'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS CNT CNT14', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4020bms-24bms-40bms.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4020\n\nCMOS CNT CNT14', 'pins':[
             Pin(num='1',name='Q11',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='CLK',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='Reset',func=Pin.types.INPUT,unit=1),
@@ -188,7 +188,7 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Q3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Q0',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'4021', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4021'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'shift register SR PISO', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/HEF4021B.pdf', 'pins':[
+        Part(**{ 'name':'4021', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4021'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'shift register SR PISO', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/HEF4021B.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4021\n\nshift register SR PISO', 'pins':[
             Pin(num='1',name='D7',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='CP',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DS',func=Pin.types.INPUT,unit=1),
@@ -205,7 +205,7 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D0',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PL',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'4022', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4022'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS CNT CNT8', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4017bms-22bms.pdf', 'pins':[
+        Part(**{ 'name':'4022', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4022'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS CNT CNT8', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4017bms-22bms.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4022\n\nCMOS CNT CNT8', 'pins':[
             Pin(num='1',name='Q1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='Q7',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='Q4',func=Pin.types.OUTPUT,unit=1),
@@ -218,9 +218,11 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='Q2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='4',name='Q5',func=Pin.types.OUTPUT,unit=1),
             Pin(num='5',name='Q6',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='6',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='7',name='Q3',func=Pin.types.OUTPUT,unit=1),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'4023', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4023'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS Nand3', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4011bms-12bms-23bms.pdf', 'pins':[
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
+            Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'4023', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4023'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS Nand3', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4011bms-12bms-23bms.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4023\n\nCMOS Nand3', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~',func=Pin.types.INPUT,unit=1),
@@ -234,8 +236,8 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='14',name='VDD',func=Pin.types.PWRIN,unit=4),
-            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '8', '9', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '6', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['12', '13', '11', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '14']}] }),
-        Part(**{ 'name':'4025', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4025'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS Nor3', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4000bms-01bms-02bms-25bms.pdf', 'pins':[
+            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '8', '9']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '3', '4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '10', '12', '13']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'4025', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4025'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS Nor3', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4000bms-01bms-02bms-25bms.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4025\n\nCMOS Nor3', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~',func=Pin.types.INPUT,unit=1),
@@ -249,8 +251,8 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='14',name='VDD',func=Pin.types.PWRIN,unit=4),
-            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '9', '2', '8']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '12', '13', '11']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'4027', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4027'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS JK JKFF', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4027bms.pdf', 'pins':[
+            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '8', '9', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '6', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '11', '13', '12']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'4027', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4027'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS JK JKFF', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4027bms.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4027\n\nCMOS JK JKFF', 'pins':[
             Pin(num='1',name='Q',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{Q}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='C',func=Pin.types.INPUT,unit=1),
@@ -266,8 +268,8 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='15',name='Q',func=Pin.types.OUTPUT,unit=2),
             Pin(num='9',name='S',func=Pin.types.INPUT,unit=2),
             Pin(num='16',name='VDD',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '1', '7', '2', '5', '3', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '13', '11', '15', '12', '14', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '8']}] }),
-        Part(**{ 'name':'4028', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4028'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS DECOD DECOD10', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4028bms.pdf', 'pins':[
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2', '7', '5', '1', '4', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '10', '9', '14', '13', '12', '15']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '16']}] }),
+        Part(**{ 'name':'4028', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4028'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS DECOD DECOD10', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4028bms.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4028\n\nCMOS DECOD DECOD10', 'pins':[
             Pin(num='1',name='S4',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='D',func=Pin.types.INPUT,unit=1),
@@ -284,7 +286,7 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='S6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='S8',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'4029', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4029'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS COUNTER', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4029bms.pdf', 'pins':[
+        Part(**{ 'name':'4029', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4029'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS COUNTER', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4029bms.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4029\n\nCMOS COUNTER', 'pins':[
             Pin(num='1',name='PE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='U/D',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='Q2',func=Pin.types.OUTPUT,unit=1),
@@ -301,7 +303,7 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Cout',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='B/D',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'4040', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4040'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS CNT CNT12', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4020bms-24bms-40bms.pdf', 'pins':[
+        Part(**{ 'name':'4040', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4040'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS CNT CNT12', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4020bms-24bms-40bms.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4040\n\nCMOS CNT CNT12', 'pins':[
             Pin(num='1',name='Q11',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='CLK',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='Reset',func=Pin.types.INPUT,unit=1),
@@ -318,7 +320,7 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Q1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Q0',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'4046', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4046'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS PLL', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/HEF4046B.pdf', 'pins':[
+        Part(**{ 'name':'4046', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4046'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS PLL', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/HEF4046B.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4046\n\nCMOS PLL', 'pins':[
             Pin(num='1',name='PCP',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='SFout',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='R1',func=Pin.types.INPUT,unit=1),
@@ -335,7 +337,7 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='C2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VCOin',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'4047', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4047'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS monostable astable multivibrator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/cd4047b.pdf', 'pins':[
+        Part(**{ 'name':'4047', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4047'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS monostable astable multivibrator', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/cd4047b.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4047\n\nCMOS monostable astable multivibrator', 'pins':[
             Pin(num='1',name='C',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Q',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='~{Q}',func=Pin.types.OUTPUT,unit=1),
@@ -350,7 +352,7 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='+TRIGGER',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='EXT_RESET',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'4049', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4049'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS BUFFER', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/intersil/documents/cd40/cd4049ubms.pdf', 'pins':[
+        Part(**{ 'name':'4049', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4049'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS BUFFER', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/intersil/documents/cd40/cd4049ubms.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4049\n\nCMOS BUFFER', 'pins':[
             Pin(num='2',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='~',func=Pin.types.OUTPUT,unit=2),
@@ -364,8 +366,8 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='14',name='~',func=Pin.types.INPUT,unit=6),
             Pin(num='15',name='~',func=Pin.types.OUTPUT,unit=6),
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=7),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '7']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '12']},{'label': 'uF', 'num': 6, 'pin_nums': ['14', '15']},{'label': 'uG', 'num': 7, 'pin_nums': ['1', '8']}] }),
-        Part(**{ 'name':'4050', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4050'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS BUFFER', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/intersil/documents/cd40/cd4050bms.pdf', 'pins':[
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['9', '10']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '12']},{'label': 'uF', 'num': 6, 'pin_nums': ['14', '15']},{'label': 'uG', 'num': 7, 'pin_nums': ['8', '1']}] }),
+        Part(**{ 'name':'4050', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4050'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS BUFFER', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/intersil/documents/cd40/cd4050bms.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4050\n\nCMOS BUFFER', 'pins':[
             Pin(num='2',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='~',func=Pin.types.OUTPUT,unit=2),
@@ -379,8 +381,8 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='14',name='~',func=Pin.types.INPUT,unit=6),
             Pin(num='15',name='~',func=Pin.types.OUTPUT,unit=6),
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=7),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '7']},{'label': 'uD', 'num': 4, 'pin_nums': ['9', '10']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '12']},{'label': 'uF', 'num': 6, 'pin_nums': ['14', '15']},{'label': 'uG', 'num': 7, 'pin_nums': ['1', '8']}] }),
-        Part(**{ 'name':'4051', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4051'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS MUX MUX8', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4051bms-52bms-53bms.pdf', 'pins':[
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '7']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '12']},{'label': 'uF', 'num': 6, 'pin_nums': ['14', '15']},{'label': 'uG', 'num': 7, 'pin_nums': ['1', '8']}] }),
+        Part(**{ 'name':'4051', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4051'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS MUX MUX8', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4051bms-52bms-53bms.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4051\n\nCMOS MUX MUX8', 'pins':[
             Pin(num='1',name='X4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='A',func=Pin.types.INPUT,unit=1),
@@ -397,7 +399,7 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VEE',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='C',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'4052', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4052'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS MUX MUX4', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4051bms-52bms-53bms.pdf', 'pins':[
+        Part(**{ 'name':'4052', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4052'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS MUX MUX4', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4051bms-52bms-53bms.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4052\n\nCMOS MUX MUX4', 'pins':[
             Pin(num='1',name='Y0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='A',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='X3',func=Pin.types.PASSIVE,unit=1),
@@ -414,7 +416,7 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VEE',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'4053', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4053'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS MUX MUX2', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4051bms-52bms-53bms.pdf', 'pins':[
+        Part(**{ 'name':'4053', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4053'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS MUX MUX2', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4051bms-52bms-53bms.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4053\n\nCMOS MUX MUX2', 'pins':[
             Pin(num='1',name='Y1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='B',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='A',func=Pin.types.INPUT,unit=1),
@@ -431,7 +433,7 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VEE',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='C',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'4056', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4056'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS LCD 7-segment decoder driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cd4056b.pdf', 'pins':[
+        Part(**{ 'name':'4056', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4056'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS LCD 7-segment decoder driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cd4056b.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4056\n\nCMOS LCD 7-segment decoder driver', 'pins':[
             Pin(num='1',name='STROBE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='b',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='c',func=Pin.types.OUTPUT,unit=1),
@@ -448,7 +450,7 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VEE',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='a',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'4060', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4060'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'binary counter oscillator', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/m74hc4060.pdf', 'pins':[
+        Part(**{ 'name':'4060', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4060'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'binary counter oscillator', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/m74hc4060.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4060\n\nbinary counter oscillator', 'pins':[
             Pin(num='1',name='Q12',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='Î¦0',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~{Î¦1}',func=Pin.types.INPUT,unit=1),
@@ -465,7 +467,7 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Q4',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='~{Î¦0}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'4069', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4069'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS NOT', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4069ubms.pdf', 'pins':[
+        Part(**{ 'name':'4069', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4069'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS NOT', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4069ubms.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4069\n\nCMOS NOT', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=2),
@@ -479,8 +481,8 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.OUTPUT,unit=6),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=6),
             Pin(num='14',name='VDD',func=Pin.types.PWRIN,unit=7),
-            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['9', '8']},{'label': 'uE', 'num': 5, 'pin_nums': ['11', '10']},{'label': 'uF', 'num': 6, 'pin_nums': ['12', '13']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'4070', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4070'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS XOR2', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4070bms-77bms.pdf', 'pins':[
+            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=7)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['5', '6']},{'label': 'uD', 'num': 4, 'pin_nums': ['8', '9']},{'label': 'uE', 'num': 5, 'pin_nums': ['10', '11']},{'label': 'uF', 'num': 6, 'pin_nums': ['13', '12']},{'label': 'uG', 'num': 7, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'4070', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4070'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS XOR2', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4070bms-77bms.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4070\n\nCMOS XOR2', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -494,8 +496,8 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VDD',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '5', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '10', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '11', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
-        Part(**{ 'name':'4071', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4071'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS OR2', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4071bms-72bms-75bms.pdf', 'pins':[
+            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['13', '12', '11']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'4071', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4071'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS OR2', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4071bms-72bms-75bms.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4071\n\nCMOS OR2', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -509,8 +511,8 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VDD',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'4072', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4072'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS OR4', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4071bms-72bms-75bms.pdf', 'pins':[
+            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['9', '8', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '11', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'4072', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4072'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS OR4', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4071bms-72bms-75bms.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4072\n\nCMOS OR4', 'pins':[
             Pin(num='1',name='~',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.INPUT,unit=1),
@@ -522,8 +524,8 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='13',name='~',func=Pin.types.OUTPUT,unit=2),
             Pin(num='9',name='~',func=Pin.types.INPUT,unit=2),
             Pin(num='14',name='VDD',func=Pin.types.PWRIN,unit=3),
-            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '5', '3', '4', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['12', '13', '11', '9', '10']},{'label': 'uC', 'num': 3, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'4073', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4073'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS And3', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4073bms-81bms-82bms.pdf', 'pins':[
+            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '1', '3', '2', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['12', '10', '13', '9', '11']},{'label': 'uC', 'num': 3, 'pin_nums': ['7', '14']}] }),
+        Part(**{ 'name':'4073', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4073'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS And3', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4073bms-81bms-82bms.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4073\n\nCMOS And3', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~',func=Pin.types.INPUT,unit=1),
@@ -537,8 +539,8 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='14',name='VDD',func=Pin.types.PWRIN,unit=4),
-            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '9', '8', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '6', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['11', '13', '10', '12']},{'label': 'uD', 'num': 4, 'pin_nums': ['7', '14']}] }),
-        Part(**{ 'name':'4075', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4075'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS Or3', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4071bms-72bms-75bms.pdf', 'pins':[
+            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '8', '9']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '4', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['12', '11', '13', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'4075', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4075'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS Or3', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4071bms-72bms-75bms.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4075\n\nCMOS Or3', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~',func=Pin.types.INPUT,unit=1),
@@ -552,8 +554,8 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=3),
             Pin(num='14',name='VDD',func=Pin.types.PWRIN,unit=4),
-            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '8', '9', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5', '3']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '11', '12', '13']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'4077', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4077'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS XOR XNOR XNOR2', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4076bms.pdf', 'pins':[
+            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '8', '1', '9']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '4', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '11', '12', '13']},{'label': 'uD', 'num': 4, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'4077', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4077'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS XOR XNOR XNOR2', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4076bms.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4077\n\nCMOS XOR XNOR XNOR2', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -567,8 +569,8 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VDD',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '11', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'4081', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4081'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS And2', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4073bms-81bms-82bms.pdf', 'pins':[
+            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '10', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '11', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'4081', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4081'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS And2', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4073bms-81bms-82bms.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4081\n\nCMOS And2', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -582,8 +584,8 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VDD',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '6', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '11', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '14']}] }),
-        Part(**{ 'name':'4098', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4098'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS monostable multivibrator', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cd4098b.pdf', 'pins':[
+            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '4', '6']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['12', '11', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'4098', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4098'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS monostable multivibrator', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cd4098b.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4098\n\nCMOS monostable multivibrator', 'pins':[
             Pin(num='1',name='Cx1',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='Rx1_Cx1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~{Reset1}',func=Pin.types.INPUT,unit=1),
@@ -599,8 +601,8 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='15',name='Cx2',func=Pin.types.INPUT,unit=2),
             Pin(num='9',name='~{Q2}',func=Pin.types.OUTPUT,unit=2),
             Pin(num='16',name='VDD',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '6', '4', '1', '7', '5', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['15', '10', '13', '14', '11', '9', '12']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '8']}] }),
-        Part(**{ 'name':'4504', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4504'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Level-shifter', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cd4504b.pdf', 'pins':[
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '4', '2', '6', '1', '7', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['12', '15', '10', '13', '14', '9', '11']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '8']}] }),
+        Part(**{ 'name':'4504', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4504'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Level-shifter', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cd4504b.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4504\n\nLevel-shifter', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='Dout',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='Ein',func=Pin.types.INPUT,unit=1),
@@ -617,7 +619,7 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Cin',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Din',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'4510', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4510'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS CNT CNT4', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheets/150/109581_DS.pdf', 'pins':[
+        Part(**{ 'name':'4510', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4510'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS CNT CNT4', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheets/150/109581_DS.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4510\n\nCMOS CNT CNT4', 'pins':[
             Pin(num='1',name='PE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='U/D',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='Q2',func=Pin.types.OUTPUT,unit=1),
@@ -634,7 +636,7 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RST',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'4518', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4518'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd45/cd4518bms-20bms.pdf', 'pins':[
+        Part(**{ 'name':'4518', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4518'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd45/cd4518bms-20bms.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4518\n\nCMOS', 'pins':[
             Pin(num='1',name='CK',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='Enable',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='Q1',func=Pin.types.OUTPUT,unit=1),
@@ -650,8 +652,8 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='15',name='Reset',func=Pin.types.INPUT,unit=2),
             Pin(num='9',name='CK',func=Pin.types.INPUT,unit=2),
             Pin(num='16',name='VDD',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '6', '2', '4', '7', '5']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '12', '13', '9', '14', '10', '15']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '8']}] }),
-        Part(**{ 'name':'4520', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4520'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd45/cd4518bms-20bms.pdf', 'pins':[
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '5', '2', '3', '1', '6', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['15', '13', '11', '12', '14', '9', '10']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '8']}] }),
+        Part(**{ 'name':'4520', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4520'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/cd45/cd4518bms-20bms.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4520\n\nCMOS', 'pins':[
             Pin(num='1',name='CK',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='Enable',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='Q1',func=Pin.types.OUTPUT,unit=1),
@@ -667,8 +669,8 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='15',name='Reset',func=Pin.types.INPUT,unit=2),
             Pin(num='9',name='CK',func=Pin.types.INPUT,unit=2),
             Pin(num='16',name='VDD',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '5', '6', '4', '7', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '9', '12', '10', '13', '15', '11']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '8']}] }),
-        Part(**{ 'name':'4538', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4538'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/HEF4538B.pdf', 'pins':[
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '3', '4', '5', '6', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '13', '14', '12', '9', '10', '15']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '8']}] }),
+        Part(**{ 'name':'4538', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4538'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/HEF4538B.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4538\n\nCMOS', 'pins':[
             Pin(num='1',name='Cx',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='RxCx',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='R',func=Pin.types.INPUT,unit=1),
@@ -684,8 +686,8 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='15',name='Cx',func=Pin.types.INPUT,unit=2),
             Pin(num='9',name='~{Q}',func=Pin.types.OUTPUT,unit=2),
             Pin(num='16',name='VDD',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '5', '1', '7', '2', '3', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '13', '14', '10', '15', '9', '12']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '16']}] }),
-        Part(**{ 'name':'4543', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4543'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS 7-segment latch decoder driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cd4543b.pdf', 'pins':[
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '7', '4', '5', '1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '14', '9', '13', '11', '12', '15']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '16']}] }),
+        Part(**{ 'name':'4543', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4543'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CMOS 7-segment latch decoder driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cd4543b.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4543\n\nCMOS 7-segment latch decoder driver', 'pins':[
             Pin(num='1',name='~{LE}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Qb',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='Qc',func=Pin.types.OUTPUT,unit=1),
@@ -702,7 +704,7 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='BL',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='Qa',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CD4033B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CD4033B'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'schmitt triggered', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/cd4033b.pdf', 'pins':[
+        Part(**{ 'name':'CD4033B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CD4033B'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'schmitt triggered', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/cd4033b.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\nCD4033B\n\nschmitt triggered', 'pins':[
             Pin(num='1',name='CLOCK',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='a',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='e',func=Pin.types.OUTPUT,unit=1),
@@ -719,7 +721,7 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='g',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='V_{SS}',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='d',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HEF4093B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HEF4093B'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'NAND2', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/HEF4093B.pdf', 'pins':[
+        Part(**{ 'name':'HEF4093B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HEF4093B'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'NAND2', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/HEF4093B.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\nHEF4093B\n\nNAND2', 'pins':[
             Pin(num='1',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~',func=Pin.types.OUTPUT,unit=1),
@@ -733,8 +735,8 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '4', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'HEF4094B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HEF4094B'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'shift-store store logic shift-and-store 8-stage', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/HEF4094B.pdf', 'pins':[
+            Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['4', '6', '5']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '13']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'HEF4094B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HEF4094B'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'shift-store store logic shift-and-store 8-stage', 'description':'', 'datasheet':'https://assets.nexperia.com/documents/data-sheet/HEF4094B.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\nHEF4094B\n\nshift-store store logic shift-and-store 8-stage', 'pins':[
             Pin(num='10',name='QS2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='QP7',func=Pin.types.OUTPUT,unit=1),
             Pin(num='12',name='QP6',func=Pin.types.OUTPUT,unit=1),
@@ -751,7 +753,7 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='2',name='D',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CP',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='QP0',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'14528', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'14528'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'CMOS', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/MC14528B-D.PDF', 'pins':[
+        Part(**{ 'name':'14528', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'14528'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'CMOS', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/MC14528B-D.PDF', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n14528\n\nCMOS', 'pins':[
             Pin(num='1',name='Cx',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='RxCx',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='R',func=Pin.types.INPUT,unit=1),
@@ -767,8 +769,8 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='15',name='Cx',func=Pin.types.INPUT,unit=2),
             Pin(num='9',name='~{Q}',func=Pin.types.OUTPUT,unit=2),
             Pin(num='16',name='VDD',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '3', '5', '2', '1', '4', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '9', '12', '14', '10', '15', '13']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '16']}] }),
-        Part(**{ 'name':'14538', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'14538'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'CMOS', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/MC14538B-D.PDF', 'pins':[
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['3', '1', '5', '7', '2', '6', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['15', '9', '10', '14', '11', '13', '12']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '16']}] }),
+        Part(**{ 'name':'14538', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'14538'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'CMOS', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/MC14538B-D.PDF', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n14538\n\nCMOS', 'pins':[
             Pin(num='1',name='Cx',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='RxCx',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='R',func=Pin.types.INPUT,unit=1),
@@ -784,8 +786,8 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='15',name='Cx',func=Pin.types.INPUT,unit=2),
             Pin(num='9',name='~{Q}',func=Pin.types.OUTPUT,unit=2),
             Pin(num='16',name='VDD',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '1', '3', '4', '2', '6', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '13', '11', '15', '12', '14', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '16']}] }),
-        Part(**{ 'name':'4066', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4066'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'CMOS SWITCH', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cd4066b.pdf', 'pins':[
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '6', '3', '1', '7', '5', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['15', '10', '13', '9', '11', '14', '12']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '16']}] }),
+        Part(**{ 'name':'4066', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4066'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'CMOS SWITCH', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cd4066b.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4066\n\nCMOS SWITCH', 'pins':[
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='13',name='~',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1),
@@ -799,8 +801,8 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='11',name='~',func=Pin.types.PASSIVE,unit=4),
             Pin(num='12',name='~',func=Pin.types.INPUT,unit=4),
             Pin(num='14',name='VDD',func=Pin.types.PWRIN,unit=5),
-            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '1', '13']},{'label': 'uB', 'num': 2, 'pin_nums': ['3', '5', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '12', '10']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
-        Part(**{ 'name':'4528', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4528'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'CMOS', 'description':'', 'datasheet':'http://datasheet.octopart.com/CD4528BCN-Fairchild-datasheet-143503.pdf', 'pins':[
+            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '13', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['5', '3', '4']},{'label': 'uC', 'num': 3, 'pin_nums': ['6', '8', '9']},{'label': 'uD', 'num': 4, 'pin_nums': ['10', '11', '12']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '7']}] }),
+        Part(**{ 'name':'4528', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'4528'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'CMOS', 'description':'', 'datasheet':'http://datasheet.octopart.com/CD4528BCN-Fairchild-datasheet-143503.pdf', 'search_text':'/usr/share/kicad/symbols/4xxx.kicad_sym\n4528\n\nCMOS', 'pins':[
             Pin(num='1',name='Cx',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='RxCx',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='R',func=Pin.types.INPUT,unit=1),
@@ -816,4 +818,4 @@ _4xxx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='15',name='Cx',func=Pin.types.INPUT,unit=2),
             Pin(num='9',name='~{Q}',func=Pin.types.OUTPUT,unit=2),
             Pin(num='16',name='VDD',func=Pin.types.PWRIN,unit=3),
-            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '4', '2', '5', '3', '6', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '10', '14', '11', '12', '13', '15']},{'label': 'uC', 'num': 3, 'pin_nums': ['8', '16']}] })])
+            Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '7', '1', '4', '2', '5', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['15', '13', '9', '10', '14', '11', '12']},{'label': 'uC', 'num': 3, 'pin_nums': ['16', '8']}] })])

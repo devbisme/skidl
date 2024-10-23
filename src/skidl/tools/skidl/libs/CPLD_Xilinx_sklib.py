@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 CPLD_Xilinx = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'XC7336', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC7336'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'XC7336', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC7336'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/CPLD_Xilinx.kicad_sym\nXC7336\n\n', 'pins':[
             Pin(num='1',name='I/FO/FI/MR_3_6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='I/FO_1_4',func=Pin.types.BIDIR,unit=1),
@@ -49,7 +49,7 @@ CPLD_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I/FO/FI_1_1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='I/FO_1_2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='I/FO_1_3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XC95108PC84', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC95108PC84'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'xilinx/xc95108.pdf', 'pins':[
+        Part(**{ 'name':'XC95108PC84', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC95108PC84'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'xilinx/xc95108.pdf', 'search_text':'/usr/share/kicad/symbols/CPLD_Xilinx.kicad_sym\nXC95108PC84\n\n', 'pins':[
             Pin(num='1',name='P1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='I/O/GCK2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P11',func=Pin.types.BIDIR,unit=1),
@@ -134,7 +134,7 @@ CPLD_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='83',name='P83',func=Pin.types.BIDIR,unit=1),
             Pin(num='84',name='P84',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='I/O/GCK1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XC95108PQ100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC95108PQ100'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'xilinx/xc95108.pdf', 'pins':[
+        Part(**{ 'name':'XC95108PQ100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC95108PQ100'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'xilinx/xc95108.pdf', 'search_text':'/usr/share/kicad/symbols/CPLD_Xilinx.kicad_sym\nXC95108PQ100\n\n', 'pins':[
             Pin(num='1',name='I/O/GSR',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P10',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -235,7 +235,7 @@ CPLD_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='P97',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='P98',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='P99',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XC95144PQ100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC95144PQ100'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'XC95144PQ100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC95144PQ100'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/CPLD_Xilinx.kicad_sym\nXC95144PQ100\n\n', 'pins':[
             Pin(num='1',name='I/O/GSR',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P10',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -336,7 +336,7 @@ CPLD_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='P97',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='P98',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='P99',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XC95144XL-TQ100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC95144XL-TQ100'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-100_14x14mm_P0.5mm', 'keywords':'CPLD', 'description':'', 'datasheet':'https://www.xilinx.com/support/documentation/data_sheets/ds056.pdf', 'pins':[
+        Part(**{ 'name':'XC95144XL-TQ100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC95144XL-TQ100'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-100_14x14mm_P0.5mm', 'keywords':'CPLD', 'description':'', 'datasheet':'https://www.xilinx.com/support/documentation/data_sheets/ds056.pdf', 'search_text':'/usr/share/kicad/symbols/CPLD_Xilinx.kicad_sym\nXC95144XL-TQ100\n\nCPLD', 'pins':[
             Pin(num='1',name='I/O/GTS3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P10',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -437,7 +437,7 @@ CPLD_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='P97',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='VCCINT',func=Pin.types.PWRIN,unit=1),
             Pin(num='99',name='I/O/GSR',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XC95144XL-TQ144', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC95144XL-TQ144'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-144_20x20mm_P0.5mm', 'keywords':'CPLD', 'description':'', 'datasheet':'https://www.xilinx.com/support/documentation/data_sheets/ds056.pdf', 'pins':[
+        Part(**{ 'name':'XC95144XL-TQ144', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC95144XL-TQ144'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-144_20x20mm_P0.5mm', 'keywords':'CPLD', 'description':'', 'datasheet':'https://www.xilinx.com/support/documentation/data_sheets/ds056.pdf', 'search_text':'/usr/share/kicad/symbols/CPLD_Xilinx.kicad_sym\nXC95144XL-TQ144\n\nCPLD', 'pins':[
             Pin(num='1',name='VCCIO',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P10',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='P100',func=Pin.types.BIDIR,unit=1),
@@ -582,7 +582,7 @@ CPLD_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='P97',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='P98',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XC9536PC44', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC9536PC44'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'xilinx/xc9536.pdf', 'pins':[
+        Part(**{ 'name':'XC9536PC44', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC9536PC44'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'xilinx/xc9536.pdf', 'search_text':'/usr/share/kicad/symbols/CPLD_Xilinx.kicad_sym\nXC9536PC44\n\n', 'pins':[
             Pin(num='1',name='M1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='M9',func=Pin.types.BIDIR,unit=1),
@@ -627,7 +627,7 @@ CPLD_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='I/O/GCK3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='M6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='M8',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XC9572XL-TQ100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC9572XL-TQ100'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-100_14x14mm_P0.5mm', 'keywords':'CPLD', 'description':'', 'datasheet':'http://www.xilinx.com/support/documentation/data_sheets/ds057.pdf', 'pins':[
+        Part(**{ 'name':'XC9572XL-TQ100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC9572XL-TQ100'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-100_14x14mm_P0.5mm', 'keywords':'CPLD', 'description':'', 'datasheet':'http://www.xilinx.com/support/documentation/data_sheets/ds057.pdf', 'search_text':'/usr/share/kicad/symbols/CPLD_Xilinx.kicad_sym\nXC9572XL-TQ100\n\nCPLD', 'pins':[
             Pin(num='1',name='I/O/GTS3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P10',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -728,7 +728,7 @@ CPLD_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='P97',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='99',name='I/O/GSR',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XC9572XL-VQ64', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC9572XL-VQ64'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'CPLD', 'description':'', 'datasheet':'http://www.xilinx.com/support/documentation/data_sheets/ds057.pdf', 'pins':[
+        Part(**{ 'name':'XC9572XL-VQ64', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC9572XL-VQ64'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'CPLD', 'description':'', 'datasheet':'http://www.xilinx.com/support/documentation/data_sheets/ds057.pdf', 'search_text':'/usr/share/kicad/symbols/CPLD_Xilinx.kicad_sym\nXC9572XL-VQ64\n\nCPLD', 'pins':[
             Pin(num='1',name='P1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P10',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P11',func=Pin.types.BIDIR,unit=1),
@@ -793,7 +793,7 @@ CPLD_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P7',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P8',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XCR3064XL-VQ100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XCR3064XL-VQ100'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'CPLD', 'description':'', 'datasheet':'https://www.xilinx.com/support/documentation/data_sheets/ds017.pdf', 'pins':[
+        Part(**{ 'name':'XCR3064XL-VQ100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XCR3064XL-VQ100'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'CPLD', 'description':'', 'datasheet':'https://www.xilinx.com/support/documentation/data_sheets/ds017.pdf', 'search_text':'/usr/share/kicad/symbols/CPLD_Xilinx.kicad_sym\nXCR3064XL-VQ100\n\nCPLD', 'pins':[
             Pin(num='10',name='B12',func=Pin.types.PASSIVE,unit=1),
             Pin(num='100',name='B7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='PORT_EN',func=Pin.types.PASSIVE,unit=1),
@@ -878,7 +878,7 @@ CPLD_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='B4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='98',name='B5',func=Pin.types.PASSIVE,unit=1),
             Pin(num='99',name='B6',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XCR3064XL-VQ44', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XCR3064XL-VQ44'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'CPLD', 'description':'', 'datasheet':'https://www.xilinx.com/support/documentation/data_sheets/ds017.pdf', 'pins':[
+        Part(**{ 'name':'XCR3064XL-VQ44', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XCR3064XL-VQ44'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'CPLD', 'description':'', 'datasheet':'https://www.xilinx.com/support/documentation/data_sheets/ds017.pdf', 'search_text':'/usr/share/kicad/symbols/CPLD_Xilinx.kicad_sym\nXCR3064XL-VQ44\n\nCPLD', 'pins':[
             Pin(num='1',name='TDI',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='D3',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='D4',func=Pin.types.PASSIVE,unit=1),
@@ -923,7 +923,7 @@ CPLD_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='D1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XCR3128XL-VQ100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XCR3128XL-VQ100'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'CPLD', 'description':'', 'datasheet':'https://www.xilinx.com/support/documentation/data_sheets/ds016.pdf', 'pins':[
+        Part(**{ 'name':'XCR3128XL-VQ100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XCR3128XL-VQ100'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'CPLD', 'description':'', 'datasheet':'https://www.xilinx.com/support/documentation/data_sheets/ds016.pdf', 'search_text':'/usr/share/kicad/symbols/CPLD_Xilinx.kicad_sym\nXCR3128XL-VQ100\n\nCPLD', 'pins':[
             Pin(num='1',name='E1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='F10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='100',name='E2',func=Pin.types.PASSIVE,unit=1),
@@ -1024,7 +1024,7 @@ CPLD_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='E5',func=Pin.types.PASSIVE,unit=1),
             Pin(num='98',name='E4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='99',name='E3',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XCR3256XL-TQ144', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XCR3256XL-TQ144'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-144_20x20mm_P0.5mm', 'keywords':'CPLD', 'description':'', 'datasheet':'https://www.xilinx.com/support/documentation/data_sheets/ds013.pdf', 'pins':[
+        Part(**{ 'name':'XCR3256XL-TQ144', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XCR3256XL-TQ144'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-144_20x20mm_P0.5mm', 'keywords':'CPLD', 'description':'', 'datasheet':'https://www.xilinx.com/support/documentation/data_sheets/ds013.pdf', 'search_text':'/usr/share/kicad/symbols/CPLD_Xilinx.kicad_sym\nXCR3256XL-TQ144\n\nCPLD', 'pins':[
             Pin(num='1',name='I1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='J14',func=Pin.types.PASSIVE,unit=1),
             Pin(num='100',name='A12',func=Pin.types.PASSIVE,unit=1),
@@ -1169,7 +1169,7 @@ CPLD_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='C1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='98',name='C0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='99',name='A13',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XCR3064-VQ100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XCR3064-VQ100'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'CPLD', 'description':'', 'datasheet':'https://www.xilinx.com/support/documentation/data_sheets/ds017.pdf', 'pins':[
+        Part(**{ 'name':'XCR3064-VQ100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XCR3064-VQ100'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'CPLD', 'description':'', 'datasheet':'https://www.xilinx.com/support/documentation/data_sheets/ds017.pdf', 'search_text':'/usr/share/kicad/symbols/CPLD_Xilinx.kicad_sym\nXCR3064-VQ100\n\nCPLD', 'pins':[
             Pin(num='10',name='B12',func=Pin.types.PASSIVE,unit=1),
             Pin(num='100',name='B7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='PORT_EN',func=Pin.types.PASSIVE,unit=1),
@@ -1254,7 +1254,7 @@ CPLD_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='B4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='98',name='B5',func=Pin.types.PASSIVE,unit=1),
             Pin(num='99',name='B6',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XCR3064-VQ44', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XCR3064-VQ44'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'CPLD', 'description':'', 'datasheet':'https://www.xilinx.com/support/documentation/data_sheets/ds017.pdf', 'pins':[
+        Part(**{ 'name':'XCR3064-VQ44', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XCR3064-VQ44'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm', 'Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'CPLD', 'description':'', 'datasheet':'https://www.xilinx.com/support/documentation/data_sheets/ds017.pdf', 'search_text':'/usr/share/kicad/symbols/CPLD_Xilinx.kicad_sym\nXCR3064-VQ44\n\nCPLD', 'pins':[
             Pin(num='1',name='TDI',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='D3',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='D4',func=Pin.types.PASSIVE,unit=1),
@@ -1299,7 +1299,7 @@ CPLD_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='D1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XCR3128-VQ100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XCR3128-VQ100'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'CPLD', 'description':'', 'datasheet':'https://www.xilinx.com/support/documentation/data_sheets/ds016.pdf', 'pins':[
+        Part(**{ 'name':'XCR3128-VQ100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XCR3128-VQ100'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'CPLD', 'description':'', 'datasheet':'https://www.xilinx.com/support/documentation/data_sheets/ds016.pdf', 'search_text':'/usr/share/kicad/symbols/CPLD_Xilinx.kicad_sym\nXCR3128-VQ100\n\nCPLD', 'pins':[
             Pin(num='1',name='E1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='F10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='100',name='E2',func=Pin.types.PASSIVE,unit=1),
@@ -1400,7 +1400,7 @@ CPLD_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='E5',func=Pin.types.PASSIVE,unit=1),
             Pin(num='98',name='E4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='99',name='E3',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XCR3256-TQ144', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XCR3256-TQ144'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-144_20x20mm_P0.5mm', 'Package_QFP:TQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-144_20x20mm_P0.5mm', 'keywords':'CPLD', 'description':'', 'datasheet':'https://www.xilinx.com/support/documentation/data_sheets/ds013.pdf', 'pins':[
+        Part(**{ 'name':'XCR3256-TQ144', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XCR3256-TQ144'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-144_20x20mm_P0.5mm', 'Package_QFP:TQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-144_20x20mm_P0.5mm', 'keywords':'CPLD', 'description':'', 'datasheet':'https://www.xilinx.com/support/documentation/data_sheets/ds013.pdf', 'search_text':'/usr/share/kicad/symbols/CPLD_Xilinx.kicad_sym\nXCR3256-TQ144\n\nCPLD', 'pins':[
             Pin(num='1',name='I1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='J14',func=Pin.types.PASSIVE,unit=1),
             Pin(num='100',name='A12',func=Pin.types.PASSIVE,unit=1),

@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 MCU_Parallax = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'P8X32A-D40', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'P8X32A-D40'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'microcontroller multicore Parallax Propeller DIP', 'description':'', 'datasheet':'https://www.parallax.com/sites/default/files/downloads/P8X32A-Propeller-Datasheet-v1.4.0_0.pdf', 'pins':[
+        Part(**{ 'name':'P8X32A-D40', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'P8X32A-D40'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'microcontroller multicore Parallax Propeller DIP', 'description':'', 'datasheet':'https://www.parallax.com/sites/default/files/downloads/P8X32A-Propeller-Datasheet-v1.4.0_0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Parallax.kicad_sym\nP8X32A-D40\n\nmicrocontroller multicore Parallax Propeller DIP', 'pins':[
             Pin(num='1',name='P0',func=Pin.types.BIDIR),
             Pin(num='10',name='~{BOE}',func=Pin.types.INPUT),
             Pin(num='11',name='~{RES}',func=Pin.types.BIDIR),
@@ -45,7 +45,7 @@ MCU_Parallax = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P6',func=Pin.types.BIDIR),
             Pin(num='8',name='P7',func=Pin.types.BIDIR),
             Pin(num='9',name='VSS',func=Pin.types.PWRIN)], 'unit_defs':[] }),
-        Part(**{ 'name':'P8X32A-M44', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'P8X32A-M44'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_9x9mm_P0.65mm_EP7.5x7.5mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_9x9mm_P0.65mm_EP7.5x7.5mm', 'keywords':'microcontroller multicore Parallax Propeller QFN', 'description':'', 'datasheet':'https://www.parallax.com/sites/default/files/downloads/P8X32A-Propeller-Datasheet-v1.4.0_0.pdf', 'pins':[
+        Part(**{ 'name':'P8X32A-M44', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'P8X32A-M44'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-44-1EP_9x9mm_P0.65mm_EP7.5x7.5mm'], 'footprint':'Package_DFN_QFN:QFN-44-1EP_9x9mm_P0.65mm_EP7.5x7.5mm', 'keywords':'microcontroller multicore Parallax Propeller QFN', 'description':'', 'datasheet':'https://www.parallax.com/sites/default/files/downloads/P8X32A-Propeller-Datasheet-v1.4.0_0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Parallax.kicad_sym\nP8X32A-M44\n\nmicrocontroller multicore Parallax Propeller QFN', 'pins':[
             Pin(num='1',name='P4',func=Pin.types.BIDIR),
             Pin(num='10',name='P9',func=Pin.types.BIDIR),
             Pin(num='11',name='P10',func=Pin.types.BIDIR),
@@ -91,7 +91,7 @@ MCU_Parallax = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RES}',func=Pin.types.BIDIR),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN),
             Pin(num='9',name='P8',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'P8X32A-Q44', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'P8X32A-Q44'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'microcontroller multicore Parallax Propeller LQFP', 'description':'', 'datasheet':'https://www.parallax.com/sites/default/files/downloads/P8X32A-Propeller-Datasheet-v1.4.0_0.pdf', 'pins':[
+        Part(**{ 'name':'P8X32A-Q44', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'P8X32A-Q44'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-44_10x10mm_P0.8mm', 'keywords':'microcontroller multicore Parallax Propeller LQFP', 'description':'', 'datasheet':'https://www.parallax.com/sites/default/files/downloads/P8X32A-Propeller-Datasheet-v1.4.0_0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Parallax.kicad_sym\nP8X32A-Q44\n\nmicrocontroller multicore Parallax Propeller LQFP', 'pins':[
             Pin(num='1',name='P4',func=Pin.types.BIDIR),
             Pin(num='10',name='P9',func=Pin.types.BIDIR),
             Pin(num='11',name='P10',func=Pin.types.BIDIR),

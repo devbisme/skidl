@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Driver_Relay = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'DRV8860', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8860'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'Relay Driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/drv8860.pdf', 'pins':[
+        Part(**{ 'name':'DRV8860', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8860'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'Relay Driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/drv8860.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Relay.kicad_sym\nDRV8860\n\nRelay Driver', 'pins':[
             Pin(num='1',name='VM',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='OUT7',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='OUT6',func=Pin.types.OUTPUT,unit=1),
@@ -21,7 +21,7 @@ Driver_Relay = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='FAULT',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='ENABLE',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='OUT8',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DRV8860_PWPR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8860_PWPR'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16-1EP_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16-1EP_4.4x5mm_P0.65mm', 'keywords':'Relay Driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/drv8860.pdf', 'pins':[
+        Part(**{ 'name':'DRV8860_PWPR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DRV8860_PWPR'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16-1EP_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16-1EP_4.4x5mm_P0.65mm', 'keywords':'Relay Driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/drv8860.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Relay.kicad_sym\nDRV8860_PWPR\n\nRelay Driver', 'pins':[
             Pin(num='1',name='VM',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='OUT7',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='OUT6',func=Pin.types.OUTPUT,unit=1),
@@ -39,7 +39,7 @@ Driver_Relay = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='FAULT',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='ENABLE',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='OUT8',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX4820xUP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX4820xUP'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-20-1EP_4.4x6.5mm_P0.65mm_EP2.85x4mm'], 'footprint':'Package_SO:HTSSOP-20-1EP_4.4x6.5mm_P0.65mm_EP2.85x4mm', 'keywords':'Relay Driver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX4820-MAX4821.pdf', 'pins':[
+        Part(**{ 'name':'MAX4820xUP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX4820xUP'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-20-1EP_4.4x6.5mm_P0.65mm_EP2.85x4mm'], 'footprint':'Package_SO:HTSSOP-20-1EP_4.4x6.5mm_P0.65mm_EP2.85x4mm', 'keywords':'Relay Driver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX4820-MAX4821.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Relay.kicad_sym\nMAX4820xUP\n\nRelay Driver', 'pins':[
             Pin(num='17',name='OUT3',func=Pin.types.OPENCOLL),
             Pin(num='18',name='GND',func=Pin.types.PASSIVE),
             Pin(num='19',name='OUT2',func=Pin.types.OPENCOLL),
@@ -61,7 +61,7 @@ Driver_Relay = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='DOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX4821xUP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX4821xUP'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-20-1EP_4.4x6.5mm_P0.65mm_EP2.85x4mm'], 'footprint':'Package_SO:HTSSOP-20-1EP_4.4x6.5mm_P0.65mm_EP2.85x4mm', 'keywords':'Relay Driver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX4820-MAX4821.pdf', 'pins':[
+        Part(**{ 'name':'MAX4821xUP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX4821xUP'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-20-1EP_4.4x6.5mm_P0.65mm_EP2.85x4mm'], 'footprint':'Package_SO:HTSSOP-20-1EP_4.4x6.5mm_P0.65mm_EP2.85x4mm', 'keywords':'Relay Driver', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX4820-MAX4821.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Relay.kicad_sym\nMAX4821xUP\n\nRelay Driver', 'pins':[
             Pin(num='17',name='OUT3',func=Pin.types.OPENCOLL),
             Pin(num='18',name='GND',func=Pin.types.PASSIVE),
             Pin(num='19',name='OUT2',func=Pin.types.OPENCOLL),
@@ -83,7 +83,7 @@ Driver_Relay = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TPL9201_TSSOP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPL9201_TSSOP'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-20-1EP_4.4x6.5mm_P0.65mm_EP3.4x6.5mm_ThermalVias'], 'footprint':'Package_SO:HTSSOP-20-1EP_4.4x6.5mm_P0.65mm_EP3.4x6.5mm_ThermalVias', 'keywords':'Relay Driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tpl9201.pdf', 'pins':[
+        Part(**{ 'name':'TPL9201_TSSOP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPL9201_TSSOP'}), 'ref_prefix':'U', 'fplist':['Package_SO:HTSSOP-20-1EP_4.4x6.5mm_P0.65mm_EP3.4x6.5mm_ThermalVias'], 'footprint':'Package_SO:HTSSOP-20-1EP_4.4x6.5mm_P0.65mm_EP3.4x6.5mm_ThermalVias', 'keywords':'Relay Driver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tpl9201.pdf', 'search_text':'/usr/share/kicad/symbols/Driver_Relay.kicad_sym\nTPL9201_TSSOP\n\nRelay Driver', 'pins':[
             Pin(num='1',name='ZVS',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PWRIN,unit=1),

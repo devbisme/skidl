@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 MCU_NXP_HCS12 = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'MC9S12DT256', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S12DT256'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'HCS12 MCU', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/fact-sheet/MC9S12DT256FS.pdf', 'pins':[
+        Part(**{ 'name':'MC9S12DT256', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC9S12DT256'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'HCS12 MCU', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/fact-sheet/MC9S12DT256FS.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_NXP_HCS12.kicad_sym\nMC9S12DT256\n\nHCS12 MCU', 'pins':[
             Pin(num='1',name='SS1/PWM3/KWP3/PP3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PT1/IOC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='BF_PROK/TXCAN0/TXCAN4/SCK0/PM5',func=Pin.types.BIDIR,unit=1),

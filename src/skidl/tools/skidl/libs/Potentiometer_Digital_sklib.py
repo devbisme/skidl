@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'AD5254', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5254'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'digital potentiometer', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5253_5254.pdf', 'pins':[
+        Part(**{ 'name':'AD5254', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5254'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'digital potentiometer', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5253_5254.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nAD5254\n\ndigital potentiometer', 'pins':[
             Pin(num='1',name='W0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='A2',func=Pin.types.PASSIVE,unit=1),
@@ -25,7 +25,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='B1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='A1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='SDA',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD5272BCP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5272BCP'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-WD-10-1EP_3x3mm_P0.5mm_EP1.64x2.38mm'], 'footprint':'Package_CSP:LFCSP-WD-10-1EP_3x3mm_P0.5mm_EP1.64x2.38mm', 'keywords':'digital potentiometer', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5272_5274.pdf', 'pins':[
+        Part(**{ 'name':'AD5272BCP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5272BCP'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-WD-10-1EP_3x3mm_P0.5mm_EP1.64x2.38mm'], 'footprint':'Package_CSP:LFCSP-WD-10-1EP_3x3mm_P0.5mm_EP1.64x2.38mm', 'keywords':'digital potentiometer', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5272_5274.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nAD5272BCP\n\ndigital potentiometer', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='ADDR',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='VSS',func=Pin.types.PASSIVE,unit=1),
@@ -37,7 +37,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SCL',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD5272BRM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5272BRM'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'digital potentiometer', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5272_5274.pdf', 'pins':[
+        Part(**{ 'name':'AD5272BRM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5272BRM'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'digital potentiometer', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5272_5274.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nAD5272BRM\n\ndigital potentiometer', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='ADDR',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1),
@@ -48,7 +48,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SCL',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD5280', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5280'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'digital potentiometer', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5280_5282.pdf', 'pins':[
+        Part(**{ 'name':'AD5280', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5280'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'digital potentiometer', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5280_5282.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nAD5280\n\ndigital potentiometer', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='VSS',func=Pin.types.PWRIN,unit=1),
@@ -63,7 +63,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='AD0',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='AD1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD5282', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5282'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'digital potentiometer', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5280_5282.pdf', 'pins':[
+        Part(**{ 'name':'AD5282', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5282'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'digital potentiometer', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5280_5282.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nAD5282\n\ndigital potentiometer', 'pins':[
             Pin(num='1',name='O1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='AD1',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -80,7 +80,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='AD0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD5290', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5290'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'analog-devices ', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5290.pdf', 'pins':[
+        Part(**{ 'name':'AD5290', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5290'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'analog-devices ', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5290.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nAD5290\n\nanalog-devices ', 'pins':[
             Pin(num='1',name='A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='W',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='B',func=Pin.types.PASSIVE,unit=1),
@@ -91,7 +91,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SDO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='V_{DD}',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD5293', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5293'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'R POT', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5293.pdf', 'pins':[
+        Part(**{ 'name':'AD5293', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5293'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'R POT', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5293.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nAD5293\n\nR POT', 'pins':[
             Pin(num='1',name='~{RST}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='SDI',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='CLK',func=Pin.types.INPUT,unit=1),
@@ -106,7 +106,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EXT_CAP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='Vlog',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DS1267_DIP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DS1267_DIP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'Dual Digital Potentiometer Maxim', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DS1267.pdf', 'pins':[
+        Part(**{ 'name':'DS1267_DIP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DS1267_DIP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'Dual Digital Potentiometer Maxim', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DS1267.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nDS1267_DIP\n\nDual Digital Potentiometer Maxim', 'pins':[
             Pin(num='1',name='VB',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='L0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='H0',func=Pin.types.PASSIVE,unit=1),
@@ -121,7 +121,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='DQ',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='COUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DS1267_SOIC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DS1267_SOIC'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'Dual Digital Potentiometer Maxim', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DS1267.pdf', 'pins':[
+        Part(**{ 'name':'DS1267_SOIC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DS1267_SOIC'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'Dual Digital Potentiometer Maxim', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DS1267.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nDS1267_SOIC\n\nDual Digital Potentiometer Maxim', 'pins':[
             Pin(num='1',name='VB',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='COUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='L0',func=Pin.types.PASSIVE,unit=1),
@@ -136,7 +136,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CLK',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='DQ',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DS1267_TSSOP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DS1267_TSSOP'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'Dual Digital Potentiometer Maxim', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DS1267.pdf', 'pins':[
+        Part(**{ 'name':'DS1267_TSSOP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DS1267_TSSOP'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'Dual Digital Potentiometer Maxim', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DS1267.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nDS1267_TSSOP\n\nDual Digital Potentiometer Maxim', 'pins':[
             Pin(num='1',name='VB',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DQ',func=Pin.types.INPUT,unit=1),
@@ -151,7 +151,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='W1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='~{Reset}',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='CLK',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DS1882E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DS1882E'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'digital potentiometer', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DS1882.pdf', 'pins':[
+        Part(**{ 'name':'DS1882E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DS1882E'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'digital potentiometer', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/DS1882.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nDS1882E\n\ndigital potentiometer', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='H1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='W1',func=Pin.types.PASSIVE,unit=1),
@@ -168,7 +168,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='L0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='H0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='L1',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX5436', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX5436'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'digital potentiometer resistor variable', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX5436-MAX5439.pdf', 'pins':[
+        Part(**{ 'name':'MAX5436', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX5436'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'digital potentiometer resistor variable', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX5436-MAX5439.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMAX5436\n\ndigital potentiometer resistor variable', 'pins':[
             Pin(num='1',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='Din',func=Pin.types.INPUT,unit=1),
@@ -179,7 +179,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='H',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='W',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='L',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4011-xxxxMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4011-xxxxMS'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'Digital Pot Potentiometer Up Down', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21978c.pdf, MSOP-8', 'pins':[
+        Part(**{ 'name':'MCP4011-xxxxMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4011-xxxxMS'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'Digital Pot Potentiometer Up Down', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21978c.pdf, MSOP-8', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMCP4011-xxxxMS\n\nDigital Pot Potentiometer Up Down', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='A',func=Pin.types.PASSIVE,unit=1),
@@ -188,7 +188,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='B',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='U/~{D}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4011-xxxxSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4011-xxxxSN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Digital Pot Potentiometer Up Down', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21978c.pdf, SOIC-8', 'pins':[
+        Part(**{ 'name':'MCP4011-xxxxSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4011-xxxxSN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Digital Pot Potentiometer Up Down', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21978c.pdf, SOIC-8', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMCP4011-xxxxSN\n\nDigital Pot Potentiometer Up Down', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='A',func=Pin.types.PASSIVE,unit=1),
@@ -197,47 +197,47 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='B',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='U/~{D}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4012-xxxxCH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4012-xxxxCH'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'Digital Pot Potentiometer Up Down', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21978c.pdf, SOT-23-6', 'pins':[
+        Part(**{ 'name':'MCP4012-xxxxCH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4012-xxxxCH'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'Digital Pot Potentiometer Up Down', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21978c.pdf, SOT-23-6', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMCP4012-xxxxCH\n\nDigital Pot Potentiometer Up Down', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='U/~{D}',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='W',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='A',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4013-xxxxCH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4013-xxxxCH'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'Digital Pot Potentiometer Up Down', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21978c.pdf, SOT-23-6', 'pins':[
+        Part(**{ 'name':'MCP4013-xxxxCH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4013-xxxxCH'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'Digital Pot Potentiometer Up Down', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21978c.pdf, SOT-23-6', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMCP4013-xxxxCH\n\nDigital Pot Potentiometer Up Down', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='U/~{D}',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='W',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='A',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4014-xxxxOT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4014-xxxxOT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'Digital Pot Potentiometer Up Down', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21978c.pdf, SOT-23-5', 'pins':[
+        Part(**{ 'name':'MCP4014-xxxxOT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4014-xxxxOT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'Digital Pot Potentiometer Up Down', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21978c.pdf, SOT-23-5', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMCP4014-xxxxOT\n\nDigital Pot Potentiometer Up Down', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='U/~{D}',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='W',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4017-xxxxLT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4017-xxxxLT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-363_SC-70-6'], 'footprint':'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'keywords':'TWI pot rheostat', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22147a.pdf', 'pins':[
+        Part(**{ 'name':'MCP4017-xxxxLT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4017-xxxxLT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-363_SC-70-6'], 'footprint':'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'keywords':'TWI pot rheostat', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22147a.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMCP4017-xxxxLT\n\nTWI pot rheostat', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='B',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='W',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4018-xxxxLT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4018-xxxxLT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-363_SC-70-6'], 'footprint':'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'keywords':'TWI pot', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22147a.pdf', 'pins':[
+        Part(**{ 'name':'MCP4018-xxxxLT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4018-xxxxLT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-363_SC-70-6'], 'footprint':'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'keywords':'TWI pot', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22147a.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMCP4018-xxxxLT\n\nTWI pot', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='W',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='A',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4019-xxxxLT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4019-xxxxLT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-353_SC-70-5'], 'footprint':'Package_TO_SOT_SMD:SOT-353_SC-70-5', 'keywords':'TWI pot rheostat', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22147a.pdf', 'pins':[
+        Part(**{ 'name':'MCP4019-xxxxLT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4019-xxxxLT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-353_SC-70-5'], 'footprint':'Package_TO_SOT_SMD:SOT-353_SC-70-5', 'keywords':'TWI pot rheostat', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22147a.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMCP4019-xxxxLT\n\nTWI pot rheostat', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='W',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP41010', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP41010'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'R POT', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/11195c.pdf', 'pins':[
+        Part(**{ 'name':'MCP41010', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP41010'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'R POT', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/11195c.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMCP41010\n\nR POT', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='SCK',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='SI',func=Pin.types.INPUT,unit=1),
@@ -246,7 +246,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PW0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='PB0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4131-xxxx-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4131-xxxx-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'digipot RAM 7-bit 7bit', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/22060b.pdf', 'pins':[
+        Part(**{ 'name':'MCP4131-xxxx-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4131-xxxx-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'digipot RAM 7-bit 7bit', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/22060b.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMCP4131-xxxx-P\n\ndigipot RAM 7-bit 7bit', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT),
             Pin(num='2',name='SCK',func=Pin.types.INPUT),
             Pin(num='3',name='SDI/SDO',func=Pin.types.BIDIR),
@@ -255,7 +255,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='P0W',func=Pin.types.PASSIVE),
             Pin(num='7',name='P0B',func=Pin.types.PASSIVE),
             Pin(num='8',name='V_{DD}',func=Pin.types.PWRIN)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4132-xxxx-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4132-xxxx-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'potentiometer digipot RAM 7-bit 7bit', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/22060b.pdf', 'pins':[
+        Part(**{ 'name':'MCP4132-xxxx-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4132-xxxx-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'potentiometer digipot RAM 7-bit 7bit', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/22060b.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMCP4132-xxxx-P\n\npotentiometer digipot RAM 7-bit 7bit', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT),
             Pin(num='2',name='SCK',func=Pin.types.INPUT),
             Pin(num='4',name='V_{SS}',func=Pin.types.PWRIN),
@@ -264,7 +264,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='P0W',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='P0B',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='SDO',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP42010', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP42010'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'R POT', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/11195c.pdf', 'pins':[
+        Part(**{ 'name':'MCP42010', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP42010'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'R POT', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/11195c.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMCP42010\n\nR POT', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PB0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='~{RS}',func=Pin.types.INPUT,unit=1),
@@ -279,7 +279,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='PA0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='PW0',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4251-xxxx-ML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4251-xxxx-ML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.5x2.5mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.5x2.5mm', 'keywords':'Digital Pot Potentiometer', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/22060b.pdf', 'pins':[
+        Part(**{ 'name':'MCP4251-xxxx-ML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4251-xxxx-ML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.5x2.5mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.5x2.5mm', 'keywords':'Digital Pot Potentiometer', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/22060b.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMCP4251-xxxx-ML\n\nDigital Pot Potentiometer', 'pins':[
             Pin(num='1',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P0B',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -297,7 +297,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P1A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='P0A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='P0W',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4251-xxxx-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4251-xxxx-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'Digital Pot Potentiometer', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/22060b.pdf', 'pins':[
+        Part(**{ 'name':'MCP4251-xxxx-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4251-xxxx-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'Digital Pot Potentiometer', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/22060b.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMCP4251-xxxx-P\n\nDigital Pot Potentiometer', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P0B',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='~{WP}',func=Pin.types.INPUT,unit=1),
@@ -312,7 +312,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P1A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='P0A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='P0W',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4251-xxxx-SL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4251-xxxx-SL'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'Digital Pot Potentiometer', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/22060b.pdf', 'pins':[
+        Part(**{ 'name':'MCP4251-xxxx-SL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4251-xxxx-SL'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'Digital Pot Potentiometer', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/22060b.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMCP4251-xxxx-SL\n\nDigital Pot Potentiometer', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P0B',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='~{WP}',func=Pin.types.INPUT,unit=1),
@@ -327,7 +327,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P1A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='P0A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='P0W',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4251-xxxx-ST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4251-xxxx-ST'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'Digital Pot Potentiometer', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/22060b.pdf', 'pins':[
+        Part(**{ 'name':'MCP4251-xxxx-ST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4251-xxxx-ST'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'Digital Pot Potentiometer', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/22060b.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMCP4251-xxxx-ST\n\nDigital Pot Potentiometer', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P0B',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='~{WP}',func=Pin.types.INPUT,unit=1),
@@ -342,7 +342,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P1A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='P0A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='P0W',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4431-xxxx-ST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4431-xxxx-ST'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'Digital Pot Potentiometer DigiPot', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/22267A_MCP4431.pdf', 'pins':[
+        Part(**{ 'name':'MCP4431-xxxx-ST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4431-xxxx-ST'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'Digital Pot Potentiometer DigiPot', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/22267A_MCP4431.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMCP4431-xxxx-ST\n\nDigital Pot Potentiometer DigiPot', 'pins':[
             Pin(num='11',name='P0A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='12',name='P0W',func=Pin.types.PASSIVE,unit=1),
             Pin(num='13',name='P0B',func=Pin.types.PASSIVE,unit=1),
@@ -362,8 +362,8 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='4',name='HVC/A0',func=Pin.types.INPUT,unit=5),
             Pin(num='5',name='SCL',func=Pin.types.INPUT,unit=5),
             Pin(num='6',name='SDA',func=Pin.types.BIDIR,unit=5),
-            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['12', '13', '11']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '9', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['18', '20', '19']},{'label': 'uD', 'num': 4, 'pin_nums': ['1', '2', '3']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '5', '15', '7', '17', '4', '16', '6']}] }),
-        Part(**{ 'name':'MCP45HV51-MQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP45HV51-MQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_5x5mm_P0.65mm_EP3.35x3.35mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_5x5mm_P0.65mm_EP3.35x3.35mm', 'keywords':'I2C Potentiometer pot digital', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005304A.pdf', 'pins':[
+            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['11', '12', '13']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '9', '10']},{'label': 'uC', 'num': 3, 'pin_nums': ['18', '20', '19']},{'label': 'uD', 'num': 4, 'pin_nums': ['1', '2', '3']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '15', '17', '5', '4', '16', '6', '14']}] }),
+        Part(**{ 'name':'MCP45HV51-MQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP45HV51-MQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_5x5mm_P0.65mm_EP3.35x3.35mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_5x5mm_P0.65mm_EP3.35x3.35mm', 'keywords':'I2C Potentiometer pot digital', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005304A.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMCP45HV51-MQ\n\nI2C Potentiometer pot digital', 'pins':[
             Pin(num='1',name='VL',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='NC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='DGND',func=Pin.types.PWRIN,unit=1),
@@ -385,7 +385,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{SHDN}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='NC',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP45HV51-ST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP45HV51-ST'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'I2C Potentiometer pot digital', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005304A.pdf', 'pins':[
+        Part(**{ 'name':'MCP45HV51-ST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP45HV51-ST'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'I2C Potentiometer pot digital', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005304A.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMCP45HV51-ST\n\nI2C Potentiometer pot digital', 'pins':[
             Pin(num='1',name='VL',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='V-',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='P0B',func=Pin.types.PASSIVE,unit=1),
@@ -400,14 +400,14 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~{SHDN}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DGND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TPL0401A-10-Q1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPL0401A-10-Q1'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:Texas_R-PDSO-G6'], 'footprint':'Package_TO_SOT_SMD:Texas_R-PDSO-G6', 'keywords':'Digital Pot Potentiometer I2C', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tpl0401a-10-q1.pdf', 'pins':[
+        Part(**{ 'name':'TPL0401A-10-Q1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPL0401A-10-Q1'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:Texas_R-PDSO-G6'], 'footprint':'Package_TO_SOT_SMD:Texas_R-PDSO-G6', 'keywords':'Digital Pot Potentiometer I2C', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tpl0401a-10-q1.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nTPL0401A-10-Q1\n\nDigital Pot Potentiometer I2C', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='W',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='H',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'X9118', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'X9118'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'digital potentiometer', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/x911/x9118.pdf', 'pins':[
+        Part(**{ 'name':'X9118', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'X9118'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'digital potentiometer', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/x911/x9118.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nX9118\n\ndigital potentiometer', 'pins':[
             Pin(num='1',name='V+',func=Pin.types.PASSIVE),
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='3',name='A0',func=Pin.types.INPUT),
@@ -420,7 +420,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='RH0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='13',name='RL0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='~{WP}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'X9250', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'X9250'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'potentiometer resistor variable digital', 'description':'', 'datasheet':'https://www.intersil.com/content/dam/Intersil/documents/x925/x9250.pdf', 'pins':[
+        Part(**{ 'name':'X9250', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'X9250'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'potentiometer resistor variable digital', 'description':'', 'datasheet':'https://www.intersil.com/content/dam/Intersil/documents/x925/x9250.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nX9250\n\npotentiometer resistor variable digital', 'pins':[
             Pin(num='11',name='~{CS}',func=Pin.types.INPUT),
             Pin(num='13',name='SIN',func=Pin.types.INPUT),
             Pin(num='14',name='A1',func=Pin.types.INPUT),
@@ -445,7 +445,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='RL3',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='RL0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='RH0',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'X9258', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'X9258'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'potentiometer resistor variable digital', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/intersil/documents/x925/x9258.pdf', 'pins':[
+        Part(**{ 'name':'X9258', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'X9258'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'potentiometer resistor variable digital', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/intersil/documents/x925/x9258.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nX9258\n\npotentiometer resistor variable digital', 'pins':[
             Pin(num='11',name='A2',func=Pin.types.INPUT),
             Pin(num='13',name='SDA',func=Pin.types.BIDIR),
             Pin(num='14',name='A1',func=Pin.types.INPUT),
@@ -469,7 +469,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='RL3',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='RL0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='RH0',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD5253', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5253'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'digital potentiometer', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5253_5254.pdf', 'pins':[
+        Part(**{ 'name':'AD5253', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5253'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'digital potentiometer', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5253_5254.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nAD5253\n\ndigital potentiometer', 'pins':[
             Pin(num='1',name='W0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='A2',func=Pin.types.PASSIVE,unit=1),
@@ -490,7 +490,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='B1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='A1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='SDA',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD5274BCP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5274BCP'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-WD-10-1EP_3x3mm_P0.5mm_EP1.64x2.38mm', 'Package_CSP:LFCSP-WD-10-1EP_3x3mm_P0.5mm_EP1.64x2.38mm'], 'footprint':'Package_CSP:LFCSP-WD-10-1EP_3x3mm_P0.5mm_EP1.64x2.38mm', 'keywords':'digital potentiometer', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5272_5274.pdf', 'pins':[
+        Part(**{ 'name':'AD5274BCP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5274BCP'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-WD-10-1EP_3x3mm_P0.5mm_EP1.64x2.38mm', 'Package_CSP:LFCSP-WD-10-1EP_3x3mm_P0.5mm_EP1.64x2.38mm'], 'footprint':'Package_CSP:LFCSP-WD-10-1EP_3x3mm_P0.5mm_EP1.64x2.38mm', 'keywords':'digital potentiometer', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5272_5274.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nAD5274BCP\n\ndigital potentiometer', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='ADDR',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='VSS',func=Pin.types.PASSIVE,unit=1),
@@ -502,7 +502,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SCL',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD5274BRM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5274BRM'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm', 'Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'digital potentiometer', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5272_5274.pdf', 'pins':[
+        Part(**{ 'name':'AD5274BRM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5274BRM'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm', 'Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'digital potentiometer', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5272_5274.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nAD5274BRM\n\ndigital potentiometer', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='ADDR',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='A',func=Pin.types.PASSIVE,unit=1),
@@ -513,7 +513,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SCL',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX5438', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX5438'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'digital potentiometer resistor variable', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX5436-MAX5439.pdf', 'pins':[
+        Part(**{ 'name':'MAX5438', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX5438'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'digital potentiometer resistor variable', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX5436-MAX5439.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMAX5438\n\ndigital potentiometer resistor variable', 'pins':[
             Pin(num='1',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='Din',func=Pin.types.INPUT,unit=1),
@@ -524,7 +524,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='H',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='W',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='L',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4021-xxxxMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4021-xxxxMS'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'Digital Pot Potentiometer Up Down', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21945e.pdf', 'pins':[
+        Part(**{ 'name':'MCP4021-xxxxMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4021-xxxxMS'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'Digital Pot Potentiometer Up Down', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21945e.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMCP4021-xxxxMS\n\nDigital Pot Potentiometer Up Down', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='A',func=Pin.types.PASSIVE,unit=1),
@@ -533,7 +533,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='B',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='U/~{D}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4021-xxxxSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4021-xxxxSN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Digital Pot Potentiometer Up Down', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21945e.pdf', 'pins':[
+        Part(**{ 'name':'MCP4021-xxxxSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4021-xxxxSN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Digital Pot Potentiometer Up Down', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21945e.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMCP4021-xxxxSN\n\nDigital Pot Potentiometer Up Down', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='A',func=Pin.types.PASSIVE,unit=1),
@@ -542,27 +542,27 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='B',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='U/~{D}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4022-xxxxCH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4022-xxxxCH'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'Digital Pot Potentiometer Up Down', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21945e.pdf', 'pins':[
+        Part(**{ 'name':'MCP4022-xxxxCH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4022-xxxxCH'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'Digital Pot Potentiometer Up Down', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21945e.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMCP4022-xxxxCH\n\nDigital Pot Potentiometer Up Down', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='U/~{D}',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='W',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='A',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4023-xxxxCH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4023-xxxxCH'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'Digital Pot Potentiometer Up Down', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21945e.pdf', 'pins':[
+        Part(**{ 'name':'MCP4023-xxxxCH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4023-xxxxCH'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'Digital Pot Potentiometer Up Down', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21945e.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMCP4023-xxxxCH\n\nDigital Pot Potentiometer Up Down', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='U/~{D}',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='W',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='A',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4024-xxxxOT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4024-xxxxOT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'Digital Pot Potentiometer Up Down', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21945e.pdf', 'pins':[
+        Part(**{ 'name':'MCP4024-xxxxOT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4024-xxxxOT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5', 'Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'Digital Pot Potentiometer Up Down', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21945e.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMCP4024-xxxxOT\n\nDigital Pot Potentiometer Up Down', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='U/~{D}',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='W',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP41050', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP41050'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'R POT', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/11195c.pdf', 'pins':[
+        Part(**{ 'name':'MCP41050', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP41050'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'R POT', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/11195c.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMCP41050\n\nR POT', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='SCK',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='SI',func=Pin.types.INPUT,unit=1),
@@ -571,7 +571,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PW0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='PB0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP41100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP41100'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'R POT', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/11195c.pdf', 'pins':[
+        Part(**{ 'name':'MCP41100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP41100'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'R POT', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/11195c.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMCP41100\n\nR POT', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='SCK',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='SI',func=Pin.types.INPUT,unit=1),
@@ -580,7 +580,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='PW0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='PB0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4141-xxxx-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4141-xxxx-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'digipot EE 7-bit 7bit', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/22059b.pdf', 'pins':[
+        Part(**{ 'name':'MCP4141-xxxx-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4141-xxxx-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'digipot EE 7-bit 7bit', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/22059b.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMCP4141-xxxx-P\n\ndigipot EE 7-bit 7bit', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT),
             Pin(num='2',name='SCK',func=Pin.types.INPUT),
             Pin(num='3',name='SDI/SDO',func=Pin.types.BIDIR),
@@ -589,7 +589,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='P0W',func=Pin.types.PASSIVE),
             Pin(num='7',name='P0B',func=Pin.types.PASSIVE),
             Pin(num='8',name='V_{DD}',func=Pin.types.PWRIN)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4142-xxxx-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4142-xxxx-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'potentiometer digipot EE 7-bit 7bit', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/22059b.pdf', 'pins':[
+        Part(**{ 'name':'MCP4142-xxxx-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4142-xxxx-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'potentiometer digipot EE 7-bit 7bit', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/22059b.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMCP4142-xxxx-P\n\npotentiometer digipot EE 7-bit 7bit', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT),
             Pin(num='2',name='SCK',func=Pin.types.INPUT),
             Pin(num='4',name='V_{SS}',func=Pin.types.PWRIN),
@@ -598,7 +598,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='P0W',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='P0B',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='SDO',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4151-xxxx-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4151-xxxx-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'digipot RAM 8-bit 8bit', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/22060b.pdf', 'pins':[
+        Part(**{ 'name':'MCP4151-xxxx-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4151-xxxx-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'digipot RAM 8-bit 8bit', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/22060b.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMCP4151-xxxx-P\n\ndigipot RAM 8-bit 8bit', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT),
             Pin(num='2',name='SCK',func=Pin.types.INPUT),
             Pin(num='3',name='SDI/SDO',func=Pin.types.BIDIR),
@@ -607,7 +607,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='P0W',func=Pin.types.PASSIVE),
             Pin(num='7',name='P0B',func=Pin.types.PASSIVE),
             Pin(num='8',name='V_{DD}',func=Pin.types.PWRIN)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4152-xxxx-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4152-xxxx-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'potentiometer digipot RAM 8-bit 8bit', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/22060b.pdf', 'pins':[
+        Part(**{ 'name':'MCP4152-xxxx-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4152-xxxx-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'potentiometer digipot RAM 8-bit 8bit', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/22060b.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMCP4152-xxxx-P\n\npotentiometer digipot RAM 8-bit 8bit', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT),
             Pin(num='2',name='SCK',func=Pin.types.INPUT),
             Pin(num='4',name='V_{SS}',func=Pin.types.PWRIN),
@@ -616,7 +616,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='P0W',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='P0B',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='SDO',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4161-xxxx-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4161-xxxx-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'digipot EE 8-bit 8bit', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/22059b.pdf', 'pins':[
+        Part(**{ 'name':'MCP4161-xxxx-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4161-xxxx-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'digipot EE 8-bit 8bit', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/22059b.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMCP4161-xxxx-P\n\ndigipot EE 8-bit 8bit', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT),
             Pin(num='2',name='SCK',func=Pin.types.INPUT),
             Pin(num='3',name='SDI/SDO',func=Pin.types.BIDIR),
@@ -625,7 +625,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='P0W',func=Pin.types.PASSIVE),
             Pin(num='7',name='P0B',func=Pin.types.PASSIVE),
             Pin(num='8',name='V_{DD}',func=Pin.types.PWRIN)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4162-xxxx-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4162-xxxx-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'potentiometer digipot EE 8-bit 8bit', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/22059b.pdf', 'pins':[
+        Part(**{ 'name':'MCP4162-xxxx-P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4162-xxxx-P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'potentiometer digipot EE 8-bit 8bit', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/22059b.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMCP4162-xxxx-P\n\npotentiometer digipot EE 8-bit 8bit', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT),
             Pin(num='2',name='SCK',func=Pin.types.INPUT),
             Pin(num='4',name='V_{SS}',func=Pin.types.PWRIN),
@@ -634,7 +634,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='P0W',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='P0B',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='SDO',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP42050', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP42050'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'R POT', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/11195c.pdf', 'pins':[
+        Part(**{ 'name':'MCP42050', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP42050'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'R POT', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/11195c.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMCP42050\n\nR POT', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PB0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='~{RS}',func=Pin.types.INPUT,unit=1),
@@ -649,7 +649,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='PA0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='PW0',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP42100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP42100'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'R POT', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/11195c.pdf', 'pins':[
+        Part(**{ 'name':'MCP42100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP42100'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'R POT', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/11195c.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMCP42100\n\nR POT', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PB0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='~{RS}',func=Pin.types.INPUT,unit=1),
@@ -664,7 +664,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='PA0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='PW0',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4441-xxxx-ST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4441-xxxx-ST'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'Digital Pot Potentiometer DigiPot', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/22267A_MCP4431.pdf', 'pins':[
+        Part(**{ 'name':'MCP4441-xxxx-ST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4441-xxxx-ST'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'Digital Pot Potentiometer DigiPot', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/22267A_MCP4431.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMCP4441-xxxx-ST\n\nDigital Pot Potentiometer DigiPot', 'pins':[
             Pin(num='11',name='P0A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='12',name='P0W',func=Pin.types.PASSIVE,unit=1),
             Pin(num='13',name='P0B',func=Pin.types.PASSIVE,unit=1),
@@ -684,8 +684,8 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='4',name='HVC/A0',func=Pin.types.INPUT,unit=5),
             Pin(num='5',name='SCL',func=Pin.types.INPUT,unit=5),
             Pin(num='6',name='SDA',func=Pin.types.BIDIR,unit=5),
-            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['13', '11', '12']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '9', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['19', '18', '20']},{'label': 'uD', 'num': 4, 'pin_nums': ['3', '1', '2']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '5', '7', '17', '15', '16', '6', '4']}] }),
-        Part(**{ 'name':'MCP4451-xxxx-ST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4451-xxxx-ST'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'Digital Pot Potentiometer DigiPot', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/22267A_MCP4431.pdf', 'pins':[
+            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['12', '11', '13']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '10', '8']},{'label': 'uC', 'num': 3, 'pin_nums': ['18', '19', '20']},{'label': 'uD', 'num': 4, 'pin_nums': ['1', '2', '3']},{'label': 'uE', 'num': 5, 'pin_nums': ['6', '15', '16', '7', '4', '17', '14', '5']}] }),
+        Part(**{ 'name':'MCP4451-xxxx-ST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4451-xxxx-ST'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'Digital Pot Potentiometer DigiPot', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/22267A_MCP4431.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMCP4451-xxxx-ST\n\nDigital Pot Potentiometer DigiPot', 'pins':[
             Pin(num='11',name='P0A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='12',name='P0W',func=Pin.types.PASSIVE,unit=1),
             Pin(num='13',name='P0B',func=Pin.types.PASSIVE,unit=1),
@@ -705,8 +705,8 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='4',name='HVC/A0',func=Pin.types.INPUT,unit=5),
             Pin(num='5',name='SCL',func=Pin.types.INPUT,unit=5),
             Pin(num='6',name='SDA',func=Pin.types.BIDIR,unit=5),
-            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['13', '11', '12']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '8', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['19', '18', '20']},{'label': 'uD', 'num': 4, 'pin_nums': ['1', '3', '2']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '17', '16', '6', '15', '4', '7', '5']}] }),
-        Part(**{ 'name':'MCP4461-xxxx-ST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4461-xxxx-ST'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'Digital Pot Potentiometer DigiPot', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/22267A_MCP4431.pdf', 'pins':[
+            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['11', '12', '13']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '8', '10']},{'label': 'uC', 'num': 3, 'pin_nums': ['18', '20', '19']},{'label': 'uD', 'num': 4, 'pin_nums': ['1', '2', '3']},{'label': 'uE', 'num': 5, 'pin_nums': ['7', '5', '15', '6', '17', '16', '4', '14']}] }),
+        Part(**{ 'name':'MCP4461-xxxx-ST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4461-xxxx-ST'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'Digital Pot Potentiometer DigiPot', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/en/DeviceDoc/22267A_MCP4431.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMCP4461-xxxx-ST\n\nDigital Pot Potentiometer DigiPot', 'pins':[
             Pin(num='11',name='P0A',func=Pin.types.PASSIVE,unit=1),
             Pin(num='12',name='P0W',func=Pin.types.PASSIVE,unit=1),
             Pin(num='13',name='P0B',func=Pin.types.PASSIVE,unit=1),
@@ -726,8 +726,8 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='4',name='HVC/A0',func=Pin.types.INPUT,unit=5),
             Pin(num='5',name='SCL',func=Pin.types.INPUT,unit=5),
             Pin(num='6',name='SDA',func=Pin.types.BIDIR,unit=5),
-            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['12', '13', '11']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '8', '9']},{'label': 'uC', 'num': 3, 'pin_nums': ['20', '18', '19']},{'label': 'uD', 'num': 4, 'pin_nums': ['2', '3', '1']},{'label': 'uE', 'num': 5, 'pin_nums': ['14', '4', '7', '15', '17', '5', '16', '6']}] }),
-        Part(**{ 'name':'MCP45HV31-MQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP45HV31-MQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_5x5mm_P0.65mm_EP3.35x3.35mm', 'Package_DFN_QFN:QFN-20-1EP_5x5mm_P0.65mm_EP3.35x3.35mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_5x5mm_P0.65mm_EP3.35x3.35mm', 'keywords':'I2C Potentiometer pot digital', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005304A.pdf', 'pins':[
+            Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=5)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['11', '13', '12']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '9', '10']},{'label': 'uC', 'num': 3, 'pin_nums': ['20', '19', '18']},{'label': 'uD', 'num': 4, 'pin_nums': ['2', '3', '1']},{'label': 'uE', 'num': 5, 'pin_nums': ['15', '14', '16', '5', '17', '7', '4', '6']}] }),
+        Part(**{ 'name':'MCP45HV31-MQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP45HV31-MQ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_5x5mm_P0.65mm_EP3.35x3.35mm', 'Package_DFN_QFN:QFN-20-1EP_5x5mm_P0.65mm_EP3.35x3.35mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_5x5mm_P0.65mm_EP3.35x3.35mm', 'keywords':'I2C Potentiometer pot digital', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005304A.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMCP45HV31-MQ\n\nI2C Potentiometer pot digital', 'pins':[
             Pin(num='1',name='VL',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='NC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='DGND',func=Pin.types.PWRIN,unit=1),
@@ -749,7 +749,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{SHDN}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='NC',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP45HV31-ST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP45HV31-ST'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'I2C Potentiometer pot digital', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005304A.pdf', 'pins':[
+        Part(**{ 'name':'MCP45HV31-ST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP45HV31-ST'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'I2C Potentiometer pot digital', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20005304A.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nMCP45HV31-ST\n\nI2C Potentiometer pot digital', 'pins':[
             Pin(num='1',name='VL',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='V-',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='P0B',func=Pin.types.PASSIVE,unit=1),
@@ -764,7 +764,7 @@ Potentiometer_Digital = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='~{SHDN}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DGND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TPL0401B-10-Q1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPL0401B-10-Q1'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:Texas_R-PDSO-G6', 'Package_TO_SOT_SMD:Texas_R-PDSO-G6'], 'footprint':'Package_TO_SOT_SMD:Texas_R-PDSO-G6', 'keywords':'Digital Pot Potentiometer I2C', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tpl0401a-10-q1.pdf', 'pins':[
+        Part(**{ 'name':'TPL0401B-10-Q1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPL0401B-10-Q1'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:Texas_R-PDSO-G6', 'Package_TO_SOT_SMD:Texas_R-PDSO-G6'], 'footprint':'Package_TO_SOT_SMD:Texas_R-PDSO-G6', 'keywords':'Digital Pot Potentiometer I2C', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tpl0401a-10-q1.pdf', 'search_text':'/usr/share/kicad/symbols/Potentiometer_Digital.kicad_sym\nTPL0401B-10-Q1\n\nDigital Pot Potentiometer I2C', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='SCL',func=Pin.types.INPUT,unit=1),

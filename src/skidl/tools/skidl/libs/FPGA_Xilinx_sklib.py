@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 FPGA_Xilinx = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'XC2018-PC68', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC2018-PC68'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'XC2018-PC68', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC2018-PC68'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/FPGA_Xilinx.kicad_sym\nXC2018-PC68\n\n', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='~{PWRDWN}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='P11-GCLK',func=Pin.types.PASSIVE,unit=1),
@@ -73,7 +73,7 @@ FPGA_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='P8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='P9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XC2018-PC84', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC2018-PC84'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'XC2018-PC84', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC2018-PC84'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/FPGA_Xilinx.kicad_sym\nXC2018-PC84\n\n', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='P11/GCLK',func=Pin.types.PASSIVE,unit=1),
@@ -158,7 +158,7 @@ FPGA_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='83',name='P83',func=Pin.types.PASSIVE,unit=1),
             Pin(num='84',name='P84',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='P9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XC2C256-TQ144', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC2C256-TQ144'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-144_20x20mm_P0.5mm', 'keywords':'CPLD', 'description':'', 'datasheet':'https://www.xilinx.com/support/documentation/data_sheets/ds094.pdf', 'pins':[
+        Part(**{ 'name':'XC2C256-TQ144', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC2C256-TQ144'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-144_20x20mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-144_20x20mm_P0.5mm', 'keywords':'CPLD', 'description':'', 'datasheet':'https://www.xilinx.com/support/documentation/data_sheets/ds094.pdf', 'search_text':'/usr/share/kicad/symbols/FPGA_Xilinx.kicad_sym\nXC2C256-TQ144\n\nCPLD', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P10',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='P100',func=Pin.types.BIDIR,unit=1),
@@ -303,7 +303,7 @@ FPGA_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='P97',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='P98',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XC2C256-VQ100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC2C256-VQ100'}), 'ref_prefix':'U', 'fplist':['Package_QFP:VQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:VQFP-100_14x14mm_P0.5mm', 'keywords':'CPLD', 'description':'', 'datasheet':'https://www.xilinx.com/support/documentation/data_sheets/ds094.pdf', 'pins':[
+        Part(**{ 'name':'XC2C256-VQ100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC2C256-VQ100'}), 'ref_prefix':'U', 'fplist':['Package_QFP:VQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:VQFP-100_14x14mm_P0.5mm', 'keywords':'CPLD', 'description':'', 'datasheet':'https://www.xilinx.com/support/documentation/data_sheets/ds094.pdf', 'search_text':'/usr/share/kicad/symbols/FPGA_Xilinx.kicad_sym\nXC2C256-VQ100\n\nCPLD', 'pins':[
             Pin(num='1',name='P1/GTS2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P10',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -404,7 +404,7 @@ FPGA_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='P97',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='VCCIO2',func=Pin.types.PWRIN,unit=1),
             Pin(num='99',name='P99/GSA',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XC2S100TQ144', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC2S100TQ144'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FPGA', 'description':'', 'datasheet':'xilinx/spartan2e/spartan2e.pdf', 'pins':[
+        Part(**{ 'name':'XC2S100TQ144', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC2S100TQ144'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FPGA', 'description':'', 'datasheet':'xilinx/spartan2e/spartan2e.pdf', 'search_text':'/usr/share/kicad/symbols/FPGA_Xilinx.kicad_sym\nXC2S100TQ144\n\nFPGA', 'pins':[
             Pin(num='1',name='VCCO',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='IO7P10',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='IO/VREF',func=Pin.types.BIDIR,unit=1),
@@ -544,7 +544,7 @@ FPGA_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='96',name='IO',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='99',name='IO',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XC2S150PQ208', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC2S150PQ208'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FPGA', 'description':'', 'datasheet':'xilinx/spartan2e/spartan2e.pdf', 'pins':[
+        Part(**{ 'name':'XC2S150PQ208', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC2S150PQ208'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FPGA', 'description':'', 'datasheet':'xilinx/spartan2e/spartan2e.pdf', 'search_text':'/usr/share/kicad/symbols/FPGA_Xilinx.kicad_sym\nXC2S150PQ208\n\nFPGA', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='IO7P10',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='IO4P100',func=Pin.types.BIDIR,unit=1),
@@ -750,7 +750,7 @@ FPGA_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='IO4P97',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='IO4VRP98',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='IO4P99',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XC2S200PQ208', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC2S200PQ208'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FPGA', 'description':'', 'datasheet':'xilinx/spartan2e/spartan2e.pdf', 'pins':[
+        Part(**{ 'name':'XC2S200PQ208', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC2S200PQ208'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FPGA', 'description':'', 'datasheet':'xilinx/spartan2e/spartan2e.pdf', 'search_text':'/usr/share/kicad/symbols/FPGA_Xilinx.kicad_sym\nXC2S200PQ208\n\nFPGA', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='IO7P10',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='IO4VRP100',func=Pin.types.BIDIR,unit=1),
@@ -957,7 +957,7 @@ FPGA_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='IO4P97',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='IO4VRP98',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='IO4P99',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XC2S300PQ208', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC2S300PQ208'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'xilinx/spartan2e/spartan2e.pdf', 'pins':[
+        Part(**{ 'name':'XC2S300PQ208', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC2S300PQ208'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'xilinx/spartan2e/spartan2e.pdf', 'search_text':'/usr/share/kicad/symbols/FPGA_Xilinx.kicad_sym\nXC2S300PQ208\n\n', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='IO7VRP10',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='IO4VRP100',func=Pin.types.BIDIR,unit=1),
@@ -1166,7 +1166,7 @@ FPGA_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='IO4P97',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='IO4VRP98',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='IO4P99',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XC2S400FT256', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC2S400FT256'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'XC2S400FT256', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC2S400FT256'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/FPGA_Xilinx.kicad_sym\nXC2S400FT256\n\n', 'pins':[
             Pin(num='A1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='A10',name='IO1A10',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='IO1A11',func=Pin.types.BIDIR,unit=1),
@@ -1423,7 +1423,7 @@ FPGA_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='T7',name='IO5T7',func=Pin.types.BIDIR,unit=1),
             Pin(num='T8',name='GCK1',func=Pin.types.INPUT,unit=1),
             Pin(num='T9',name='GCK0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XC2S50-PQ208', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC2S50-PQ208'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'XC2S50-PQ208', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC2S50-PQ208'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/FPGA_Xilinx.kicad_sym\nXC2S50-PQ208\n\n', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='IO7P10',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='IO4P100',func=Pin.types.BIDIR,unit=1),
@@ -1629,7 +1629,7 @@ FPGA_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='IO4P97',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='IO4VRP98',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='IO4P99',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XC2S64A-xQFG48', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC2S64A-xQFG48'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'xilinx/xc2c64.pdf', 'pins':[
+        Part(**{ 'name':'XC2S64A-xQFG48', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC2S64A-xQFG48'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'xilinx/xc2c64.pdf', 'search_text':'/usr/share/kicad/symbols/FPGA_Xilinx.kicad_sym\nXC2S64A-xQFG48\n\n', 'pins':[
             Pin(num='1',name='GTS0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='B5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='GCK0',func=Pin.types.PASSIVE,unit=1),
@@ -1678,7 +1678,7 @@ FPGA_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='B2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='B3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='B4',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XC3020-PC68', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC3020-PC68'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'XC3020-PC68', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC3020-PC68'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/FPGA_Xilinx.kicad_sym\nXC3020-PC68\n\n', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{PWRDWN}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='P11',func=Pin.types.PASSIVE,unit=1),
@@ -1747,7 +1747,7 @@ FPGA_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='P8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='P9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XC3030-PC44', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC3030-PC44'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'XC3030-PC44', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC3030-PC44'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/FPGA_Xilinx.kicad_sym\nXC3030-PC44\n\n', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='P11',func=Pin.types.PASSIVE,unit=1),
@@ -1792,7 +1792,7 @@ FPGA_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{PWRDWN}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='P8-GCLK',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='P9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XC3030-PC84', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC3030-PC84'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'XC3030-PC84', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC3030-PC84'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/FPGA_Xilinx.kicad_sym\nXC3030-PC84\n\n', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='P11',func=Pin.types.PASSIVE,unit=1),
@@ -1877,7 +1877,7 @@ FPGA_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='83',name='P83',func=Pin.types.PASSIVE,unit=1),
             Pin(num='84',name='P84',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='P9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XC3030-VQ100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC3030-VQ100'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'XC3030-VQ100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC3030-VQ100'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/FPGA_Xilinx.kicad_sym\nXC3030-VQ100\n\n', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='100',name='VCC',func=Pin.types.PASSIVE,unit=1),
@@ -1976,7 +1976,7 @@ FPGA_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='P/DIN',func=Pin.types.PASSIVE,unit=1),
             Pin(num='98',name='P/DOUT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='99',name='CLK',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XC3042-VQ100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC3042-VQ100'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'XC3042-VQ100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC3042-VQ100'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/FPGA_Xilinx.kicad_sym\nXC3042-VQ100\n\n', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='100',name='VCC',func=Pin.types.PASSIVE,unit=1),
@@ -2077,7 +2077,7 @@ FPGA_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='P/DIN',func=Pin.types.PASSIVE,unit=1),
             Pin(num='98',name='P/DOUT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='99',name='CLK',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XC3S1400A-FG484', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC3S1400A-FG484'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'XC3S1400A-FG484', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC3S1400A-FG484'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/FPGA_Xilinx.kicad_sym\nXC3S1400A-FG484\n\n', 'pins':[
             Pin(num='A1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='A10',name='IO_L21P_0',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='IO_L18N_0/GCLK7',func=Pin.types.BIDIR,unit=1),
@@ -2561,8 +2561,8 @@ FPGA_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='Y6',name='IO_L07N_2',func=Pin.types.BIDIR,unit=2),
             Pin(num='Y7',name='IO_L10P_2',func=Pin.types.BIDIR,unit=2),
             Pin(num='Y8',name='IO_L11N_2/VS0',func=Pin.types.BIDIR,unit=2),
-            Pin(num='Y9',name='IO_L14P_2/D7',func=Pin.types.BIDIR,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['L14', 'T21', 'J11', 'C3', 'E14', 'G10', 'A20', 'L2', 'A22', 'J13', 'N3', 'G11', 'E15', 'A21', 'J12', 'N4', 'T3', 'C4', 'C10', 'E16', 'G12', 'J14', 'L3', 'N5', 'T4', 'C5', 'E17', 'G13', 'A3', 'J19', 'L4', 'L6', 'N6', 'T5', 'C6', 'E18', 'G14', 'A4', 'L5', 'N7', 'T6', 'C7', 'U17', 'E19', 'G15', 'A5', 'G2', 'J2', 'J4', 'N8', 'U1', 'C8', 'E2', 'G16', 'A6', 'J3', 'L7', 'A2', 'L9', 'N9', 'C9', 'P10', 'C11', 'G21', 'E3', 'A7', 'B2', 'L8', 'P1', 'U2', 'B7', 'C12', 'D1', 'E4', 'C2', 'A8', 'J5', 'M10', 'U3', 'C13', 'D10', 'E5', 'G3', 'A9', 'J6', 'M1', 'AA11', 'C14', 'P11', 'U4', 'D11', 'P14', 'U6', 'E6', 'G4', 'AA1', 'J7', 'C15', 'J9', 'M12', 'P13', 'D12', 'U5', 'D14', 'E7', 'G5', 'AA16', 'J8', 'M11', 'P19', 'D13', 'E8', 'G6', 'AA7', 'B3', 'K10', 'M14', 'C16', 'V1', 'E9', 'G7', 'AA2', 'B4', 'K1', 'M13', 'P2', 'V18', 'B20', 'D15', 'P4', 'B5', 'F1', 'G8', 'AB1', 'F11', 'K12', 'P3', 'V2', 'D16', 'B6', 'F10', 'G9', 'AB22', 'K11', 'M19', 'M21', 'V3', 'B9', 'D17', 'H1', 'J10', 'M2', 'P5', 'V4', 'B8', 'D18', 'F12', 'H10', 'B1', 'K13', 'P6', 'V5', 'D19', 'W10', 'F13', 'H11', 'B10', 'K2', 'M3', 'B12', 'P7', 'W1', 'D2', 'P9', 'F14', 'H12', 'B11', 'K3', 'M4', 'P8', 'D3', 'W14', 'F15', 'H13', 'F17', 'K4', 'M5', 'W11', 'D4', 'F16', 'H14', 'A12', 'B13', 'K5', 'M6', 'R1', 'D5', 'H2', 'B14', 'K6', 'M7', 'B16', 'R2', 'W2', 'A1', 'D6', 'A11', 'F2', 'H3', 'A10', 'B15', 'K7', 'M8', 'C1', 'R3', 'W3', 'D7', 'D9', 'F3', 'H4', 'K8', 'M9', 'A13', 'R4', 'Y1', 'D8', 'F4', 'H5', 'B17', 'F6', 'K9', 'N1', 'A14', 'N11', 'R5', 'Y19', 'Y20', 'F5', 'H6', 'A15', 'B18', 'L1', 'N10', 'L11', 'R6', 'Y2', 'E1', 'H7', 'A16', 'B19', 'L10', 'N13', 'R7', 'Y3', 'E10', 'C17', 'F7', 'H8', 'A17', 'N12', 'A18', 'L13', 'R8', 'C18', 'E11', 'T12', 'F8', 'H9', 'L12', 'N2', 'T1', 'C19', 'E12', 'A19', 'C20', 'F9', 'J1', 'N14', 'L17', 'T2', 'E13', 'G1']},{'label': 'uB', 'num': 2, 'pin_nums': ['V19', 'AB7', 'AA13', 'N19', 'J16', 'AB6', 'T17', 'V20', 'Y21', 'AB8', 'AA14', 'N20', 'J17', 'T18', 'V21', 'Y22', 'AA15', 'AB9', 'J18', 'N21', 'T19', 'V22', 'Y4', 'AA17', 'B21', 'J20', 'N22', 'T20', 'V6', 'Y5', 'AA18', 'B22', 'J21', 'P12', 'T22', 'V7', 'Y6', 'AA19', 'C21', 'J22', 'P15', 'T7', 'V8', 'Y7', 'AA20', 'C22', 'K14', 'P16', 'T8', 'V9', 'Y8', 'AA21', 'D20', 'P17', 'K15', 'T9', 'W12', 'N18', 'Y9', 'AA22', 'D21', 'K16', 'P18', 'U10', 'W13', 'AA3', 'D22', 'K17', 'P20', 'U11', 'W15', 'AA4', 'E20', 'K18', 'P21', 'U12', 'W16', 'AA5', 'E21', 'K19', 'P22', 'U13', 'W17', 'AA6', 'E22', 'K20', 'R10', 'U14', 'W18', 'AA8', 'F18', 'K21', 'R11', 'U15', 'W19', 'AA9', 'F19', 'K22', 'R12', 'U16', 'W20', 'AB10', 'F20', 'L15', 'R13', 'U18', 'W21', 'AB11', 'F21', 'L16', 'R14', 'U19', 'W22', 'AB12', 'F22', 'L18', 'R15', 'U20', 'W4', 'AB13', 'G17', 'L19', 'R16', 'U21', 'W5', 'AB14', 'G18', 'L20', 'R17', 'U22', 'W6', 'AB15', 'G19', 'L21', 'R18', 'U7', 'W7', 'AB16', 'G20', 'L22', 'R19', 'U8', 'W8', 'AB17', 'G22', 'M15', 'R20', 'U9', 'W9', 'AB18', 'H15', 'M16', 'R21', 'V10', 'Y10', 'AB19', 'H16', 'M17', 'R22', 'V11', 'Y11', 'AB2', 'H17', 'M18', 'R9', 'V12', 'Y12', 'AB20', 'H18', 'M20', 'T10', 'V13', 'Y13', 'AB21', 'H19', 'M22', 'T11', 'V14', 'Y14', 'AB3', 'H20', 'N15', 'T13', 'V15', 'Y15', 'AB4', 'H21', 'N16', 'T14', 'V16', 'Y16', 'AA10', 'Y18', 'AB5', 'H22', 'N17', 'T15', 'V17', 'Y17', 'AA12', 'J15', 'T16']}] }),
-        Part(**{ 'name':'XC3S200AN-FT256', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC3S200AN-FT256'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+            Pin(num='Y9',name='IO_L14P_2/D7',func=Pin.types.BIDIR,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['E12', 'L13', 'C20', 'J1', 'A19', 'J11', 'N14', 'T12', 'L17', 'T2', 'C2', 'E13', 'A2', 'G1', 'J10', 'N2', 'L14', 'T21', 'C3', 'E14', 'A20', 'G10', 'A22', 'J13', 'L2', 'N3', 'E15', 'A21', 'G11', 'J12', 'N4', 'T3', 'C4', 'E16', 'G12', 'J14', 'L3', 'N5', 'T4', 'C5', 'E17', 'A3', 'G13', 'J19', 'L4', 'N6', 'L6', 'T5', 'C6', 'E18', 'A4', 'G14', 'L5', 'N7', 'T6', 'C7', 'E19', 'U17', 'A5', 'G15', 'J2', 'N8', 'J4', 'G2', 'U1', 'C8', 'E2', 'A6', 'G16', 'J3', 'L7', 'N9', 'L9', 'P10', 'C9', 'E3', 'A7', 'G21', 'L8', 'P1', 'U2', 'D1', 'E4', 'A8', 'J5', 'M10', 'U3', 'D10', 'E5', 'A9', 'G3', 'J6', 'AA11', 'M1', 'P11', 'P14', 'U4', 'D11', 'E6', 'U6', 'AA1', 'G4', 'J7', 'J9', 'P13', 'M12', 'U5', 'D12', 'E7', 'AA16', 'D14', 'G5', 'J8', 'M11', 'P19', 'C13', 'D13', 'E8', 'G6', 'AA7', 'C19', 'K10', 'M14', 'V1', 'E9', 'AA2', 'G7', 'K1', 'M13', 'P2', 'P4', 'V18', 'D15', 'F1', 'AB1', 'F11', 'G8', 'K12', 'P3', 'V2', 'D16', 'F10', 'AB22', 'G9', 'K11', 'M19', 'M21', 'V3', 'D17', 'H1', 'B20', 'M2', 'P5', 'V4', 'C11', 'D18', 'F12', 'B1', 'H10', 'K13', 'C15', 'P6', 'V5', 'D19', 'F13', 'W10', 'B10', 'H11', 'K2', 'B12', 'C14', 'M3', 'P7', 'P9', 'W1', 'D2', 'F14', 'B11', 'C17', 'H12', 'K3', 'M4', 'P8', 'D3', 'F15', 'W14', 'C16', 'F17', 'H13', 'K4', 'M5', 'W11', 'D4', 'F16', 'B13', 'H14', 'K5', 'A12', 'M6', 'R1', 'B4', 'D5', 'B14', 'C18', 'H2', 'K6', 'B16', 'B5', 'M7', 'R2', 'W2', 'A1', 'B3', 'D6', 'F2', 'A11', 'B15', 'B6', 'H3', 'A10', 'K7', 'M8', 'R3', 'W3', 'C12', 'D7', 'F3', 'D9', 'H4', 'K8', 'M9', 'R4', 'A13', 'B7', 'Y1', 'C1', 'D8', 'F4', 'B17', 'B8', 'F6', 'H5', 'K9', 'N1', 'R5', 'A14', 'N11', 'Y19', 'B9', 'F5', 'Y20', 'B18', 'H6', 'L1', 'A15', 'L11', 'N10', 'R6', 'Y2', 'E1', 'B19', 'H7', 'L10', 'A16', 'R7', 'N13', 'Y3', 'E10', 'F7', 'B2', 'F9', 'H8', 'A17', 'C10', 'N12', 'R8', 'A18', 'E11', 'F8', 'H9', 'L12', 'T1']},{'label': 'uB', 'num': 2, 'pin_nums': ['H22', 'T15', 'V17', 'Y17', 'AA12', 'AB6', 'J15', 'N18', 'T16', 'Y18', 'V19', 'AA13', 'AB7', 'J16', 'N19', 'T17', 'V20', 'Y21', 'AA14', 'AB8', 'J17', 'N20', 'T18', 'V21', 'Y22', 'AA15', 'AB9', 'J18', 'N21', 'T19', 'V22', 'Y4', 'AA17', 'B21', 'J20', 'N22', 'T20', 'V6', 'Y5', 'AA18', 'B22', 'J21', 'P12', 'T22', 'V7', 'Y6', 'AA19', 'C21', 'J22', 'P15', 'T7', 'Y7', 'V8', 'AA20', 'C22', 'K14', 'P16', 'T8', 'V9', 'Y8', 'AA21', 'D20', 'K15', 'P17', 'T9', 'W12', 'Y9', 'AA22', 'D21', 'K16', 'P18', 'U10', 'W13', 'AA3', 'D22', 'K17', 'P20', 'U11', 'W15', 'AA4', 'E20', 'K18', 'P21', 'U12', 'W16', 'AA5', 'E21', 'K19', 'P22', 'U13', 'W17', 'AA6', 'E22', 'K20', 'R10', 'U14', 'W18', 'AA8', 'F18', 'K21', 'R11', 'U15', 'W19', 'AA9', 'F19', 'K22', 'R12', 'U16', 'W20', 'AB10', 'F20', 'L15', 'AB5', 'R13', 'U18', 'W21', 'AB11', 'F21', 'L16', 'R14', 'U19', 'W22', 'AB12', 'F22', 'L18', 'R15', 'U20', 'W4', 'AB13', 'G17', 'L19', 'R16', 'U21', 'W5', 'AB14', 'G18', 'L20', 'R17', 'U22', 'W6', 'AB15', 'G19', 'L21', 'R18', 'U7', 'W7', 'AB16', 'G20', 'L22', 'R19', 'U8', 'W8', 'AB17', 'G22', 'M15', 'R20', 'U9', 'W9', 'AB18', 'H15', 'M16', 'R21', 'V10', 'Y10', 'AB19', 'H16', 'M17', 'R22', 'V11', 'Y11', 'AB2', 'H17', 'M18', 'R9', 'V12', 'Y12', 'AB20', 'H18', 'M20', 'T10', 'V13', 'Y13', 'AB21', 'H19', 'M22', 'T11', 'V14', 'Y14', 'AB3', 'H20', 'N15', 'N17', 'T13', 'V15', 'Y15', 'AB4', 'H21', 'N16', 'T14', 'V16', 'Y16', 'AA10']}] }),
+        Part(**{ 'name':'XC3S200AN-FT256', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC3S200AN-FT256'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/FPGA_Xilinx.kicad_sym\nXC3S200AN-FT256\n\n', 'pins':[
             Pin(num='A1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='A10',name='IO_L08N_0',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='IO_L07N_0',func=Pin.types.BIDIR,unit=1),
@@ -2819,7 +2819,7 @@ FPGA_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='T7',name='IO_L09N_2/GCLK13',func=Pin.types.BIDIR,unit=1),
             Pin(num='T8',name='IO_L10N_2/GCLK15',func=Pin.types.BIDIR,unit=1),
             Pin(num='T9',name='IO_L12N_2/GCLK3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XC3S400-FG320', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC3S400-FG320'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'XC3S400-FG320', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC3S400-FG320'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/FPGA_Xilinx.kicad_sym\nXC3S400-FG320\n\n', 'pins':[
             Pin(num='A1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='A10',name='IO1VREF/A10',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='IO1/A11',func=Pin.types.BIDIR,unit=1),
@@ -3140,7 +3140,7 @@ FPGA_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='V7',name='IO5VREF/V7',func=Pin.types.BIDIR,unit=1),
             Pin(num='V8',name='IO5/V8',func=Pin.types.BIDIR,unit=1),
             Pin(num='V9',name='IO5D5/V9',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XC3S400-PQ208', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC3S400-PQ208'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'XC3S400-PQ208', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC3S400-PQ208'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/FPGA_Xilinx.kicad_sym\nXC3S400-PQ208\n\n', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='IO_L20P_7',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='IO_L01P_4/VRN_4',func=Pin.types.BIDIR,unit=1),
@@ -3349,7 +3349,7 @@ FPGA_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='IO',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='VCCO_4',func=Pin.types.PWRIN,unit=1),
             Pin(num='99',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XC3S50-VQ100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC3S50-VQ100'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FPGA', 'description':'', 'datasheet':'xilinx/spartan2e/spartan2e.pdf', 'pins':[
+        Part(**{ 'name':'XC3S50-VQ100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC3S50-VQ100'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'FPGA', 'description':'', 'datasheet':'xilinx/spartan2e/spartan2e.pdf', 'search_text':'/usr/share/kicad/symbols/FPGA_Xilinx.kicad_sym\nXC3S50-VQ100\n\nFPGA', 'pins':[
             Pin(num='1',name='IO-VRN',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='TDI',func=Pin.types.INPUT,unit=1),
@@ -3447,7 +3447,7 @@ FPGA_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='IO-VRP',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='HSWAP_EN',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='~{PROG}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XC3S50AN-TQG144', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC3S50AN-TQG144'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'XC3S50AN-TQG144', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC3S50AN-TQG144'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/FPGA_Xilinx.kicad_sym\nXC3S50AN-TQG144\n\n', 'pins':[
             Pin(num='1',name='TMS',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='IO_L04P_3',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -3592,7 +3592,7 @@ FPGA_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='IP_1/VREF_1',func=Pin.types.INPUT,unit=1),
             Pin(num='98',name='IO_L08N_1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='IO_L09P_1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XC4003-PC84', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC4003-PC84'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'XC4003-PC84', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC4003-PC84'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/FPGA_Xilinx.kicad_sym\nXC4003-PC84\n\n', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P10-SGI4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='VCC',func=Pin.types.PASSIVE,unit=1),
@@ -3675,7 +3675,7 @@ FPGA_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='83',name='P83',func=Pin.types.PASSIVE,unit=1),
             Pin(num='84',name='P84',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='P9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XC4003-VQ100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC4003-VQ100'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'xilinx/xc400x-pinout.pdf', 'pins':[
+        Part(**{ 'name':'XC4003-VQ100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC4003-VQ100'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'xilinx/xc400x-pinout.pdf', 'search_text':'/usr/share/kicad/symbols/FPGA_Xilinx.kicad_sym\nXC4003-VQ100\n\n', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P/A4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='100',name='VCC',func=Pin.types.PASSIVE,unit=1),
@@ -3776,7 +3776,7 @@ FPGA_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='P97',func=Pin.types.PASSIVE,unit=1),
             Pin(num='98',name='P98',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='SGCK1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XC4004-PQ160', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC4004-PQ160'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'XC4004-PQ160', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC4004-PQ160'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/FPGA_Xilinx.kicad_sym\nXC4004-PQ160\n\n', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='100',name='VCC',func=Pin.types.PASSIVE,unit=1),
@@ -3904,7 +3904,7 @@ FPGA_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='P97',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='P98',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='P99',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XC4005-PG156', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC4005-PG156'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'XC4005-PG156', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC4005-PG156'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/FPGA_Xilinx.kicad_sym\nXC4005-PG156\n\n', 'pins':[
             Pin(num='A1',name='P14',func=Pin.types.PASSIVE,unit=1),
             Pin(num='A10',name='P26',func=Pin.types.PASSIVE,unit=1),
             Pin(num='A11',name='P',func=Pin.types.PASSIVE,unit=1),
@@ -4048,7 +4048,7 @@ FPGA_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='T7',name='P66',func=Pin.types.PASSIVE,unit=1),
             Pin(num='T8',name='P65',func=Pin.types.PASSIVE,unit=1),
             Pin(num='T9',name='P',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XC4005-PQ100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC4005-PQ100'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'XC4005-PQ100', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC4005-PQ100'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/FPGA_Xilinx.kicad_sym\nXC4005-PQ100\n\n', 'pins':[
             Pin(num='1',name='P1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='100',name='P100',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='P11',func=Pin.types.PASSIVE,unit=1),
@@ -4148,7 +4148,7 @@ FPGA_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='P97',func=Pin.types.PASSIVE,unit=1),
             Pin(num='98',name='P98',func=Pin.types.PASSIVE,unit=1),
             Pin(num='99',name='P99',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XC4005-PQ160', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC4005-PQ160'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'XC4005-PQ160', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC4005-PQ160'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/FPGA_Xilinx.kicad_sym\nXC4005-PQ160\n\n', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='100',name='VCC',func=Pin.types.PASSIVE,unit=1),
@@ -4292,7 +4292,7 @@ FPGA_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='P97',func=Pin.types.PASSIVE,unit=1),
             Pin(num='98',name='P98',func=Pin.types.PASSIVE,unit=1),
             Pin(num='99',name='P90',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XC6SLX25T-BG484', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC6SLX25T-BG484'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'XC6SLX25T-BG484', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC6SLX25T-BG484'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/FPGA_Xilinx.kicad_sym\nXC6SLX25T-BG484\n\n', 'pins':[
             Pin(num='A10',name='MGTREFCLK0P_101',func=Pin.types.INPUT,unit=1),
             Pin(num='A17',name='IO_L50N_0',func=Pin.types.BIDIR,unit=1),
             Pin(num='A18',name='IO_L63N_SCP6_0',func=Pin.types.BIDIR,unit=1),
@@ -4710,8 +4710,8 @@ FPGA_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='V6',name='VCCAUX',func=Pin.types.PWRIN,unit=3),
             Pin(num='W16',name='GND',func=Pin.types.PWRIN,unit=3),
             Pin(num='W19',name='GND',func=Pin.types.PWRIN,unit=3),
-            Pin(num='W7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['B10', 'D7', 'L19', 'G16', 'V20', 'D8', 'B18', 'L20', 'G17', 'V21', 'B19', 'D9', 'G19', 'L21', 'V22', 'E16', 'B2', 'L22', 'G20', 'W20', 'B20', 'E17', 'G21', 'M17', 'W21', 'B3', 'E18', 'G22', 'M18', 'W22', 'Y22', 'B4', 'E19', 'G8', 'M19', 'B6', 'E20', 'M20', 'G9', 'B8', 'E22', 'H10', 'M21', 'B9', 'E5', 'H11', 'M22', 'C10', 'E6', 'H12', 'N16', 'C11', 'E8', 'H13', 'N18', 'C17', 'E9', 'H14', 'N19', 'C18', 'F10', 'H18', 'N20', 'F14', 'C19', 'H19', 'N22', 'C20', 'F15', 'H20', 'P16', 'C21', 'F16', 'H21', 'P19', 'F17', 'C22', 'H22', 'P20', 'C3', 'F18', 'J16', 'P21', 'A18', 'C4', 'F19', 'J17', 'P22', 'A10', 'C5', 'F20', 'J18', 'R19', 'C7', 'F21', 'J19', 'R20', 'F22', 'A19', 'C9', 'A17', 'J20', 'R21', 'D5', 'D11', 'F6', 'A2', 'J22', 'R22', 'D12', 'F7', 'A20', 'K17', 'T20', 'Y21', 'A21', 'D17', 'F8', 'K18', 'T21', 'A3', 'D18', 'F9', 'K19', 'T22', 'A4', 'D19', 'G10', 'A5', 'K20', 'U18', 'L17', 'D20', 'G11', 'K21', 'U19', 'A6', 'D3', 'G13', 'K22', 'U20', 'A7', 'G14', 'D4', 'L16', 'U22', 'A8', 'G15', 'V19']},{'label': 'uB', 'num': 2, 'pin_nums': ['AB3', 'R3', 'Y4', 'V8', 'AB4', 'K3', 'R7', 'Y5', 'V9', 'AB5', 'K4', 'R8', 'W1', 'Y6', 'AB6', 'K5', 'R9', 'Y7', 'W10', 'AB7', 'K6', 'T1', 'W11', 'Y8', 'AB8', 'L1', 'T10', 'W12', 'Y9', 'AB9', 'L2', 'T12', 'W13', 'AA16', 'B1', 'L3', 'T13', 'W14', 'AA18', 'C1', 'L4', 'T14', 'W15', 'AA19', 'C2', 'L6', 'T2', 'W17', 'AA2', 'D1', 'L7', 'T7', 'AA1', 'W18', 'AA20', 'D2', 'M1', 'T8', 'AA10', 'W2', 'AA21', 'E1', 'M2', 'T9', 'AA11', 'W3', 'AA22', 'E3', 'AA12', 'M3', 'U1', 'AA15', 'W4', 'AA3', 'E4', 'M4', 'U10', 'W5', 'AA14', 'AA4', 'F1', 'M5', 'U12', 'W6', 'AA6', 'F2', 'M6', 'U13', 'W8', 'AA7', 'F3', 'M7', 'U14', 'W9', 'AA8', 'F4', 'M8', 'U3', 'Y1', 'AB10', 'G1', 'N1', 'U5', 'Y10', 'AB11', 'G2', 'N3', 'U6', 'Y11', 'AB12', 'G3', 'N4', 'U8', 'Y12', 'AB13', 'H1', 'N5', 'U9', 'Y13', 'AB14', 'H2', 'P1', 'V1', 'Y14', 'AB15', 'H3', 'P2', 'V11', 'Y15', 'AB16', 'H5', 'P3', 'V12', 'Y16', 'AB17', 'J1', 'P4', 'V13', 'Y17', 'AB18', 'J3', 'P5', 'V16', 'Y18', 'AB19', 'J4', 'P8', 'V17', 'Y19', 'AB2', 'J5', 'R1', 'V18', 'Y2', 'AB20', 'J6', 'K2', 'R13', 'V2', 'Y20', 'AB21', 'K1', 'R2', 'V7', 'Y3']},{'label': 'uC', 'num': 3, 'pin_nums': ['L12', 'E15', 'L13', 'R18', 'E2', 'L14', 'R5', 'E21', 'L18', 'R6', 'E7', 'L5', 'U11', 'F11', 'L8', 'U2', 'F13', 'L9', 'U21', 'A1', 'G12', 'M10', 'U7', 'A11', 'G18', 'M11', 'V10', 'A13', 'G5', 'M12', 'V14', 'A22', 'H15', 'M13', 'V4', 'A9', 'H7', 'M14', 'V6', 'AA13', 'H9', 'M15', 'W16', 'AA17', 'J10', 'M9', 'W19', 'AA5', 'J11', 'N10', 'W7', 'AA9', 'J12', 'N11', 'AB1', 'J13', 'N12', 'AB22', 'J14', 'N13', 'B11', 'J15', 'N14', 'B15', 'J2', 'N17', 'B17', 'J21', 'N2', 'B5', 'J8', 'N21', 'B7', 'J9', 'N8', 'C12', 'K10', 'N9', 'C14', 'K11', 'P10', 'C16', 'K12', 'P11', 'C6', 'K13', 'P12', 'C8', 'K14', 'P13', 'D10', 'K15', 'P14', 'D16', 'K9', 'P9', 'D6', 'L10', 'R10', 'R14', 'E11', 'L11', 'R12', 'E14']}] }),
-        Part(**{ 'name':'XCV150_BG352', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XCV150_BG352'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'field programmable gate array', 'description':'', 'datasheet':'https://www.xilinx.com/support/documentation/data_sheets/ds003.pdf', 'pins':[
+            Pin(num='W7',name='GND',func=Pin.types.PWRIN,unit=3)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['G14', 'U22', 'A8', 'G15', 'D5', 'L17', 'V19', 'B10', 'D7', 'G16', 'L19', 'V20', 'B18', 'D8', 'G17', 'L20', 'V21', 'B19', 'Y22', 'D9', 'G19', 'L21', 'V22', 'B2', 'E16', 'G20', 'D4', 'L22', 'W20', 'B20', 'E17', 'G21', 'M17', 'W21', 'B3', 'E18', 'G22', 'M18', 'W22', 'B4', 'E19', 'G8', 'M19', 'Y21', 'B6', 'E20', 'G9', 'M20', 'B8', 'E22', 'H10', 'M21', 'B9', 'E5', 'H11', 'M22', 'C10', 'E6', 'H12', 'N16', 'C11', 'E8', 'H13', 'N18', 'C17', 'E9', 'H14', 'N19', 'C18', 'F10', 'H18', 'N20', 'C19', 'F14', 'H19', 'N22', 'C20', 'F15', 'H20', 'P16', 'C21', 'F16', 'H21', 'P19', 'C22', 'F17', 'H22', 'P20', 'C3', 'F18', 'J16', 'P21', 'A18', 'C4', 'F19', 'J17', 'P22', 'A10', 'C5', 'F20', 'J18', 'R19', 'C7', 'F21', 'J19', 'R20', 'C9', 'A19', 'F22', 'J20', 'A17', 'R21', 'D11', 'F6', 'J22', 'A2', 'R22', 'D12', 'F7', 'K17', 'A20', 'T20', 'D17', 'A21', 'F8', 'K18', 'T21', 'D18', 'A3', 'F9', 'K19', 'T22', 'D19', 'A4', 'G10', 'K20', 'A5', 'U18', 'D20', 'G11', 'K21', 'L16', 'U19', 'A6', 'D3', 'G13', 'K22', 'U20', 'A7']},{'label': 'uB', 'num': 2, 'pin_nums': ['AB21', 'K1', 'V7', 'R2', 'Y3', 'K2', 'AB3', 'V8', 'R3', 'Y4', 'AB4', 'K3', 'R7', 'V9', 'Y5', 'K4', 'AB5', 'W1', 'R8', 'Y6', 'AB6', 'K5', 'R9', 'W10', 'Y7', 'AB7', 'K6', 'T1', 'W11', 'Y8', 'AB8', 'L1', 'T10', 'W12', 'Y9', 'AB9', 'L2', 'W13', 'T12', 'B1', 'L3', 'T13', 'W14', 'AA18', 'C1', 'L4', 'T14', 'W15', 'AA19', 'C2', 'L6', 'T2', 'W17', 'AA2', 'D1', 'L7', 'T7', 'W18', 'AA20', 'D2', 'M1', 'T8', 'W2', 'AA21', 'E1', 'M2', 'T9', 'W3', 'AA22', 'E3', 'M3', 'U1', 'W4', 'AA3', 'E4', 'M4', 'U10', 'W5', 'AA4', 'F1', 'M5', 'AA1', 'U12', 'W6', 'AA6', 'F2', 'M6', 'U13', 'W8', 'AA7', 'F3', 'M7', 'U14', 'W9', 'AA8', 'F4', 'M8', 'U3', 'Y1', 'AB10', 'G1', 'N1', 'U5', 'Y10', 'J6', 'AA10', 'AB11', 'G2', 'N3', 'U6', 'Y11', 'AA11', 'AB12', 'G3', 'N4', 'U8', 'Y12', 'AA12', 'AB13', 'H1', 'N5', 'U9', 'Y13', 'AA14', 'AA16', 'AB14', 'H2', 'P1', 'V1', 'Y14', 'AB15', 'H3', 'P2', 'AA15', 'V11', 'Y15', 'AB16', 'H5', 'P3', 'V12', 'Y16', 'AB17', 'J1', 'P4', 'V13', 'Y17', 'V2', 'AB18', 'J3', 'P5', 'V16', 'Y18', 'AB19', 'J4', 'P8', 'V17', 'Y19', 'AB2', 'J5', 'R1', 'V18', 'Y2', 'AB20', 'R13', 'Y20']},{'label': 'uC', 'num': 3, 'pin_nums': ['E11', 'L11', 'R12', 'E14', 'R14', 'L12', 'E15', 'L13', 'R18', 'E2', 'R5', 'L14', 'E21', 'L18', 'R6', 'E7', 'L5', 'U11', 'F11', 'L8', 'U2', 'F13', 'U21', 'L9', 'A1', 'G12', 'M10', 'U7', 'A11', 'G18', 'M11', 'V10', 'A13', 'G5', 'M12', 'V14', 'A22', 'H15', 'M13', 'V4', 'A9', 'H7', 'M14', 'V6', 'AA13', 'H9', 'M15', 'W16', 'AA17', 'J10', 'M9', 'W19', 'AA5', 'J11', 'N10', 'W7', 'AA9', 'J12', 'N11', 'AB1', 'J13', 'N12', 'AB22', 'J14', 'N13', 'B11', 'J15', 'N14', 'B15', 'J2', 'N17', 'B17', 'J21', 'N2', 'B5', 'J8', 'N21', 'B7', 'J9', 'N8', 'C12', 'K10', 'N9', 'C14', 'K11', 'P10', 'C16', 'K12', 'P11', 'C6', 'K13', 'P12', 'C8', 'K14', 'P13', 'D10', 'K15', 'P14', 'D16', 'K9', 'P9', 'D6', 'L10', 'R10']}] }),
+        Part(**{ 'name':'XCV150_BG352', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XCV150_BG352'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'field programmable gate array', 'description':'', 'datasheet':'https://www.xilinx.com/support/documentation/data_sheets/ds003.pdf', 'search_text':'/usr/share/kicad/symbols/FPGA_Xilinx.kicad_sym\nXCV150_BG352\n\nfield programmable gate array', 'pins':[
             Pin(num='A1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='A10',name='VCCO',func=Pin.types.PWRIN,unit=1),
             Pin(num='A11',name='IO1A11',func=Pin.types.BIDIR,unit=1),
@@ -5064,7 +5064,7 @@ FPGA_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='Y26',name='IOR6Y26',func=Pin.types.BIDIR,unit=1),
             Pin(num='Y3',name='IOR3Y3',func=Pin.types.BIDIR,unit=1),
             Pin(num='Y4',name='VCCO',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XC2064-PC68', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC2064-PC68'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'XC2064-PC68', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC2064-PC68'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/FPGA_Xilinx.kicad_sym\nXC2064-PC68\n\n', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='~{PWRDWN}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='P11-GCLK',func=Pin.types.PASSIVE,unit=1),
@@ -5133,7 +5133,7 @@ FPGA_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='P8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='P9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XC3030-PC68', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC3030-PC68'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'XC3030-PC68', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC3030-PC68'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/FPGA_Xilinx.kicad_sym\nXC3030-PC68\n\n', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{PWRDWN}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='P11',func=Pin.types.PASSIVE,unit=1),
@@ -5202,7 +5202,7 @@ FPGA_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P7',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='P8',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='P9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XC3042-PC84', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC3042-PC84'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'XC3042-PC84', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC3042-PC84'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/FPGA_Xilinx.kicad_sym\nXC3042-PC84\n\n', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P10',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='P11',func=Pin.types.PASSIVE,unit=1),
@@ -5287,7 +5287,7 @@ FPGA_Xilinx = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='83',name='P83',func=Pin.types.PASSIVE,unit=1),
             Pin(num='84',name='P84',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='P9',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XC4005-PC84', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC4005-PC84'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'XC4005-PC84', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XC4005-PC84'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/FPGA_Xilinx.kicad_sym\nXC4005-PC84\n\n', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P10-SGI4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='VCC',func=Pin.types.PASSIVE,unit=1),

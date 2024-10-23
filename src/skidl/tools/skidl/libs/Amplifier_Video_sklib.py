@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Amplifier_Video = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'AD813', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD813'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'triple opamp', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD813.pdf', 'pins':[
+        Part(**{ 'name':'AD813', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD813'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'triple opamp', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD813.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Video.kicad_sym\nAD813\n\ntriple opamp', 'pins':[
             Pin(num='1',name='~{DISABLE}',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='+',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='-',func=Pin.types.INPUT,unit=1),
@@ -18,8 +18,8 @@ Amplifier_Video = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='~',func=Pin.types.OUTPUT,unit=3),
             Pin(num='9',name='-',func=Pin.types.INPUT,unit=3),
             Pin(num='11',name='V-',func=Pin.types.PWRIN,unit=4),
-            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '5', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['12', '13', '2', '14']},{'label': 'uC', 'num': 3, 'pin_nums': ['10', '9', '3', '8']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '4']}] }),
-        Part(**{ 'name':'MAX453', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX453'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'amplifier', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX452-MAX455.pdf', 'pins':[
+            Pin(num='4',name='V+',func=Pin.types.PWRIN,unit=4)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '5', '7']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '14', '2', '12']},{'label': 'uC', 'num': 3, 'pin_nums': ['3', '8', '9', '10']},{'label': 'uD', 'num': 4, 'pin_nums': ['11', '4']}] }),
+        Part(**{ 'name':'MAX453', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX453'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'amplifier', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX452-MAX455.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Video.kicad_sym\nMAX453\n\namplifier', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='V-',func=Pin.types.PWRIN,unit=1),
@@ -28,7 +28,7 @@ Amplifier_Video = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='IN-',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VOUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'THS7374', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'THS7374'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'video amplifier sdtv cvbs rgb ypbpr', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/ths7374.pdf', 'pins':[
+        Part(**{ 'name':'THS7374', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'THS7374'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'video amplifier sdtv cvbs rgb ypbpr', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/ths7374.pdf', 'search_text':'/usr/share/kicad/symbols/Amplifier_Video.kicad_sym\nTHS7374\n\nvideo amplifier sdtv cvbs rgb ypbpr', 'pins':[
             Pin(num='1',name='CH1_IN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='V_{S+}',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='CH4_OUT',func=Pin.types.OUTPUT,unit=1),

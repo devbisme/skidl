@@ -4,14 +4,14 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Sensor_Pressure = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'40PC015G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'40PC015G'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'gage gauge pressure sensor', 'description':'', 'datasheet':'http://www.honeywellscportal.com//index.php?ci_id=138832', 'pins':[
+        Part(**{ 'name':'40PC015G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'40PC015G'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'gage gauge pressure sensor', 'description':'', 'datasheet':'http://www.honeywellscportal.com//index.php?ci_id=138832', 'search_text':'/usr/share/kicad/symbols/Sensor_Pressure.kicad_sym\n40PC015G\n\ngage gauge pressure sensor', 'pins':[
             Pin(num='1',name='Vcc',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='Vout',func=Pin.types.OUTPUT,unit=1),
             Pin(num='4',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='5',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='6',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'BMP280', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BMP280'}), 'ref_prefix':'U', 'fplist':['Package_LGA:Bosch_LGA-8_2x2.5mm_P0.65mm_ClockwisePinNumbering'], 'footprint':'Package_LGA:Bosch_LGA-8_2x2.5mm_P0.65mm_ClockwisePinNumbering', 'keywords':'I2C, SPI, pressure, temperature, sensor', 'description':'', 'datasheet':'https://ae-bst.resource.bosch.com/media/_tech/media/datasheets/BST-BMP280-DS001.pdf', 'pins':[
+        Part(**{ 'name':'BMP280', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BMP280'}), 'ref_prefix':'U', 'fplist':['Package_LGA:Bosch_LGA-8_2x2.5mm_P0.65mm_ClockwisePinNumbering'], 'footprint':'Package_LGA:Bosch_LGA-8_2x2.5mm_P0.65mm_ClockwisePinNumbering', 'keywords':'I2C, SPI, pressure, temperature, sensor', 'description':'', 'datasheet':'https://ae-bst.resource.bosch.com/media/_tech/media/datasheets/BST-BMP280-DS001.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Pressure.kicad_sym\nBMP280\n\nI2C, SPI, pressure, temperature, sensor', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='CSB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SDI',func=Pin.types.BIDIR,unit=1),
@@ -20,7 +20,7 @@ Sensor_Pressure = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VDDIO',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LPS22DF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LPS22DF'}), 'ref_prefix':'U', 'fplist':['Package_LGA:ST_HLGA-10_2x2mm_P0.5mm_LayoutBorder3x2y'], 'footprint':'Package_LGA:ST_HLGA-10_2x2mm_P0.5mm_LayoutBorder3x2y', 'keywords':'digital barometer', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/lps22df.pdf', 'pins':[
+        Part(**{ 'name':'LPS22DF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LPS22DF'}), 'ref_prefix':'U', 'fplist':['Package_LGA:ST_HLGA-10_2x2mm_P0.5mm_LayoutBorder3x2y'], 'footprint':'Package_LGA:ST_HLGA-10_2x2mm_P0.5mm_LayoutBorder3x2y', 'keywords':'digital barometer', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/lps22df.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Pressure.kicad_sym\nLPS22DF\n\ndigital barometer', 'pins':[
             Pin(num='1',name='Vdd_IO',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='SCL',func=Pin.types.INPUT,unit=1),
@@ -31,7 +31,7 @@ Sensor_Pressure = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='INT_DRDY',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND_IO',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LPS25HB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LPS25HB'}), 'ref_prefix':'U', 'fplist':['Package_LGA:ST_HLGA-10_2.5x2.5mm_P0.6mm_LayoutBorder3x2y'], 'footprint':'Package_LGA:ST_HLGA-10_2.5x2.5mm_P0.6mm_LayoutBorder3x2y', 'keywords':'mems absolute baromeeter spi i2c pressure', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/lps25hb.pdf', 'pins':[
+        Part(**{ 'name':'LPS25HB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LPS25HB'}), 'ref_prefix':'U', 'fplist':['Package_LGA:ST_HLGA-10_2.5x2.5mm_P0.6mm_LayoutBorder3x2y'], 'footprint':'Package_LGA:ST_HLGA-10_2.5x2.5mm_P0.6mm_LayoutBorder3x2y', 'keywords':'mems absolute baromeeter spi i2c pressure', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/lps25hb.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Pressure.kicad_sym\nLPS25HB\n\nmems absolute baromeeter spi i2c pressure', 'pins':[
             Pin(num='1',name='Vdd_IO',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='SCL',func=Pin.types.INPUT,unit=1),
@@ -42,7 +42,7 @@ Sensor_Pressure = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='INT_DRDY',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MPL115A1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MPL115A1'}), 'ref_prefix':'U', 'fplist':['Package_LGA:NXP_LGA-8_3x5mm_P1.25mm_H1.2mm'], 'footprint':'Package_LGA:NXP_LGA-8_3x5mm_P1.25mm_H1.2mm', 'keywords':'spi barometer thermometer mems', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MPL115A1.pdf', 'pins':[
+        Part(**{ 'name':'MPL115A1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MPL115A1'}), 'ref_prefix':'U', 'fplist':['Package_LGA:NXP_LGA-8_3x5mm_P1.25mm_H1.2mm'], 'footprint':'Package_LGA:NXP_LGA-8_3x5mm_P1.25mm_H1.2mm', 'keywords':'spi barometer thermometer mems', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MPL115A1.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Pressure.kicad_sym\nMPL115A1\n\nspi barometer thermometer mems', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='CAP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -51,7 +51,7 @@ Sensor_Pressure = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='DOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='DIN',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SCLK',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MPL3115A2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MPL3115A2'}), 'ref_prefix':'U', 'fplist':['Package_LGA:NXP_LGA-8_3x5mm_P1.25mm_H1.1mm'], 'footprint':'Package_LGA:NXP_LGA-8_3x5mm_P1.25mm_H1.1mm', 'keywords':'pressure sensor altimetry', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MPL3115A2.pdf', 'pins':[
+        Part(**{ 'name':'MPL3115A2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MPL3115A2'}), 'ref_prefix':'U', 'fplist':['Package_LGA:NXP_LGA-8_3x5mm_P1.25mm_H1.1mm'], 'footprint':'Package_LGA:NXP_LGA-8_3x5mm_P1.25mm_H1.1mm', 'keywords':'pressure sensor altimetry', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MPL3115A2.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Pressure.kicad_sym\nMPL3115A2\n\npressure sensor altimetry', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='CAP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -60,7 +60,7 @@ Sensor_Pressure = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='INT1',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='7',name='SDL',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SCL',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MPXA6115A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MPXA6115A'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'absolute pressure sensor', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MPXA6115A.pdf', 'pins':[
+        Part(**{ 'name':'MPXA6115A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MPXA6115A'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'absolute pressure sensor', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MPXA6115A.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Pressure.kicad_sym\nMPXA6115A\n\nabsolute pressure sensor', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='Vcc',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -69,7 +69,7 @@ Sensor_Pressure = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MS5525DSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MS5525DSO'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'24bit low-power I2C SPI', 'description':'', 'datasheet':'https://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=MS5525DSO&DocType=DS&DocLang=English', 'pins':[
+        Part(**{ 'name':'MS5525DSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MS5525DSO'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'24bit low-power I2C SPI', 'description':'', 'datasheet':'https://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=MS5525DSO&DocType=DS&DocLang=English', 'search_text':'/usr/share/kicad/symbols/Sensor_Pressure.kicad_sym\nMS5525DSO\n\n24bit low-power I2C SPI', 'pins':[
             Pin(num='1',name='SIN-',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='PS',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SUPPLY+',func=Pin.types.PASSIVE,unit=1),
@@ -84,7 +84,7 @@ Sensor_Pressure = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SCLK/SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CSB',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='SUPPLY-',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MS5607-02BA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MS5607-02BA'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-8_3x5mm_P1.25mm'], 'footprint':'Package_LGA:LGA-8_3x5mm_P1.25mm', 'keywords':'pressure SPI I2C', 'description':'', 'datasheet':'https://www.te.com/commerce/DocumentDelivery/DDEController?Action=showdoc&DocId=Data+Sheet%7FMS5607-02BA03%7FB2%7Fpdf%7FEnglish%7FENG_DS_MS5607-02BA03_B2.pdf%7FCAT-BLPS0035', 'pins':[
+        Part(**{ 'name':'MS5607-02BA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MS5607-02BA'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-8_3x5mm_P1.25mm'], 'footprint':'Package_LGA:LGA-8_3x5mm_P1.25mm', 'keywords':'pressure SPI I2C', 'description':'', 'datasheet':'https://www.te.com/commerce/DocumentDelivery/DDEController?Action=showdoc&DocId=Data+Sheet%7FMS5607-02BA03%7FB2%7Fpdf%7FEnglish%7FENG_DS_MS5607-02BA03_B2.pdf%7FCAT-BLPS0035', 'search_text':'/usr/share/kicad/symbols/Sensor_Pressure.kicad_sym\nMS5607-02BA\n\npressure SPI I2C', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='PS',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -93,12 +93,12 @@ Sensor_Pressure = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SDO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='SDI/SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SCLK',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MS5837-xxBA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MS5837-xxBA'}), 'ref_prefix':'U', 'fplist':['Sensor_Pressure:TE_MS5837-xxBA'], 'footprint':'Sensor_Pressure:TE_MS5837-xxBA', 'keywords':'pressure sensor', 'description':'', 'datasheet':'https://www.te.com/commerce/DocumentDelivery/DDEController?Action=showdoc&DocId=Data+Sheet%7FMS5837-30BA%7FB1%7Fpdf%7FEnglish%7FENG_DS_MS5837-30BA_B1.pdf%7FCAT-BLPS0017', 'pins':[
+        Part(**{ 'name':'MS5837-xxBA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MS5837-xxBA'}), 'ref_prefix':'U', 'fplist':['Sensor_Pressure:TE_MS5837-xxBA'], 'footprint':'Sensor_Pressure:TE_MS5837-xxBA', 'keywords':'pressure sensor', 'description':'', 'datasheet':'https://www.te.com/commerce/DocumentDelivery/DDEController?Action=showdoc&DocId=Data+Sheet%7FMS5837-30BA%7FB1%7Fpdf%7FEnglish%7FENG_DS_MS5837-30BA_B1.pdf%7FCAT-BLPS0017', 'search_text':'/usr/share/kicad/symbols/Sensor_Pressure.kicad_sym\nMS5837-xxBA\n\npressure sensor', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='SCL',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='SDA',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XGZP6897D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XGZP6897D'}), 'ref_prefix':'U', 'fplist':['Sensor_Pressure:CFSensor_XGZP6897x'], 'footprint':'Sensor_Pressure:CFSensor_XGZP6897x', 'keywords':'differential i2c', 'description':'', 'datasheet':'https://cfsensor.com/wp-content/uploads/2022/11/XGZP6897D-Pressure-Sensor-V2.7.pdf', 'pins':[
+        Part(**{ 'name':'XGZP6897D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XGZP6897D'}), 'ref_prefix':'U', 'fplist':['Sensor_Pressure:CFSensor_XGZP6897x'], 'footprint':'Sensor_Pressure:CFSensor_XGZP6897x', 'keywords':'differential i2c', 'description':'', 'datasheet':'https://cfsensor.com/wp-content/uploads/2022/11/XGZP6897D-Pressure-Sensor-V2.7.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Pressure.kicad_sym\nXGZP6897D\n\ndifferential i2c', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='4',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -107,7 +107,7 @@ Sensor_Pressure = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='SCL',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XGZP6899D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XGZP6899D'}), 'ref_prefix':'U', 'fplist':['Sensor_Pressure:CFSensor_XGZP6899x'], 'footprint':'Sensor_Pressure:CFSensor_XGZP6899x', 'keywords':'differential i2c', 'description':'', 'datasheet':'https://cfsensor.com/wp-content/uploads/2022/11/XGZP6899D-Pressure-Sensor-V2.8.pdf', 'pins':[
+        Part(**{ 'name':'XGZP6899D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XGZP6899D'}), 'ref_prefix':'U', 'fplist':['Sensor_Pressure:CFSensor_XGZP6899x'], 'footprint':'Sensor_Pressure:CFSensor_XGZP6899x', 'keywords':'differential i2c', 'description':'', 'datasheet':'https://cfsensor.com/wp-content/uploads/2022/11/XGZP6899D-Pressure-Sensor-V2.8.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Pressure.kicad_sym\nXGZP6899D\n\ndifferential i2c', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='5',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -116,28 +116,28 @@ Sensor_Pressure = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='3',name='SCL',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='6',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'40PC100G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'40PC100G'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'gage gauge pressure sensor', 'description':'', 'datasheet':'http://www.honeywellscportal.com//index.php?ci_id=138832', 'pins':[
+        Part(**{ 'name':'40PC100G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'40PC100G'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'gage gauge pressure sensor', 'description':'', 'datasheet':'http://www.honeywellscportal.com//index.php?ci_id=138832', 'search_text':'/usr/share/kicad/symbols/Sensor_Pressure.kicad_sym\n40PC100G\n\ngage gauge pressure sensor', 'pins':[
             Pin(num='1',name='Vcc',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='Vout',func=Pin.types.OUTPUT,unit=1),
             Pin(num='4',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='5',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='6',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'40PC150G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'40PC150G'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'gage gauge pressure sensor', 'description':'', 'datasheet':'http://www.honeywellscportal.com//index.php?ci_id=138832', 'pins':[
+        Part(**{ 'name':'40PC150G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'40PC150G'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'gage gauge pressure sensor', 'description':'', 'datasheet':'http://www.honeywellscportal.com//index.php?ci_id=138832', 'search_text':'/usr/share/kicad/symbols/Sensor_Pressure.kicad_sym\n40PC150G\n\ngage gauge pressure sensor', 'pins':[
             Pin(num='1',name='Vcc',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='Vout',func=Pin.types.OUTPUT,unit=1),
             Pin(num='4',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='5',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='6',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'40PC250G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'40PC250G'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'gage gauge pressure sensor', 'description':'', 'datasheet':'http://www.honeywellscportal.com//index.php?ci_id=138832', 'pins':[
+        Part(**{ 'name':'40PC250G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'40PC250G'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'gage gauge pressure sensor', 'description':'', 'datasheet':'http://www.honeywellscportal.com//index.php?ci_id=138832', 'search_text':'/usr/share/kicad/symbols/Sensor_Pressure.kicad_sym\n40PC250G\n\ngage gauge pressure sensor', 'pins':[
             Pin(num='1',name='Vcc',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='Vout',func=Pin.types.OUTPUT,unit=1),
             Pin(num='4',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='5',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='6',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LPS22HB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LPS22HB'}), 'ref_prefix':'U', 'fplist':['Package_LGA:ST_HLGA-10_2.5x2.5mm_P0.6mm_LayoutBorder3x2y', 'Package_LGA:ST_HLGA-10_2x2mm_P0.5mm_LayoutBorder3x2y'], 'footprint':'Package_LGA:ST_HLGA-10_2.5x2.5mm_P0.6mm_LayoutBorder3x2y', 'keywords':'mems absolute baromeeter spi i2c pressure', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/lps22hb.pdf', 'pins':[
+        Part(**{ 'name':'LPS22HB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LPS22HB'}), 'ref_prefix':'U', 'fplist':['Package_LGA:ST_HLGA-10_2.5x2.5mm_P0.6mm_LayoutBorder3x2y', 'Package_LGA:ST_HLGA-10_2x2mm_P0.5mm_LayoutBorder3x2y'], 'footprint':'Package_LGA:ST_HLGA-10_2.5x2.5mm_P0.6mm_LayoutBorder3x2y', 'keywords':'mems absolute baromeeter spi i2c pressure', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/lps22hb.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Pressure.kicad_sym\nLPS22HB\n\nmems absolute baromeeter spi i2c pressure', 'pins':[
             Pin(num='1',name='Vdd_IO',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='SCL',func=Pin.types.INPUT,unit=1),
@@ -148,7 +148,7 @@ Sensor_Pressure = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='INT_DRDY',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LPS22HH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LPS22HH'}), 'ref_prefix':'U', 'fplist':['Package_LGA:ST_HLGA-10_2.5x2.5mm_P0.6mm_LayoutBorder3x2y', 'Package_LGA:ST_HLGA-10_2x2mm_P0.5mm_LayoutBorder3x2y', 'Package_LGA:ST_HLGA-10_2x2mm_P0.5mm_LayoutBorder3x2y'], 'footprint':'Package_LGA:ST_HLGA-10_2.5x2.5mm_P0.6mm_LayoutBorder3x2y', 'keywords':'mems absolute baromeeter spi i2c i3c pressure', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/lps22hh.pdf', 'pins':[
+        Part(**{ 'name':'LPS22HH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LPS22HH'}), 'ref_prefix':'U', 'fplist':['Package_LGA:ST_HLGA-10_2.5x2.5mm_P0.6mm_LayoutBorder3x2y', 'Package_LGA:ST_HLGA-10_2x2mm_P0.5mm_LayoutBorder3x2y', 'Package_LGA:ST_HLGA-10_2x2mm_P0.5mm_LayoutBorder3x2y'], 'footprint':'Package_LGA:ST_HLGA-10_2.5x2.5mm_P0.6mm_LayoutBorder3x2y', 'keywords':'mems absolute baromeeter spi i2c i3c pressure', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/lps22hh.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Pressure.kicad_sym\nLPS22HH\n\nmems absolute baromeeter spi i2c i3c pressure', 'pins':[
             Pin(num='1',name='Vdd_IO',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='SCL',func=Pin.types.INPUT,unit=1),
@@ -159,7 +159,7 @@ Sensor_Pressure = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='INT_DRDY',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MPXAZ6115A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MPXAZ6115A'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'absolute pressure sensor', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MPXA6115A.pdf', 'pins':[
+        Part(**{ 'name':'MPXAZ6115A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MPXAZ6115A'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'absolute pressure sensor', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MPXA6115A.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Pressure.kicad_sym\nMPXAZ6115A\n\nabsolute pressure sensor', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='Vcc',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -168,7 +168,7 @@ Sensor_Pressure = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MPXH6115A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MPXH6115A'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'absolute pressure sensor', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MPXA6115A.pdf', 'pins':[
+        Part(**{ 'name':'MPXH6115A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MPXH6115A'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'absolute pressure sensor', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MPXA6115A.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Pressure.kicad_sym\nMPXH6115A\n\nabsolute pressure sensor', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='Vcc',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -177,7 +177,7 @@ Sensor_Pressure = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MPXHZ6115A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MPXHZ6115A'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'absolute pressure sensor', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MPXA6115A.pdf', 'pins':[
+        Part(**{ 'name':'MPXHZ6115A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MPXHZ6115A'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'absolute pressure sensor', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MPXA6115A.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Pressure.kicad_sym\nMPXHZ6115A\n\nabsolute pressure sensor', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='Vcc',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -186,7 +186,7 @@ Sensor_Pressure = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MS5611-01BA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MS5611-01BA'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-8_3x5mm_P1.25mm', 'Package_LGA:LGA-8_3x5mm_P1.25mm'], 'footprint':'Package_LGA:LGA-8_3x5mm_P1.25mm', 'keywords':'pressure SPI I2C', 'description':'', 'datasheet':'https://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=MS5611-01BA03&DocType=Data+Sheet&DocLang=English', 'pins':[
+        Part(**{ 'name':'MS5611-01BA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MS5611-01BA'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-8_3x5mm_P1.25mm', 'Package_LGA:LGA-8_3x5mm_P1.25mm'], 'footprint':'Package_LGA:LGA-8_3x5mm_P1.25mm', 'keywords':'pressure SPI I2C', 'description':'', 'datasheet':'https://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=MS5611-01BA03&DocType=Data+Sheet&DocLang=English', 'search_text':'/usr/share/kicad/symbols/Sensor_Pressure.kicad_sym\nMS5611-01BA\n\npressure SPI I2C', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='PS',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -195,7 +195,7 @@ Sensor_Pressure = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SDO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='SDI/SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SCLK',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'WSEN-PADS_2511020213301', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'WSEN-PADS_2511020213301'}), 'ref_prefix':'U', 'fplist':['Package_LGA:ST_HLGA-10_2.5x2.5mm_P0.6mm_LayoutBorder3x2y', 'Package_LGA:ST_HLGA-10_2x2mm_P0.5mm_LayoutBorder3x2y', 'Package_LGA:ST_HLGA-10_2x2mm_P0.5mm_LayoutBorder3x2y', 'Package_LGA:ST_HLGA-10_2x2mm_P0.5mm_LayoutBorder3x2y'], 'footprint':'Package_LGA:ST_HLGA-10_2.5x2.5mm_P0.6mm_LayoutBorder3x2y', 'keywords':'mems absolute baromeeter', 'description':'', 'datasheet':'https://www.we-online.com/components/products/manual/2511020213301_WSEN-PADS%202511020213301%20Manual_rev2.2.pdf', 'pins':[
+        Part(**{ 'name':'WSEN-PADS_2511020213301', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'WSEN-PADS_2511020213301'}), 'ref_prefix':'U', 'fplist':['Package_LGA:ST_HLGA-10_2.5x2.5mm_P0.6mm_LayoutBorder3x2y', 'Package_LGA:ST_HLGA-10_2x2mm_P0.5mm_LayoutBorder3x2y', 'Package_LGA:ST_HLGA-10_2x2mm_P0.5mm_LayoutBorder3x2y', 'Package_LGA:ST_HLGA-10_2x2mm_P0.5mm_LayoutBorder3x2y'], 'footprint':'Package_LGA:ST_HLGA-10_2.5x2.5mm_P0.6mm_LayoutBorder3x2y', 'keywords':'mems absolute baromeeter', 'description':'', 'datasheet':'https://www.we-online.com/components/products/manual/2511020213301_WSEN-PADS%202511020213301%20Manual_rev2.2.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Pressure.kicad_sym\nWSEN-PADS_2511020213301\n\nmems absolute baromeeter', 'pins':[
             Pin(num='1',name='Vdd_IO',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='SCL',func=Pin.types.INPUT,unit=1),

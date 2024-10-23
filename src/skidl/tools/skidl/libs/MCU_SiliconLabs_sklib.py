@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'C8051F380-GQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'C8051F380-GQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'keywords':'8051 microcontroller PCA UART USB SPI I2C ADC EMIF TQFP48', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/C8051F38x.pdf', 'pins':[
+        Part(**{ 'name':'C8051F380-GQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'C8051F380-GQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'keywords':'8051 microcontroller PCA UART USB SPI I2C ADC EMIF TQFP48', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/C8051F38x.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nC8051F380-GQ\n\n8051 microcontroller PCA UART USB SPI I2C ADC EMIF TQFP48', 'pins':[
             Pin(num='1',name='P0.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='REGIN',func=Pin.types.PWRIN,unit=1),
@@ -53,7 +53,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='D+',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='D-',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'C8051F381-GM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'C8051F381-GM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm', 'keywords':'8051 microcontroller PCA UART USB SPI I2C ADC QFN32', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/C8051F38x.pdf', 'pins':[
+        Part(**{ 'name':'C8051F381-GM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'C8051F381-GM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm', 'keywords':'8051 microcontroller PCA UART USB SPI I2C ADC QFN32', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/C8051F38x.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nC8051F381-GM\n\n8051 microcontroller PCA UART USB SPI I2C ADC QFN32', 'pins':[
             Pin(num='1',name='P0.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P3.0/C2D',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.7',func=Pin.types.BIDIR,unit=1),
@@ -87,7 +87,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='REGIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VBUS',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{RST}/C2CK',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'C8051F381-GQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'C8051F381-GQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'8051 microcontroller PCA UART USB SPI I2C ADC LQFP32', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/C8051F38x.pdf', 'pins':[
+        Part(**{ 'name':'C8051F381-GQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'C8051F381-GQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'8051 microcontroller PCA UART USB SPI I2C ADC LQFP32', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/C8051F38x.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nC8051F381-GQ\n\n8051 microcontroller PCA UART USB SPI I2C ADC LQFP32', 'pins':[
             Pin(num='1',name='P0.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P3.0/C2D',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.7',func=Pin.types.BIDIR,unit=1),
@@ -120,7 +120,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='REGIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VBUS',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{RST}/C2CK',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EFM32G230F128G-E-QFN64', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM32G230F128G-E-QFN64'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.3x7.3mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.3x7.3mm', 'keywords':'MCU microcontroller silicon labs siliconlabs silabs EFM32 gecko', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm32g-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'EFM32G230F128G-E-QFN64', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM32G230F128G-E-QFN64'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.3x7.3mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.3x7.3mm', 'keywords':'MCU microcontroller silicon labs siliconlabs silabs EFM32 gecko', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm32g-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nEFM32G230F128G-E-QFN64\n\nMCU microcontroller silicon labs siliconlabs silabs EFM32 gecko', 'pins':[
             Pin(num='1',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PC2',func=Pin.types.BIDIR,unit=1),
@@ -186,7 +186,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='IOVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PC0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EFM32HG108F32G-C-QFN24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM32HG108F32G-C-QFN24'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'keywords':'MCU microcontroller silicon labs siliconlabs silabs EFM32 happy gecko', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm32hg-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'EFM32HG108F32G-C-QFN24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM32HG108F32G-C-QFN24'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'keywords':'MCU microcontroller silicon labs siliconlabs silabs EFM32 happy gecko', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm32hg-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nEFM32HG108F32G-C-QFN24\n\nMCU microcontroller silicon labs siliconlabs silabs EFM32 happy gecko', 'pins':[
             Pin(num='1',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB13',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB14',func=Pin.types.BIDIR,unit=1),
@@ -212,7 +212,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PB11',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='AVDD',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EFM32HG308F32G-C-QFN24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM32HG308F32G-C-QFN24'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'keywords':'MCU microcontroller silicon labs siliconlabs silabs EFM32 happy gecko', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm32hg-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'EFM32HG308F32G-C-QFN24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM32HG308F32G-C-QFN24'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'keywords':'MCU microcontroller silicon labs siliconlabs silabs EFM32 happy gecko', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm32hg-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nEFM32HG308F32G-C-QFN24\n\nMCU microcontroller silicon labs siliconlabs silabs EFM32 happy gecko', 'pins':[
             Pin(num='1',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB13',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB14',func=Pin.types.BIDIR,unit=1),
@@ -238,7 +238,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PB11',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='AVDD_2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EFM8BB10F8G-A-QFN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM8BB10F8G-A-QFN20'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm'], 'footprint':'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'keywords':'8051 microcontroller PWM UART SPI I2C ADC QFN20', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm8bb1-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'EFM8BB10F8G-A-QFN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM8BB10F8G-A-QFN20'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm'], 'footprint':'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'keywords':'8051 microcontroller PWM UART SPI I2C ADC QFN20', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm8bb1-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nEFM8BB10F8G-A-QFN20\n\n8051 microcontroller PWM UART SPI I2C ADC QFN20', 'pins':[
             Pin(num='1',name='P0.1',func=Pin.types.BIDIR),
             Pin(num='10',name='P1.3',func=Pin.types.BIDIR),
             Pin(num='11',name='P1.2',func=Pin.types.BIDIR),
@@ -260,7 +260,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P1.6',func=Pin.types.BIDIR),
             Pin(num='8',name='P1.5',func=Pin.types.BIDIR),
             Pin(num='9',name='P1.4',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'EFM8BB10F8G-A-QSOP24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM8BB10F8G-A-QSOP24'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-24_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:QSOP-24_3.9x8.7mm_P0.635mm', 'keywords':'8051 microcontroller PWM UART SPI I2C ADC QSOP24', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm8bb1-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'EFM8BB10F8G-A-QSOP24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM8BB10F8G-A-QSOP24'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-24_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:QSOP-24_3.9x8.7mm_P0.635mm', 'keywords':'8051 microcontroller PWM UART SPI I2C ADC QSOP24', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm8bb1-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nEFM8BB10F8G-A-QSOP24\n\n8051 microcontroller PWM UART SPI I2C ADC QSOP24', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT),
             Pin(num='10',name='P1.6',func=Pin.types.BIDIR),
             Pin(num='11',name='P1.5',func=Pin.types.BIDIR),
@@ -285,7 +285,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RSTb/C2CK',func=Pin.types.INPUT),
             Pin(num='8',name='P2.0/C2D',func=Pin.types.BIDIR),
             Pin(num='9',name='P1.7',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'EFM8BB10F8G-A-SOIC16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM8BB10F8G-A-SOIC16'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'8051 microcontroller PWM UART SPI I2C ADC SOIC16', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm8bb1-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'EFM8BB10F8G-A-SOIC16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM8BB10F8G-A-SOIC16'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'8051 microcontroller PWM UART SPI I2C ADC SOIC16', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm8bb1-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nEFM8BB10F8G-A-SOIC16\n\n8051 microcontroller PWM UART SPI I2C ADC SOIC16', 'pins':[
             Pin(num='1',name='P0.2',func=Pin.types.BIDIR),
             Pin(num='10',name='P1.1',func=Pin.types.BIDIR),
             Pin(num='11',name='P1.0',func=Pin.types.BIDIR),
@@ -302,7 +302,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P2.0/C2D',func=Pin.types.BIDIR),
             Pin(num='8',name='P1.3',func=Pin.types.BIDIR),
             Pin(num='9',name='P1.2',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'EFM8LB12F32E-C-QFP32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM8LB12F32E-C-QFP32'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'8051 microcontroller', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm8lb1-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'EFM8LB12F32E-C-QFP32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM8LB12F32E-C-QFP32'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'8051 microcontroller', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm8lb1-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nEFM8LB12F32E-C-QFP32\n\n8051 microcontroller', 'pins':[
             Pin(num='1',name='P0.0',func=Pin.types.BIDIR),
             Pin(num='10',name='P3.0',func=Pin.types.BIDIR),
             Pin(num='11',name='P2.6',func=Pin.types.BIDIR),
@@ -335,7 +335,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P3.3',func=Pin.types.BIDIR),
             Pin(num='8',name='P3.2',func=Pin.types.BIDIR),
             Pin(num='9',name='P3.1',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'EFM8UB30F40G-A-QFN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM8UB30F40G-A-QFN20'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm'], 'footprint':'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'keywords':'8051 microcontroller PWM UART SPI I2C USB LDOREG ADC QFN20', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm8ub3-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'EFM8UB30F40G-A-QFN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM8UB30F40G-A-QFN20'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm'], 'footprint':'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'keywords':'8051 microcontroller PWM UART SPI I2C USB LDOREG ADC QFN20', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm8ub3-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nEFM8UB30F40G-A-QFN20\n\n8051 microcontroller PWM UART SPI I2C USB LDOREG ADC QFN20', 'pins':[
             Pin(num='1',name='P0.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P2.0/C2D',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P1.2',func=Pin.types.BIDIR,unit=1),
@@ -357,7 +357,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VREGIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='P2.1/VBUS',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{RST}/C2CK',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EFM8UB31F40G-A-QFN24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM8UB31F40G-A-QFN24'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'8051 microcontroller PWM UART SPI I2C USB LDOREG ADC QFN24', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm8ub3-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'EFM8UB31F40G-A-QFN24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM8UB31F40G-A-QFN24'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'8051 microcontroller PWM UART SPI I2C USB LDOREG ADC QFN24', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm8ub3-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nEFM8UB31F40G-A-QFN24\n\n8051 microcontroller PWM UART SPI I2C USB LDOREG ADC QFN24', 'pins':[
             Pin(num='1',name='P0.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P2.0/C2D',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P1.6',func=Pin.types.BIDIR,unit=1),
@@ -383,7 +383,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VREGIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='P2.1/VBUS',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{RST}/C2CK',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EFM8UB31F40G-A-QSOP24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM8UB31F40G-A-QSOP24'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-24_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:QSOP-24_3.9x8.7mm_P0.635mm', 'keywords':'8051 microcontroller PWM UART SPI I2C USB LDOREG ADC QSOP24', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm8ub3-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'EFM8UB31F40G-A-QSOP24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM8UB31F40G-A-QSOP24'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-24_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:QSOP-24_3.9x8.7mm_P0.635mm', 'keywords':'8051 microcontroller PWM UART SPI I2C USB LDOREG ADC QSOP24', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm8ub3-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nEFM8UB31F40G-A-QSOP24\n\n8051 microcontroller PWM UART SPI I2C USB LDOREG ADC QSOP24', 'pins':[
             Pin(num='1',name='P0.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P2.1/VBUS',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='~{RST}/C2CK',func=Pin.types.BIDIR,unit=1),
@@ -408,7 +408,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VIO',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VREGIN',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EFR32xG23xxxxF512xM48', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFR32xG23xxxxF512xM48'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.3x4.3mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.3x4.3mm', 'keywords':'Z-Wave ARM MCU CM33 Radio 900MHz SoC Silicon Labs Silabs 32-bit CPU EFR32 EFR32ZG23 EFR32M23 EFR32FG23 EFR32SG23 Sidewalk', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efr32zg23-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'EFR32xG23xxxxF512xM48', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFR32xG23xxxxF512xM48'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.3x4.3mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.3x4.3mm', 'keywords':'Z-Wave ARM MCU CM33 Radio 900MHz SoC Silicon Labs Silabs 32-bit CPU EFR32 EFR32ZG23 EFR32M23 EFR32FG23 EFR32SG23 Sidewalk', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efr32zg23-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nEFR32xG23xxxxF512xM48\n\nZ-Wave ARM MCU CM33 Radio 900MHz SoC Silicon Labs Silabs 32-bit CPU EFR32 EFR32ZG23 EFR32M23 EFR32FG23 EFR32SG23 Sidewalk', 'pins':[
             Pin(num='1',name='PC00',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PC09',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='HFXTAL_I',func=Pin.types.INPUT,unit=1),
@@ -458,7 +458,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PC06',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PC07',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PC08',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'C8051F382-GQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'C8051F382-GQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'keywords':'8051 microcontroller PCA UART USB SPI I2C ADC EMIF TQFP48', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/C8051F38x.pdf', 'pins':[
+        Part(**{ 'name':'C8051F382-GQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'C8051F382-GQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'keywords':'8051 microcontroller PCA UART USB SPI I2C ADC EMIF TQFP48', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/C8051F38x.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nC8051F382-GQ\n\n8051 microcontroller PCA UART USB SPI I2C ADC EMIF TQFP48', 'pins':[
             Pin(num='1',name='P0.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='REGIN',func=Pin.types.PWRIN,unit=1),
@@ -507,7 +507,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='D+',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='D-',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'C8051F383-GM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'C8051F383-GM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm', 'keywords':'8051 microcontroller PCA UART USB SPI I2C ADC QFN32', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/C8051F38x.pdf', 'pins':[
+        Part(**{ 'name':'C8051F383-GM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'C8051F383-GM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm', 'keywords':'8051 microcontroller PCA UART USB SPI I2C ADC QFN32', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/C8051F38x.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nC8051F383-GM\n\n8051 microcontroller PCA UART USB SPI I2C ADC QFN32', 'pins':[
             Pin(num='1',name='P0.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P3.0/C2D',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.7',func=Pin.types.BIDIR,unit=1),
@@ -541,7 +541,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='REGIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VBUS',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{RST}/C2CK',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'C8051F383-GQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'C8051F383-GQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'8051 microcontroller PCA UART USB SPI I2C ADC LQFP32', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/C8051F38x.pdf', 'pins':[
+        Part(**{ 'name':'C8051F383-GQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'C8051F383-GQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'8051 microcontroller PCA UART USB SPI I2C ADC LQFP32', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/C8051F38x.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nC8051F383-GQ\n\n8051 microcontroller PCA UART USB SPI I2C ADC LQFP32', 'pins':[
             Pin(num='1',name='P0.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P3.0/C2D',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.7',func=Pin.types.BIDIR,unit=1),
@@ -574,7 +574,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='REGIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VBUS',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{RST}/C2CK',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'C8051F384-GQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'C8051F384-GQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'keywords':'8051 microcontroller PCA UART USB SPI I2C EMIF TQFP48', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/C8051F38x.pdf', 'pins':[
+        Part(**{ 'name':'C8051F384-GQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'C8051F384-GQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'keywords':'8051 microcontroller PCA UART USB SPI I2C EMIF TQFP48', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/C8051F38x.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nC8051F384-GQ\n\n8051 microcontroller PCA UART USB SPI I2C EMIF TQFP48', 'pins':[
             Pin(num='1',name='P0.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='REGIN',func=Pin.types.PWRIN,unit=1),
@@ -623,7 +623,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='D+',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='D-',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'C8051F385-GM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'C8051F385-GM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm', 'keywords':'8051 microcontroller PCA UART USB SPI I2C QFN32', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/C8051F38x.pdf', 'pins':[
+        Part(**{ 'name':'C8051F385-GM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'C8051F385-GM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm', 'keywords':'8051 microcontroller PCA UART USB SPI I2C QFN32', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/C8051F38x.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nC8051F385-GM\n\n8051 microcontroller PCA UART USB SPI I2C QFN32', 'pins':[
             Pin(num='1',name='P0.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P3.0/C2D',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.7',func=Pin.types.BIDIR,unit=1),
@@ -657,7 +657,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='REGIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VBUS',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{RST}/C2CK',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'C8051F385-GQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'C8051F385-GQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'8051 microcontroller PCA UART USB SPI I2C LQFP32', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/C8051F38x.pdf', 'pins':[
+        Part(**{ 'name':'C8051F385-GQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'C8051F385-GQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'8051 microcontroller PCA UART USB SPI I2C LQFP32', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/C8051F38x.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nC8051F385-GQ\n\n8051 microcontroller PCA UART USB SPI I2C LQFP32', 'pins':[
             Pin(num='1',name='P0.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P3.0/C2D',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.7',func=Pin.types.BIDIR,unit=1),
@@ -690,7 +690,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='REGIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VBUS',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{RST}/C2CK',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'C8051F386-GQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'C8051F386-GQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'keywords':'8051 microcontroller PCA UART USB SPI I2C EMIF TQFP48', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/C8051F38x.pdf', 'pins':[
+        Part(**{ 'name':'C8051F386-GQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'C8051F386-GQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'Package_QFP:TQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-48_7x7mm_P0.5mm', 'keywords':'8051 microcontroller PCA UART USB SPI I2C EMIF TQFP48', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/C8051F38x.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nC8051F386-GQ\n\n8051 microcontroller PCA UART USB SPI I2C EMIF TQFP48', 'pins':[
             Pin(num='1',name='P0.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='REGIN',func=Pin.types.PWRIN,unit=1),
@@ -739,7 +739,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='D+',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='D-',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'C8051F387-GM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'C8051F387-GM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm', 'keywords':'8051 microcontroller PCA UART USB SPI I2C QFN32', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/C8051F38x.pdf', 'pins':[
+        Part(**{ 'name':'C8051F387-GM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'C8051F387-GM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm', 'keywords':'8051 microcontroller PCA UART USB SPI I2C QFN32', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/C8051F38x.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nC8051F387-GM\n\n8051 microcontroller PCA UART USB SPI I2C QFN32', 'pins':[
             Pin(num='1',name='P0.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P3.0/C2D',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.7',func=Pin.types.BIDIR,unit=1),
@@ -773,7 +773,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='REGIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VBUS',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{RST}/C2CK',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'C8051F387-GQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'C8051F387-GQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'8051 microcontroller PCA UART USB SPI I2C LQFP32', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/C8051F38x.pdf', 'pins':[
+        Part(**{ 'name':'C8051F387-GQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'C8051F387-GQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'8051 microcontroller PCA UART USB SPI I2C LQFP32', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/C8051F38x.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nC8051F387-GQ\n\n8051 microcontroller PCA UART USB SPI I2C LQFP32', 'pins':[
             Pin(num='1',name='P0.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P3.0/C2D',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.7',func=Pin.types.BIDIR,unit=1),
@@ -806,7 +806,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='REGIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VBUS',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{RST}/C2CK',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'C8051F38C-GM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'C8051F38C-GM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm', 'keywords':'8051 microcontroller PCA UART USB SPI I2C ADC QFN32', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/C8051F38x.pdf', 'pins':[
+        Part(**{ 'name':'C8051F38C-GM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'C8051F38C-GM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.3x3.3mm', 'keywords':'8051 microcontroller PCA UART USB SPI I2C ADC QFN32', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/C8051F38x.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nC8051F38C-GM\n\n8051 microcontroller PCA UART USB SPI I2C ADC QFN32', 'pins':[
             Pin(num='1',name='P0.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P3.0/C2D',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.7',func=Pin.types.BIDIR,unit=1),
@@ -840,7 +840,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='REGIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VBUS',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{RST}/C2CK',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'C8051F38C-GQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'C8051F38C-GQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'8051 microcontroller PCA UART USB SPI I2C ADC LQFP32', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/C8051F38x.pdf', 'pins':[
+        Part(**{ 'name':'C8051F38C-GQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'C8051F38C-GQ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'8051 microcontroller PCA UART USB SPI I2C ADC LQFP32', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/C8051F38x.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nC8051F38C-GQ\n\n8051 microcontroller PCA UART USB SPI I2C ADC LQFP32', 'pins':[
             Pin(num='1',name='P0.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P3.0/C2D',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.7',func=Pin.types.BIDIR,unit=1),
@@ -873,7 +873,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='REGIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VBUS',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{RST}/C2CK',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EFM32HG108F64G-C-QFN24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM32HG108F64G-C-QFN24'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'keywords':'MCU microcontroller silicon labs siliconlabs silabs EFM32 happy gecko', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm32hg-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'EFM32HG108F64G-C-QFN24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM32HG108F64G-C-QFN24'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'keywords':'MCU microcontroller silicon labs siliconlabs silabs EFM32 happy gecko', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm32hg-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nEFM32HG108F64G-C-QFN24\n\nMCU microcontroller silicon labs siliconlabs silabs EFM32 happy gecko', 'pins':[
             Pin(num='1',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB13',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB14',func=Pin.types.BIDIR,unit=1),
@@ -899,7 +899,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PB11',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='AVDD',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EFM32HG308F64G-C-QFN24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM32HG308F64G-C-QFN24'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'keywords':'MCU microcontroller silicon labs siliconlabs silabs EFM32 happy gecko', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm32hg-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'EFM32HG308F64G-C-QFN24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM32HG308F64G-C-QFN24'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'keywords':'MCU microcontroller silicon labs siliconlabs silabs EFM32 happy gecko', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm32hg-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nEFM32HG308F64G-C-QFN24\n\nMCU microcontroller silicon labs siliconlabs silabs EFM32 happy gecko', 'pins':[
             Pin(num='1',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB13',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB14',func=Pin.types.BIDIR,unit=1),
@@ -925,7 +925,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PB11',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='AVDD_2',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EFM32ZG108F16-B-QFN24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM32ZG108F16-B-QFN24'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'keywords':'MCU microcontroller silicon labs siliconlabs silabs EFM32 zero gecko', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm32zg-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'EFM32ZG108F16-B-QFN24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM32ZG108F16-B-QFN24'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'keywords':'MCU microcontroller silicon labs siliconlabs silabs EFM32 zero gecko', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm32zg-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nEFM32ZG108F16-B-QFN24\n\nMCU microcontroller silicon labs siliconlabs silabs EFM32 zero gecko', 'pins':[
             Pin(num='1',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB13',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB14',func=Pin.types.BIDIR,unit=1),
@@ -951,7 +951,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PB11',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='AVDD',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EFM32ZG108F32-B-QFN24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM32ZG108F32-B-QFN24'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'keywords':'MCU microcontroller silicon labs siliconlabs silabs EFM32 zero gecko', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm32zg-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'EFM32ZG108F32-B-QFN24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM32ZG108F32-B-QFN24'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'keywords':'MCU microcontroller silicon labs siliconlabs silabs EFM32 zero gecko', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm32zg-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nEFM32ZG108F32-B-QFN24\n\nMCU microcontroller silicon labs siliconlabs silabs EFM32 zero gecko', 'pins':[
             Pin(num='1',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB13',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB14',func=Pin.types.BIDIR,unit=1),
@@ -977,7 +977,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PB11',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='AVDD',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EFM32ZG108F4-B-QFN24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM32ZG108F4-B-QFN24'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'keywords':'MCU microcontroller silicon labs siliconlabs silabs EFM32 zero gecko', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm32zg-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'EFM32ZG108F4-B-QFN24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM32ZG108F4-B-QFN24'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'keywords':'MCU microcontroller silicon labs siliconlabs silabs EFM32 zero gecko', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm32zg-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nEFM32ZG108F4-B-QFN24\n\nMCU microcontroller silicon labs siliconlabs silabs EFM32 zero gecko', 'pins':[
             Pin(num='1',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB13',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB14',func=Pin.types.BIDIR,unit=1),
@@ -1003,7 +1003,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PB11',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='AVDD',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EFM32ZG108F8-B-QFN24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM32ZG108F8-B-QFN24'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'keywords':'MCU microcontroller silicon labs siliconlabs silabs EFM32 zero gecko', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm32zg-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'EFM32ZG108F8-B-QFN24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM32ZG108F8-B-QFN24'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'keywords':'MCU microcontroller silicon labs siliconlabs silabs EFM32 zero gecko', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm32zg-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nEFM32ZG108F8-B-QFN24\n\nMCU microcontroller silicon labs siliconlabs silabs EFM32 zero gecko', 'pins':[
             Pin(num='1',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB13',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB14',func=Pin.types.BIDIR,unit=1),
@@ -1029,7 +1029,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PB11',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='AVDD',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EFM32ZG110F16-B-QFN24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM32ZG110F16-B-QFN24'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'keywords':'MCU microcontroller silicon labs siliconlabs silabs EFM32 zero gecko', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm32zg-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'EFM32ZG110F16-B-QFN24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM32ZG110F16-B-QFN24'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'keywords':'MCU microcontroller silicon labs siliconlabs silabs EFM32 zero gecko', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm32zg-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nEFM32ZG110F16-B-QFN24\n\nMCU microcontroller silicon labs siliconlabs silabs EFM32 zero gecko', 'pins':[
             Pin(num='1',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB13',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB14',func=Pin.types.BIDIR,unit=1),
@@ -1055,7 +1055,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PB11',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='AVDD',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EFM32ZG110F32-B-QFN24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM32ZG110F32-B-QFN24'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'keywords':'MCU microcontroller silicon labs siliconlabs silabs EFM32 zero gecko', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm32zg-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'EFM32ZG110F32-B-QFN24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM32ZG110F32-B-QFN24'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'keywords':'MCU microcontroller silicon labs siliconlabs silabs EFM32 zero gecko', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm32zg-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nEFM32ZG110F32-B-QFN24\n\nMCU microcontroller silicon labs siliconlabs silabs EFM32 zero gecko', 'pins':[
             Pin(num='1',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB13',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB14',func=Pin.types.BIDIR,unit=1),
@@ -1081,7 +1081,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PB11',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='AVDD',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EFM32ZG110F4-B-QFN24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM32ZG110F4-B-QFN24'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'keywords':'MCU microcontroller silicon labs siliconlabs silabs EFM32 zero gecko', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm32zg-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'EFM32ZG110F4-B-QFN24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM32ZG110F4-B-QFN24'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'keywords':'MCU microcontroller silicon labs siliconlabs silabs EFM32 zero gecko', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm32zg-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nEFM32ZG110F4-B-QFN24\n\nMCU microcontroller silicon labs siliconlabs silabs EFM32 zero gecko', 'pins':[
             Pin(num='1',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB13',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB14',func=Pin.types.BIDIR,unit=1),
@@ -1107,7 +1107,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PB11',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='AVDD',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EFM32ZG110F8-B-QFN24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM32ZG110F8-B-QFN24'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'keywords':'MCU microcontroller silicon labs siliconlabs silabs EFM32 zero gecko', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm32zg-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'EFM32ZG110F8-B-QFN24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM32ZG110F8-B-QFN24'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.6x3.6mm', 'keywords':'MCU microcontroller silicon labs siliconlabs silabs EFM32 zero gecko', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm32zg-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nEFM32ZG110F8-B-QFN24\n\nMCU microcontroller silicon labs siliconlabs silabs EFM32 zero gecko', 'pins':[
             Pin(num='1',name='PA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PB13',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PB14',func=Pin.types.BIDIR,unit=1),
@@ -1133,7 +1133,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PB11',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='AVDD',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'EFM8BB10F2A-A-QFN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM8BB10F2A-A-QFN20'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm'], 'footprint':'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'keywords':'8051 microcontroller PWM UART SPI I2C ADC QFN20 automotive', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm8bb1-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'EFM8BB10F2A-A-QFN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM8BB10F2A-A-QFN20'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm'], 'footprint':'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'keywords':'8051 microcontroller PWM UART SPI I2C ADC QFN20 automotive', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm8bb1-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nEFM8BB10F2A-A-QFN20\n\n8051 microcontroller PWM UART SPI I2C ADC QFN20 automotive', 'pins':[
             Pin(num='1',name='P0.1',func=Pin.types.BIDIR),
             Pin(num='10',name='P1.3',func=Pin.types.BIDIR),
             Pin(num='11',name='P1.2',func=Pin.types.BIDIR),
@@ -1155,7 +1155,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P1.6',func=Pin.types.BIDIR),
             Pin(num='8',name='P1.5',func=Pin.types.BIDIR),
             Pin(num='9',name='P1.4',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'EFM8BB10F2G-A-QFN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM8BB10F2G-A-QFN20'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm'], 'footprint':'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'keywords':'8051 microcontroller PWM UART SPI I2C ADC QFN20', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm8bb1-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'EFM8BB10F2G-A-QFN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM8BB10F2G-A-QFN20'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm'], 'footprint':'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'keywords':'8051 microcontroller PWM UART SPI I2C ADC QFN20', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm8bb1-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nEFM8BB10F2G-A-QFN20\n\n8051 microcontroller PWM UART SPI I2C ADC QFN20', 'pins':[
             Pin(num='1',name='P0.1',func=Pin.types.BIDIR),
             Pin(num='10',name='P1.3',func=Pin.types.BIDIR),
             Pin(num='11',name='P1.2',func=Pin.types.BIDIR),
@@ -1177,7 +1177,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P1.6',func=Pin.types.BIDIR),
             Pin(num='8',name='P1.5',func=Pin.types.BIDIR),
             Pin(num='9',name='P1.4',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'EFM8BB10F2I-A-QFN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM8BB10F2I-A-QFN20'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm'], 'footprint':'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'keywords':'8051 microcontroller PWM UART SPI I2C ADC QFN20', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm8bb1-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'EFM8BB10F2I-A-QFN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM8BB10F2I-A-QFN20'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm'], 'footprint':'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'keywords':'8051 microcontroller PWM UART SPI I2C ADC QFN20', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm8bb1-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nEFM8BB10F2I-A-QFN20\n\n8051 microcontroller PWM UART SPI I2C ADC QFN20', 'pins':[
             Pin(num='1',name='P0.1',func=Pin.types.BIDIR),
             Pin(num='10',name='P1.3',func=Pin.types.BIDIR),
             Pin(num='11',name='P1.2',func=Pin.types.BIDIR),
@@ -1199,7 +1199,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P1.6',func=Pin.types.BIDIR),
             Pin(num='8',name='P1.5',func=Pin.types.BIDIR),
             Pin(num='9',name='P1.4',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'EFM8BB10F4A-A-QFN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM8BB10F4A-A-QFN20'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm'], 'footprint':'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'keywords':'8051 microcontroller PWM UART SPI I2C ADC QFN20 automotive', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm8bb1-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'EFM8BB10F4A-A-QFN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM8BB10F4A-A-QFN20'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm'], 'footprint':'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'keywords':'8051 microcontroller PWM UART SPI I2C ADC QFN20 automotive', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm8bb1-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nEFM8BB10F4A-A-QFN20\n\n8051 microcontroller PWM UART SPI I2C ADC QFN20 automotive', 'pins':[
             Pin(num='1',name='P0.1',func=Pin.types.BIDIR),
             Pin(num='10',name='P1.3',func=Pin.types.BIDIR),
             Pin(num='11',name='P1.2',func=Pin.types.BIDIR),
@@ -1221,7 +1221,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P1.6',func=Pin.types.BIDIR),
             Pin(num='8',name='P1.5',func=Pin.types.BIDIR),
             Pin(num='9',name='P1.4',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'EFM8BB10F4G-A-QFN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM8BB10F4G-A-QFN20'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm'], 'footprint':'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'keywords':'8051 microcontroller PWM UART SPI I2C ADC QFN20', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm8bb1-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'EFM8BB10F4G-A-QFN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM8BB10F4G-A-QFN20'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm'], 'footprint':'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'keywords':'8051 microcontroller PWM UART SPI I2C ADC QFN20', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm8bb1-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nEFM8BB10F4G-A-QFN20\n\n8051 microcontroller PWM UART SPI I2C ADC QFN20', 'pins':[
             Pin(num='1',name='P0.1',func=Pin.types.BIDIR),
             Pin(num='10',name='P1.3',func=Pin.types.BIDIR),
             Pin(num='11',name='P1.2',func=Pin.types.BIDIR),
@@ -1243,7 +1243,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P1.6',func=Pin.types.BIDIR),
             Pin(num='8',name='P1.5',func=Pin.types.BIDIR),
             Pin(num='9',name='P1.4',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'EFM8BB10F4I-A-QFN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM8BB10F4I-A-QFN20'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm'], 'footprint':'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'keywords':'8051 microcontroller PWM UART SPI I2C ADC QFN20', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm8bb1-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'EFM8BB10F4I-A-QFN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM8BB10F4I-A-QFN20'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm'], 'footprint':'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'keywords':'8051 microcontroller PWM UART SPI I2C ADC QFN20', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm8bb1-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nEFM8BB10F4I-A-QFN20\n\n8051 microcontroller PWM UART SPI I2C ADC QFN20', 'pins':[
             Pin(num='1',name='P0.1',func=Pin.types.BIDIR),
             Pin(num='10',name='P1.3',func=Pin.types.BIDIR),
             Pin(num='11',name='P1.2',func=Pin.types.BIDIR),
@@ -1265,7 +1265,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P1.6',func=Pin.types.BIDIR),
             Pin(num='8',name='P1.5',func=Pin.types.BIDIR),
             Pin(num='9',name='P1.4',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'EFM8BB10F8A-A-QFN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM8BB10F8A-A-QFN20'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm'], 'footprint':'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'keywords':'8051 microcontroller PWM UART SPI I2C ADC QFN20 automotive', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm8bb1-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'EFM8BB10F8A-A-QFN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM8BB10F8A-A-QFN20'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm'], 'footprint':'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'keywords':'8051 microcontroller PWM UART SPI I2C ADC QFN20 automotive', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm8bb1-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nEFM8BB10F8A-A-QFN20\n\n8051 microcontroller PWM UART SPI I2C ADC QFN20 automotive', 'pins':[
             Pin(num='1',name='P0.1',func=Pin.types.BIDIR),
             Pin(num='10',name='P1.3',func=Pin.types.BIDIR),
             Pin(num='11',name='P1.2',func=Pin.types.BIDIR),
@@ -1287,7 +1287,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P1.6',func=Pin.types.BIDIR),
             Pin(num='8',name='P1.5',func=Pin.types.BIDIR),
             Pin(num='9',name='P1.4',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'EFM8BB10F8I-A-QFN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM8BB10F8I-A-QFN20'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm'], 'footprint':'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'keywords':'8051 microcontroller PWM UART SPI I2C ADC QFN20', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm8bb1-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'EFM8BB10F8I-A-QFN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM8BB10F8I-A-QFN20'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm'], 'footprint':'Package_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'keywords':'8051 microcontroller PWM UART SPI I2C ADC QFN20', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm8bb1-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nEFM8BB10F8I-A-QFN20\n\n8051 microcontroller PWM UART SPI I2C ADC QFN20', 'pins':[
             Pin(num='1',name='P0.1',func=Pin.types.BIDIR),
             Pin(num='10',name='P1.3',func=Pin.types.BIDIR),
             Pin(num='11',name='P1.2',func=Pin.types.BIDIR),
@@ -1309,7 +1309,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P1.6',func=Pin.types.BIDIR),
             Pin(num='8',name='P1.5',func=Pin.types.BIDIR),
             Pin(num='9',name='P1.4',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'EFM8BB10F8I-A-QSOP24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM8BB10F8I-A-QSOP24'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-24_3.9x8.7mm_P0.635mm', 'Package_SO:QSOP-24_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:QSOP-24_3.9x8.7mm_P0.635mm', 'keywords':'8051 microcontroller PWM UART SPI I2C ADC QSOP24', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm8bb1-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'EFM8BB10F8I-A-QSOP24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM8BB10F8I-A-QSOP24'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-24_3.9x8.7mm_P0.635mm', 'Package_SO:QSOP-24_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:QSOP-24_3.9x8.7mm_P0.635mm', 'keywords':'8051 microcontroller PWM UART SPI I2C ADC QSOP24', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm8bb1-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nEFM8BB10F8I-A-QSOP24\n\n8051 microcontroller PWM UART SPI I2C ADC QSOP24', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT),
             Pin(num='10',name='P1.6',func=Pin.types.BIDIR),
             Pin(num='11',name='P1.5',func=Pin.types.BIDIR),
@@ -1334,7 +1334,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RSTb/C2CK',func=Pin.types.INPUT),
             Pin(num='8',name='P2.0/C2D',func=Pin.types.BIDIR),
             Pin(num='9',name='P1.7',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'EFM8BB10F8I-A-SOIC16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM8BB10F8I-A-SOIC16'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'8051 microcontroller PWM UART SPI I2C ADC SOIC16', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm8bb1-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'EFM8BB10F8I-A-SOIC16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM8BB10F8I-A-SOIC16'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'8051 microcontroller PWM UART SPI I2C ADC SOIC16', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm8bb1-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nEFM8BB10F8I-A-SOIC16\n\n8051 microcontroller PWM UART SPI I2C ADC SOIC16', 'pins':[
             Pin(num='1',name='P0.2',func=Pin.types.BIDIR),
             Pin(num='10',name='P1.1',func=Pin.types.BIDIR),
             Pin(num='11',name='P1.0',func=Pin.types.BIDIR),
@@ -1351,7 +1351,7 @@ MCU_SiliconLabs = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P2.0/C2D',func=Pin.types.BIDIR),
             Pin(num='8',name='P1.3',func=Pin.types.BIDIR),
             Pin(num='9',name='P1.2',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'EFM8LB12F64E-C-QFP32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM8LB12F64E-C-QFP32'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'8051 microcontroller', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm8lb1-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'EFM8LB12F64E-C-QFP32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'EFM8LB12F64E-C-QFP32'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-32_7x7mm_P0.8mm', 'Package_QFP:LQFP-32_7x7mm_P0.8mm'], 'footprint':'Package_QFP:LQFP-32_7x7mm_P0.8mm', 'keywords':'8051 microcontroller', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/efm8lb1-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_SiliconLabs.kicad_sym\nEFM8LB12F64E-C-QFP32\n\n8051 microcontroller', 'pins':[
             Pin(num='1',name='P0.0',func=Pin.types.BIDIR),
             Pin(num='10',name='P3.0',func=Pin.types.BIDIR),
             Pin(num='11',name='P2.6',func=Pin.types.BIDIR),

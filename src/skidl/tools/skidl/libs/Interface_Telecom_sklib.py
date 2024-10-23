@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Interface_Telecom = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'FX614', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FX614'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Bell Modem', 'description':'', 'datasheet':'https://www.cmlmicro.com/wp-content/uploads/2017/06/FX614_ds.pdf', 'pins':[
+        Part(**{ 'name':'FX614', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'FX614'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Bell Modem', 'description':'', 'datasheet':'https://www.cmlmicro.com/wp-content/uploads/2017/06/FX614_ds.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Telecom.kicad_sym\nFX614\n\nBell Modem', 'pins':[
             Pin(num='1',name='XTALN',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='RXEQ',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='TXD',func=Pin.types.INPUT,unit=1),
@@ -21,7 +21,7 @@ Interface_Telecom = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TXOP',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VBIAS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HT9170D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HT9170D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm'], 'footprint':'Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm', 'keywords':'DTMF Receiver', 'description':'', 'datasheet':'http://www.holtek.com/documents/10179/116711/9170v111.pdf', 'pins':[
+        Part(**{ 'name':'HT9170D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HT9170D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm'], 'footprint':'Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm', 'keywords':'DTMF Receiver', 'description':'', 'datasheet':'http://www.holtek.com/documents/10179/116711/9170v111.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Telecom.kicad_sym\nHT9170D\n\nDTMF Receiver', 'pins':[
             Pin(num='1',name='VP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OE',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='D0',func=Pin.types.TRISTATE,unit=1),
@@ -40,7 +40,7 @@ Interface_Telecom = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='X1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='X2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si3210', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si3210'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-38_4.4x9.7mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-38_4.4x9.7mm_P0.5mm', 'keywords':'ProSLIC slic', 'description':'', 'datasheet':'http://www.mouser.com/ds/2/368/si3210-38974.pdf', 'pins':[
+        Part(**{ 'name':'Si3210', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si3210'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-38_4.4x9.7mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-38_4.4x9.7mm_P0.5mm', 'keywords':'ProSLIC slic', 'description':'', 'datasheet':'http://www.mouser.com/ds/2/368/si3210-38974.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Telecom.kicad_sym\nSi3210\n\nProSLIC slic', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VDDA1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='IREF',func=Pin.types.OUTPUT,unit=1),

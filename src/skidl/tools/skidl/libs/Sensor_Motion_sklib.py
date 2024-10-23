@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Sensor_Motion = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'ADXL343', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADXL343'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-14_3x5mm_P0.8mm_LayoutBorder1x6y'], 'footprint':'Package_LGA:LGA-14_3x5mm_P0.8mm_LayoutBorder1x6y', 'keywords':'3-axis accelerometer i2c spi mems', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADXL343.pdf', 'pins':[
+        Part(**{ 'name':'ADXL343', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADXL343'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-14_3x5mm_P0.8mm_LayoutBorder1x6y'], 'footprint':'Package_LGA:LGA-14_3x5mm_P0.8mm_LayoutBorder1x6y', 'keywords':'3-axis accelerometer i2c spi mems', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADXL343.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Motion.kicad_sym\nADXL343\n\n3-axis accelerometer i2c spi mems', 'pins':[
             Pin(num='1',name='Vdd_I/O',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='RES',func=Pin.types.PASSIVE,unit=1),
@@ -19,7 +19,7 @@ Sensor_Motion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='INT1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='INT2',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADXL363', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADXL363'}), 'ref_prefix':'U', 'fplist':['Sensor_Motion:Analog_LGA-16_3.25x3mm_P0.5mm_LayoutBorder3x5y'], 'footprint':'Sensor_Motion:Analog_LGA-16_3.25x3mm_P0.5mm_LayoutBorder3x5y', 'keywords':'3-axis accelerometer spi mems thermometer', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADXL363.pdf', 'pins':[
+        Part(**{ 'name':'ADXL363', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADXL363'}), 'ref_prefix':'U', 'fplist':['Sensor_Motion:Analog_LGA-16_3.25x3mm_P0.5mm_LayoutBorder3x5y'], 'footprint':'Sensor_Motion:Analog_LGA-16_3.25x3mm_P0.5mm_LayoutBorder3x5y', 'keywords':'3-axis accelerometer spi mems thermometer', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADXL363.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Motion.kicad_sym\nADXL363\n\n3-axis accelerometer spi mems thermometer', 'pins':[
             Pin(num='1',name='V_{DD_I/O}',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RES',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='INT1',func=Pin.types.OUTPUT,unit=1),
@@ -34,7 +34,7 @@ Sensor_Motion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='MISO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='INT2',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'BMF055', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BMF055'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-28_5.2x3.8mm_P0.5mm'], 'footprint':'Package_LGA:LGA-28_5.2x3.8mm_P0.5mm', 'keywords':'9-axis motion sensor IMU SAMD20 ARM Cortex-M0+', 'description':'', 'datasheet':'https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bmf055-ds000.pdf', 'pins':[
+        Part(**{ 'name':'BMF055', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BMF055'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-28_5.2x3.8mm_P0.5mm'], 'footprint':'Package_LGA:LGA-28_5.2x3.8mm_P0.5mm', 'keywords':'9-axis motion sensor IMU SAMD20 ARM Cortex-M0+', 'description':'', 'datasheet':'https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bmf055-ds000.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Motion.kicad_sym\nBMF055\n\n9-axis motion sensor IMU SAMD20 ARM Cortex-M0+', 'pins':[
             Pin(num='1',name='PB03(ACC_GYRO_INT2)',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PA28',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='~{RESET}',func=Pin.types.INPUT,unit=1),
@@ -63,7 +63,7 @@ Sensor_Motion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='(SWDIO)PA31',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='(SWCLK)PA30',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='CAP',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'BMI160', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BMI160'}), 'ref_prefix':'U', 'fplist':['Package_LGA:Bosch_LGA-14_3x2.5mm_P0.5mm'], 'footprint':'Package_LGA:Bosch_LGA-14_3x2.5mm_P0.5mm', 'keywords':'Bosh IMU small low power inertial measurement unit', 'description':'', 'datasheet':'https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bmi160-ds000.pdf', 'pins':[
+        Part(**{ 'name':'BMI160', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BMI160'}), 'ref_prefix':'U', 'fplist':['Package_LGA:Bosch_LGA-14_3x2.5mm_P0.5mm'], 'footprint':'Package_LGA:Bosch_LGA-14_3x2.5mm_P0.5mm', 'keywords':'Bosh IMU small low power inertial measurement unit', 'description':'', 'datasheet':'https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bmi160-ds000.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Motion.kicad_sym\nBMI160\n\nBosh IMU small low power inertial measurement unit', 'pins':[
             Pin(num='1',name='SDO',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='OCSB',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='OSDO',func=Pin.types.BIDIR,unit=1),
@@ -78,7 +78,7 @@ Sensor_Motion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='INT2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'BNO055', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BNO055'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-28_5.2x3.8mm_P0.5mm'], 'footprint':'Package_LGA:LGA-28_5.2x3.8mm_P0.5mm', 'keywords':'IMU Sensor Fusion I2C UART', 'description':'', 'datasheet':'https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bno055-ds000.pdf', 'pins':[
+        Part(**{ 'name':'BNO055', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BNO055'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-28_5.2x3.8mm_P0.5mm'], 'footprint':'Package_LGA:LGA-28_5.2x3.8mm_P0.5mm', 'keywords':'IMU Sensor Fusion I2C UART', 'description':'', 'datasheet':'https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bno055-ds000.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Motion.kicad_sym\nBNO055\n\nIMU Sensor Fusion I2C UART', 'pins':[
             Pin(num='1',name='PIN1',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='BL_IND',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='~{RESET}',func=Pin.types.INPUT,unit=1),
@@ -107,7 +107,7 @@ Sensor_Motion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PIN7',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='PIN8',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='CAP',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ICM-20602', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICM-20602'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-16_3x3mm_P0.5mm_LayoutBorder3x5y'], 'footprint':'Package_LGA:LGA-16_3x3mm_P0.5mm_LayoutBorder3x5y', 'keywords':'accelerometer gyro mems motion', 'description':'', 'datasheet':'http://www.invensense.com/wp-content/uploads/2016/10/DS-000176-ICM-20602-v1.0.pdf', 'pins':[
+        Part(**{ 'name':'ICM-20602', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICM-20602'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-16_3x3mm_P0.5mm_LayoutBorder3x5y'], 'footprint':'Package_LGA:LGA-16_3x3mm_P0.5mm_LayoutBorder3x5y', 'keywords':'accelerometer gyro mems motion', 'description':'', 'datasheet':'http://www.invensense.com/wp-content/uploads/2016/10/DS-000176-ICM-20602-v1.0.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Motion.kicad_sym\nICM-20602\n\naccelerometer gyro mems motion', 'pins':[
             Pin(num='1',name='VDDIO',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -124,7 +124,7 @@ Sensor_Motion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RESV',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='FSYNC',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ICM-20948', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICM-20948'}), 'ref_prefix':'U', 'fplist':['Sensor_Motion:InvenSense_QFN-24_3x3mm_P0.4mm'], 'footprint':'Sensor_Motion:InvenSense_QFN-24_3x3mm_P0.4mm', 'keywords':'mems magnetometer', 'description':'', 'datasheet':'http://www.invensense.com/wp-content/uploads/2016/06/DS-000189-ICM-20948-v1.3.pdf', 'pins':[
+        Part(**{ 'name':'ICM-20948', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICM-20948'}), 'ref_prefix':'U', 'fplist':['Sensor_Motion:InvenSense_QFN-24_3x3mm_P0.4mm'], 'footprint':'Sensor_Motion:InvenSense_QFN-24_3x3mm_P0.4mm', 'keywords':'mems magnetometer', 'description':'', 'datasheet':'http://www.invensense.com/wp-content/uploads/2016/06/DS-000189-ICM-20948-v1.3.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Motion.kicad_sym\nICM-20948\n\nmems magnetometer', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='REGOUT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='FSYNC',func=Pin.types.INPUT,unit=1),
@@ -149,7 +149,7 @@ Sensor_Motion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AUX_CL',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VDDIO',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='SDO/AD0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IIM-42652', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IIM-42652'}), 'ref_prefix':'U', 'fplist':['Package_LGA:Bosch_LGA-14_3x2.5mm_P0.5mm'], 'footprint':'Package_LGA:Bosch_LGA-14_3x2.5mm_P0.5mm', 'keywords':'IMU 6-Axis', 'description':'', 'datasheet':'https://invensense.tdk.com/wp-content/uploads/2021/01/ds-000440_iim-42652-datasheet.pdf', 'pins':[
+        Part(**{ 'name':'IIM-42652', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IIM-42652'}), 'ref_prefix':'U', 'fplist':['Package_LGA:Bosch_LGA-14_3x2.5mm_P0.5mm'], 'footprint':'Package_LGA:Bosch_LGA-14_3x2.5mm_P0.5mm', 'keywords':'IMU 6-Axis', 'description':'', 'datasheet':'https://invensense.tdk.com/wp-content/uploads/2021/01/ds-000440_iim-42652-datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Motion.kicad_sym\nIIM-42652\n\nIMU 6-Axis', 'pins':[
             Pin(num='1',name='AP_SDO/AP_AD0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RESV',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='RESV',func=Pin.types.NOCONNECT,unit=1),
@@ -164,7 +164,7 @@ Sensor_Motion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='INT2/FSYNC/CLKIN',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IIS3DWB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IIS3DWB'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-14_3x2.5mm_P0.5mm_LayoutBorder3x4y'], 'footprint':'Package_LGA:LGA-14_3x2.5mm_P0.5mm_LayoutBorder3x4y', 'keywords':'low-noise vibration sensor', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/iis3dwb.pdf', 'pins':[
+        Part(**{ 'name':'IIS3DWB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IIS3DWB'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-14_3x2.5mm_P0.5mm_LayoutBorder3x4y'], 'footprint':'Package_LGA:LGA-14_3x2.5mm_P0.5mm_LayoutBorder3x4y', 'keywords':'low-noise vibration sensor', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/iis3dwb.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Motion.kicad_sym\nIIS3DWB\n\nlow-noise vibration sensor', 'pins':[
             Pin(num='1',name='SDO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='RES',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='RES',func=Pin.types.NOCONNECT,unit=1),
@@ -179,7 +179,24 @@ Sensor_Motion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='INT2',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ISM330DHCX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISM330DHCX'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-14_3x2.5mm_P0.5mm_LayoutBorder3x4y'], 'footprint':'Package_LGA:LGA-14_3x2.5mm_P0.5mm_LayoutBorder3x4y', 'keywords':'ST iNEMO IMU', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/ism330dhcx.pdf', 'pins':[
+        Part(**{ 'name':'IPS2200', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IPS2200'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'inductive position sensor', 'description':'', 'datasheet':'https://www.renesas.com/us/en/document/dst/ips2200-datasheet', 'search_text':'/usr/share/kicad/symbols/Sensor_Motion.kicad_sym\nIPS2200\n\ninductive position sensor', 'pins':[
+            Pin(num='1',name='CSN_IRQN',func=Pin.types.BIDIR,unit=1),
+            Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
+            Pin(num='11',name='OUT1',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='12',name='OUT2',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='13',name='OUT3',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='14',name='OUT4',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='15',name='SCK_SCL',func=Pin.types.INPUT,unit=1),
+            Pin(num='16',name='SIO_SDA',func=Pin.types.BIDIR,unit=1),
+            Pin(num='2',name='RX1',func=Pin.types.INPUT,unit=1),
+            Pin(num='3',name='RX2',func=Pin.types.INPUT,unit=1),
+            Pin(num='4',name='RX3',func=Pin.types.INPUT,unit=1),
+            Pin(num='5',name='RX4',func=Pin.types.INPUT,unit=1),
+            Pin(num='6',name='TX1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='TX2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='8',name='VDDA',func=Pin.types.PASSIVE,unit=1),
+            Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'ISM330DHCX', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ISM330DHCX'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-14_3x2.5mm_P0.5mm_LayoutBorder3x4y'], 'footprint':'Package_LGA:LGA-14_3x2.5mm_P0.5mm_LayoutBorder3x4y', 'keywords':'ST iNEMO IMU', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/ism330dhcx.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Motion.kicad_sym\nISM330DHCX\n\nST iNEMO IMU', 'pins':[
             Pin(num='1',name='SDO/SA0',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='OCS_AUX',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='SDO_AUX',func=Pin.types.PASSIVE,unit=1),
@@ -194,7 +211,7 @@ Sensor_Motion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='INT2',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'KX022-1020', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KX022-1020'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-12_2x2mm_P0.5mm'], 'footprint':'Package_LGA:LGA-12_2x2mm_P0.5mm', 'keywords':'3-axis accelerometer spi i2c mems', 'description':'', 'datasheet':'https://kionixfs.azureedge.net/en/datasheet/KX022-1020%20Specifications%20Rev%2012.0.pdf', 'pins':[
+        Part(**{ 'name':'KX022-1020', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KX022-1020'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-12_2x2mm_P0.5mm'], 'footprint':'Package_LGA:LGA-12_2x2mm_P0.5mm', 'keywords':'3-axis accelerometer spi i2c mems', 'description':'', 'datasheet':'https://kionixfs.azureedge.net/en/datasheet/KX022-1020%20Specifications%20Rev%2012.0.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Motion.kicad_sym\nKX022-1020\n\n3-axis accelerometer spi i2c mems', 'pins':[
             Pin(num='1',name='SDO/ADDR',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.PASSIVE,unit=1),
@@ -206,7 +223,7 @@ Sensor_Motion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='INT2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'KXTJ3-1057', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KXTJ3-1057'}), 'ref_prefix':'U', 'fplist':['Package_LGA:Kionix_LGA-12_2x2mm_P0.5mm_LayoutBorder2x4y'], 'footprint':'Package_LGA:Kionix_LGA-12_2x2mm_P0.5mm_LayoutBorder2x4y', 'keywords':'accelerometer tri-axis i2c', 'description':'', 'datasheet':'https://kionixfs.azureedge.net/en/datasheet/KXTJ3-1057-Specifications-Rev-5.0.pdf', 'pins':[
+        Part(**{ 'name':'KXTJ3-1057', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KXTJ3-1057'}), 'ref_prefix':'U', 'fplist':['Package_LGA:Kionix_LGA-12_2x2mm_P0.5mm_LayoutBorder2x4y'], 'footprint':'Package_LGA:Kionix_LGA-12_2x2mm_P0.5mm_LayoutBorder2x4y', 'keywords':'accelerometer tri-axis i2c', 'description':'', 'datasheet':'https://kionixfs.azureedge.net/en/datasheet/KXTJ3-1057-Specifications-Rev-5.0.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Motion.kicad_sym\nKXTJ3-1057\n\naccelerometer tri-axis i2c', 'pins':[
             Pin(num='1',name='ADDR',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='IO_VDD',func=Pin.types.PASSIVE,unit=1),
@@ -219,7 +236,7 @@ Sensor_Motion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'L3GD20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L3GD20'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-16_4x4mm_P0.65mm_LayoutBorder4x4y'], 'footprint':'Package_LGA:LGA-16_4x4mm_P0.65mm_LayoutBorder4x4y', 'keywords':'3-Axis MEMS Gyroscope', 'description':'', 'datasheet':'http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/DM00036465.pdf', 'pins':[
+        Part(**{ 'name':'L3GD20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L3GD20'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-16_4x4mm_P0.65mm_LayoutBorder4x4y'], 'footprint':'Package_LGA:LGA-16_4x4mm_P0.65mm_LayoutBorder4x4y', 'keywords':'3-Axis MEMS Gyroscope', 'description':'', 'datasheet':'http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/DM00036465.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Motion.kicad_sym\nL3GD20\n\n3-Axis MEMS Gyroscope', 'pins':[
             Pin(num='1',name='VDDIO',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RES(GND)',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='RES(GND)',func=Pin.types.PASSIVE,unit=1),
@@ -236,7 +253,7 @@ Sensor_Motion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='INT1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='RES(GND)',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='RES(GND)',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LIS2DH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LIS2DH'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-14_2x2mm_P0.35mm_LayoutBorder3x4y'], 'footprint':'Package_LGA:LGA-14_2x2mm_P0.35mm_LayoutBorder3x4y', 'keywords':'3-axis accelerometer spi mems LGA-14', 'description':'', 'datasheet':'http://www.st.com/web/en/resource/technical/document/datasheet/DM00042751.pdf', 'pins':[
+        Part(**{ 'name':'LIS2DH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LIS2DH'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-14_2x2mm_P0.35mm_LayoutBorder3x4y'], 'footprint':'Package_LGA:LGA-14_2x2mm_P0.35mm_LayoutBorder3x4y', 'keywords':'3-axis accelerometer spi mems LGA-14', 'description':'', 'datasheet':'http://www.st.com/web/en/resource/technical/document/datasheet/DM00042751.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Motion.kicad_sym\nLIS2DH\n\n3-axis accelerometer spi mems LGA-14', 'pins':[
             Pin(num='1',name='SCL/SPC',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -251,7 +268,7 @@ Sensor_Motion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Vdd_IO',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Vdd',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LIS2HH12', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LIS2HH12'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-12_2x2mm_P0.5mm'], 'footprint':'Package_LGA:LGA-12_2x2mm_P0.5mm', 'keywords':'3-axis accelerometer spi mems', 'description':'', 'datasheet':'www.st.com/resource/en/datasheet/lis2hh12.pdf', 'pins':[
+        Part(**{ 'name':'LIS2HH12', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LIS2HH12'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-12_2x2mm_P0.5mm'], 'footprint':'Package_LGA:LGA-12_2x2mm_P0.5mm', 'keywords':'3-axis accelerometer spi mems', 'description':'', 'datasheet':'www.st.com/resource/en/datasheet/lis2hh12.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Motion.kicad_sym\nLIS2HH12\n\n3-axis accelerometer spi mems', 'pins':[
             Pin(num='1',name='SCL/SPC',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Vdd_IO',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='INT2',func=Pin.types.OUTPUT,unit=1),
@@ -264,7 +281,7 @@ Sensor_Motion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Vdd',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LIS331HH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LIS331HH'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-16_3x3mm_P0.5mm_LayoutBorder3x5y'], 'footprint':'Package_LGA:LGA-16_3x3mm_P0.5mm_LayoutBorder3x5y', 'keywords':'3-axis accelerometer spi i2c mems', 'description':'', 'datasheet':'https://media.digikey.com/pdf/Data%20Sheets/ST%20Microelectronics%20PDFS/LIS331HH.pdf', 'pins':[
+        Part(**{ 'name':'LIS331HH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LIS331HH'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-16_3x3mm_P0.5mm_LayoutBorder3x5y'], 'footprint':'Package_LGA:LGA-16_3x3mm_P0.5mm_LayoutBorder3x5y', 'keywords':'3-axis accelerometer spi i2c mems', 'description':'', 'datasheet':'https://media.digikey.com/pdf/Data%20Sheets/ST%20Microelectronics%20PDFS/LIS331HH.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Motion.kicad_sym\nLIS331HH\n\n3-axis accelerometer spi i2c mems', 'pins':[
             Pin(num='1',name='Vdd_IO',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='INT1',func=Pin.types.OUTPUT,unit=1),
@@ -281,7 +298,7 @@ Sensor_Motion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SA0/SDO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='INT2',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LIS3DH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LIS3DH'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-16_3x3mm_P0.5mm_LayoutBorder3x5y'], 'footprint':'Package_LGA:LGA-16_3x3mm_P0.5mm_LayoutBorder3x5y', 'keywords':'3-axis accelerometer i2c spi mems', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/cd00274221.pdf', 'pins':[
+        Part(**{ 'name':'LIS3DH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LIS3DH'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-16_3x3mm_P0.5mm_LayoutBorder3x5y'], 'footprint':'Package_LGA:LGA-16_3x3mm_P0.5mm_LayoutBorder3x5y', 'keywords':'3-axis accelerometer i2c spi mems', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/cd00274221.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Motion.kicad_sym\nLIS3DH\n\n3-axis accelerometer i2c spi mems', 'pins':[
             Pin(num='1',name='VDD_IO',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='INT1',func=Pin.types.OUTPUT,unit=1),
@@ -292,13 +309,13 @@ Sensor_Motion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='16',name='ADC1',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
-            Pin(num='4',name='SCL/SPC',func=Pin.types.INPUT,unit=1),
+            Pin(num='4',name='SPC',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=1),
-            Pin(num='6',name='SDA/SDI/SDO',func=Pin.types.BIDIR,unit=1),
-            Pin(num='7',name='SDO/SA0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='6',name='SDI',func=Pin.types.INPUT,unit=1),
+            Pin(num='7',name='SDO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='CS',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='INT2',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LSM303C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LSM303C'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-12_2x2mm_P0.5mm'], 'footprint':'Package_LGA:LGA-12_2x2mm_P0.5mm', 'keywords':'Accelerometer Magnetometer MEMS', 'description':'', 'datasheet':'www.st.com/resource/en/datasheet/lsm303c.pdf', 'pins':[
+        Part(**{ 'name':'LSM303C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LSM303C'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-12_2x2mm_P0.5mm'], 'footprint':'Package_LGA:LGA-12_2x2mm_P0.5mm', 'keywords':'Accelerometer Magnetometer MEMS', 'description':'', 'datasheet':'www.st.com/resource/en/datasheet/lsm303c.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Motion.kicad_sym\nLSM303C\n\nAccelerometer Magnetometer MEMS', 'pins':[
             Pin(num='1',name='SCL/SPC',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VDDIO',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DRDY_MAG',func=Pin.types.OUTPUT,unit=1),
@@ -311,7 +328,7 @@ Sensor_Motion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='INT_MAG',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LSM303D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LSM303D'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-16_3x3mm_P0.5mm'], 'footprint':'Package_LGA:LGA-16_3x3mm_P0.5mm', 'keywords':'Accelerometer Magnetometer MEMS', 'description':'', 'datasheet':'http://www.st.com/web/en/resource/technical/document/datasheet/DM00057547.pdf', 'pins':[
+        Part(**{ 'name':'LSM303D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LSM303D'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-16_3x3mm_P0.5mm'], 'footprint':'Package_LGA:LGA-16_3x3mm_P0.5mm', 'keywords':'Accelerometer Magnetometer MEMS', 'description':'', 'datasheet':'http://www.st.com/web/en/resource/technical/document/datasheet/DM00057547.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Motion.kicad_sym\nLSM303D\n\nAccelerometer Magnetometer MEMS', 'pins':[
             Pin(num='1',name='VDDIO',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='INT1',func=Pin.types.OUTPUT,unit=1),
@@ -328,7 +345,7 @@ Sensor_Motion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDO/SAO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='CS',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='INT2',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LSM303DLHC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LSM303DLHC'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-14_3x5mm_P0.8mm_LayoutBorder1x6y'], 'footprint':'Package_LGA:LGA-14_3x5mm_P0.8mm_LayoutBorder1x6y', 'keywords':'Accelerometer Magnetometer MEMS', 'description':'', 'datasheet':'http://www.st.com/web/en/resource/technical/document/datasheet/DM00027543.pdf', 'pins':[
+        Part(**{ 'name':'LSM303DLHC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LSM303DLHC'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-14_3x5mm_P0.8mm_LayoutBorder1x6y'], 'footprint':'Package_LGA:LGA-14_3x5mm_P0.8mm_LayoutBorder1x6y', 'keywords':'Accelerometer Magnetometer MEMS', 'description':'', 'datasheet':'http://www.st.com/web/en/resource/technical/document/datasheet/DM00027543.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Motion.kicad_sym\nLSM303DLHC\n\nAccelerometer Magnetometer MEMS', 'pins':[
             Pin(num='1',name='VDDIO',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -343,7 +360,7 @@ Sensor_Motion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='DRDY',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LSM6DS3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LSM6DS3'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-14_3x2.5mm_P0.5mm_LayoutBorder3x4y'], 'footprint':'Package_LGA:LGA-14_3x2.5mm_P0.5mm_LayoutBorder3x4y', 'keywords':'Accelerometer Gyroscope MEMS', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/lsm6ds3tr-c.pdf', 'pins':[
+        Part(**{ 'name':'LSM6DS3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LSM6DS3'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-14_3x2.5mm_P0.5mm_LayoutBorder3x4y'], 'footprint':'Package_LGA:LGA-14_3x2.5mm_P0.5mm_LayoutBorder3x4y', 'keywords':'Accelerometer Gyroscope MEMS', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/lsm6ds3tr-c.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Motion.kicad_sym\nLSM6DS3\n\nAccelerometer Gyroscope MEMS', 'pins':[
             Pin(num='1',name='SDO/SA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -358,7 +375,7 @@ Sensor_Motion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='INT2',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LSM6DSM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LSM6DSM'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-14_3x2.5mm_P0.5mm_LayoutBorder3x4y'], 'footprint':'Package_LGA:LGA-14_3x2.5mm_P0.5mm_LayoutBorder3x4y', 'keywords':'Accelerometer Gyroscope MEMS', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/lsm6dsm.pdf', 'pins':[
+        Part(**{ 'name':'LSM6DSM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LSM6DSM'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-14_3x2.5mm_P0.5mm_LayoutBorder3x4y'], 'footprint':'Package_LGA:LGA-14_3x2.5mm_P0.5mm_LayoutBorder3x4y', 'keywords':'Accelerometer Gyroscope MEMS', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/lsm6dsm.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Motion.kicad_sym\nLSM6DSM\n\nAccelerometer Gyroscope MEMS', 'pins':[
             Pin(num='1',name='SDO/SA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='OCS_Aux',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='SDO_Aux',func=Pin.types.BIDIR,unit=1),
@@ -373,7 +390,7 @@ Sensor_Motion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='INT2',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LSM9DS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LSM9DS1'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-24L_3x3.5mm_P0.43mm'], 'footprint':'Package_LGA:LGA-24L_3x3.5mm_P0.43mm', 'keywords':'I2C SPI IMU accelerometer gyroscope magnetometer', 'description':'', 'datasheet':'https://www.digikey.com/htmldatasheets/production/1639232/0/0/1/LSM9DS1-Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'LSM9DS1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LSM9DS1'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-24L_3x3.5mm_P0.43mm'], 'footprint':'Package_LGA:LGA-24L_3x3.5mm_P0.43mm', 'keywords':'I2C SPI IMU accelerometer gyroscope magnetometer', 'description':'', 'datasheet':'https://www.digikey.com/htmldatasheets/production/1639232/0/0/1/LSM9DS1-Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Motion.kicad_sym\nLSM9DS1\n\nI2C SPI IMU accelerometer gyroscope magnetometer', 'pins':[
             Pin(num='1',name='VDDIO',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='INT_M',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='INT1_A/G',func=Pin.types.OUTPUT,unit=1),
@@ -398,7 +415,7 @@ Sensor_Motion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CS_A/G',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CS_M',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DRDY_M',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MMA8653FCR1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MMA8653FCR1'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-10_2x2mm_P0.4mm'], 'footprint':'Package_DFN_QFN:DFN-10_2x2mm_P0.4mm', 'keywords':'Accelerometer I2C', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MMA8653FC.pdf', 'pins':[
+        Part(**{ 'name':'MMA8653FCR1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MMA8653FCR1'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-10_2x2mm_P0.4mm'], 'footprint':'Package_DFN_QFN:DFN-10_2x2mm_P0.4mm', 'keywords':'Accelerometer I2C', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/MMA8653FC.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Motion.kicad_sym\nMMA8653FCR1\n\nAccelerometer I2C', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='SCL',func=Pin.types.INPUT,unit=1),
@@ -409,7 +426,7 @@ Sensor_Motion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='VDDIO',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MPU-6000', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MPU-6000'}), 'ref_prefix':'U', 'fplist':['Sensor_Motion:InvenSense_QFN-24_4x4mm_P0.5mm'], 'footprint':'Sensor_Motion:InvenSense_QFN-24_4x4mm_P0.5mm', 'keywords':'mems', 'description':'', 'datasheet':'https://invensense.tdk.com/wp-content/uploads/2015/02/MPU-6000-Datasheet1.pdf', 'pins':[
+        Part(**{ 'name':'MPU-6000', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MPU-6000'}), 'ref_prefix':'U', 'fplist':['Sensor_Motion:InvenSense_QFN-24_4x4mm_P0.5mm'], 'footprint':'Sensor_Motion:InvenSense_QFN-24_4x4mm_P0.5mm', 'keywords':'mems', 'description':'', 'datasheet':'https://invensense.tdk.com/wp-content/uploads/2015/02/MPU-6000-Datasheet1.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Motion.kicad_sym\nMPU-6000\n\nmems', 'pins':[
             Pin(num='1',name='CLKIN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='REGOUT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='FSYNC',func=Pin.types.INPUT,unit=1),
@@ -423,7 +440,7 @@ Sensor_Motion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AUX_CL',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='AD0/MISO',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MPU-6050', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MPU-6050'}), 'ref_prefix':'U', 'fplist':['Sensor_Motion:InvenSense_QFN-24_4x4mm_P0.5mm'], 'footprint':'Sensor_Motion:InvenSense_QFN-24_4x4mm_P0.5mm', 'keywords':'mems', 'description':'', 'datasheet':'https://invensense.tdk.com/wp-content/uploads/2015/02/MPU-6000-Datasheet1.pdf', 'pins':[
+        Part(**{ 'name':'MPU-6050', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MPU-6050'}), 'ref_prefix':'U', 'fplist':['Sensor_Motion:InvenSense_QFN-24_4x4mm_P0.5mm'], 'footprint':'Sensor_Motion:InvenSense_QFN-24_4x4mm_P0.5mm', 'keywords':'mems', 'description':'', 'datasheet':'https://invensense.tdk.com/wp-content/uploads/2015/02/MPU-6000-Datasheet1.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Motion.kicad_sym\nMPU-6050\n\nmems', 'pins':[
             Pin(num='1',name='CLKIN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='REGOUT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='FSYNC',func=Pin.types.INPUT,unit=1),
@@ -448,7 +465,7 @@ Sensor_Motion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AUX_CL',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VLOGIC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='AD0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MPU-9150', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MPU-9150'}), 'ref_prefix':'U', 'fplist':['Sensor_Motion:InvenSense_QFN-24_4x4mm_P0.5mm'], 'footprint':'Sensor_Motion:InvenSense_QFN-24_4x4mm_P0.5mm', 'keywords':'mems magnetometer accelerometer gyroscope', 'description':'', 'datasheet':'https://www.invensense.com/wp-content/uploads/2015/02/MPU-9150-Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'MPU-9150', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MPU-9150'}), 'ref_prefix':'U', 'fplist':['Sensor_Motion:InvenSense_QFN-24_4x4mm_P0.5mm'], 'footprint':'Sensor_Motion:InvenSense_QFN-24_4x4mm_P0.5mm', 'keywords':'mems magnetometer accelerometer gyroscope', 'description':'', 'datasheet':'https://www.invensense.com/wp-content/uploads/2015/02/MPU-9150-Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Motion.kicad_sym\nMPU-9150\n\nmems magnetometer accelerometer gyroscope', 'pins':[
             Pin(num='1',name='CLKIN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='REGOUT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='FSYNC',func=Pin.types.INPUT,unit=1),
@@ -465,7 +482,7 @@ Sensor_Motion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='ES_CL',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VLOGIC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='AD0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MPU-9250', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MPU-9250'}), 'ref_prefix':'U', 'fplist':['Sensor_Motion:InvenSense_QFN-24_3x3mm_P0.4mm'], 'footprint':'Sensor_Motion:InvenSense_QFN-24_3x3mm_P0.4mm', 'keywords':'mems magnetometer', 'description':'', 'datasheet':'https://invensense.tdk.com/wp-content/uploads/2015/02/PS-MPU-9250A-01-v1.1.pdf', 'pins':[
+        Part(**{ 'name':'MPU-9250', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MPU-9250'}), 'ref_prefix':'U', 'fplist':['Sensor_Motion:InvenSense_QFN-24_3x3mm_P0.4mm'], 'footprint':'Sensor_Motion:InvenSense_QFN-24_3x3mm_P0.4mm', 'keywords':'mems magnetometer', 'description':'', 'datasheet':'https://invensense.tdk.com/wp-content/uploads/2015/02/PS-MPU-9250A-01-v1.1.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Motion.kicad_sym\nMPU-9250\n\nmems magnetometer', 'pins':[
             Pin(num='1',name='RESV_VDDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='REGOUT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='FSYNC',func=Pin.types.INPUT,unit=1),
@@ -480,7 +497,7 @@ Sensor_Motion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AUX_CL',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VDDIO',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='AD0/MISO',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'KX122-1042', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KX122-1042'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-12_2x2mm_P0.5mm', 'Package_LGA:LGA-12_2x2mm_P0.5mm'], 'footprint':'Package_LGA:LGA-12_2x2mm_P0.5mm', 'keywords':'3-axis accelerometer spi i2c mems', 'description':'', 'datasheet':'http://kionixfs.kionix.com/en/datasheet/KX112-1042-Specifications-Rev-6.0.pdf', 'pins':[
+        Part(**{ 'name':'KX122-1042', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KX122-1042'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-12_2x2mm_P0.5mm', 'Package_LGA:LGA-12_2x2mm_P0.5mm'], 'footprint':'Package_LGA:LGA-12_2x2mm_P0.5mm', 'keywords':'3-axis accelerometer spi i2c mems', 'description':'', 'datasheet':'http://kionixfs.kionix.com/en/datasheet/KX112-1042-Specifications-Rev-6.0.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Motion.kicad_sym\nKX122-1042\n\n3-axis accelerometer spi i2c mems', 'pins':[
             Pin(num='1',name='SDO/ADDR',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.PASSIVE,unit=1),
@@ -492,7 +509,7 @@ Sensor_Motion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='INT2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'KX222-1054', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KX222-1054'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-12_2x2mm_P0.5mm', 'Package_LGA:LGA-12_2x2mm_P0.5mm', 'Package_LGA:LGA-12_2x2mm_P0.5mm'], 'footprint':'Package_LGA:LGA-12_2x2mm_P0.5mm', 'keywords':'3-axis accelerometer spi i2c mems', 'description':'', 'datasheet':'http://kionixfs.kionix.com/en/datasheet/KX222-1054-Specifications-Rev-2.0.pdf', 'pins':[
+        Part(**{ 'name':'KX222-1054', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'KX222-1054'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-12_2x2mm_P0.5mm', 'Package_LGA:LGA-12_2x2mm_P0.5mm', 'Package_LGA:LGA-12_2x2mm_P0.5mm'], 'footprint':'Package_LGA:LGA-12_2x2mm_P0.5mm', 'keywords':'3-axis accelerometer spi i2c mems', 'description':'', 'datasheet':'http://kionixfs.kionix.com/en/datasheet/KX222-1054-Specifications-Rev-2.0.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Motion.kicad_sym\nKX222-1054\n\n3-axis accelerometer spi i2c mems', 'pins':[
             Pin(num='1',name='SDO/ADDR',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.PASSIVE,unit=1),
@@ -504,7 +521,7 @@ Sensor_Motion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='INT2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LIS2DE12', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LIS2DE12'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-12_2x2mm_P0.5mm', 'Package_LGA:LGA-12_2x2mm_P0.5mm'], 'footprint':'Package_LGA:LGA-12_2x2mm_P0.5mm', 'keywords':'3-axis accelerometer spi mems', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/lis2DE12.pdf', 'pins':[
+        Part(**{ 'name':'LIS2DE12', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LIS2DE12'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-12_2x2mm_P0.5mm', 'Package_LGA:LGA-12_2x2mm_P0.5mm'], 'footprint':'Package_LGA:LGA-12_2x2mm_P0.5mm', 'keywords':'3-axis accelerometer spi mems', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/lis2DE12.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Motion.kicad_sym\nLIS2DE12\n\n3-axis accelerometer spi mems', 'pins':[
             Pin(num='1',name='SCL/SPC',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Vdd_IO',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='INT2',func=Pin.types.OUTPUT,unit=1),
@@ -517,7 +534,7 @@ Sensor_Motion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='Vdd',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LSM6DSL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LSM6DSL'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-14_3x2.5mm_P0.5mm_LayoutBorder3x4y', 'Package_LGA:LGA-14_3x2.5mm_P0.5mm_LayoutBorder3x4y'], 'footprint':'Package_LGA:LGA-14_3x2.5mm_P0.5mm_LayoutBorder3x4y', 'keywords':'Accelerometer Gyroscope MEMS', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/lsm6dsl.pdf', 'pins':[
+        Part(**{ 'name':'LSM6DSL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LSM6DSL'}), 'ref_prefix':'U', 'fplist':['Package_LGA:LGA-14_3x2.5mm_P0.5mm_LayoutBorder3x4y', 'Package_LGA:LGA-14_3x2.5mm_P0.5mm_LayoutBorder3x4y'], 'footprint':'Package_LGA:LGA-14_3x2.5mm_P0.5mm_LayoutBorder3x4y', 'keywords':'Accelerometer Gyroscope MEMS', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/lsm6dsl.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Motion.kicad_sym\nLSM6DSL\n\nAccelerometer Gyroscope MEMS', 'pins':[
             Pin(num='1',name='SDO/SA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),

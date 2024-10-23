@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 MCU_Nordic = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'nRF51x22-QFxx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'nRF51x22-QFxx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm', 'keywords':'MCU ARM BLE 2.4GHz', 'description':'', 'datasheet':'http://infocenter.nordicsemi.com/pdf/nRF51822_PS_v3.3.pdf', 'pins':[
+        Part(**{ 'name':'nRF51x22-QFxx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'nRF51x22-QFxx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm', 'keywords':'MCU ARM BLE 2.4GHz', 'description':'', 'datasheet':'http://infocenter.nordicsemi.com/pdf/nRF51822_PS_v3.3.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Nordic.kicad_sym\nnRF51x22-QFxx\n\nMCU ARM BLE 2.4GHz', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P0.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P0.7',func=Pin.types.BIDIR,unit=1),
@@ -54,7 +54,7 @@ MCU_Nordic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P0.3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P0.4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P0.5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'nRF52810-QCxx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'nRF52810-QCxx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.6x3.6mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.6x3.6mm', 'keywords':'MCU ARM BLE 2.4GHz', 'description':'', 'datasheet':'http://infocenter.nordicsemi.com/pdf/nRF52810_PS_v1.1.pdf', 'pins':[
+        Part(**{ 'name':'nRF52810-QCxx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'nRF52810-QCxx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.6x3.6mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.6x3.6mm', 'keywords':'MCU ARM BLE 2.4GHz', 'description':'', 'datasheet':'http://infocenter.nordicsemi.com/pdf/nRF52810_PS_v1.1.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Nordic.kicad_sym\nnRF52810-QCxx\n\nMCU ARM BLE 2.4GHz', 'pins':[
             Pin(num='1',name='DEC1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='P0.12',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P0.14',func=Pin.types.BIDIR,unit=1),
@@ -88,7 +88,7 @@ MCU_Nordic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P0.09',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P0.10',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'nRF52810-QFxx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'nRF52810-QFxx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm', 'keywords':'MCU ARM BLE 2.4GHz', 'description':'', 'datasheet':'http://infocenter.nordicsemi.com/pdf/nRF52810_PS_v1.1.pdf', 'pins':[
+        Part(**{ 'name':'nRF52810-QFxx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'nRF52810-QFxx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm', 'keywords':'MCU ARM BLE 2.4GHz', 'description':'', 'datasheet':'http://infocenter.nordicsemi.com/pdf/nRF52810_PS_v1.1.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Nordic.kicad_sym\nnRF52810-QFxx\n\nMCU ARM BLE 2.4GHz', 'pins':[
             Pin(num='1',name='DEC1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='P0.08',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P0.09',func=Pin.types.BIDIR,unit=1),
@@ -138,7 +138,7 @@ MCU_Nordic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P0.05/AIN3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P0.06',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P0.07',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'nRF52811-QCxx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'nRF52811-QCxx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.6x3.6mm_ThermalVias'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.6x3.6mm_ThermalVias', 'keywords':'MCU ARM BLE ANT 2.4GHz 802.15.4', 'description':'', 'datasheet':'https://infocenter.nordicsemi.com/pdf/nRF52811_PS_v1.0.pdf', 'pins':[
+        Part(**{ 'name':'nRF52811-QCxx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'nRF52811-QCxx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.6x3.6mm_ThermalVias'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.6x3.6mm_ThermalVias', 'keywords':'MCU ARM BLE ANT 2.4GHz 802.15.4', 'description':'', 'datasheet':'https://infocenter.nordicsemi.com/pdf/nRF52811_PS_v1.0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Nordic.kicad_sym\nnRF52811-QCxx\n\nMCU ARM BLE ANT 2.4GHz 802.15.4', 'pins':[
             Pin(num='1',name='DEC1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='P0.12',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P0.14',func=Pin.types.BIDIR,unit=1),
@@ -172,7 +172,7 @@ MCU_Nordic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P0.09',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P0.10',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'nRF52820-QDxx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'nRF52820-QDxx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.6x3.6mm'], 'footprint':'Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.6x3.6mm', 'keywords':'MCU ARM BLE ANT 2.4GHz 802.15.4', 'description':'', 'datasheet':'https://infocenter.nordicsemi.com/pdf/nRF52820_PS_v1.0.pdf', 'pins':[
+        Part(**{ 'name':'nRF52820-QDxx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'nRF52820-QDxx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.6x3.6mm'], 'footprint':'Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.6x3.6mm', 'keywords':'MCU ARM BLE ANT 2.4GHz 802.15.4', 'description':'', 'datasheet':'https://infocenter.nordicsemi.com/pdf/nRF52820_PS_v1.0.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Nordic.kicad_sym\nnRF52820-QDxx\n\nMCU ARM BLE ANT 2.4GHz 802.15.4', 'pins':[
             Pin(num='1',name='DEC1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='VBUS',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DECUSB',func=Pin.types.PASSIVE,unit=1),
@@ -214,7 +214,7 @@ MCU_Nordic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P0.07',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDH',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'nRF52832-QFxx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'nRF52832-QFxx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm', 'keywords':'MCU ARM BLE 2.4GHz', 'description':'', 'datasheet':'http://infocenter.nordicsemi.com/pdf/nRF52832_PS_v1.4.pdf', 'pins':[
+        Part(**{ 'name':'nRF52832-QFxx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'nRF52832-QFxx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.6x4.6mm', 'keywords':'MCU ARM BLE 2.4GHz', 'description':'', 'datasheet':'http://infocenter.nordicsemi.com/pdf/nRF52832_PS_v1.4.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Nordic.kicad_sym\nnRF52832-QFxx\n\nMCU ARM BLE 2.4GHz', 'pins':[
             Pin(num='1',name='DEC1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='P0.08',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='NFC1/P0.09',func=Pin.types.BIDIR,unit=1),
@@ -264,7 +264,7 @@ MCU_Nordic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P0.05/AIN3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P0.06',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P0.07',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'nRF52833_QDxx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'nRF52833_QDxx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.6x3.6mm'], 'footprint':'Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.6x3.6mm', 'keywords':'MCU ARM BLE ANT 2.4GHz 802.15.4', 'description':'', 'datasheet':'https://infocenter.nordicsemi.com/pdf/nRF52833_PS_v1.5.pdf', 'pins':[
+        Part(**{ 'name':'nRF52833_QDxx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'nRF52833_QDxx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.6x3.6mm'], 'footprint':'Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.6x3.6mm', 'keywords':'MCU ARM BLE ANT 2.4GHz 802.15.4', 'description':'', 'datasheet':'https://infocenter.nordicsemi.com/pdf/nRF52833_PS_v1.5.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Nordic.kicad_sym\nnRF52833_QDxx\n\nMCU ARM BLE ANT 2.4GHz 802.15.4', 'pins':[
             Pin(num='1',name='DEC1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='VBUS',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DECUSB',func=Pin.types.PASSIVE,unit=1),
@@ -306,7 +306,7 @@ MCU_Nordic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P0.11',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDDH',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'nRF52833_QIxx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'nRF52833_QIxx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Nordic_AQFN-73-1EP_7x7mm_P0.5mm'], 'footprint':'Package_DFN_QFN:Nordic_AQFN-73-1EP_7x7mm_P0.5mm', 'keywords':'MCU ARM BLE ANT 2.4GHz 802.15.4', 'description':'', 'datasheet':'https://infocenter.nordicsemi.com/pdf/nRF52833_PS_v1.5.pdf', 'pins':[
+        Part(**{ 'name':'nRF52833_QIxx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'nRF52833_QIxx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Nordic_AQFN-73-1EP_7x7mm_P0.5mm'], 'footprint':'Package_DFN_QFN:Nordic_AQFN-73-1EP_7x7mm_P0.5mm', 'keywords':'MCU ARM BLE ANT 2.4GHz 802.15.4', 'description':'', 'datasheet':'https://infocenter.nordicsemi.com/pdf/nRF52833_PS_v1.5.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Nordic.kicad_sym\nnRF52833_QIxx\n\nMCU ARM BLE ANT 2.4GHz 802.15.4', 'pins':[
             Pin(num='A10',name='AIN5/P0.29',func=Pin.types.BIDIR,unit=1),
             Pin(num='A12',name='AIN0/P0.02',func=Pin.types.BIDIR,unit=1),
             Pin(num='A14',name='P0.19',func=Pin.types.BIDIR,unit=1),
@@ -381,7 +381,7 @@ MCU_Nordic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='W24',name='P1.02',func=Pin.types.BIDIR,unit=1),
             Pin(num='Y2',name='VDDH',func=Pin.types.PWRIN,unit=1),
             Pin(num='Y23',name='P1.01',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'nRF52840', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'nRF52840'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Nordic_AQFN-73-1EP_7x7mm_P0.5mm'], 'footprint':'Package_DFN_QFN:Nordic_AQFN-73-1EP_7x7mm_P0.5mm', 'keywords':'MCU ARM BLE ANT 2.4GHz 802.15.4', 'description':'', 'datasheet':'http://infocenter.nordicsemi.com/topic/com.nordic.infocenter.nrf52/dita/nrf52/chips/nrf52840.html', 'pins':[
+        Part(**{ 'name':'nRF52840', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'nRF52840'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Nordic_AQFN-73-1EP_7x7mm_P0.5mm'], 'footprint':'Package_DFN_QFN:Nordic_AQFN-73-1EP_7x7mm_P0.5mm', 'keywords':'MCU ARM BLE ANT 2.4GHz 802.15.4', 'description':'', 'datasheet':'http://infocenter.nordicsemi.com/topic/com.nordic.infocenter.nrf52/dita/nrf52/chips/nrf52840.html', 'search_text':'/usr/share/kicad/symbols/MCU_Nordic.kicad_sym\nnRF52840\n\nMCU ARM BLE ANT 2.4GHz 802.15.4', 'pins':[
             Pin(num='A10',name='AIN5/P0.29',func=Pin.types.BIDIR,unit=1),
             Pin(num='A12',name='AIN0/P0.02',func=Pin.types.BIDIR,unit=1),
             Pin(num='A14',name='P1.15',func=Pin.types.BIDIR,unit=1),
@@ -456,7 +456,7 @@ MCU_Nordic = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='W24',name='P1.02',func=Pin.types.BIDIR,unit=1),
             Pin(num='Y2',name='VDDH',func=Pin.types.PWRIN,unit=1),
             Pin(num='Y23',name='P1.01',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'nRF5340-QKxx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'nRF5340-QKxx'}), 'ref_prefix':'U1', 'fplist':['Package_DFN_QFN:Nordic_AQFN-94-1EP_7x7mm_P0.4mm'], 'footprint':'Package_DFN_QFN:Nordic_AQFN-94-1EP_7x7mm_P0.4mm', 'keywords':'nordic nrf nRF5340 aQFN94 BLE Zigbee NFC Thread M33', 'description':'', 'datasheet':'https://infocenter.nordicsemi.com/pdf/nRF5340_PS_v1.2.pdf', 'pins':[
+        Part(**{ 'name':'nRF5340-QKxx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'nRF5340-QKxx'}), 'ref_prefix':'U1', 'fplist':['Package_DFN_QFN:Nordic_AQFN-94-1EP_7x7mm_P0.4mm'], 'footprint':'Package_DFN_QFN:Nordic_AQFN-94-1EP_7x7mm_P0.4mm', 'keywords':'nordic nrf nRF5340 aQFN94 BLE Zigbee NFC Thread M33', 'description':'', 'datasheet':'https://infocenter.nordicsemi.com/pdf/nRF5340_PS_v1.2.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Nordic.kicad_sym\nnRF5340-QKxx\n\nnordic nrf nRF5340 aQFN94 BLE Zigbee NFC Thread M33', 'pins':[
             Pin(num='A13',name='DECA',func=Pin.types.PASSIVE,unit=1),
             Pin(num='A15',name='DECD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='A17',name='P1.13',func=Pin.types.BIDIR,unit=1),

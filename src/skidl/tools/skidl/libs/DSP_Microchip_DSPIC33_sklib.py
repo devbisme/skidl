@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 DSP_Microchip_DSPIC33 = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'DSPIC33EP256MU810-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSPIC33EP256MU810-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-100_14x14mm_P0.5mm', 'keywords':'16-bit Digital Signal Controller Microchip dsPIC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70616g.pdf', 'pins':[
+        Part(**{ 'name':'DSPIC33EP256MU810-xPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSPIC33EP256MU810-xPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-100_14x14mm_P0.5mm', 'keywords':'16-bit Digital Signal Controller Microchip dsPIC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70616g.pdf', 'search_text':'/usr/share/kicad/symbols/DSP_Microchip_DSPIC33.kicad_sym\nDSPIC33EP256MU810-xPT\n\n16-bit Digital Signal Controller Microchip dsPIC', 'pins':[
             Pin(num='1',name='RG15',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SCK2/PMA5/RG6',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='AN28/PWM3L/PMD4/RE4',func=Pin.types.BIDIR,unit=1),
@@ -105,7 +105,7 @@ DSP_Microchip_DSPIC33 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='RG13',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='AN26/PWM2L/PMD2/RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='AN27/PWM2H/PMD3/RE3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DSPIC33FJ128GP204', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSPIC33FJ128GP204'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'16-bit Digital Signal Controller Microchip dsPIC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70292G.pdf', 'pins':[
+        Part(**{ 'name':'DSPIC33FJ128GP204', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSPIC33FJ128GP204'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'16-bit Digital Signal Controller Microchip dsPIC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70292G.pdf', 'search_text':'/usr/share/kicad/symbols/DSP_Microchip_DSPIC33.kicad_sym\nDSPIC33FJ128GP204\n\n16-bit Digital Signal Controller Microchip dsPIC', 'pins':[
             Pin(num='1',name='SDA1/RP9/CN21/PMD3/RB9',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='AN12/RP12/CN14/PMD0/RB12',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AN11/RP13/CN13/PMRD/RB13',func=Pin.types.BIDIR,unit=1),
@@ -150,7 +150,7 @@ DSP_Microchip_DSPIC33 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCAP',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='PGED2/EMCD2/RP10/CN16/PMD2/RB10',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PGEC2/RP11/CN15/PMD1/RB11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DSPIC33FJ128GP804', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSPIC33FJ128GP804'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'16-bit Digital Signal Controller Microchip dsPIC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70292G.pdf', 'pins':[
+        Part(**{ 'name':'DSPIC33FJ128GP804', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSPIC33FJ128GP804'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'16-bit Digital Signal Controller Microchip dsPIC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70292G.pdf', 'search_text':'/usr/share/kicad/symbols/DSP_Microchip_DSPIC33.kicad_sym\nDSPIC33FJ128GP804\n\n16-bit Digital Signal Controller Microchip dsPIC', 'pins':[
             Pin(num='1',name='SDA1/RP9/CN21/PMD3/RB9',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='AN12/DAC1RP/RP12/CN14/PMD0/RB12',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AN11/DAC1RN/RP13/CN13/PMRD/RB13',func=Pin.types.BIDIR,unit=1),
@@ -195,7 +195,7 @@ DSP_Microchip_DSPIC33 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCAP',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='PGED2/EMCD2/RP10/CN16/PMD2/RB10',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PGEC2/RP11/CN15/PMD1/RB11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DSPIC33FJ128MC204', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSPIC33FJ128MC204'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'16-bit Digital Signal Controller Microchip dsPIC Motor Control', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70291G.pdf', 'pins':[
+        Part(**{ 'name':'DSPIC33FJ128MC204', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSPIC33FJ128MC204'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'16-bit Digital Signal Controller Microchip dsPIC Motor Control', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70291G.pdf', 'search_text':'/usr/share/kicad/symbols/DSP_Microchip_DSPIC33.kicad_sym\nDSPIC33FJ128MC204\n\n16-bit Digital Signal Controller Microchip dsPIC Motor Control', 'pins':[
             Pin(num='1',name='SDA1/RP9/CN21/PMD3/RB9',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PWM1H2/RP12/CN14/PMD0/RB12',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PWM1L2/RP13/CN13/PMRD/RB13',func=Pin.types.BIDIR,unit=1),
@@ -240,7 +240,7 @@ DSP_Microchip_DSPIC33 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCAP',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='PGED2/PWM1H3/RP10/CN16/PMD2/RB10',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PGEC2/PWM1L3/RP11/CN15/PMD1/RB11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DSPIC33FJ128MC804', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSPIC33FJ128MC804'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'16-bit Digital Signal Controller Microchip dsPIC Motor Control', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70291G.pdf', 'pins':[
+        Part(**{ 'name':'DSPIC33FJ128MC804', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSPIC33FJ128MC804'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'16-bit Digital Signal Controller Microchip dsPIC Motor Control', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70291G.pdf', 'search_text':'/usr/share/kicad/symbols/DSP_Microchip_DSPIC33.kicad_sym\nDSPIC33FJ128MC804\n\n16-bit Digital Signal Controller Microchip dsPIC Motor Control', 'pins':[
             Pin(num='1',name='SDA1/RP9/CN21/PMD3/RB9',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PWM1H2/DAC1RP/RP12/CN14/PMD0/RB12',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PWM1L2/DAC1RN/RP13/CN13/PMRD/RB13',func=Pin.types.BIDIR,unit=1),
@@ -285,7 +285,7 @@ DSP_Microchip_DSPIC33 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCAP',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='PGED2/PWM1H3/RP10/CN16/PMD2/RB10',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PGEC2/PWM1L3/RP11/CN15/PMD1/RB11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DSPIC33FJ256MC710A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSPIC33FJ256MC710A'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'16-bit Digital Signal Controller Microchip dsPIC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70594C.pdf', 'pins':[
+        Part(**{ 'name':'DSPIC33FJ256MC710A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSPIC33FJ256MC710A'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'16-bit Digital Signal Controller Microchip dsPIC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70594C.pdf', 'search_text':'/usr/share/kicad/symbols/DSP_Microchip_DSPIC33.kicad_sym\nDSPIC33FJ256MC710A\n\n16-bit Digital Signal Controller Microchip dsPIC', 'pins':[
             Pin(num='1',name='RG15',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SCK2/CN8/RG6',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PWM3L/RE4',func=Pin.types.BIDIR,unit=1),
@@ -386,7 +386,7 @@ DSP_Microchip_DSPIC33 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='RG13',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PWM2L/RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PWM2H/RE3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DSPIC33FJ32GP304', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSPIC33FJ32GP304'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'16-bit Digital Signal Controller Microchip dsPIC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70292G.pdf', 'pins':[
+        Part(**{ 'name':'DSPIC33FJ32GP304', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSPIC33FJ32GP304'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'16-bit Digital Signal Controller Microchip dsPIC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70292G.pdf', 'search_text':'/usr/share/kicad/symbols/DSP_Microchip_DSPIC33.kicad_sym\nDSPIC33FJ32GP304\n\n16-bit Digital Signal Controller Microchip dsPIC', 'pins':[
             Pin(num='1',name='SDA1/RP9/CN21/PMD3/RB9',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='AN12/RP12/CN14/PMD0/RB12',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AN11/RP13/CN13/PMRD/RB13',func=Pin.types.BIDIR,unit=1),
@@ -431,7 +431,7 @@ DSP_Microchip_DSPIC33 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCAP',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='PGED2/EMCD2/RP10/CN16/PMD2/RB10',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PGEC2/RP11/CN15/PMD1/RB11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DSPIC33FJ32MC304', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSPIC33FJ32MC304'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'16-bit Digital Signal Controller Microchip dsPIC Motor Control', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70291G.pdf', 'pins':[
+        Part(**{ 'name':'DSPIC33FJ32MC304', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSPIC33FJ32MC304'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'16-bit Digital Signal Controller Microchip dsPIC Motor Control', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70291G.pdf', 'search_text':'/usr/share/kicad/symbols/DSP_Microchip_DSPIC33.kicad_sym\nDSPIC33FJ32MC304\n\n16-bit Digital Signal Controller Microchip dsPIC Motor Control', 'pins':[
             Pin(num='1',name='SDA1/RP9/CN21/PMD3/RB9',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PWM1H2/RP12/CN14/PMD0/RB12',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PWM1L2/RP13/CN13/PMRD/RB13',func=Pin.types.BIDIR,unit=1),
@@ -476,7 +476,7 @@ DSP_Microchip_DSPIC33 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCAP',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='PGED2/PWM1H3/RP10/CN16/PMD2/RB10',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PGEC2/PWM1L3/RP11/CN15/PMD1/RB11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DSPIC33FJ64GP204', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSPIC33FJ64GP204'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'16-bit Digital Signal Controller Microchip dsPIC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70292G.pdf', 'pins':[
+        Part(**{ 'name':'DSPIC33FJ64GP204', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSPIC33FJ64GP204'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'16-bit Digital Signal Controller Microchip dsPIC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70292G.pdf', 'search_text':'/usr/share/kicad/symbols/DSP_Microchip_DSPIC33.kicad_sym\nDSPIC33FJ64GP204\n\n16-bit Digital Signal Controller Microchip dsPIC', 'pins':[
             Pin(num='1',name='SDA1/RP9/CN21/PMD3/RB9',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='AN12/RP12/CN14/PMD0/RB12',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AN11/RP13/CN13/PMRD/RB13',func=Pin.types.BIDIR,unit=1),
@@ -521,7 +521,7 @@ DSP_Microchip_DSPIC33 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCAP',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='PGED2/EMCD2/RP10/CN16/PMD2/RB10',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PGEC2/RP11/CN15/PMD1/RB11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DSPIC33FJ64GP306A-IMR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSPIC33FJ64GP306A-IMR'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'keywords':'16-bit Digital Signal Controller Microchip dsPIC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70593d.pdf', 'pins':[
+        Part(**{ 'name':'DSPIC33FJ64GP306A-IMR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSPIC33FJ64GP306A-IMR'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP5.4x5.4mm', 'keywords':'16-bit Digital Signal Controller Microchip dsPIC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70593d.pdf', 'search_text':'/usr/share/kicad/symbols/DSP_Microchip_DSPIC33.kicad_sym\nDSPIC33FJ64GP306A-IMR\n\n16-bit Digital Signal Controller Microchip dsPIC', 'pins':[
             Pin(num='1',name='COFS/RG15',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='AN5/IC8/CN7/RB5',func=Pin.types.INPUT,unit=1),
@@ -587,7 +587,7 @@ DSP_Microchip_DSPIC33 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{MCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{SS2}/CN11/RG9',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DSPIC33FJ64GP804', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSPIC33FJ64GP804'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'16-bit Digital Signal Controller Microchip dsPIC33', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70292G.pdf', 'pins':[
+        Part(**{ 'name':'DSPIC33FJ64GP804', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSPIC33FJ64GP804'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'16-bit Digital Signal Controller Microchip dsPIC33', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70292G.pdf', 'search_text':'/usr/share/kicad/symbols/DSP_Microchip_DSPIC33.kicad_sym\nDSPIC33FJ64GP804\n\n16-bit Digital Signal Controller Microchip dsPIC33', 'pins':[
             Pin(num='1',name='SDA1/RP9/CN21/PMD3/RB9',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='AN12/DAC1RP/RP12/CN14/PMD0/RB12',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AN11/DAC1RN/RP13/CN13/PMRD/RB13',func=Pin.types.BIDIR,unit=1),
@@ -632,7 +632,7 @@ DSP_Microchip_DSPIC33 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCAP',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='PGED2/EMCD2/RP10/CN16/PMD2/RB10',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PGEC2/RP11/CN15/PMD1/RB11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DSPIC33FJ64MC204', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSPIC33FJ64MC204'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'16-bit Digital Signal Controller Microchip dsPIC Motor Control', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70291G.pdf', 'pins':[
+        Part(**{ 'name':'DSPIC33FJ64MC204', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSPIC33FJ64MC204'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'16-bit Digital Signal Controller Microchip dsPIC Motor Control', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70291G.pdf', 'search_text':'/usr/share/kicad/symbols/DSP_Microchip_DSPIC33.kicad_sym\nDSPIC33FJ64MC204\n\n16-bit Digital Signal Controller Microchip dsPIC Motor Control', 'pins':[
             Pin(num='1',name='SDA1/RP9/CN21/PMD3/RB9',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PWM1H2/RP12/CN14/PMD0/RB12',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PWM1L2/RP13/CN13/PMRD/RB13',func=Pin.types.BIDIR,unit=1),
@@ -677,7 +677,7 @@ DSP_Microchip_DSPIC33 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCAP',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='PGED2/PWM1H3/RP10/CN16/PMD2/RB10',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PGEC2/PWM1L3/RP11/CN15/PMD1/RB11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DSPIC33FJ64MC802-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSPIC33FJ64MC802-xSP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'16-bit Digital Signal Controller Microchip dsPIC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70291G.pdf', 'pins':[
+        Part(**{ 'name':'DSPIC33FJ64MC802-xSP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSPIC33FJ64MC802-xSP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'16-bit Digital Signal Controller Microchip dsPIC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70291G.pdf', 'search_text':'/usr/share/kicad/symbols/DSP_Microchip_DSPIC33.kicad_sym\nDSPIC33FJ64MC802-xSP\n\n16-bit Digital Signal Controller Microchip dsPIC', 'pins':[
             Pin(num='1',name='~{MCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OSC2/CLKO/CN29/PMA0/RA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SOSCI/RP4/CN1/PMBE/RB4',func=Pin.types.BIDIR,unit=1),
@@ -706,7 +706,7 @@ DSP_Microchip_DSPIC33 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AN5/C1IN+/RP3/CN7/RB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='OSC1/CLKI/CN30/RA2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DSPIC33FJ64MC804', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSPIC33FJ64MC804'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'16-bit Digital Signal Controller Microchip dsPIC Motor Control', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70291G.pdf', 'pins':[
+        Part(**{ 'name':'DSPIC33FJ64MC804', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSPIC33FJ64MC804'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'16-bit Digital Signal Controller Microchip dsPIC Motor Control', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70291G.pdf', 'search_text':'/usr/share/kicad/symbols/DSP_Microchip_DSPIC33.kicad_sym\nDSPIC33FJ64MC804\n\n16-bit Digital Signal Controller Microchip dsPIC Motor Control', 'pins':[
             Pin(num='1',name='SDA1/RP9/CN21/PMD3/RB9',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PWM1H2/DAC1RP/RP12/CN14/PMD0/RB12',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PWM1L2/DAC1RN/RP13/CN13/PMRD/RB13',func=Pin.types.BIDIR,unit=1),
@@ -751,7 +751,7 @@ DSP_Microchip_DSPIC33 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCAP',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='PGED2/PWM1H3/RP10/CN16/PMD2/RB10',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PGEC2/PWM1L3/RP11/CN15/PMD1/RB11',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DSPIC33FJ128MC510A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSPIC33FJ128MC510A'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'16-bit Digital Signal Controller Microchip dsPIC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70594C.pdf', 'pins':[
+        Part(**{ 'name':'DSPIC33FJ128MC510A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSPIC33FJ128MC510A'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'16-bit Digital Signal Controller Microchip dsPIC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70594C.pdf', 'search_text':'/usr/share/kicad/symbols/DSP_Microchip_DSPIC33.kicad_sym\nDSPIC33FJ128MC510A\n\n16-bit Digital Signal Controller Microchip dsPIC', 'pins':[
             Pin(num='1',name='RG15',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SCK2/CN8/RG6',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PWM3L/RE4',func=Pin.types.BIDIR,unit=1),
@@ -852,7 +852,7 @@ DSP_Microchip_DSPIC33 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='RG13',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PWM2L/RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PWM2H/RE3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DSPIC33FJ128MC710A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSPIC33FJ128MC710A'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'16-bit Digital Signal Controller Microchip dsPIC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70594C.pdf', 'pins':[
+        Part(**{ 'name':'DSPIC33FJ128MC710A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSPIC33FJ128MC710A'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'16-bit Digital Signal Controller Microchip dsPIC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70594C.pdf', 'search_text':'/usr/share/kicad/symbols/DSP_Microchip_DSPIC33.kicad_sym\nDSPIC33FJ128MC710A\n\n16-bit Digital Signal Controller Microchip dsPIC', 'pins':[
             Pin(num='1',name='RG15',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SCK2/CN8/RG6',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PWM3L/RE4',func=Pin.types.BIDIR,unit=1),
@@ -953,7 +953,7 @@ DSP_Microchip_DSPIC33 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='RG13',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PWM2L/RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PWM2H/RE3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DSPIC33FJ256MC510A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSPIC33FJ256MC510A'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'16-bit Digital Signal Controller Microchip dsPIC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70594C.pdf', 'pins':[
+        Part(**{ 'name':'DSPIC33FJ256MC510A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSPIC33FJ256MC510A'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'16-bit Digital Signal Controller Microchip dsPIC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70594C.pdf', 'search_text':'/usr/share/kicad/symbols/DSP_Microchip_DSPIC33.kicad_sym\nDSPIC33FJ256MC510A\n\n16-bit Digital Signal Controller Microchip dsPIC', 'pins':[
             Pin(num='1',name='RG15',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SCK2/CN8/RG6',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PWM3L/RE4',func=Pin.types.BIDIR,unit=1),
@@ -1054,7 +1054,7 @@ DSP_Microchip_DSPIC33 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='RG13',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PWM2L/RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PWM2H/RE3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DSPIC33FJ64MC510A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSPIC33FJ64MC510A'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'16-bit Digital Signal Controller Microchip dsPIC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70594C.pdf', 'pins':[
+        Part(**{ 'name':'DSPIC33FJ64MC510A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSPIC33FJ64MC510A'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'16-bit Digital Signal Controller Microchip dsPIC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70594C.pdf', 'search_text':'/usr/share/kicad/symbols/DSP_Microchip_DSPIC33.kicad_sym\nDSPIC33FJ64MC510A\n\n16-bit Digital Signal Controller Microchip dsPIC', 'pins':[
             Pin(num='1',name='RG15',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SCK2/CN8/RG6',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PWM3L/RE4',func=Pin.types.BIDIR,unit=1),
@@ -1155,7 +1155,7 @@ DSP_Microchip_DSPIC33 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='RG13',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PWM2L/RE2',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PWM2H/RE3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DSPIC33FJ64MC710A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSPIC33FJ64MC710A'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', ''], 'footprint':'', 'keywords':'16-bit Digital Signal Controller Microchip dsPIC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70594C.pdf', 'pins':[
+        Part(**{ 'name':'DSPIC33FJ64MC710A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DSPIC33FJ64MC710A'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', ''], 'footprint':'', 'keywords':'16-bit Digital Signal Controller Microchip dsPIC', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70594C.pdf', 'search_text':'/usr/share/kicad/symbols/DSP_Microchip_DSPIC33.kicad_sym\nDSPIC33FJ64MC710A\n\n16-bit Digital Signal Controller Microchip dsPIC', 'pins':[
             Pin(num='1',name='RG15',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SCK2/CN8/RG6',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PWM3L/RE4',func=Pin.types.BIDIR,unit=1),

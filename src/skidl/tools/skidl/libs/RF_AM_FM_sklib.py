@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 RF_AM_FM = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'LA1185', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LA1185'}), 'ref_prefix':'U', 'fplist':['Package_SIP:SIP-9_22.3x3mm_P2.54mm'], 'footprint':'Package_SIP:SIP-9_22.3x3mm_P2.54mm', 'keywords':'FM mixer receiver amplifier', 'description':'', 'datasheet':'https://www.alldatasheet.com/datasheet-pdf/pdf/39974/SANYO/LA1185.html', 'pins':[
+        Part(**{ 'name':'LA1185', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LA1185'}), 'ref_prefix':'U', 'fplist':['Package_SIP:SIP-9_22.3x3mm_P2.54mm'], 'footprint':'Package_SIP:SIP-9_22.3x3mm_P2.54mm', 'keywords':'FM mixer receiver amplifier', 'description':'', 'datasheet':'https://www.alldatasheet.com/datasheet-pdf/pdf/39974/SANYO/LA1185.html', 'search_text':'/usr/share/kicad/symbols/RF_AM_FM.kicad_sym\nLA1185\n\nFM mixer receiver amplifier', 'pins':[
             Pin(num='1',name='RF_IN',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='RF_BYPASS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='RF_OUT',func=Pin.types.OUTPUT,unit=1),
@@ -14,7 +14,7 @@ RF_AM_FM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OSC_MON',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='OSC',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCS3142', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCS3142'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'KEELOQ classic ultimate keyless entry keyfob ISM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001747A.pdf', 'pins':[
+        Part(**{ 'name':'MCS3142', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCS3142'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'KEELOQ classic ultimate keyless entry keyfob ISM', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001747A.pdf', 'search_text':'/usr/share/kicad/symbols/RF_AM_FM.kicad_sym\nMCS3142\n\nKEELOQ classic ultimate keyless entry keyfob ISM', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RF_OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='VSS',func=Pin.types.PASSIVE,unit=1),
@@ -35,7 +35,7 @@ RF_AM_FM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='CTRL_IN',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SA605D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SA605D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-20_12.8x7.5mm_P1.27mm'], 'footprint':'Package_SO:SO-20_12.8x7.5mm_P1.27mm', 'keywords':'High performance monolithic low-power FM IF system', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/SA605.pdf', 'pins':[
+        Part(**{ 'name':'SA605D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SA605D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-20_12.8x7.5mm_P1.27mm'], 'footprint':'Package_SO:SO-20_12.8x7.5mm_P1.27mm', 'keywords':'High performance monolithic low-power FM IF system', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/SA605.pdf', 'search_text':'/usr/share/kicad/symbols/RF_AM_FM.kicad_sym\nSA605D\n\nHigh performance monolithic low-power FM IF system', 'pins':[
             Pin(num='1',name='RF_IN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='QUADRATURE_IN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='LIMITER_OUT',func=Pin.types.OUTPUT,unit=1),
@@ -56,7 +56,7 @@ RF_AM_FM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RSSI_OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='MUTED_AUD_OUTP',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='UNMUTED_AUD_OUTP',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SA636DK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SA636DK'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'Low-voltage, monolithic, FM, IF, RSSI', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/SA636.pdf', 'pins':[
+        Part(**{ 'name':'SA636DK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SA636DK'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'Low-voltage, monolithic, FM, IF, RSSI', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/SA636.pdf', 'search_text':'/usr/share/kicad/symbols/RF_AM_FM.kicad_sym\nSA636DK\n\nLow-voltage, monolithic, FM, IF, RSSI', 'pins':[
             Pin(num='1',name='RF_IN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='QUADRATURE_IN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='LIMITER_OUT',func=Pin.types.OUTPUT,unit=1),
@@ -77,7 +77,7 @@ RF_AM_FM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RSSI_OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='POWER_DOWN_CTRL',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DATA_OUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si4362', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si4362'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'keywords':'radio receiver', 'description':'', 'datasheet':'http://www.silabs.com/Support%20Documents/TechnicalDocs/Si4362.pdf', 'pins':[
+        Part(**{ 'name':'Si4362', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si4362'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'keywords':'radio receiver', 'description':'', 'datasheet':'http://www.silabs.com/Support%20Documents/TechnicalDocs/Si4362.pdf', 'search_text':'/usr/share/kicad/symbols/RF_AM_FM.kicad_sym\nSi4362\n\nradio receiver', 'pins':[
             Pin(num='1',name='SDN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GPIO1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='~{IRQ}',func=Pin.types.OUTPUT,unit=1),
@@ -99,7 +99,7 @@ RF_AM_FM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GPIO0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si4735-D60-GU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si4735-D60-GU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:SSOP-24_3.9x8.7mm_P0.635mm', 'keywords':'Broadcast AM FM SW LW Radio Receiver RDS RBDS', 'description':'', 'datasheet':'http://www.silabs.com/Support%20Documents/TechnicalDocs/Si4730-31-34-35-D60.pdf', 'pins':[
+        Part(**{ 'name':'Si4735-D60-GU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si4735-D60-GU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:SSOP-24_3.9x8.7mm_P0.635mm', 'keywords':'Broadcast AM FM SW LW Radio Receiver RDS RBDS', 'description':'', 'datasheet':'http://www.silabs.com/Support%20Documents/TechnicalDocs/Si4730-31-34-35-D60.pdf', 'search_text':'/usr/share/kicad/symbols/RF_AM_FM.kicad_sym\nSi4735-D60-GU\n\nBroadcast AM FM SW LW Radio Receiver RDS RBDS', 'pins':[
             Pin(num='1',name='DOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -124,7 +124,7 @@ RF_AM_FM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='FMI',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='RFGND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ZETA-433-SO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ZETA-433-SO'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'RF TRANSCEIVER MODULE', 'description':'', 'datasheet':'https://www.rfsolutions.co.uk/downloads/1456219226DS-ZETA.pdf', 'pins':[
+        Part(**{ 'name':'ZETA-433-SO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ZETA-433-SO'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'RF TRANSCEIVER MODULE', 'description':'', 'datasheet':'https://www.rfsolutions.co.uk/downloads/1456219226DS-ZETA.pdf', 'search_text':'/usr/share/kicad/symbols/RF_AM_FM.kicad_sym\nZETA-433-SO\n\nRF TRANSCEIVER MODULE', 'pins':[
             Pin(num='1',name='ANT',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SDI',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SDO',func=Pin.types.OUTPUT,unit=1),
@@ -137,7 +137,7 @@ RF_AM_FM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GPIO1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GPIO2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SCLK',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SA605DK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SA605DK'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-20_12.8x7.5mm_P1.27mm', 'Package_SO:SSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:SO-20_12.8x7.5mm_P1.27mm', 'keywords':'High performance monolithic low-power FM IF system', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/SA605.pdf', 'pins':[
+        Part(**{ 'name':'SA605DK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SA605DK'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-20_12.8x7.5mm_P1.27mm', 'Package_SO:SSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:SO-20_12.8x7.5mm_P1.27mm', 'keywords':'High performance monolithic low-power FM IF system', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/SA605.pdf', 'search_text':'/usr/share/kicad/symbols/RF_AM_FM.kicad_sym\nSA605DK\n\nHigh performance monolithic low-power FM IF system', 'pins':[
             Pin(num='1',name='RF_IN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='QUADRATURE_IN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='LIMITER_OUT',func=Pin.types.OUTPUT,unit=1),
@@ -158,7 +158,7 @@ RF_AM_FM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RSSI_OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='MUTED_AUD_OUTP',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='UNMUTED_AUD_OUTP',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si4730-D60-GU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si4730-D60-GU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_3.9x8.7mm_P0.635mm', 'Package_SO:SSOP-24_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:SSOP-24_3.9x8.7mm_P0.635mm', 'keywords':'Broadcast AM FM Radio Receiver', 'description':'', 'datasheet':'http://www.silabs.com/Support%20Documents/TechnicalDocs/Si4730-31-34-35-D60.pdf', 'pins':[
+        Part(**{ 'name':'Si4730-D60-GU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si4730-D60-GU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_3.9x8.7mm_P0.635mm', 'Package_SO:SSOP-24_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:SSOP-24_3.9x8.7mm_P0.635mm', 'keywords':'Broadcast AM FM Radio Receiver', 'description':'', 'datasheet':'http://www.silabs.com/Support%20Documents/TechnicalDocs/Si4730-31-34-35-D60.pdf', 'search_text':'/usr/share/kicad/symbols/RF_AM_FM.kicad_sym\nSi4730-D60-GU\n\nBroadcast AM FM Radio Receiver', 'pins':[
             Pin(num='1',name='DOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -183,7 +183,7 @@ RF_AM_FM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='FMI',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='RFGND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si4731-D60-GU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si4731-D60-GU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_3.9x8.7mm_P0.635mm', 'Package_SO:SSOP-24_3.9x8.7mm_P0.635mm', 'Package_SO:SSOP-24_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:SSOP-24_3.9x8.7mm_P0.635mm', 'keywords':'Broadcast AM FM Radio Receiver RDS RBDS', 'description':'', 'datasheet':'http://www.silabs.com/Support%20Documents/TechnicalDocs/Si4730-31-34-35-D60.pdf', 'pins':[
+        Part(**{ 'name':'Si4731-D60-GU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si4731-D60-GU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_3.9x8.7mm_P0.635mm', 'Package_SO:SSOP-24_3.9x8.7mm_P0.635mm', 'Package_SO:SSOP-24_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:SSOP-24_3.9x8.7mm_P0.635mm', 'keywords':'Broadcast AM FM Radio Receiver RDS RBDS', 'description':'', 'datasheet':'http://www.silabs.com/Support%20Documents/TechnicalDocs/Si4730-31-34-35-D60.pdf', 'search_text':'/usr/share/kicad/symbols/RF_AM_FM.kicad_sym\nSi4731-D60-GU\n\nBroadcast AM FM Radio Receiver RDS RBDS', 'pins':[
             Pin(num='1',name='DOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -208,7 +208,7 @@ RF_AM_FM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='FMI',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='RFGND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si4734-D60-GU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si4734-D60-GU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_3.9x8.7mm_P0.635mm', 'Package_SO:SSOP-24_3.9x8.7mm_P0.635mm', 'Package_SO:SSOP-24_3.9x8.7mm_P0.635mm', 'Package_SO:SSOP-24_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:SSOP-24_3.9x8.7mm_P0.635mm', 'keywords':'Broadcast AM FM SW LW Radio Receiver', 'description':'', 'datasheet':'http://www.silabs.com/Support%20Documents/TechnicalDocs/Si4730-31-34-35-D60.pdf', 'pins':[
+        Part(**{ 'name':'Si4734-D60-GU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si4734-D60-GU'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_3.9x8.7mm_P0.635mm', 'Package_SO:SSOP-24_3.9x8.7mm_P0.635mm', 'Package_SO:SSOP-24_3.9x8.7mm_P0.635mm', 'Package_SO:SSOP-24_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:SSOP-24_3.9x8.7mm_P0.635mm', 'keywords':'Broadcast AM FM SW LW Radio Receiver', 'description':'', 'datasheet':'http://www.silabs.com/Support%20Documents/TechnicalDocs/Si4730-31-34-35-D60.pdf', 'search_text':'/usr/share/kicad/symbols/RF_AM_FM.kicad_sym\nSi4734-D60-GU\n\nBroadcast AM FM SW LW Radio Receiver', 'pins':[
             Pin(num='1',name='DOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -233,7 +233,7 @@ RF_AM_FM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='FMI',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='RFGND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ZETA-868-SO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ZETA-868-SO'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'RF TRANSCEIVER MODULE', 'description':'', 'datasheet':'https://www.rfsolutions.co.uk/downloads/1456219226DS-ZETA.pdf', 'pins':[
+        Part(**{ 'name':'ZETA-868-SO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ZETA-868-SO'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'RF TRANSCEIVER MODULE', 'description':'', 'datasheet':'https://www.rfsolutions.co.uk/downloads/1456219226DS-ZETA.pdf', 'search_text':'/usr/share/kicad/symbols/RF_AM_FM.kicad_sym\nZETA-868-SO\n\nRF TRANSCEIVER MODULE', 'pins':[
             Pin(num='1',name='ANT',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SDI',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SDO',func=Pin.types.OUTPUT,unit=1),
@@ -246,7 +246,7 @@ RF_AM_FM = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GPIO1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GPIO2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SCLK',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ZETA-915-SO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ZETA-915-SO'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'RF TRANSCEIVER MODULE', 'description':'', 'datasheet':'https://www.rfsolutions.co.uk/downloads/1456219226DS-ZETA.pdf', 'pins':[
+        Part(**{ 'name':'ZETA-915-SO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ZETA-915-SO'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'RF TRANSCEIVER MODULE', 'description':'', 'datasheet':'https://www.rfsolutions.co.uk/downloads/1456219226DS-ZETA.pdf', 'search_text':'/usr/share/kicad/symbols/RF_AM_FM.kicad_sym\nZETA-915-SO\n\nRF TRANSCEIVER MODULE', 'pins':[
             Pin(num='1',name='ANT',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SDI',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SDO',func=Pin.types.OUTPUT,unit=1),

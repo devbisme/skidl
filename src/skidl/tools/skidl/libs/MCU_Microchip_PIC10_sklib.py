@@ -4,168 +4,168 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 MCU_Microchip_PIC10 = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'PIC10F200-IMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F200-IMC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41239D.pdf', 'pins':[
+        Part(**{ 'name':'PIC10F200-IMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F200-IMC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41239D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC10.kicad_sym\nPIC10F200-IMC\n\nFLASH 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='2',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='GP2',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GP3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC10F200-IOT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F200-IOT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41239D.pdf', 'pins':[
+        Part(**{ 'name':'PIC10F200-IOT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F200-IOT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41239D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC10.kicad_sym\nPIC10F200-IOT\n\nFLASH 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='GP2',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='GP3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC10F200-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F200-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41239D.pdf', 'pins':[
+        Part(**{ 'name':'PIC10F200-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F200-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41239D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC10.kicad_sym\nPIC10F200-IP\n\nFLASH 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='2',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='GP2',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GP3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC10F204-IMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F204-IMC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41239D.pdf', 'pins':[
+        Part(**{ 'name':'PIC10F204-IMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F204-IMC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41239D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC10.kicad_sym\nPIC10F204-IMC\n\nFLASH 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='2',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='GP2',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GP3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC10F204-IOT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F204-IOT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41239D.pdf', 'pins':[
+        Part(**{ 'name':'PIC10F204-IOT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F204-IOT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41239D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC10.kicad_sym\nPIC10F204-IOT\n\nFLASH 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='GP2',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='GP3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC10F204-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F204-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41239D.pdf', 'pins':[
+        Part(**{ 'name':'PIC10F204-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F204-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41239D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC10.kicad_sym\nPIC10F204-IP\n\nFLASH 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='2',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='GP2',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GP3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC10F220-IMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F220-IMC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41270E.pdf', 'pins':[
+        Part(**{ 'name':'PIC10F220-IMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F220-IMC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41270E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC10.kicad_sym\nPIC10F220-IMC\n\nFLASH 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='2',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='GP2',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GP3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC10F220-IOT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F220-IOT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41270E.pdf', 'pins':[
+        Part(**{ 'name':'PIC10F220-IOT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F220-IOT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41270E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC10.kicad_sym\nPIC10F220-IOT\n\nFLASH 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='GP2',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='GP3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC10F220-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F220-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41270E.pdf', 'pins':[
+        Part(**{ 'name':'PIC10F220-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F220-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41270E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC10.kicad_sym\nPIC10F220-IP\n\nFLASH 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='2',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='GP2',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GP3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC10F320-IMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F320-IMC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41585A.pdf', 'pins':[
+        Part(**{ 'name':'PIC10F320-IMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F320-IMC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41585A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC10.kicad_sym\nPIC10F320-IMC\n\nFLASH 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='2',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='RA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='RA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RA3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC10F320-IOT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F320-IOT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41585A.pdf', 'pins':[
+        Part(**{ 'name':'PIC10F320-IOT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F320-IOT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41585A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC10.kicad_sym\nPIC10F320-IOT\n\nFLASH 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='RA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='RA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='RA3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC10F320-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F320-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41585A.pdf', 'pins':[
+        Part(**{ 'name':'PIC10F320-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F320-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41585A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC10.kicad_sym\nPIC10F320-IP\n\nFLASH 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='2',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='RA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='RA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RA3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC10F202-IMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F202-IMC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41239D.pdf', 'pins':[
+        Part(**{ 'name':'PIC10F202-IMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F202-IMC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41239D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC10.kicad_sym\nPIC10F202-IMC\n\nFLASH 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='2',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='GP2',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GP3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC10F202-IOT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F202-IOT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41239D.pdf', 'pins':[
+        Part(**{ 'name':'PIC10F202-IOT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F202-IOT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41239D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC10.kicad_sym\nPIC10F202-IOT\n\nFLASH 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='GP2',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='GP3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC10F202-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F202-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41239D.pdf', 'pins':[
+        Part(**{ 'name':'PIC10F202-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F202-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41239D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC10.kicad_sym\nPIC10F202-IP\n\nFLASH 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='2',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='GP2',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GP3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC10F206-IMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F206-IMC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41239D.pdf', 'pins':[
+        Part(**{ 'name':'PIC10F206-IMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F206-IMC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41239D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC10.kicad_sym\nPIC10F206-IMC\n\nFLASH 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='2',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='GP2',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GP3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC10F206-IOT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F206-IOT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41239D.pdf', 'pins':[
+        Part(**{ 'name':'PIC10F206-IOT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F206-IOT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41239D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC10.kicad_sym\nPIC10F206-IOT\n\nFLASH 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='GP2',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='GP3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC10F206-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F206-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41239D.pdf', 'pins':[
+        Part(**{ 'name':'PIC10F206-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F206-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41239D.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC10.kicad_sym\nPIC10F206-IP\n\nFLASH 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='2',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='GP2',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GP3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC10F222-IMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F222-IMC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41270E.pdf', 'pins':[
+        Part(**{ 'name':'PIC10F222-IMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F222-IMC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41270E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC10.kicad_sym\nPIC10F222-IMC\n\nFLASH 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='2',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='GP2',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GP3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC10F222-IOT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F222-IOT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41270E.pdf', 'pins':[
+        Part(**{ 'name':'PIC10F222-IOT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F222-IOT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41270E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC10.kicad_sym\nPIC10F222-IOT\n\nFLASH 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='GP2',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='GP3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC10F222-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F222-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41270E.pdf', 'pins':[
+        Part(**{ 'name':'PIC10F222-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F222-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41270E.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC10.kicad_sym\nPIC10F222-IP\n\nFLASH 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='2',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='GP2',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GP3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC10F322-IMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F322-IMC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41585A.pdf', 'pins':[
+        Part(**{ 'name':'PIC10F322-IMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F322-IMC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.7x1.4mm', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41585A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC10.kicad_sym\nPIC10F322-IMC\n\nFLASH 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='2',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='RA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='RA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RA3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC10F322-IOT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F322-IOT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41585A.pdf', 'pins':[
+        Part(**{ 'name':'PIC10F322-IOT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F322-IOT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41585A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC10.kicad_sym\nPIC10F322-IOT\n\nFLASH 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='1',name='RA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='RA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='RA3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PIC10F322-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F322-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41585A.pdf', 'pins':[
+        Part(**{ 'name':'PIC10F322-IP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PIC10F322-IP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'FLASH 8-Bit CMOS Microcontroller', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/41585A.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Microchip_PIC10.kicad_sym\nPIC10F322-IP\n\nFLASH 8-Bit CMOS Microcontroller', 'pins':[
             Pin(num='2',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='RA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='4',name='RA1',func=Pin.types.BIDIR,unit=1),

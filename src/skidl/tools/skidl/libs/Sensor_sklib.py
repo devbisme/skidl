@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Sensor = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'ADE7758', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADE7758'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm'], 'footprint':'Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm', 'keywords':'Energy Metering', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADE7758.pdf', 'pins':[
+        Part(**{ 'name':'ADE7758', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADE7758'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm'], 'footprint':'Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm', 'keywords':'Energy Metering', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADE7758.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor.kicad_sym\nADE7758\n\nEnergy Metering', 'pins':[
             Pin(num='1',name='APCF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='ICN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='AGND',func=Pin.types.PWRIN,unit=1),
@@ -29,7 +29,7 @@ Sensor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IBP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='IBN',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='ICP',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADE7763xRS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADE7763xRS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'Energy Metering', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADE7763.pdf', 'pins':[
+        Part(**{ 'name':'ADE7763xRS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADE7763xRS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'Energy Metering', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADE7763.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor.kicad_sym\nADE7763xRS\n\nEnergy Metering', 'pins':[
             Pin(num='1',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='CF',func=Pin.types.OUTPUT,unit=1),
@@ -50,7 +50,7 @@ Sensor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='V2P',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='AGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='REFIN/OUT',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADE7953xCP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADE7953xCP'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-28-1EP_5x5mm_P0.5mm_EP3.14x3.14mm'], 'footprint':'Package_CSP:LFCSP-28-1EP_5x5mm_P0.5mm_EP3.14x3.14mm', 'keywords':'Energy Metering', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADE7953.pdf', 'pins':[
+        Part(**{ 'name':'ADE7953xCP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADE7953xCP'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-28-1EP_5x5mm_P0.5mm_EP3.14x3.14mm'], 'footprint':'Package_CSP:LFCSP-28-1EP_5x5mm_P0.5mm_EP3.14x3.14mm', 'keywords':'Energy Metering', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADE7953.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor.kicad_sym\nADE7953xCP\n\nEnergy Metering', 'pins':[
             Pin(num='1',name='ZX',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='IBN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VN',func=Pin.types.INPUT,unit=1),
@@ -80,12 +80,12 @@ Sensor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PULL_HIGH',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PULL_HIGH',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='IBP',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AM2302', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AM2302'}), 'ref_prefix':'U', 'fplist':['Sensor:ASAIR_AM2302_P2.54mm_Vertical'], 'footprint':'Sensor:ASAIR_AM2302_P2.54mm_Vertical', 'keywords':'digital sensor', 'description':'', 'datasheet':'http://akizukidenshi.com/download/ds/aosong/AM2302.pdf', 'pins':[
+        Part(**{ 'name':'AM2302', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AM2302'}), 'ref_prefix':'U', 'fplist':['Sensor:ASAIR_AM2302_P2.54mm_Vertical'], 'footprint':'Sensor:ASAIR_AM2302_P2.54mm_Vertical', 'keywords':'digital sensor', 'description':'', 'datasheet':'http://akizukidenshi.com/download/ds/aosong/AM2302.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor.kicad_sym\nAM2302\n\ndigital sensor', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'APDS-9960', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'APDS-9960'}), 'ref_prefix':'U', 'fplist':['Sensor:Avago_APDS-9960'], 'footprint':'Sensor:Avago_APDS-9960', 'keywords':'sensor gesture light rgb', 'description':'', 'datasheet':'https://docs.broadcom.com/doc/AV02-4191EN', 'pins':[
+        Part(**{ 'name':'APDS-9960', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'APDS-9960'}), 'ref_prefix':'U', 'fplist':['Sensor:Avago_APDS-9960'], 'footprint':'Sensor:Avago_APDS-9960', 'keywords':'sensor gesture light rgb', 'description':'', 'datasheet':'https://docs.broadcom.com/doc/AV02-4191EN', 'search_text':'/usr/share/kicad/symbols/Sensor.kicad_sym\nAPDS-9960\n\nsensor gesture light rgb', 'pins':[
             Pin(num='1',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='INT',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='3',name='LDR',func=Pin.types.PASSIVE,unit=1),
@@ -94,7 +94,7 @@ Sensor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AS3935', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AS3935'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:MLPQ-16-1EP_4x4mm_P0.65mm_EP2.8x2.8mm'], 'footprint':'Package_DFN_QFN:MLPQ-16-1EP_4x4mm_P0.65mm_EP2.8x2.8mm', 'keywords':'lightning sensor', 'description':'', 'datasheet':'https://www.embeddedadventures.com/datasheets/AS3935_Datasheet_EN_v2.pdf', 'pins':[
+        Part(**{ 'name':'AS3935', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AS3935'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:MLPQ-16-1EP_4x4mm_P0.65mm_EP2.8x2.8mm'], 'footprint':'Package_DFN_QFN:MLPQ-16-1EP_4x4mm_P0.65mm_EP2.8x2.8mm', 'keywords':'lightning sensor', 'description':'', 'datasheet':'https://www.embeddedadventures.com/datasheets/AS3935_Datasheet_EN_v2.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor.kicad_sym\nAS3935\n\nlightning sensor', 'pins':[
             Pin(num='1',name='ACG',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='IRQ',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SCL',func=Pin.types.BIDIR,unit=1),
@@ -111,7 +111,7 @@ Sensor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CS',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='SI',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'BL0937', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BL0937'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOP-8_3.9x4.9mm_P1.27mm', 'keywords':'current sensor', 'description':'', 'datasheet':'http://www.belling.com.cn/media/file_object/bel_product/BL0937/datasheet/BL0937_V1.02_en.pdf', 'pins':[
+        Part(**{ 'name':'BL0937', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BL0937'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOP-8_3.9x4.9mm_P1.27mm', 'keywords':'current sensor', 'description':'', 'datasheet':'http://www.belling.com.cn/media/file_object/bel_product/BL0937/datasheet/BL0937_V1.02_en.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor.kicad_sym\nBL0937\n\ncurrent sensor', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IP',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='IN',func=Pin.types.INPUT,unit=1),
@@ -120,7 +120,7 @@ Sensor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='CF1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='SEL',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'BME280', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BME280'}), 'ref_prefix':'U', 'fplist':['Package_LGA:Bosch_LGA-8_2.5x2.5mm_P0.65mm_ClockwisePinNumbering'], 'footprint':'Package_LGA:Bosch_LGA-8_2.5x2.5mm_P0.65mm_ClockwisePinNumbering', 'keywords':'Bosch pressure humidity temperature environment environmental measurement digital', 'description':'', 'datasheet':'https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf', 'pins':[
+        Part(**{ 'name':'BME280', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BME280'}), 'ref_prefix':'U', 'fplist':['Package_LGA:Bosch_LGA-8_2.5x2.5mm_P0.65mm_ClockwisePinNumbering'], 'footprint':'Package_LGA:Bosch_LGA-8_2.5x2.5mm_P0.65mm_ClockwisePinNumbering', 'keywords':'Bosch pressure humidity temperature environment environmental measurement digital', 'description':'', 'datasheet':'https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor.kicad_sym\nBME280\n\nBosch pressure humidity temperature environment environmental measurement digital', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='CSB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SDI',func=Pin.types.BIDIR,unit=1),
@@ -129,7 +129,7 @@ Sensor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VDDIO',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'BME680', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BME680'}), 'ref_prefix':'U', 'fplist':['Package_LGA:Bosch_LGA-8_3x3mm_P0.8mm_ClockwisePinNumbering'], 'footprint':'Package_LGA:Bosch_LGA-8_3x3mm_P0.8mm_ClockwisePinNumbering', 'keywords':'Bosch gas pressure humidity temperature environment environmental measurement digital', 'description':'', 'datasheet':'https://ae-bst.resource.bosch.com/media/_tech/media/datasheets/BST-BME680-DS001.pdf', 'pins':[
+        Part(**{ 'name':'BME680', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BME680'}), 'ref_prefix':'U', 'fplist':['Package_LGA:Bosch_LGA-8_3x3mm_P0.8mm_ClockwisePinNumbering'], 'footprint':'Package_LGA:Bosch_LGA-8_3x3mm_P0.8mm_ClockwisePinNumbering', 'keywords':'Bosch gas pressure humidity temperature environment environmental measurement digital', 'description':'', 'datasheet':'https://ae-bst.resource.bosch.com/media/_tech/media/datasheets/BST-BME680-DS001.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor.kicad_sym\nBME680\n\nBosch gas pressure humidity temperature environment environmental measurement digital', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='CSB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SDI',func=Pin.types.BIDIR,unit=1),
@@ -138,12 +138,12 @@ Sensor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VDDIO',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DHT11', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DHT11'}), 'ref_prefix':'U', 'fplist':['Sensor:Aosong_DHT11_5.5x12.0_P2.54mm'], 'footprint':'Sensor:Aosong_DHT11_5.5x12.0_P2.54mm', 'keywords':'digital sensor', 'description':'', 'datasheet':'http://akizukidenshi.com/download/ds/aosong/DHT11.pdf', 'pins':[
+        Part(**{ 'name':'DHT11', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DHT11'}), 'ref_prefix':'U', 'fplist':['Sensor:Aosong_DHT11_5.5x12.0_P2.54mm'], 'footprint':'Sensor:Aosong_DHT11_5.5x12.0_P2.54mm', 'keywords':'digital sensor', 'description':'', 'datasheet':'http://akizukidenshi.com/download/ds/aosong/DHT11.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor.kicad_sym\nDHT11\n\ndigital sensor', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='DATA',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'INA260', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'INA260'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'Current/power/voltage monitor', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ina260.pdf', 'pins':[
+        Part(**{ 'name':'INA260', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'INA260'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'Current/power/voltage monitor', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ina260.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor.kicad_sym\nINA260\n\nCurrent/power/voltage monitor', 'pins':[
             Pin(num='1',name='IN+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='VS',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -160,7 +160,7 @@ Sensor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='ALERT',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SCL',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2990', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2990'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'Temperature Voltage Current Monitor I2C AFE', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ltc2990.pdf', 'pins':[
+        Part(**{ 'name':'LTC2990', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2990'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'Temperature Voltage Current Monitor I2C AFE', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ltc2990.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor.kicad_sym\nLTC2990\n\nTemperature Voltage Current Monitor I2C AFE', 'pins':[
             Pin(num='1',name='V1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='V2',func=Pin.types.PASSIVE,unit=1),
@@ -171,7 +171,7 @@ Sensor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='ADR0',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='ADR1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX30102', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX30102'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Maxim_OLGA-14_3.3x5.6mm_P0.8mm'], 'footprint':'OptoDevice:Maxim_OLGA-14_3.3x5.6mm_P0.8mm', 'keywords':'Heart Rate', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX30102.pdf', 'pins':[
+        Part(**{ 'name':'MAX30102', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX30102'}), 'ref_prefix':'U', 'fplist':['OptoDevice:Maxim_OLGA-14_3.3x5.6mm_P0.8mm'], 'footprint':'OptoDevice:Maxim_OLGA-14_3.3x5.6mm_P0.8mm', 'keywords':'Heart Rate', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX30102.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor.kicad_sym\nMAX30102\n\nHeart Rate', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='VLED+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -186,10 +186,10 @@ Sensor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='VLED+',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Nuclear-Radiation_Detector', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Nuclear-Radiation_Detector'}), 'ref_prefix':'V', 'fplist':[''], 'footprint':'', 'keywords':'nuclear ionising radiation sensor geiger mueller muller tube neutron counter ionization chamber', 'description':'', 'datasheet':'~', 'pins':[
+        Part(**{ 'name':'Nuclear-Radiation_Detector', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Nuclear-Radiation_Detector'}), 'ref_prefix':'V', 'fplist':[''], 'footprint':'', 'keywords':'nuclear ionising radiation sensor geiger mueller muller tube neutron counter ionization chamber', 'description':'', 'datasheet':'~', 'search_text':'/usr/share/kicad/symbols/Sensor.kicad_sym\nNuclear-Radiation_Detector\n\nnuclear ionising radiation sensor geiger mueller muller tube neutron counter ionization chamber', 'pins':[
             Pin(num='1',name='1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RPR-0521RS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RPR-0521RS'}), 'ref_prefix':'U', 'fplist':['Sensor:Rohm_RPR-0521RS'], 'footprint':'Sensor:Rohm_RPR-0521RS', 'keywords':'sensor light', 'description':'', 'datasheet':'https://fscdn.rohm.com/en/products/databook/datasheet/opto/optical_sensor/opto_module/rpr-0521rs-e.pdf', 'pins':[
+        Part(**{ 'name':'RPR-0521RS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RPR-0521RS'}), 'ref_prefix':'U', 'fplist':['Sensor:Rohm_RPR-0521RS'], 'footprint':'Sensor:Rohm_RPR-0521RS', 'keywords':'sensor light', 'description':'', 'datasheet':'https://fscdn.rohm.com/en/products/databook/datasheet/opto/optical_sensor/opto_module/rpr-0521rs-e.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor.kicad_sym\nRPR-0521RS\n\nsensor light', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -198,12 +198,12 @@ Sensor = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='LDR',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='INT',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='SDA',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SHT1x', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SHT1x'}), 'ref_prefix':'U', 'fplist':['Sensor:SHT1x'], 'footprint':'Sensor:SHT1x', 'keywords':'digital temperature humidity sensor', 'description':'', 'datasheet':'https://www.sensirion.com/fileadmin/user_upload/customers/sensirion/Dokumente/0_Datasheets/Humidity/Sensirion_Humidity_Sensors_SHT1x_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'SHT1x', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SHT1x'}), 'ref_prefix':'U', 'fplist':['Sensor:SHT1x'], 'footprint':'Sensor:SHT1x', 'keywords':'digital temperature humidity sensor', 'description':'', 'datasheet':'https://www.sensirion.com/fileadmin/user_upload/customers/sensirion/Dokumente/0_Datasheets/Humidity/Sensirion_Humidity_Sensors_SHT1x_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor.kicad_sym\nSHT1x\n\ndigital temperature humidity sensor', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='DATA',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CHT11', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CHT11'}), 'ref_prefix':'U', 'fplist':['Sensor:Aosong_DHT11_5.5x12.0_P2.54mm', 'Sensor:Aosong_DHT11_5.5x12.0_P2.54mm'], 'footprint':'Sensor:Aosong_DHT11_5.5x12.0_P2.54mm', 'keywords':'Digital temperature humidity sensor', 'description':'', 'datasheet':'http://aosong.com/en/products-21.html', 'pins':[
+        Part(**{ 'name':'CHT11', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CHT11'}), 'ref_prefix':'U', 'fplist':['Sensor:Aosong_DHT11_5.5x12.0_P2.54mm', 'Sensor:Aosong_DHT11_5.5x12.0_P2.54mm'], 'footprint':'Sensor:Aosong_DHT11_5.5x12.0_P2.54mm', 'keywords':'Digital temperature humidity sensor', 'description':'', 'datasheet':'http://aosong.com/en/products-21.html', 'search_text':'/usr/share/kicad/symbols/Sensor.kicad_sym\nCHT11\n\nDigital temperature humidity sensor', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='DATA',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),

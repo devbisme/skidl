@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'CC430F5137xRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CC430F5137xRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-48-1EP_7x7mm_P0.5mm_EP4.1x4.1mm_ThermalVias'], 'footprint':'Package_DFN_QFN:VQFN-48-1EP_7x7mm_P0.5mm_EP4.1x4.1mm_ThermalVias', 'keywords':'TI MSP430 CC430 16-bit mixed signal microcontroller CC1101', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cc430f5137.pdf', 'pins':[
+        Part(**{ 'name':'CC430F5137xRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CC430F5137xRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-48-1EP_7x7mm_P0.5mm_EP4.1x4.1mm_ThermalVias'], 'footprint':'Package_DFN_QFN:VQFN-48-1EP_7x7mm_P0.5mm_EP4.1x4.1mm_ThermalVias', 'keywords':'TI MSP430 CC430 16-bit mixed signal microcontroller CC1101', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cc430f5137.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nCC430F5137xRGZ\n\nTI MSP430 CC430 16-bit mixed signal microcontroller CC1101', 'pins':[
             Pin(num='1',name='P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P1.3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P1.2',func=Pin.types.BIDIR,unit=1),
@@ -54,7 +54,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCORE',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='P1.4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430AFE221IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430AFE221IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430afe221.pdf', 'pins':[
+        Part(**{ 'name':'MSP430AFE221IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430AFE221IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430afe221.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430AFE221IPW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='A0.0+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
@@ -79,7 +79,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Vref',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='(AVSS)',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='(AVSS)',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430AFE222IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430AFE222IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430afe222.pdf', 'pins':[
+        Part(**{ 'name':'MSP430AFE222IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430AFE222IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430afe222.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430AFE222IPW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='A0.0+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
@@ -104,7 +104,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Vref',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='(AVSS)',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='(AVSS)',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430AFE223IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430AFE223IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430afe223.pdf', 'pins':[
+        Part(**{ 'name':'MSP430AFE223IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430AFE223IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430afe223.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430AFE223IPW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='A0.0+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
@@ -129,7 +129,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Vref',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='A2.0+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='A2.0-',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F1101AIDGV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1101AIDGV'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1101a.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F1101AIDGV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1101AIDGV'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1101a.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F1101AIDGV\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P2.2/CAOUT/TA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/CA0/TA1',func=Pin.types.BIDIR,unit=1),
@@ -150,7 +150,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='P2.0/ACLK',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/INCLK',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F1101AIDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1101AIDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1101a.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F1101AIDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1101AIDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1101a.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F1101AIDW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P2.2/CAOUT/TA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/CA0/TA1',func=Pin.types.BIDIR,unit=1),
@@ -171,7 +171,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='P2.0/ACLK',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/INCLK',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F1101AIPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1101AIPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1101a.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F1101AIPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1101AIPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1101a.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F1101AIPW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P2.2/CAOUT/TA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/CA0/TA1',func=Pin.types.BIDIR,unit=1),
@@ -192,7 +192,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='P2.0/ACLK',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/INCLK',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F1101AIRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1101AIRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm'], 'footprint':'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1101a.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F1101AIRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1101AIRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm'], 'footprint':'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1101a.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F1101AIRGE\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='10',name='P2.3/CA0/TA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.4/CA1/TA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='13',name='TACLK/P1.0',func=Pin.types.BIDIR,unit=1),
@@ -213,7 +213,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='P2.0/ACLK',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='P2.1/INCLK',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.2/CAOUT/TA0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F1122IDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1122IDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1122.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F1122IDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1122IDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1122.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F1122IDW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P2.2/A2/TA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/A3/VREF-/VeREF-/TA1',func=Pin.types.BIDIR,unit=1),
@@ -234,7 +234,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='P2.0/A0/ACLK',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/A1/INCLK',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F1122IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1122IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1122.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F1122IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1122IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1122.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F1122IPW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P2.2/A2/TA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/A3/VREF-/VeREF-/TA1',func=Pin.types.BIDIR,unit=1),
@@ -255,7 +255,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='P2.0/A0/ACLK',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/A1/INCLK',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F1122IRHB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1122IRHB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1122.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F1122IRHB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1122IRHB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1122.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F1122IRHB\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='18',name='P2.3/A3/VREF-/VeREF-/TA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='19',name='P2.4/A4/VREF+/VeREF+/TA2',func=Pin.types.BIDIR,unit=1),
@@ -276,7 +276,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='P2.0/A0/ACLK',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='P2.1/A1/INCLK',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.2/A2/TA0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F1222IDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1222IDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1222.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F1222IDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1222IDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1222.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F1222IDW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='TA0/A2/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.0/A5/STE0',func=Pin.types.BIDIR,unit=1),
@@ -305,7 +305,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='ACLK/A0/P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='INCLK/A1/P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F1222IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1222IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1222.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F1222IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1222IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1222.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F1222IPW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='TA0/A2/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.0/A5/STE0',func=Pin.types.BIDIR,unit=1),
@@ -334,7 +334,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='ACLK/A0/P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='INCLK/A1/P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F1222IRHB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1222IRHB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1222.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F1222IRHB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1222IRHB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1222.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F1222IRHB\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P3.1/SIMO0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.2/SOMI0',func=Pin.types.BIDIR,unit=1),
@@ -363,7 +363,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='INCLK/A1/P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TA0/A2/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.0/A5/STE0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F122IDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F122IDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f122.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F122IDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F122IDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f122.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F122IDW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='TA0/CAOUT/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.0/STE0',func=Pin.types.BIDIR,unit=1),
@@ -392,7 +392,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='ACLK/P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='INCLK/P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F122IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F122IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f122.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F122IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F122IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f122.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F122IPW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='TA0/CAOUT/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.0/STE0',func=Pin.types.BIDIR,unit=1),
@@ -421,7 +421,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='ACLK/P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='INCLK/P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F122IRHB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F122IRHB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f122.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F122IRHB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F122IRHB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f122.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F122IRHB\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P3.1/SIMO0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.2/SOMI0',func=Pin.types.BIDIR,unit=1),
@@ -450,7 +450,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='INCLK/P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TA0/CAOUT/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.0/STE0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2001IN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2001IN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2001.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2001IN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2001IN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2001.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2001IN\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -465,7 +465,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CA5/TA0/TMS/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='CA6/TA1/TDI/TCLK/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='CA7/CAOUT/TDO/TDI/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2001IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2001IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2001.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2001IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2001IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2001.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2001IPW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -480,7 +480,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CA5/TA0/TMS/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='CA6/TA1/TDI/TCLK/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='CA7/CAOUT/TDO/TDI/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2001IRSA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2001IRSA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2001.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2001IRSA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2001IRSA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2001.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2001IRSA\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='CA0/TA0CLK/ACLK/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='TEST/SBWTCK',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='P2.7/XOUT',func=Pin.types.BIDIR,unit=1),
@@ -495,7 +495,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CA6/TDI/TCLK/TA0.1/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='CA7/TDO/TDI/CAOUT/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2002IN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2002IN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2002.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2002IN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2002IN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2002.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2002IN\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -510,7 +510,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TA0/A5/SCLK/TMS/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TA1/A6/SDO/SCL/TDI/TCLK/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='A7/SDI/SDA/TDO/TDI/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2002IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2002IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2002.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2002IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2002IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2002.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2002IPW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -525,7 +525,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TA0/A5/SCLK/TMS/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TA1/A6/SDO/SCL/TDI/TCLK/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='A7/SDI/SDA/TDO/TDI/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2002IRSA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2002IRSA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2002.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2002IRSA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2002IRSA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2002.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2002IRSA\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='A0/TA0CLK/ACLK/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='P2.7/XOUT',func=Pin.types.BIDIR,unit=1),
@@ -542,7 +542,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TA1/A6/SDO/SCL/TDI/TCLK/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='A7/SDI/SDA/TDO/TDI/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2003IN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2003IN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2003.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2003IN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2003IN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2003.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2003IN\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -557,7 +557,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TA0/A2-/SCLK/TMS/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TA1/A3+/SDO/SCL/TDI/TCLK/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='A3-/SDI/SDA/TDO/TDI/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2003IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2003IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2003.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2003IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2003IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2003.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2003IPW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -572,7 +572,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TA0/A2-/SCLK/TMS/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TA1/A3+/SDO/SCL/TDI/TCLK/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='A3-/SDI/SDA/TDO/TDI/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2003IRSA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2003IRSA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2003.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2003IRSA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2003IRSA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2003.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2003IRSA\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TACLK/ACLK/A0+/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='P2.7/XOUT',func=Pin.types.BIDIR,unit=1),
@@ -589,7 +589,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TA1/A3+/SDO/SCL/TDI/TCLK/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='A3-/SDI/SDA/TDO/TDI/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2101IDGV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2101IDGV'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2101.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2101IDGV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2101IDGV'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2101.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2101IDGV\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P2.2/CAOUT/TA0/CA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1/CA0',func=Pin.types.BIDIR,unit=1),
@@ -610,7 +610,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='P2.0/ACLK/CA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/INCLK/CA3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2101IDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2101IDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2101.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2101IDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2101IDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2101.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2101IDW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P2.2/CAOUT/TA0/CA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1/CA0',func=Pin.types.BIDIR,unit=1),
@@ -631,7 +631,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='P2.0/ACLK/CA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/INCLK/CA3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2101IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2101IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2101.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2101IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2101IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2101.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2101IPW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P2.2/CAOUT/TA0/CA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1/CA0',func=Pin.types.BIDIR,unit=1),
@@ -652,7 +652,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='P2.0/ACLK/CA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/INCLK/CA3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2101IRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2101IRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm'], 'footprint':'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2101.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2101IRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2101IRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm'], 'footprint':'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2101.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2101IRGE\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='10',name='P2.3/TA1/CA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.4/TA2/CA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='13',name='TACLK/P1.0',func=Pin.types.BIDIR,unit=1),
@@ -673,7 +673,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='P2.0/ACLK/CA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='P2.1/INCLK/CA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.2/CAOUT/TA0/CA4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2112IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2112IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2112.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2112IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2112IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2112.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2112IPW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='CAOUT/CA4/TA0.0/A2/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.0/UCB0STE/UCA0CLK/A5',func=Pin.types.BIDIR,unit=1),
@@ -702,7 +702,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI/SBWTDIO',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='CA2/ACLK/A0/P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='CA3/TAINCLK/SMCLK/A1/P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2112IRHB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2112IRHB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2112.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2112IRHB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2112IRHB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2112.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2112IRHB\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P3.1/UCB0SIMO/UCB0SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.2/UCB0SOMI/UCB0SCL',func=Pin.types.BIDIR,unit=1),
@@ -731,7 +731,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CA3/TAINCLK/SMCLK/A1/P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='CAOUT/CA4/TA0.0/A2/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.0/UCB0STE/UCA0CLK/A5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2112IRTV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2112IRTV'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2112.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2112IRTV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2112IRTV'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2112.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2112IRTV\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P3.1/UCB0SIMO/UCB0SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.2/UCB0SOMI/UCB0SCL',func=Pin.types.BIDIR,unit=1),
@@ -760,7 +760,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CA3/TAINCLK/SMCLK/A1/P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='CAOUT/CA4/TA0.0/A2/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.0/UCB0STE/UCA0CLK/A5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2232IDA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2232IDA'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2232.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2232IDA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2232IDA'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2232.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2232IDA\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='TA0/A2/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.0/UCB0STE/UCA0CLK/A5',func=Pin.types.BIDIR,unit=1),
@@ -799,7 +799,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI/SBWTDIO',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='ACLK/A0/P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TAINCLK/SMCLK/A1/P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2232IRHA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2232IRHA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm'], 'footprint':'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2232.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2232IRHA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2232IRHA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm'], 'footprint':'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2232.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2232IRHA\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P3.1/UCB0SIMO/UCB0SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.2/UCB0SOMI/UCB0SCL',func=Pin.types.BIDIR,unit=1),
@@ -840,7 +840,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TAINCLK/SMCLK/A1/P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TA0/A2/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.0/UCB0STE/UCA0CLK/A5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2232IYFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2232IYFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2232.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2232IYFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2232IYFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2232.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2232IYFF\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='XOUT/P2.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='XIN/P2.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='DVSS',func=Pin.types.PWRIN,unit=1),
@@ -890,7 +890,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G5',name='P3.5/UCA0RXD/UCA0SOMI',func=Pin.types.BIDIR,unit=1),
             Pin(num='G6',name='P3.4/UCA0TXD/UCA0SIMO',func=Pin.types.BIDIR,unit=1),
             Pin(num='G7',name='P4.6/TBOUTH/A15',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2234IDA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2234IDA'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2234.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2234IDA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2234IDA'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2234.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2234IDA\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='TA0/A2/OA0I1/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.0/UCB0STE/UCA0CLK/A5',func=Pin.types.BIDIR,unit=1),
@@ -929,7 +929,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI/SBWTDIO',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='ACLK/A0/OA0I0/P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TAINCLK/SMCLK/A1/OA0O/P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2234IRHA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2234IRHA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm'], 'footprint':'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2234.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2234IRHA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2234IRHA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm'], 'footprint':'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2234.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2234IRHA\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P3.1/UCB0SIMO/UCB0SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.2/UCB0SOMI/UCB0SCL',func=Pin.types.BIDIR,unit=1),
@@ -970,7 +970,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TAINCLK/SMCLK/A1/OA0O/P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TA0/A2/OA0I1/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.0/UCB0STE/UCA0CLK/A5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2234IYFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2234IYFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2234.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2234IYFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2234IYFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2234.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2234IYFF\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='XOUT/P2.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='XIN/P2.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='DVSS',func=Pin.types.PWRIN,unit=1),
@@ -1020,7 +1020,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G5',name='P3.5/UCA0RXD/UCA0SOMI',func=Pin.types.BIDIR,unit=1),
             Pin(num='G6',name='P3.4/UCA0TXD/UCA0SIMO',func=Pin.types.BIDIR,unit=1),
             Pin(num='G7',name='P4.6/TBOUTH/A15/OA1I3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2330IRHA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2330IRHA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm'], 'footprint':'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2330.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2330IRHA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2330IRHA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm'], 'footprint':'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2330.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2330IRHA\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='TA1/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TA2/P1.7',func=Pin.types.BIDIR,unit=1),
@@ -1061,7 +1061,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TA2/P1.3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SMCLK/P1.4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TA0/P1.5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2330IYFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2330IYFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2330.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2330IYFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2330IYFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2330.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2330IYFF\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='AVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='A2',name='XIN/CA6/P2.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='XOUT/CA7/P2.7',func=Pin.types.BIDIR,unit=1),
@@ -1102,7 +1102,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G5',name='P3.5/UCA0RXD/UCA0SOMI',func=Pin.types.BIDIR,unit=1),
             Pin(num='G6',name='P3.4/UCA0TXD/UCA0SIMO',func=Pin.types.BIDIR,unit=1),
             Pin(num='G7',name='P3.3/UCB0CLK/UCA0STE',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2618-EP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2618-EP'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2618-ep.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2618-EP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2618-EP'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2618-ep.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2618-EP\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='A10',name='P8.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='P7.7',func=Pin.types.BIDIR,unit=1),
@@ -1216,7 +1216,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='P3.4/UCA0TXD/UCA0SIMO',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='P3.6/UCA1TXD/UCA1SIMO',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='P4.0/TB0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5217IRGC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5217IRGC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5217.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5217IRGC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5217IRGC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5217.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5217IRGC\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.0/CB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P5.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AVCC',func=Pin.types.PWRIN,unit=1),
@@ -1281,7 +1281,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P6.6/CB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P6.7/CB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P5.0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5217IYFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5217IYFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-64_3.415x3.535mm_Layout8x8_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-64_3.415x3.535mm_Layout8x8_P0.4mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5217.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5217IYFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5217IYFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-64_3.415x3.535mm_Layout8x8_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-64_3.415x3.535mm_Layout8x8_P0.4mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5217.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5217IYFF\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='P6.1/CB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='P6.4/CB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='P6.7/CB7',func=Pin.types.BIDIR,unit=1),
@@ -1346,7 +1346,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='H7',name='UCA0TXD/UCA0SIMO/P3.3',func=Pin.types.BIDIR,unit=1),
             Pin(num='H8',name='UCB0SIMO/UCB0SDA/P3.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='J7',name='TA2.1/P2.4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5227IRGC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5227IRGC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5227.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5227IRGC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5227IRGC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5227.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5227IRGC\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.0/CB0/A0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P5.1/A9/VeREF-',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AVCC',func=Pin.types.PWRIN,unit=1),
@@ -1411,7 +1411,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P6.6/CB6/A6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P6.7/CB7/A7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P5.0/A8/VeREF+',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5227IYFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5227IYFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-64_3.415x3.535mm_Layout8x8_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-64_3.415x3.535mm_Layout8x8_P0.4mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5227.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5227IYFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5227IYFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-64_3.415x3.535mm_Layout8x8_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-64_3.415x3.535mm_Layout8x8_P0.4mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5227.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5227IYFF\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='P6.1/CB1/A1',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='P6.4/CB4/A4',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='P6.7/CB7/A7',func=Pin.types.BIDIR,unit=1),
@@ -1476,7 +1476,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='H7',name='UCA0TXD/UCA0SIMO/P3.3',func=Pin.types.BIDIR,unit=1),
             Pin(num='H8',name='UCB0SIMO/UCB0SDA/P3.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='J7',name='TA2.1/P2.4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5232IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5232IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5232.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5232IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5232IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5232.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5232IRGZ\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.3/CB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DVSS',func=Pin.types.PWRIN,unit=1),
@@ -1524,7 +1524,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P5.4/XIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P5.5/XOUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='AVSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5237IRGC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5237IRGC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5237.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5237IRGC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5237IRGC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5237.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5237IRGC\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.0/CB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P5.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AVCC',func=Pin.types.PWRIN,unit=1),
@@ -1588,7 +1588,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P6.6/CB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P6.7/CB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P5.0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5242IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5242IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5242.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5242IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5242IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5242.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5242IRGZ\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.3/A3/CB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DVSS',func=Pin.types.PWRIN,unit=1),
@@ -1636,7 +1636,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P5.4/XIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P5.5/XOUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='AVSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5247IRGC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5247IRGC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5247.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5247IRGC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5247IRGC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5247.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5247IRGC\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.0/CB0/A0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P5.1/A9/VeREF-',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AVCC',func=Pin.types.PWRIN,unit=1),
@@ -1700,7 +1700,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P6.6/CB6/A6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P6.7/CB7/A7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P5.0/A8/VeREF+',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5304IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5304IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5304.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5304IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5304IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5304.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5304IPT\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.0/A0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='AVSS1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DVCC1',func=Pin.types.PWRIN,unit=1),
@@ -1747,7 +1747,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AVCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='P5.4/XIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P5.5/XOUT',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5304IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5304IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5304.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5304IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5304IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5304.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5304IRGZ\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.0/A0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='AVSS1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DVCC1',func=Pin.types.PWRIN,unit=1),
@@ -1794,7 +1794,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AVCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='P5.4/XIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P5.5/XOUT',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5308IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5308IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5308.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5308IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5308IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5308.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5308IPT\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.0/A0/CB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='AVSS1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DVCC1',func=Pin.types.PWRIN,unit=1),
@@ -1841,7 +1841,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AVCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='P5.4/XIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P5.5/XOUT',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5308IRGC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5308IRGC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5308.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5308IRGC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5308IRGC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5308.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5308IRGC\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.0/CB0/A0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P5.1/A9/VeREF-',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AVCC1',func=Pin.types.PWRIN,unit=1),
@@ -1904,7 +1904,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P6.6/CB6/A6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P6.7/CB7/A7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P5.0/A8/VeREF+',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5308IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5308IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5308.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5308IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5308IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5308.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5308IRGZ\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.0/A0/CB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='AVSS1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DVCC1',func=Pin.types.PWRIN,unit=1),
@@ -1951,7 +1951,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AVCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='P5.4/XIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P5.5/XOUT',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5308IZQE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5308IZQE'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-80_5.0x5.0mm_Layout9x9_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-80_5.0x5.0mm_Layout9x9_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5308.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5308IZQE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5308IZQE'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-80_5.0x5.0mm_Layout9x9_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-80_5.0x5.0mm_Layout9x9_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5308.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5308IZQE\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='P6.0/CB0/A0',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='A3',name='PJ.2/TMS',func=Pin.types.BIDIR,unit=1),
@@ -2030,7 +2030,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='J7',name='TA2.1/P2.4',func=Pin.types.BIDIR,unit=1),
             Pin(num='J8',name='TA2.2/P2.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='J9',name='RTCCLK/DMAE0/P2.6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5333IPZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5333IPZ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5333.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5333IPZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5333IPZ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5333.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5333IPZ\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.4/CB4/A4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VREF-/VeREF-/P5.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='P6.3/CB3/A3',func=Pin.types.BIDIR,unit=1),
@@ -2128,7 +2128,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='P6.0/CB0/A0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='P6.1/CB1/A1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='P6.2/CB2/A2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5333IZQW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5333IZQW'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5333.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5333IZQW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5333IZQW'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5333.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5333IZQW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='P6.4/CB4/A4',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='LDOI',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PU.1',func=Pin.types.BIDIR,unit=1),
@@ -2239,7 +2239,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='TA0.2/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='TA1.1/P3.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='TA2.0/P3.5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5336IPZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5336IPZ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5336.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5336IPZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5336IPZ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5336.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5336IPZ\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.4/CB4/A4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VREF-/VeREF-/P5.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='P6.3/CB3/A3',func=Pin.types.BIDIR,unit=1),
@@ -2337,7 +2337,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='P6.0/CB0/A0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='P6.1/CB1/A1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='P6.2/CB2/A2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5336IZQW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5336IZQW'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5336.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5336IZQW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5336IZQW'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5336.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5336IZQW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='P6.4/CB4/A4',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='LDOI',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PU.1',func=Pin.types.BIDIR,unit=1),
@@ -2448,7 +2448,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='TA0.2/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='TA1.1/P3.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='TA2.0/P3.5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5340IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5340IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5340.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5340IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5340IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5340.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5340IRGZ\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.3/A3/CB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='DVCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DVSS1',func=Pin.types.PWRIN,unit=1),
@@ -2497,7 +2497,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P5.4/XIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P5.5/XOUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='AVSS1',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5358IZQW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5358IZQW'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5358.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5358IZQW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5358IZQW'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5358.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5358IZQW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='P6.4/CB4/A4',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='LDOI',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PU.1',func=Pin.types.BIDIR,unit=1),
@@ -2608,7 +2608,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='P1.7/TA0.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='P3.2/TA1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='P3.5/TA2.0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5500IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5500IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5500.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5500IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5500IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5500.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5500IRGZ\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.0/CB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='AVSS1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DVCC1',func=Pin.types.PWRIN,unit=1),
@@ -2657,7 +2657,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AVCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='P5.4/XIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P5.5/XOUT',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5504IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5504IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5504.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5504IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5504IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5504.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5504IRGZ\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.0/A0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='AVSS1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DVCC1',func=Pin.types.PWRIN,unit=1),
@@ -2706,7 +2706,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AVCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='P5.4/XIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P5.5/XOUT',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5508IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5508IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5508.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5508IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5508IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5508.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5508IRGZ\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.0/CB0/A0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='AVSS1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DVCC1',func=Pin.types.PWRIN,unit=1),
@@ -2755,7 +2755,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AVCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='P5.4/XIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P5.5/XOUT',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5524IYFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5524IYFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-64_3.415x3.535mm_Layout8x8_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-64_3.415x3.535mm_Layout8x8_P0.4mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5524.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5524IYFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5524IYFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-64_3.415x3.535mm_Layout8x8_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-64_3.415x3.535mm_Layout8x8_P0.4mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5524.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5524IYFF\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='P6.2/CB2/A2',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='P6.6/CB6/A6',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='AVCC1',func=Pin.types.PWRIN,unit=1),
@@ -2820,7 +2820,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='H6',name='DVSS2',func=Pin.types.PWRIN,unit=1),
             Pin(num='H7',name='UCB0SOMI/UCB0SCL/P3.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='H8',name='UCB0STE/UCA0CLK/P2.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5630IZQW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5630IZQW'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5630.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5630IZQW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5630IZQW'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5630.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5630IZQW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='P6.4/CB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='VBUS',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PU.1/DM',func=Pin.types.BIDIR,unit=1),
@@ -2933,7 +2933,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='TA0.2/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='TA1.1/P3.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='TA2.0/P3.5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5633IZQW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5633IZQW'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5633.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5633IZQW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5633IZQW'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5633.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5633IZQW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='P6.4/CB4/A4',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='VBUS',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PU.1/DM',func=Pin.types.BIDIR,unit=1),
@@ -3046,7 +3046,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='TA0.2/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='TA1.1/P3.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='TA2.0/P3.5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5636IZQW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5636IZQW'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5636.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5636IZQW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5636IZQW'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5636.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5636IZQW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='P6.4/CB4/A4',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='VBUS',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PU.1/DM',func=Pin.types.BIDIR,unit=1),
@@ -3159,7 +3159,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='TA0.2/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='TA1.1/P3.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='TA2.0/P3.5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5658IZQW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5658IZQW'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5658.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5658IZQW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5658IZQW'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5658.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5658IZQW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='P6.4/A4/CB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='VBUS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='A11',name='PU.1/DM',func=Pin.types.BIDIR,unit=1),
@@ -3271,7 +3271,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='TA0.2/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='TA1.1/P3.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='TA2.0/P3.5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430FR5720IRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430FR5720IRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm'], 'footprint':'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430fr5720.pdf', 'pins':[
+        Part(**{ 'name':'MSP430FR5720IRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430FR5720IRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm'], 'footprint':'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430fr5720.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430FR5720IRGE\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0.1/DMAE0/RTCCLK/CD0/VeREF-/A0/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PJ.3/TCK/CD9',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TEST/SBWTCK',func=Pin.types.INPUT,unit=1),
@@ -3296,7 +3296,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PJ.0/TDO/TB0OUTH/SMCLK/CD6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PJ.1/TDI/TCLK/MCLK/CD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PJ.2/TMS/ACLK/CD8',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430FR5722IRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430FR5722IRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm'], 'footprint':'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430fr5722.pdf', 'pins':[
+        Part(**{ 'name':'MSP430FR5722IRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430FR5722IRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm'], 'footprint':'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430fr5722.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430FR5722IRGE\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0.1/DMAE0/RTCCLK/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PJ.3/TCK/CD9',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TEST/SBWTCK',func=Pin.types.INPUT,unit=1),
@@ -3321,7 +3321,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PJ.0/TDO/TB0OUTH/SMCLK/CD6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PJ.1/TDI/TCLK/MCLK/CD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PJ.2/TMS/ACLK/CD8',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2001IN14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2001IN14'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2001.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2001IN14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2001IN14'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2001.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2001IN14\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -3336,7 +3336,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TA0.0/TMS/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TA0.1/TDI/TCLK/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TDO/TDI/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2001IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2001IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2001.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2001IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2001IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2001.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2001IPW14\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -3351,7 +3351,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TA0.0/TMS/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TA0.1/TDI/TCLK/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TDO/TDI/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2001IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2001IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2001.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2001IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2001IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2001.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2001IRSA16\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0CLK/ACLK/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='P2.7/XOUT',func=Pin.types.BIDIR,unit=1),
@@ -3366,7 +3366,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TA0.1/TDI/TCLK/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TDO/TDI/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2102IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2102IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2102.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2102IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2102IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2102.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2102IN20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3',func=Pin.types.BIDIR,unit=1),
@@ -3387,7 +3387,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/TA0.0/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2102IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2102IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2102.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2102IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2102IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2102.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2102IPW14\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -3402,7 +3402,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/TA0.0/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SDO/SCL/TDI/TCLK/TA0.1/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SDI/SDA/TDO/TDI/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2102IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2102IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2102.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2102IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2102IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2102.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2102IPW20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3',func=Pin.types.BIDIR,unit=1),
@@ -3423,7 +3423,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/TA0.0/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2102IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2102IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2102.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2102IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2102IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2102.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2102IRSA16\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0CLK/ACLK/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='P2.7/XOUT',func=Pin.types.BIDIR,unit=1),
@@ -3440,7 +3440,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDO/SCL/TDI/TCLK/TA0.1/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SDI/SDA/TDO/TDI/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2111IN14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2111IN14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2111.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2111IN14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2111IN14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2111.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2111IN14\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -3455,7 +3455,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CA5/TA0.0/TMS/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='CA6/TA0.1/TDI/TCLK/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='CA7/TDO/TDI/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2111IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2111IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2111.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2111IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2111IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2111.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2111IPW14\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -3470,7 +3470,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CA5/TA0.0/TMS/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='CA6/TA0.1/TDI/TCLK/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='CA7/TDO/TDI/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2111IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2111IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2111.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2111IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2111IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2111.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2111IRSA16\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='ACLK/TA0CLK/CA0/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='P2.7/XOUT',func=Pin.types.BIDIR,unit=1),
@@ -3485,7 +3485,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TDI/TCLK/TA0.1/CA6/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TDO/TDI/CAOUT/CA7/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2112IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2112IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2112.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2112IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2112IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2112.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2112IN20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3',func=Pin.types.BIDIR,unit=1),
@@ -3506,7 +3506,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/TA0.0/CA5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2112IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2112IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2112.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2112IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2112IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2112.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2112IPW14\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -3521,7 +3521,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/TA0.0/CA5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TDI/TCLK/TA0.1/SDO/SCL/CA6/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TDO/TDI/SDI/SDA/CAOUT/CA7/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2112IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2112IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2112.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2112IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2112IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2112.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2112IPW20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3',func=Pin.types.BIDIR,unit=1),
@@ -3542,7 +3542,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/TA0.0/CA5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2112IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2112IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2112.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2112IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2112IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2112.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2112IRSA16\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0CLK/ACLK/CA0/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='P2.7/XOUT',func=Pin.types.BIDIR,unit=1),
@@ -3559,7 +3559,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TDI/TCLK/TA0.1/SDO/SCL/CA6/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TDO/TDI/SDI/SDA/CAOUT/CA7/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2113IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2113IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2153.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2113IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2113IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2153.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2113IPW20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2/TA1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1.0',func=Pin.types.BIDIR,unit=1),
@@ -3580,7 +3580,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/UCB0CLK/UCA0STE/TA0.0/CA5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/TA1.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2121IN14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2121IN14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2121.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2121IN14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2121IN14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2121.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2121IN14\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -3595,7 +3595,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/TA0.0/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TDI/SDO/SCL/TCLK/TA0.1/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TDI/TDO/SDI/SDA/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2121IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2121IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2121.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2121IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2121IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2121.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2121IPW14\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -3610,7 +3610,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/TA0.0/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TDI/SDO/SCL/TCLK/TA0.1/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TDI/TDO/SDI/SDA/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2121IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2121IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2121.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2121IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2121IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2121.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2121IRSA16\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='ACLK/TACLK/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='P2.7/XOUT',func=Pin.types.BIDIR,unit=1),
@@ -3627,7 +3627,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TDI/SDO/SCL/TCLK/TA0.1/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TDI/TDO/SDI/SDA/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2131IN14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2131IN14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2131.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2131IN14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2131IN14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2131.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2131IN14\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -3642,7 +3642,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/TA0.0/A5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TDI/SDO/SCL/TCLK/TA0.1/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TDI/TDO/SDI/SDA/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2131IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2131IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2131.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2131IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2131IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2131.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2131IPW14\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -3657,7 +3657,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/TA0.0/A5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TDI/SDO/SCL/TCLK/TA0.1/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TDI/TDO/SDI/SDA/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2131IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2131IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2131.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2131IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2131IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2131.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2131IRSA16\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='ACLK/TACLK/A0/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='P2.7/XOUT',func=Pin.types.BIDIR,unit=1),
@@ -3674,7 +3674,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TDI/SDO/SCL/TCLK/TA0.1/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TDI/TDO/SDI/SDA/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2132IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2132IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2132.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2132IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2132IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2132.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2132IN20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3',func=Pin.types.BIDIR,unit=1),
@@ -3695,7 +3695,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/A5/TA0.0/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2132IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2132IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2132.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2132IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2132IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2132.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2132IPW14\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -3710,7 +3710,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/A5/TA0.0/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SDO/SCL/TDI/TCLK/A6/TA0.1/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SDI/SDA/TDO/TDI/A7/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2132IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2132IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2132.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2132IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2132IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2132.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2132IPW20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3',func=Pin.types.BIDIR,unit=1),
@@ -3731,7 +3731,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/A5/TA0.0/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2132IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2132IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2132.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2132IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2132IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2132.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2132IRSA16\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='ACLK/A0/TA0CLK/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='P2.7/XOUT',func=Pin.types.BIDIR,unit=1),
@@ -3748,7 +3748,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDO/SCL/TDI/TCLK/A6/TA0.1/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SDI/SDA/TDO/TDI/A7/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2152IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2152IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2152.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2152IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2152IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2152.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2152IN20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3',func=Pin.types.BIDIR,unit=1),
@@ -3769,7 +3769,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/TA0.0/CA5/A5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2152IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2152IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2152.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2152IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2152IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2152.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2152IPW14\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -3784,7 +3784,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/TA0.0/CA5/A5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TDI/TCLK/TA0.1/SDO/SCL/CA6/A6/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TDO/TDI/SDI/SDA/CAOUT/CA7/A7/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2152IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2152IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2152.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2152IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2152IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2152.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2152IPW20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3',func=Pin.types.BIDIR,unit=1),
@@ -3805,7 +3805,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/TA0.0/CA5/A5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2152IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2152IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2152.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2152IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2152IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2152.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2152IRSA16\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0CLK/ACLK/A0/CA0/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='P2.7/XOUT',func=Pin.types.BIDIR,unit=1),
@@ -3822,7 +3822,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TDI/TCLK/TA0.1/SDO/SCL/A6/CA6/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TDO/TDI/CAOUT/SDI/SDA/A7/CA7/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2153IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2153IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2153.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2153IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2153IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2153.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2153IN20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2/TA1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1.0',func=Pin.types.BIDIR,unit=1),
@@ -3843,7 +3843,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/UCB0CLK/UCA0STE/TA0.0/CA5/A5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/TA1.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2153IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2153IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2153.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2153IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2153IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2153.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2153IPW20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2/TA1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1.0',func=Pin.types.BIDIR,unit=1),
@@ -3864,7 +3864,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/UCB0CLK/UCA0STE/TA0.0/CA5/A5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/TA1.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2153IPW28', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2153IPW28'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2153.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2153IPW28', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2153IPW28'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2153.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2153IPW28\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='TA1.0/P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TA1.1/P2.1',func=Pin.types.BIDIR,unit=1),
@@ -3893,7 +3893,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/TA0.0/UCB0CLK/UCA0STE/A5/CA5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P3.1/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.0/TA0.2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2153IRHB32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2153IRHB32'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2153.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2153IRHB32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2153IRHB32'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2153.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2153IRHB32\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0.0/UCA0RXD/UCA0SOMI/A1/CA1/P1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='TA1.1/P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TA1.1/P2.2',func=Pin.types.BIDIR,unit=1),
@@ -3924,7 +3924,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='P3.1/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='P3.0/TA0.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TA1.0/P2.0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2203IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2203IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2203.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2203IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2203IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2203.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2203IN20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2/TA1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1.0',func=Pin.types.BIDIR,unit=1),
@@ -3945,7 +3945,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/TA0.0/UCB0CLK/UCA0STE/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/TA1.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2203IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2203IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2203.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2203IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2203IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2203.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2203IPW20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2/TA1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1.0',func=Pin.types.BIDIR,unit=1),
@@ -3966,7 +3966,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/TA0.0/UCB0CLK/UCA0STE/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/TA1.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2203IPW28', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2203IPW28'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2203.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2203IPW28', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2203IPW28'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2203.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2203IPW28\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='TA1.0/P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TA1.1/P2.1',func=Pin.types.BIDIR,unit=1),
@@ -3995,7 +3995,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/TA0.0/UCB0CLK/UCA0STE/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P3.1/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.0/TA0.2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2203IRHB32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2203IRHB32'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2203.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2203IRHB32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2203IRHB32'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2203.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2203IRHB32\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0.0/UCA0RXD/UCA0SOMI/P1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='TA1.1/P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TA1.1/P2.2',func=Pin.types.BIDIR,unit=1),
@@ -4026,7 +4026,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='P3.1/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='P3.0/TA0.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TA1.0/P2.0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2210ID', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2210ID'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2210.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2210ID', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2210ID'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2210.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2210ID\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='14',name='TA0.1/CA6/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='15',name='CAOUT/CA7/P1.7',func=Pin.types.BIDIR,unit=1),
@@ -4035,7 +4035,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='20',name='DVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='TA0.1/CA2/P1.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='TA0.0/CA5/P1.5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2213IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2213IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2213.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2213IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2213IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2213.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2213IN20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2/TA1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1.0',func=Pin.types.BIDIR,unit=1),
@@ -4056,7 +4056,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/UCB0CLK/UCA0STE/TA0.0/CA5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/TA1.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2213IPW28', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2213IPW28'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2213.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2213IPW28', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2213IPW28'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2213.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2213IPW28\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='TA1.0/P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TA1.1/P2.1',func=Pin.types.BIDIR,unit=1),
@@ -4085,7 +4085,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/TA0.0/UCB0CLK/UCA0STE/CA5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P3.1/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.0/TA0.2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2213IRHB32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2213IRHB32'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2213.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2213IRHB32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2213IRHB32'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2213.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2213IRHB32\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0.0/UCA0RXD/UCA0SOMI/CA1/P1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='TA1.1/P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TA1.1/P2.2',func=Pin.types.BIDIR,unit=1),
@@ -4116,7 +4116,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='P3.1/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='P3.0/TA0.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TA1.0/P2.0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2230ID', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2230ID'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2230.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2230ID', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2230ID'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2230.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2230ID\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='TA0.1/A2/P1.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='TA0.0/SCLK/A5/P1.5',func=Pin.types.BIDIR,unit=1),
@@ -4125,7 +4125,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='TEST/SBWTCK',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DVSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2233IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2233IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2233.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2233IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2233IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2233.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2233IN20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2/TA1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1.0',func=Pin.types.BIDIR,unit=1),
@@ -4146,7 +4146,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/TA0.0/UCB0CLK/UCA0STE/A5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/TA1.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2233IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2233IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2233.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2233IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2233IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2233.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2233IPW20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2/TA1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1.0',func=Pin.types.BIDIR,unit=1),
@@ -4167,7 +4167,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/TA0.0/UCB0CLK/UCA0STE/A5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/TA1.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2233IPW28', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2233IPW28'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2233.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2233IPW28', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2233IPW28'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2233.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2233IPW28\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='TA1.0/P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TA1.1/P2.1',func=Pin.types.BIDIR,unit=1),
@@ -4196,7 +4196,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/TA0.0/UCB0CLK/UCA0STE/A5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P3.1/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.0/TA0.2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2233IRHB32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2233IRHB32'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2233.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2233IRHB32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2233IRHB32'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2233.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2233IRHB32\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0.0/UCA0RXD/UCA0SOMI/A1/P1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='TA1.1/P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TA1.1/P2.2',func=Pin.types.BIDIR,unit=1),
@@ -4227,7 +4227,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='P3.1/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='P3.0/TA0.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TA1.0/P2.0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2444IDA38', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2444IDA38'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2444.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2444IDA38', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2444IDA38'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2444.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2444IDA38\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='TA0/A2/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.0/A5/UCB0STE/UCA0CLK',func=Pin.types.BIDIR,unit=1),
@@ -4266,7 +4266,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='ACLK/A0/P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TAINCLK/SMCLK/A1/P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2444IRHA40', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2444IRHA40'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm'], 'footprint':'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2444.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2444IRHA40', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2444IRHA40'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm'], 'footprint':'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2444.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2444IRHA40\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P3.1/UCB0SIMO/UCB0SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.2/UCB0SOMI/UCB0SCL',func=Pin.types.BIDIR,unit=1),
@@ -4307,7 +4307,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TAINCLK/SMCLK/A1/P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TA0/A2/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.0/UCB0STE/UCA0CLK/A5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2444IYFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2444IYFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2444.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2444IYFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2444IYFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2444.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2444IYFF\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='XOUT/P2.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='XIN/P2.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='DVSS',func=Pin.types.PWRIN,unit=1),
@@ -4357,7 +4357,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G5',name='P3.5/UCA0RXD/UCA0SOMI',func=Pin.types.BIDIR,unit=1),
             Pin(num='G6',name='P3.4/UCA0TXD/UCA0SIMO',func=Pin.types.BIDIR,unit=1),
             Pin(num='G7',name='P4.6/A15/TBOUTH',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2755IDA38', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2755IDA38'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2755.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2755IDA38', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2755IDA38'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2755.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2755IDA38\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='TA0.0/A2/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.0/A5/UCB0STE/UCA0CLK',func=Pin.types.BIDIR,unit=1),
@@ -4396,7 +4396,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='TA1CLK/ACLK/A0/P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TA0INCLK/SMCLK/A1/P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2755IRHA40', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2755IRHA40'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm'], 'footprint':'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2755.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2755IRHA40', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2755IRHA40'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm'], 'footprint':'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2755.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2755IRHA40\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P3.1/UCB0SIMO/UCB0SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.2/UCB0SOMI/UCB0SCL',func=Pin.types.BIDIR,unit=1),
@@ -4437,7 +4437,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TA0INCLK/SMCLK/A1/P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TA0.0/A2/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.0/A5/UCB0STE/UCA0CLK',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CC430F5133xRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CC430F5133xRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-48-1EP_7x7mm_P0.5mm_EP4.1x4.1mm_ThermalVias', 'Package_DFN_QFN:VQFN-48-1EP_7x7mm_P0.5mm_EP4.1x4.1mm_ThermalVias'], 'footprint':'Package_DFN_QFN:VQFN-48-1EP_7x7mm_P0.5mm_EP4.1x4.1mm_ThermalVias', 'keywords':'TI MSP430 CC430 16-bit mixed signal microcontroller CC1101', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cc430f5137.pdf', 'pins':[
+        Part(**{ 'name':'CC430F5133xRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CC430F5133xRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-48-1EP_7x7mm_P0.5mm_EP4.1x4.1mm_ThermalVias', 'Package_DFN_QFN:VQFN-48-1EP_7x7mm_P0.5mm_EP4.1x4.1mm_ThermalVias'], 'footprint':'Package_DFN_QFN:VQFN-48-1EP_7x7mm_P0.5mm_EP4.1x4.1mm_ThermalVias', 'keywords':'TI MSP430 CC430 16-bit mixed signal microcontroller CC1101', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cc430f5137.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nCC430F5133xRGZ\n\nTI MSP430 CC430 16-bit mixed signal microcontroller CC1101', 'pins':[
             Pin(num='1',name='P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P1.3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P1.2',func=Pin.types.BIDIR,unit=1),
@@ -4487,7 +4487,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCORE',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='P1.4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CC430F5135xRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CC430F5135xRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-48-1EP_7x7mm_P0.5mm_EP4.1x4.1mm_ThermalVias', 'Package_DFN_QFN:VQFN-48-1EP_7x7mm_P0.5mm_EP4.1x4.1mm_ThermalVias', 'Package_DFN_QFN:VQFN-48-1EP_7x7mm_P0.5mm_EP4.1x4.1mm_ThermalVias'], 'footprint':'Package_DFN_QFN:VQFN-48-1EP_7x7mm_P0.5mm_EP4.1x4.1mm_ThermalVias', 'keywords':'TI MSP430 CC430 16-bit mixed signal microcontroller CC1101', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cc430f5137.pdf', 'pins':[
+        Part(**{ 'name':'CC430F5135xRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CC430F5135xRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-48-1EP_7x7mm_P0.5mm_EP4.1x4.1mm_ThermalVias', 'Package_DFN_QFN:VQFN-48-1EP_7x7mm_P0.5mm_EP4.1x4.1mm_ThermalVias', 'Package_DFN_QFN:VQFN-48-1EP_7x7mm_P0.5mm_EP4.1x4.1mm_ThermalVias'], 'footprint':'Package_DFN_QFN:VQFN-48-1EP_7x7mm_P0.5mm_EP4.1x4.1mm_ThermalVias', 'keywords':'TI MSP430 CC430 16-bit mixed signal microcontroller CC1101', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cc430f5137.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nCC430F5135xRGZ\n\nTI MSP430 CC430 16-bit mixed signal microcontroller CC1101', 'pins':[
             Pin(num='1',name='P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P1.3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P1.2',func=Pin.types.BIDIR,unit=1),
@@ -4537,7 +4537,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCORE',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='P1.4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430AFE231IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430AFE231IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430afe231.pdf', 'pins':[
+        Part(**{ 'name':'MSP430AFE231IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430AFE231IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430afe231.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430AFE231IPW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='A0.0+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
@@ -4562,7 +4562,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Vref',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='(AVSS)',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='(AVSS)',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430AFE232IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430AFE232IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430afe232.pdf', 'pins':[
+        Part(**{ 'name':'MSP430AFE232IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430AFE232IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430afe232.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430AFE232IPW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='A0.0+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
@@ -4587,7 +4587,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Vref',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='(AVSS)',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='(AVSS)',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430AFE233IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430AFE233IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430afe233.pdf', 'pins':[
+        Part(**{ 'name':'MSP430AFE233IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430AFE233IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430afe233.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430AFE233IPW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='A0.0+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
@@ -4612,7 +4612,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Vref',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='A2.0+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='A2.0-',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430AFE251IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430AFE251IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430afe251.pdf', 'pins':[
+        Part(**{ 'name':'MSP430AFE251IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430AFE251IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430afe251.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430AFE251IPW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='A0.0+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
@@ -4637,7 +4637,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Vref',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='(AVSS)',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='(AVSS)',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430AFE252IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430AFE252IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430afe252.pdf', 'pins':[
+        Part(**{ 'name':'MSP430AFE252IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430AFE252IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430afe252.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430AFE252IPW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='A0.0+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
@@ -4662,7 +4662,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Vref',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='(AVSS)',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='(AVSS)',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430AFE253IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430AFE253IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430afe253.pdf', 'pins':[
+        Part(**{ 'name':'MSP430AFE253IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430AFE253IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430afe253.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430AFE253IPW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='A0.0+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
@@ -4687,7 +4687,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Vref',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='A2.0+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='A2.0-',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F1111AIDGV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1111AIDGV'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1111a.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F1111AIDGV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1111AIDGV'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1111a.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F1111AIDGV\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P2.2/CAOUT/TA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/CA0/TA1',func=Pin.types.BIDIR,unit=1),
@@ -4708,7 +4708,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='P2.0/ACLK',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/INCLK',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F1111AIDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1111AIDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1111a.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F1111AIDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1111AIDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1111a.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F1111AIDW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P2.2/CAOUT/TA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/CA0/TA1',func=Pin.types.BIDIR,unit=1),
@@ -4729,7 +4729,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='P2.0/ACLK',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/INCLK',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F1111AIPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1111AIPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1111a.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F1111AIPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1111AIPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1111a.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F1111AIPW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P2.2/CAOUT/TA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/CA0/TA1',func=Pin.types.BIDIR,unit=1),
@@ -4750,7 +4750,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='P2.0/ACLK',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/INCLK',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F1111AIRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1111AIRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm'], 'footprint':'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1111a.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F1111AIRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1111AIRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm'], 'footprint':'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1111a.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F1111AIRGE\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='10',name='P2.3/CA0/TA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.4/CA1/TA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='13',name='TACLK/P1.0',func=Pin.types.BIDIR,unit=1),
@@ -4771,7 +4771,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='P2.0/ACLK',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='P2.1/INCLK',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.2/CAOUT/TA0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F1121AIDGV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1121AIDGV'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1121a.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F1121AIDGV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1121AIDGV'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1121a.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F1121AIDGV\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P2.2/CAOUT/TA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/CA0/TA1',func=Pin.types.BIDIR,unit=1),
@@ -4792,7 +4792,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='P2.0/ACLK',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/INCLK',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F1121AIDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1121AIDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1121a.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F1121AIDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1121AIDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1121a.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F1121AIDW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P2.2/CAOUT/TA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/CA0/TA1',func=Pin.types.BIDIR,unit=1),
@@ -4813,7 +4813,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='P2.0/ACLK',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/INCLK',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F1121AIPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1121AIPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1121a.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F1121AIPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1121AIPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1121a.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F1121AIPW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P2.2/CAOUT/TA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/CA0/TA1',func=Pin.types.BIDIR,unit=1),
@@ -4834,7 +4834,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='P2.0/ACLK',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/INCLK',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F1121AIRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1121AIRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm'], 'footprint':'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1121a.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F1121AIRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1121AIRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm'], 'footprint':'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1121a.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F1121AIRGE\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='10',name='P2.3/CA0/TA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.4/CA1/TA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='13',name='TACLK/P1.0',func=Pin.types.BIDIR,unit=1),
@@ -4855,7 +4855,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='P2.0/ACLK',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='P2.1/INCLK',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.2/CAOUT/TA0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F1132IDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1132IDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1132.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F1132IDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1132IDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1132.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F1132IDW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P2.2/A2/TA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/A3/VREF-/VeREF-/TA1',func=Pin.types.BIDIR,unit=1),
@@ -4876,7 +4876,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='P2.0/A0/ACLK',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/A1/INCLK',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F1132IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1132IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1132.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F1132IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1132IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1132.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F1132IPW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P2.2/A2/TA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/A3/VREF-/VeREF-/TA1',func=Pin.types.BIDIR,unit=1),
@@ -4897,7 +4897,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='P2.0/A0/ACLK',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/A1/INCLK',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F1132IRHB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1132IRHB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1132.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F1132IRHB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1132IRHB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1132.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F1132IRHB\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='18',name='P2.3/A3/VREF-/VeREF-/TA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='19',name='P2.4/A4/VREF+/VeREF+/TA2',func=Pin.types.BIDIR,unit=1),
@@ -4918,7 +4918,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='P2.0/A0/ACLK',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='P2.1/A1/INCLK',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.2/A2/TA0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F1232IDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1232IDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1232.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F1232IDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1232IDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1232.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F1232IDW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='TA0/A2/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.0/A5/STE0',func=Pin.types.BIDIR,unit=1),
@@ -4947,7 +4947,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='ACLK/A0/P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='INCLK/A1/P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F1232IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1232IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1232.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F1232IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1232IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1232.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F1232IPW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='TA0/A2/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.0/A5/STE0',func=Pin.types.BIDIR,unit=1),
@@ -4976,7 +4976,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='ACLK/A0/P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='INCLK/A1/P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F1232IRHB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1232IRHB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1232.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F1232IRHB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F1232IRHB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f1232.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F1232IRHB\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P3.1/SIMO0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.2/SOMI0',func=Pin.types.BIDIR,unit=1),
@@ -5005,7 +5005,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='INCLK/A1/P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TA0/A2/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.0/A5/STE0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F123IDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F123IDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f123.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F123IDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F123IDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f123.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F123IDW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='TA0/CAOUT/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.0/STE0',func=Pin.types.BIDIR,unit=1),
@@ -5034,7 +5034,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='ACLK/P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='INCLK/P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F123IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F123IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f123.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F123IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F123IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f123.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F123IPW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='TA0/CAOUT/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.0/STE0',func=Pin.types.BIDIR,unit=1),
@@ -5063,7 +5063,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='ACLK/P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='INCLK/P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F123IRHB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F123IRHB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f123.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F123IRHB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F123IRHB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f123.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F123IRHB\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P3.1/SIMO0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.2/SOMI0',func=Pin.types.BIDIR,unit=1),
@@ -5092,7 +5092,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='INCLK/P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TA0/CAOUT/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.0/STE0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2011IN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2011IN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2011.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2011IN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2011IN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2011.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2011IN\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -5107,7 +5107,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CA5/TA0/TMS/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='CA6/TA1/TDI/TCLK/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='CA7/CAOUT/TDO/TDI/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2011IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2011IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2011.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2011IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2011IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2011.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2011IPW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -5122,7 +5122,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CA5/TA0/TMS/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='CA6/TA1/TDI/TCLK/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='CA7/CAOUT/TDO/TDI/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2011IRSA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2011IRSA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2011.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2011IRSA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2011IRSA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2011.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2011IRSA\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='CA0/TA0CLK/ACLK/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='TEST/SBWTCK',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='P2.7/XOUT',func=Pin.types.BIDIR,unit=1),
@@ -5137,7 +5137,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CA6/TDI/TCLK/TA0.1/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='CA7/TDO/TDI/CAOUT/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2012IN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2012IN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2012.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2012IN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2012IN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2012.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2012IN\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -5152,7 +5152,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TA0/A5/SCLK/TMS/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TA1/A6/SDO/SCL/TDI/TCLK/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='A7/SDI/SDA/TDO/TDI/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2012IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2012IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2012.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2012IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2012IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2012.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2012IPW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -5167,7 +5167,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TA0/A5/SCLK/TMS/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TA1/A6/SDO/SCL/TDI/TCLK/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='A7/SDI/SDA/TDO/TDI/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2012IRSA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2012IRSA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2012.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2012IRSA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2012IRSA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2012.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2012IRSA\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='A0/TA0CLK/ACLK/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='P2.7/XOUT',func=Pin.types.BIDIR,unit=1),
@@ -5184,7 +5184,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TA1/A6/SDO/SCL/TDI/TCLK/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='A7/SDI/SDA/TDO/TDI/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2013IN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2013IN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2013.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2013IN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2013IN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2013.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2013IN\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -5199,7 +5199,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TA0/A2-/SCLK/TMS/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TA1/A3+/SDO/SCL/TDI/TCLK/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='A3-/SDI/SDA/TDO/TDI/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2013IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2013IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2013.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2013IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2013IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2013.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2013IPW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -5214,7 +5214,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TA0/A2-/SCLK/TMS/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TA1/A3+/SDO/SCL/TDI/TCLK/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='A3-/SDI/SDA/TDO/TDI/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2013IRSA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2013IRSA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2013.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2013IRSA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2013IRSA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2013.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2013IRSA\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TACLK/ACLK/A0+/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='P2.7/XOUT',func=Pin.types.BIDIR,unit=1),
@@ -5231,7 +5231,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TA1/A3+/SDO/SCL/TDI/TCLK/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='A3-/SDI/SDA/TDO/TDI/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2111IDGV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2111IDGV'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2111.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2111IDGV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2111IDGV'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2111.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2111IDGV\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P2.2/CAOUT/TA0/CA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1/CA0',func=Pin.types.BIDIR,unit=1),
@@ -5252,7 +5252,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='P2.0/ACLK/CA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/INCLK/CA3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2111IDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2111IDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2111.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2111IDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2111IDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2111.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2111IDW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P2.2/CAOUT/TA0/CA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1/CA0',func=Pin.types.BIDIR,unit=1),
@@ -5273,7 +5273,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='P2.0/ACLK/CA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/INCLK/CA3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2111IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2111IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2111.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2111IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2111IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2111.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2111IPW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P2.2/CAOUT/TA0/CA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1/CA0',func=Pin.types.BIDIR,unit=1),
@@ -5294,7 +5294,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='P2.0/ACLK/CA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/INCLK/CA3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2111IRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2111IRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm'], 'footprint':'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2111.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2111IRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2111IRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm'], 'footprint':'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2111.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2111IRGE\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='10',name='P2.3/TA1/CA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.4/TA2/CA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='13',name='TACLK/P1.0',func=Pin.types.BIDIR,unit=1),
@@ -5315,7 +5315,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='P2.0/ACLK/CA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='P2.1/INCLK/CA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.2/CAOUT/TA0/CA4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2121IDGV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2121IDGV'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2121.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2121IDGV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2121IDGV'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2121.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2121IDGV\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P2.2/CAOUT/TA0/CA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1/CA0',func=Pin.types.BIDIR,unit=1),
@@ -5336,7 +5336,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='P2.0/ACLK/CA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/INCLK/CA3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2121IDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2121IDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2121.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2121IDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2121IDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2121.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2121IDW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P2.2/CAOUT/TA0/CA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1/CA0',func=Pin.types.BIDIR,unit=1),
@@ -5357,7 +5357,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='P2.0/ACLK/CA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/INCLK/CA3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2121IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2121IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2121.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2121IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2121IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2121.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2121IPW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P2.2/CAOUT/TA0/CA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1/CA0',func=Pin.types.BIDIR,unit=1),
@@ -5378,7 +5378,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='P2.0/ACLK/CA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/INCLK/CA3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2121IRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2121IRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm'], 'footprint':'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2121.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2121IRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2121IRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm'], 'footprint':'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2121.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2121IRGE\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='10',name='P2.3/TA1/CA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.4/TA2/CA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='13',name='TACLK/P1.0',func=Pin.types.BIDIR,unit=1),
@@ -5399,7 +5399,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='P2.0/ACLK/CA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='P2.1/INCLK/CA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.2/CAOUT/TA0/CA4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2122IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2122IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2122.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2122IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2122IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2122.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2122IPW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='CAOUT/CA4/TA0.0/A2/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.0/UCB0STE/UCA0CLK/A5',func=Pin.types.BIDIR,unit=1),
@@ -5428,7 +5428,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI/SBWTDIO',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='CA2/ACLK/A0/P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='CA3/TAINCLK/SMCLK/A1/P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2122IRHB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2122IRHB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2122.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2122IRHB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2122IRHB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2122.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2122IRHB\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P3.1/UCB0SIMO/UCB0SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.2/UCB0SOMI/UCB0SCL',func=Pin.types.BIDIR,unit=1),
@@ -5457,7 +5457,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CA3/TAINCLK/SMCLK/A1/P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='CAOUT/CA4/TA0.0/A2/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.0/UCB0STE/UCA0CLK/A5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2122IRTV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2122IRTV'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2122.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2122IRTV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2122IRTV'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2122.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2122IRTV\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P3.1/UCB0SIMO/UCB0SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.2/UCB0SOMI/UCB0SCL',func=Pin.types.BIDIR,unit=1),
@@ -5486,7 +5486,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CA3/TAINCLK/SMCLK/A1/P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='CAOUT/CA4/TA0.0/A2/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.0/UCB0STE/UCA0CLK/A5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2131IDGV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2131IDGV'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2131.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2131IDGV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2131IDGV'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2131.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2131IDGV\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P2.2/CAOUT/TA0/CA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1/CA0',func=Pin.types.BIDIR,unit=1),
@@ -5507,7 +5507,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='P2.0/ACLK/CA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/INCLK/CA3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2131IDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2131IDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2131.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2131IDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2131IDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2131.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2131IDW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P2.2/CAOUT/TA0/CA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1/CA0',func=Pin.types.BIDIR,unit=1),
@@ -5528,7 +5528,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='P2.0/ACLK/CA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/INCLK/CA3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2131IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2131IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2131.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2131IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2131IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2131.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2131IPW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P2.2/CAOUT/TA0/CA4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1/CA0',func=Pin.types.BIDIR,unit=1),
@@ -5549,7 +5549,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='P2.0/ACLK/CA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/INCLK/CA3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2131IRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2131IRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm'], 'footprint':'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2131.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2131IRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2131IRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm'], 'footprint':'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2131.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2131IRGE\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='10',name='P2.3/TA1/CA0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.4/TA2/CA1',func=Pin.types.BIDIR,unit=1),
             Pin(num='13',name='TACLK/P1.0',func=Pin.types.BIDIR,unit=1),
@@ -5570,7 +5570,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='P2.0/ACLK/CA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='P2.1/INCLK/CA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.2/CAOUT/TA0/CA4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2132IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2132IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2132.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2132IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2132IPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2132.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2132IPW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='CAOUT/CA4/TA0.0/A2/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.0/UCB0STE/UCA0CLK/A5',func=Pin.types.BIDIR,unit=1),
@@ -5599,7 +5599,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI/SBWTDIO',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='CA2/ACLK/A0/P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='CA3/TAINCLK/SMCLK/A1/P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2132IRHB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2132IRHB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2132.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2132IRHB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2132IRHB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2132.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2132IRHB\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P3.1/UCB0SIMO/UCB0SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.2/UCB0SOMI/UCB0SCL',func=Pin.types.BIDIR,unit=1),
@@ -5628,7 +5628,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CA3/TAINCLK/SMCLK/A1/P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='CAOUT/CA4/TA0.0/A2/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.0/UCB0STE/UCA0CLK/A5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2132IRTV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2132IRTV'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2132.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2132IRTV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2132IRTV'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2132.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2132IRTV\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P3.1/UCB0SIMO/UCB0SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.2/UCB0SOMI/UCB0SCL',func=Pin.types.BIDIR,unit=1),
@@ -5657,7 +5657,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CA3/TAINCLK/SMCLK/A1/P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='CAOUT/CA4/TA0.0/A2/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.0/UCB0STE/UCA0CLK/A5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2252IDA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2252IDA'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2252.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2252IDA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2252IDA'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2252.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2252IDA\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='TA0/A2/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.0/UCB0STE/UCA0CLK/A5',func=Pin.types.BIDIR,unit=1),
@@ -5696,7 +5696,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI/SBWTDIO',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='ACLK/A0/P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TAINCLK/SMCLK/A1/P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2252IRHA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2252IRHA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm'], 'footprint':'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2252.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2252IRHA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2252IRHA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm'], 'footprint':'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2252.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2252IRHA\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P3.1/UCB0SIMO/UCB0SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.2/UCB0SOMI/UCB0SCL',func=Pin.types.BIDIR,unit=1),
@@ -5737,7 +5737,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TAINCLK/SMCLK/A1/P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TA0/A2/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.0/UCB0STE/UCA0CLK/A5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2252IYFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2252IYFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2252.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2252IYFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2252IYFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2252.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2252IYFF\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='XOUT/P2.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='XIN/P2.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='DVSS',func=Pin.types.PWRIN,unit=1),
@@ -5787,7 +5787,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G5',name='P3.5/UCA0RXD/UCA0SOMI',func=Pin.types.BIDIR,unit=1),
             Pin(num='G6',name='P3.4/UCA0TXD/UCA0SIMO',func=Pin.types.BIDIR,unit=1),
             Pin(num='G7',name='P4.6/TBOUTH/A15',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2254IDA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2254IDA'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2254.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2254IDA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2254IDA'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2254.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2254IDA\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='TA0/A2/OA0I1/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.0/UCB0STE/UCA0CLK/A5',func=Pin.types.BIDIR,unit=1),
@@ -5826,7 +5826,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI/SBWTDIO',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='ACLK/A0/OA0I0/P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TAINCLK/SMCLK/A1/OA0O/P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2254IRHA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2254IRHA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm'], 'footprint':'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2254.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2254IRHA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2254IRHA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm'], 'footprint':'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2254.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2254IRHA\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P3.1/UCB0SIMO/UCB0SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.2/UCB0SOMI/UCB0SCL',func=Pin.types.BIDIR,unit=1),
@@ -5867,7 +5867,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TAINCLK/SMCLK/A1/OA0O/P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TA0/A2/OA0I1/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.0/UCB0STE/UCA0CLK/A5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2254IYFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2254IYFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2254.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2254IYFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2254IYFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2254.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2254IYFF\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='XOUT/P2.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='XIN/P2.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='DVSS',func=Pin.types.PWRIN,unit=1),
@@ -5917,7 +5917,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G5',name='P3.5/UCA0RXD/UCA0SOMI',func=Pin.types.BIDIR,unit=1),
             Pin(num='G6',name='P3.4/UCA0TXD/UCA0SIMO',func=Pin.types.BIDIR,unit=1),
             Pin(num='G7',name='P4.6/TBOUTH/A15/OA1I3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2272IDA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2272IDA'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2272.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2272IDA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2272IDA'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2272.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2272IDA\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='TA0/A2/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.0/UCB0STE/UCA0CLK/A5',func=Pin.types.BIDIR,unit=1),
@@ -5956,7 +5956,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI/SBWTDIO',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='ACLK/A0/P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TAINCLK/SMCLK/A1/P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2272IRHA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2272IRHA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm'], 'footprint':'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2272.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2272IRHA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2272IRHA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm'], 'footprint':'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2272.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2272IRHA\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P3.1/UCB0SIMO/UCB0SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.2/UCB0SOMI/UCB0SCL',func=Pin.types.BIDIR,unit=1),
@@ -5997,7 +5997,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TAINCLK/SMCLK/A1/P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TA0/A2/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.0/UCB0STE/UCA0CLK/A5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2272IYFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2272IYFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2272.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2272IYFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2272IYFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2272.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2272IYFF\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='XOUT/P2.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='XIN/P2.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='DVSS',func=Pin.types.PWRIN,unit=1),
@@ -6047,7 +6047,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G5',name='P3.5/UCA0RXD/UCA0SOMI',func=Pin.types.BIDIR,unit=1),
             Pin(num='G6',name='P3.4/UCA0TXD/UCA0SIMO',func=Pin.types.BIDIR,unit=1),
             Pin(num='G7',name='P4.6/TBOUTH/A15',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2274IDA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2274IDA'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2274.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2274IDA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2274IDA'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2274.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2274IDA\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='TA0/A2/OA0I1/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.0/UCB0STE/UCA0CLK/A5',func=Pin.types.BIDIR,unit=1),
@@ -6086,7 +6086,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI/SBWTDIO',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='ACLK/A0/OA0I0/P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TAINCLK/SMCLK/A1/OA0O/P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2274IRHA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2274IRHA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm'], 'footprint':'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2274.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2274IRHA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2274IRHA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm'], 'footprint':'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2274.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2274IRHA\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P3.1/UCB0SIMO/UCB0SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.2/UCB0SOMI/UCB0SCL',func=Pin.types.BIDIR,unit=1),
@@ -6127,7 +6127,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TAINCLK/SMCLK/A1/OA0O/P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TA0/A2/OA0I1/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.0/UCB0STE/UCA0CLK/A5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2274IYFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2274IYFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2274.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2274IYFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2274IYFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2274.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2274IYFF\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='XOUT/P2.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='XIN/P2.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='DVSS',func=Pin.types.PWRIN,unit=1),
@@ -6177,7 +6177,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G5',name='P3.5/UCA0RXD/UCA0SOMI',func=Pin.types.BIDIR,unit=1),
             Pin(num='G6',name='P3.4/UCA0TXD/UCA0SIMO',func=Pin.types.BIDIR,unit=1),
             Pin(num='G7',name='P4.6/TBOUTH/A15/OA1I3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2350IRHA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2350IRHA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm'], 'footprint':'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2350.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2350IRHA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2350IRHA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm'], 'footprint':'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2350.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2350IRHA\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='TA1/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TA2/P1.7',func=Pin.types.BIDIR,unit=1),
@@ -6218,7 +6218,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TA2/P1.3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SMCLK/P1.4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TA0/P1.5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2350IYFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2350IYFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2350.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2350IYFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2350IYFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2350.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2350IYFF\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='AVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='A2',name='XIN/CA6/P2.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='XOUT/CA7/P2.7',func=Pin.types.BIDIR,unit=1),
@@ -6259,7 +6259,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G5',name='P3.5/UCA0RXD/UCA0SOMI',func=Pin.types.BIDIR,unit=1),
             Pin(num='G6',name='P3.4/UCA0TXD/UCA0SIMO',func=Pin.types.BIDIR,unit=1),
             Pin(num='G7',name='P3.3/UCB0CLK/UCA0STE',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2370IRHA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2370IRHA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm'], 'footprint':'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2370.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2370IRHA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2370IRHA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm'], 'footprint':'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2370.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2370IRHA\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='TA1/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TA2/P1.7',func=Pin.types.BIDIR,unit=1),
@@ -6300,7 +6300,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TA2/P1.3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SMCLK/P1.4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TA0/P1.5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F2370IYFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2370IYFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2370.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F2370IYFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F2370IYFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f2370.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F2370IYFF\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='AVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='A2',name='XIN/CA6/P2.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='XOUT/CA7/P2.7',func=Pin.types.BIDIR,unit=1),
@@ -6341,7 +6341,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G5',name='P3.5/UCA0RXD/UCA0SOMI',func=Pin.types.BIDIR,unit=1),
             Pin(num='G6',name='P3.4/UCA0TXD/UCA0SIMO',func=Pin.types.BIDIR,unit=1),
             Pin(num='G7',name='P3.3/UCB0CLK/UCA0STE',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5219IRGC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5219IRGC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm', 'Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5219.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5219IRGC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5219IRGC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm', 'Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5219.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5219IRGC\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.0/CB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P5.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AVCC',func=Pin.types.PWRIN,unit=1),
@@ -6406,7 +6406,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P6.6/CB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P6.7/CB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P5.0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5219IYFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5219IYFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-64_3.415x3.535mm_Layout8x8_P0.4mm', 'Package_BGA:Texas_DSBGA-64_3.415x3.535mm_Layout8x8_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-64_3.415x3.535mm_Layout8x8_P0.4mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5219.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5219IYFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5219IYFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-64_3.415x3.535mm_Layout8x8_P0.4mm', 'Package_BGA:Texas_DSBGA-64_3.415x3.535mm_Layout8x8_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-64_3.415x3.535mm_Layout8x8_P0.4mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5219.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5219IYFF\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='P6.1/CB1',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='P6.4/CB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='P6.7/CB7',func=Pin.types.BIDIR,unit=1),
@@ -6471,7 +6471,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='H7',name='UCA0TXD/UCA0SIMO/P3.3',func=Pin.types.BIDIR,unit=1),
             Pin(num='H8',name='UCB0SIMO/UCB0SDA/P3.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='J7',name='TA2.1/P2.4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5229IRGC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5229IRGC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm', 'Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5229.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5229IRGC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5229IRGC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm', 'Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5229.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5229IRGC\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.0/CB0/A0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P5.1/A9/VeREF-',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AVCC',func=Pin.types.PWRIN,unit=1),
@@ -6536,7 +6536,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P6.6/CB6/A6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P6.7/CB7/A7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P5.0/A8/VeREF+',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5229IYFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5229IYFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-64_3.415x3.535mm_Layout8x8_P0.4mm', 'Package_BGA:Texas_DSBGA-64_3.415x3.535mm_Layout8x8_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-64_3.415x3.535mm_Layout8x8_P0.4mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5229.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5229IYFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5229IYFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-64_3.415x3.535mm_Layout8x8_P0.4mm', 'Package_BGA:Texas_DSBGA-64_3.415x3.535mm_Layout8x8_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-64_3.415x3.535mm_Layout8x8_P0.4mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5229.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5229IYFF\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='P6.1/CB1/A1',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='P6.4/CB4/A4',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='P6.7/CB7/A7',func=Pin.types.BIDIR,unit=1),
@@ -6601,7 +6601,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='H7',name='UCA0TXD/UCA0SIMO/P3.3',func=Pin.types.BIDIR,unit=1),
             Pin(num='H8',name='UCB0SIMO/UCB0SDA/P3.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='J7',name='TA2.1/P2.4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5234IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5234IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5234.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5234IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5234IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5234.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5234IRGZ\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.3/CB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DVSS',func=Pin.types.PWRIN,unit=1),
@@ -6649,7 +6649,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P5.4/XIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P5.5/XOUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='AVSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5239IRGC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5239IRGC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm', 'Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5239.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5239IRGC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5239IRGC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm', 'Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5239.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5239IRGC\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.0/CB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P5.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AVCC',func=Pin.types.PWRIN,unit=1),
@@ -6713,7 +6713,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P6.6/CB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P6.7/CB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P5.0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5244IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5244IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5244.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5244IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5244IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5244.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5244IRGZ\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.3/A3/CB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DVSS',func=Pin.types.PWRIN,unit=1),
@@ -6761,7 +6761,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P5.4/XIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P5.5/XOUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='AVSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5249IRGC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5249IRGC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm', 'Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5249.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5249IRGC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5249IRGC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm', 'Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5249.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5249IRGC\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.0/CB0/A0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P5.1/A9/VeREF-',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AVCC',func=Pin.types.PWRIN,unit=1),
@@ -6825,7 +6825,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P6.6/CB6/A6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P6.7/CB7/A7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P5.0/A8/VeREF+',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5309IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5309IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5309.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5309IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5309IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5309.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5309IPT\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.0/A0/CB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='AVSS1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DVCC1',func=Pin.types.PWRIN,unit=1),
@@ -6872,7 +6872,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AVCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='P5.4/XIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P5.5/XOUT',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5309IRGC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5309IRGC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm', 'Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5309.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5309IRGC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5309IRGC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm', 'Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5309.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5309IRGC\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.0/CB0/A0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P5.1/A9/VeREF-',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AVCC1',func=Pin.types.PWRIN,unit=1),
@@ -6935,7 +6935,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P6.6/CB6/A6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P6.7/CB7/A7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P5.0/A8/VeREF+',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5309IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5309IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5309.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5309IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5309IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5309.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5309IRGZ\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.0/A0/CB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='AVSS1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DVCC1',func=Pin.types.PWRIN,unit=1),
@@ -6982,7 +6982,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AVCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='P5.4/XIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P5.5/XOUT',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5309IZQE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5309IZQE'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-80_5.0x5.0mm_Layout9x9_P0.5mm', 'Package_BGA:Texas_MicroStar_Junior_BGA-80_5.0x5.0mm_Layout9x9_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-80_5.0x5.0mm_Layout9x9_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5309.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5309IZQE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5309IZQE'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-80_5.0x5.0mm_Layout9x9_P0.5mm', 'Package_BGA:Texas_MicroStar_Junior_BGA-80_5.0x5.0mm_Layout9x9_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-80_5.0x5.0mm_Layout9x9_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5309.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5309IZQE\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='P6.0/CB0/A0',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='A3',name='PJ.2/TMS',func=Pin.types.BIDIR,unit=1),
@@ -7061,7 +7061,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='J7',name='TA2.1/P2.4',func=Pin.types.BIDIR,unit=1),
             Pin(num='J8',name='TA2.2/P2.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='J9',name='RTCCLK/DMAE0/P2.6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5310IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5310IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5310.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5310IPT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5310IPT'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5310.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5310IPT\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.0/A0/CB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='AVSS1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DVCC1',func=Pin.types.PWRIN,unit=1),
@@ -7108,7 +7108,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AVCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='P5.4/XIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P5.5/XOUT',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5310IRGC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5310IRGC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm', 'Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm', 'Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5310.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5310IRGC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5310IRGC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm', 'Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm', 'Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:Texas_RGC0064B_VQFN-64-1EP_9x9mm_P0.5mm_EP4.25x4.25mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5310.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5310IRGC\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.0/CB0/A0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P5.1/A9/VeREF-',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AVCC1',func=Pin.types.PWRIN,unit=1),
@@ -7171,7 +7171,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P6.6/CB6/A6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P6.7/CB7/A7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P5.0/A8/VeREF+',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5310IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5310IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5310.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5310IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5310IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5310.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5310IRGZ\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.0/A0/CB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='AVSS1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DVCC1',func=Pin.types.PWRIN,unit=1),
@@ -7218,7 +7218,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AVCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='P5.4/XIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P5.5/XOUT',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5310IZQE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5310IZQE'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-80_5.0x5.0mm_Layout9x9_P0.5mm', 'Package_BGA:Texas_MicroStar_Junior_BGA-80_5.0x5.0mm_Layout9x9_P0.5mm', 'Package_BGA:Texas_MicroStar_Junior_BGA-80_5.0x5.0mm_Layout9x9_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-80_5.0x5.0mm_Layout9x9_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5310.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5310IZQE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5310IZQE'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-80_5.0x5.0mm_Layout9x9_P0.5mm', 'Package_BGA:Texas_MicroStar_Junior_BGA-80_5.0x5.0mm_Layout9x9_P0.5mm', 'Package_BGA:Texas_MicroStar_Junior_BGA-80_5.0x5.0mm_Layout9x9_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-80_5.0x5.0mm_Layout9x9_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5310.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5310IZQE\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='P6.0/CB0/A0',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='A3',name='PJ.2/TMS',func=Pin.types.BIDIR,unit=1),
@@ -7297,7 +7297,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='J7',name='TA2.1/P2.4',func=Pin.types.BIDIR,unit=1),
             Pin(num='J8',name='TA2.2/P2.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='J9',name='RTCCLK/DMAE0/P2.6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5335IPZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5335IPZ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5335.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5335IPZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5335IPZ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5335.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5335IPZ\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.4/CB4/A4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VREF-/VeREF-/P5.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='P6.3/CB3/A3',func=Pin.types.BIDIR,unit=1),
@@ -7395,7 +7395,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='P6.0/CB0/A0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='P6.1/CB1/A1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='P6.2/CB2/A2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5335IZQW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5335IZQW'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5335.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5335IZQW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5335IZQW'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5335.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5335IZQW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='P6.4/CB4/A4',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='LDOI',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PU.1',func=Pin.types.BIDIR,unit=1),
@@ -7506,7 +7506,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='TA0.2/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='TA1.1/P3.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='TA2.0/P3.5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5338IPZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5338IPZ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5338.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5338IPZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5338IPZ'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5338.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5338IPZ\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.4/CB4/A4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VREF-/VeREF-/P5.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='P6.3/CB3/A3',func=Pin.types.BIDIR,unit=1),
@@ -7604,7 +7604,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='P6.0/CB0/A0',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='P6.1/CB1/A1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='P6.2/CB2/A2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5338IZQW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5338IZQW'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5338.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5338IZQW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5338IZQW'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5338.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5338IZQW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='P6.4/CB4/A4',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='LDOI',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PU.1',func=Pin.types.BIDIR,unit=1),
@@ -7715,7 +7715,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='TA0.2/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='TA1.1/P3.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='TA2.0/P3.5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5341IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5341IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5341.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5341IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5341IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5341.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5341IRGZ\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.3/A3/CB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='DVCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DVSS1',func=Pin.types.PWRIN,unit=1),
@@ -7764,7 +7764,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P5.4/XIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P5.5/XOUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='AVSS1',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5342IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5342IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5342.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5342IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5342IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5342.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5342IRGZ\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.3/A3/CB3',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='DVCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DVSS1',func=Pin.types.PWRIN,unit=1),
@@ -7813,7 +7813,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P5.4/XIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P5.5/XOUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='AVSS1',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5359IZQW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5359IZQW'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5359.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5359IZQW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5359IZQW'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5359.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5359IZQW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='P6.4/CB4/A4',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='LDOI',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PU.1',func=Pin.types.BIDIR,unit=1),
@@ -7924,7 +7924,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='P1.7/TA0.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='P3.2/TA1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='P3.5/TA2.0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5501IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5501IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5501.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5501IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5501IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5501.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5501IRGZ\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.0/CB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='AVSS1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DVCC1',func=Pin.types.PWRIN,unit=1),
@@ -7973,7 +7973,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AVCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='P5.4/XIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P5.5/XOUT',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5502IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5502IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5502.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5502IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5502IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5502.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5502IRGZ\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.0/CB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='AVSS1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DVCC1',func=Pin.types.PWRIN,unit=1),
@@ -8022,7 +8022,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AVCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='P5.4/XIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P5.5/XOUT',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5503IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5503IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5503.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5503IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5503IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5503.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5503IRGZ\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.0/CB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='AVSS1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DVCC1',func=Pin.types.PWRIN,unit=1),
@@ -8071,7 +8071,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AVCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='P5.4/XIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P5.5/XOUT',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5505IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5505IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5505.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5505IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5505IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5505.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5505IRGZ\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.0/A0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='AVSS1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DVCC1',func=Pin.types.PWRIN,unit=1),
@@ -8120,7 +8120,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AVCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='P5.4/XIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P5.5/XOUT',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5506IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5506IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5506.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5506IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5506IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5506.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5506IRGZ\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.0/A0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='AVSS1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DVCC1',func=Pin.types.PWRIN,unit=1),
@@ -8169,7 +8169,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AVCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='P5.4/XIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P5.5/XOUT',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5507IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5507IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5507.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5507IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5507IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5507.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5507IRGZ\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.0/A0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='AVSS1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DVCC1',func=Pin.types.PWRIN,unit=1),
@@ -8218,7 +8218,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AVCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='P5.4/XIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P5.5/XOUT',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5509IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5509IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5509.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5509IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5509IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5509.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5509IRGZ\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.0/CB0/A0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='AVSS1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DVCC1',func=Pin.types.PWRIN,unit=1),
@@ -8267,7 +8267,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AVCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='P5.4/XIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P5.5/XOUT',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5510IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5510IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5510.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5510IRGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5510IRGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5510.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5510IRGZ\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='P6.0/CB0/A0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='AVSS1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DVCC1',func=Pin.types.PWRIN,unit=1),
@@ -8316,7 +8316,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AVCC1',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='P5.4/XIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P5.5/XOUT',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5526IYFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5526IYFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-64_3.415x3.535mm_Layout8x8_P0.4mm', 'Package_BGA:Texas_DSBGA-64_3.415x3.535mm_Layout8x8_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-64_3.415x3.535mm_Layout8x8_P0.4mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5526.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5526IYFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5526IYFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-64_3.415x3.535mm_Layout8x8_P0.4mm', 'Package_BGA:Texas_DSBGA-64_3.415x3.535mm_Layout8x8_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-64_3.415x3.535mm_Layout8x8_P0.4mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5526.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5526IYFF\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='P6.2/CB2/A2',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='P6.6/CB6/A6',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='AVCC1',func=Pin.types.PWRIN,unit=1),
@@ -8381,7 +8381,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='H6',name='DVSS2',func=Pin.types.PWRIN,unit=1),
             Pin(num='H7',name='UCB0SOMI/UCB0SCL/P3.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='H8',name='UCB0STE/UCA0CLK/P2.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5528IYFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5528IYFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-64_3.415x3.535mm_Layout8x8_P0.4mm', 'Package_BGA:Texas_DSBGA-64_3.415x3.535mm_Layout8x8_P0.4mm', 'Package_BGA:Texas_DSBGA-64_3.415x3.535mm_Layout8x8_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-64_3.415x3.535mm_Layout8x8_P0.4mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5528.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5528IYFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5528IYFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-64_3.415x3.535mm_Layout8x8_P0.4mm', 'Package_BGA:Texas_DSBGA-64_3.415x3.535mm_Layout8x8_P0.4mm', 'Package_BGA:Texas_DSBGA-64_3.415x3.535mm_Layout8x8_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-64_3.415x3.535mm_Layout8x8_P0.4mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5528.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5528IYFF\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='P6.2/CB2/A2',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='P6.6/CB6/A6',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='AVCC1',func=Pin.types.PWRIN,unit=1),
@@ -8446,7 +8446,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='H6',name='DVSS2',func=Pin.types.PWRIN,unit=1),
             Pin(num='H7',name='UCB0SOMI/UCB0SCL/P3.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='H8',name='UCB0STE/UCA0CLK/P2.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5631IZQW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5631IZQW'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5631.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5631IZQW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5631IZQW'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5631.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5631IZQW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='P6.4/CB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='VBUS',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PU.1/DM',func=Pin.types.BIDIR,unit=1),
@@ -8559,7 +8559,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='TA0.2/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='TA1.1/P3.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='TA2.0/P3.5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5632IZQW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5632IZQW'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5632.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5632IZQW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5632IZQW'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5632.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5632IZQW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='P6.4/CB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='VBUS',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PU.1/DM',func=Pin.types.BIDIR,unit=1),
@@ -8672,7 +8672,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='TA0.2/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='TA1.1/P3.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='TA2.0/P3.5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5634IZQW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5634IZQW'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5634.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5634IZQW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5634IZQW'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5634.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5634IZQW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='P6.4/CB4/A4',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='VBUS',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PU.1/DM',func=Pin.types.BIDIR,unit=1),
@@ -8785,7 +8785,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='TA0.2/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='TA1.1/P3.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='TA2.0/P3.5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5635IZQW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5635IZQW'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5635.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5635IZQW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5635IZQW'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5635.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5635IZQW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='P6.4/CB4/A4',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='VBUS',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PU.1/DM',func=Pin.types.BIDIR,unit=1),
@@ -8898,7 +8898,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='TA0.2/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='TA1.1/P3.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='TA2.0/P3.5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5637IZQW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5637IZQW'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5637.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5637IZQW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5637IZQW'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5637.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5637IZQW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='P6.4/CB4/A4',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='VBUS',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PU.1/DM',func=Pin.types.BIDIR,unit=1),
@@ -9011,7 +9011,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='TA0.2/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='TA1.1/P3.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='TA2.0/P3.5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5638IZQW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5638IZQW'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5638.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5638IZQW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5638IZQW'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5638.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5638IZQW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='P6.4/CB4/A4',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='VBUS',func=Pin.types.BIDIR,unit=1),
             Pin(num='A11',name='PU.1/DM',func=Pin.types.BIDIR,unit=1),
@@ -9124,7 +9124,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='TA0.2/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='TA1.1/P3.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='TA2.0/P3.5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430F5659IZQW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5659IZQW'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5659.pdf', 'pins':[
+        Part(**{ 'name':'MSP430F5659IZQW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430F5659IZQW'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm'], 'footprint':'Package_BGA:Texas_MicroStar_Junior_BGA-113_7.0x7.0mm_Layout12x12_P0.5mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430f5659.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430F5659IZQW\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='P6.4/A4/CB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='A10',name='VBUS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='A11',name='PU.1/DM',func=Pin.types.BIDIR,unit=1),
@@ -9236,7 +9236,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='M7',name='TA0.2/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='M8',name='TA1.1/P3.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='M9',name='TA2.0/P3.5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430FR5724IRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430FR5724IRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm'], 'footprint':'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430fr5724.pdf', 'pins':[
+        Part(**{ 'name':'MSP430FR5724IRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430FR5724IRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm'], 'footprint':'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430fr5724.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430FR5724IRGE\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0.1/DMAE0/RTCCLK/CD0/VeREF-/A0/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PJ.3/TCK/CD9',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TEST/SBWTCK',func=Pin.types.INPUT,unit=1),
@@ -9261,7 +9261,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PJ.0/TDO/TB0OUTH/SMCLK/CD6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PJ.1/TDI/TCLK/MCLK/CD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PJ.2/TMS/ACLK/CD8',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430FR5726IRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430FR5726IRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm'], 'footprint':'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430fr5726.pdf', 'pins':[
+        Part(**{ 'name':'MSP430FR5726IRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430FR5726IRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm'], 'footprint':'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430fr5726.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430FR5726IRGE\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0.1/DMAE0/RTCCLK/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PJ.3/TCK/CD9',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TEST/SBWTCK',func=Pin.types.INPUT,unit=1),
@@ -9286,7 +9286,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PJ.0/TDO/TB0OUTH/SMCLK/CD6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PJ.1/TDI/TCLK/MCLK/CD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PJ.2/TMS/ACLK/CD8',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430FR5728IRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430FR5728IRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm'], 'footprint':'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430fr5728.pdf', 'pins':[
+        Part(**{ 'name':'MSP430FR5728IRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430FR5728IRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm'], 'footprint':'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430fr5728.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430FR5728IRGE\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0.1/DMAE0/RTCCLK/CD0/VeREF-/A0/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PJ.3/TCK/CD9',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TEST/SBWTCK',func=Pin.types.INPUT,unit=1),
@@ -9311,7 +9311,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PJ.0/TDO/TB0OUTH/SMCLK/CD6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PJ.1/TDI/TCLK/MCLK/CD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PJ.2/TMS/ACLK/CD8',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430FR5730IRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430FR5730IRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm'], 'footprint':'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430fr5730.pdf', 'pins':[
+        Part(**{ 'name':'MSP430FR5730IRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430FR5730IRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm'], 'footprint':'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430fr5730.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430FR5730IRGE\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0.1/DMAE0/RTCCLK/CD0/VeREF-/A0/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PJ.3/TCK/CD9',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TEST/SBWTCK',func=Pin.types.INPUT,unit=1),
@@ -9336,7 +9336,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PJ.0/TDO/TB0OUTH/SMCLK/CD6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PJ.1/TDI/TCLK/MCLK/CD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PJ.2/TMS/ACLK/CD8',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430FR5732IRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430FR5732IRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm'], 'footprint':'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430fr5732.pdf', 'pins':[
+        Part(**{ 'name':'MSP430FR5732IRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430FR5732IRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm'], 'footprint':'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430fr5732.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430FR5732IRGE\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0.1/DMAE0/RTCCLK/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PJ.3/TCK/CD9',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TEST/SBWTCK',func=Pin.types.INPUT,unit=1),
@@ -9361,7 +9361,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PJ.0/TDO/TB0OUTH/SMCLK/CD6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PJ.1/TDI/TCLK/MCLK/CD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PJ.2/TMS/ACLK/CD8',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430FR5734IRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430FR5734IRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm'], 'footprint':'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430fr5734.pdf', 'pins':[
+        Part(**{ 'name':'MSP430FR5734IRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430FR5734IRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm'], 'footprint':'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430fr5734.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430FR5734IRGE\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0.1/DMAE0/RTCCLK/CD0/VeREF-/A0/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PJ.3/TCK/CD9',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TEST/SBWTCK',func=Pin.types.INPUT,unit=1),
@@ -9386,7 +9386,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PJ.0/TDO/TB0OUTH/SMCLK/CD6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PJ.1/TDI/TCLK/MCLK/CD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PJ.2/TMS/ACLK/CD8',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430FR5736IRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430FR5736IRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm'], 'footprint':'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430fr5736.pdf', 'pins':[
+        Part(**{ 'name':'MSP430FR5736IRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430FR5736IRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm'], 'footprint':'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430fr5736.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430FR5736IRGE\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0.1/DMAE0/RTCCLK/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PJ.3/TCK/CD9',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TEST/SBWTCK',func=Pin.types.INPUT,unit=1),
@@ -9411,7 +9411,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PJ.0/TDO/TB0OUTH/SMCLK/CD6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PJ.1/TDI/TCLK/MCLK/CD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PJ.2/TMS/ACLK/CD8',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430FR5738IRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430FR5738IRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm'], 'footprint':'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430fr5738.pdf', 'pins':[
+        Part(**{ 'name':'MSP430FR5738IRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430FR5738IRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm'], 'footprint':'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430fr5738.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430FR5738IRGE\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0.1/DMAE0/RTCCLK/CD0/VeREF-/A0/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PJ.3/TCK/CD9',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TEST/SBWTCK',func=Pin.types.INPUT,unit=1),
@@ -9436,7 +9436,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PJ.0/TDO/TB0OUTH/SMCLK/CD6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PJ.1/TDI/TCLK/MCLK/CD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PJ.2/TMS/ACLK/CD8',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2101IN14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2101IN14'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2101.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2101IN14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2101IN14'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2101.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2101IN14\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -9451,7 +9451,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TA0.0/TMS/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TA0.1/TDI/TCLK/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TDO/TDI/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2101IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2101IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2101.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2101IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2101IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2101.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2101IPW14\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -9466,7 +9466,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TA0.0/TMS/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TA0.1/TDI/TCLK/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TDO/TDI/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2101IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2101IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2101.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2101IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2101IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2101.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2101IRSA16\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0CLK/ACLK/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='P2.7/XOUT',func=Pin.types.BIDIR,unit=1),
@@ -9481,7 +9481,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TA0.1/TDI/TCLK/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TDO/TDI/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2201IN14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2201IN14'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2201.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2201IN14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2201IN14'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm', 'Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2201.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2201IN14\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -9496,7 +9496,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TA0.0/TMS/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TA0.1/TDI/TCLK/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TDO/TDI/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2201IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2201IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2201.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2201IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2201IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2201.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2201IPW14\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -9511,7 +9511,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TA0.0/TMS/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TA0.1/TDI/TCLK/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TDO/TDI/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2201IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2201IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2201.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2201IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2201IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2201.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2201IRSA16\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0CLK/ACLK/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='P2.7/XOUT',func=Pin.types.BIDIR,unit=1),
@@ -9526,7 +9526,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TA0.1/TDI/TCLK/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TDO/TDI/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2202IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2202IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2202.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2202IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2202IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2202.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2202IN20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3',func=Pin.types.BIDIR,unit=1),
@@ -9547,7 +9547,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/TA0.0/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2202IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2202IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2202.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2202IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2202IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2202.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2202IPW14\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -9562,7 +9562,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/TA0.0/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SDO/SCL/TDI/TCLK/TA0.1/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SDI/SDA/TDO/TDI/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2202IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2202IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2202.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2202IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2202IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2202.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2202IPW20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3',func=Pin.types.BIDIR,unit=1),
@@ -9583,7 +9583,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/TA0.0/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2202IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2202IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2202.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2202IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2202IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2202.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2202IRSA16\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0CLK/ACLK/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='P2.7/XOUT',func=Pin.types.BIDIR,unit=1),
@@ -9600,7 +9600,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDO/SCL/TDI/TCLK/TA0.1/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SDI/SDA/TDO/TDI/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2211IN14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2211IN14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2211.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2211IN14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2211IN14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2211.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2211IN14\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -9615,7 +9615,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CA5/TA0.0/TMS/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='CA6/TA0.1/TDI/TCLK/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='CA7/TDO/TDI/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2211IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2211IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2211.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2211IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2211IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2211.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2211IPW14\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -9630,7 +9630,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CA5/TA0.0/TMS/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='CA6/TA0.1/TDI/TCLK/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='CA7/TDO/TDI/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2211IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2211IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2211.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2211IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2211IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2211.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2211IRSA16\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='ACLK/TA0CLK/CA0/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='P2.7/XOUT',func=Pin.types.BIDIR,unit=1),
@@ -9645,7 +9645,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TDI/TCLK/TA0.1/CA6/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TDO/TDI/CAOUT/CA7/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2212IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2212IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2212.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2212IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2212IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2212.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2212IN20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3',func=Pin.types.BIDIR,unit=1),
@@ -9666,7 +9666,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/TA0.0/CA5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2212IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2212IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2212.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2212IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2212IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2212.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2212IPW14\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -9681,7 +9681,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/TA0.0/CA5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TDI/TCLK/TA0.1/SDO/SCL/CA6/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TDO/TDI/SDI/SDA/CAOUT/CA7/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2212IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2212IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2212.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2212IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2212IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2212.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2212IPW20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3',func=Pin.types.BIDIR,unit=1),
@@ -9702,7 +9702,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/TA0.0/CA5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2212IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2212IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2212.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2212IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2212IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2212.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2212IRSA16\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0CLK/ACLK/CA0/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='P2.7/XOUT',func=Pin.types.BIDIR,unit=1),
@@ -9719,7 +9719,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TDI/TCLK/TA0.1/SDO/SCL/CA6/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TDO/TDI/SDI/SDA/CAOUT/CA7/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2213IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2213IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2213.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2213IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2213IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2213.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2213IPW20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2/TA1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1.0',func=Pin.types.BIDIR,unit=1),
@@ -9740,7 +9740,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/UCB0CLK/UCA0STE/TA0.0/CA5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/TA1.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2221IN14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2221IN14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2221.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2221IN14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2221IN14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2221.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2221IN14\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -9755,7 +9755,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/TA0.0/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TDI/SDO/SCL/TCLK/TA0.1/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TDI/TDO/SDI/SDA/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2221IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2221IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2221.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2221IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2221IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2221.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2221IPW14\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -9770,7 +9770,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/TA0.0/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TDI/SDO/SCL/TCLK/TA0.1/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TDI/TDO/SDI/SDA/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2221IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2221IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2221.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2221IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2221IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2221.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2221IRSA16\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='ACLK/TACLK/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='P2.7/XOUT',func=Pin.types.BIDIR,unit=1),
@@ -9787,7 +9787,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TDI/SDO/SCL/TCLK/TA0.1/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TDI/TDO/SDI/SDA/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2231IN14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2231IN14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2231.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2231IN14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2231IN14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2231.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2231IN14\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -9802,7 +9802,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/TA0.0/A5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TDI/SDO/SCL/TCLK/TA0.1/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TDI/TDO/SDI/SDA/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2231IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2231IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2231.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2231IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2231IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2231.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2231IPW14\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -9817,7 +9817,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/TA0.0/A5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TDI/SDO/SCL/TCLK/TA0.1/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TDI/TDO/SDI/SDA/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2231IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2231IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2231.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2231IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2231IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2231.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2231IRSA16\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='ACLK/TACLK/A0/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='P2.7/XOUT',func=Pin.types.BIDIR,unit=1),
@@ -9834,7 +9834,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TDI/SDO/SCL/TCLK/TA0.1/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TDI/TDO/SDI/SDA/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2232IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2232IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2232.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2232IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2232IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2232.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2232IN20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3',func=Pin.types.BIDIR,unit=1),
@@ -9855,7 +9855,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/A5/TA0.0/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2232IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2232IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2232.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2232IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2232IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2232.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2232IPW14\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -9870,7 +9870,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/A5/TA0.0/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SDO/SCL/TDI/TCLK/A6/TA0.1/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SDI/SDA/TDO/TDI/A7/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2232IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2232IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2232.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2232IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2232IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2232.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2232IPW20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3',func=Pin.types.BIDIR,unit=1),
@@ -9891,7 +9891,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/A5/TA0.0/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2232IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2232IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2232.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2232IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2232IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2232.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2232IRSA16\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='ACLK/A0/TA0CLK/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='P2.7/XOUT',func=Pin.types.BIDIR,unit=1),
@@ -9908,7 +9908,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDO/SCL/TDI/TCLK/A6/TA0.1/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SDI/SDA/TDO/TDI/A7/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2252IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2252IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2252.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2252IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2252IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2252.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2252IN20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3',func=Pin.types.BIDIR,unit=1),
@@ -9929,7 +9929,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/TA0.0/CA5/A5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2252IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2252IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2252.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2252IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2252IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2252.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2252IPW14\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -9944,7 +9944,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/TA0.0/CA5/A5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TDI/TCLK/TA0.1/SDO/SCL/CA6/A6/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TDO/TDI/SDI/SDA/CAOUT/CA7/A7/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2252IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2252IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2252.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2252IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2252IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2252.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2252IPW20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3',func=Pin.types.BIDIR,unit=1),
@@ -9965,7 +9965,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/TA0.0/CA5/A5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2252IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2252IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2252.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2252IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2252IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2252.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2252IRSA16\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0CLK/ACLK/A0/CA0/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='P2.7/XOUT',func=Pin.types.BIDIR,unit=1),
@@ -9982,7 +9982,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TDI/TCLK/TA0.1/SDO/SCL/A6/CA6/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TDO/TDI/CAOUT/SDI/SDA/A7/CA7/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2253IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2253IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2253.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2253IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2253IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2253.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2253IN20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2/TA1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1.0',func=Pin.types.BIDIR,unit=1),
@@ -10003,7 +10003,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/UCB0CLK/UCA0STE/TA0.0/CA5/A5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/TA1.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2253IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2253IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2253.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2253IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2253IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2253.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2253IPW20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2/TA1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1.0',func=Pin.types.BIDIR,unit=1),
@@ -10024,7 +10024,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/UCB0CLK/UCA0STE/TA0.0/CA5/A5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/TA1.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2253IPW28', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2253IPW28'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2253.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2253IPW28', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2253IPW28'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2253.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2253IPW28\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='TA1.0/P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TA1.1/P2.1',func=Pin.types.BIDIR,unit=1),
@@ -10053,7 +10053,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/TA0.0/UCB0CLK/UCA0STE/A5/CA5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P3.1/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.0/TA0.2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2253IRHB32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2253IRHB32'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2253.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2253IRHB32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2253IRHB32'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2253.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2253IRHB32\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0.0/UCA0RXD/UCA0SOMI/A1/CA1/P1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='TA1.1/P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TA1.1/P2.2',func=Pin.types.BIDIR,unit=1),
@@ -10084,7 +10084,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='P3.1/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='P3.0/TA0.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TA1.0/P2.0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2302IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2302IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2302.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2302IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2302IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2302.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2302IN20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3',func=Pin.types.BIDIR,unit=1),
@@ -10105,7 +10105,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/TA0.0/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2302IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2302IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2302.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2302IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2302IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2302.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2302IPW14\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -10120,7 +10120,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/TA0.0/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SDO/SCL/TDI/TCLK/TA0.1/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SDI/SDA/TDO/TDI/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2302IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2302IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2302.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2302IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2302IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2302.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2302IPW20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3',func=Pin.types.BIDIR,unit=1),
@@ -10141,7 +10141,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/TA0.0/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2302IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2302IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2302.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2302IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2302IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2302.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2302IRSA16\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0CLK/ACLK/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='P2.7/XOUT',func=Pin.types.BIDIR,unit=1),
@@ -10158,7 +10158,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDO/SCL/TDI/TCLK/TA0.1/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SDI/SDA/TDO/TDI/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2303IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2303IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2303.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2303IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2303IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2303.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2303IN20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2/TA1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1.0',func=Pin.types.BIDIR,unit=1),
@@ -10179,7 +10179,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/TA0.0/UCB0CLK/UCA0STE/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/TA1.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2303IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2303IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2303.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2303IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2303IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2303.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2303IPW20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2/TA1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1.0',func=Pin.types.BIDIR,unit=1),
@@ -10200,7 +10200,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/TA0.0/UCB0CLK/UCA0STE/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/TA1.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2303IPW28', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2303IPW28'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2303.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2303IPW28', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2303IPW28'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2303.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2303IPW28\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='TA1.0/P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TA1.1/P2.1',func=Pin.types.BIDIR,unit=1),
@@ -10229,7 +10229,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/TA0.0/UCB0CLK/UCA0STE/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P3.1/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.0/TA0.2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2303IRHB32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2303IRHB32'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2303.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2303IRHB32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2303IRHB32'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2303.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2303IRHB32\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0.0/UCA0RXD/UCA0SOMI/P1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='TA1.1/P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TA1.1/P2.2',func=Pin.types.BIDIR,unit=1),
@@ -10260,7 +10260,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='P3.1/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='P3.0/TA0.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TA1.0/P2.0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2312IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2312IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2312.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2312IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2312IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2312.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2312IN20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3',func=Pin.types.BIDIR,unit=1),
@@ -10281,7 +10281,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/TA0.0/CA5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2312IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2312IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2312.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2312IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2312IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2312.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2312IPW14\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -10296,7 +10296,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/TA0.0/CA5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TDI/TCLK/TA0.1/SDO/SCL/CA6/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TDO/TDI/SDI/SDA/CAOUT/CA7/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2312IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2312IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2312.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2312IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2312IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2312.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2312IPW20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3',func=Pin.types.BIDIR,unit=1),
@@ -10317,7 +10317,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/TA0.0/CA5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2312IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2312IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2312.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2312IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2312IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2312.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2312IRSA16\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0CLK/ACLK/CA0/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='P2.7/XOUT',func=Pin.types.BIDIR,unit=1),
@@ -10334,7 +10334,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TDI/TCLK/TA0.1/SDO/SCL/CA6/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TDO/TDI/SDI/SDA/CAOUT/CA7/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2313IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2313IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2313.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2313IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2313IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2313.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2313IN20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2/TA1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1.0',func=Pin.types.BIDIR,unit=1),
@@ -10355,7 +10355,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/UCB0CLK/UCA0STE/TA0.0/CA5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/TA1.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2313IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2313IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2313.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2313IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2313IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2313.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2313IPW20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2/TA1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1.0',func=Pin.types.BIDIR,unit=1),
@@ -10376,7 +10376,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/UCB0CLK/UCA0STE/TA0.0/CA5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/TA1.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2313IPW28', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2313IPW28'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2313.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2313IPW28', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2313IPW28'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2313.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2313IPW28\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='TA1.0/P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TA1.1/P2.1',func=Pin.types.BIDIR,unit=1),
@@ -10405,7 +10405,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/TA0.0/UCB0CLK/UCA0STE/CA5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P3.1/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.0/TA0.2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2313IRHB32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2313IRHB32'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2313.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2313IRHB32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2313IRHB32'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2313.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2313IRHB32\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0.0/UCA0RXD/UCA0SOMI/CA1/P1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='TA1.1/P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TA1.1/P2.2',func=Pin.types.BIDIR,unit=1),
@@ -10436,7 +10436,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='P3.1/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='P3.0/TA0.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TA1.0/P2.0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2332IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2332IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2332.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2332IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2332IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2332.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2332IN20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3',func=Pin.types.BIDIR,unit=1),
@@ -10457,7 +10457,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/A5/TA0.0/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2332IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2332IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2332.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2332IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2332IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2332.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2332IPW14\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -10472,7 +10472,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/A5/TA0.0/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SDO/SCL/TDI/TCLK/A6/TA0.1/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SDI/SDA/TDO/TDI/A7/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2332IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2332IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2332.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2332IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2332IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2332.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2332IPW20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3',func=Pin.types.BIDIR,unit=1),
@@ -10493,7 +10493,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/A5/TA0.0/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2332IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2332IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2332.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2332IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2332IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2332.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2332IRSA16\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='ACLK/A0/TA0CLK/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='P2.7/XOUT',func=Pin.types.BIDIR,unit=1),
@@ -10510,7 +10510,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDO/SCL/TDI/TCLK/A6/TA0.1/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SDI/SDA/TDO/TDI/A7/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2333IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2333IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2333.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2333IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2333IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2333.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2333IN20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2/TA1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1.0',func=Pin.types.BIDIR,unit=1),
@@ -10531,7 +10531,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/TA0.0/UCB0CLK/UCA0STE/A5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/TA1.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2333IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2333IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2333.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2333IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2333IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2333.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2333IPW20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2/TA1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1.0',func=Pin.types.BIDIR,unit=1),
@@ -10552,7 +10552,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/TA0.0/UCB0CLK/UCA0STE/A5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/TA1.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2333IPW28', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2333IPW28'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2333.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2333IPW28', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2333IPW28'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2333.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2333IPW28\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='TA1.0/P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TA1.1/P2.1',func=Pin.types.BIDIR,unit=1),
@@ -10581,7 +10581,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/TA0.0/UCB0CLK/UCA0STE/A5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P3.1/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.0/TA0.2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2333IRHB32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2333IRHB32'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2333.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2333IRHB32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2333IRHB32'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2333.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2333IRHB32\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0.0/UCA0RXD/UCA0SOMI/A1/P1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='TA1.1/P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TA1.1/P2.2',func=Pin.types.BIDIR,unit=1),
@@ -10612,7 +10612,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='P3.1/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='P3.0/TA0.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TA1.0/P2.0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2352IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2352IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2352.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2352IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2352IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2352.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2352IN20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3',func=Pin.types.BIDIR,unit=1),
@@ -10633,7 +10633,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/TA0.0/CA5/A5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2352IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2352IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2352.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2352IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2352IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2352.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2352IPW14\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -10648,7 +10648,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/TA0.0/CA5/A5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TDI/TCLK/TA0.1/SDO/SCL/CA6/A6/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TDO/TDI/SDI/SDA/CAOUT/CA7/A7/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2352IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2352IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2352.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2352IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2352IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2352.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2352IPW20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3',func=Pin.types.BIDIR,unit=1),
@@ -10669,7 +10669,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/TA0.0/CA5/A5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2352IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2352IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2352.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2352IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2352IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2352.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2352IRSA16\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0CLK/ACLK/A0/CA0/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='P2.7/XOUT',func=Pin.types.BIDIR,unit=1),
@@ -10686,7 +10686,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TDI/TCLK/TA0.1/SDO/SCL/A6/CA6/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TDO/TDI/CAOUT/SDI/SDA/A7/CA7/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2353IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2353IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2353.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2353IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2353IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2353.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2353IN20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2/TA1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1.0',func=Pin.types.BIDIR,unit=1),
@@ -10707,7 +10707,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/UCB0CLK/UCA0STE/TA0.0/CA5/A5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/TA1.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2353IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2353IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2353.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2353IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2353IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2353.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2353IPW20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2/TA1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1.0',func=Pin.types.BIDIR,unit=1),
@@ -10728,7 +10728,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/UCB0CLK/UCA0STE/TA0.0/CA5/A5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/TA1.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2353IPW28', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2353IPW28'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2353.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2353IPW28', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2353IPW28'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2353.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2353IPW28\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='TA1.0/P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TA1.1/P2.1',func=Pin.types.BIDIR,unit=1),
@@ -10757,7 +10757,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/TA0.0/UCB0CLK/UCA0STE/A5/CA5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P3.1/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.0/TA0.2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2353IRHB32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2353IRHB32'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2353.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2353IRHB32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2353IRHB32'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2353.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2353IRHB32\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0.0/UCA0RXD/UCA0SOMI/A1/CA1/P1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='TA1.1/P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TA1.1/P2.2',func=Pin.types.BIDIR,unit=1),
@@ -10788,7 +10788,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='P3.1/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='P3.0/TA0.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TA1.0/P2.0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2402IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2402IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2402.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2402IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2402IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2402.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2402IN20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3',func=Pin.types.BIDIR,unit=1),
@@ -10809,7 +10809,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/TA0.0/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2402IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2402IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2402.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2402IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2402IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2402.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2402IPW14\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -10824,7 +10824,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/TA0.0/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SDO/SCL/TDI/TCLK/TA0.1/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SDI/SDA/TDO/TDI/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2402IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2402IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2402.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2402IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2402IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2402.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2402IPW20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3',func=Pin.types.BIDIR,unit=1),
@@ -10845,7 +10845,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/TA0.0/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2402IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2402IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2402.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2402IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2402IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2402.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2402IRSA16\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0CLK/ACLK/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='P2.7/XOUT',func=Pin.types.BIDIR,unit=1),
@@ -10862,7 +10862,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDO/SCL/TDI/TCLK/TA0.1/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SDI/SDA/TDO/TDI/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2403IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2403IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2403.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2403IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2403IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2403.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2403IN20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2/TA1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1.0',func=Pin.types.BIDIR,unit=1),
@@ -10883,7 +10883,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/TA0.0/UCB0CLK/UCA0STE/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/TA1.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2403IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2403IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2403.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2403IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2403IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2403.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2403IPW20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2/TA1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1.0',func=Pin.types.BIDIR,unit=1),
@@ -10904,7 +10904,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/TA0.0/UCB0CLK/UCA0STE/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/TA1.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2403IPW28', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2403IPW28'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2403.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2403IPW28', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2403IPW28'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2403.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2403IPW28\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='TA1.0/P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TA1.1/P2.1',func=Pin.types.BIDIR,unit=1),
@@ -10933,7 +10933,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/TA0.0/UCB0CLK/UCA0STE/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P3.1/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.0/TA0.2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2403IRHB32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2403IRHB32'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2403.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2403IRHB32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2403IRHB32'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2403.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2403IRHB32\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0.0/UCA0RXD/UCA0SOMI/P1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='TA1.1/P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TA1.1/P2.2',func=Pin.types.BIDIR,unit=1),
@@ -10964,7 +10964,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='P3.1/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='P3.0/TA0.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TA1.0/P2.0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2412IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2412IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2412.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2412IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2412IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2412.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2412IN20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3',func=Pin.types.BIDIR,unit=1),
@@ -10985,7 +10985,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/TA0.0/CA5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2412IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2412IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2412.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2412IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2412IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2412.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2412IPW14\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -11000,7 +11000,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/TA0.0/CA5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TDI/TCLK/TA0.1/SDO/SCL/CA6/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TDO/TDI/SDI/SDA/CAOUT/CA7/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2412IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2412IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2412.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2412IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2412IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2412.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2412IPW20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3',func=Pin.types.BIDIR,unit=1),
@@ -11021,7 +11021,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/TA0.0/CA5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2412IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2412IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2412.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2412IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2412IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2412.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2412IRSA16\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0CLK/ACLK/CA0/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='P2.7/XOUT',func=Pin.types.BIDIR,unit=1),
@@ -11038,7 +11038,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TDI/TCLK/TA0.1/SDO/SCL/CA6/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TDO/TDI/SDI/SDA/CAOUT/CA7/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2413IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2413IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2413.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2413IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2413IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2413.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2413IN20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2/TA1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1.0',func=Pin.types.BIDIR,unit=1),
@@ -11059,7 +11059,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/UCB0CLK/UCA0STE/TA0.0/CA5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/TA1.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2413IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2413IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2413.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2413IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2413IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2413.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2413IPW20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2/TA1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1.0',func=Pin.types.BIDIR,unit=1),
@@ -11080,7 +11080,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/UCB0CLK/UCA0STE/TA0.0/CA5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/TA1.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2413IPW28', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2413IPW28'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2413.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2413IPW28', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2413IPW28'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2413.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2413IPW28\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='TA1.0/P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TA1.1/P2.1',func=Pin.types.BIDIR,unit=1),
@@ -11109,7 +11109,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/TA0.0/UCB0CLK/UCA0STE/CA5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P3.1/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.0/TA0.2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2413IRHB32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2413IRHB32'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2413.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2413IRHB32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2413IRHB32'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2413.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2413IRHB32\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0.0/UCA0RXD/UCA0SOMI/CA1/P1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='TA1.1/P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TA1.1/P2.2',func=Pin.types.BIDIR,unit=1),
@@ -11140,7 +11140,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='P3.1/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='P3.0/TA0.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TA1.0/P2.0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2432IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2432IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2432.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2432IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2432IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2432.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2432IN20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3',func=Pin.types.BIDIR,unit=1),
@@ -11161,7 +11161,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/A5/TA0.0/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2432IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2432IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2432.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2432IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2432IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2432.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2432IPW14\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -11176,7 +11176,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/A5/TA0.0/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SDO/SCL/TDI/TCLK/A6/TA0.1/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SDI/SDA/TDO/TDI/A7/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2432IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2432IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2432.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2432IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2432IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2432.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2432IPW20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3',func=Pin.types.BIDIR,unit=1),
@@ -11197,7 +11197,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/A5/TA0.0/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2432IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2432IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2432.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2432IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2432IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2432.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2432IRSA16\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='ACLK/A0/TA0CLK/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='P2.7/XOUT',func=Pin.types.BIDIR,unit=1),
@@ -11214,7 +11214,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDO/SCL/TDI/TCLK/A6/TA0.1/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SDI/SDA/TDO/TDI/A7/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2433IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2433IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2433.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2433IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2433IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2433.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2433IN20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2/TA1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1.0',func=Pin.types.BIDIR,unit=1),
@@ -11235,7 +11235,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/TA0.0/UCB0CLK/UCA0STE/A5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/TA1.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2433IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2433IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2433.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2433IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2433IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2433.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2433IPW20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2/TA1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1.0',func=Pin.types.BIDIR,unit=1),
@@ -11256,7 +11256,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/TA0.0/UCB0CLK/UCA0STE/A5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/TA1.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2433IPW28', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2433IPW28'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2433.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2433IPW28', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2433IPW28'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2433.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2433IPW28\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='TA1.0/P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TA1.1/P2.1',func=Pin.types.BIDIR,unit=1),
@@ -11285,7 +11285,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/TA0.0/UCB0CLK/UCA0STE/A5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P3.1/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.0/TA0.2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2433IRHB32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2433IRHB32'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2433.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2433IRHB32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2433IRHB32'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2433.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2433IRHB32\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0.0/UCA0RXD/UCA0SOMI/A1/P1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='TA1.1/P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TA1.1/P2.2',func=Pin.types.BIDIR,unit=1),
@@ -11316,7 +11316,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='P3.1/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='P3.0/TA0.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TA1.0/P2.0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2452IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2452IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2452.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2452IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2452IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2452.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2452IN20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3',func=Pin.types.BIDIR,unit=1),
@@ -11337,7 +11337,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/TA0.0/CA5/A5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2452IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2452IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2452.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2452IPW14', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2452IPW14'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2452.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2452IPW14\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
@@ -11352,7 +11352,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/TA0.0/CA5/A5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TDI/TCLK/TA0.1/SDO/SCL/CA6/A6/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TDO/TDI/SDI/SDA/CAOUT/CA7/A7/P1.7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2452IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2452IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2452.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2452IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2452IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2452.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2452IPW20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3',func=Pin.types.BIDIR,unit=1),
@@ -11373,7 +11373,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/SCLK/TA0.0/CA5/A5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2452IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2452IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2452.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2452IRSA16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2452IRSA16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:Texas_RSA_VQFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2452.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2452IRSA16\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0CLK/ACLK/A0/CA0/P1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='P2.7/XOUT',func=Pin.types.BIDIR,unit=1),
@@ -11390,7 +11390,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TDI/TCLK/TA0.1/SDO/SCL/A6/CA6/P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TDO/TDI/CAOUT/SDI/SDA/A7/CA7/P1.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2453IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2453IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2453.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2453IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2453IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2453.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2453IN20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2/TA1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1.0',func=Pin.types.BIDIR,unit=1),
@@ -11411,7 +11411,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/UCB0CLK/UCA0STE/TA0.0/CA5/A5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/TA1.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2453IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2453IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2453.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2453IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2453IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2453.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2453IPW20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2/TA1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1.0',func=Pin.types.BIDIR,unit=1),
@@ -11432,7 +11432,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/UCB0CLK/UCA0STE/TA0.0/CA5/A5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/TA1.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2453IPW28', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2453IPW28'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2453.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2453IPW28', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2453IPW28'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2453.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2453IPW28\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='TA1.0/P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TA1.1/P2.1',func=Pin.types.BIDIR,unit=1),
@@ -11461,7 +11461,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/TA0.0/UCB0CLK/UCA0STE/A5/CA5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P3.1/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.0/TA0.2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2453IRHB32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2453IRHB32'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2453.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2453IRHB32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2453IRHB32'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2453.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2453IRHB32\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0.0/UCA0RXD/UCA0SOMI/A1/CA1/P1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='TA1.1/P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TA1.1/P2.2',func=Pin.types.BIDIR,unit=1),
@@ -11492,7 +11492,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='P3.1/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='P3.0/TA0.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TA1.0/P2.0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2513IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2513IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2513.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2513IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2513IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2513.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2513IN20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2/TA1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1.0',func=Pin.types.BIDIR,unit=1),
@@ -11513,7 +11513,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/UCB0CLK/UCA0STE/TA0.0/CA5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/TA1.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2513IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2513IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2513.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2513IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2513IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2513.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2513IPW20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2/TA1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1.0',func=Pin.types.BIDIR,unit=1),
@@ -11534,7 +11534,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/UCB0CLK/UCA0STE/TA0.0/CA5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/TA1.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2513IPW28', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2513IPW28'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2513.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2513IPW28', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2513IPW28'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2513.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2513IPW28\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='TA1.0/P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TA1.1/P2.1',func=Pin.types.BIDIR,unit=1),
@@ -11563,7 +11563,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/TA0.0/UCB0CLK/UCA0STE/CA5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P3.1/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.0/TA0.2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2513IRHB32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2513IRHB32'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2513.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2513IRHB32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2513IRHB32'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2513.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2513IRHB32\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0.0/UCA0RXD/UCA0SOMI/CA1/P1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='TA1.1/P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TA1.1/P2.2',func=Pin.types.BIDIR,unit=1),
@@ -11594,7 +11594,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='P3.1/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='P3.0/TA0.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TA1.0/P2.0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2533IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2533IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2533.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2533IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2533IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2533.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2533IN20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2/TA1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1.0',func=Pin.types.BIDIR,unit=1),
@@ -11615,7 +11615,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/TA0.0/UCB0CLK/UCA0STE/A5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/TA1.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2533IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2533IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2533.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2533IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2533IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2533.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2533IPW20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2/TA1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1.0',func=Pin.types.BIDIR,unit=1),
@@ -11636,7 +11636,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/TA0.0/UCB0CLK/UCA0STE/A5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/TA1.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2533IPW28', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2533IPW28'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2533.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2533IPW28', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2533IPW28'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2533.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2533IPW28\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='TA1.0/P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TA1.1/P2.1',func=Pin.types.BIDIR,unit=1),
@@ -11665,7 +11665,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/TA0.0/UCB0CLK/UCA0STE/A5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P3.1/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.0/TA0.2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2533IRHB32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2533IRHB32'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2533.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2533IRHB32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2533IRHB32'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2533.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2533IRHB32\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0.0/UCA0RXD/UCA0SOMI/A1/P1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='TA1.1/P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TA1.1/P2.2',func=Pin.types.BIDIR,unit=1),
@@ -11696,7 +11696,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='P3.1/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='P3.0/TA0.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TA1.0/P2.0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2544IDA38', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2544IDA38'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2544.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2544IDA38', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2544IDA38'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2544.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2544IDA38\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='TA0/A2/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.0/A5/UCB0STE/UCA0CLK',func=Pin.types.BIDIR,unit=1),
@@ -11735,7 +11735,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='ACLK/A0/P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TAINCLK/SMCLK/A1/P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2544IRHA40', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2544IRHA40'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm'], 'footprint':'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2544.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2544IRHA40', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2544IRHA40'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm'], 'footprint':'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2544.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2544IRHA40\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P3.1/UCB0SIMO/UCB0SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.2/UCB0SOMI/UCB0SCL',func=Pin.types.BIDIR,unit=1),
@@ -11776,7 +11776,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TAINCLK/SMCLK/A1/P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TA0/A2/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.0/UCB0STE/UCA0CLK/A5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2544IYFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2544IYFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2544.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2544IYFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2544IYFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2544.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2544IYFF\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='XOUT/P2.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='XIN/P2.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='DVSS',func=Pin.types.PWRIN,unit=1),
@@ -11826,7 +11826,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G5',name='P3.5/UCA0RXD/UCA0SOMI',func=Pin.types.BIDIR,unit=1),
             Pin(num='G6',name='P3.4/UCA0TXD/UCA0SIMO',func=Pin.types.BIDIR,unit=1),
             Pin(num='G7',name='P4.6/A15/TBOUTH',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2553IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2553IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2553.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2553IN20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2553IN20'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm', 'Package_DIP:DIP-20_W7.62mm'], 'footprint':'Package_DIP:DIP-20_W7.62mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2553.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2553IN20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2/TA1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1.0',func=Pin.types.BIDIR,unit=1),
@@ -11847,7 +11847,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/UCB0CLK/UCA0STE/TA0.0/CA5/A5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/TA1.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2553IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2553IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2553.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2553IPW20', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2553IPW20'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2553.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2553IPW20\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P2.2/TA1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P2.3/TA1.0',func=Pin.types.BIDIR,unit=1),
@@ -11868,7 +11868,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/UCB0CLK/UCA0STE/TA0.0/CA5/A5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P2.0/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P2.1/TA1.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2553IPW28', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2553IPW28'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2553.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2553IPW28', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2553IPW28'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2553.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2553IPW28\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='TA1.0/P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TA1.1/P2.1',func=Pin.types.BIDIR,unit=1),
@@ -11897,7 +11897,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TMS/TA0.0/UCB0CLK/UCA0STE/A5/CA5/P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P3.1/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.0/TA0.2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2553IRHB32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2553IRHB32'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2553.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2553IRHB32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2553IRHB32'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:Texas_RHB0032E_VQFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2553.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2553IRHB32\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='TA0.0/UCA0RXD/UCA0SOMI/A1/CA1/P1.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='TA1.1/P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='TA1.1/P2.2',func=Pin.types.BIDIR,unit=1),
@@ -11928,7 +11928,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='P3.1/TA1.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='P3.0/TA0.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TA1.0/P2.0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2744IDA38', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2744IDA38'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2744.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2744IDA38', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2744IDA38'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2744.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2744IDA38\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='TA0/A2/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.0/A5/UCB0STE/UCA0CLK',func=Pin.types.BIDIR,unit=1),
@@ -11967,7 +11967,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='ACLK/A0/P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TAINCLK/SMCLK/A1/P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2744IRHA40', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2744IRHA40'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm'], 'footprint':'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2744.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2744IRHA40', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2744IRHA40'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm'], 'footprint':'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2744.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2744IRHA40\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P3.1/UCB0SIMO/UCB0SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.2/UCB0SOMI/UCB0SCL',func=Pin.types.BIDIR,unit=1),
@@ -12008,7 +12008,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TAINCLK/SMCLK/A1/P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TA0/A2/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.0/UCB0STE/UCA0CLK/A5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2744IYFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2744IYFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2744.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2744IYFF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2744IYFF'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-49_3.33x3.488mm_Layout7x7_P0.4mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2744.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2744IYFF\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='A1',name='XOUT/P2.7',func=Pin.types.BIDIR,unit=1),
             Pin(num='A2',name='XIN/P2.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='DVSS',func=Pin.types.PWRIN,unit=1),
@@ -12058,7 +12058,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G5',name='P3.5/UCA0RXD/UCA0SOMI',func=Pin.types.BIDIR,unit=1),
             Pin(num='G6',name='P3.4/UCA0TXD/UCA0SIMO',func=Pin.types.BIDIR,unit=1),
             Pin(num='G7',name='P4.6/A15/TBOUTH',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2855IDA38', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2855IDA38'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2855.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2855IDA38', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2855IDA38'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2855.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2855IDA38\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='TA0.0/A2/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.0/A5/UCB0STE/UCA0CLK',func=Pin.types.BIDIR,unit=1),
@@ -12097,7 +12097,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='TA1CLK/ACLK/A0/P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TA0INCLK/SMCLK/A1/P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2855IRHA40', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2855IRHA40'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm'], 'footprint':'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2855.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2855IRHA40', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2855IRHA40'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm'], 'footprint':'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2855.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2855IRHA40\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P3.1/UCB0SIMO/UCB0SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.2/UCB0SOMI/UCB0SCL',func=Pin.types.BIDIR,unit=1),
@@ -12138,7 +12138,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TA0INCLK/SMCLK/A1/P2.1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='TA0.0/A2/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P3.0/A5/UCB0STE/UCA0CLK',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2955IDA38', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2955IDA38'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2955.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2955IDA38', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2955IDA38'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-38_6.1x12.5mm_P0.65mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2955.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2955IDA38\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='SBWTCK/TEST',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='TA0.0/A2/P2.2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.0/A5/UCB0STE/UCA0CLK',func=Pin.types.BIDIR,unit=1),
@@ -12177,7 +12177,7 @@ MCU_Texas_MSP430 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}/NMI/SBWTDIO',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='TA1CLK/ACLK/A0/P2.0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='TA0INCLK/SMCLK/A1/P2.1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP430G2955IRHA40', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2955IRHA40'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm'], 'footprint':'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2955.pdf', 'pins':[
+        Part(**{ 'name':'MSP430G2955IRHA40', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP430G2955IRHA40'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm'], 'footprint':'Package_DFN_QFN:Texas_RHA0040B_VQFN-40-1EP_6x6mm_P0.5mm_EP4.15x4.15mm', 'keywords':'TI MSP430 16-bit mixed signal microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp430g2955.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_MSP430.kicad_sym\nMSP430G2955IRHA40\n\nTI MSP430 16-bit mixed signal microcontroller', 'pins':[
             Pin(num='1',name='DVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P3.1/UCB0SIMO/UCB0SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P3.2/UCB0SOMI/UCB0SCL',func=Pin.types.BIDIR,unit=1),

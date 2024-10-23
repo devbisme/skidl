@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'AS1115-BQFT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AS1115-BQFT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-24-1EP_4x4mm_P0.5mm_EP2.8x2.8mm_PullBack_ThermalVias'], 'footprint':'Package_DFN_QFN:TQFN-24-1EP_4x4mm_P0.5mm_EP2.8x2.8mm_PullBack_ThermalVias', 'keywords':'led driver i2c', 'description':'', 'datasheet':'https://ams.com/documents/20143/36005/AS1115_DS000206_1-00.pdf/3d3e6d35-b184-1329-adf9-2d769eb2404f', 'pins':[
+        Part(**{ 'name':'AS1115-BQFT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AS1115-BQFT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-24-1EP_4x4mm_P0.5mm_EP2.8x2.8mm_PullBack_ThermalVias'], 'footprint':'Package_DFN_QFN:TQFN-24-1EP_4x4mm_P0.5mm_EP2.8x2.8mm_PullBack_ThermalVias', 'keywords':'led driver i2c', 'description':'', 'datasheet':'https://ams.com/documents/20143/36005/AS1115_DS000206_1-00.pdf/3d3e6d35-b184-1329-adf9-2d769eb2404f', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nAS1115-BQFT\n\nled driver i2c', 'pins':[
             Pin(num='1',name='DIG2',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='10',name='ISET',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='SCL',func=Pin.types.INPUT,unit=1),
@@ -30,7 +30,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIG7',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='KEYA',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='KEYB',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AS1115-BSST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AS1115-BSST'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-24_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:QSOP-24_3.9x8.7mm_P0.635mm', 'keywords':'led driver i2c', 'description':'', 'datasheet':'https://ams.com/documents/20143/36005/AS1115_DS000206_1-00.pdf/3d3e6d35-b184-1329-adf9-2d769eb2404f', 'pins':[
+        Part(**{ 'name':'AS1115-BSST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AS1115-BSST'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-24_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:QSOP-24_3.9x8.7mm_P0.635mm', 'keywords':'led driver i2c', 'description':'', 'datasheet':'https://ams.com/documents/20143/36005/AS1115_DS000206_1-00.pdf/3d3e6d35-b184-1329-adf9-2d769eb2404f', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nAS1115-BSST\n\nled driver i2c', 'pins':[
             Pin(num='1',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='DIG7',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='KEYA',func=Pin.types.OPENCOLL,unit=1),
@@ -55,7 +55,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIG4',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='DIG5',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='9',name='DIG6',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AW9523B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AW9523B'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm', 'keywords':'Port-Expander', 'description':'', 'datasheet':'https://cdn-shop.adafruit.com/product-files/4886/AW9523+English+Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'AW9523B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AW9523B'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm', 'keywords':'Port-Expander', 'description':'', 'datasheet':'https://cdn-shop.adafruit.com/product-files/4886/AW9523+English+Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nAW9523B\n\nPort-Expander', 'pins':[
             Pin(num='1',name='P1_0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P0_4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P0_5',func=Pin.types.BIDIR,unit=1),
@@ -81,7 +81,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P0_2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P0_3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC4314xGN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC4314xGN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:SSOP-20_3.9x8.7mm_P0.635mm', 'keywords':'I2C Multiplexer Buffer Level Shifter', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/4314f.pdf', 'pins':[
+        Part(**{ 'name':'LTC4314xGN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC4314xGN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:SSOP-20_3.9x8.7mm_P0.635mm', 'keywords':'I2C Multiplexer Buffer Level Shifter', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/4314f.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nLTC4314xGN\n\nI2C Multiplexer Buffer Level Shifter', 'pins':[
             Pin(num='3',name='SCLOUT1',func=Pin.types.BIDIR),
             Pin(num='1',name='DISCEN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='ENABLE3',func=Pin.types.INPUT,unit=1),
@@ -102,7 +102,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SCLOUT2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SDAOUT2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='ENABLE4',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC4314xUDC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC4314xUDC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_3x4mm_P0.5mm_EP1.65x2.65mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_3x4mm_P0.5mm_EP1.65x2.65mm', 'keywords':'I2C Multiplexer Buffer Level Shifter', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/4314f.pdf', 'pins':[
+        Part(**{ 'name':'LTC4314xUDC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC4314xUDC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_3x4mm_P0.5mm_EP1.65x2.65mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_3x4mm_P0.5mm_EP1.65x2.65mm', 'keywords':'I2C Multiplexer Buffer Level Shifter', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/4314f.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nLTC4314xUDC\n\nI2C Multiplexer Buffer Level Shifter', 'pins':[
             Pin(num='1',name='SCLOUT1',func=Pin.types.BIDIR),
             Pin(num='10',name='ENABLE1',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SCLOUT3',func=Pin.types.BIDIR,unit=1),
@@ -124,7 +124,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='ENABLE4',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='ENABLE3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='ENABLE2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC4316xDD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC4316xDD'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.65x2.38mm'], 'footprint':'Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.65x2.38mm', 'keywords':'I2C Translator 4kV-ESD Level-Shifter Hot-Swap', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/4316fa.pdf', 'pins':[
+        Part(**{ 'name':'LTC4316xDD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC4316xDD'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.65x2.38mm'], 'footprint':'Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.65x2.38mm', 'keywords':'I2C Translator 4kV-ESD Level-Shifter Hot-Swap', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/4316fa.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nLTC4316xDD\n\nI2C Translator 4kV-ESD Level-Shifter Hot-Swap', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='SCLIN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='EP',func=Pin.types.PASSIVE,unit=1),
@@ -136,7 +136,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDAIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SDAOUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SCLOUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC4317', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC4317'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-16-1EP_3x5mm_P0.5mm_EP1.66x4.4mm'], 'footprint':'Package_DFN_QFN:DFN-16-1EP_3x5mm_P0.5mm_EP1.66x4.4mm', 'keywords':'I2C Translator 4kV-ESD Level-Shifter Hot-Swap', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/4317fa.pdf', 'pins':[
+        Part(**{ 'name':'LTC4317', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC4317'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-16-1EP_3x5mm_P0.5mm_EP1.66x4.4mm'], 'footprint':'Package_DFN_QFN:DFN-16-1EP_3x5mm_P0.5mm_EP1.66x4.4mm', 'keywords':'I2C Translator 4kV-ESD Level-Shifter Hot-Swap', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/4317fa.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nLTC4317\n\nI2C Translator 4kV-ESD Level-Shifter Hot-Swap', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='READY1',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='11',name='SDAOUT2',func=Pin.types.BIDIR,unit=1),
@@ -154,7 +154,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='ENABLE1',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='READY2',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX31910xUI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX31910xUI'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.85x6.7mm'], 'footprint':'Package_SO:TSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.85x6.7mm', 'keywords':'SPI digital input serializer', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/max31910.pdf', 'pins':[
+        Part(**{ 'name':'MAX31910xUI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX31910xUI'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.85x6.7mm'], 'footprint':'Package_SO:TSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.85x6.7mm', 'keywords':'SPI digital input serializer', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/max31910.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nMAX31910xUI\n\nSPI digital input serializer', 'pins':[
             Pin(num='1',name='DB0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RT4',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='IN5',func=Pin.types.INPUT,unit=1),
@@ -184,7 +184,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IN3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='RT3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='IN4',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX7325AEG+', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX7325AEG+'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-24_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:QSOP-24_3.9x8.7mm_P0.635mm', 'keywords':'Expander I2C Parallel Port GPIO Maxim', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX7325.pdf', 'pins':[
+        Part(**{ 'name':'MAX7325AEG+', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX7325AEG+'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-24_3.9x8.7mm_P0.635mm'], 'footprint':'Package_SO:QSOP-24_3.9x8.7mm_P0.635mm', 'keywords':'Expander I2C Parallel Port GPIO Maxim', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX7325.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nMAX7325AEG+\n\nExpander I2C Parallel Port GPIO Maxim', 'pins':[
             Pin(num='1',name='~{INT}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='10',name='P6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P7',func=Pin.types.BIDIR,unit=1),
@@ -209,7 +209,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP23008-xML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP23008-xML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.7x2.7mm', 'keywords':'I2C parallel port expander', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/MCP23008-MCP23S08-Data-Sheet-20001919F.pdf', 'pins':[
+        Part(**{ 'name':'MCP23008-xML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP23008-xML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.7x2.7mm', 'keywords':'I2C parallel port expander', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/MCP23008-MCP23S08-Data-Sheet-20001919F.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nMCP23008-xML\n\nI2C parallel port expander', 'pins':[
             Pin(num='1',name='A2',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GP1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='GP2',func=Pin.types.BIDIR,unit=1),
@@ -230,7 +230,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='INT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='GP0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP23008-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP23008-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-18_W7.62mm'], 'footprint':'Package_DIP:DIP-18_W7.62mm', 'keywords':'I2C parallel port expander', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/MCP23008-MCP23S08-Data-Sheet-20001919F.pdf', 'pins':[
+        Part(**{ 'name':'MCP23008-xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP23008-xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-18_W7.62mm'], 'footprint':'Package_DIP:DIP-18_W7.62mm', 'keywords':'I2C parallel port expander', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/MCP23008-MCP23S08-Data-Sheet-20001919F.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nMCP23008-xP\n\nI2C parallel port expander', 'pins':[
             Pin(num='1',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='GP1',func=Pin.types.BIDIR,unit=1),
@@ -249,7 +249,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='INT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP23008-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP23008-xSO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm'], 'footprint':'Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm', 'keywords':'I2C parallel port expander', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/MCP23008-MCP23S08-Data-Sheet-20001919F.pdf', 'pins':[
+        Part(**{ 'name':'MCP23008-xSO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP23008-xSO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm'], 'footprint':'Package_SO:SOIC-18W_7.5x11.6mm_P1.27mm', 'keywords':'I2C parallel port expander', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/MCP23008-MCP23S08-Data-Sheet-20001919F.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nMCP23008-xSO\n\nI2C parallel port expander', 'pins':[
             Pin(num='1',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GP0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='GP1',func=Pin.types.BIDIR,unit=1),
@@ -268,7 +268,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='INT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP23008-xSS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP23008-xSS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'I2C parallel port expander', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/MCP23008-MCP23S08-Data-Sheet-20001919F.pdf', 'pins':[
+        Part(**{ 'name':'MCP23008-xSS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP23008-xSS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'I2C parallel port expander', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/MCP23008-MCP23S08-Data-Sheet-20001919F.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nMCP23008-xSS\n\nI2C parallel port expander', 'pins':[
             Pin(num='1',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -289,7 +289,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='INT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP23017_ML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP23017_ML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'I2C parallel port expander', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001952C.pdf', 'pins':[
+        Part(**{ 'name':'MCP23017_ML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP23017_ML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'I2C parallel port expander', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001952C.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nMCP23017_ML\n\nI2C parallel port expander', 'pins':[
             Pin(num='1',name='GPB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='A0',func=Pin.types.INPUT,unit=1),
@@ -319,7 +319,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='SDA',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP23017_SO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP23017_SO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'I2C parallel port expander', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001952C.pdf', 'pins':[
+        Part(**{ 'name':'MCP23017_SO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP23017_SO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'I2C parallel port expander', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001952C.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nMCP23017_SO\n\nI2C parallel port expander', 'pins':[
             Pin(num='1',name='GPB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -348,7 +348,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GPB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GPB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP23017_SP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP23017_SP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'I2C parallel port expander', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001952C.pdf', 'pins':[
+        Part(**{ 'name':'MCP23017_SP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP23017_SP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'I2C parallel port expander', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001952C.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nMCP23017_SP\n\nI2C parallel port expander', 'pins':[
             Pin(num='1',name='GPB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -377,7 +377,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GPB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GPB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP23017_SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP23017_SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'I2C parallel port expander', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001952C.pdf', 'pins':[
+        Part(**{ 'name':'MCP23017_SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP23017_SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'I2C parallel port expander', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001952C.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nMCP23017_SS\n\nI2C parallel port expander', 'pins':[
             Pin(num='1',name='GPB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -406,7 +406,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GPB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GPB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP23S17_ML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP23S17_ML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'SPI parallel port expander', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001952C.pdf', 'pins':[
+        Part(**{ 'name':'MCP23S17_ML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP23S17_ML'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.25x4.25mm', 'keywords':'SPI parallel port expander', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001952C.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nMCP23S17_ML\n\nSPI parallel port expander', 'pins':[
             Pin(num='1',name='GPB4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='A0',func=Pin.types.INPUT,unit=1),
@@ -436,7 +436,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='SI',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP23S17_SO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP23S17_SO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'SPI parallel port expander', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001952C.pdf', 'pins':[
+        Part(**{ 'name':'MCP23S17_SO', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP23S17_SO'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'SPI parallel port expander', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001952C.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nMCP23S17_SO\n\nSPI parallel port expander', 'pins':[
             Pin(num='1',name='GPB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='~{CS}',func=Pin.types.INPUT,unit=1),
@@ -465,7 +465,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GPB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GPB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP23S17_SP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP23S17_SP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'microchip i2c parallel port expander', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001952C.pdf', 'pins':[
+        Part(**{ 'name':'MCP23S17_SP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP23S17_SP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-28_W7.62mm'], 'footprint':'Package_DIP:DIP-28_W7.62mm', 'keywords':'microchip i2c parallel port expander', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001952C.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nMCP23S17_SP\n\nmicrochip i2c parallel port expander', 'pins':[
             Pin(num='1',name='GPB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='~{CS}',func=Pin.types.INPUT,unit=1),
@@ -494,7 +494,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GPB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GPB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP23S17_SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP23S17_SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'SPI parallel port expander', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001952C.pdf', 'pins':[
+        Part(**{ 'name':'MCP23S17_SS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP23S17_SS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-28_5.3x10.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-28_5.3x10.2mm_P0.65mm', 'keywords':'SPI parallel port expander', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20001952C.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nMCP23S17_SS\n\nSPI parallel port expander', 'pins':[
             Pin(num='1',name='GPB0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='~{CS}',func=Pin.types.INPUT,unit=1),
@@ -523,7 +523,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GPB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GPB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'P82B96', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'P82B96'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'I2C Bus Buffer', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/P82B96.pdf', 'pins':[
+        Part(**{ 'name':'P82B96', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'P82B96'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'I2C Bus Buffer', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/P82B96.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nP82B96\n\nI2C Bus Buffer', 'pins':[
             Pin(num='1',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='RXD-SDA',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='TXD-SDA',func=Pin.types.OUTPUT,unit=1),
@@ -532,7 +532,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='RXD-SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='SCL',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PCA9506BS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9506BS'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-56-1EP_8x8mm_P0.5mm_EP4.3x4.3mm'], 'footprint':'Package_DFN_QFN:QFN-56-1EP_8x8mm_P0.5mm_EP4.3x4.3mm', 'keywords':'I2C TWI IO expander', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/PCA9505_9506.pdf', 'pins':[
+        Part(**{ 'name':'PCA9506BS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9506BS'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-56-1EP_8x8mm_P0.5mm_EP4.3x4.3mm'], 'footprint':'Package_DFN_QFN:QFN-56-1EP_8x8mm_P0.5mm_EP4.3x4.3mm', 'keywords':'I2C TWI IO expander', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/PCA9505_9506.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nPCA9506BS\n\nI2C TWI IO expander', 'pins':[
             Pin(num='1',name='IO0_4',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='IO1_4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='V_{DD}',func=Pin.types.PWRIN,unit=1),
@@ -590,7 +590,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IO1_1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='IO1_2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='IO1_3',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PCA9516', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9516'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'I2C Hub', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/PCA9518.pdf', 'pins':[
+        Part(**{ 'name':'PCA9516', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9516'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'I2C Hub', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/PCA9518.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nPCA9516\n\nI2C Hub', 'pins':[
             Pin(num='1',name='SCL0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SCL3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SDA3',func=Pin.types.BIDIR,unit=1),
@@ -607,7 +607,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='EN2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PCA9536D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9536D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'i2c io port', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/PCA9536.pdf', 'pins':[
+        Part(**{ 'name':'PCA9536D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9536D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'i2c io port', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/PCA9536.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nPCA9536D\n\ni2c io port', 'pins':[
             Pin(num='1',name='IO0',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='IO1',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='IO2',func=Pin.types.BIDIR,unit=1),
@@ -616,7 +616,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PCA9536DP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9536DP'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_3x3mm_P0.65mm', 'keywords':'i2c io port', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/PCA9536.pdf', 'pins':[
+        Part(**{ 'name':'PCA9536DP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9536DP'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-8_3x3mm_P0.65mm', 'keywords':'i2c io port', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/PCA9536.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nPCA9536DP\n\ni2c io port', 'pins':[
             Pin(num='1',name='IO0',func=Pin.types.BIDIR,unit=1),
             Pin(num='2',name='IO1',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='IO2',func=Pin.types.BIDIR,unit=1),
@@ -625,7 +625,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PCA9537', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9537'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-10_3x3mm_P0.5mm', 'keywords':'i2c io port', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/PCA9537.pdf', 'pins':[
+        Part(**{ 'name':'PCA9537', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9537'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-10_3x3mm_P0.5mm', 'keywords':'i2c io port', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/PCA9537.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nPCA9537\n\ni2c io port', 'pins':[
             Pin(num='1',name='IO0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IO1',func=Pin.types.BIDIR,unit=1),
@@ -636,7 +636,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{INT}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='SDA',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PCA9544AD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9544AD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'i2c multiplexer', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/PCA9544A.pdf', 'pins':[
+        Part(**{ 'name':'PCA9544AD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9544AD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm'], 'footprint':'Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm', 'keywords':'i2c multiplexer', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/PCA9544A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nPCA9544AD\n\ni2c multiplexer', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='~{INT2}',func=Pin.types.INPUT,unit=1),
@@ -657,7 +657,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{INT1}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SC1',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PCA9544APW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9544APW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'i2c multiplexer', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/PCA9544A.pdf', 'pins':[
+        Part(**{ 'name':'PCA9544APW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9544APW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'i2c multiplexer', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/PCA9544A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nPCA9544APW\n\ni2c multiplexer', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='~{INT2}',func=Pin.types.INPUT,unit=1),
@@ -678,7 +678,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{INT1}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SC1',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PCA9547BS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9547BS'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:HVQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm'], 'footprint':'Package_DFN_QFN:HVQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'keywords':'Low voltage 8-channel I2C switch with reset', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/PCA9547.pdf', 'pins':[
+        Part(**{ 'name':'PCA9547BS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9547BS'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:HVQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm'], 'footprint':'Package_DFN_QFN:HVQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'keywords':'Low voltage 8-channel I2C switch with reset', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/PCA9547.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nPCA9547BS\n\nLow voltage 8-channel I2C switch with reset', 'pins':[
             Pin(num='1',name='SD0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SC4',func=Pin.types.OUTPUT,unit=1),
@@ -704,7 +704,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SD3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SC3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PCA9548ADB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9548ADB'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_5.3x8.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'keywords':'Low voltage 8-channel I2C switch with reset', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/pca9548a.pdf', 'pins':[
+        Part(**{ 'name':'PCA9548ADB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9548ADB'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_5.3x8.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'keywords':'Low voltage 8-channel I2C switch with reset', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/pca9548a.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nPCA9548ADB\n\nLow voltage 8-channel I2C switch with reset', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='SD3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SC3',func=Pin.types.OUTPUT,unit=1),
@@ -729,7 +729,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SC1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='SD2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SC2',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PCA9548ADW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9548ADW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm'], 'footprint':'Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm', 'keywords':'Low voltage 8-channel I2C switch with reset', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/pca9548a.pdf', 'pins':[
+        Part(**{ 'name':'PCA9548ADW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9548ADW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm'], 'footprint':'Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm', 'keywords':'Low voltage 8-channel I2C switch with reset', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/pca9548a.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nPCA9548ADW\n\nLow voltage 8-channel I2C switch with reset', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='SD3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SC3',func=Pin.types.OUTPUT,unit=1),
@@ -754,7 +754,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SC1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='SD2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SC2',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PCA9555D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9555D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm'], 'footprint':'Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm', 'keywords':'I2C TWI IO expander', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/PCA9555.pdf', 'pins':[
+        Part(**{ 'name':'PCA9555D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9555D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm'], 'footprint':'Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm', 'keywords':'I2C TWI IO expander', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/PCA9555.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nPCA9555D\n\nI2C TWI IO expander', 'pins':[
             Pin(num='1',name='~{INT}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='10',name='IO0_6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='IO0_7',func=Pin.types.BIDIR,unit=1),
@@ -779,7 +779,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IO0_3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='IO0_4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='IO0_5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PCA9555DB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9555DB'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_5.3x8.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'keywords':'I2C TWI IO expander', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/PCA9555.pdf', 'pins':[
+        Part(**{ 'name':'PCA9555DB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9555DB'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_5.3x8.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'keywords':'I2C TWI IO expander', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/PCA9555.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nPCA9555DB\n\nI2C TWI IO expander', 'pins':[
             Pin(num='1',name='~{INT}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='10',name='IO0_6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='IO0_7',func=Pin.types.BIDIR,unit=1),
@@ -804,7 +804,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IO0_3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='IO0_4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='IO0_5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PCA9555PW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9555PW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'I2C TWI IO expander', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/PCA9555.pdf', 'pins':[
+        Part(**{ 'name':'PCA9555PW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9555PW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'I2C TWI IO expander', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/PCA9555.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nPCA9555PW\n\nI2C TWI IO expander', 'pins':[
             Pin(num='1',name='~{INT}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='10',name='IO0_6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='IO0_7',func=Pin.types.BIDIR,unit=1),
@@ -829,7 +829,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IO0_3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='IO0_4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='IO0_5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PCA9557BS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9557BS'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:HVQFN-16-1EP_3x3mm_P0.5mm_EP1.5x1.5mm'], 'footprint':'Package_DFN_QFN:HVQFN-16-1EP_3x3mm_P0.5mm_EP1.5x1.5mm', 'keywords':'SMBUS I2C Expander', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/PCA9557.pdf', 'pins':[
+        Part(**{ 'name':'PCA9557BS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9557BS'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:HVQFN-16-1EP_3x3mm_P0.5mm_EP1.5x1.5mm'], 'footprint':'Package_DFN_QFN:HVQFN-16-1EP_3x3mm_P0.5mm_EP1.5x1.5mm', 'keywords':'SMBUS I2C Expander', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/PCA9557.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nPCA9557BS\n\nSMBUS I2C Expander', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='IO5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='IO6',func=Pin.types.BIDIR,unit=1),
@@ -846,7 +846,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IO2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='IO3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='IO4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PCA9557D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9557D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SO-16_3.9x9.9mm_P1.27mm', 'keywords':'SMBUS I2C Expander', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/PCA9557.pdf', 'pins':[
+        Part(**{ 'name':'PCA9557D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9557D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SO-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SO-16_3.9x9.9mm_P1.27mm', 'keywords':'SMBUS I2C Expander', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/PCA9557.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nPCA9557D\n\nSMBUS I2C Expander', 'pins':[
             Pin(num='1',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='IO3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='IO4',func=Pin.types.BIDIR,unit=1),
@@ -863,7 +863,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IO1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='IO2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PCA9557PW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9557PW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'SMBUS I2C Expander', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/PCA9557.pdf', 'pins':[
+        Part(**{ 'name':'PCA9557PW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9557PW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'SMBUS I2C Expander', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/PCA9557.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nPCA9557PW\n\nSMBUS I2C Expander', 'pins':[
             Pin(num='1',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='IO3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='IO4',func=Pin.types.BIDIR,unit=1),
@@ -880,7 +880,32 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IO1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='IO2',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PCAL6416AHF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCAL6416AHF'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:HVQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm'], 'footprint':'Package_DFN_QFN:HVQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'keywords':'I2C TWI IO expander', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/PCAL6416A.pdf', 'pins':[
+        Part(**{ 'name':'PCA9847PW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9847PW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'mux i2c switch', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/PCA9847.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nPCA9847PW\n\nmux i2c switch', 'pins':[
+            Pin(num='1',name='V_{DD1}',func=Pin.types.PWRIN,unit=1),
+            Pin(num='10',name='SD3',func=Pin.types.BIDIR,unit=1),
+            Pin(num='11',name='SC3',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='12',name='V_{SS}',func=Pin.types.PWRIN,unit=1),
+            Pin(num='13',name='SD4',func=Pin.types.BIDIR,unit=1),
+            Pin(num='14',name='SC4',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='15',name='SD5',func=Pin.types.BIDIR,unit=1),
+            Pin(num='16',name='SC5',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='17',name='SD6',func=Pin.types.BIDIR,unit=1),
+            Pin(num='18',name='SC6',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='19',name='SD7',func=Pin.types.BIDIR,unit=1),
+            Pin(num='2',name='A0',func=Pin.types.INPUT,unit=1),
+            Pin(num='20',name='SC7',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='21',name='A1',func=Pin.types.INPUT,unit=1),
+            Pin(num='22',name='SCL',func=Pin.types.INPUT,unit=1),
+            Pin(num='23',name='SDA',func=Pin.types.BIDIR,unit=1),
+            Pin(num='24',name='V_{DD2}',func=Pin.types.PWRIN,unit=1),
+            Pin(num='3',name='~{RESET}',func=Pin.types.INPUT,unit=1),
+            Pin(num='4',name='SD0',func=Pin.types.BIDIR,unit=1),
+            Pin(num='5',name='SC0',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='6',name='SD1',func=Pin.types.BIDIR,unit=1),
+            Pin(num='7',name='SC1',func=Pin.types.OUTPUT,unit=1),
+            Pin(num='8',name='SD2',func=Pin.types.BIDIR,unit=1),
+            Pin(num='9',name='SC2',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'PCAL6416AHF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCAL6416AHF'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:HVQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm'], 'footprint':'Package_DFN_QFN:HVQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'keywords':'I2C TWI IO expander', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/PCAL6416A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nPCAL6416AHF\n\nI2C TWI IO expander', 'pins':[
             Pin(num='1',name='P0_0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P1_0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P1_1',func=Pin.types.BIDIR,unit=1),
@@ -906,7 +931,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P0_6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P0_7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='V_{SS}',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PCAL6416APW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCAL6416APW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'I2C TWI IO expander', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/PCAL6416A.pdf', 'pins':[
+        Part(**{ 'name':'PCAL6416APW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCAL6416APW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'I2C TWI IO expander', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/PCAL6416A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nPCAL6416APW\n\nI2C TWI IO expander', 'pins':[
             Pin(num='1',name='~{INT}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='10',name='P0_6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P0_7',func=Pin.types.BIDIR,unit=1),
@@ -931,7 +956,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P0_3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P0_4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P0_5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PCAL6534EV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCAL6534EV'}), 'ref_prefix':'U', 'fplist':['Package_BGA:NXP_VFBGA-42_2.6x3mm_Layout6x7_P0.4mm_Ball0.25mm_Pad0.24mm'], 'footprint':'Package_BGA:NXP_VFBGA-42_2.6x3mm_Layout6x7_P0.4mm_Ball0.25mm_Pad0.24mm', 'keywords':'I2C TWI IO expander', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/PCAL6534.pdf', 'pins':[
+        Part(**{ 'name':'PCAL6534EV', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCAL6534EV'}), 'ref_prefix':'U', 'fplist':['Package_BGA:NXP_VFBGA-42_2.6x3mm_Layout6x7_P0.4mm_Ball0.25mm_Pad0.24mm'], 'footprint':'Package_BGA:NXP_VFBGA-42_2.6x3mm_Layout6x7_P0.4mm_Ball0.25mm_Pad0.24mm', 'keywords':'I2C TWI IO expander', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/PCAL6534.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nPCAL6534EV\n\nI2C TWI IO expander', 'pins':[
             Pin(num='A1',name='V_{DD(I2C-bus)}',func=Pin.types.PWRIN,unit=1),
             Pin(num='A2',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='SCL',func=Pin.types.INPUT,unit=1),
@@ -974,7 +999,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='G4',name='P2_2',func=Pin.types.BIDIR,unit=1),
             Pin(num='G5',name='P2_3',func=Pin.types.BIDIR,unit=1),
             Pin(num='G6',name='P2_4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PCF8574', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCF8574'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'I2C Expander', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/PCF8574_PCF8574A.pdf', 'pins':[
+        Part(**{ 'name':'PCF8574', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCF8574'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'I2C Expander', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/PCF8574_PCF8574A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nPCF8574\n\nI2C Expander', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P6',func=Pin.types.BIDIR,unit=1),
@@ -991,7 +1016,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='P4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PCF8574TS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCF8574TS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'I2C Expander', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/PCF8574_PCF8574A.pdf', 'pins':[
+        Part(**{ 'name':'PCF8574TS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCF8574TS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'I2C Expander', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/PCF8574_PCF8574A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nPCF8574TS\n\nI2C Expander', 'pins':[
             Pin(num='1',name='~{INT}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='10',name='P0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P1',func=Pin.types.BIDIR,unit=1),
@@ -1012,7 +1037,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='A2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PCF8575DBR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCF8575DBR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_5.3x8.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'keywords':'I2C Expander', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/pcf8575.pdf', 'pins':[
+        Part(**{ 'name':'PCF8575DBR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCF8575DBR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_5.3x8.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'keywords':'I2C Expander', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/pcf8575.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nPCF8575DBR\n\nI2C Expander', 'pins':[
             Pin(num='1',name='~{INT}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='10',name='P6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P7',func=Pin.types.BIDIR,unit=1),
@@ -1037,7 +1062,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PCF8584', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCF8584'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'I2C Bus', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/PCF8584.pdf', 'pins':[
+        Part(**{ 'name':'PCF8584', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCF8584'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'I2C Bus', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/PCF8584.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nPCF8584\n\nI2C Bus', 'pins':[
             Pin(num='1',name='CLK',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='D3',func=Pin.types.TRISTATE,unit=1),
@@ -1058,7 +1083,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D0',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='D1',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='D2',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PCF8591', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCF8591'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'I2C ADC DAC', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/PCF8591.pdf', 'pins':[
+        Part(**{ 'name':'PCF8591', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCF8591'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'I2C ADC DAC', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/PCF8591.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nPCF8591\n\nI2C ADC DAC', 'pins':[
             Pin(num='1',name='AIN0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='OSC',func=Pin.types.BIDIR,unit=1),
@@ -1075,7 +1100,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='SDA',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STMPE1600', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STMPE1600'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'IO expander 16 GPIO', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/stmpe1600.pdf', 'pins':[
+        Part(**{ 'name':'STMPE1600', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STMPE1600'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'IO expander 16 GPIO', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/stmpe1600.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nSTMPE1600\n\nIO expander 16 GPIO', 'pins':[
             Pin(num='1',name='GPIO_0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='GPIO_8',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='GPIO_9',func=Pin.types.BIDIR,unit=1),
@@ -1100,7 +1125,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GPIO_6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GPIO_7',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCA9534', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9534'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'SMBUS I2C Expander', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9534.pdf', 'pins':[
+        Part(**{ 'name':'TCA9534', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9534'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'SMBUS I2C Expander', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9534.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nTCA9534\n\nSMBUS I2C Expander', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P6',func=Pin.types.BIDIR,unit=1),
@@ -1117,7 +1142,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='P4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCA9535DBR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9535DBR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_5.3x8.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'keywords':'ti parallel port', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9535.pdf', 'pins':[
+        Part(**{ 'name':'TCA9535DBR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9535DBR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_5.3x8.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'keywords':'ti parallel port', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9535.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nTCA9535DBR\n\nti parallel port', 'pins':[
             Pin(num='1',name='~{INT}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='10',name='P06',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P07',func=Pin.types.BIDIR,unit=1),
@@ -1142,7 +1167,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P03',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P04',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P05',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCA9535PWR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9535PWR'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'ti parallel port', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9535.pdf', 'pins':[
+        Part(**{ 'name':'TCA9535PWR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9535PWR'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'ti parallel port', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9535.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nTCA9535PWR\n\nti parallel port', 'pins':[
             Pin(num='1',name='~{INT}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='10',name='P06',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P07',func=Pin.types.BIDIR,unit=1),
@@ -1167,7 +1192,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P03',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P04',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P05',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCA9535RGER', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9535RGER'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm'], 'footprint':'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'keywords':'ti parallel port', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9535.pdf', 'pins':[
+        Part(**{ 'name':'TCA9535RGER', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9535RGER'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm'], 'footprint':'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'keywords':'ti parallel port', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9535.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nTCA9535RGER\n\nti parallel port', 'pins':[
             Pin(num='1',name='P00',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P10',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P11',func=Pin.types.BIDIR,unit=1),
@@ -1193,7 +1218,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P06',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P07',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCA9535RTWR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9535RTWR'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:WQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm'], 'footprint':'Package_DFN_QFN:WQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'keywords':'ti parallel port', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9535.pdf', 'pins':[
+        Part(**{ 'name':'TCA9535RTWR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9535RTWR'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:WQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm'], 'footprint':'Package_DFN_QFN:WQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'keywords':'ti parallel port', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9535.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nTCA9535RTWR\n\nti parallel port', 'pins':[
             Pin(num='1',name='P00',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P10',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P11',func=Pin.types.BIDIR,unit=1),
@@ -1219,7 +1244,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P06',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P07',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCA9544A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9544A'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'I2C Hub', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9544a.pdf', 'pins':[
+        Part(**{ 'name':'TCA9544A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9544A'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'I2C Hub', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9544a.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nTCA9544A\n\nI2C Hub', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='~{INT2}',func=Pin.types.INPUT,unit=1),
@@ -1240,7 +1265,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{INT1}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SD1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCA9548AMRGER', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9548AMRGER'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm'], 'footprint':'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'keywords':'Low voltage 8-channel I2C switch with reset', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9548a.pdf', 'pins':[
+        Part(**{ 'name':'TCA9548AMRGER', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9548AMRGER'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm'], 'footprint':'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'keywords':'Low voltage 8-channel I2C switch with reset', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9548a.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nTCA9548AMRGER\n\nLow voltage 8-channel I2C switch with reset', 'pins':[
             Pin(num='1',name='SD0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SC4',func=Pin.types.OUTPUT,unit=1),
@@ -1266,7 +1291,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SD3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SC3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCA9548APWR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9548APWR'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'Low voltage 8-channel I2C switch with reset', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9548a.pdf', 'pins':[
+        Part(**{ 'name':'TCA9548APWR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9548APWR'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'Low voltage 8-channel I2C switch with reset', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9548a.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nTCA9548APWR\n\nLow voltage 8-channel I2C switch with reset', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='SD3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SC3',func=Pin.types.OUTPUT,unit=1),
@@ -1291,7 +1316,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SC1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='SD2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SC2',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCA9554DB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9554DB'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_5.3x6.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-16_5.3x6.2mm_P0.65mm', 'keywords':'SMBUS I2C Expander', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9554.pdf', 'pins':[
+        Part(**{ 'name':'TCA9554DB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9554DB'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_5.3x6.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-16_5.3x6.2mm_P0.65mm', 'keywords':'SMBUS I2C Expander', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9554.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nTCA9554DB\n\nSMBUS I2C Expander', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P6',func=Pin.types.BIDIR,unit=1),
@@ -1308,7 +1333,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='P4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCA9554DBQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9554DBQ'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'SMBUS I2C Expander', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9554.pdf', 'pins':[
+        Part(**{ 'name':'TCA9554DBQ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9554DBQ'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'SMBUS I2C Expander', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9554.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nTCA9554DBQ\n\nSMBUS I2C Expander', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P6',func=Pin.types.BIDIR,unit=1),
@@ -1325,7 +1350,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='P4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCA9554DW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9554DW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'SMBUS I2C Expander', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9554.pdf', 'pins':[
+        Part(**{ 'name':'TCA9554DW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9554DW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'SMBUS I2C Expander', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9554.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nTCA9554DW\n\nSMBUS I2C Expander', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P6',func=Pin.types.BIDIR,unit=1),
@@ -1342,7 +1367,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='P4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCA9554PW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9554PW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'SMBUS I2C Expander', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9554.pdf', 'pins':[
+        Part(**{ 'name':'TCA9554PW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9554PW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'SMBUS I2C Expander', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9554.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nTCA9554PW\n\nSMBUS I2C Expander', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P6',func=Pin.types.BIDIR,unit=1),
@@ -1359,7 +1384,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='P4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TPIC6595', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPIC6595'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'shift register 8bit', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tpic6595.pdf', 'pins':[
+        Part(**{ 'name':'TPIC6595', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPIC6595'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'shift register 8bit', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tpic6595.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nTPIC6595\n\nshift register 8bit', 'pins':[
             Pin(num='1',name='PGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PGND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='PGND',func=Pin.types.PASSIVE,unit=1),
@@ -1380,7 +1405,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DRAIN3',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='8',name='~{SRCLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{G}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XRA1201IG24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XRA1201IG24'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'IO expander i2c', 'description':'', 'datasheet':'https://maxlinear-assets.azureedge.net/web/documents/xra1201.pdf', 'pins':[
+        Part(**{ 'name':'XRA1201IG24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XRA1201IG24'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'IO expander i2c', 'description':'', 'datasheet':'https://maxlinear-assets.azureedge.net/web/documents/xra1201.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nXRA1201IG24\n\nIO expander i2c', 'pins':[
             Pin(num='1',name='~{INT}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='10',name='P6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P7',func=Pin.types.BIDIR,unit=1),
@@ -1405,7 +1430,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XRA1201IL24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XRA1201IL24'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm'], 'footprint':'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'keywords':'IO expander i2c', 'description':'', 'datasheet':'https://maxlinear-assets.azureedge.net/web/documents/xra1201.pdf', 'pins':[
+        Part(**{ 'name':'XRA1201IL24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XRA1201IL24'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm'], 'footprint':'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'keywords':'IO expander i2c', 'description':'', 'datasheet':'https://maxlinear-assets.azureedge.net/web/documents/xra1201.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nXRA1201IL24\n\nIO expander i2c', 'pins':[
             Pin(num='1',name='~{INT}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='10',name='P6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P7',func=Pin.types.BIDIR,unit=1),
@@ -1431,7 +1456,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX31911xUI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX31911xUI'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.85x6.7mm', 'Package_SO:TSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.85x6.7mm'], 'footprint':'Package_SO:TSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.85x6.7mm', 'keywords':'SPI digital input serializer', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/max31911.pdf', 'pins':[
+        Part(**{ 'name':'MAX31911xUI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX31911xUI'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.85x6.7mm', 'Package_SO:TSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.85x6.7mm'], 'footprint':'Package_SO:TSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.85x6.7mm', 'keywords':'SPI digital input serializer', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/max31911.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nMAX31911xUI\n\nSPI digital input serializer', 'pins':[
             Pin(num='1',name='DB0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RT4',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='IN5',func=Pin.types.INPUT,unit=1),
@@ -1461,7 +1486,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IN3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='RT3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='IN4',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX31912xUI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX31912xUI'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.85x6.7mm', 'Package_SO:TSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.85x6.7mm', 'Package_SO:TSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.85x6.7mm'], 'footprint':'Package_SO:TSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.85x6.7mm', 'keywords':'SPI digital input serializer', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/max31912.pdf', 'pins':[
+        Part(**{ 'name':'MAX31912xUI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX31912xUI'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.85x6.7mm', 'Package_SO:TSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.85x6.7mm', 'Package_SO:TSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.85x6.7mm'], 'footprint':'Package_SO:TSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.85x6.7mm', 'keywords':'SPI digital input serializer', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/max31912.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nMAX31912xUI\n\nSPI digital input serializer', 'pins':[
             Pin(num='1',name='DB0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RT4',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='IN5',func=Pin.types.INPUT,unit=1),
@@ -1491,7 +1516,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IN3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='RT3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='IN4',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX31913xUI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX31913xUI'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.85x6.7mm', 'Package_SO:TSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.85x6.7mm', 'Package_SO:TSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.85x6.7mm', 'Package_SO:TSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.85x6.7mm'], 'footprint':'Package_SO:TSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.85x6.7mm', 'keywords':'SPI digital input serializer', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/max31913.pdf', 'pins':[
+        Part(**{ 'name':'MAX31913xUI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX31913xUI'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.85x6.7mm', 'Package_SO:TSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.85x6.7mm', 'Package_SO:TSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.85x6.7mm', 'Package_SO:TSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.85x6.7mm'], 'footprint':'Package_SO:TSSOP-28-1EP_4.4x9.7mm_P0.65mm_EP2.85x6.7mm', 'keywords':'SPI digital input serializer', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/max31913.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nMAX31913xUI\n\nSPI digital input serializer', 'pins':[
             Pin(num='1',name='DB0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RT4',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='IN5',func=Pin.types.INPUT,unit=1),
@@ -1521,7 +1546,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IN3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='RT3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='IN4',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PCA9547D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9547D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm'], 'footprint':'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'keywords':'Low voltage 8-channel I2C switch with reset', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/PCA9547.pdf', 'pins':[
+        Part(**{ 'name':'PCA9547D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9547D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm'], 'footprint':'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'keywords':'Low voltage 8-channel I2C switch with reset', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/PCA9547.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nPCA9547D\n\nLow voltage 8-channel I2C switch with reset', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='SD3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SC3',func=Pin.types.OUTPUT,unit=1),
@@ -1546,7 +1571,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SC1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='SD2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SC2',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PCA9547PW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9547PW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm', 'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'keywords':'Low voltage 8-channel I2C switch with reset', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/PCA9547.pdf', 'pins':[
+        Part(**{ 'name':'PCA9547PW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9547PW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'Package_SO:SOIC-24W_7.5x15.4mm_P1.27mm', 'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'keywords':'Low voltage 8-channel I2C switch with reset', 'description':'', 'datasheet':'https://www.nxp.com/docs/en/data-sheet/PCA9547.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nPCA9547PW\n\nLow voltage 8-channel I2C switch with reset', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='SD3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SC3',func=Pin.types.OUTPUT,unit=1),
@@ -1571,7 +1596,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SC1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='SD2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SC2',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PCA9548APW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9548APW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'Low voltage 8-channel I2C switch with reset', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/pca9548a.pdf', 'pins':[
+        Part(**{ 'name':'PCA9548APW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9548APW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'Low voltage 8-channel I2C switch with reset', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/pca9548a.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nPCA9548APW\n\nLow voltage 8-channel I2C switch with reset', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='SD3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SC3',func=Pin.types.OUTPUT,unit=1),
@@ -1596,7 +1621,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SC1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='SD2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SC2',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PCA9548ARGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9548ARGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm'], 'footprint':'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'keywords':'Low voltage 8-channel I2C switch with reset', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/pca9548a.pdf', 'pins':[
+        Part(**{ 'name':'PCA9548ARGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA9548ARGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm'], 'footprint':'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'keywords':'Low voltage 8-channel I2C switch with reset', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/pca9548a.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nPCA9548ARGE\n\nLow voltage 8-channel I2C switch with reset', 'pins':[
             Pin(num='1',name='SD0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SC4',func=Pin.types.OUTPUT,unit=1),
@@ -1622,7 +1647,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SD3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SC3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PCF8574A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCF8574A'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'I2C Expander', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/PCF8574_PCF8574A.pdf', 'pins':[
+        Part(**{ 'name':'PCF8574A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCF8574A'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'I2C Expander', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/PCF8574_PCF8574A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nPCF8574A\n\nI2C Expander', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P6',func=Pin.types.BIDIR,unit=1),
@@ -1639,7 +1664,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='P4',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PCF8574ATS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCF8574ATS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:SSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'I2C Expander', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/PCF8574_PCF8574A.pdf', 'pins':[
+        Part(**{ 'name':'PCF8574ATS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCF8574ATS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:SSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'I2C Expander', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/PCF8574_PCF8574A.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nPCF8574ATS\n\nI2C Expander', 'pins':[
             Pin(num='1',name='~{INT}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='10',name='P0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P1',func=Pin.types.BIDIR,unit=1),
@@ -1660,7 +1685,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='A2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCA9535DBT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9535DBT'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'keywords':'ti parallel port', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9535.pdf', 'pins':[
+        Part(**{ 'name':'TCA9535DBT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9535DBT'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'keywords':'ti parallel port', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9535.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nTCA9535DBT\n\nti parallel port', 'pins':[
             Pin(num='1',name='~{INT}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='10',name='P06',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P07',func=Pin.types.BIDIR,unit=1),
@@ -1685,7 +1710,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P03',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P04',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P05',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCA9535MRGER', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9535MRGER'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm'], 'footprint':'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'keywords':'ti parallel port', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9535.pdf', 'pins':[
+        Part(**{ 'name':'TCA9535MRGER', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9535MRGER'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm'], 'footprint':'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'keywords':'ti parallel port', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9535.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nTCA9535MRGER\n\nti parallel port', 'pins':[
             Pin(num='1',name='P00',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P10',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P11',func=Pin.types.BIDIR,unit=1),
@@ -1711,7 +1736,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P06',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P07',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCA9548ARGER', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9548ARGER'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm'], 'footprint':'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'keywords':'Low voltage 8-channel I2C switch with reset', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9548a.pdf', 'pins':[
+        Part(**{ 'name':'TCA9548ARGER', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9548ARGER'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm'], 'footprint':'Package_DFN_QFN:Texas_RGE0024C_VQFN-24-1EP_4x4mm_P0.5mm_EP2.1x2.1mm', 'keywords':'Low voltage 8-channel I2C switch with reset', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9548a.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nTCA9548ARGER\n\nLow voltage 8-channel I2C switch with reset', 'pins':[
             Pin(num='1',name='SD0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SC4',func=Pin.types.OUTPUT,unit=1),
@@ -1737,7 +1762,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SD3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SC3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCA9555DBR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9555DBR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'keywords':'ti parallel port', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9555.pdf', 'pins':[
+        Part(**{ 'name':'TCA9555DBR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9555DBR'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'keywords':'ti parallel port', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9555.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nTCA9555DBR\n\nti parallel port', 'pins':[
             Pin(num='1',name='~{INT}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='10',name='P06',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P07',func=Pin.types.BIDIR,unit=1),
@@ -1762,7 +1787,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P03',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P04',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P05',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCA9555DBT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9555DBT'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'keywords':'ti parallel port', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9555.pdf', 'pins':[
+        Part(**{ 'name':'TCA9555DBT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9555DBT'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-24_5.3x8.2mm_P0.65mm', 'keywords':'ti parallel port', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9555.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nTCA9555DBT\n\nti parallel port', 'pins':[
             Pin(num='1',name='~{INT}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='10',name='P06',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P07',func=Pin.types.BIDIR,unit=1),
@@ -1787,7 +1812,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P03',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P04',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P05',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCA9555PWR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9555PWR'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'ti parallel port', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9555.pdf', 'pins':[
+        Part(**{ 'name':'TCA9555PWR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9555PWR'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'ti parallel port', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9555.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nTCA9555PWR\n\nti parallel port', 'pins':[
             Pin(num='1',name='~{INT}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='10',name='P06',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P07',func=Pin.types.BIDIR,unit=1),
@@ -1812,7 +1837,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P03',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P04',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P05',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCA9555RGER', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9555RGER'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm'], 'footprint':'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'keywords':'ti parallel port', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9555.pdf', 'pins':[
+        Part(**{ 'name':'TCA9555RGER', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9555RGER'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm'], 'footprint':'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'keywords':'ti parallel port', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9555.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nTCA9555RGER\n\nti parallel port', 'pins':[
             Pin(num='1',name='P00',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P10',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P11',func=Pin.types.BIDIR,unit=1),
@@ -1838,7 +1863,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P06',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P07',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCA9555RTWR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9555RTWR'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:WQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'Package_DFN_QFN:WQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm'], 'footprint':'Package_DFN_QFN:WQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'keywords':'ti parallel port', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9555.pdf', 'pins':[
+        Part(**{ 'name':'TCA9555RTWR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCA9555RTWR'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:WQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'Package_DFN_QFN:WQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm'], 'footprint':'Package_DFN_QFN:WQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'keywords':'ti parallel port', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tca9555.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nTCA9555RTWR\n\nti parallel port', 'pins':[
             Pin(num='1',name='P00',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='P10',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P11',func=Pin.types.BIDIR,unit=1),
@@ -1864,7 +1889,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P06',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P07',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XRA1201PIG24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XRA1201PIG24'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'IO expander i2c', 'description':'', 'datasheet':'https://maxlinear-assets.azureedge.net/web/documents/xra1201.pdf', 'pins':[
+        Part(**{ 'name':'XRA1201PIG24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XRA1201PIG24'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'IO expander i2c', 'description':'', 'datasheet':'https://maxlinear-assets.azureedge.net/web/documents/xra1201.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nXRA1201PIG24\n\nIO expander i2c', 'pins':[
             Pin(num='1',name='~{INT}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='10',name='P6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P7',func=Pin.types.BIDIR,unit=1),
@@ -1889,7 +1914,7 @@ Interface_Expansion = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'XRA1201PIL24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XRA1201PIL24'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm'], 'footprint':'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'keywords':'IO expander i2c', 'description':'', 'datasheet':'https://maxlinear-assets.azureedge.net/web/documents/xra1201.pdf', 'pins':[
+        Part(**{ 'name':'XRA1201PIL24', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'XRA1201PIL24'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm'], 'footprint':'Package_DFN_QFN:VQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm', 'keywords':'IO expander i2c', 'description':'', 'datasheet':'https://maxlinear-assets.azureedge.net/web/documents/xra1201.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_Expansion.kicad_sym\nXRA1201PIL24\n\nIO expander i2c', 'pins':[
             Pin(num='1',name='~{INT}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='10',name='P6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P7',func=Pin.types.BIDIR,unit=1),

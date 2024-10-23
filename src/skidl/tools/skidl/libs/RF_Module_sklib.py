@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 RF_Module = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'AST50147-xx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AST50147-xx'}), 'ref_prefix':'U', 'fplist':['RF_Module:Astrocast_AST50147-00'], 'footprint':'RF_Module:Astrocast_AST50147-00', 'keywords':'RF module Astrocast radio Astronode ', 'description':'', 'datasheet':'https://docs.astrocast.com/dl/0532-DOC-M2M-ASTRO-Astronode_S-Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'AST50147-xx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AST50147-xx'}), 'ref_prefix':'U', 'fplist':['RF_Module:Astrocast_AST50147-00'], 'footprint':'RF_Module:Astrocast_AST50147-00', 'keywords':'RF module Astrocast radio Astronode ', 'description':'', 'datasheet':'https://docs.astrocast.com/dl/0532-DOC-M2M-ASTRO-Astronode_S-Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nAST50147-xx\n\nRF module Astrocast radio Astronode ', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='TXD',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -43,7 +43,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='WAKEUP',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ATSAMR21G18-MR210UA_NoRFPads', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAMR21G18-MR210UA_NoRFPads'}), 'ref_prefix':'U', 'fplist':['RF_Module:Atmel_ATSAMR21G18-MR210UA_NoRFPads'], 'footprint':'RF_Module:Atmel_ATSAMR21G18-MR210UA_NoRFPads', 'keywords':'Wireless Zigbee 802.15.4 ATSAMR21G18 AT45DB041E TECC508A', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/atmel-42475-atsamr21g18-mr210ua_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'ATSAMR21G18-MR210UA_NoRFPads', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ATSAMR21G18-MR210UA_NoRFPads'}), 'ref_prefix':'U', 'fplist':['RF_Module:Atmel_ATSAMR21G18-MR210UA_NoRFPads'], 'footprint':'RF_Module:Atmel_ATSAMR21G18-MR210UA_NoRFPads', 'keywords':'Wireless Zigbee 802.15.4 ATSAMR21G18 AT45DB041E TECC508A', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/atmel-42475-atsamr21g18-mr210ua_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nATSAMR21G18-MR210UA_NoRFPads\n\nWireless Zigbee 802.15.4 ATSAMR21G18 AT45DB041E TECC508A', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA28',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -86,7 +86,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA18',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA16',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PA19',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AX-SIP-SFEU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AX-SIP-SFEU'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:OnSemi_SIP-38-6EP-9x7mm_P0.65mm_EP1.2x1.2mm'], 'footprint':'Package_DFN_QFN:OnSemi_SIP-38-6EP-9x7mm_P0.65mm_EP1.2x1.2mm', 'keywords':'Sigfox SIP 868Mhz', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/AX-SIP-SFEU-D.PDF', 'pins':[
+        Part(**{ 'name':'AX-SIP-SFEU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AX-SIP-SFEU'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:OnSemi_SIP-38-6EP-9x7mm_P0.65mm_EP1.2x1.2mm'], 'footprint':'Package_DFN_QFN:OnSemi_SIP-38-6EP-9x7mm_P0.65mm_EP1.2x1.2mm', 'keywords':'Sigfox SIP 868Mhz', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/AX-SIP-SFEU-D.PDF', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nAX-SIP-SFEU\n\nSigfox SIP 868Mhz', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GPIO11/PC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='GPIO10/PC5',func=Pin.types.BIDIR,unit=1),
@@ -131,7 +131,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AX-SIP-SFEU-API', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AX-SIP-SFEU-API'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:OnSemi_SIP-38-6EP-9x7mm_P0.65mm_EP1.2x1.2mm'], 'footprint':'Package_DFN_QFN:OnSemi_SIP-38-6EP-9x7mm_P0.65mm_EP1.2x1.2mm', 'keywords':'Sigfox SIP 868Mhz', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/AX-SIP-SFEU-D.PDF', 'pins':[
+        Part(**{ 'name':'AX-SIP-SFEU-API', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AX-SIP-SFEU-API'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:OnSemi_SIP-38-6EP-9x7mm_P0.65mm_EP1.2x1.2mm'], 'footprint':'Package_DFN_QFN:OnSemi_SIP-38-6EP-9x7mm_P0.65mm_EP1.2x1.2mm', 'keywords':'Sigfox SIP 868Mhz', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/AX-SIP-SFEU-D.PDF', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nAX-SIP-SFEU-API\n\nSigfox SIP 868Mhz', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GPIO11/PC6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='GPIO10/PC5',func=Pin.types.BIDIR,unit=1),
@@ -176,7 +176,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Ai-Thinker-Ra-01', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Ai-Thinker-Ra-01'}), 'ref_prefix':'U', 'fplist':['RF_Module:Ai-Thinker-Ra-01-LoRa'], 'footprint':'RF_Module:Ai-Thinker-Ra-01-LoRa', 'keywords':'Ra-01 LoRa', 'description':'', 'datasheet':'http://wiki.ai-thinker.com/_media/lora/docs/c047ps01a1_ra-01_product_specification_v1.1.pdf', 'pins':[
+        Part(**{ 'name':'Ai-Thinker-Ra-01', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Ai-Thinker-Ra-01'}), 'ref_prefix':'U', 'fplist':['RF_Module:Ai-Thinker-Ra-01-LoRa'], 'footprint':'RF_Module:Ai-Thinker-Ra-01-LoRa', 'keywords':'Ra-01 LoRa', 'description':'', 'datasheet':'http://wiki.ai-thinker.com/_media/lora/docs/c047ps01a1_ra-01_product_specification_v1.1.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nAi-Thinker-Ra-01\n\nRa-01 LoRa', 'pins':[
             Pin(num='1',name='ANT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='DIO4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='DIO5',func=Pin.types.BIDIR,unit=1),
@@ -193,7 +193,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIO2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DIO3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Ai-Thinker-Ra-02', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Ai-Thinker-Ra-02'}), 'ref_prefix':'U', 'fplist':['RF_Module:Ai-Thinker-Ra-01-LoRa'], 'footprint':'RF_Module:Ai-Thinker-Ra-01-LoRa', 'keywords':'Ra-02 LoRa', 'description':'', 'datasheet':'http://wiki.ai-thinker.com/_media/lora/docs/c048ps01a1_ra-02_product_specification_v1.1.pdf', 'pins':[
+        Part(**{ 'name':'Ai-Thinker-Ra-02', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Ai-Thinker-Ra-02'}), 'ref_prefix':'U', 'fplist':['RF_Module:Ai-Thinker-Ra-01-LoRa'], 'footprint':'RF_Module:Ai-Thinker-Ra-01-LoRa', 'keywords':'Ra-02 LoRa', 'description':'', 'datasheet':'http://wiki.ai-thinker.com/_media/lora/docs/c048ps01a1_ra-02_product_specification_v1.1.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nAi-Thinker-Ra-02\n\nRa-02 LoRa', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='DIO4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='DIO5',func=Pin.types.BIDIR,unit=1),
@@ -210,7 +210,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIO2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DIO3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CMWX1ZZABZ-078', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CMWX1ZZABZ-078'}), 'ref_prefix':'U', 'fplist':['RF_Module:CMWX1ZZABZ'], 'footprint':'RF_Module:CMWX1ZZABZ', 'keywords':'iot lora sigfox', 'description':'', 'datasheet':'https://wireless.murata.com/RFM/data/type_abz.pdf', 'pins':[
+        Part(**{ 'name':'CMWX1ZZABZ-078', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CMWX1ZZABZ-078'}), 'ref_prefix':'U', 'fplist':['RF_Module:CMWX1ZZABZ'], 'footprint':'RF_Module:CMWX1ZZABZ', 'keywords':'iot lora sigfox', 'description':'', 'datasheet':'https://wireless.murata.com/RFM/data/type_abz.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nCMWX1ZZABZ-078\n\niot lora sigfox', 'pins':[
             Pin(num='1',name='PA12/USB_DP',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SX1276_DIO4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='DBG_SX1276_DIO5',func=Pin.types.BIDIR,unit=1),
@@ -268,7 +268,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='DBG_SX1276_DIO2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='DBG_SX1276_DI03',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'D52MxxM8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D52MxxM8'}), 'ref_prefix':'U', 'fplist':['RF_Module:Garmin_M8-35_9.8x14.0mm_Layout6x6_P1.5mm'], 'footprint':'RF_Module:Garmin_M8-35_9.8x14.0mm_Layout6x6_P1.5mm', 'keywords':'RF Radio ANT Bluetooth BLE D52 nRF52 Garmin Canada Dynastream Nordic', 'description':'', 'datasheet':'https://www.thisisant.com/assets/resources/D00001687_D52_Module_Datasheet.v.2.3_(Garmin).pdf', 'pins':[
+        Part(**{ 'name':'D52MxxM8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'D52MxxM8'}), 'ref_prefix':'U', 'fplist':['RF_Module:Garmin_M8-35_9.8x14.0mm_Layout6x6_P1.5mm'], 'footprint':'RF_Module:Garmin_M8-35_9.8x14.0mm_Layout6x6_P1.5mm', 'keywords':'RF Radio ANT Bluetooth BLE D52 nRF52 Garmin Canada Dynastream Nordic', 'description':'', 'datasheet':'https://www.thisisant.com/assets/resources/D00001687_D52_Module_Datasheet.v.2.3_(Garmin).pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nD52MxxM8\n\nRF Radio ANT Bluetooth BLE D52 nRF52 Garmin Canada Dynastream Nordic', 'pins':[
             Pin(num='A2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='A3',name='VSS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='A4',name='VSS',func=Pin.types.PASSIVE,unit=1),
@@ -304,7 +304,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='F4',name='AIN5/P029',func=Pin.types.BIDIR,unit=1),
             Pin(num='F5',name='AIN4/P028',func=Pin.types.BIDIR,unit=1),
             Pin(num='F6',name='P011',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DWM1000', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DWM1000'}), 'ref_prefix':'DWM', 'fplist':['RF_Module:DWM1000'], 'footprint':'RF_Module:DWM1000', 'keywords':'Decawave Qorvo UWB', 'description':'', 'datasheet':'https://www.decawave.com/sites/default/files/resources/dwm1000-datasheet-v1.3.pdf', 'pins':[
+        Part(**{ 'name':'DWM1000', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DWM1000'}), 'ref_prefix':'DWM', 'fplist':['RF_Module:DWM1000'], 'footprint':'RF_Module:DWM1000', 'keywords':'Decawave Qorvo UWB', 'description':'', 'datasheet':'https://www.decawave.com/sites/default/files/resources/dwm1000-datasheet-v1.3.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nDWM1000\n\nDecawave Qorvo UWB', 'pins':[
             Pin(num='1',name='EXTON',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='GPIO5/EXTTXE/SPIPOL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='GPIO4/EXTPA',func=Pin.types.BIDIR,unit=1),
@@ -329,7 +329,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD3V3',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GPIO6/EXTRXE/SPIHA',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DWM1001', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DWM1001'}), 'ref_prefix':'U', 'fplist':['RF_Module:DecaWave_DWM1001'], 'footprint':'RF_Module:DecaWave_DWM1001', 'keywords':'DWM1000  DecaWave RF ranging UWB', 'description':'', 'datasheet':'https://www.decawave.com/sites/default/files/dwm1001_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'DWM1001', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DWM1001'}), 'ref_prefix':'U', 'fplist':['RF_Module:DecaWave_DWM1001'], 'footprint':'RF_Module:DecaWave_DWM1001', 'keywords':'DWM1000  DecaWave RF ranging UWB', 'description':'', 'datasheet':'https://www.decawave.com/sites/default/files/dwm1001_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nDWM1001\n\nDWM1000  DecaWave RF ranging UWB', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GPIO_30',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -364,7 +364,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GPIO_14',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GPIO_22',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='GPIO_31',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'E18-MS1-PCB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'E18-MS1-PCB'}), 'ref_prefix':'U', 'fplist':['RF_Module:E18-MS1-PCB'], 'footprint':'RF_Module:E18-MS1-PCB', 'keywords':'Zigbee, RF, 802.15.4', 'description':'', 'datasheet':'http://www.cdebyte.com/en/downpdf.aspx?id=122', 'pins':[
+        Part(**{ 'name':'E18-MS1-PCB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'E18-MS1-PCB'}), 'ref_prefix':'U', 'fplist':['RF_Module:E18-MS1-PCB'], 'footprint':'RF_Module:E18-MS1-PCB', 'keywords':'Zigbee, RF, 802.15.4', 'description':'', 'datasheet':'http://www.cdebyte.com/en/downpdf.aspx?id=122', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nE18-MS1-PCB\n\nZigbee, RF, 802.15.4', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P1.5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P1.4',func=Pin.types.BIDIR,unit=1),
@@ -389,7 +389,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P1.6',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'E73-2G4M04S-52832', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'E73-2G4M04S-52832'}), 'ref_prefix':'U', 'fplist':['RF_Module:E73-2G4M04S'], 'footprint':'RF_Module:E73-2G4M04S', 'keywords':'BLE5, BLE, nRF52832', 'description':'', 'datasheet':'http://www.cdebyte.com/en/downpdf.aspx?id=243', 'pins':[
+        Part(**{ 'name':'E73-2G4M04S-52832', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'E73-2G4M04S-52832'}), 'ref_prefix':'U', 'fplist':['RF_Module:E73-2G4M04S'], 'footprint':'RF_Module:E73-2G4M04S', 'keywords':'BLE5, BLE, nRF52832', 'description':'', 'datasheet':'http://www.cdebyte.com/en/downpdf.aspx?id=243', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nE73-2G4M04S-52832\n\nBLE5, BLE, nRF52832', 'pins':[
             Pin(num='0',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='1',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='AIN6/P0.30',func=Pin.types.BIDIR,unit=1),
@@ -434,7 +434,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P0.27',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='AIN4/P0.28',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='AIN5/P0.29',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ESP-07', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP-07'}), 'ref_prefix':'U', 'fplist':['RF_Module:ESP-07'], 'footprint':'RF_Module:ESP-07', 'keywords':'802.11 Wi-Fi', 'description':'', 'datasheet':'http://wiki.ai-thinker.com/_media/esp8266/esp8266_series_modules_user_manual_v1.1.pdf', 'pins':[
+        Part(**{ 'name':'ESP-07', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP-07'}), 'ref_prefix':'U', 'fplist':['RF_Module:ESP-07'], 'footprint':'RF_Module:ESP-07', 'keywords':'802.11 Wi-Fi', 'description':'', 'datasheet':'http://wiki.ai-thinker.com/_media/esp8266/esp8266_series_modules_user_manual_v1.1.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nESP-07\n\n802.11 Wi-Fi', 'pins':[
             Pin(num='1',name='~{RST}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GPIO15',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='GPIO2',func=Pin.types.BIDIR,unit=1),
@@ -451,7 +451,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GPIO13',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ESP-12E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP-12E'}), 'ref_prefix':'U', 'fplist':['RF_Module:ESP-12E'], 'footprint':'RF_Module:ESP-12E', 'keywords':'802.11 Wi-Fi', 'description':'', 'datasheet':'http://wiki.ai-thinker.com/_media/esp8266/esp8266_series_modules_user_manual_v1.1.pdf', 'pins':[
+        Part(**{ 'name':'ESP-12E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP-12E'}), 'ref_prefix':'U', 'fplist':['RF_Module:ESP-12E'], 'footprint':'RF_Module:ESP-12E', 'keywords':'802.11 Wi-Fi', 'description':'', 'datasheet':'http://wiki.ai-thinker.com/_media/esp8266/esp8266_series_modules_user_manual_v1.1.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nESP-12E\n\n802.11 Wi-Fi', 'pins':[
             Pin(num='1',name='~{RST}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='MISO',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='GPIO9',func=Pin.types.BIDIR,unit=1),
@@ -474,7 +474,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GPIO13',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='CS0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ESP-WROOM-02', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP-WROOM-02'}), 'ref_prefix':'U', 'fplist':['RF_Module:ESP-WROOM-02'], 'footprint':'RF_Module:ESP-WROOM-02', 'keywords':'RF Radio ESP Espressif', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/0c-esp-wroom-02_datasheet_en.pdf', 'pins':[
+        Part(**{ 'name':'ESP-WROOM-02', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP-WROOM-02'}), 'ref_prefix':'U', 'fplist':['RF_Module:ESP-WROOM-02'], 'footprint':'RF_Module:ESP-WROOM-02', 'keywords':'RF Radio ESP Espressif', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/0c-esp-wroom-02_datasheet_en.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nESP-WROOM-02\n\nRF Radio ESP Espressif', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='IO4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='RXD',func=Pin.types.BIDIR,unit=1),
@@ -494,7 +494,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IO2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='IO0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ESP32-C3-WROOM-02', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP32-C3-WROOM-02'}), 'ref_prefix':'U', 'fplist':['RF_Module:ESP32-C3-WROOM-02'], 'footprint':'RF_Module:ESP32-C3-WROOM-02', 'keywords':'esp32 espressif WiFi Bluetooth LE', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp32-c3-wroom-02_datasheet_en.pdf', 'pins':[
+        Part(**{ 'name':'ESP32-C3-WROOM-02', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP32-C3-WROOM-02'}), 'ref_prefix':'U', 'fplist':['RF_Module:ESP32-C3-WROOM-02'], 'footprint':'RF_Module:ESP32-C3-WROOM-02', 'keywords':'esp32 espressif WiFi Bluetooth LE', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp32-c3-wroom-02_datasheet_en.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nESP32-C3-WROOM-02\n\nesp32 espressif WiFi Bluetooth LE', 'pins':[
             Pin(num='1',name='3V3',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='IO10',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='IO20/RXD',func=Pin.types.BIDIR,unit=1),
@@ -514,7 +514,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IO8',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='IO9',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ESP32-C3-WROOM-02U', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP32-C3-WROOM-02U'}), 'ref_prefix':'U', 'fplist':['RF_Module:ESP32-C3-WROOM-02U'], 'footprint':'RF_Module:ESP32-C3-WROOM-02U', 'keywords':'esp32 espressif WiFi Bluetooth LE', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp32-c3-wroom-02_datasheet_en.pdf', 'pins':[
+        Part(**{ 'name':'ESP32-C3-WROOM-02U', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP32-C3-WROOM-02U'}), 'ref_prefix':'U', 'fplist':['RF_Module:ESP32-C3-WROOM-02U'], 'footprint':'RF_Module:ESP32-C3-WROOM-02U', 'keywords':'esp32 espressif WiFi Bluetooth LE', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp32-c3-wroom-02_datasheet_en.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nESP32-C3-WROOM-02U\n\nesp32 espressif WiFi Bluetooth LE', 'pins':[
             Pin(num='1',name='3V3',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='IO10',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='IO20/RXD',func=Pin.types.BIDIR,unit=1),
@@ -534,7 +534,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IO8',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='IO9',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ESP32-S2-WROVER', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP32-S2-WROVER'}), 'ref_prefix':'U', 'fplist':['RF_Module:ESP32-S2-WROVER'], 'footprint':'RF_Module:ESP32-S2-WROVER', 'keywords':'RF Radio ESP ESP32 Espressif onboard PCB antenna', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp32-s2-wroom_esp32-s2-wroom-i_datasheet_en.pdf', 'pins':[
+        Part(**{ 'name':'ESP32-S2-WROVER', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP32-S2-WROVER'}), 'ref_prefix':'U', 'fplist':['RF_Module:ESP32-S2-WROVER'], 'footprint':'RF_Module:ESP32-S2-WROVER', 'keywords':'RF Radio ESP ESP32 Espressif onboard PCB antenna', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp32-s2-wroom_esp32-s2-wroom-i_datasheet_en.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nESP32-S2-WROVER\n\nRF Radio ESP ESP32 Espressif onboard PCB antenna', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='IO07',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='IO08',func=Pin.types.BIDIR,unit=1),
@@ -578,7 +578,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IO04',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='IO05',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='IO06',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ESP32-S3-MINI-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP32-S3-MINI-1'}), 'ref_prefix':'U', 'fplist':['RF_Module:ESP32-S2-MINI-1'], 'footprint':'RF_Module:ESP32-S2-MINI-1', 'keywords':'RF Radio BT ESP ESP32-S3 Espressif', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp32-s3-mini-1_mini-1u_datasheet_en.pdf', 'pins':[
+        Part(**{ 'name':'ESP32-S3-MINI-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP32-S3-MINI-1'}), 'ref_prefix':'U', 'fplist':['RF_Module:ESP32-S2-MINI-1'], 'footprint':'RF_Module:ESP32-S2-MINI-1', 'keywords':'RF Radio BT ESP ESP32-S3 Espressif', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp32-s3-mini-1_mini-1u_datasheet_en.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nESP32-S3-MINI-1\n\nRF Radio BT ESP ESP32-S3 Espressif', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='IO6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='IO7',func=Pin.types.BIDIR,unit=1),
@@ -644,7 +644,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IO3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='IO4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='IO5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ESP32-S3-WROOM-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP32-S3-WROOM-1'}), 'ref_prefix':'U', 'fplist':['RF_Module:ESP32-S3-WROOM-1'], 'footprint':'RF_Module:ESP32-S3-WROOM-1', 'keywords':'RF Radio BT ESP ESP32-S3 Espressif onboard PCB antenna', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp32-s3-wroom-1_wroom-1u_datasheet_en.pdf', 'pins':[
+        Part(**{ 'name':'ESP32-S3-WROOM-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP32-S3-WROOM-1'}), 'ref_prefix':'U', 'fplist':['RF_Module:ESP32-S3-WROOM-1'], 'footprint':'RF_Module:ESP32-S3-WROOM-1', 'keywords':'RF Radio BT ESP ESP32-S3 Espressif onboard PCB antenna', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp32-s3-wroom-1_wroom-1u_datasheet_en.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nESP32-S3-WROOM-1\n\nRF Radio BT ESP ESP32-S3 Espressif onboard PCB antenna', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='IO17',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='IO18',func=Pin.types.BIDIR,unit=1),
@@ -686,7 +686,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IO7',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='IO15',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='IO16',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ESP32-S3-WROOM-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP32-S3-WROOM-2'}), 'ref_prefix':'U', 'fplist':['RF_Module:ESP32-S3-WROOM-2'], 'footprint':'RF_Module:ESP32-S3-WROOM-2', 'keywords':'Bluetooth WiFi Wi-Fi ESP WROOM', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp32-s3-wroom-2_datasheet_en.pdf', 'pins':[
+        Part(**{ 'name':'ESP32-S3-WROOM-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP32-S3-WROOM-2'}), 'ref_prefix':'U', 'fplist':['RF_Module:ESP32-S3-WROOM-2'], 'footprint':'RF_Module:ESP32-S3-WROOM-2', 'keywords':'Bluetooth WiFi Wi-Fi ESP WROOM', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp32-s3-wroom-2_datasheet_en.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nESP32-S3-WROOM-2\n\nBluetooth WiFi Wi-Fi ESP WROOM', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='IO17',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='IO18',func=Pin.types.BIDIR,unit=1),
@@ -728,7 +728,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IO7',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='IO15',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='IO16',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ESP32-WROOM-32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP32-WROOM-32'}), 'ref_prefix':'U', 'fplist':['RF_Module:ESP32-WROOM-32'], 'footprint':'RF_Module:ESP32-WROOM-32', 'keywords':'RF Radio BT ESP ESP32 Espressif onboard PCB antenna', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32_datasheet_en.pdf', 'pins':[
+        Part(**{ 'name':'ESP32-WROOM-32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP32-WROOM-32'}), 'ref_prefix':'U', 'fplist':['RF_Module:ESP32-WROOM-32'], 'footprint':'RF_Module:ESP32-WROOM-32', 'keywords':'RF Radio BT ESP ESP32 Espressif onboard PCB antenna', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32_datasheet_en.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nESP32-WROOM-32\n\nRF Radio BT ESP ESP32 Espressif onboard PCB antenna', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='IO25',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='IO26',func=Pin.types.BIDIR,unit=1),
@@ -768,7 +768,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IO35',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='IO32',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='IO33',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ESP32-WROOM-32E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP32-WROOM-32E'}), 'ref_prefix':'U', 'fplist':['RF_Module:ESP32-WROOM-32D'], 'footprint':'RF_Module:ESP32-WROOM-32D', 'keywords':'RF Radio BT ESP ESP32 Espressif onboard PCB antenna', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32e_esp32-wroom-32ue_datasheet_en.pdf', 'pins':[
+        Part(**{ 'name':'ESP32-WROOM-32E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP32-WROOM-32E'}), 'ref_prefix':'U', 'fplist':['RF_Module:ESP32-WROOM-32D'], 'footprint':'RF_Module:ESP32-WROOM-32D', 'keywords':'RF Radio BT ESP ESP32 Espressif onboard PCB antenna', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32e_esp32-wroom-32ue_datasheet_en.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nESP32-WROOM-32E\n\nRF Radio BT ESP ESP32 Espressif onboard PCB antenna', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='IO25',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='IO26',func=Pin.types.BIDIR,unit=1),
@@ -808,7 +808,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IO35',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='IO32',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='IO33',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ESP32-WROOM-32E-R2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP32-WROOM-32E-R2'}), 'ref_prefix':'U', 'fplist':['RF_Module:ESP32-WROOM-32D'], 'footprint':'RF_Module:ESP32-WROOM-32D', 'keywords':'RF Radio BT ESP ESP32 Espressif onboard PCB antenna', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32e_esp32-wroom-32ue_datasheet_en.pdf', 'pins':[
+        Part(**{ 'name':'ESP32-WROOM-32E-R2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP32-WROOM-32E-R2'}), 'ref_prefix':'U', 'fplist':['RF_Module:ESP32-WROOM-32D'], 'footprint':'RF_Module:ESP32-WROOM-32D', 'keywords':'RF Radio BT ESP ESP32 Espressif onboard PCB antenna', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32e_esp32-wroom-32ue_datasheet_en.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nESP32-WROOM-32E-R2\n\nRF Radio BT ESP ESP32 Espressif onboard PCB antenna', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='IO25',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='IO26',func=Pin.types.BIDIR,unit=1),
@@ -848,7 +848,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IO35',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='IO32',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='IO33',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ESP32-WROOM-32U', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP32-WROOM-32U'}), 'ref_prefix':'U', 'fplist':['RF_Module:ESP32-WROOM-32U'], 'footprint':'RF_Module:ESP32-WROOM-32U', 'keywords':'RF Radio BT ESP ESP32 Espressif external U.FL antenna', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32d_esp32-wroom-32u_datasheet_en.pdf', 'pins':[
+        Part(**{ 'name':'ESP32-WROOM-32U', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP32-WROOM-32U'}), 'ref_prefix':'U', 'fplist':['RF_Module:ESP32-WROOM-32U'], 'footprint':'RF_Module:ESP32-WROOM-32U', 'keywords':'RF Radio BT ESP ESP32 Espressif external U.FL antenna', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32d_esp32-wroom-32u_datasheet_en.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nESP32-WROOM-32U\n\nRF Radio BT ESP ESP32 Espressif external U.FL antenna', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='IO25',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='IO26',func=Pin.types.BIDIR,unit=1),
@@ -888,7 +888,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IO35',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='IO32',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='IO33',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HT-CT62', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HT-CT62'}), 'ref_prefix':'U', 'fplist':['RF_Module:Heltec_HT-CT62'], 'footprint':'RF_Module:Heltec_HT-CT62', 'keywords':'LoRa WiFi ESP32 SX1262', 'description':'', 'datasheet':'https://resource.heltec.cn/download/HT-CT62/HT-CT62(Rev1.1).pdf', 'pins':[
+        Part(**{ 'name':'HT-CT62', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HT-CT62'}), 'ref_prefix':'U', 'fplist':['RF_Module:Heltec_HT-CT62'], 'footprint':'RF_Module:Heltec_HT-CT62', 'keywords':'LoRa WiFi ESP32 SX1262', 'description':'', 'datasheet':'https://resource.heltec.cn/download/HT-CT62/HT-CT62(Rev1.1).pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nHT-CT62\n\nLoRa WiFi ESP32 SX1262', 'pins':[
             Pin(num='1',name='2.4G_Ant',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='GPIO0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='EN',func=Pin.types.INPUT,unit=1),
@@ -911,7 +911,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GPIO3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GPIO2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='GPIO1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MDBT42Q-512K', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MDBT42Q-512K'}), 'ref_prefix':'U', 'fplist':['RF_Module:Raytac_MDBT42Q'], 'footprint':'RF_Module:Raytac_MDBT42Q', 'keywords':'MCU ARM BLE ANT 2.4GHz 802.15.4 MDBT42Q', 'description':'', 'datasheet':'https://www.raytac.com/download/index.php?index_id=27', 'pins':[
+        Part(**{ 'name':'MDBT42Q-512K', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MDBT42Q-512K'}), 'ref_prefix':'U', 'fplist':['RF_Module:Raytac_MDBT42Q'], 'footprint':'RF_Module:Raytac_MDBT42Q', 'keywords':'MCU ARM BLE ANT 2.4GHz 802.15.4 MDBT42Q', 'description':'', 'datasheet':'https://www.raytac.com/download/index.php?index_id=27', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nMDBT42Q-512K\n\nMCU ARM BLE ANT 2.4GHz 802.15.4 MDBT42Q', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DCC',func=Pin.types.PWROUT,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -953,7 +953,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AIN6/P0.30',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='AIN7/P0.31',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='DEC4',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MDBT50Q-1MV2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MDBT50Q-1MV2'}), 'ref_prefix':'U', 'fplist':['RF_Module:Raytac_MDBT50Q'], 'footprint':'RF_Module:Raytac_MDBT50Q', 'keywords':'BLE ANT ZigBee Thread 802.15.4 nRF52840 nordic MDBT50Q', 'description':'', 'datasheet':'https://www.raytac.com/download/index.php?index_id=43', 'pins':[
+        Part(**{ 'name':'MDBT50Q-1MV2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MDBT50Q-1MV2'}), 'ref_prefix':'U', 'fplist':['RF_Module:Raytac_MDBT50Q'], 'footprint':'RF_Module:Raytac_MDBT50Q', 'keywords':'BLE ANT ZigBee Thread 802.15.4 nRF52840 nordic MDBT50Q', 'description':'', 'datasheet':'https://www.raytac.com/download/index.php?index_id=43', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nMDBT50Q-1MV2\n\nBLE ANT ZigBee Thread 802.15.4 nRF52840 nordic MDBT50Q', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P0.29',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P0.02',func=Pin.types.BIDIR,unit=1),
@@ -1015,7 +1015,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P1.14',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P1.15',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P0.03',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MDBT50Q-512K', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MDBT50Q-512K'}), 'ref_prefix':'U', 'fplist':['RF_Module:Raytac_MDBT50Q'], 'footprint':'RF_Module:Raytac_MDBT50Q', 'keywords':'MCU, ARM, BLE, ANT, 2.4GHz, 802.15.4 MDBT50Q', 'description':'', 'datasheet':'https://www.raytac.com/download/index.php?index_id=46', 'pins':[
+        Part(**{ 'name':'MDBT50Q-512K', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MDBT50Q-512K'}), 'ref_prefix':'U', 'fplist':['RF_Module:Raytac_MDBT50Q'], 'footprint':'RF_Module:Raytac_MDBT50Q', 'keywords':'MCU, ARM, BLE, ANT, 2.4GHz, 802.15.4 MDBT50Q', 'description':'', 'datasheet':'https://www.raytac.com/download/index.php?index_id=46', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nMDBT50Q-512K\n\nMCU, ARM, BLE, ANT, 2.4GHz, 802.15.4 MDBT50Q', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P0.29',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P0.02',func=Pin.types.BIDIR,unit=1),
@@ -1077,7 +1077,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P1.03',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P0.19',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P0.03',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MM002', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MM002'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'IOT LoRa SIGFOX', 'description':'', 'datasheet':'http://www.nemeus.fr/resources/uploads/2015/04/MM002-xx-EU_datasheet_v0.11.pdf', 'pins':[
+        Part(**{ 'name':'MM002', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MM002'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'IOT LoRa SIGFOX', 'description':'', 'datasheet':'http://www.nemeus.fr/resources/uploads/2015/04/MM002-xx-EU_datasheet_v0.11.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nMM002\n\nIOT LoRa SIGFOX', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PA15-IO/JTDI',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='PA14-IO/JTCK/SWCLK',func=Pin.types.BIDIR,unit=1),
@@ -1106,7 +1106,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PB6-IO/UART1-TX',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PB4-IO/NJTRST',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='PB3-IO/JTDO',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Particle_P1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Particle_P1'}), 'ref_prefix':'U', 'fplist':['RF_Module:Particle_P1'], 'footprint':'RF_Module:Particle_P1', 'keywords':'Wi-Fi module', 'description':'', 'datasheet':'https://docs.particle.io/datasheets/p1-datasheet/', 'pins':[
+        Part(**{ 'name':'Particle_P1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Particle_P1'}), 'ref_prefix':'U', 'fplist':['RF_Module:Particle_P1'], 'footprint':'RF_Module:Particle_P1', 'keywords':'Wi-Fi module', 'description':'', 'datasheet':'https://docs.particle.io/datasheets/p1-datasheet/', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nParticle_P1\n\nWi-Fi module', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -1182,7 +1182,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='75',name='PAD2',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RAK4200', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RAK4200'}), 'ref_prefix':'U', 'fplist':['RF_Module:RAK4200'], 'footprint':'RF_Module:RAK4200', 'keywords':'IoT, LoRa, LoRaWAN, RF', 'description':'', 'datasheet':'https://downloads.rakwireless.com/LoRa/RAK4200/Hardware-Specification/RAK4200_Module_Specifications_V1.4.pdf', 'pins':[
+        Part(**{ 'name':'RAK4200', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RAK4200'}), 'ref_prefix':'U', 'fplist':['RF_Module:RAK4200'], 'footprint':'RF_Module:RAK4200', 'keywords':'IoT, LoRa, LoRaWAN, RF', 'description':'', 'datasheet':'https://downloads.rakwireless.com/LoRa/RAK4200/Hardware-Specification/RAK4200_Module_Specifications_V1.4.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nRAK4200\n\nIoT, LoRa, LoRaWAN, RF', 'pins':[
             Pin(num='1',name='PA3/UART2_RX',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='I2C_SDA/PB7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -1203,7 +1203,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA13/SWDIO',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA14/SWCLK',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='I2C_SCL/PB6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RAK811-HF-EU868', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RAK811-HF-EU868'}), 'ref_prefix':'U', 'fplist':['RF_Module:RAK811'], 'footprint':'RF_Module:RAK811', 'keywords':'IoT LoRa LoRaWAN RF', 'description':'', 'datasheet':'https://downloads.rakwireless.com/LoRa/RAK811/Hardware_Specification/RAK811_LoRa_Module_Datasheet_V1.4.pdf', 'pins':[
+        Part(**{ 'name':'RAK811-HF-EU868', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RAK811-HF-EU868'}), 'ref_prefix':'U', 'fplist':['RF_Module:RAK811'], 'footprint':'RF_Module:RAK811', 'keywords':'IoT LoRa LoRaWAN RF', 'description':'', 'datasheet':'https://downloads.rakwireless.com/LoRa/RAK811/Hardware_Specification/RAK811_LoRa_Module_Datasheet_V1.4.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nRAK811-HF-EU868\n\nIoT LoRa LoRaWAN RF', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='10',name='PA13',func=Pin.types.BIDIR),
             Pin(num='11',name='VCC',func=Pin.types.PWRIN),
@@ -1238,7 +1238,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA10/USART1_RX',func=Pin.types.BIDIR),
             Pin(num='8',name='PA12',func=Pin.types.BIDIR),
             Pin(num='9',name='PB4',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'RAK811-LF-EU433', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RAK811-LF-EU433'}), 'ref_prefix':'U', 'fplist':['RF_Module:RAK811'], 'footprint':'RF_Module:RAK811', 'keywords':'IoT LoRa LoRaWAN RF', 'description':'', 'datasheet':'https://downloads.rakwireless.com/LoRa/RAK811/Hardware_Specification/RAK811_LoRa_Module_Datasheet_V1.4.pdf', 'pins':[
+        Part(**{ 'name':'RAK811-LF-EU433', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RAK811-LF-EU433'}), 'ref_prefix':'U', 'fplist':['RF_Module:RAK811'], 'footprint':'RF_Module:RAK811', 'keywords':'IoT LoRa LoRaWAN RF', 'description':'', 'datasheet':'https://downloads.rakwireless.com/LoRa/RAK811/Hardware_Specification/RAK811_LoRa_Module_Datasheet_V1.4.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nRAK811-LF-EU433\n\nIoT LoRa LoRaWAN RF', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='10',name='PA13',func=Pin.types.BIDIR),
             Pin(num='11',name='VCC',func=Pin.types.PWRIN),
@@ -1273,7 +1273,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA10/USART1_RX',func=Pin.types.BIDIR),
             Pin(num='8',name='PA12',func=Pin.types.BIDIR),
             Pin(num='9',name='PA11',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'RFM69HW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RFM69HW'}), 'ref_prefix':'U', 'fplist':['RF_Module:HOPERF_RFM69HW'], 'footprint':'RF_Module:HOPERF_RFM69HW', 'keywords':'Radio ISM Transceiver Module AES', 'description':'', 'datasheet':'https://www.hoperf.com/data/upload/portal/20181127/5bfcbb56f1fd7.pdf', 'pins':[
+        Part(**{ 'name':'RFM69HW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RFM69HW'}), 'ref_prefix':'U', 'fplist':['RF_Module:HOPERF_RFM69HW'], 'footprint':'RF_Module:HOPERF_RFM69HW', 'keywords':'Radio ISM Transceiver Module AES', 'description':'', 'datasheet':'https://www.hoperf.com/data/upload/portal/20181127/5bfcbb56f1fd7.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nRFM69HW\n\nRadio ISM Transceiver Module AES', 'pins':[
             Pin(num='1',name='RESET',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='ANA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -1290,7 +1290,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIO5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='3.3V',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RFM95W-868S2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RFM95W-868S2'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Low power long range transceiver module', 'description':'', 'datasheet':'https://www.hoperf.com/data/upload/portal/20181127/5bfcbea20e9ef.pdf', 'pins':[
+        Part(**{ 'name':'RFM95W-868S2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RFM95W-868S2'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Low power long range transceiver module', 'description':'', 'datasheet':'https://www.hoperf.com/data/upload/portal/20181127/5bfcbea20e9ef.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nRFM95W-868S2\n\nLow power long range transceiver module', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DIO3',func=Pin.types.BIDIR,unit=1),
@@ -1307,7 +1307,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIO5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='ANT',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32WB5MMG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32WB5MMG'}), 'ref_prefix':'U', 'fplist':['RF_Module:ST-SiP-LGA-86-11x7.3mm'], 'footprint':'RF_Module:ST-SiP-LGA-86-11x7.3mm', 'keywords':'bluetooth bluetooth5 bluetooth5.0 802.15.4 zigbee module stm32 rf ARM Cortex-M3 Cortex-M0+', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32wb5mmg.pdf', 'pins':[
+        Part(**{ 'name':'STM32WB5MMG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32WB5MMG'}), 'ref_prefix':'U', 'fplist':['RF_Module:ST-SiP-LGA-86-11x7.3mm'], 'footprint':'RF_Module:ST-SiP-LGA-86-11x7.3mm', 'keywords':'bluetooth bluetooth5 bluetooth5.0 802.15.4 zigbee module stm32 rf ARM Cortex-M3 Cortex-M0+', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32wb5mmg.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nSTM32WB5MMG\n\nbluetooth bluetooth5 bluetooth5.0 802.15.4 zigbee module stm32 rf ARM Cortex-M3 Cortex-M0+', 'pins':[
             Pin(num='1',name='PA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NRST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='PB9',func=Pin.types.BIDIR,unit=1),
@@ -1394,7 +1394,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='85',name='ANT_NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='86',name='VSS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='PC1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TD1205', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TD1205'}), 'ref_prefix':'U', 'fplist':['RF_Module:TD1205'], 'footprint':'RF_Module:TD1205', 'keywords':'IOT SIGFOX GPS', 'description':'', 'datasheet':'https://github.com/Telecom-Design/Documentation_TD_RF_Module/blob/master/TD1205%20Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'TD1205', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TD1205'}), 'ref_prefix':'U', 'fplist':['RF_Module:TD1205'], 'footprint':'RF_Module:TD1205', 'keywords':'IOT SIGFOX GPS', 'description':'', 'datasheet':'https://github.com/Telecom-Design/Documentation_TD_RF_Module/blob/master/TD1205%20Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nTD1205\n\nIOT SIGFOX GPS', 'pins':[
             Pin(num='1',name='BAT-',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='BAT+',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -1404,7 +1404,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='UART-RX',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DB2-SWDIO',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='DB3-SWCLK',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TD1208', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TD1208'}), 'ref_prefix':'U', 'fplist':['RF_Module:TD1208'], 'footprint':'RF_Module:TD1208', 'keywords':'IOT SIGFOX', 'description':'', 'datasheet':'https://github.com/Telecom-Design/Documentation_TD_RF_Module/blob/master/TD1208%20Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'TD1208', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TD1208'}), 'ref_prefix':'U', 'fplist':['RF_Module:TD1208'], 'footprint':'RF_Module:TD1208', 'keywords':'IOT SIGFOX', 'description':'', 'datasheet':'https://github.com/Telecom-Design/Documentation_TD_RF_Module/blob/master/TD1208%20Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nTD1208\n\nIOT SIGFOX', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='USR2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -1430,7 +1430,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SCL',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TR-52DA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TR-52DA'}), 'ref_prefix':'U', 'fplist':['RF_Module:IQRF_TRx2DA_KON-SIM-01'], 'footprint':'RF_Module:IQRF_TRx2DA_KON-SIM-01', 'keywords':'IQRF common transceiver, PCB antenna, FSK modulation', 'description':'', 'datasheet':'https://iqrf.org/weben/downloads.php?id=213', 'pins':[
+        Part(**{ 'name':'TR-52DA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TR-52DA'}), 'ref_prefix':'U', 'fplist':['RF_Module:IQRF_TRx2DA_KON-SIM-01'], 'footprint':'RF_Module:IQRF_TRx2DA_KON-SIM-01', 'keywords':'IQRF common transceiver, PCB antenna, FSK modulation', 'description':'', 'datasheet':'https://iqrf.org/weben/downloads.php?id=213', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nTR-52DA\n\nIQRF common transceiver, PCB antenna, FSK modulation', 'pins':[
             Pin(num='C1',name='RA0/AN0/C12IN0',func=Pin.types.BIDIR,unit=1),
             Pin(num='C2',name='RC2/VOUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='C3',name='VIN',func=Pin.types.PWRIN,unit=1),
@@ -1439,7 +1439,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='C6',name='RC3/SCK/SCL',func=Pin.types.BIDIR,unit=1),
             Pin(num='C7',name='RC4/SDI/SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='C8',name='RC5/RC7/RX/SDO',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'iM880A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'iM880A'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'IOT LoRa', 'description':'', 'datasheet':'http://www.wireless-solutions.de/images/stories/downloads/Radio%20Modules/iM880A/General_Information/iM880A_Datasheet_V1_1.pdf', 'pins':[
+        Part(**{ 'name':'iM880A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'iM880A'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'IOT LoRa', 'description':'', 'datasheet':'http://www.wireless-solutions.de/images/stories/downloads/Radio%20Modules/iM880A/General_Information/iM880A_Datasheet_V1_1.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\niM880A\n\nIOT LoRa', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -1472,7 +1472,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='P5-IO/UART-CTS',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P6-IO/UART-RTS',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CMWX1ZZABZ-091', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CMWX1ZZABZ-091'}), 'ref_prefix':'U', 'fplist':['RF_Module:CMWX1ZZABZ', 'RF_Module:CMWX1ZZABZ'], 'footprint':'RF_Module:CMWX1ZZABZ', 'keywords':'iot lora sigfox', 'description':'', 'datasheet':'https://wireless.murata.com/RFM/data/type_abz.pdf', 'pins':[
+        Part(**{ 'name':'CMWX1ZZABZ-091', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CMWX1ZZABZ-091'}), 'ref_prefix':'U', 'fplist':['RF_Module:CMWX1ZZABZ', 'RF_Module:CMWX1ZZABZ'], 'footprint':'RF_Module:CMWX1ZZABZ', 'keywords':'iot lora sigfox', 'description':'', 'datasheet':'https://wireless.murata.com/RFM/data/type_abz.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nCMWX1ZZABZ-091\n\niot lora sigfox', 'pins':[
             Pin(num='1',name='PA12/USB_DP',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SX1276_DIO4',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='DBG_SX1276_DIO5',func=Pin.types.BIDIR,unit=1),
@@ -1530,7 +1530,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='DBG_SX1276_DIO2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='DBG_SX1276_DI03',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DCTR-52DA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DCTR-52DA'}), 'ref_prefix':'U', 'fplist':['RF_Module:IQRF_TRx2DA_KON-SIM-01', 'RF_Module:IQRF_TRx2DA_KON-SIM-01'], 'footprint':'RF_Module:IQRF_TRx2DA_KON-SIM-01', 'keywords':'IQRF data controlled transceiver, PCB antenna, FSK modulation', 'description':'', 'datasheet':'https://iqrf.org/weben/downloads.php?id=213', 'pins':[
+        Part(**{ 'name':'DCTR-52DA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DCTR-52DA'}), 'ref_prefix':'U', 'fplist':['RF_Module:IQRF_TRx2DA_KON-SIM-01', 'RF_Module:IQRF_TRx2DA_KON-SIM-01'], 'footprint':'RF_Module:IQRF_TRx2DA_KON-SIM-01', 'keywords':'IQRF data controlled transceiver, PCB antenna, FSK modulation', 'description':'', 'datasheet':'https://iqrf.org/weben/downloads.php?id=213', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nDCTR-52DA\n\nIQRF data controlled transceiver, PCB antenna, FSK modulation', 'pins':[
             Pin(num='C1',name='RA0/AN0/C12IN0',func=Pin.types.BIDIR,unit=1),
             Pin(num='C2',name='RC2/VOUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='C3',name='VIN',func=Pin.types.PWRIN,unit=1),
@@ -1539,7 +1539,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='C6',name='RC3/SCK/SCL',func=Pin.types.BIDIR,unit=1),
             Pin(num='C7',name='RC4/SDI/SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='C8',name='RC5/RC7/RX/SDO',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DCTR-52DAT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DCTR-52DAT'}), 'ref_prefix':'U', 'fplist':['RF_Module:IQRF_TRx2DA_KON-SIM-01', 'RF_Module:IQRF_TRx2DA_KON-SIM-01', 'RF_Module:IQRF_TRx2DA_KON-SIM-01'], 'footprint':'RF_Module:IQRF_TRx2DA_KON-SIM-01', 'keywords':'IQRF data controlled transceiver, PCB antenna, thermometer, FSK modulation', 'description':'', 'datasheet':'https://iqrf.org/weben/downloads.php?id=213', 'pins':[
+        Part(**{ 'name':'DCTR-52DAT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DCTR-52DAT'}), 'ref_prefix':'U', 'fplist':['RF_Module:IQRF_TRx2DA_KON-SIM-01', 'RF_Module:IQRF_TRx2DA_KON-SIM-01', 'RF_Module:IQRF_TRx2DA_KON-SIM-01'], 'footprint':'RF_Module:IQRF_TRx2DA_KON-SIM-01', 'keywords':'IQRF data controlled transceiver, PCB antenna, thermometer, FSK modulation', 'description':'', 'datasheet':'https://iqrf.org/weben/downloads.php?id=213', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nDCTR-52DAT\n\nIQRF data controlled transceiver, PCB antenna, thermometer, FSK modulation', 'pins':[
             Pin(num='C1',name='RA0/AN0/C12IN0',func=Pin.types.BIDIR,unit=1),
             Pin(num='C2',name='RC2/VOUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='C3',name='VIN',func=Pin.types.PWRIN,unit=1),
@@ -1548,7 +1548,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='C6',name='RC3/SCK/SCL',func=Pin.types.BIDIR,unit=1),
             Pin(num='C7',name='RC4/SDI/SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='C8',name='RC5/RC7/RX/SDO',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DWM3000', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DWM3000'}), 'ref_prefix':'DWM', 'fplist':['RF_Module:DWM1000', 'RF_Module:DWM1000'], 'footprint':'RF_Module:DWM1000', 'keywords':'DWM3000 Decawave Qorvo RF ranging UWB', 'description':'', 'datasheet':'https://www.qorvo.com/products/d/da008334', 'pins':[
+        Part(**{ 'name':'DWM3000', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DWM3000'}), 'ref_prefix':'DWM', 'fplist':['RF_Module:DWM1000', 'RF_Module:DWM1000'], 'footprint':'RF_Module:DWM1000', 'keywords':'DWM3000 Decawave Qorvo RF ranging UWB', 'description':'', 'datasheet':'https://www.qorvo.com/products/d/da008334', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nDWM3000\n\nDWM3000 Decawave Qorvo RF ranging UWB', 'pins':[
             Pin(num='1',name='EXTON',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='GPIO5/EXTTXE/SPIPOL',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='GPIO4/EXTPA',func=Pin.types.BIDIR,unit=1),
@@ -1573,7 +1573,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD3V3',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GPIO6/EXTRXE/SPIHA',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'E73-2G4M04S-52810', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'E73-2G4M04S-52810'}), 'ref_prefix':'U', 'fplist':['RF_Module:E73-2G4M04S', 'RF_Module:E73-2G4M04S'], 'footprint':'RF_Module:E73-2G4M04S', 'keywords':'BLE5, BLE, nRF52810', 'description':'', 'datasheet':'http://www.cdebyte.com/en/downpdf.aspx?id=243', 'pins':[
+        Part(**{ 'name':'E73-2G4M04S-52810', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'E73-2G4M04S-52810'}), 'ref_prefix':'U', 'fplist':['RF_Module:E73-2G4M04S', 'RF_Module:E73-2G4M04S'], 'footprint':'RF_Module:E73-2G4M04S', 'keywords':'BLE5, BLE, nRF52810', 'description':'', 'datasheet':'http://www.cdebyte.com/en/downpdf.aspx?id=243', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nE73-2G4M04S-52810\n\nBLE5, BLE, nRF52810', 'pins':[
             Pin(num='0',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='1',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='AIN6/P0.30',func=Pin.types.BIDIR,unit=1),
@@ -1618,7 +1618,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P0.27',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='AIN4/P0.28',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='AIN5/P0.29',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ESP-12F', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP-12F'}), 'ref_prefix':'U', 'fplist':['RF_Module:ESP-12E', 'RF_Module:ESP-12E'], 'footprint':'RF_Module:ESP-12E', 'keywords':'802.11 Wi-Fi', 'description':'', 'datasheet':'http://wiki.ai-thinker.com/_media/esp8266/esp8266_series_modules_user_manual_v1.1.pdf', 'pins':[
+        Part(**{ 'name':'ESP-12F', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP-12F'}), 'ref_prefix':'U', 'fplist':['RF_Module:ESP-12E', 'RF_Module:ESP-12E'], 'footprint':'RF_Module:ESP-12E', 'keywords':'802.11 Wi-Fi', 'description':'', 'datasheet':'http://wiki.ai-thinker.com/_media/esp8266/esp8266_series_modules_user_manual_v1.1.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nESP-12F\n\n802.11 Wi-Fi', 'pins':[
             Pin(num='1',name='~{RST}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='MISO',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='GPIO9',func=Pin.types.BIDIR,unit=1),
@@ -1641,7 +1641,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GPIO13',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='CS0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ESP32-S2-WROVER-I', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP32-S2-WROVER-I'}), 'ref_prefix':'U', 'fplist':['RF_Module:ESP32-S2-WROVER', 'RF_Module:ESP32-S2-WROVER'], 'footprint':'RF_Module:ESP32-S2-WROVER', 'keywords':'RF Radio ESP ESP32 Espressif onboard PCB antenna', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp32-s2-wroom_esp32-s2-wroom-i_datasheet_en.pdf', 'pins':[
+        Part(**{ 'name':'ESP32-S2-WROVER-I', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP32-S2-WROVER-I'}), 'ref_prefix':'U', 'fplist':['RF_Module:ESP32-S2-WROVER', 'RF_Module:ESP32-S2-WROVER'], 'footprint':'RF_Module:ESP32-S2-WROVER', 'keywords':'RF Radio ESP ESP32 Espressif onboard PCB antenna', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp32-s2-wroom_esp32-s2-wroom-i_datasheet_en.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nESP32-S2-WROVER-I\n\nRF Radio ESP ESP32 Espressif onboard PCB antenna', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='IO07',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='IO08',func=Pin.types.BIDIR,unit=1),
@@ -1685,7 +1685,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IO04',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='IO05',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='IO06',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ESP32-S3-MINI-1U', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP32-S3-MINI-1U'}), 'ref_prefix':'U', 'fplist':['RF_Module:ESP32-S2-MINI-1', 'RF_Module:ESP32-S2-MINI-1U'], 'footprint':'RF_Module:ESP32-S2-MINI-1', 'keywords':'RF Radio BT ESP ESP32-S3 Espressif', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp32-s3-mini-1_mini-1u_datasheet_en.pdf', 'pins':[
+        Part(**{ 'name':'ESP32-S3-MINI-1U', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP32-S3-MINI-1U'}), 'ref_prefix':'U', 'fplist':['RF_Module:ESP32-S2-MINI-1', 'RF_Module:ESP32-S2-MINI-1U'], 'footprint':'RF_Module:ESP32-S2-MINI-1', 'keywords':'RF Radio BT ESP ESP32-S3 Espressif', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp32-s3-mini-1_mini-1u_datasheet_en.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nESP32-S3-MINI-1U\n\nRF Radio BT ESP ESP32-S3 Espressif', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='IO6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='IO7',func=Pin.types.BIDIR,unit=1),
@@ -1751,7 +1751,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IO3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='IO4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='IO5',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ESP32-WROOM-32D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP32-WROOM-32D'}), 'ref_prefix':'U', 'fplist':['RF_Module:ESP32-WROOM-32', 'RF_Module:ESP32-WROOM-32D'], 'footprint':'RF_Module:ESP32-WROOM-32', 'keywords':'RF Radio BT ESP ESP32 Espressif onboard PCB antenna', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32d_esp32-wroom-32u_datasheet_en.pdf', 'pins':[
+        Part(**{ 'name':'ESP32-WROOM-32D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP32-WROOM-32D'}), 'ref_prefix':'U', 'fplist':['RF_Module:ESP32-WROOM-32', 'RF_Module:ESP32-WROOM-32D'], 'footprint':'RF_Module:ESP32-WROOM-32', 'keywords':'RF Radio BT ESP ESP32 Espressif onboard PCB antenna', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32d_esp32-wroom-32u_datasheet_en.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nESP32-WROOM-32D\n\nRF Radio BT ESP ESP32 Espressif onboard PCB antenna', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='IO25',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='IO26',func=Pin.types.BIDIR,unit=1),
@@ -1791,7 +1791,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IO35',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='IO32',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='IO33',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ESP32-WROOM-32UE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP32-WROOM-32UE'}), 'ref_prefix':'U', 'fplist':['RF_Module:ESP32-WROOM-32D', 'RF_Module:ESP32-WROOM-32UE'], 'footprint':'RF_Module:ESP32-WROOM-32D', 'keywords':'RF Radio BT ESP ESP32 Espressif external U.FL antenna', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32e_esp32-wroom-32ue_datasheet_en.pdf', 'pins':[
+        Part(**{ 'name':'ESP32-WROOM-32UE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP32-WROOM-32UE'}), 'ref_prefix':'U', 'fplist':['RF_Module:ESP32-WROOM-32D', 'RF_Module:ESP32-WROOM-32UE'], 'footprint':'RF_Module:ESP32-WROOM-32D', 'keywords':'RF Radio BT ESP ESP32 Espressif external U.FL antenna', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32e_esp32-wroom-32ue_datasheet_en.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nESP32-WROOM-32UE\n\nRF Radio BT ESP ESP32 Espressif external U.FL antenna', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='IO25',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='IO26',func=Pin.types.BIDIR,unit=1),
@@ -1831,7 +1831,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IO35',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='IO32',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='IO33',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ESP32-WROOM-32UE-R2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP32-WROOM-32UE-R2'}), 'ref_prefix':'U', 'fplist':['RF_Module:ESP32-WROOM-32D', 'RF_Module:ESP32-WROOM-32UE'], 'footprint':'RF_Module:ESP32-WROOM-32D', 'keywords':'RF Radio BT ESP ESP32 Espressif external U.FL antenna', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32e_esp32-wroom-32ue_datasheet_en.pdf', 'pins':[
+        Part(**{ 'name':'ESP32-WROOM-32UE-R2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ESP32-WROOM-32UE-R2'}), 'ref_prefix':'U', 'fplist':['RF_Module:ESP32-WROOM-32D', 'RF_Module:ESP32-WROOM-32UE'], 'footprint':'RF_Module:ESP32-WROOM-32D', 'keywords':'RF Radio BT ESP ESP32 Espressif external U.FL antenna', 'description':'', 'datasheet':'https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32e_esp32-wroom-32ue_datasheet_en.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nESP32-WROOM-32UE-R2\n\nRF Radio BT ESP ESP32 Espressif external U.FL antenna', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='IO25',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='IO26',func=Pin.types.BIDIR,unit=1),
@@ -1871,7 +1871,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IO35',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='IO32',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='IO33',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MDBT50Q-P1MV2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MDBT50Q-P1MV2'}), 'ref_prefix':'U', 'fplist':['RF_Module:Raytac_MDBT50Q', 'RF_Module:Raytac_MDBT50Q'], 'footprint':'RF_Module:Raytac_MDBT50Q', 'keywords':'BLE ANT ZigBee Thread 802.15.4 nRF52840 nordic MDBT50Q', 'description':'', 'datasheet':'https://www.raytac.com/download/index.php?index_id=43', 'pins':[
+        Part(**{ 'name':'MDBT50Q-P1MV2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MDBT50Q-P1MV2'}), 'ref_prefix':'U', 'fplist':['RF_Module:Raytac_MDBT50Q', 'RF_Module:Raytac_MDBT50Q'], 'footprint':'RF_Module:Raytac_MDBT50Q', 'keywords':'BLE ANT ZigBee Thread 802.15.4 nRF52840 nordic MDBT50Q', 'description':'', 'datasheet':'https://www.raytac.com/download/index.php?index_id=43', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nMDBT50Q-P1MV2\n\nBLE ANT ZigBee Thread 802.15.4 nRF52840 nordic MDBT50Q', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P0.29',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P0.02',func=Pin.types.BIDIR,unit=1),
@@ -1933,7 +1933,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P1.14',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P1.15',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P0.03',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MDBT50Q-P512K', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MDBT50Q-P512K'}), 'ref_prefix':'U', 'fplist':['RF_Module:Raytac_MDBT50Q', 'RF_Module:Raytac_MDBT50Q'], 'footprint':'RF_Module:Raytac_MDBT50Q', 'keywords':'MCU, ARM, BLE, ANT, 2.4GHz, 802.15.4 MDBT50Q', 'description':'', 'datasheet':'https://www.raytac.com/download/index.php?index_id=46', 'pins':[
+        Part(**{ 'name':'MDBT50Q-P512K', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MDBT50Q-P512K'}), 'ref_prefix':'U', 'fplist':['RF_Module:Raytac_MDBT50Q', 'RF_Module:Raytac_MDBT50Q'], 'footprint':'RF_Module:Raytac_MDBT50Q', 'keywords':'MCU, ARM, BLE, ANT, 2.4GHz, 802.15.4 MDBT50Q', 'description':'', 'datasheet':'https://www.raytac.com/download/index.php?index_id=46', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nMDBT50Q-P512K\n\nMCU, ARM, BLE, ANT, 2.4GHz, 802.15.4 MDBT50Q', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P0.29',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P0.02',func=Pin.types.BIDIR,unit=1),
@@ -1995,7 +1995,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P1.03',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P0.19',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P0.03',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MDBT50Q-U1MV2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MDBT50Q-U1MV2'}), 'ref_prefix':'U', 'fplist':['RF_Module:Raytac_MDBT50Q', 'RF_Module:Raytac_MDBT50Q', 'RF_Module:Raytac_MDBT50Q'], 'footprint':'RF_Module:Raytac_MDBT50Q', 'keywords':'BLE ANT ZigBee Thread 802.15.4 nRF52840 nordic MDBT50Q', 'description':'', 'datasheet':'https://www.raytac.com/download/index.php?index_id=43', 'pins':[
+        Part(**{ 'name':'MDBT50Q-U1MV2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MDBT50Q-U1MV2'}), 'ref_prefix':'U', 'fplist':['RF_Module:Raytac_MDBT50Q', 'RF_Module:Raytac_MDBT50Q', 'RF_Module:Raytac_MDBT50Q'], 'footprint':'RF_Module:Raytac_MDBT50Q', 'keywords':'BLE ANT ZigBee Thread 802.15.4 nRF52840 nordic MDBT50Q', 'description':'', 'datasheet':'https://www.raytac.com/download/index.php?index_id=43', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nMDBT50Q-U1MV2\n\nBLE ANT ZigBee Thread 802.15.4 nRF52840 nordic MDBT50Q', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P0.29',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P0.02',func=Pin.types.BIDIR,unit=1),
@@ -2057,7 +2057,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P1.14',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P1.15',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P0.03',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MDBT50Q-U512K', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MDBT50Q-U512K'}), 'ref_prefix':'U', 'fplist':['RF_Module:Raytac_MDBT50Q', 'RF_Module:Raytac_MDBT50Q', 'RF_Module:Raytac_MDBT50Q'], 'footprint':'RF_Module:Raytac_MDBT50Q', 'keywords':'MCU, ARM, BLE, ANT, 2.4GHz, 802.15.4 MDBT50Q', 'description':'', 'datasheet':'https://www.raytac.com/download/index.php?index_id=46', 'pins':[
+        Part(**{ 'name':'MDBT50Q-U512K', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MDBT50Q-U512K'}), 'ref_prefix':'U', 'fplist':['RF_Module:Raytac_MDBT50Q', 'RF_Module:Raytac_MDBT50Q', 'RF_Module:Raytac_MDBT50Q'], 'footprint':'RF_Module:Raytac_MDBT50Q', 'keywords':'MCU, ARM, BLE, ANT, 2.4GHz, 802.15.4 MDBT50Q', 'description':'', 'datasheet':'https://www.raytac.com/download/index.php?index_id=46', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nMDBT50Q-U512K\n\nMCU, ARM, BLE, ANT, 2.4GHz, 802.15.4 MDBT50Q', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='P0.29',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='P0.02',func=Pin.types.BIDIR,unit=1),
@@ -2119,7 +2119,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P1.03',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='P0.19',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='P0.03',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RAK811-HF-AS923', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RAK811-HF-AS923'}), 'ref_prefix':'U', 'fplist':['RF_Module:RAK811', 'RF_Module:RAK811'], 'footprint':'RF_Module:RAK811', 'keywords':'IoT LoRa LoRaWAN RF', 'description':'', 'datasheet':'https://downloads.rakwireless.com/LoRa/RAK811/Hardware_Specification/RAK811_LoRa_Module_Datasheet_V1.4.pdf', 'pins':[
+        Part(**{ 'name':'RAK811-HF-AS923', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RAK811-HF-AS923'}), 'ref_prefix':'U', 'fplist':['RF_Module:RAK811', 'RF_Module:RAK811'], 'footprint':'RF_Module:RAK811', 'keywords':'IoT LoRa LoRaWAN RF', 'description':'', 'datasheet':'https://downloads.rakwireless.com/LoRa/RAK811/Hardware_Specification/RAK811_LoRa_Module_Datasheet_V1.4.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nRAK811-HF-AS923\n\nIoT LoRa LoRaWAN RF', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='10',name='PA13',func=Pin.types.BIDIR),
             Pin(num='11',name='VCC',func=Pin.types.PWRIN),
@@ -2154,7 +2154,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA10/USART1_RX',func=Pin.types.BIDIR),
             Pin(num='8',name='PA12',func=Pin.types.BIDIR),
             Pin(num='9',name='PB4',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'RAK811-HF-AU915', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RAK811-HF-AU915'}), 'ref_prefix':'U', 'fplist':['RF_Module:RAK811', 'RF_Module:RAK811', 'RF_Module:RAK811'], 'footprint':'RF_Module:RAK811', 'keywords':'IoT LoRa LoRaWAN RF', 'description':'', 'datasheet':'https://downloads.rakwireless.com/LoRa/RAK811/Hardware_Specification/RAK811_LoRa_Module_Datasheet_V1.4.pdf', 'pins':[
+        Part(**{ 'name':'RAK811-HF-AU915', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RAK811-HF-AU915'}), 'ref_prefix':'U', 'fplist':['RF_Module:RAK811', 'RF_Module:RAK811', 'RF_Module:RAK811'], 'footprint':'RF_Module:RAK811', 'keywords':'IoT LoRa LoRaWAN RF', 'description':'', 'datasheet':'https://downloads.rakwireless.com/LoRa/RAK811/Hardware_Specification/RAK811_LoRa_Module_Datasheet_V1.4.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nRAK811-HF-AU915\n\nIoT LoRa LoRaWAN RF', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='10',name='PA13',func=Pin.types.BIDIR),
             Pin(num='11',name='VCC',func=Pin.types.PWRIN),
@@ -2189,7 +2189,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA10/USART1_RX',func=Pin.types.BIDIR),
             Pin(num='8',name='PA12',func=Pin.types.BIDIR),
             Pin(num='9',name='PB4',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'RAK811-HF-IN865', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RAK811-HF-IN865'}), 'ref_prefix':'U', 'fplist':['RF_Module:RAK811', 'RF_Module:RAK811', 'RF_Module:RAK811', 'RF_Module:RAK811'], 'footprint':'RF_Module:RAK811', 'keywords':'IoT LoRa LoRaWAN RF', 'description':'', 'datasheet':'https://downloads.rakwireless.com/LoRa/RAK811/Hardware_Specification/RAK811_LoRa_Module_Datasheet_V1.4.pdf', 'pins':[
+        Part(**{ 'name':'RAK811-HF-IN865', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RAK811-HF-IN865'}), 'ref_prefix':'U', 'fplist':['RF_Module:RAK811', 'RF_Module:RAK811', 'RF_Module:RAK811', 'RF_Module:RAK811'], 'footprint':'RF_Module:RAK811', 'keywords':'IoT LoRa LoRaWAN RF', 'description':'', 'datasheet':'https://downloads.rakwireless.com/LoRa/RAK811/Hardware_Specification/RAK811_LoRa_Module_Datasheet_V1.4.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nRAK811-HF-IN865\n\nIoT LoRa LoRaWAN RF', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='10',name='PA13',func=Pin.types.BIDIR),
             Pin(num='11',name='VCC',func=Pin.types.PWRIN),
@@ -2224,7 +2224,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA10/USART1_RX',func=Pin.types.BIDIR),
             Pin(num='8',name='PA12',func=Pin.types.BIDIR),
             Pin(num='9',name='PB4',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'RAK811-HF-KR920', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RAK811-HF-KR920'}), 'ref_prefix':'U', 'fplist':['RF_Module:RAK811', 'RF_Module:RAK811', 'RF_Module:RAK811', 'RF_Module:RAK811', 'RF_Module:RAK811'], 'footprint':'RF_Module:RAK811', 'keywords':'IoT LoRa LoRaWAN RF', 'description':'', 'datasheet':'https://downloads.rakwireless.com/LoRa/RAK811/Hardware_Specification/RAK811_LoRa_Module_Datasheet_V1.4.pdf', 'pins':[
+        Part(**{ 'name':'RAK811-HF-KR920', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RAK811-HF-KR920'}), 'ref_prefix':'U', 'fplist':['RF_Module:RAK811', 'RF_Module:RAK811', 'RF_Module:RAK811', 'RF_Module:RAK811', 'RF_Module:RAK811'], 'footprint':'RF_Module:RAK811', 'keywords':'IoT LoRa LoRaWAN RF', 'description':'', 'datasheet':'https://downloads.rakwireless.com/LoRa/RAK811/Hardware_Specification/RAK811_LoRa_Module_Datasheet_V1.4.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nRAK811-HF-KR920\n\nIoT LoRa LoRaWAN RF', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='10',name='PA13',func=Pin.types.BIDIR),
             Pin(num='11',name='VCC',func=Pin.types.PWRIN),
@@ -2259,7 +2259,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA10/USART1_RX',func=Pin.types.BIDIR),
             Pin(num='8',name='PA12',func=Pin.types.BIDIR),
             Pin(num='9',name='PB4',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'RAK811-HF-US915', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RAK811-HF-US915'}), 'ref_prefix':'U', 'fplist':['RF_Module:RAK811', 'RF_Module:RAK811', 'RF_Module:RAK811', 'RF_Module:RAK811', 'RF_Module:RAK811', 'RF_Module:RAK811'], 'footprint':'RF_Module:RAK811', 'keywords':'IoT LoRa LoRaWAN RF', 'description':'', 'datasheet':'https://downloads.rakwireless.com/LoRa/RAK811/Hardware_Specification/RAK811_LoRa_Module_Datasheet_V1.4.pdf', 'pins':[
+        Part(**{ 'name':'RAK811-HF-US915', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RAK811-HF-US915'}), 'ref_prefix':'U', 'fplist':['RF_Module:RAK811', 'RF_Module:RAK811', 'RF_Module:RAK811', 'RF_Module:RAK811', 'RF_Module:RAK811', 'RF_Module:RAK811'], 'footprint':'RF_Module:RAK811', 'keywords':'IoT LoRa LoRaWAN RF', 'description':'', 'datasheet':'https://downloads.rakwireless.com/LoRa/RAK811/Hardware_Specification/RAK811_LoRa_Module_Datasheet_V1.4.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nRAK811-HF-US915\n\nIoT LoRa LoRaWAN RF', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='10',name='PA13',func=Pin.types.BIDIR),
             Pin(num='11',name='VCC',func=Pin.types.PWRIN),
@@ -2294,7 +2294,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA10/USART1_RX',func=Pin.types.BIDIR),
             Pin(num='8',name='PA12',func=Pin.types.BIDIR),
             Pin(num='9',name='PB4',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'RAK811-LF-CN470', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RAK811-LF-CN470'}), 'ref_prefix':'U', 'fplist':['RF_Module:RAK811', 'RF_Module:RAK811'], 'footprint':'RF_Module:RAK811', 'keywords':'IoT LoRa LoRaWAN RF', 'description':'', 'datasheet':'https://downloads.rakwireless.com/LoRa/RAK811/Hardware_Specification/RAK811_LoRa_Module_Datasheet_V1.4.pdf', 'pins':[
+        Part(**{ 'name':'RAK811-LF-CN470', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RAK811-LF-CN470'}), 'ref_prefix':'U', 'fplist':['RF_Module:RAK811', 'RF_Module:RAK811'], 'footprint':'RF_Module:RAK811', 'keywords':'IoT LoRa LoRaWAN RF', 'description':'', 'datasheet':'https://downloads.rakwireless.com/LoRa/RAK811/Hardware_Specification/RAK811_LoRa_Module_Datasheet_V1.4.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nRAK811-LF-CN470\n\nIoT LoRa LoRaWAN RF', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='10',name='PA13',func=Pin.types.BIDIR),
             Pin(num='11',name='VCC',func=Pin.types.PWRIN),
@@ -2329,7 +2329,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA10/USART1_RX',func=Pin.types.BIDIR),
             Pin(num='8',name='PA12',func=Pin.types.BIDIR),
             Pin(num='9',name='PA11',func=Pin.types.BIDIR)], 'unit_defs':[] }),
-        Part(**{ 'name':'RFM69HCW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RFM69HCW'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'low power Radio ISM Transceiver Module AES encryption SPI HopeRF', 'description':'', 'datasheet':'https://www.hoperf.com/data/upload/portal/20181127/5bfcb8284d838.pdf', 'pins':[
+        Part(**{ 'name':'RFM69HCW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RFM69HCW'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'low power Radio ISM Transceiver Module AES encryption SPI HopeRF', 'description':'', 'datasheet':'https://www.hoperf.com/data/upload/portal/20181127/5bfcb8284d838.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nRFM69HCW\n\nlow power Radio ISM Transceiver Module AES encryption SPI HopeRF', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DIO3',func=Pin.types.BIDIR,unit=1),
@@ -2346,7 +2346,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIO5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='ANT',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RFM69W', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RFM69W'}), 'ref_prefix':'U', 'fplist':['RF_Module:HOPERF_RFM69HW', 'RF_Module:HOPERF_RFM69HW'], 'footprint':'RF_Module:HOPERF_RFM69HW', 'keywords':'Radio, ISM, Transceiver, Module, AES', 'description':'', 'datasheet':'https://www.hoperf.com/data/upload/portal/20181127/5bfcbe34756e1.pdf', 'pins':[
+        Part(**{ 'name':'RFM69W', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RFM69W'}), 'ref_prefix':'U', 'fplist':['RF_Module:HOPERF_RFM69HW', 'RF_Module:HOPERF_RFM69HW'], 'footprint':'RF_Module:HOPERF_RFM69HW', 'keywords':'Radio, ISM, Transceiver, Module, AES', 'description':'', 'datasheet':'https://www.hoperf.com/data/upload/portal/20181127/5bfcbe34756e1.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nRFM69W\n\nRadio, ISM, Transceiver, Module, AES', 'pins':[
             Pin(num='1',name='RESET',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='ANA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -2363,7 +2363,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIO5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='3.3V',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RFM95W-915S2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RFM95W-915S2'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'Low power long range transceiver module', 'description':'', 'datasheet':'https://www.hoperf.com/data/upload/portal/20181127/5bfcbea20e9ef.pdf', 'pins':[
+        Part(**{ 'name':'RFM95W-915S2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RFM95W-915S2'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'Low power long range transceiver module', 'description':'', 'datasheet':'https://www.hoperf.com/data/upload/portal/20181127/5bfcbea20e9ef.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nRFM95W-915S2\n\nLow power long range transceiver module', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DIO3',func=Pin.types.BIDIR,unit=1),
@@ -2380,7 +2380,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIO5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='ANT',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RFM96W-315S2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RFM96W-315S2'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'Low power long range transceiver module', 'description':'', 'datasheet':'https://www.hoperf.com/data/upload/portal/20181127/5bfcc0ac60235.pdf', 'pins':[
+        Part(**{ 'name':'RFM96W-315S2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RFM96W-315S2'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'Low power long range transceiver module', 'description':'', 'datasheet':'https://www.hoperf.com/data/upload/portal/20181127/5bfcc0ac60235.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nRFM96W-315S2\n\nLow power long range transceiver module', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DIO3',func=Pin.types.BIDIR,unit=1),
@@ -2397,7 +2397,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIO5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='ANT',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RFM96W-433S2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RFM96W-433S2'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'Low power long range transceiver module', 'description':'', 'datasheet':'https://www.hoperf.com/data/upload/portal/20181127/5bfcc0ac60235.pdf', 'pins':[
+        Part(**{ 'name':'RFM96W-433S2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RFM96W-433S2'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'Low power long range transceiver module', 'description':'', 'datasheet':'https://www.hoperf.com/data/upload/portal/20181127/5bfcc0ac60235.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nRFM96W-433S2\n\nLow power long range transceiver module', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DIO3',func=Pin.types.BIDIR,unit=1),
@@ -2414,7 +2414,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIO5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='ANT',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RFM97W-868S2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RFM97W-868S2'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', ''], 'footprint':'', 'keywords':'Low power long range transceiver module', 'description':'', 'datasheet':'https://www.hoperf.com/data/upload/portal/20181127/5bfcbea20e9ef.pdf', 'pins':[
+        Part(**{ 'name':'RFM97W-868S2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RFM97W-868S2'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', ''], 'footprint':'', 'keywords':'Low power long range transceiver module', 'description':'', 'datasheet':'https://www.hoperf.com/data/upload/portal/20181127/5bfcbea20e9ef.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nRFM97W-868S2\n\nLow power long range transceiver module', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DIO3',func=Pin.types.BIDIR,unit=1),
@@ -2431,7 +2431,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIO5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='ANT',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RFM97W-915S2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RFM97W-915S2'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', ''], 'footprint':'', 'keywords':'Low power long range transceiver module', 'description':'', 'datasheet':'https://www.hoperf.com/data/upload/portal/20181127/5bfcbea20e9ef.pdf', 'pins':[
+        Part(**{ 'name':'RFM97W-915S2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RFM97W-915S2'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', ''], 'footprint':'', 'keywords':'Low power long range transceiver module', 'description':'', 'datasheet':'https://www.hoperf.com/data/upload/portal/20181127/5bfcbea20e9ef.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nRFM97W-915S2\n\nLow power long range transceiver module', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DIO3',func=Pin.types.BIDIR,unit=1),
@@ -2448,7 +2448,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIO5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='ANT',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RFM98W-315S2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RFM98W-315S2'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'Low power long range transceiver module', 'description':'', 'datasheet':'https://www.hoperf.com/data/upload/portal/20181127/5bfcdb5e17543.pdf', 'pins':[
+        Part(**{ 'name':'RFM98W-315S2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RFM98W-315S2'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'Low power long range transceiver module', 'description':'', 'datasheet':'https://www.hoperf.com/data/upload/portal/20181127/5bfcdb5e17543.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nRFM98W-315S2\n\nLow power long range transceiver module', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DIO3',func=Pin.types.BIDIR,unit=1),
@@ -2465,7 +2465,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIO5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='ANT',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RFM98W-433S2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RFM98W-433S2'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'Low power long range transceiver module', 'description':'', 'datasheet':'https://www.hoperf.com/data/upload/portal/20181127/5bfcdb5e17543.pdf', 'pins':[
+        Part(**{ 'name':'RFM98W-433S2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RFM98W-433S2'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', '', '', '', ''], 'footprint':'', 'keywords':'Low power long range transceiver module', 'description':'', 'datasheet':'https://www.hoperf.com/data/upload/portal/20181127/5bfcdb5e17543.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nRFM98W-433S2\n\nLow power long range transceiver module', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DIO3',func=Pin.types.BIDIR,unit=1),
@@ -2482,7 +2482,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIO5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='ANT',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TR-52DAT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TR-52DAT'}), 'ref_prefix':'U', 'fplist':['RF_Module:IQRF_TRx2DA_KON-SIM-01', 'RF_Module:IQRF_TRx2DA_KON-SIM-01', 'RF_Module:IQRF_TRx2DA_KON-SIM-01', 'RF_Module:IQRF_TRx2DA_KON-SIM-01'], 'footprint':'RF_Module:IQRF_TRx2DA_KON-SIM-01', 'keywords':'IQRF common transceiver, PCB antenna, thermometer, FSK modulation', 'description':'', 'datasheet':'https://iqrf.org/weben/downloads.php?id=213', 'pins':[
+        Part(**{ 'name':'TR-52DAT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TR-52DAT'}), 'ref_prefix':'U', 'fplist':['RF_Module:IQRF_TRx2DA_KON-SIM-01', 'RF_Module:IQRF_TRx2DA_KON-SIM-01', 'RF_Module:IQRF_TRx2DA_KON-SIM-01', 'RF_Module:IQRF_TRx2DA_KON-SIM-01'], 'footprint':'RF_Module:IQRF_TRx2DA_KON-SIM-01', 'keywords':'IQRF common transceiver, PCB antenna, thermometer, FSK modulation', 'description':'', 'datasheet':'https://iqrf.org/weben/downloads.php?id=213', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nTR-52DAT\n\nIQRF common transceiver, PCB antenna, thermometer, FSK modulation', 'pins':[
             Pin(num='C1',name='RA0/AN0/C12IN0',func=Pin.types.BIDIR,unit=1),
             Pin(num='C2',name='RC2/VOUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='C3',name='VIN',func=Pin.types.PWRIN,unit=1),
@@ -2491,7 +2491,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='C6',name='RC3/SCK/SCL',func=Pin.types.BIDIR,unit=1),
             Pin(num='C7',name='RC4/SDI/SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='C8',name='RC5/RC7/RX/SDO',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TR-72DA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TR-72DA'}), 'ref_prefix':'U', 'fplist':['RF_Module:IQRF_TRx2DA_KON-SIM-01', 'RF_Module:IQRF_TRx2DA_KON-SIM-01', 'RF_Module:IQRF_TRx2DA_KON-SIM-01', 'RF_Module:IQRF_TRx2DA_KON-SIM-01', 'RF_Module:IQRF_TRx2DA_KON-SIM-01'], 'footprint':'RF_Module:IQRF_TRx2DA_KON-SIM-01', 'keywords':'IQRF transceiver, PCB antenna, GMSK modulation', 'description':'', 'datasheet':'https://iqrf.org/weben/downloads.php?id=337', 'pins':[
+        Part(**{ 'name':'TR-72DA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TR-72DA'}), 'ref_prefix':'U', 'fplist':['RF_Module:IQRF_TRx2DA_KON-SIM-01', 'RF_Module:IQRF_TRx2DA_KON-SIM-01', 'RF_Module:IQRF_TRx2DA_KON-SIM-01', 'RF_Module:IQRF_TRx2DA_KON-SIM-01', 'RF_Module:IQRF_TRx2DA_KON-SIM-01'], 'footprint':'RF_Module:IQRF_TRx2DA_KON-SIM-01', 'keywords':'IQRF transceiver, PCB antenna, GMSK modulation', 'description':'', 'datasheet':'https://iqrf.org/weben/downloads.php?id=337', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nTR-72DA\n\nIQRF transceiver, PCB antenna, GMSK modulation', 'pins':[
             Pin(num='C1',name='RA0/AN0/C12IN0',func=Pin.types.BIDIR,unit=1),
             Pin(num='C2',name='RC2/VOUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='C3',name='VIN',func=Pin.types.PWRIN,unit=1),
@@ -2500,7 +2500,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='C6',name='RC3/SCK/SCL',func=Pin.types.BIDIR,unit=1),
             Pin(num='C7',name='RC4/SDI/SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='C8',name='RC5/RC7/RX/SDO',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TR-72DAT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TR-72DAT'}), 'ref_prefix':'U', 'fplist':['RF_Module:IQRF_TRx2DA_KON-SIM-01', 'RF_Module:IQRF_TRx2DA_KON-SIM-01', 'RF_Module:IQRF_TRx2DA_KON-SIM-01', 'RF_Module:IQRF_TRx2DA_KON-SIM-01', 'RF_Module:IQRF_TRx2DA_KON-SIM-01', 'RF_Module:IQRF_TRx2DA_KON-SIM-01'], 'footprint':'RF_Module:IQRF_TRx2DA_KON-SIM-01', 'keywords':'IQRF transceiver, PCB antenna, thermometer, GMSK modulation', 'description':'', 'datasheet':'https://iqrf.org/weben/downloads.php?id=337', 'pins':[
+        Part(**{ 'name':'TR-72DAT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TR-72DAT'}), 'ref_prefix':'U', 'fplist':['RF_Module:IQRF_TRx2DA_KON-SIM-01', 'RF_Module:IQRF_TRx2DA_KON-SIM-01', 'RF_Module:IQRF_TRx2DA_KON-SIM-01', 'RF_Module:IQRF_TRx2DA_KON-SIM-01', 'RF_Module:IQRF_TRx2DA_KON-SIM-01', 'RF_Module:IQRF_TRx2DA_KON-SIM-01'], 'footprint':'RF_Module:IQRF_TRx2DA_KON-SIM-01', 'keywords':'IQRF transceiver, PCB antenna, thermometer, GMSK modulation', 'description':'', 'datasheet':'https://iqrf.org/weben/downloads.php?id=337', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\nTR-72DAT\n\nIQRF transceiver, PCB antenna, thermometer, GMSK modulation', 'pins':[
             Pin(num='C1',name='RA0/AN0/C12IN0',func=Pin.types.BIDIR,unit=1),
             Pin(num='C2',name='RC2/VOUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='C3',name='VIN',func=Pin.types.PWRIN,unit=1),
@@ -2509,7 +2509,7 @@ RF_Module = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='C6',name='RC3/SCK/SCL',func=Pin.types.BIDIR,unit=1),
             Pin(num='C7',name='RC4/SDI/SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='C8',name='RC5/RC7/RX/SDO',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'iM880B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'iM880B'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'IOT LoRa', 'description':'', 'datasheet':'http://www.wireless-solutions.de/images/stories/downloads/Radio%20Modules/iM880B/General_Information/iM880B_Datasheet_V1_0.pdf', 'pins':[
+        Part(**{ 'name':'iM880B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'iM880B'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'IOT LoRa', 'description':'', 'datasheet':'http://www.wireless-solutions.de/images/stories/downloads/Radio%20Modules/iM880B/General_Information/iM880B_Datasheet_V1_0.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Module.kicad_sym\niM880B\n\nIOT LoRa', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PWRIN,unit=1),

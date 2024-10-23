@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 MCU_ST_STM32WBA = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'STM32WBA52CEUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32WBA52CEUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M33 STM32WBA STM32WBAx2', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32wba52ce.pdf', 'pins':[
+        Part(**{ 'name':'STM32WBA52CEUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32WBA52CEUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M33 STM32WBA STM32WBAx2', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32wba52ce.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32WBA.kicad_sym\nSTM32WBA52CEUx\n\nArm Cortex-M33 STM32WBA STM32WBAx2', 'pins':[
             Pin(num='1',name='PB12',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -54,7 +54,7 @@ MCU_ST_STM32WBA = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PA5',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PA3',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PB10',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'STM32WBA52CGUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32WBA52CGUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M33 STM32WBA STM32WBAx2', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32wba52cg.pdf', 'pins':[
+        Part(**{ 'name':'STM32WBA52CGUx', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'STM32WBA52CGUx'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.6x5.6mm', 'keywords':'Arm Cortex-M33 STM32WBA STM32WBAx2', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/stm32wba52cg.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_ST_STM32WBA.kicad_sym\nSTM32WBA52CGUx\n\nArm Cortex-M33 STM32WBA STM32WBAx2', 'pins':[
             Pin(num='1',name='PB12',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PA2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),

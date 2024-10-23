@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 RF_WiFi = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'HF-A11-SMT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HF-A11-SMT'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'WiFi IEEE802.11 b/g/n', 'description':'', 'datasheet':'http://www.hi-flying.com/index.php?route=tool/upload/download&code=190ec6c62d497905ed783d140f8e5af7a753b8ab', 'pins':[
+        Part(**{ 'name':'HF-A11-SMT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HF-A11-SMT'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'WiFi IEEE802.11 b/g/n', 'description':'', 'datasheet':'http://www.hi-flying.com/index.php?route=tool/upload/download&code=190ec6c62d497905ed783d140f8e5af7a753b8ab', 'search_text':'/usr/share/kicad/symbols/RF_WiFi.kicad_sym\nHF-A11-SMT\n\nWiFi IEEE802.11 b/g/n', 'pins':[
             Pin(num='1',name='3.3V',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RX+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='RX-',func=Pin.types.PASSIVE,unit=1),
@@ -29,7 +29,7 @@ RF_WiFi = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='UART_CTS',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='TX+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='TX-',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'USR-C322', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USR-C322'}), 'ref_prefix':'U', 'fplist':['RF_WiFi:USR-C322'], 'footprint':'RF_WiFi:USR-C322', 'keywords':'WiFi IEEE802.11 b/g/n', 'description':'', 'datasheet':'https://www.usriot.com/download/WIFI/USR-C322%20User%20Manual%20V2.3.pdf', 'pins':[
+        Part(**{ 'name':'USR-C322', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'USR-C322'}), 'ref_prefix':'U', 'fplist':['RF_WiFi:USR-C322'], 'footprint':'RF_WiFi:USR-C322', 'keywords':'WiFi IEEE802.11 b/g/n', 'description':'', 'datasheet':'https://www.usriot.com/download/WIFI/USR-C322%20User%20Manual%20V2.3.pdf', 'search_text':'/usr/share/kicad/symbols/RF_WiFi.kicad_sym\nUSR-C322\n\nWiFi IEEE802.11 b/g/n', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PASSIVE,unit=1),

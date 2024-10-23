@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'AD40xxBCPZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD40xxBCPZ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-WD-10-1EP_3x3mm_P0.5mm_EP1.64x2.38mm'], 'footprint':'Package_CSP:LFCSP-WD-10-1EP_3x3mm_P0.5mm_EP1.64x2.38mm', 'keywords':'ADC 18-bit AD4003BCPZ AD4007BCPZ AD4011BCPZ', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ad4003-4007-4011.pdf', 'pins':[
+        Part(**{ 'name':'AD40xxBCPZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD40xxBCPZ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-WD-10-1EP_3x3mm_P0.5mm_EP1.64x2.38mm'], 'footprint':'Package_CSP:LFCSP-WD-10-1EP_3x3mm_P0.5mm_EP1.64x2.38mm', 'keywords':'ADC 18-bit AD4003BCPZ AD4007BCPZ AD4011BCPZ', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ad4003-4007-4011.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nAD40xxBCPZ\n\nADC 18-bit AD4003BCPZ AD4007BCPZ AD4011BCPZ', 'pins':[
             Pin(num='1',name='REF',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VIO',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='PAD',func=Pin.types.PWRIN,unit=1),
@@ -16,7 +16,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='SDI',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD40xxBRMZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD40xxBRMZ'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'ADC 18-bit AD4003BRMZ AD4007BRMZ AD4011BRMZ', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ad4003-4007-4011.pdf', 'pins':[
+        Part(**{ 'name':'AD40xxBRMZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD40xxBRMZ'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'ADC 18-bit AD4003BRMZ AD4007BRMZ AD4011BRMZ', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ad4003-4007-4011.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nAD40xxBRMZ\n\nADC 18-bit AD4003BRMZ AD4007BRMZ AD4011BRMZ', 'pins':[
             Pin(num='1',name='REF',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VIO',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -27,7 +27,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='SDI',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD6644', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD6644'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-52-1EP_10x10mm_P0.65mm_EP6.5x6.5mm'], 'footprint':'Package_QFP:TQFP-52-1EP_10x10mm_P0.65mm_EP6.5x6.5mm', 'keywords':'ADC differential analog digital converter', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD6644.pdf', 'pins':[
+        Part(**{ 'name':'AD6644', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD6644'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-52-1EP_10x10mm_P0.65mm_EP6.5x6.5mm'], 'footprint':'Package_QFP:TQFP-52-1EP_10x10mm_P0.65mm_EP6.5x6.5mm', 'keywords':'ADC differential analog digital converter', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD6644.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nAD6644\n\nADC differential analog digital converter', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='AIN',func=Pin.types.INPUT,unit=1),
@@ -81,7 +81,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='AVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='AVCC',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7171', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7171'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.55x2.48mm'], 'footprint':'Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.55x2.48mm', 'keywords':'sigma delta adc spi 1ch', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7171.pdf', 'pins':[
+        Part(**{ 'name':'AD7171', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7171'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.55x2.48mm'], 'footprint':'Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.55x2.48mm', 'keywords':'sigma delta adc spi 1ch', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7171.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nAD7171\n\nsigma delta adc spi 1ch', 'pins':[
             Pin(num='1',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='PAD',func=Pin.types.PWRIN,unit=1),
@@ -93,7 +93,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='~{PDRST}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7298', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7298'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias'], 'footprint':'Package_CSP:LFCSP-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias', 'keywords':'ADC, 3.3V, SPI', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7298.pdf', 'pins':[
+        Part(**{ 'name':'AD7298', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7298'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias'], 'footprint':'Package_CSP:LFCSP-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias', 'keywords':'ADC, 3.3V, SPI', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7298.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nAD7298\n\nADC, 3.3V, SPI', 'pins':[
             Pin(num='1',name='VIN3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='~{CS}',func=Pin.types.INPUT,unit=1),
@@ -115,7 +115,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VREF',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='DCAP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7321', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7321'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'Analog-Devices ADC bipolar 12-Bit SPI', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7321.pdf', 'pins':[
+        Part(**{ 'name':'AD7321', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7321'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'Analog-Devices ADC bipolar 12-Bit SPI', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7321.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nAD7321\n\nAnalog-Devices ADC bipolar 12-Bit SPI', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='V_{CC}',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='V_{DRIVE}',func=Pin.types.PWRIN,unit=1),
@@ -130,7 +130,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='V_{IN}0',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='V_{IN}1',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='V_{DD}',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7323', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7323'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'Analog-Devices ADC bipolar 12-Bit SPI', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7323.pdf', 'pins':[
+        Part(**{ 'name':'AD7323', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7323'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'Analog-Devices ADC bipolar 12-Bit SPI', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7323.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nAD7323\n\nAnalog-Devices ADC bipolar 12-Bit SPI', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='V_{IN}2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='V_{DD}',func=Pin.types.PWRIN,unit=1),
@@ -147,7 +147,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='V_{IN}0',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='V_{IN}1',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='V_{IN}3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7327', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7327'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'Analog-Devices ADC bipolar 12-Bit SPI', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ad7327.pdf', 'pins':[
+        Part(**{ 'name':'AD7327', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7327'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'Analog-Devices ADC bipolar 12-Bit SPI', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ad7327.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nAD7327\n\nAnalog-Devices ADC bipolar 12-Bit SPI', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='V_{IN}5',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='V_{IN}7',func=Pin.types.INPUT,unit=1),
@@ -168,7 +168,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='V_{IN}0',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='V_{IN}1',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='V_{IN}4',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7329', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7329'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'Analog-Devices ADC bipolar 12-Bit SPI', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7329.pdf', 'pins':[
+        Part(**{ 'name':'AD7329', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7329'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'Analog-Devices ADC bipolar 12-Bit SPI', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7329.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nAD7329\n\nAnalog-Devices ADC bipolar 12-Bit SPI', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='V_{IN}1',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='V_{IN}4',func=Pin.types.INPUT,unit=1),
@@ -193,7 +193,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='ADC_{IN}+',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='MUX_{OUT}+',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='V_{IN}0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7606', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7606'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'16bit DAS ADC 8channel 200KSPS', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ad7606_7606-6_7606-4.pdf', 'pins':[
+        Part(**{ 'name':'AD7606', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7606'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'16bit DAS ADC 8channel 200KSPS', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ad7606_7606-6_7606-4.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nAD7606\n\n16bit DAS ADC 8channel 200KSPS', 'pins':[
             Pin(num='1',name='AVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='CONVST_B',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='RESET',func=Pin.types.INPUT,unit=1),
@@ -258,7 +258,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{STBY}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='RANGE',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='CONVST_A',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7606-4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7606-4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'16bit DAS ADC 4channel 200KSPS', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ad7606_7606-6_7606-4.pdf', 'pins':[
+        Part(**{ 'name':'AD7606-4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7606-4'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'16bit DAS ADC 4channel 200KSPS', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ad7606_7606-6_7606-4.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nAD7606-4\n\n16bit DAS ADC 4channel 200KSPS', 'pins':[
             Pin(num='1',name='AVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='CONVST_B',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='RESET',func=Pin.types.INPUT,unit=1),
@@ -323,7 +323,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{STBY}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='RANGE',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='CONVST_A',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7606-6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7606-6'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'16bit DAS ADC 6channel 200KSPS', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ad7606_7606-6_7606-4.pdf', 'pins':[
+        Part(**{ 'name':'AD7606-6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7606-6'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'16bit DAS ADC 6channel 200KSPS', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ad7606_7606-6_7606-4.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nAD7606-6\n\n16bit DAS ADC 6channel 200KSPS', 'pins':[
             Pin(num='1',name='AVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='CONVST_B',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='RESET',func=Pin.types.INPUT,unit=1),
@@ -388,7 +388,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{STBY}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='RANGE',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='CONVST_A',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7616', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7616'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-80_14x14mm_P0.65mm'], 'footprint':'Package_QFP:LQFP-80_14x14mm_P0.65mm', 'keywords':'16bit DAS ADC 16channel 1MSPS', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7616.pdf', 'pins':[
+        Part(**{ 'name':'AD7616', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7616'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-80_14x14mm_P0.65mm'], 'footprint':'Package_QFP:LQFP-80_14x14mm_P0.65mm', 'keywords':'16bit DAS ADC 16channel 1MSPS', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7616.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nAD7616\n\n16bit DAS ADC 16channel 1MSPS', 'pins':[
             Pin(num='1',name='V4BGND',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='V7BGND',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='V7AGND',func=Pin.types.INPUT,unit=1),
@@ -469,7 +469,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='V6BGND',func=Pin.types.INPUT,unit=1),
             Pin(num='80',name='V3BGND',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='V7B',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7682BCP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7682BCP'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm'], 'footprint':'Package_CSP:LFCSP-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'keywords':'16-Bit 4-Channel 250kSPS', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7682_7689.pdf', 'pins':[
+        Part(**{ 'name':'AD7682BCP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7682BCP'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm'], 'footprint':'Package_CSP:LFCSP-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'keywords':'16-Bit 4-Channel 250kSPS', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7682_7689.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nAD7682BCP\n\n16-Bit 4-Channel 250kSPS', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='COM',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='CNV',func=Pin.types.INPUT,unit=1),
@@ -491,7 +491,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IN2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='IN3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7722', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7722'}), 'ref_prefix':'U', 'fplist':['Package_QFP:MQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:MQFP-44_10x10mm_P0.8mm', 'keywords':'adc 1ch 16bit parallel serial', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7722.pdf', 'pins':[
+        Part(**{ 'name':'AD7722', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7722'}), 'ref_prefix':'U', 'fplist':['Package_QFP:MQFP-44_10x10mm_P0.8mm'], 'footprint':'Package_QFP:MQFP-44_10x10mm_P0.8mm', 'keywords':'adc 1ch 16bit parallel serial', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7722.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nAD7722\n\nadc 1ch 16bit parallel serial', 'pins':[
             Pin(num='1',name='DB2',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='AGND1',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='CLKIN',func=Pin.types.INPUT,unit=1),
@@ -536,7 +536,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{UNI}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='P/~{S}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='AGND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7745', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7745'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'adc cdc capacitance', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7745_7746.pdf', 'pins':[
+        Part(**{ 'name':'AD7745', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7745'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'adc cdc capacitance', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7745_7746.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nAD7745\n\nadc cdc capacitance', 'pins':[
             Pin(num='1',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='VIN+',func=Pin.types.INPUT,unit=1),
@@ -553,7 +553,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CIN1-',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='CIN1+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7746', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7746'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'adc cdc capacitance', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7745_7746.pdf', 'pins':[
+        Part(**{ 'name':'AD7746', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7746'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'adc cdc capacitance', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7745_7746.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nAD7746\n\nadc cdc capacitance', 'pins':[
             Pin(num='1',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='CIN2-',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='VIN+',func=Pin.types.INPUT,unit=1),
@@ -570,7 +570,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CIN1-',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='CIN1+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='CIN2+',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7794', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7794'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'adc 6ch 24bit serial', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7794_7795.pdf', 'pins':[
+        Part(**{ 'name':'AD7794', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7794'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'adc 6ch 24bit serial', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7794_7795.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nAD7794\n\nadc 6ch 24bit serial', 'pins':[
             Pin(num='1',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='AIN2-',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='AIN3+',func=Pin.types.INPUT,unit=1),
@@ -595,7 +595,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AIN1+',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='AIN1-',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='AIN2+',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7819', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7819'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CAD', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7819.pdf', 'pins':[
+        Part(**{ 'name':'AD7819', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7819'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CAD', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7819.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nAD7819\n\nCAD', 'pins':[
             Pin(num='1',name='VREF',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DB2',func=Pin.types.TRISTATE,unit=1),
             Pin(num='11',name='DB3',func=Pin.types.TRISTATE,unit=1),
@@ -612,7 +612,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EOC',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='DB0',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='DB1',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7949BCP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7949BCP'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm'], 'footprint':'Package_CSP:LFCSP-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'keywords':'ADC, SPI', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7949.pdf', 'pins':[
+        Part(**{ 'name':'AD7949BCP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7949BCP'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm'], 'footprint':'Package_CSP:LFCSP-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'keywords':'ADC, SPI', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7949.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nAD7949BCP\n\nADC, SPI', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='COM',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='CNV',func=Pin.types.INPUT,unit=1),
@@ -634,7 +634,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IN5',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='IN6',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='IN7',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD9280ARS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD9280ARS'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'ADC CAN VIDEO', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD9280.pdf', 'pins':[
+        Part(**{ 'name':'AD9280ARS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD9280ARS'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'ADC CAN VIDEO', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD9280.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nAD9280ARS\n\nADC CAN VIDEO', 'pins':[
             Pin(num='1',name='AVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='D5',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='D6',func=Pin.types.OUTPUT,unit=1),
@@ -661,7 +661,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='D3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='D4',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD9283', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD9283'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'ADC', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD9283.pdf', 'pins':[
+        Part(**{ 'name':'AD9283', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD9283'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'ADC', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD9283.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nAD9283\n\nADC', 'pins':[
             Pin(num='1',name='PWRDWN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='CLK',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DO7',func=Pin.types.OUTPUT,unit=1),
@@ -682,7 +682,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Ain+',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VaD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADC0800', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADC0800'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CAD', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/snas562/snas562.pdf', 'pins':[
+        Part(**{ 'name':'ADC0800', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADC0800'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'CAD', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/snas562/snas562.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADC0800\n\nCAD', 'pins':[
             Pin(num='1',name='QE',func=Pin.types.TRISTATE,unit=1),
             Pin(num='10',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='Clk',func=Pin.types.INPUT,unit=1),
@@ -701,7 +701,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OE',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='-Vgg',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='EOC',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADC08060', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADC08060'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'ADC CAN VIDEO', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/adc08060.pdf', 'pins':[
+        Part(**{ 'name':'ADC08060', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADC08060'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'ADC CAN VIDEO', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/adc08060.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADC08060\n\nADC CAN VIDEO', 'pins':[
             Pin(num='1',name='AVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VRB',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='AGND',func=Pin.types.PWRIN,unit=1),
@@ -726,7 +726,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VIN_GND',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VRB',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADC081C021CIMM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADC081C021CIMM'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'ADC I2C 8-bit Alert', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/adc081c021.pdf', 'pins':[
+        Part(**{ 'name':'ADC081C021CIMM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADC081C021CIMM'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'ADC I2C 8-bit Alert', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/adc081c021.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADC081C021CIMM\n\nADC I2C 8-bit Alert', 'pins':[
             Pin(num='1',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='ALERT',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='3',name='ADR0',func=Pin.types.INPUT,unit=1),
@@ -735,7 +735,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='ADR1',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='SDA',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADC0832', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADC0832'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'ADC CAN', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/adc0831-n.pdf', 'pins':[
+        Part(**{ 'name':'ADC0832', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADC0832'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'ADC CAN', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/adc0831-n.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADC0832\n\nADC CAN', 'pins':[
             Pin(num='1',name='CS',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='ANALOG0',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='ANALOG1',func=Pin.types.INPUT,unit=1),
@@ -744,14 +744,14 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='DOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='CLK',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADC101C021CIMK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADC101C021CIMK'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'adc 10-bit i2c', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/adc101c021.pdf', 'pins':[
+        Part(**{ 'name':'ADC101C021CIMK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADC101C021CIMK'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'adc 10-bit i2c', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/adc101c021.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADC101C021CIMK\n\nadc 10-bit i2c', 'pins':[
             Pin(num='1',name='V_{A}',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='V_{IN}',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='ADDR',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='SDA',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADC1173', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADC1173'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'ADC CAN VIDEO', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/adc1173.pdf', 'pins':[
+        Part(**{ 'name':'ADC1173', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADC1173'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'ADC CAN VIDEO', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/adc1173.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADC1173\n\nADC CAN VIDEO', 'pins':[
             Pin(num='1',name='OE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='D7',func=Pin.types.TRISTATE,unit=1),
             Pin(num='11',name='DVDD',func=Pin.types.PWRIN,unit=1),
@@ -776,7 +776,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D4',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='D5',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='D6',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADC1283', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADC1283'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'ADC 2.7V 3.3V 5.5V SPI 12bit 8-channel', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/adc1283.pdf', 'pins':[
+        Part(**{ 'name':'ADC1283', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADC1283'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'ADC 2.7V 3.3V 5.5V SPI 12bit 8-channel', 'description':'', 'datasheet':'https://www.st.com/resource/en/datasheet/adc1283.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADC1283\n\nADC 2.7V 3.3V 5.5V SPI 12bit 8-channel', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='IN6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='IN7',func=Pin.types.INPUT,unit=1),
@@ -793,7 +793,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IN3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='IN4',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='IN5',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADC128D818', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADC128D818'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'ADC 8 Channels TSSOP I2C', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/adc128d818.pdf', 'pins':[
+        Part(**{ 'name':'ADC128D818', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADC128D818'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'ADC 8 Channels TSSOP I2C', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/adc128d818.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADC128D818\n\nADC 8 Channels TSSOP I2C', 'pins':[
             Pin(num='1',name='VREF',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='IN6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='IN5',func=Pin.types.INPUT,unit=1),
@@ -810,7 +810,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='IN7',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS1013IDGS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS1013IDGS'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-10_3x3mm_P0.5mm', 'keywords':'12 bit single channel I2C ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads1015.pdf', 'pins':[
+        Part(**{ 'name':'ADS1013IDGS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS1013IDGS'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-10_3x3mm_P0.5mm', 'keywords':'12 bit single channel I2C ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads1015.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADS1013IDGS\n\n12 bit single channel I2C ADC', 'pins':[
             Pin(num='1',name='ADDR',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.NOCONNECT,unit=1),
@@ -821,7 +821,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='SDA',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS1014IDGS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS1014IDGS'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-10_3x3mm_P0.5mm', 'keywords':'12 bit single channel I2C ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads1015.pdf', 'pins':[
+        Part(**{ 'name':'ADS1014IDGS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS1014IDGS'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-10_3x3mm_P0.5mm', 'keywords':'12 bit single channel I2C ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads1015.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADS1014IDGS\n\n12 bit single channel I2C ADC', 'pins':[
             Pin(num='1',name='ADDR',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='ALERT/RDY',func=Pin.types.OUTPUT,unit=1),
@@ -832,7 +832,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='SDA',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS1015IDGS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS1015IDGS'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-10_3x3mm_P0.5mm', 'keywords':'12 bit 4 channel I2C ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads1015.pdf', 'pins':[
+        Part(**{ 'name':'ADS1015IDGS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS1015IDGS'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-10_3x3mm_P0.5mm', 'keywords':'12 bit 4 channel I2C ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads1015.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADS1015IDGS\n\n12 bit 4 channel I2C ADC', 'pins':[
             Pin(num='1',name='ADDR',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='ALERT/RDY',func=Pin.types.OUTPUT,unit=1),
@@ -843,7 +843,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AIN3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='SDA',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS1018IDGS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS1018IDGS'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'12 bit 4 channel SPI ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads1018.pdf', 'pins':[
+        Part(**{ 'name':'ADS1018IDGS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS1018IDGS'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'12 bit 4 channel SPI ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads1018.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADS1018IDGS\n\n12 bit 4 channel SPI ADC', 'pins':[
             Pin(num='1',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DIN',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~{CS}',func=Pin.types.INPUT,unit=1),
@@ -854,14 +854,14 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AIN3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='DOUT/~{DRDY}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS1110', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS1110'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'16 Bit Analog to digital converter ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads1110.pdf', 'pins':[
+        Part(**{ 'name':'ADS1110', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS1110'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'16 Bit Analog to digital converter ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads1110.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADS1110\n\n16 Bit Analog to digital converter ADC', 'pins':[
             Pin(num='1',name='VIN+',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='VIN-',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS1120-PW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS1120-PW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'adc spi', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads1120.pdf', 'pins':[
+        Part(**{ 'name':'ADS1120-PW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS1120-PW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'adc spi', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads1120.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADS1120-PW\n\nadc spi', 'pins':[
             Pin(num='1',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='AIN1',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='AIN0/REFP1',func=Pin.types.INPUT,unit=1),
@@ -878,7 +878,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AIN2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='REFN0',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='REFP0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS1120-RVA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS1120-RVA'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'adc spi', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads1120.pdf', 'pins':[
+        Part(**{ 'name':'ADS1120-RVA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS1120-RVA'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'adc spi', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads1120.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADS1120-RVA\n\nadc spi', 'pins':[
             Pin(num='1',name='CLK',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='AVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DVDD',func=Pin.types.PWRIN,unit=1),
@@ -896,7 +896,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='REFP0',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='AIN1',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='AIN0/REFP1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS1232IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS1232IPW'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'ADC 24bit Sensors Dual Channel', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads1232.pdf', 'pins':[
+        Part(**{ 'name':'ADS1232IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS1232IPW'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'ADC 24bit Sensors Dual Channel', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads1232.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADS1232IPW\n\nADC 24bit Sensors Dual Channel', 'pins':[
             Pin(num='1',name='DVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='CAP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='AINP1',func=Pin.types.INPUT,unit=1),
@@ -921,7 +921,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TEMP',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='CAP',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS1234IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS1234IPW'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'ADC 24bit Sensors Quad Channel', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads1232.pdf', 'pins':[
+        Part(**{ 'name':'ADS1234IPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS1234IPW'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'ADC 24bit Sensors Quad Channel', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads1232.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADS1234IPW\n\nADC 24bit Sensors Quad Channel', 'pins':[
             Pin(num='1',name='DVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='CAP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='AINP1',func=Pin.types.INPUT,unit=1),
@@ -950,7 +950,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='CAP',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS1243', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS1243'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'24bit ADC 8 Channels PGA SPI', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads1243.pdf', 'pins':[
+        Part(**{ 'name':'ADS1243', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS1243'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'24bit ADC 8 Channels PGA SPI', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads1243.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADS1243\n\n24bit ADC 8 Channels PGA SPI', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='Ain5/D5',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='Ain6/D6',func=Pin.types.INPUT,unit=1),
@@ -971,7 +971,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Ain0/D0',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='Ain1/D1',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='Ain4/D4',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS1251', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS1251'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'delta-sigma adc low-power', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads1251.pdf', 'pins':[
+        Part(**{ 'name':'ADS1251', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS1251'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'delta-sigma adc low-power', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads1251.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADS1251\n\ndelta-sigma adc low-power', 'pins':[
             Pin(num='1',name='IN+',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='IN-',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -980,7 +980,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VREF',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS127L01IPBS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS127L01IPBS'}), 'ref_prefix':'U', 'fplist':['Package_QFP:PQFP-32_5x5mm_P0.5mm'], 'footprint':'Package_QFP:PQFP-32_5x5mm_P0.5mm', 'keywords':'Texas Instruments high-speed 24bit', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/ads127l01.pdf', 'pins':[
+        Part(**{ 'name':'ADS127L01IPBS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS127L01IPBS'}), 'ref_prefix':'U', 'fplist':['Package_QFP:PQFP-32_5x5mm_P0.5mm'], 'footprint':'Package_QFP:PQFP-32_5x5mm_P0.5mm', 'keywords':'Texas Instruments high-speed 24bit', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/ads127l01.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADS127L01IPBS\n\nTexas Instruments high-speed 24bit', 'pins':[
             Pin(num='1',name='LVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='REFN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='CAP2',func=Pin.types.OUTPUT,unit=1),
@@ -1013,7 +1013,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='REXT',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{INTLDO}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='REFP',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS1298xPAG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS1298xPAG'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'24bit ADC 8 Channels PGA SPI Biopotential', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads1298.pdf', 'pins':[
+        Part(**{ 'name':'ADS1298xPAG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS1298xPAG'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:TQFP-64_10x10mm_P0.5mm', 'keywords':'24bit ADC 8 Channels PGA SPI Biopotential', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads1298.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADS1298xPAG\n\n24bit ADC 8 Channels PGA SPI Biopotential', 'pins':[
             Pin(num='1',name='IN8N',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='IN4P',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='IN3N',func=Pin.types.INPUT,unit=1),
@@ -1078,7 +1078,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IN5N',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='IN5P',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='IN4N',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS7040xDCU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS7040xDCU'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-8_2.3x2mm_P0.5mm'], 'footprint':'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'keywords':'8 bit SAR ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads7040.pdf', 'pins':[
+        Part(**{ 'name':'ADS7040xDCU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS7040xDCU'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-8_2.3x2mm_P0.5mm'], 'footprint':'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'keywords':'8 bit SAR ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads7040.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADS7040xDCU\n\n8 bit SAR ADC', 'pins':[
             Pin(num='1',name='DVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SDO',func=Pin.types.OUTPUT,unit=1),
@@ -1087,7 +1087,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='AINP',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='AVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS7828', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS7828'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'I2C ADC 12Bits', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads7828.pdf', 'pins':[
+        Part(**{ 'name':'ADS7828', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS7828'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'I2C ADC 12Bits', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads7828.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADS7828\n\nI2C ADC 12Bits', 'pins':[
             Pin(num='1',name='CH0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='REF',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='COM',func=Pin.types.INPUT,unit=1),
@@ -1104,14 +1104,14 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CH6',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CH7',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS7866', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS7866'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TSOT-23-6'], 'footprint':'Package_TO_SOT_SMD:TSOT-23-6', 'keywords':'ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads7866.pdf', 'pins':[
+        Part(**{ 'name':'ADS7866', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS7866'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TSOT-23-6'], 'footprint':'Package_TO_SOT_SMD:TSOT-23-6', 'keywords':'ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads7866.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADS7866\n\nADC', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='AIN',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='SDO',func=Pin.types.TRISTATE,unit=1),
             Pin(num='6',name='~{CS}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS8681RUM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS8681RUM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'ADC SPI analog digital', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads8681.pdf', 'pins':[
+        Part(**{ 'name':'ADS8681RUM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS8681RUM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'ADC SPI analog digital', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads8681.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADS8681RUM\n\nADC SPI analog digital', 'pins':[
             Pin(num='1',name='AGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SDO-0',func=Pin.types.TRISTATE,unit=1),
@@ -1129,7 +1129,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SDI',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='CONVST/~{CS}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS8684', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS8684'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-38_4.4x9.7mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-38_4.4x9.7mm_P0.5mm', 'keywords':'adc analog digital spi bipolar input', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads8688.pdf', 'pins':[
+        Part(**{ 'name':'ADS8684', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS8684'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-38_4.4x9.7mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-38_4.4x9.7mm_P0.5mm', 'keywords':'adc analog digital spi bipolar input', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads8688.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADS8684\n\nadc analog digital spi bipolar input', 'pins':[
             Pin(num='1',name='SDI',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='AUX_IN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='AUX_GND',func=Pin.types.INPUT,unit=1),
@@ -1168,7 +1168,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='REFCAP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='AGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='AVDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS8688', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS8688'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-38_4.4x9.7mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-38_4.4x9.7mm_P0.5mm', 'keywords':'adc analog digital spi bipolar input', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads8688.pdf', 'pins':[
+        Part(**{ 'name':'ADS8688', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS8688'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-38_4.4x9.7mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-38_4.4x9.7mm_P0.5mm', 'keywords':'adc analog digital spi bipolar input', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads8688.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADS8688\n\nadc analog digital spi bipolar input', 'pins':[
             Pin(num='1',name='SDI',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='AUX_IN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='AUX_GND',func=Pin.types.INPUT,unit=1),
@@ -1207,7 +1207,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='REFCAP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='AGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='AVDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AMC3336', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AMC3336'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'isolated adc delta sigma integrated power supply', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/amc3336.pdf', 'pins':[
+        Part(**{ 'name':'AMC3336', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AMC3336'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'isolated adc delta sigma integrated power supply', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/amc3336.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nAMC3336\n\nisolated adc delta sigma integrated power supply', 'pins':[
             Pin(num='1',name='DCDC_OUT',func=Pin.types.PWROUT,unit=1),
             Pin(num='10',name='DOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='CLKIN',func=Pin.types.INPUT,unit=1),
@@ -1224,7 +1224,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='INN',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='HGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CA3300', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CA3300'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'ADC CAN', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'CA3300', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CA3300'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'ADC CAN', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nCA3300\n\nADC CAN', 'pins':[
             Pin(num='1',name='D5',func=Pin.types.TRISTATE,unit=1),
             Pin(num='10',name='-REF',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VIN',func=Pin.types.INPUT,unit=1),
@@ -1243,7 +1243,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CLK',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='PHAS',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='+REF',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HX711', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HX711'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOP-16_3.9x9.9mm_P1.27mm', 'keywords':'adc load cell 24-bits analog weight', 'description':'', 'datasheet':'https://web.archive.org/web/20220615044707/https://akizukidenshi.com/download/ds/avia/hx711.pdf', 'pins':[
+        Part(**{ 'name':'HX711', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HX711'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOP-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOP-16_3.9x9.9mm_P1.27mm', 'keywords':'adc load cell 24-bits analog weight', 'description':'', 'datasheet':'https://web.archive.org/web/20220615044707/https://akizukidenshi.com/download/ds/avia/hx711.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nHX711\n\nadc load cell 24-bits analog weight', 'pins':[
             Pin(num='1',name='VSUP',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='INB+',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='PD_SCK',func=Pin.types.INPUT,unit=1),
@@ -1260,7 +1260,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='INA-',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='INA+',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='INB-',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ICL7106CPL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICL7106CPL'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'LCD ADC', 'description':'', 'datasheet':'https://www.renesas.com/eu/en/www/doc/datasheet/icl7106-07-07s.pdf', 'pins':[
+        Part(**{ 'name':'ICL7106CPL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICL7106CPL'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'LCD ADC', 'description':'', 'datasheet':'https://www.renesas.com/eu/en/www/doc/datasheet/icl7106-07-07s.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nICL7106CPL\n\nLCD ADC', 'pins':[
             Pin(num='1',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='C2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='B2',func=Pin.types.OUTPUT,unit=1),
@@ -1301,7 +1301,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='G1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='E1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='D2',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'INA234AxYBJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'INA234AxYBJ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-8_0.705x1.468mm_Layout2x4_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-8_0.705x1.468mm_Layout2x4_P0.4mm', 'keywords':'ADC I2C 12-Bit Current Voltage Power Shunt', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/ina234.pdf', 'pins':[
+        Part(**{ 'name':'INA234AxYBJ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'INA234AxYBJ'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-8_0.705x1.468mm_Layout2x4_P0.4mm'], 'footprint':'Package_BGA:Texas_DSBGA-8_0.705x1.468mm_Layout2x4_P0.4mm', 'keywords':'ADC I2C 12-Bit Current Voltage Power Shunt', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/ina234.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nINA234AxYBJ\n\nADC I2C 12-Bit Current Voltage Power Shunt', 'pins':[
             Pin(num='A1',name='~{ALERT}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='A2',name='IN+',func=Pin.types.INPUT,unit=1),
             Pin(num='B1',name='A0',func=Pin.types.INPUT,unit=1),
@@ -1310,7 +1310,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='C2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='D1',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='D2',name='VS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC1406CGN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1406CGN'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Low Power ADC 8bit 20Msps', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1406f.pdf', 'pins':[
+        Part(**{ 'name':'LTC1406CGN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1406CGN'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Low Power ADC 8bit 20Msps', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1406f.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nLTC1406CGN\n\nLow Power ADC 8bit 20Msps', 'pins':[
             Pin(num='1',name='OGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='AGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DGND',func=Pin.types.PWRIN,unit=1),
@@ -1335,7 +1335,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AIN+',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='AIN-',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='AVDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC1594CS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1594CS'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'12bit ADC 4 Channel', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/15948fb.pdf', 'pins':[
+        Part(**{ 'name':'LTC1594CS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1594CS'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'12bit ADC 4 Channel', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/15948fb.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nLTC1594CS\n\n12bit ADC 4 Channel', 'pins':[
             Pin(num='1',name='CH0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -1352,7 +1352,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='COM',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='~{CSADC}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC1598CG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1598CG'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'12bit ADC 4 Channel', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/15948fb.pdf', 'pins':[
+        Part(**{ 'name':'LTC1598CG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1598CG'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'12bit ADC 4 Channel', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/15948fb.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nLTC1598CG\n\n12bit ADC 4 Channel', 'pins':[
             Pin(num='1',name='CH5',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{CSADC}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DOUT',func=Pin.types.OUTPUT,unit=1),
@@ -1377,7 +1377,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIN',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='COM',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC1742', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1742'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'keywords':'ADC analog digital converter pipeline', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1742f.pdf', 'pins':[
+        Part(**{ 'name':'LTC1742', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1742'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'keywords':'ADC analog digital converter pipeline', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1742f.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nLTC1742\n\nADC analog digital converter pipeline', 'pins':[
             Pin(num='1',name='SENSE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='REFLB',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='REFHA',func=Pin.types.PASSIVE,unit=1),
@@ -1426,7 +1426,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC1864L', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1864L'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'adc spi 1ch', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/18645lfs.pdf', 'pins':[
+        Part(**{ 'name':'LTC1864L', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1864L'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'adc spi 1ch', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/18645lfs.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nLTC1864L\n\nadc spi 1ch', 'pins':[
             Pin(num='1',name='V_{REF}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='IN^{+}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='IN^{-}',func=Pin.types.INPUT,unit=1),
@@ -1435,7 +1435,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SDO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='V_{CC}',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC1865L-MS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1865L-MS'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'adc 2ch', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/18645lfs.pdf', 'pins':[
+        Part(**{ 'name':'LTC1865L-MS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1865L-MS'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'adc 2ch', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/18645lfs.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nLTC1865L-MS\n\nadc 2ch', 'pins':[
             Pin(num='1',name='CONV',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='V_{REF}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='CH0',func=Pin.types.INPUT,unit=1),
@@ -1446,7 +1446,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='V_{CC}',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC1865L-S8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1865L-S8'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'adc 2ch', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/18645lfs.pdf', 'pins':[
+        Part(**{ 'name':'LTC1865L-S8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1865L-S8'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'adc 2ch', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/18645lfs.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nLTC1865L-S8\n\nadc 2ch', 'pins':[
             Pin(num='1',name='CONV',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='CH0',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CH1',func=Pin.types.INPUT,unit=1),
@@ -1455,7 +1455,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SDO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='V_{CC}',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2282xUP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2282xUP'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'keywords':'ADC', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/2282fb.pdf', 'pins':[
+        Part(**{ 'name':'LTC2282xUP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2282xUP'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'keywords':'ADC', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/2282fb.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nLTC2282xUP\n\nADC', 'pins':[
             Pin(num='1',name='AINA+',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='REFLB',func=Pin.types.INPUT,unit=1),
@@ -1521,7 +1521,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='CLKA',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='CLKB',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2309xF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2309xF'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'LT ADC 12bit I2C SAR TSSOP', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/2309fd.pdf', 'pins':[
+        Part(**{ 'name':'LTC2309xF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2309xF'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'LT ADC 12bit I2C SAR TSSOP', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/2309fd.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nLTC2309xF\n\nLT ADC 12bit I2C SAR TSSOP', 'pins':[
             Pin(num='16',name='CH5',func=Pin.types.INPUT),
             Pin(num='1',name='REFCOMP',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PASSIVE,unit=1),
@@ -1542,7 +1542,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2309xUF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2309xUF'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'LT ADC 12bit I2C SAR QFN', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/2309fd.pdf', 'pins':[
+        Part(**{ 'name':'LTC2309xUF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2309xUF'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'LT ADC 12bit I2C SAR QFN', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/2309fd.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nLTC2309xUF\n\nLT ADC 12bit I2C SAR QFN', 'pins':[
             Pin(num='3',name='CH5',func=Pin.types.INPUT),
             Pin(num='1',name='CH3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -1568,7 +1568,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VREF',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='REFCOMP',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2311-16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2311-16'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-16-1EP_3x4.039mm_P0.5mm_EP1.651x2.845mm'], 'footprint':'Package_SO:MSOP-16-1EP_3x4.039mm_P0.5mm_EP1.651x2.845mm', 'keywords':'16-bit adc differential input 5 msps lvds cmos', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/231116fa.pdf', 'pins':[
+        Part(**{ 'name':'LTC2311-16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2311-16'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-16-1EP_3x4.039mm_P0.5mm_EP1.651x2.845mm'], 'footprint':'Package_SO:MSOP-16-1EP_3x4.039mm_P0.5mm_EP1.651x2.845mm', 'keywords':'16-bit adc differential input 5 msps lvds cmos', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/231116fa.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nLTC2311-16\n\n16-bit adc differential input 5 msps lvds cmos', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{CMOS}/LVDS',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -1586,7 +1586,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A_{IN-}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='~{CNV}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2325-16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2325-16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-52-1EP_7x8mm_P0.5mm_EP5.41x6.45mm_ThermalVias'], 'footprint':'Package_DFN_QFN:QFN-52-1EP_7x8mm_P0.5mm_EP5.41x6.45mm_ThermalVias', 'keywords':'16-Bit 5msps 4 channel adc lvds cmos', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/232516fa.pdf', 'pins':[
+        Part(**{ 'name':'LTC2325-16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2325-16'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-52-1EP_7x8mm_P0.5mm_EP5.41x6.45mm_ThermalVias'], 'footprint':'Package_DFN_QFN:QFN-52-1EP_7x8mm_P0.5mm_EP5.41x6.45mm_ThermalVias', 'keywords':'16-Bit 5msps 4 channel adc lvds cmos', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/232516fa.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nLTC2325-16\n\n16-Bit 5msps 4 channel adc lvds cmos', 'pins':[
             Pin(num='1',name='A_{IN4-}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A_{IN2-}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='A_{IN2+}',func=Pin.types.INPUT,unit=1),
@@ -1640,7 +1640,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='REF',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='REFOUT2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2358-16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2358-16'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'16bit Simultaneous Sampling ADC 8 Channels SPI buffered', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/235816f.pdf', 'pins':[
+        Part(**{ 'name':'LTC2358-16', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2358-16'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'16bit Simultaneous Sampling ADC 8 Channels SPI buffered', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/235816f.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nLTC2358-16\n\n16bit Simultaneous Sampling ADC 8 Channels SPI buffered', 'pins':[
             Pin(num='1',name='IN6-',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='IN2+',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='IN1-',func=Pin.types.INPUT,unit=1),
@@ -1689,7 +1689,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IN3-',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='IN3+',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='IN2-',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2451xDDB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2451xDDB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_2x3mm_P0.5mm_EP0.61x2.2mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_2x3mm_P0.5mm_EP0.61x2.2mm', 'keywords':'analog to digital converter adc i2c twi single channel delta sigma 16 bit', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/2451fg.pdf', 'pins':[
+        Part(**{ 'name':'LTC2451xDDB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2451xDDB'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_2x3mm_P0.5mm_EP0.61x2.2mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_2x3mm_P0.5mm_EP0.61x2.2mm', 'keywords':'analog to digital converter adc i2c twi single channel delta sigma 16 bit', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/2451fg.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nLTC2451xDDB\n\nanalog to digital converter adc i2c twi single channel delta sigma 16 bit', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='REF-',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='REF+',func=Pin.types.PWRIN,unit=1),
@@ -1699,7 +1699,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2451xTS8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2451xTS8'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TSOT-23-8'], 'footprint':'Package_TO_SOT_SMD:TSOT-23-8', 'keywords':'analog to digital converter adc i2c twi single channel delta sigma 16 bit', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/2451fg.pdf', 'pins':[
+        Part(**{ 'name':'LTC2451xTS8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2451xTS8'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TSOT-23-8'], 'footprint':'Package_TO_SOT_SMD:TSOT-23-8', 'keywords':'analog to digital converter adc i2c twi single channel delta sigma 16 bit', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/2451fg.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nLTC2451xTS8\n\nanalog to digital converter adc i2c twi single channel delta sigma 16 bit', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='REF-',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='REF+',func=Pin.types.PWRIN,unit=1),
@@ -1708,7 +1708,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SDA',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2508CDKD-32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2508CDKD-32'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-24-1EP_4x7mm_P0.5mm_EP2.64x6.44mm'], 'footprint':'Package_DFN_QFN:DFN-24-1EP_4x7mm_P0.5mm_EP2.64x6.44mm', 'keywords':'LT ADC 32bit', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/250832fc.pdf', 'pins':[
+        Part(**{ 'name':'LTC2508CDKD-32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2508CDKD-32'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-24-1EP_4x7mm_P0.5mm_EP2.64x6.44mm'], 'footprint':'Package_DFN_QFN:DFN-24-1EP_4x7mm_P0.5mm_EP2.64x6.44mm', 'keywords':'LT ADC 32bit', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/250832fc.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nLTC2508CDKD-32\n\nLT ADC 32bit', 'pins':[
             Pin(num='1',name='~{RDLA}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='REF',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='SEL0',func=Pin.types.INPUT,unit=1),
@@ -1734,7 +1734,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='REF',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='REF',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX1112', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX1112'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'MAXIM ADC 5V 8-Bit SPI QSPI MICROWIRE', 'description':'', 'datasheet':'http://datasheets.maximintegrated.com/en/ds/MAX1112-MAX1113.pdf', 'pins':[
+        Part(**{ 'name':'MAX1112', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX1112'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-20_5.3x7.2mm_P0.65mm'], 'footprint':'Package_SO:SSOP-20_5.3x7.2mm_P0.65mm', 'keywords':'MAXIM ADC 5V 8-Bit SPI QSPI MICROWIRE', 'description':'', 'datasheet':'http://datasheets.maximintegrated.com/en/ds/MAX1112-MAX1113.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMAX1112\n\nMAXIM ADC 5V 8-Bit SPI QSPI MICROWIRE', 'pins':[
             Pin(num='1',name='CH0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{SHDN}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='REFIN',func=Pin.types.PWRIN,unit=1),
@@ -1755,7 +1755,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CH6',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CH7',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='COM',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX11120xTI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX11120xTI'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm'], 'footprint':'Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'keywords':'MAXIM ADC 3.3V 8-Bit SPI', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX11120-MAX11128.pdf', 'pins':[
+        Part(**{ 'name':'MAX11120xTI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX11120xTI'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm'], 'footprint':'Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'keywords':'MAXIM ADC 3.3V 8-Bit SPI', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX11120-MAX11128.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMAX11120xTI\n\nMAXIM ADC 3.3V 8-Bit SPI', 'pins':[
             Pin(num='1',name='AIN3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -1785,7 +1785,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX11123xTI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX11123xTI'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm'], 'footprint':'Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'keywords':'MAXIM ADC 3.3V 8-Bit SPI', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX11120-MAX11128.pdf', 'pins':[
+        Part(**{ 'name':'MAX11123xTI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX11123xTI'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm'], 'footprint':'Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'keywords':'MAXIM ADC 3.3V 8-Bit SPI', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX11120-MAX11128.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMAX11123xTI\n\nMAXIM ADC 3.3V 8-Bit SPI', 'pins':[
             Pin(num='1',name='AIN3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -1815,7 +1815,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX11126xTI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX11126xTI'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm'], 'footprint':'Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'keywords':'MAXIM ADC 3.3V 8-Bit SPI', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX11120-MAX11128.pdf', 'pins':[
+        Part(**{ 'name':'MAX11126xTI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX11126xTI'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm'], 'footprint':'Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'keywords':'MAXIM ADC 3.3V 8-Bit SPI', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX11120-MAX11128.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMAX11126xTI\n\nMAXIM ADC 3.3V 8-Bit SPI', 'pins':[
             Pin(num='1',name='AIN3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='AIN12',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='AIN13',func=Pin.types.INPUT,unit=1),
@@ -1845,7 +1845,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AIN9',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='AIN10',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='AIN11',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX1113', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX1113'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'MAXIM ADC 5V 8-Bit SPI QSPI MICROWIRE', 'description':'', 'datasheet':'http://datasheets.maximintegrated.com/en/ds/MAX1112-MAX1113.pdf', 'pins':[
+        Part(**{ 'name':'MAX1113', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX1113'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'MAXIM ADC 5V 8-Bit SPI QSPI MICROWIRE', 'description':'', 'datasheet':'http://datasheets.maximintegrated.com/en/ds/MAX1112-MAX1113.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMAX1113\n\nMAXIM ADC 5V 8-Bit SPI QSPI MICROWIRE', 'pins':[
             Pin(num='1',name='CH0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DOUT',func=Pin.types.OUTPUT,unit=1),
@@ -1862,7 +1862,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='REFIN',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='REFOUT',func=Pin.types.PWROUT,unit=1),
             Pin(num='9',name='AGND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX11612', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX11612'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'adc i2c 4ch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX11612-MAX11617.pdf', 'pins':[
+        Part(**{ 'name':'MAX11612', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX11612'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'adc i2c 4ch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX11612-MAX11617.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMAX11612\n\nadc i2c 4ch', 'pins':[
             Pin(num='1',name='AIN0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='AIN1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='AIN2',func=Pin.types.INPUT,unit=1),
@@ -1871,7 +1871,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Vdd',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX11614', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX11614'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'adc i2c 8ch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX11612-MAX11617.pdf', 'pins':[
+        Part(**{ 'name':'MAX11614', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX11614'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'adc i2c 8ch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX11612-MAX11617.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMAX11614\n\nadc i2c 8ch', 'pins':[
             Pin(num='1',name='REF',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='AIN5',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='AIN6',func=Pin.types.INPUT,unit=1),
@@ -1888,7 +1888,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AIN2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='AIN3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='AIN4',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX11616', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX11616'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'adc i2c 12ch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX11612-MAX11617.pdf', 'pins':[
+        Part(**{ 'name':'MAX11616', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX11616'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'adc i2c 12ch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX11612-MAX11617.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMAX11616\n\nadc i2c 12ch', 'pins':[
             Pin(num='1',name='AIN11',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='AIN5',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='AIN6',func=Pin.types.INPUT,unit=1),
@@ -1905,7 +1905,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AIN2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='AIN3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='AIN4',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX1248', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX1248'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'10-Bit ADC Internal Reference Serial 4-Channel Maxim', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX1248-MAX1249.pdf', 'pins':[
+        Part(**{ 'name':'MAX1248', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX1248'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'10-Bit ADC Internal Reference Serial 4-Channel Maxim', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX1248-MAX1249.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMAX1248\n\n10-Bit ADC Internal Reference Serial 4-Channel Maxim', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='AGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DGND',func=Pin.types.PWRIN,unit=1),
@@ -1922,7 +1922,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{SHDN}',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='VREF',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='REFADJ',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX1274', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX1274'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'12bit ADC 1CH diff differential', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX1274-MAX1275.pdf', 'pins':[
+        Part(**{ 'name':'MAX1274', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX1274'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'12bit ADC 1CH diff differential', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX1274-MAX1275.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMAX1274\n\n12bit ADC 1CH diff differential', 'pins':[
             Pin(num='1',name='AIN-',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -1936,7 +1936,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VL',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='DOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='CNVST',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP3002', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3002'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Dual Channel 10-Bit ADC SPI 2CH', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21294E.pdf', 'pins':[
+        Part(**{ 'name':'MCP3002', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3002'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Dual Channel 10-Bit ADC SPI 2CH', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21294E.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMCP3002\n\nDual Channel 10-Bit ADC SPI 2CH', 'pins':[
             Pin(num='1',name='~{CS}/SHDN',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='CH0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='CH1',func=Pin.types.PASSIVE,unit=1),
@@ -1945,7 +1945,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='DOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='CLK',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VDD/VREF',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP3004', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3004'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'10-Bit ADC SPI 4CH', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21295C.pdf', 'pins':[
+        Part(**{ 'name':'MCP3004', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3004'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'10-Bit ADC SPI 4CH', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21295C.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMCP3004\n\n10-Bit ADC SPI 4CH', 'pins':[
             Pin(num='1',name='CH0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Dout',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='CLK',func=Pin.types.INPUT,unit=1),
@@ -1960,7 +1960,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='~{CS}/SHDN',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='Din',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP3201', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3201'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'12-Bit Differential ADC SPI 1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21290D.pdf', 'pins':[
+        Part(**{ 'name':'MCP3201', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3201'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'12-Bit Differential ADC SPI 1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21290D.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMCP3201\n\n12-Bit Differential ADC SPI 1ch', 'pins':[
             Pin(num='1',name='Vref',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN+',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='IN-',func=Pin.types.INPUT,unit=1),
@@ -1969,7 +1969,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Dout',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='CLK',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='Vdd',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP3204', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3204'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'12bit ADC Reference Single Supply SPI 4ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21298c.pdf', 'pins':[
+        Part(**{ 'name':'MCP3204', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3204'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'12bit ADC Reference Single Supply SPI 4ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21298c.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMCP3204\n\n12bit ADC Reference Single Supply SPI 4ch', 'pins':[
             Pin(num='1',name='CH0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Dout',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='CLK',func=Pin.types.INPUT,unit=1),
@@ -1984,7 +1984,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='~{CS}/SHDN',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='Din',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP3208', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3208'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'12bit ADC Reference Single Supply SPI 8ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21298c.pdf', 'pins':[
+        Part(**{ 'name':'MCP3208', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3208'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'12bit ADC Reference Single Supply SPI 8ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21298c.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMCP3208\n\n12bit ADC Reference Single Supply SPI 8ch', 'pins':[
             Pin(num='1',name='CH0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{CS}/SHDN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='Din',func=Pin.types.INPUT,unit=1),
@@ -2001,7 +2001,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CH6',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CH7',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DGND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP3301', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3301'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'13-Bit Differential ADC SPI  1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21700D.pdf', 'pins':[
+        Part(**{ 'name':'MCP3301', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3301'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'13-Bit Differential ADC SPI  1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21700D.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMCP3301\n\n13-Bit Differential ADC SPI  1ch', 'pins':[
             Pin(num='1',name='Vref',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='IN+',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='IN-',func=Pin.types.INPUT,unit=1),
@@ -2010,7 +2010,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Dout',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='CLK',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='Vdd',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP3422Axx-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3422Axx-xSN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'18-Bit ADC I2C Delta-Sigma-ADC Delta-Sigma-ADC Reference 2ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22088c.pdf', 'pins':[
+        Part(**{ 'name':'MCP3422Axx-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3422Axx-xSN'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'18-Bit ADC I2C Delta-Sigma-ADC Delta-Sigma-ADC Reference 2ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22088c.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMCP3422Axx-xSN\n\n18-Bit ADC I2C Delta-Sigma-ADC Delta-Sigma-ADC Reference 2ch', 'pins':[
             Pin(num='1',name='CH1+',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='CH1-',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='V_{DD}',func=Pin.types.PWRIN,unit=1),
@@ -2019,7 +2019,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='V_{SS}',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='CH2+',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CH2-',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP3423x-xUN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3423x-xUN'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'18-Bit ADC I2C Delta-Sigma-ADC Delta-Sigma-ADC Reference 2ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22088c.pdf', 'pins':[
+        Part(**{ 'name':'MCP3423x-xUN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3423x-xUN'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'18-Bit ADC I2C Delta-Sigma-ADC Delta-Sigma-ADC Reference 2ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22088c.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMCP3423x-xUN\n\n18-Bit ADC I2C Delta-Sigma-ADC Delta-Sigma-ADC Reference 2ch', 'pins':[
             Pin(num='1',name='CH1+',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='CH1-',func=Pin.types.INPUT,unit=1),
@@ -2030,7 +2030,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP3424x-xSL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3424x-xSL'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'18-Bit ADC I2C IIC IÂ²C Delta-Sigma-ADC Reference 4ch quadruple', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22088c.pdf', 'pins':[
+        Part(**{ 'name':'MCP3424x-xSL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3424x-xSL'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'18-Bit ADC I2C IIC IÂ²C Delta-Sigma-ADC Reference 4ch quadruple', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22088c.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMCP3424x-xSL\n\n18-Bit ADC I2C IIC IÂ²C Delta-Sigma-ADC Reference 4ch quadruple', 'pins':[
             Pin(num='1',name='CH1+',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='CH3+',func=Pin.types.INPUT,unit=1),
@@ -2045,14 +2045,14 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP3425Axx-xCH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3425Axx-xCH'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'Sigma-Delta ADC Converter 16bit I2C  1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22072b.pdf', 'pins':[
+        Part(**{ 'name':'MCP3425Axx-xCH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3425Axx-xCH'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'Sigma-Delta ADC Converter 16bit I2C  1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22072b.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMCP3425Axx-xCH\n\nSigma-Delta ADC Converter 16bit I2C  1ch', 'pins':[
             Pin(num='1',name='Vin+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='V_{SS}',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='V_{DD}',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='Vin-',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP3426Axx-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3426Axx-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'keywords':'adc 2ch 16bit i2c', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22226a.pdf', 'pins':[
+        Part(**{ 'name':'MCP3426Axx-xMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3426Axx-xMC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'keywords':'adc 2ch 16bit i2c', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22226a.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMCP3426Axx-xMC\n\nadc 2ch 16bit i2c', 'pins':[
             Pin(num='1',name='CH1+',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='CH1-',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='V_{DD}',func=Pin.types.PWRIN,unit=1),
@@ -2062,7 +2062,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CH2+',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CH2-',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='V_{SS}',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP3426Axx-xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3426Axx-xMS'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'adc 2ch 16bit i2c', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22226a.pdf', 'pins':[
+        Part(**{ 'name':'MCP3426Axx-xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3426Axx-xMS'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'adc 2ch 16bit i2c', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22226a.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMCP3426Axx-xMS\n\nadc 2ch 16bit i2c', 'pins':[
             Pin(num='1',name='CH1+',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='CH1-',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='V_{DD}',func=Pin.types.PWRIN,unit=1),
@@ -2071,7 +2071,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='V_{SS}',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='CH2+',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CH2-',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP3427x-xMF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3427x-xMF'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm', 'keywords':'adc 2ch 16bit i2c', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22226a.pdf', 'pins':[
+        Part(**{ 'name':'MCP3427x-xMF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3427x-xMF'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm', 'keywords':'adc 2ch 16bit i2c', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22226a.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMCP3427x-xMF\n\nadc 2ch 16bit i2c', 'pins':[
             Pin(num='1',name='CH1+',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Adr1',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='V_{SS}',func=Pin.types.PASSIVE,unit=1),
@@ -2083,7 +2083,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='Adr0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP3427x-xUN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3427x-xUN'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'adc 2ch 16bit i2c', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22226a.pdf', 'pins':[
+        Part(**{ 'name':'MCP3427x-xUN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3427x-xUN'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'adc 2ch 16bit i2c', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22226a.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMCP3427x-xUN\n\nadc 2ch 16bit i2c', 'pins':[
             Pin(num='1',name='CH1+',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Adr1',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='CH1-',func=Pin.types.INPUT,unit=1),
@@ -2094,7 +2094,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='Adr0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP3428x-xSL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3428x-xSL'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'adc 4ch 16bit i2c', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22226a.pdf', 'pins':[
+        Part(**{ 'name':'MCP3428x-xSL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3428x-xSL'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'adc 4ch 16bit i2c', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22226a.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMCP3428x-xSL\n\nadc 4ch 16bit i2c', 'pins':[
             Pin(num='1',name='CH1+',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Adr1',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='CH3+',func=Pin.types.INPUT,unit=1),
@@ -2109,7 +2109,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='Adr0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP3550-50-EMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3550-50-EMS'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Sigma-Delta ADC Converter 22bit SPI 1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/21950c.pdf', 'pins':[
+        Part(**{ 'name':'MCP3550-50-EMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3550-50-EMS'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Sigma-Delta ADC Converter 22bit SPI 1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/21950c.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMCP3550-50-EMS\n\nSigma-Delta ADC Converter 22bit SPI 1ch', 'pins':[
             Pin(num='1',name='Vref',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='Vin+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Vin-',func=Pin.types.PASSIVE,unit=1),
@@ -2118,7 +2118,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SDO/~{RDY}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='Vdd',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP3550-60-ESN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3550-60-ESN'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Sigma-Delta ADC Converter 22bit SPI 1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/21950c.pdf', 'pins':[
+        Part(**{ 'name':'MCP3550-60-ESN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3550-60-ESN'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Sigma-Delta ADC Converter 22bit SPI 1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/21950c.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMCP3550-60-ESN\n\nSigma-Delta ADC Converter 22bit SPI 1ch', 'pins':[
             Pin(num='1',name='Vref',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='Vin+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Vin-',func=Pin.types.PASSIVE,unit=1),
@@ -2127,7 +2127,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SDO/~{RDY}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD6645', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD6645'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-52-1EP_10x10mm_P0.65mm_EP6.5x6.5mm', 'Package_QFP:TQFP-52-1EP_10x10mm_P0.65mm_EP6.5x6.5mm'], 'footprint':'Package_QFP:TQFP-52-1EP_10x10mm_P0.65mm_EP6.5x6.5mm', 'keywords':'ADC differential analog digital converter', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD6645.pdf', 'pins':[
+        Part(**{ 'name':'AD6645', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD6645'}), 'ref_prefix':'U', 'fplist':['Package_QFP:TQFP-52-1EP_10x10mm_P0.65mm_EP6.5x6.5mm', 'Package_QFP:TQFP-52-1EP_10x10mm_P0.65mm_EP6.5x6.5mm'], 'footprint':'Package_QFP:TQFP-52-1EP_10x10mm_P0.65mm_EP6.5x6.5mm', 'keywords':'ADC differential analog digital converter', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD6645.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nAD6645\n\nADC differential analog digital converter', 'pins':[
             Pin(num='1',name='DVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='AIN',func=Pin.types.INPUT,unit=1),
@@ -2181,7 +2181,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='AVCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='AVCC',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7322', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7322'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'Analog-Devices ADC bipolar 12-Bit SPI', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7322.pdf', 'pins':[
+        Part(**{ 'name':'AD7322', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7322'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'Analog-Devices ADC bipolar 12-Bit SPI', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7322.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nAD7322\n\nAnalog-Devices ADC bipolar 12-Bit SPI', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='V_{CC}',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='V_{DRIVE}',func=Pin.types.PWRIN,unit=1),
@@ -2196,7 +2196,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='V_{IN}0',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='V_{IN}1',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='V_{DD}',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7324', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7324'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'Analog-Devices ADC bipolar 12-Bit SPI', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7324.pdf', 'pins':[
+        Part(**{ 'name':'AD7324', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7324'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'Analog-Devices ADC bipolar 12-Bit SPI', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7324.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nAD7324\n\nAnalog-Devices ADC bipolar 12-Bit SPI', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='V_{IN}2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='V_{DD}',func=Pin.types.PWRIN,unit=1),
@@ -2213,7 +2213,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='V_{IN}0',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='V_{IN}1',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='V_{IN}3',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7328', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7328'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'Analog-Devices ADC bipolar 12-Bit SPI', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7328.pdf', 'pins':[
+        Part(**{ 'name':'AD7328', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7328'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'Analog-Devices ADC bipolar 12-Bit SPI', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7328.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nAD7328\n\nAnalog-Devices ADC bipolar 12-Bit SPI', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='V_{IN}5',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='V_{IN}7',func=Pin.types.INPUT,unit=1),
@@ -2234,7 +2234,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='V_{IN}0',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='V_{IN}1',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='V_{IN}4',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7689xCP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7689xCP'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'Package_CSP:LFCSP-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm'], 'footprint':'Package_CSP:LFCSP-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'keywords':'ADC, SPI', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7682_7689.pdf', 'pins':[
+        Part(**{ 'name':'AD7689xCP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7689xCP'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'Package_CSP:LFCSP-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm'], 'footprint':'Package_CSP:LFCSP-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'keywords':'ADC, SPI', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7682_7689.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nAD7689xCP\n\nADC, SPI', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='COM',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='CNV',func=Pin.types.INPUT,unit=1),
@@ -2256,7 +2256,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IN5',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='IN6',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='IN7',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7699BCP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7699BCP'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'Package_CSP:LFCSP-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'Package_CSP:LFCSP-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm'], 'footprint':'Package_CSP:LFCSP-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'keywords':'ADC, SPI', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7699.pdf', 'pins':[
+        Part(**{ 'name':'AD7699BCP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7699BCP'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'Package_CSP:LFCSP-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'Package_CSP:LFCSP-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm'], 'footprint':'Package_CSP:LFCSP-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'keywords':'ADC, SPI', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7699.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nAD7699BCP\n\nADC, SPI', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='COM',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='CNV',func=Pin.types.INPUT,unit=1),
@@ -2278,7 +2278,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IN5',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='IN6',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='IN7',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7795', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7795'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'adc 6ch 16bit serial', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7794_7795.pdf', 'pins':[
+        Part(**{ 'name':'AD7795', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7795'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm', 'keywords':'adc 6ch 16bit serial', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7794_7795.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nAD7795\n\nadc 6ch 16bit serial', 'pins':[
             Pin(num='1',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='AIN2-',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='AIN3+',func=Pin.types.INPUT,unit=1),
@@ -2303,7 +2303,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AIN1+',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='AIN1-',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='AIN2+',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADC101C021CIMM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADC101C021CIMM'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'ADC I2C 10-bit Alert', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/adc101c021.pdf', 'pins':[
+        Part(**{ 'name':'ADC101C021CIMM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADC101C021CIMM'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'ADC I2C 10-bit Alert', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/adc101c021.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADC101C021CIMM\n\nADC I2C 10-bit Alert', 'pins':[
             Pin(num='1',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='ALERT',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='3',name='ADR0',func=Pin.types.INPUT,unit=1),
@@ -2312,7 +2312,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='ADR1',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='SDA',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADC121C021CIMM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADC121C021CIMM'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'ADC I2C 12-bit Alert', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/adc121c021.pdf', 'pins':[
+        Part(**{ 'name':'ADC121C021CIMM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADC121C021CIMM'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'ADC I2C 12-bit Alert', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/adc121c021.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADC121C021CIMM\n\nADC I2C 12-bit Alert', 'pins':[
             Pin(num='1',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='ALERT',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='3',name='ADR0',func=Pin.types.INPUT,unit=1),
@@ -2321,7 +2321,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='ADR1',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='SDA',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS1113IDGS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS1113IDGS'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-10_3x3mm_P0.5mm', 'Package_SO:TSSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-10_3x3mm_P0.5mm', 'keywords':'16 bit single channel I2C ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads1113.pdf', 'pins':[
+        Part(**{ 'name':'ADS1113IDGS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS1113IDGS'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-10_3x3mm_P0.5mm', 'Package_SO:TSSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-10_3x3mm_P0.5mm', 'keywords':'16 bit single channel I2C ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads1113.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADS1113IDGS\n\n16 bit single channel I2C ADC', 'pins':[
             Pin(num='1',name='ADDR',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~',func=Pin.types.NOCONNECT,unit=1),
@@ -2332,7 +2332,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='SDA',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS1114IDGS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS1114IDGS'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-10_3x3mm_P0.5mm', 'Package_SO:TSSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-10_3x3mm_P0.5mm', 'keywords':'16 bit single channel I2C ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads1113.pdf', 'pins':[
+        Part(**{ 'name':'ADS1114IDGS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS1114IDGS'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-10_3x3mm_P0.5mm', 'Package_SO:TSSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-10_3x3mm_P0.5mm', 'keywords':'16 bit single channel I2C ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads1113.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADS1114IDGS\n\n16 bit single channel I2C ADC', 'pins':[
             Pin(num='1',name='ADDR',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='ALERT/RDY',func=Pin.types.OUTPUT,unit=1),
@@ -2343,7 +2343,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='SDA',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS1115IDGS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS1115IDGS'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-10_3x3mm_P0.5mm', 'Package_SO:TSSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-10_3x3mm_P0.5mm', 'keywords':'16 bit 4 channel I2C ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads1113.pdf', 'pins':[
+        Part(**{ 'name':'ADS1115IDGS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS1115IDGS'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-10_3x3mm_P0.5mm', 'Package_SO:TSSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-10_3x3mm_P0.5mm', 'keywords':'16 bit 4 channel I2C ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads1113.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADS1115IDGS\n\n16 bit 4 channel I2C ADC', 'pins':[
             Pin(num='1',name='ADDR',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='ALERT/RDY',func=Pin.types.OUTPUT,unit=1),
@@ -2354,7 +2354,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AIN3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='SDA',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS1118IDGS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS1118IDGS'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'16 bit 4 channel SPI ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads1118.pdf', 'pins':[
+        Part(**{ 'name':'ADS1118IDGS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS1118IDGS'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'16 bit 4 channel SPI ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads1118.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADS1118IDGS\n\n16 bit 4 channel SPI ADC', 'pins':[
             Pin(num='1',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DIN',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='~{CS}',func=Pin.types.INPUT,unit=1),
@@ -2365,7 +2365,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AIN3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='DOUT/~{DRDY}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS1220xPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS1220xPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'adc spi', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads1220.pdf', 'pins':[
+        Part(**{ 'name':'ADS1220xPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS1220xPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'adc spi', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads1220.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADS1220xPW\n\nadc spi', 'pins':[
             Pin(num='1',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='AIN1',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='AIN0/REFP1',func=Pin.types.INPUT,unit=1),
@@ -2382,7 +2382,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AIN2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='REFN0',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='REFP0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS7029', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS7029'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm'], 'footprint':'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'keywords':'8 bit SAR ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads7029-q1.pdf', 'pins':[
+        Part(**{ 'name':'ADS7029', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS7029'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm'], 'footprint':'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'keywords':'8 bit SAR ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads7029-q1.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADS7029\n\n8 bit SAR ADC', 'pins':[
             Pin(num='1',name='DVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SDO',func=Pin.types.OUTPUT,unit=1),
@@ -2391,7 +2391,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='AINP',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='AVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS7039', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS7039'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm'], 'footprint':'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'keywords':'10 bit SAR ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads7039-q1.pdf', 'pins':[
+        Part(**{ 'name':'ADS7039', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS7039'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm'], 'footprint':'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'keywords':'10 bit SAR ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads7039-q1.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADS7039\n\n10 bit SAR ADC', 'pins':[
             Pin(num='1',name='DVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SDO',func=Pin.types.OUTPUT,unit=1),
@@ -2400,7 +2400,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='AINP',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='AVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS7041xDCU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS7041xDCU'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm'], 'footprint':'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'keywords':'10 bit SAR ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads7041.pdf', 'pins':[
+        Part(**{ 'name':'ADS7041xDCU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS7041xDCU'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm'], 'footprint':'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'keywords':'10 bit SAR ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads7041.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADS7041xDCU\n\n10 bit SAR ADC', 'pins':[
             Pin(num='1',name='DVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SDO',func=Pin.types.OUTPUT,unit=1),
@@ -2409,7 +2409,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='AINP',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='AVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS7042xDCU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS7042xDCU'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm'], 'footprint':'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'keywords':'12 bit SAR ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads7042.pdf', 'pins':[
+        Part(**{ 'name':'ADS7042xDCU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS7042xDCU'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm'], 'footprint':'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'keywords':'12 bit SAR ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads7042.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADS7042xDCU\n\n12 bit SAR ADC', 'pins':[
             Pin(num='1',name='DVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SDO',func=Pin.types.OUTPUT,unit=1),
@@ -2418,7 +2418,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='AINP',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='AVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS7043xDCU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS7043xDCU'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm'], 'footprint':'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'keywords':'12 bit SAR ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads7043.pdf', 'pins':[
+        Part(**{ 'name':'ADS7043xDCU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS7043xDCU'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm'], 'footprint':'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'keywords':'12 bit SAR ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads7043.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADS7043xDCU\n\n12 bit SAR ADC', 'pins':[
             Pin(num='1',name='DVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SDO',func=Pin.types.OUTPUT,unit=1),
@@ -2427,7 +2427,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='AINP',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='AVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS7044xDCU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS7044xDCU'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm'], 'footprint':'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'keywords':'12 bit SAR ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads7044.pdf', 'pins':[
+        Part(**{ 'name':'ADS7044xDCU', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS7044xDCU'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm'], 'footprint':'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'keywords':'12 bit SAR ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads7044.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADS7044xDCU\n\n12 bit SAR ADC', 'pins':[
             Pin(num='1',name='DVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SDO',func=Pin.types.OUTPUT,unit=1),
@@ -2436,7 +2436,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='AINP',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='AVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS7049', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS7049'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm'], 'footprint':'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'keywords':'12 bit SAR ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads7049-q1.pdf', 'pins':[
+        Part(**{ 'name':'ADS7049', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS7049'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'Package_SO:VSSOP-8_2.3x2mm_P0.5mm'], 'footprint':'Package_SO:VSSOP-8_2.3x2mm_P0.5mm', 'keywords':'12 bit SAR ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads7049-q1.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADS7049\n\n12 bit SAR ADC', 'pins':[
             Pin(num='1',name='DVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SDO',func=Pin.types.OUTPUT,unit=1),
@@ -2445,21 +2445,21 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='AINP',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='AVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS7867', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS7867'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TSOT-23-6', 'Package_TO_SOT_SMD:TSOT-23-6'], 'footprint':'Package_TO_SOT_SMD:TSOT-23-6', 'keywords':'ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads7866.pdf', 'pins':[
+        Part(**{ 'name':'ADS7867', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS7867'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TSOT-23-6', 'Package_TO_SOT_SMD:TSOT-23-6'], 'footprint':'Package_TO_SOT_SMD:TSOT-23-6', 'keywords':'ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads7866.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADS7867\n\nADC', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='AIN',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='SDO',func=Pin.types.TRISTATE,unit=1),
             Pin(num='6',name='~{CS}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS7868', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS7868'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TSOT-23-6', 'Package_TO_SOT_SMD:TSOT-23-6', 'Package_TO_SOT_SMD:TSOT-23-6'], 'footprint':'Package_TO_SOT_SMD:TSOT-23-6', 'keywords':'ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads7866.pdf', 'pins':[
+        Part(**{ 'name':'ADS7868', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS7868'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TSOT-23-6', 'Package_TO_SOT_SMD:TSOT-23-6', 'Package_TO_SOT_SMD:TSOT-23-6'], 'footprint':'Package_TO_SOT_SMD:TSOT-23-6', 'keywords':'ADC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads7866.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADS7868\n\nADC', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='AIN',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='SDO',func=Pin.types.TRISTATE,unit=1),
             Pin(num='6',name='~{CS}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS8685RUM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS8685RUM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'ADC SPI analog digital', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads8681.pdf', 'pins':[
+        Part(**{ 'name':'ADS8685RUM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS8685RUM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'ADC SPI analog digital', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads8681.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADS8685RUM\n\nADC SPI analog digital', 'pins':[
             Pin(num='1',name='AGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SDO-0',func=Pin.types.TRISTATE,unit=1),
@@ -2477,7 +2477,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SDI',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='CONVST/~{CS}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS8689RUM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS8689RUM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'ADC SPI analog digital', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads8681.pdf', 'pins':[
+        Part(**{ 'name':'ADS8689RUM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS8689RUM'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.7x2.7mm', 'keywords':'ADC SPI analog digital', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads8681.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nADS8689RUM\n\nADC SPI analog digital', 'pins':[
             Pin(num='1',name='AGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SDO-0',func=Pin.types.TRISTATE,unit=1),
@@ -2495,7 +2495,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RST}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SDI',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='CONVST/~{CS}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ICL7107CPL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICL7107CPL'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'LED ADC', 'description':'', 'datasheet':'https://www.renesas.com/eu/en/www/doc/datasheet/icl7106-07-07s.pdf', 'pins':[
+        Part(**{ 'name':'ICL7107CPL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICL7107CPL'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'LED ADC', 'description':'', 'datasheet':'https://www.renesas.com/eu/en/www/doc/datasheet/icl7106-07-07s.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nICL7107CPL\n\nLED ADC', 'pins':[
             Pin(num='1',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='C2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='B2',func=Pin.types.OUTPUT,unit=1),
@@ -2536,7 +2536,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='G1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='E1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='D2',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC1406IGN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1406IGN'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Low Power ADC 8bit 20Msps', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1406f.pdf', 'pins':[
+        Part(**{ 'name':'LTC1406IGN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1406IGN'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Low Power ADC 8bit 20Msps', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1406f.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nLTC1406IGN\n\nLow Power ADC 8bit 20Msps', 'pins':[
             Pin(num='1',name='OGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='AGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DGND',func=Pin.types.PWRIN,unit=1),
@@ -2561,7 +2561,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AIN+',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='AIN-',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='AVDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC1594IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1594IS'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'12bit ADC 4 Channel', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/15948fb.pdf', 'pins':[
+        Part(**{ 'name':'LTC1594IS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1594IS'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'12bit ADC 4 Channel', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/15948fb.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nLTC1594IS\n\n12bit ADC 4 Channel', 'pins':[
             Pin(num='1',name='CH0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='VCC',func=Pin.types.PWRIN,unit=1),
@@ -2578,7 +2578,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='COM',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='~{CSADC}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC1598IG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1598IG'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'12bit ADC 4 Channel', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/15948fb.pdf', 'pins':[
+        Part(**{ 'name':'LTC1598IG', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1598IG'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'12bit ADC 4 Channel', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/15948fb.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nLTC1598IG\n\n12bit ADC 4 Channel', 'pins':[
             Pin(num='1',name='CH5',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{CSADC}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DOUT',func=Pin.types.OUTPUT,unit=1),
@@ -2603,7 +2603,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIN',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='COM',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC1744', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1744'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'keywords':'ADC analog digital converter pipeline', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1744f.pdf', 'pins':[
+        Part(**{ 'name':'LTC1744', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1744'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'keywords':'ADC analog digital converter pipeline', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1744f.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nLTC1744\n\nADC analog digital converter pipeline', 'pins':[
             Pin(num='1',name='SENSE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='REFLB',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='REFHA',func=Pin.types.PASSIVE,unit=1),
@@ -2652,7 +2652,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC1746', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1746'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'keywords':'ADC analog digital converter pipeline', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1746f.pdf', 'pins':[
+        Part(**{ 'name':'LTC1746', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1746'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'keywords':'ADC analog digital converter pipeline', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1746f.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nLTC1746\n\nADC analog digital converter pipeline', 'pins':[
             Pin(num='1',name='SENSE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='REFLB',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='REFHA',func=Pin.types.PASSIVE,unit=1),
@@ -2701,7 +2701,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC1748', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1748'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'keywords':'ADC analog digital converter pipeline', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1748fa.pdf', 'pins':[
+        Part(**{ 'name':'LTC1748', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1748'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm', 'keywords':'ADC analog digital converter pipeline', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1748fa.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nLTC1748\n\nADC analog digital converter pipeline', 'pins':[
             Pin(num='1',name='SENSE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='REFLB',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='REFHA',func=Pin.types.PASSIVE,unit=1),
@@ -2750,7 +2750,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC1864', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1864'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'adc spi 1ch', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/18645fb.pdf', 'pins':[
+        Part(**{ 'name':'LTC1864', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1864'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'adc spi 1ch', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/18645fb.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nLTC1864\n\nadc spi 1ch', 'pins':[
             Pin(num='1',name='V_{REF}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='IN^{+}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='IN^{-}',func=Pin.types.INPUT,unit=1),
@@ -2759,7 +2759,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SDO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='V_{CC}',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC1865-MS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1865-MS'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm', 'Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'adc 2ch', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/18645fb.pdf', 'pins':[
+        Part(**{ 'name':'LTC1865-MS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1865-MS'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm', 'Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'adc 2ch', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/18645fb.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nLTC1865-MS\n\nadc 2ch', 'pins':[
             Pin(num='1',name='CONV',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='V_{REF}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='CH0',func=Pin.types.INPUT,unit=1),
@@ -2770,7 +2770,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='V_{CC}',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC1865-S8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1865-S8'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'adc 2ch', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/18645fb.pdf', 'pins':[
+        Part(**{ 'name':'LTC1865-S8', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1865-S8'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'adc 2ch', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/18645fb.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nLTC1865-S8\n\nadc 2ch', 'pins':[
             Pin(num='1',name='CONV',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='CH0',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CH1',func=Pin.types.INPUT,unit=1),
@@ -2779,7 +2779,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SDO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='V_{CC}',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2284xUP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2284xUP'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'keywords':'ADC', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/2284fa.pdf', 'pins':[
+        Part(**{ 'name':'LTC2284xUP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2284xUP'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'keywords':'ADC', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/2284fa.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nLTC2284xUP\n\nADC', 'pins':[
             Pin(num='1',name='AINA+',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='REFLB',func=Pin.types.INPUT,unit=1),
@@ -2845,7 +2845,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='CLKA',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='CLKB',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2290xUP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2290xUP'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'keywords':'ADC', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/2290fa.pdf', 'pins':[
+        Part(**{ 'name':'LTC2290xUP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2290xUP'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'keywords':'ADC', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/2290fa.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nLTC2290xUP\n\nADC', 'pins':[
             Pin(num='1',name='AINA+',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='REFLB',func=Pin.types.INPUT,unit=1),
@@ -2911,7 +2911,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='CLKA',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='CLKB',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2291xUP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2291xUP'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'keywords':'ADC', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/229321fa.pdf', 'pins':[
+        Part(**{ 'name':'LTC2291xUP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2291xUP'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'keywords':'ADC', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/229321fa.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nLTC2291xUP\n\nADC', 'pins':[
             Pin(num='1',name='AINA+',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='REFLB',func=Pin.types.INPUT,unit=1),
@@ -2977,7 +2977,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='CLKA',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='CLKB',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2292xUP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2292xUP'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'keywords':'ADC', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/229321fa.pdf', 'pins':[
+        Part(**{ 'name':'LTC2292xUP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2292xUP'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'keywords':'ADC', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/229321fa.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nLTC2292xUP\n\nADC', 'pins':[
             Pin(num='1',name='AINA+',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='REFLB',func=Pin.types.INPUT,unit=1),
@@ -3043,7 +3043,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='CLKA',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='CLKB',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2293xUP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2293xUP'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'keywords':'ADC', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/229321fa.pdf', 'pins':[
+        Part(**{ 'name':'LTC2293xUP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2293xUP'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'keywords':'ADC', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/229321fa.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nLTC2293xUP\n\nADC', 'pins':[
             Pin(num='1',name='AINA+',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='REFLB',func=Pin.types.INPUT,unit=1),
@@ -3109,7 +3109,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='CLKA',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='CLKB',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2294xUP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2294xUP'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'keywords':'ADC', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/2294fa.pdf', 'pins':[
+        Part(**{ 'name':'LTC2294xUP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2294xUP'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'keywords':'ADC', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/2294fa.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nLTC2294xUP\n\nADC', 'pins':[
             Pin(num='1',name='AINA+',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='REFLB',func=Pin.types.INPUT,unit=1),
@@ -3175,7 +3175,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='CLKA',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='CLKB',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2295xUP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2295xUP'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'keywords':'ADC', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/2295fa.pdf', 'pins':[
+        Part(**{ 'name':'LTC2295xUP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2295xUP'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'keywords':'ADC', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/2295fa.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nLTC2295xUP\n\nADC', 'pins':[
             Pin(num='1',name='AINA+',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='REFLB',func=Pin.types.INPUT,unit=1),
@@ -3241,7 +3241,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='CLKA',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='CLKB',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2296xUP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2296xUP'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'keywords':'ADC', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/229876fa.pdf', 'pins':[
+        Part(**{ 'name':'LTC2296xUP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2296xUP'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'keywords':'ADC', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/229876fa.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nLTC2296xUP\n\nADC', 'pins':[
             Pin(num='1',name='AINA+',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='REFLB',func=Pin.types.INPUT,unit=1),
@@ -3307,7 +3307,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='CLKA',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='CLKB',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2297xUP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2297xUP'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'keywords':'ADC', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/229876fa.pdf', 'pins':[
+        Part(**{ 'name':'LTC2297xUP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2297xUP'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'keywords':'ADC', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/229876fa.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nLTC2297xUP\n\nADC', 'pins':[
             Pin(num='1',name='AINA+',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='REFLB',func=Pin.types.INPUT,unit=1),
@@ -3373,7 +3373,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='CLKA',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='CLKB',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2298xUP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2298xUP'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'keywords':'ADC', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/229876fa.pdf', 'pins':[
+        Part(**{ 'name':'LTC2298xUP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2298xUP'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'keywords':'ADC', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/229876fa.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nLTC2298xUP\n\nADC', 'pins':[
             Pin(num='1',name='AINA+',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='REFLB',func=Pin.types.INPUT,unit=1),
@@ -3439,7 +3439,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='CLKA',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='CLKB',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2299xUP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2299xUP'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'keywords':'ADC', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/2299fa.pdf', 'pins':[
+        Part(**{ 'name':'LTC2299xUP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2299xUP'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm'], 'footprint':'Package_DFN_QFN:QFN-64-1EP_9x9mm_P0.5mm_EP7.15x7.15mm', 'keywords':'ADC', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/2299fa.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nLTC2299xUP\n\nADC', 'pins':[
             Pin(num='1',name='AINA+',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='REFLB',func=Pin.types.INPUT,unit=1),
@@ -3505,7 +3505,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='CLKA',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='CLKB',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2358-18', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2358-18'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'18bit Simultaneous Sampling ADC 8 Channels SPI buffered', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/235818f.pdf', 'pins':[
+        Part(**{ 'name':'LTC2358-18', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2358-18'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-48_7x7mm_P0.5mm', 'Package_QFP:LQFP-48_7x7mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-48_7x7mm_P0.5mm', 'keywords':'18bit Simultaneous Sampling ADC 8 Channels SPI buffered', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/235818f.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nLTC2358-18\n\n18bit Simultaneous Sampling ADC 8 Channels SPI buffered', 'pins':[
             Pin(num='1',name='IN6-',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='IN2+',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='IN1-',func=Pin.types.INPUT,unit=1),
@@ -3554,7 +3554,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='IN3-',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='IN3+',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='IN2-',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC2508IDKD-32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2508IDKD-32'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-24-1EP_4x7mm_P0.5mm_EP2.64x6.44mm', 'Package_DFN_QFN:DFN-24-1EP_4x7mm_P0.5mm_EP2.64x6.44mm'], 'footprint':'Package_DFN_QFN:DFN-24-1EP_4x7mm_P0.5mm_EP2.64x6.44mm', 'keywords':'LT ADC 32bit', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/250832fc.pdf', 'pins':[
+        Part(**{ 'name':'LTC2508IDKD-32', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC2508IDKD-32'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-24-1EP_4x7mm_P0.5mm_EP2.64x6.44mm', 'Package_DFN_QFN:DFN-24-1EP_4x7mm_P0.5mm_EP2.64x6.44mm'], 'footprint':'Package_DFN_QFN:DFN-24-1EP_4x7mm_P0.5mm_EP2.64x6.44mm', 'keywords':'LT ADC 32bit', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/250832fc.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nLTC2508IDKD-32\n\nLT ADC 32bit', 'pins':[
             Pin(num='1',name='~{RDLA}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='REF',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='SEL0',func=Pin.types.INPUT,unit=1),
@@ -3580,7 +3580,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='REF',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='REF',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX11121xTI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX11121xTI'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm'], 'footprint':'Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'keywords':'MAXIM ADC 3.3V 10-Bit SPI', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX11120-MAX11128.pdf', 'pins':[
+        Part(**{ 'name':'MAX11121xTI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX11121xTI'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm'], 'footprint':'Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'keywords':'MAXIM ADC 3.3V 10-Bit SPI', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX11120-MAX11128.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMAX11121xTI\n\nMAXIM ADC 3.3V 10-Bit SPI', 'pins':[
             Pin(num='1',name='AIN3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -3610,7 +3610,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX11122xTI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX11122xTI'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm'], 'footprint':'Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'keywords':'MAXIM ADC 3.3V 12-Bit SPI', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX11120-MAX11128.pdf', 'pins':[
+        Part(**{ 'name':'MAX11122xTI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX11122xTI'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm'], 'footprint':'Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'keywords':'MAXIM ADC 3.3V 12-Bit SPI', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX11120-MAX11128.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMAX11122xTI\n\nMAXIM ADC 3.3V 12-Bit SPI', 'pins':[
             Pin(num='1',name='AIN3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -3640,7 +3640,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX11124xTI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX11124xTI'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm'], 'footprint':'Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'keywords':'MAXIM ADC 3.3V 10-Bit SPI', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX11120-MAX11128.pdf', 'pins':[
+        Part(**{ 'name':'MAX11124xTI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX11124xTI'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm'], 'footprint':'Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'keywords':'MAXIM ADC 3.3V 10-Bit SPI', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX11120-MAX11128.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMAX11124xTI\n\nMAXIM ADC 3.3V 10-Bit SPI', 'pins':[
             Pin(num='1',name='AIN3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -3670,7 +3670,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX11125xTI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX11125xTI'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm'], 'footprint':'Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'keywords':'MAXIM ADC 3.3V 12-Bit SPI', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX11120-MAX11128.pdf', 'pins':[
+        Part(**{ 'name':'MAX11125xTI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX11125xTI'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm'], 'footprint':'Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'keywords':'MAXIM ADC 3.3V 12-Bit SPI', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX11120-MAX11128.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMAX11125xTI\n\nMAXIM ADC 3.3V 12-Bit SPI', 'pins':[
             Pin(num='1',name='AIN3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -3700,7 +3700,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX11127xTI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX11127xTI'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm'], 'footprint':'Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'keywords':'MAXIM ADC 3.3V 10-Bit SPI', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX11120-MAX11128.pdf', 'pins':[
+        Part(**{ 'name':'MAX11127xTI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX11127xTI'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm'], 'footprint':'Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'keywords':'MAXIM ADC 3.3V 10-Bit SPI', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX11120-MAX11128.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMAX11127xTI\n\nMAXIM ADC 3.3V 10-Bit SPI', 'pins':[
             Pin(num='1',name='AIN3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='AIN12',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='AIN13',func=Pin.types.INPUT,unit=1),
@@ -3730,7 +3730,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AIN9',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='AIN10',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='AIN11',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX11128xTI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX11128xTI'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm'], 'footprint':'Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'keywords':'MAXIM ADC 3.3V 12-Bit SPI', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX11120-MAX11128.pdf', 'pins':[
+        Part(**{ 'name':'MAX11128xTI', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX11128xTI'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm'], 'footprint':'Package_DFN_QFN:TQFN-28-1EP_5x5mm_P0.5mm_EP3.25x3.25mm', 'keywords':'MAXIM ADC 3.3V 12-Bit SPI', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX11120-MAX11128.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMAX11128xTI\n\nMAXIM ADC 3.3V 12-Bit SPI', 'pins':[
             Pin(num='1',name='AIN3',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='AIN12',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='AIN13',func=Pin.types.INPUT,unit=1),
@@ -3760,7 +3760,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AIN9',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='AIN10',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='AIN11',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX11613', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX11613'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'adc i2c 4ch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX11612-MAX11617.pdf', 'pins':[
+        Part(**{ 'name':'MAX11613', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX11613'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'adc i2c 4ch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX11612-MAX11617.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMAX11613\n\nadc i2c 4ch', 'pins':[
             Pin(num='1',name='AIN0',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='AIN1',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='AIN2',func=Pin.types.INPUT,unit=1),
@@ -3769,7 +3769,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Vdd',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX11615', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX11615'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'adc i2c 8ch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX11612-MAX11617.pdf', 'pins':[
+        Part(**{ 'name':'MAX11615', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX11615'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'adc i2c 8ch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX11612-MAX11617.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMAX11615\n\nadc i2c 8ch', 'pins':[
             Pin(num='1',name='REF',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='AIN5',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='AIN6',func=Pin.types.INPUT,unit=1),
@@ -3786,7 +3786,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AIN2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='AIN3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='AIN4',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX11617', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX11617'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'adc i2c 12ch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX11612-MAX11617.pdf', 'pins':[
+        Part(**{ 'name':'MAX11617', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX11617'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'adc i2c 12ch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX11612-MAX11617.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMAX11617\n\nadc i2c 12ch', 'pins':[
             Pin(num='1',name='AIN11',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='AIN5',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='AIN6',func=Pin.types.INPUT,unit=1),
@@ -3803,7 +3803,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AIN2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='AIN3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='AIN4',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX1249', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX1249'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'10-Bit ADC Serial 4-Channel Maxim', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX1248-MAX1249.pdf', 'pins':[
+        Part(**{ 'name':'MAX1249', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX1249'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'10-Bit ADC Serial 4-Channel Maxim', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX1248-MAX1249.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMAX1249\n\n10-Bit ADC Serial 4-Channel Maxim', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='AGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='DGND',func=Pin.types.PWRIN,unit=1),
@@ -3820,7 +3820,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{SHDN}',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='VREF',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='REFADJ',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX1275', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX1275'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'12bit ADC 1CH diff differential', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX1274-MAX1275.pdf', 'pins':[
+        Part(**{ 'name':'MAX1275', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX1275'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'12bit ADC 1CH diff differential', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX1274-MAX1275.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMAX1275\n\n12bit ADC 1CH diff differential', 'pins':[
             Pin(num='1',name='AIN-',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -3834,7 +3834,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VL',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='DOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='CNVST',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP3008', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3008'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'12bit ADC Reference Single Supply SPI 8CH', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21295d.pdf', 'pins':[
+        Part(**{ 'name':'MCP3008', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3008'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'12bit ADC Reference Single Supply SPI 8CH', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21295d.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMCP3008\n\n12bit ADC Reference Single Supply SPI 8CH', 'pins':[
             Pin(num='1',name='CH0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{CS}/SHDN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='Din',func=Pin.types.INPUT,unit=1),
@@ -3851,7 +3851,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CH6',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CH7',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DGND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP3202', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3202'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'12bit ADC Reference Single Supply SPI 2ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21034D.pdf', 'pins':[
+        Part(**{ 'name':'MCP3202', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3202'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'12bit ADC Reference Single Supply SPI 2ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/21034D.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMCP3202\n\n12bit ADC Reference Single Supply SPI 2ch', 'pins':[
             Pin(num='1',name='~{CS}/SHDN',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='CH0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='CH1',func=Pin.types.PASSIVE,unit=1),
@@ -3860,14 +3860,14 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='DOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='CLK',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VDD/VREF',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP3421A0T-ECH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3421A0T-ECH'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', ''], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'Sigma-Delta ADC Converter 18bit I2C 1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22003e.pdf', 'pins':[
+        Part(**{ 'name':'MCP3421A0T-ECH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3421A0T-ECH'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', ''], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'Sigma-Delta ADC Converter 18bit I2C 1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22003e.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMCP3421A0T-ECH\n\nSigma-Delta ADC Converter 18bit I2C 1ch', 'pins':[
             Pin(num='1',name='Vin+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='V_{SS}',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='V_{DD}',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='Vin-',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP3422Axx-xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3422Axx-xMS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'18-Bit ADC I2C Delta-Sigma-ADC Delta-Sigma-ADC Reference 2ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22088c.pdf', 'pins':[
+        Part(**{ 'name':'MCP3422Axx-xMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3422Axx-xMS'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'18-Bit ADC I2C Delta-Sigma-ADC Delta-Sigma-ADC Reference 2ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22088c.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMCP3422Axx-xMS\n\n18-Bit ADC I2C Delta-Sigma-ADC Delta-Sigma-ADC Reference 2ch', 'pins':[
             Pin(num='1',name='CH1+',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='CH1-',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='V_{DD}',func=Pin.types.PWRIN,unit=1),
@@ -3876,7 +3876,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='V_{SS}',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='CH2+',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CH2-',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP3424x-xST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3424x-xST'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'18-Bit ADC I2C Delta-Sigma-ADC Reference 4ch quadruple', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22088c.pdf', 'pins':[
+        Part(**{ 'name':'MCP3424x-xST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3424x-xST'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'18-Bit ADC I2C Delta-Sigma-ADC Reference 4ch quadruple', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22088c.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMCP3424x-xST\n\n18-Bit ADC I2C Delta-Sigma-ADC Reference 4ch quadruple', 'pins':[
             Pin(num='1',name='CH1+',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='A1',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='CH3+',func=Pin.types.INPUT,unit=1),
@@ -3891,7 +3891,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP3426Axx-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3426Axx-xSN'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'adc 2ch 16bit i2c', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22226a.pdf', 'pins':[
+        Part(**{ 'name':'MCP3426Axx-xSN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3426Axx-xSN'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'adc 2ch 16bit i2c', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22226a.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMCP3426Axx-xSN\n\nadc 2ch 16bit i2c', 'pins':[
             Pin(num='1',name='CH1+',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='CH1-',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='V_{DD}',func=Pin.types.PWRIN,unit=1),
@@ -3900,7 +3900,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='V_{SS}',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='CH2+',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CH2-',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP3428x-xST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3428x-xST'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'adc 4ch 16bit i2c', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22226a.pdf', 'pins':[
+        Part(**{ 'name':'MCP3428x-xST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3428x-xST'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'adc 4ch 16bit i2c', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22226a.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMCP3428x-xST\n\nadc 4ch 16bit i2c', 'pins':[
             Pin(num='1',name='CH1+',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='Adr1',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='CH3+',func=Pin.types.INPUT,unit=1),
@@ -3915,7 +3915,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='Adr0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP3551-EMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3551-EMS'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Sigma-Delta ADC Converter 22bit SPI 1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/21950c.pdf', 'pins':[
+        Part(**{ 'name':'MCP3551-EMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3551-EMS'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Sigma-Delta ADC Converter 22bit SPI 1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/21950c.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMCP3551-EMS\n\nSigma-Delta ADC Converter 22bit SPI 1ch', 'pins':[
             Pin(num='1',name='Vref',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='Vin+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Vin-',func=Pin.types.PASSIVE,unit=1),
@@ -3924,7 +3924,7 @@ Analog_ADC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SDO/~{RDY}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='Vdd',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP3553-ESN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3553-ESN'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Sigma-Delta ADC Converter 22bit SPI 1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/21950c.pdf', 'pins':[
+        Part(**{ 'name':'MCP3553-ESN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP3553-ESN'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Sigma-Delta ADC Converter 22bit SPI 1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/21950c.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_ADC.kicad_sym\nMCP3553-ESN\n\nSigma-Delta ADC Converter 22bit SPI 1ch', 'pins':[
             Pin(num='1',name='Vref',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='Vin+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='Vin-',func=Pin.types.PASSIVE,unit=1),

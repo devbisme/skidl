@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 RF_GPS = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'L70-R', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L70-R'}), 'ref_prefix':'U', 'fplist':['RF_GPS:Quectel_L70-R'], 'footprint':'RF_GPS:Quectel_L70-R', 'keywords':'quectel GPS GNSS module', 'description':'', 'datasheet':'https://www.quectel.com/product/gps-only-l70-r', 'pins':[
+        Part(**{ 'name':'L70-R', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L70-R'}), 'ref_prefix':'U', 'fplist':['RF_GPS:Quectel_L70-R'], 'footprint':'RF_GPS:Quectel_L70-R', 'keywords':'quectel GPS GNSS module', 'description':'', 'datasheet':'https://www.quectel.com/product/gps-only-l70-r', 'search_text':'/usr/share/kicad/symbols/RF_GPS.kicad_sym\nL70-R\n\nquectel GPS GNSS module', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='RF_IN',func=Pin.types.INPUT,unit=1),
@@ -23,7 +23,7 @@ RF_GPS = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='~{RESET}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'L80-R', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L80-R'}), 'ref_prefix':'U', 'fplist':['RF_GPS:Quectel_L80-R'], 'footprint':'RF_GPS:Quectel_L80-R', 'keywords':'quectel GPS GNSS module', 'description':'', 'datasheet':'https://www.quectel.com/UploadImage/Downlad/Quectel_L80-R_Hardware_Design_V1.2.pdf', 'pins':[
+        Part(**{ 'name':'L80-R', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'L80-R'}), 'ref_prefix':'U', 'fplist':['RF_GPS:Quectel_L80-R'], 'footprint':'RF_GPS:Quectel_L80-R', 'keywords':'quectel GPS GNSS module', 'description':'', 'datasheet':'https://www.quectel.com/UploadImage/Downlad/Quectel_L80-R_Hardware_Design_V1.2.pdf', 'search_text':'/usr/share/kicad/symbols/RF_GPS.kicad_sym\nL80-R\n\nquectel GPS GNSS module', 'pins':[
             Pin(num='1',name='RXD1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='RESERVED',func=Pin.types.PASSIVE,unit=1),
@@ -36,7 +36,7 @@ RF_GPS = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RESERVED',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='RESERVED',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LEA-M8F', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LEA-M8F'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_LEA'], 'footprint':'RF_GPS:ublox_LEA', 'keywords':'ublox GPS GNSS module', 'description':'', 'datasheet':'https://www.u-blox.com/sites/default/files/products/documents/LEA-M8F_DataSheet_%28UBX-14001772%29.pdf', 'pins':[
+        Part(**{ 'name':'LEA-M8F', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LEA-M8F'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_LEA'], 'footprint':'RF_GPS:ublox_LEA', 'keywords':'ublox GPS GNSS module', 'description':'', 'datasheet':'https://www.u-blox.com/sites/default/files/products/documents/LEA-M8F_DataSheet_%28UBX-14001772%29.pdf', 'search_text':'/usr/share/kicad/symbols/RF_GPS.kicad_sym\nLEA-M8F\n\nublox GPS GNSS module', 'pins':[
             Pin(num='1',name='SDA2/~{SPI_CS}',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='V_BCKP',func=Pin.types.PWRIN,unit=1),
@@ -65,7 +65,7 @@ RF_GPS = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VCC_OUT',func=Pin.types.PWROUT,unit=1),
             Pin(num='9',name='REF_FREQ_OUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LEA-M8S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LEA-M8S'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_LEA'], 'footprint':'RF_GPS:ublox_LEA', 'keywords':'ublox GPS GNSS module', 'description':'', 'datasheet':'https://www.u-blox.com/sites/default/files/LEA-M8S-FW3_DataSheet_%28UBX-16010205%29.pdf', 'pins':[
+        Part(**{ 'name':'LEA-M8S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LEA-M8S'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_LEA'], 'footprint':'RF_GPS:ublox_LEA', 'keywords':'ublox GPS GNSS module', 'description':'', 'datasheet':'https://www.u-blox.com/sites/default/files/LEA-M8S-FW3_DataSheet_%28UBX-16010205%29.pdf', 'search_text':'/usr/share/kicad/symbols/RF_GPS.kicad_sym\nLEA-M8S\n\nublox GPS GNSS module', 'pins':[
             Pin(num='1',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='V_BCKP',func=Pin.types.PWRIN,unit=1),
@@ -94,7 +94,7 @@ RF_GPS = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VCC_OUT',func=Pin.types.PWROUT,unit=1),
             Pin(num='9',name='RESERVED',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LEA-M8T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LEA-M8T'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_LEA'], 'footprint':'RF_GPS:ublox_LEA', 'keywords':'ublox GPS GNSS module', 'description':'', 'datasheet':'https://content.u-blox.com/sites/default/files/documents/NEO-LEA-M8T-FW3_DataSheet_UBX-15025193.pdf', 'pins':[
+        Part(**{ 'name':'LEA-M8T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LEA-M8T'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_LEA'], 'footprint':'RF_GPS:ublox_LEA', 'keywords':'ublox GPS GNSS module', 'description':'', 'datasheet':'https://content.u-blox.com/sites/default/files/documents/NEO-LEA-M8T-FW3_DataSheet_UBX-15025193.pdf', 'search_text':'/usr/share/kicad/symbols/RF_GPS.kicad_sym\nLEA-M8T\n\nublox GPS GNSS module', 'pins':[
             Pin(num='1',name='SDA/~{SPI_CS}',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='V_BCKP',func=Pin.types.PWRIN,unit=1),
@@ -123,7 +123,7 @@ RF_GPS = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VCC_OUT',func=Pin.types.PWROUT,unit=1),
             Pin(num='9',name='RESERVED',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX-8C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX-8C'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_MAX'], 'footprint':'RF_GPS:ublox_MAX', 'keywords':'ublox GPS GNSS module', 'description':'', 'datasheet':'https://www.u-blox.com/sites/default/files/MAX-8_DataSheet_%28UBX-16000093%29.pdf', 'pins':[
+        Part(**{ 'name':'MAX-8C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX-8C'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_MAX'], 'footprint':'RF_GPS:ublox_MAX', 'keywords':'ublox GPS GNSS module', 'description':'', 'datasheet':'https://www.u-blox.com/sites/default/files/MAX-8_DataSheet_%28UBX-16000093%29.pdf', 'search_text':'/usr/share/kicad/symbols/RF_GPS.kicad_sym\nMAX-8C\n\nublox GPS GNSS module', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='RF_IN',func=Pin.types.INPUT,unit=1),
@@ -142,7 +142,7 @@ RF_GPS = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC_IO',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='~{RESET}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX-M10S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX-M10S'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_MAX'], 'footprint':'RF_GPS:ublox_MAX', 'keywords':'ublox GPS GNSS module', 'description':'', 'datasheet':'https://content.u-blox.com/sites/default/files/MAX-M10S_DataSheet_UBX-20035208.pdf', 'pins':[
+        Part(**{ 'name':'MAX-M10S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX-M10S'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_MAX'], 'footprint':'RF_GPS:ublox_MAX', 'keywords':'ublox GPS GNSS module', 'description':'', 'datasheet':'https://content.u-blox.com/sites/default/files/MAX-M10S_DataSheet_UBX-20035208.pdf', 'search_text':'/usr/share/kicad/symbols/RF_GPS.kicad_sym\nMAX-M10S\n\nublox GPS GNSS module', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='RF_IN',func=Pin.types.INPUT,unit=1),
@@ -161,7 +161,7 @@ RF_GPS = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC_IO',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='~{RESET}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX-M8W', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX-M8W'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_MAX'], 'footprint':'RF_GPS:ublox_MAX', 'keywords':'ublox GPS GNSS module', 'description':'', 'datasheet':'https://www.u-blox.com/sites/default/files/MAX-M8-FW3_DataSheet_%28UBX-15031506%29.pdf', 'pins':[
+        Part(**{ 'name':'MAX-M8W', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX-M8W'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_MAX'], 'footprint':'RF_GPS:ublox_MAX', 'keywords':'ublox GPS GNSS module', 'description':'', 'datasheet':'https://www.u-blox.com/sites/default/files/MAX-M8-FW3_DataSheet_%28UBX-15031506%29.pdf', 'search_text':'/usr/share/kicad/symbols/RF_GPS.kicad_sym\nMAX-M8W\n\nublox GPS GNSS module', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='RF_IN',func=Pin.types.INPUT,unit=1),
@@ -180,7 +180,7 @@ RF_GPS = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC_IO',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='~{RESET}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NEO-M8M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NEO-M8M'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_NEO'], 'footprint':'RF_GPS:ublox_NEO', 'keywords':'ublox GPS GNSS module', 'description':'', 'datasheet':'https://content.u-blox.com/sites/default/files/NEO-M8-FW3_DataSheet_UBX-15031086.pdf', 'pins':[
+        Part(**{ 'name':'NEO-M8M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NEO-M8M'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_NEO'], 'footprint':'RF_GPS:ublox_NEO', 'keywords':'ublox GPS GNSS module', 'description':'', 'datasheet':'https://content.u-blox.com/sites/default/files/NEO-M8-FW3_DataSheet_UBX-15031086.pdf', 'search_text':'/usr/share/kicad/symbols/RF_GPS.kicad_sym\nNEO-M8M\n\nublox GPS GNSS module', 'pins':[
             Pin(num='1',name='~{SAFEBOOT}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='RF_IN',func=Pin.types.INPUT,unit=1),
@@ -205,7 +205,7 @@ RF_GPS = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD_USB',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VCC_RF',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NEO-M8N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NEO-M8N'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_NEO'], 'footprint':'RF_GPS:ublox_NEO', 'keywords':'ublox GPS GNSS module', 'description':'', 'datasheet':'https://content.u-blox.com/sites/default/files/NEO-M8-FW3_DataSheet_UBX-15031086.pdf', 'pins':[
+        Part(**{ 'name':'NEO-M8N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NEO-M8N'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_NEO'], 'footprint':'RF_GPS:ublox_NEO', 'keywords':'ublox GPS GNSS module', 'description':'', 'datasheet':'https://content.u-blox.com/sites/default/files/NEO-M8-FW3_DataSheet_UBX-15031086.pdf', 'search_text':'/usr/share/kicad/symbols/RF_GPS.kicad_sym\nNEO-M8N\n\nublox GPS GNSS module', 'pins':[
             Pin(num='1',name='~{SAFEBOOT}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='RF_IN',func=Pin.types.INPUT,unit=1),
@@ -230,7 +230,7 @@ RF_GPS = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD_USB',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VCC_RF',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NEO-M8P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NEO-M8P'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_NEO'], 'footprint':'RF_GPS:ublox_NEO', 'keywords':'ublox GPS GNSS RTK module', 'description':'', 'datasheet':'https://content.u-blox.com/sites/default/files/NEO-M8P_DataSheet_UBX-15016656.pdf', 'pins':[
+        Part(**{ 'name':'NEO-M8P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NEO-M8P'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_NEO'], 'footprint':'RF_GPS:ublox_NEO', 'keywords':'ublox GPS GNSS RTK module', 'description':'', 'datasheet':'https://content.u-blox.com/sites/default/files/NEO-M8P_DataSheet_UBX-15016656.pdf', 'search_text':'/usr/share/kicad/symbols/RF_GPS.kicad_sym\nNEO-M8P\n\nublox GPS GNSS RTK module', 'pins':[
             Pin(num='1',name='~{SAFEBOOT}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='RF_IN',func=Pin.types.INPUT,unit=1),
@@ -255,7 +255,7 @@ RF_GPS = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD_USB',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VCC_RF',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NEO-M8T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NEO-M8T'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_NEO'], 'footprint':'RF_GPS:ublox_NEO', 'keywords':'ublox GPS GNSS module', 'description':'', 'datasheet':'https://content.u-blox.com/sites/default/files/documents/NEO-LEA-M8T-FW3_DataSheet_UBX-15025193.pdf', 'pins':[
+        Part(**{ 'name':'NEO-M8T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NEO-M8T'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_NEO'], 'footprint':'RF_GPS:ublox_NEO', 'keywords':'ublox GPS GNSS module', 'description':'', 'datasheet':'https://content.u-blox.com/sites/default/files/documents/NEO-LEA-M8T-FW3_DataSheet_UBX-15025193.pdf', 'search_text':'/usr/share/kicad/symbols/RF_GPS.kicad_sym\nNEO-M8T\n\nublox GPS GNSS module', 'pins':[
             Pin(num='1',name='TP2/~{SAFEBOOT}',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='RF_IN',func=Pin.types.INPUT,unit=1),
@@ -280,7 +280,7 @@ RF_GPS = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD_USB',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VCC_RF',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RXM-GPS-RM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RXM-GPS-RM'}), 'ref_prefix':'U', 'fplist':['RF_GPS:Linx_RXM-GPS'], 'footprint':'RF_GPS:Linx_RXM-GPS', 'keywords':'gps low-power', 'description':'', 'datasheet':'https://linxtechnologies.com/wp/wp-content/uploads/rxm-gps-rm.pdf', 'pins':[
+        Part(**{ 'name':'RXM-GPS-RM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RXM-GPS-RM'}), 'ref_prefix':'U', 'fplist':['RF_GPS:Linx_RXM-GPS'], 'footprint':'RF_GPS:Linx_RXM-GPS', 'keywords':'gps low-power', 'description':'', 'datasheet':'https://linxtechnologies.com/wp/wp-content/uploads/rxm-gps-rm.pdf', 'search_text':'/usr/share/kicad/symbols/RF_GPS.kicad_sym\nRXM-GPS-RM\n\ngps low-power', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='VBCKUP',func=Pin.types.PWRIN,unit=1),
@@ -302,7 +302,7 @@ RF_GPS = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SAM-M8Q', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SAM-M8Q'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_SAM-M8Q'], 'footprint':'RF_GPS:ublox_SAM-M8Q', 'keywords':'gps module with antenna', 'description':'', 'datasheet':'https://www.u-blox.com/sites/default/files/SAM-M8Q_DataSheet_%28UBX-16012619%29.pdf', 'pins':[
+        Part(**{ 'name':'SAM-M8Q', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SAM-M8Q'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_SAM-M8Q'], 'footprint':'RF_GPS:ublox_SAM-M8Q', 'keywords':'gps module with antenna', 'description':'', 'datasheet':'https://www.u-blox.com/sites/default/files/SAM-M8Q_DataSheet_%28UBX-16012619%29.pdf', 'search_text':'/usr/share/kicad/symbols/RF_GPS.kicad_sym\nSAM-M8Q\n\ngps module with antenna', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -323,7 +323,7 @@ RF_GPS = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TIMEPULSE',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='~{SAFEBOOT}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='SDA',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SIM28ML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SIM28ML'}), 'ref_prefix':'U', 'fplist':['RF_GPS:SIM28ML'], 'footprint':'RF_GPS:SIM28ML', 'keywords':'GPS A-GPS receiver', 'description':'', 'datasheet':'https://simcom.ee/documents/SIM28ML/SIM28ML_Hardware%20Design_V1.01.pdf', 'pins':[
+        Part(**{ 'name':'SIM28ML', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SIM28ML'}), 'ref_prefix':'U', 'fplist':['RF_GPS:SIM28ML'], 'footprint':'RF_GPS:SIM28ML', 'keywords':'GPS A-GPS receiver', 'description':'', 'datasheet':'https://simcom.ee/documents/SIM28ML/SIM28ML_Hardware%20Design_V1.01.pdf', 'search_text':'/usr/share/kicad/symbols/RF_GPS.kicad_sym\nSIM28ML\n\nGPS A-GPS receiver', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='RF_IN',func=Pin.types.INPUT,unit=1),
@@ -342,7 +342,7 @@ RF_GPS = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='Vcc',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='~{RESET}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ZED-F9P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ZED-F9P'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_ZED'], 'footprint':'RF_GPS:ublox_ZED', 'keywords':'u-blox GNSS multi-band RTK', 'description':'', 'datasheet':'https://content.u-blox.com/sites/default/files/ZED-F9P-04B_DataSheet_UBX-21044850.pdf', 'pins':[
+        Part(**{ 'name':'ZED-F9P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ZED-F9P'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_ZED'], 'footprint':'RF_GPS:ublox_ZED', 'keywords':'u-blox GNSS multi-band RTK', 'description':'', 'datasheet':'https://content.u-blox.com/sites/default/files/ZED-F9P-04B_DataSheet_UBX-21044850.pdf', 'search_text':'/usr/share/kicad/symbols/RF_GPS.kicad_sym\nZED-F9P\n\nu-blox GNSS multi-band RTK', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='Reserved',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='Reserved',func=Pin.types.NOCONNECT,unit=1),
@@ -398,7 +398,7 @@ RF_GPS = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC_RF',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='Reserved',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='Reserved',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ZOE-M8G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ZOE-M8G'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_ZOE_M8'], 'footprint':'RF_GPS:ublox_ZOE_M8', 'keywords':'ublox gnss sip', 'description':'', 'datasheet':'https://content.u-blox.com/sites/default/files/ZOE-M8_HIM_UBX-16030136.pdf', 'pins':[
+        Part(**{ 'name':'ZOE-M8G', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ZOE-M8G'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_ZOE_M8'], 'footprint':'RF_GPS:ublox_ZOE_M8', 'keywords':'ublox gnss sip', 'description':'', 'datasheet':'https://content.u-blox.com/sites/default/files/ZOE-M8_HIM_UBX-16030136.pdf', 'search_text':'/usr/share/kicad/symbols/RF_GPS.kicad_sym\nZOE-M8G\n\nublox gnss sip', 'pins':[
             Pin(num='A1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='A2',name='SDA/~{SPI_CS}',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -450,7 +450,7 @@ RF_GPS = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='J7',name='RTC_I',func=Pin.types.INPUT,unit=1),
             Pin(num='J8',name='RTC_O',func=Pin.types.OUTPUT,unit=1),
             Pin(num='J9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ZOE-M8Q', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ZOE-M8Q'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_ZOE_M8'], 'footprint':'RF_GPS:ublox_ZOE_M8', 'keywords':'ublox gnss sip', 'description':'', 'datasheet':'https://content.u-blox.com/sites/default/files/ZOE-M8_HIM_UBX-16030136.pdf', 'pins':[
+        Part(**{ 'name':'ZOE-M8Q', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ZOE-M8Q'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_ZOE_M8'], 'footprint':'RF_GPS:ublox_ZOE_M8', 'keywords':'ublox gnss sip', 'description':'', 'datasheet':'https://content.u-blox.com/sites/default/files/ZOE-M8_HIM_UBX-16030136.pdf', 'search_text':'/usr/share/kicad/symbols/RF_GPS.kicad_sym\nZOE-M8Q\n\nublox gnss sip', 'pins':[
             Pin(num='A1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='A2',name='SDA/~{SPI_CS}',func=Pin.types.BIDIR,unit=1),
             Pin(num='A3',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -502,7 +502,7 @@ RF_GPS = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='J7',name='RTC_I',func=Pin.types.INPUT,unit=1),
             Pin(num='J8',name='RTC_O',func=Pin.types.OUTPUT,unit=1),
             Pin(num='J9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX-8Q', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX-8Q'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_MAX', 'RF_GPS:ublox_MAX'], 'footprint':'RF_GPS:ublox_MAX', 'keywords':'ublox GPS GNSS module', 'description':'', 'datasheet':'https://www.u-blox.com/sites/default/files/MAX-8_DataSheet_%28UBX-16000093%29.pdf', 'pins':[
+        Part(**{ 'name':'MAX-8Q', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX-8Q'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_MAX', 'RF_GPS:ublox_MAX'], 'footprint':'RF_GPS:ublox_MAX', 'keywords':'ublox GPS GNSS module', 'description':'', 'datasheet':'https://www.u-blox.com/sites/default/files/MAX-8_DataSheet_%28UBX-16000093%29.pdf', 'search_text':'/usr/share/kicad/symbols/RF_GPS.kicad_sym\nMAX-8Q\n\nublox GPS GNSS module', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='RF_IN',func=Pin.types.INPUT,unit=1),
@@ -521,7 +521,7 @@ RF_GPS = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC_IO',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='~{RESET}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX-M8C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX-M8C'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_MAX', 'RF_GPS:ublox_MAX', 'RF_GPS:ublox_MAX'], 'footprint':'RF_GPS:ublox_MAX', 'keywords':'ublox GPS GNSS module', 'description':'', 'datasheet':'https://www.u-blox.com/sites/default/files/MAX-M8-FW3_DataSheet_%28UBX-15031506%29.pdf', 'pins':[
+        Part(**{ 'name':'MAX-M8C', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX-M8C'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_MAX', 'RF_GPS:ublox_MAX', 'RF_GPS:ublox_MAX'], 'footprint':'RF_GPS:ublox_MAX', 'keywords':'ublox GPS GNSS module', 'description':'', 'datasheet':'https://www.u-blox.com/sites/default/files/MAX-M8-FW3_DataSheet_%28UBX-15031506%29.pdf', 'search_text':'/usr/share/kicad/symbols/RF_GPS.kicad_sym\nMAX-M8C\n\nublox GPS GNSS module', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='RF_IN',func=Pin.types.INPUT,unit=1),
@@ -540,7 +540,7 @@ RF_GPS = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC_IO',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='~{RESET}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX-M8Q', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX-M8Q'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_MAX', 'RF_GPS:ublox_MAX', 'RF_GPS:ublox_MAX', 'RF_GPS:ublox_MAX'], 'footprint':'RF_GPS:ublox_MAX', 'keywords':'ublox GPS GNSS module', 'description':'', 'datasheet':'https://www.u-blox.com/sites/default/files/MAX-M8-FW3_DataSheet_%28UBX-15031506%29.pdf', 'pins':[
+        Part(**{ 'name':'MAX-M8Q', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX-M8Q'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_MAX', 'RF_GPS:ublox_MAX', 'RF_GPS:ublox_MAX', 'RF_GPS:ublox_MAX'], 'footprint':'RF_GPS:ublox_MAX', 'keywords':'ublox GPS GNSS module', 'description':'', 'datasheet':'https://www.u-blox.com/sites/default/files/MAX-M8-FW3_DataSheet_%28UBX-15031506%29.pdf', 'search_text':'/usr/share/kicad/symbols/RF_GPS.kicad_sym\nMAX-M8Q\n\nublox GPS GNSS module', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='RF_IN',func=Pin.types.INPUT,unit=1),
@@ -559,7 +559,7 @@ RF_GPS = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC_IO',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='~{RESET}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NEO-8Q', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NEO-8Q'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_NEO', 'RF_GPS:ublox_NEO'], 'footprint':'RF_GPS:ublox_NEO', 'keywords':'ublox GPS GNSS module', 'description':'', 'datasheet':'https://content.u-blox.com/sites/default/files/documents/NEO-8Q_DataSheet_UBX-15031913.pdf', 'pins':[
+        Part(**{ 'name':'NEO-8Q', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NEO-8Q'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_NEO', 'RF_GPS:ublox_NEO'], 'footprint':'RF_GPS:ublox_NEO', 'keywords':'ublox GPS GNSS module', 'description':'', 'datasheet':'https://content.u-blox.com/sites/default/files/documents/NEO-8Q_DataSheet_UBX-15031913.pdf', 'search_text':'/usr/share/kicad/symbols/RF_GPS.kicad_sym\nNEO-8Q\n\nublox GPS GNSS module', 'pins':[
             Pin(num='1',name='~{SAFEBOOT}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='RF_IN',func=Pin.types.INPUT,unit=1),
@@ -584,7 +584,7 @@ RF_GPS = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD_USB',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VCC_RF',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NEO-M8Q', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NEO-M8Q'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_NEO', 'RF_GPS:ublox_NEO', 'RF_GPS:ublox_NEO'], 'footprint':'RF_GPS:ublox_NEO', 'keywords':'ublox GPS GNSS module', 'description':'', 'datasheet':'https://content.u-blox.com/sites/default/files/NEO-M8-FW3_DataSheet_UBX-15031086.pdf', 'pins':[
+        Part(**{ 'name':'NEO-M8Q', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NEO-M8Q'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_NEO', 'RF_GPS:ublox_NEO', 'RF_GPS:ublox_NEO'], 'footprint':'RF_GPS:ublox_NEO', 'keywords':'ublox GPS GNSS module', 'description':'', 'datasheet':'https://content.u-blox.com/sites/default/files/NEO-M8-FW3_DataSheet_UBX-15031086.pdf', 'search_text':'/usr/share/kicad/symbols/RF_GPS.kicad_sym\nNEO-M8Q\n\nublox GPS GNSS module', 'pins':[
             Pin(num='1',name='~{SAFEBOOT}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='RF_IN',func=Pin.types.INPUT,unit=1),
@@ -609,7 +609,7 @@ RF_GPS = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD_USB',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VCC_RF',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NEO-M9N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NEO-M9N'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_NEO', 'RF_GPS:ublox_NEO', 'RF_GPS:ublox_NEO', 'RF_GPS:ublox_NEO'], 'footprint':'RF_GPS:ublox_NEO', 'keywords':'ublox GPS GNSS module', 'description':'', 'datasheet':'https://www.u-blox.com/sites/default/files/NEO-M9N-00B_DataSheet_UBX-19014285.pdf', 'pins':[
+        Part(**{ 'name':'NEO-M9N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NEO-M9N'}), 'ref_prefix':'U', 'fplist':['RF_GPS:ublox_NEO', 'RF_GPS:ublox_NEO', 'RF_GPS:ublox_NEO', 'RF_GPS:ublox_NEO'], 'footprint':'RF_GPS:ublox_NEO', 'keywords':'ublox GPS GNSS module', 'description':'', 'datasheet':'https://www.u-blox.com/sites/default/files/NEO-M9N-00B_DataSheet_UBX-19014285.pdf', 'search_text':'/usr/share/kicad/symbols/RF_GPS.kicad_sym\nNEO-M9N\n\nublox GPS GNSS module', 'pins':[
             Pin(num='1',name='~{SAFEBOOT}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='RF_IN',func=Pin.types.INPUT,unit=1),
@@ -634,7 +634,7 @@ RF_GPS = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD_USB',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VCC_RF',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RXM-GPS-FM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RXM-GPS-FM'}), 'ref_prefix':'U', 'fplist':['RF_GPS:Linx_RXM-GPS', 'RF_GPS:Linx_RXM-GPS'], 'footprint':'RF_GPS:Linx_RXM-GPS', 'keywords':'gps low-power', 'description':'', 'datasheet':'https://linxtechnologies.com/wp/wp-content/uploads/rxm-gps-fm.pdf', 'pins':[
+        Part(**{ 'name':'RXM-GPS-FM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RXM-GPS-FM'}), 'ref_prefix':'U', 'fplist':['RF_GPS:Linx_RXM-GPS', 'RF_GPS:Linx_RXM-GPS'], 'footprint':'RF_GPS:Linx_RXM-GPS', 'keywords':'gps low-power', 'description':'', 'datasheet':'https://linxtechnologies.com/wp/wp-content/uploads/rxm-gps-fm.pdf', 'search_text':'/usr/share/kicad/symbols/RF_GPS.kicad_sym\nRXM-GPS-FM\n\ngps low-power', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='VBCKUP',func=Pin.types.PWRIN,unit=1),

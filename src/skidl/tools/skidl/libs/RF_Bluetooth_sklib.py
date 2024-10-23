@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 RF_Bluetooth = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'BL652', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BL652'}), 'ref_prefix':'U', 'fplist':['RF_Module:Laird_BL652'], 'footprint':'RF_Module:Laird_BL652', 'keywords':'Bluetooth Nordic nRF52', 'description':'', 'datasheet':'http://cdn.lairdtech.com/home/brandworld/files/Datasheet%20-%20BL652.pdf', 'pins':[
+        Part(**{ 'name':'BL652', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BL652'}), 'ref_prefix':'U', 'fplist':['RF_Module:Laird_BL652'], 'footprint':'RF_Module:Laird_BL652', 'keywords':'Bluetooth Nordic nRF52', 'description':'', 'datasheet':'http://cdn.lairdtech.com/home/brandworld/files/Datasheet%20-%20BL652.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Bluetooth.kicad_sym\nBL652\n\nBluetooth Nordic nRF52', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='SIO_16',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='SIO_14',func=Pin.types.BIDIR,unit=1),
@@ -44,7 +44,7 @@ RF_Bluetooth = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SIO_21',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='SIO_20',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='SIO_18',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'BM78SPPS5MC2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BM78SPPS5MC2'}), 'ref_prefix':'U', 'fplist':['RF_Module:BM78SPPS5XC2'], 'footprint':'RF_Module:BM78SPPS5XC2', 'keywords':'Bluetooth BLE BT GAP SPP SDP RFCOMM L2CAP GATT ATT SMP L2CAP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/60001380C.pdf', 'pins':[
+        Part(**{ 'name':'BM78SPPS5MC2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BM78SPPS5MC2'}), 'ref_prefix':'U', 'fplist':['RF_Module:BM78SPPS5XC2'], 'footprint':'RF_Module:BM78SPPS5XC2', 'keywords':'Bluetooth BLE BT GAP SPP SDP RFCOMM L2CAP GATT ATT SMP L2CAP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/60001380C.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Bluetooth.kicad_sym\nBM78SPPS5MC2\n\nBluetooth BLE BT GAP SPP SDP RFCOMM L2CAP GATT ATT SMP L2CAP', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PMULDO_O',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='P0_4',func=Pin.types.OUTPUT,unit=1),
@@ -78,7 +78,7 @@ RF_Bluetooth = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD_IO',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='LDO18_O',func=Pin.types.PWROUT,unit=1),
             Pin(num='9',name='WAKE_UP',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'BTM112', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BTM112'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Bluetooth BT SPP Module', 'description':'', 'datasheet':'https://www.sparkfun.com/datasheets/Wireless/Bluetooth/BTM112_wATcommands.pdf', 'pins':[
+        Part(**{ 'name':'BTM112', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BTM112'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Bluetooth BT SPP Module', 'description':'', 'datasheet':'https://www.sparkfun.com/datasheets/Wireless/Bluetooth/BTM112_wATcommands.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Bluetooth.kicad_sym\nBTM112\n\nBluetooth BT SPP Module', 'pins':[
             Pin(num='1',name='PIO8',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='SPI_MOSI',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~{UART_CTS}',func=Pin.types.INPUT,unit=1),
@@ -113,7 +113,7 @@ RF_Bluetooth = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SPI_MISO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='~{SPI_CSB}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='SPI_CLK',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'BTM222', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BTM222'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Bluetooth BT SPP Module', 'description':'', 'datasheet':'https://www.tme.eu/de/Document/b90358c53cd65c9b10d2914f55812666/btm222_datasheet.pdf', 'pins':[
+        Part(**{ 'name':'BTM222', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BTM222'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Bluetooth BT SPP Module', 'description':'', 'datasheet':'https://www.tme.eu/de/Document/b90358c53cd65c9b10d2914f55812666/btm222_datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Bluetooth.kicad_sym\nBTM222\n\nBluetooth BT SPP Module', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='PIO5/USB_DETACH/BT_ACT',func=Pin.types.BIDIR,unit=1),
@@ -152,7 +152,7 @@ RF_Bluetooth = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PIO2/USB_PU/CLK_REQ_OUT',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PIO3/USB_WKUP/CLK_REQ_IN',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PIO4/USB_ON/BT_PRIOR',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MOD-nRF8001', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MOD-nRF8001'}), 'ref_prefix':'U', 'fplist':['RF_Module:MOD-nRF8001'], 'footprint':'RF_Module:MOD-nRF8001', 'keywords':'Bluetooth Low Energy nRF8001', 'description':'', 'datasheet':'https://www.olimex.com/Products/Modules/RF/MOD-nRF8001/', 'pins':[
+        Part(**{ 'name':'MOD-nRF8001', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MOD-nRF8001'}), 'ref_prefix':'U', 'fplist':['RF_Module:MOD-nRF8001'], 'footprint':'RF_Module:MOD-nRF8001', 'keywords':'Bluetooth Low Energy nRF8001', 'description':'', 'datasheet':'https://www.olimex.com/Products/Modules/RF/MOD-nRF8001/', 'search_text':'/usr/share/kicad/symbols/RF_Bluetooth.kicad_sym\nMOD-nRF8001\n\nBluetooth Low Energy nRF8001', 'pins':[
             Pin(num='1',name='3V3',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RDYN',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='ACTIVE',func=Pin.types.OUTPUT,unit=1),
@@ -164,7 +164,7 @@ RF_Bluetooth = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='REQN',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='MOSI',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='MISO',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Microchip_BM83', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Microchip_BM83'}), 'ref_prefix':'U', 'fplist':['RF_Module:Microchip_BM83'], 'footprint':'RF_Module:Microchip_BM83', 'keywords':'HFP HSP A2DP SPP AVRCP PBAP', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/WSG/ProductDocuments/DataSheets/70005402E.pdf', 'pins':[
+        Part(**{ 'name':'Microchip_BM83', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Microchip_BM83'}), 'ref_prefix':'U', 'fplist':['RF_Module:Microchip_BM83'], 'footprint':'RF_Module:Microchip_BM83', 'keywords':'HFP HSP A2DP SPP AVRCP PBAP', 'description':'', 'datasheet':'https://ww1.microchip.com/downloads/aemDocuments/documents/WSG/ProductDocuments/DataSheets/70005402E.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Bluetooth.kicad_sym\nMicrochip_BM83\n\nHFP HSP A2DP SPP AVRCP PBAP', 'pins':[
             Pin(num='1',name='DR1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='MICP2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='AIR',func=Pin.types.INPUT,unit=1),
@@ -217,7 +217,7 @@ RF_Bluetooth = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AOHPM',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='AOHPL',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='MICN2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RFD77101', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RFD77101'}), 'ref_prefix':'U', 'fplist':['RF_Module:RFDigital_RFD77101'], 'footprint':'RF_Module:RFDigital_RFD77101', 'keywords':'Simblee ARM Cortex-M0 Bluetooth antenna', 'description':'', 'datasheet':'https://www.simblee.com/Simblee%20RFD77101%20Datasheet%20v1.0.pdf', 'pins':[
+        Part(**{ 'name':'RFD77101', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RFD77101'}), 'ref_prefix':'U', 'fplist':['RF_Module:RFDigital_RFD77101'], 'footprint':'RF_Module:RFDigital_RFD77101', 'keywords':'Simblee ARM Cortex-M0 Bluetooth antenna', 'description':'', 'datasheet':'https://www.simblee.com/Simblee%20RFD77101%20Datasheet%20v1.0.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Bluetooth.kicad_sym\nRFD77101\n\nSimblee ARM Cortex-M0 Bluetooth antenna', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='P0.19',func=Pin.types.BIDIR,unit=1),
@@ -263,7 +263,7 @@ RF_Bluetooth = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='RESET/SWDIO',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='FACTORY/SWDCLK',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RN42', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RN42'}), 'ref_prefix':'U', 'fplist':['RF_Module:RN42'], 'footprint':'RF_Module:RN42', 'keywords':'Bluetooth Module', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/rn-42-ds-v2.32r.pdf', 'pins':[
+        Part(**{ 'name':'RN42', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RN42'}), 'ref_prefix':'U', 'fplist':['RF_Module:RN42'], 'footprint':'RF_Module:RN42', 'keywords':'Bluetooth Module', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/rn-42-ds-v2.32r.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Bluetooth.kicad_sym\nRN42\n\nBluetooth Module', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PCM_OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -297,7 +297,7 @@ RF_Bluetooth = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PCM_CLK',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PCM_SYNC',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PCM_IN',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RN42N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RN42N'}), 'ref_prefix':'U', 'fplist':['RF_Module:RN42N'], 'footprint':'RF_Module:RN42N', 'keywords':'Bluetooth Module', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/rn-42-ds-v2.32r.pdf', 'pins':[
+        Part(**{ 'name':'RN42N', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RN42N'}), 'ref_prefix':'U', 'fplist':['RF_Module:RN42N'], 'footprint':'RF_Module:RN42N', 'keywords':'Bluetooth Module', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/rn-42-ds-v2.32r.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Bluetooth.kicad_sym\nRN42N\n\nBluetooth Module', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PCM_OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -334,7 +334,7 @@ RF_Bluetooth = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PCM_CLK',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PCM_SYNC',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PCM_IN',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RN4871', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RN4871'}), 'ref_prefix':'U', 'fplist':['RF_Module:Microchip_RN4871'], 'footprint':'RF_Module:Microchip_RN4871', 'keywords':'Bluetooth Low Energy 4.2 Module', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/50002489A.pdf', 'pins':[
+        Part(**{ 'name':'RN4871', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RN4871'}), 'ref_prefix':'U', 'fplist':['RF_Module:Microchip_RN4871'], 'footprint':'RF_Module:Microchip_RN4871', 'keywords':'Bluetooth Low Energy 4.2 Module', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/50002489A.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Bluetooth.kicad_sym\nRN4871\n\nBluetooth Low Energy 4.2 Module', 'pins':[
             Pin(num='1',name='BT_RF',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='RST',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='P0_0',func=Pin.types.BIDIR,unit=1),
@@ -351,7 +351,7 @@ RF_Bluetooth = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='UART_RX',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='UART_TX',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='P3_6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SPBTLE-RF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SPBTLE-RF'}), 'ref_prefix':'U', 'fplist':['RF_Module:ST_SPBTLE'], 'footprint':'RF_Module:ST_SPBTLE', 'keywords':'BLE bluetooth module low-power', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/spbtle-rf.pdf', 'pins':[
+        Part(**{ 'name':'SPBTLE-RF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SPBTLE-RF'}), 'ref_prefix':'U', 'fplist':['RF_Module:ST_SPBTLE'], 'footprint':'RF_Module:ST_SPBTLE', 'keywords':'BLE bluetooth module low-power', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/spbtle-rf.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Bluetooth.kicad_sym\nSPBTLE-RF\n\nBLE bluetooth module low-power', 'pins':[
             Pin(num='1',name='NC/EXT_LPCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='SPI_~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~{BT_RESET}',func=Pin.types.INPUT,unit=1),
@@ -363,7 +363,7 @@ RF_Bluetooth = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SPI_CLK',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SPI_MISO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='SPI_MOSI',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'nRF8001', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'nRF8001'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'BLE, bluetooth', 'description':'', 'datasheet':'https://www.nordicsemi.com/eng/nordic/content_download/2981/38488/file/nRF8001_PS_v1.3.pdf', 'pins':[
+        Part(**{ 'name':'nRF8001', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'nRF8001'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'BLE, bluetooth', 'description':'', 'datasheet':'https://www.nordicsemi.com/eng/nordic/content_download/2981/38488/file/nRF8001_PS_v1.3.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Bluetooth.kicad_sym\nnRF8001\n\nBLE, bluetooth', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='RXD',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SCK',func=Pin.types.INPUT,unit=1),
@@ -397,7 +397,7 @@ RF_Bluetooth = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TXD',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'BM78SPPS5NC2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BM78SPPS5NC2'}), 'ref_prefix':'U', 'fplist':['RF_Module:BM78SPPS5XC2', 'RF_Module:BM78SPPS5XC2'], 'footprint':'RF_Module:BM78SPPS5XC2', 'keywords':'Bluetooth BLE BT GAP SPP SDP RFCOMM L2CAP GATT ATT SMP L2CAP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/60001380C.pdf', 'pins':[
+        Part(**{ 'name':'BM78SPPS5NC2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'BM78SPPS5NC2'}), 'ref_prefix':'U', 'fplist':['RF_Module:BM78SPPS5XC2', 'RF_Module:BM78SPPS5XC2'], 'footprint':'RF_Module:BM78SPPS5XC2', 'keywords':'Bluetooth BLE BT GAP SPP SDP RFCOMM L2CAP GATT ATT SMP L2CAP', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/60001380C.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Bluetooth.kicad_sym\nBM78SPPS5NC2\n\nBluetooth BLE BT GAP SPP SDP RFCOMM L2CAP GATT ATT SMP L2CAP', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='PMULDO_O',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='P0_4',func=Pin.types.OUTPUT,unit=1),
@@ -431,7 +431,7 @@ RF_Bluetooth = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD_IO',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='LDO18_O',func=Pin.types.PWROUT,unit=1),
             Pin(num='9',name='WAKE_UP',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SPBTLE-RF0', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SPBTLE-RF0'}), 'ref_prefix':'U', 'fplist':['RF_Module:ST_SPBTLE', 'RF_Module:ST_SPBTLE'], 'footprint':'RF_Module:ST_SPBTLE', 'keywords':'BLE bluetooth module low-power', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/spbtle-rf0.pdf', 'pins':[
+        Part(**{ 'name':'SPBTLE-RF0', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SPBTLE-RF0'}), 'ref_prefix':'U', 'fplist':['RF_Module:ST_SPBTLE', 'RF_Module:ST_SPBTLE'], 'footprint':'RF_Module:ST_SPBTLE', 'keywords':'BLE bluetooth module low-power', 'description':'', 'datasheet':'http://www.st.com/resource/en/datasheet/spbtle-rf0.pdf', 'search_text':'/usr/share/kicad/symbols/RF_Bluetooth.kicad_sym\nSPBTLE-RF0\n\nBLE bluetooth module low-power', 'pins':[
             Pin(num='1',name='NC/EXT_LPCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='SPI_~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~{BT_RESET}',func=Pin.types.INPUT,unit=1),

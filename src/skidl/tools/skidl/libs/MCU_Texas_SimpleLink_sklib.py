@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 MCU_Texas_SimpleLink = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'CC1312R1F3RGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CC1312R1F3RGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'32-bit ARM Cortex-M4 MCU Microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cc1312r.pdf', 'pins':[
+        Part(**{ 'name':'CC1312R1F3RGZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CC1312R1F3RGZ'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm'], 'footprint':'Package_DFN_QFN:VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm', 'keywords':'32-bit ARM Cortex-M4 MCU Microcontroller', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cc1312r.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas_SimpleLink.kicad_sym\nCC1312R1F3RGZ\n\n32-bit ARM Cortex-M4 MCU Microcontroller', 'pins':[
             Pin(num='1',name='RF_P',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='DIO_5',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='DIO_6',func=Pin.types.BIDIR,unit=1),

@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Interface_HID = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'JoyWarrior24A10L', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'JoyWarrior24A10L'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'joystick controller 10bit 3-axis', 'description':'', 'datasheet':'http://codemercs.com/downloads/joywarrior/JW_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'JoyWarrior24A10L', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'JoyWarrior24A10L'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'joystick controller 10bit 3-axis', 'description':'', 'datasheet':'http://codemercs.com/downloads/joywarrior/JW_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_HID.kicad_sym\nJoyWarrior24A10L\n\njoystick controller 10bit 3-axis', 'pins':[
             Pin(num='1',name='X0/B0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PullToGnd',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VREG',func=Pin.types.PWROUT,unit=1),
@@ -29,7 +29,7 @@ Interface_HID = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Aux0',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='Aux2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SpinWarrior24A3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SpinWarrior24A3'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'16bit absolute position USB rotary encoder', 'description':'', 'datasheet':'http://www.codemercs.com/downloads/spinwarrior/SW_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'SpinWarrior24A3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SpinWarrior24A3'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'16bit absolute position USB rotary encoder', 'description':'', 'datasheet':'http://www.codemercs.com/downloads/spinwarrior/SW_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_HID.kicad_sym\nSpinWarrior24A3\n\n16bit absolute position USB rotary encoder', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PullToGND',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='Vreg',func=Pin.types.PWROUT,unit=1),
@@ -54,7 +54,7 @@ Interface_HID = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='In4',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='N2',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SpinWarrior24R4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SpinWarrior24R4'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8bit relative position USB rotary encoder', 'description':'', 'datasheet':'http://www.codemercs.com/downloads/spinwarrior/SW_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'SpinWarrior24R4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SpinWarrior24R4'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8bit relative position USB rotary encoder', 'description':'', 'datasheet':'http://www.codemercs.com/downloads/spinwarrior/SW_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_HID.kicad_sym\nSpinWarrior24R4\n\n8bit relative position USB rotary encoder', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PullToGND',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='Vreg',func=Pin.types.PWROUT,unit=1),
@@ -79,7 +79,7 @@ Interface_HID = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Sw4',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='Sw6',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SpinWarrior24R6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SpinWarrior24R6'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8bit relative position USB rotary encoder', 'description':'', 'datasheet':'http://www.codemercs.com/downloads/spinwarrior/SW_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'SpinWarrior24R6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SpinWarrior24R6'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8bit relative position USB rotary encoder', 'description':'', 'datasheet':'http://www.codemercs.com/downloads/spinwarrior/SW_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_HID.kicad_sym\nSpinWarrior24R6\n\n8bit relative position USB rotary encoder', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PullToGND',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='Vreg',func=Pin.types.PWROUT,unit=1),
@@ -104,7 +104,7 @@ Interface_HID = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='B4',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='B5',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'JoyWarrior24A8L', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'JoyWarrior24A8L'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'joystick controller, 8 bit, 4 axis', 'description':'', 'datasheet':'http://codemercs.com/downloads/joywarrior/JW_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'JoyWarrior24A8L', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'JoyWarrior24A8L'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'joystick controller, 8 bit, 4 axis', 'description':'', 'datasheet':'http://codemercs.com/downloads/joywarrior/JW_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_HID.kicad_sym\nJoyWarrior24A8L\n\njoystick controller, 8 bit, 4 axis', 'pins':[
             Pin(num='1',name='X0/B0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='PullToGnd',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VREG',func=Pin.types.PWROUT,unit=1),

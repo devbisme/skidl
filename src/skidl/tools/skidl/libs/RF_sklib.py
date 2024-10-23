@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 RF = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'0900PC15J0013', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'0900PC15J0013'}), 'ref_prefix':'U', 'fplist':['RF_Converter:Balun_Johanson_0900PC15J0013'], 'footprint':'RF_Converter:Balun_Johanson_0900PC15J0013', 'keywords':'CC1120 CC1121 CC1125 CC1175 CC1200 CC1201 balun', 'description':'', 'datasheet':'https://www.johansontechnology.com/datasheets/0900PC15J0013/0900PC15J0013.pdf', 'pins':[
+        Part(**{ 'name':'0900PC15J0013', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'0900PC15J0013'}), 'ref_prefix':'U', 'fplist':['RF_Converter:Balun_Johanson_0900PC15J0013'], 'footprint':'RF_Converter:Balun_Johanson_0900PC15J0013', 'keywords':'CC1120 CC1121 CC1125 CC1175 CC1200 CC1201 balun', 'description':'', 'datasheet':'https://www.johansontechnology.com/datasheets/0900PC15J0013/0900PC15J0013.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\n0900PC15J0013\n\nCC1120 CC1121 CC1125 CC1175 CC1200 CC1201 balun', 'pins':[
             Pin(num='1',name='LNA_N',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='LNA_P',func=Pin.types.PASSIVE,unit=1),
@@ -15,28 +15,28 @@ RF = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='ANT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADC-10-1R', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADC-10-1R'}), 'ref_prefix':'U', 'fplist':['RF_Mini-Circuits:Mini-Circuits_CD542_LandPatternPL-094'], 'footprint':'RF_Mini-Circuits:Mini-Circuits_CD542_LandPatternPL-094', 'keywords':'Directional Coupler', 'description':'', 'datasheet':'https://www.minicircuits.com/pdfs/ADC-10-1R.pdf', 'pins':[
+        Part(**{ 'name':'ADC-10-1R', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADC-10-1R'}), 'ref_prefix':'U', 'fplist':['RF_Mini-Circuits:Mini-Circuits_CD542_LandPatternPL-094'], 'footprint':'RF_Mini-Circuits:Mini-Circuits_CD542_LandPatternPL-094', 'keywords':'Directional Coupler', 'description':'', 'datasheet':'https://www.minicircuits.com/pdfs/ADC-10-1R.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nADC-10-1R\n\nDirectional Coupler', 'pins':[
             Pin(num='1',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='CPL',func=Pin.types.OUTPUT,unit=1),
             Pin(num='4',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='5',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='OUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADCH-80', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADCH-80'}), 'ref_prefix':'L', 'fplist':['RF_Mini-Circuits:Mini-Circuits_CD542_H2.84mm'], 'footprint':'RF_Mini-Circuits:Mini-Circuits_CD542_H2.84mm', 'keywords':'bias filter DC choke', 'description':'', 'datasheet':'https://www.minicircuits.com/pdfs/ADCH-80+.pdf', 'pins':[
+        Part(**{ 'name':'ADCH-80', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADCH-80'}), 'ref_prefix':'L', 'fplist':['RF_Mini-Circuits:Mini-Circuits_CD542_H2.84mm'], 'footprint':'RF_Mini-Circuits:Mini-Circuits_CD542_H2.84mm', 'keywords':'bias filter DC choke', 'description':'', 'datasheet':'https://www.minicircuits.com/pdfs/ADCH-80+.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nADCH-80\n\nbias filter DC choke', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='RF&DC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='4',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='5',name='DC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADCH-80A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADCH-80A'}), 'ref_prefix':'L', 'fplist':['RF_Mini-Circuits:Mini-Circuits_CD542_H2.84mm'], 'footprint':'RF_Mini-Circuits:Mini-Circuits_CD542_H2.84mm', 'keywords':'bias filter DC choke', 'description':'', 'datasheet':'https://www.minicircuits.com/pdfs/ADCH-80A+.pdf', 'pins':[
+        Part(**{ 'name':'ADCH-80A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADCH-80A'}), 'ref_prefix':'L', 'fplist':['RF_Mini-Circuits:Mini-Circuits_CD542_H2.84mm'], 'footprint':'RF_Mini-Circuits:Mini-Circuits_CD542_H2.84mm', 'keywords':'bias filter DC choke', 'description':'', 'datasheet':'https://www.minicircuits.com/pdfs/ADCH-80A+.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nADCH-80A\n\nbias filter DC choke', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='3',name='DC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='5',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='6',name='RF&DC',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADL5904', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADL5904'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.6x1.6mm'], 'footprint':'Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.6x1.6mm', 'keywords':'RMS power detector log decibel dB', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADL5904.pdf', 'pins':[
+        Part(**{ 'name':'ADL5904', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADL5904'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.6x1.6mm'], 'footprint':'Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.6x1.6mm', 'keywords':'RMS power detector log decibel dB', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ADL5904.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nADL5904\n\nRMS power detector log decibel dB', 'pins':[
             Pin(num='1',name='RFIN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VRMS',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -54,21 +54,21 @@ RF = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VPOS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='DNC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='CRMS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADP-2-1W', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADP-2-1W'}), 'ref_prefix':'U', 'fplist':['RF_Mini-Circuits:Mini-Circuits_CD636_LandPatternPL-035'], 'footprint':'RF_Mini-Circuits:Mini-Circuits_CD636_LandPatternPL-035', 'keywords':'splitter combiner', 'description':'', 'datasheet':'https://www.minicircuits.com/pdfs/ADP-2-1W.pdf', 'pins':[
+        Part(**{ 'name':'ADP-2-1W', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADP-2-1W'}), 'ref_prefix':'U', 'fplist':['RF_Mini-Circuits:Mini-Circuits_CD636_LandPatternPL-035'], 'footprint':'RF_Mini-Circuits:Mini-Circuits_CD636_LandPatternPL-035', 'keywords':'splitter combiner', 'description':'', 'datasheet':'https://www.minicircuits.com/pdfs/ADP-2-1W.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nADP-2-1W\n\nsplitter combiner', 'pins':[
             Pin(num='1',name='SUM',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='3',name='PORT1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='PORT2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='6',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AMK-2-13', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AMK-2-13'}), 'ref_prefix':'U', 'fplist':['RF_Mini-Circuits:Mini-Circuits_CD542_LandPatternPL-052'], 'footprint':'RF_Mini-Circuits:Mini-Circuits_CD542_LandPatternPL-052', 'keywords':'frequency multiplier', 'description':'', 'datasheet':'https://www.minicircuits.com/pdfs/AMK-2-13+.pdf', 'pins':[
+        Part(**{ 'name':'AMK-2-13', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AMK-2-13'}), 'ref_prefix':'U', 'fplist':['RF_Mini-Circuits:Mini-Circuits_CD542_LandPatternPL-052'], 'footprint':'RF_Mini-Circuits:Mini-Circuits_CD542_LandPatternPL-052', 'keywords':'frequency multiplier', 'description':'', 'datasheet':'https://www.minicircuits.com/pdfs/AMK-2-13+.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nAMK-2-13\n\nfrequency multiplier', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='3',name='F_IN',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='2F_OUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AX5043', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AX5043'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_5x5mm_P0.5mm_EP3.35x3.35mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_5x5mm_P0.5mm_EP3.35x3.35mm', 'keywords':'RF, transceiver', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/AX5043-D.PDF', 'pins':[
+        Part(**{ 'name':'AX5043', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AX5043'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_5x5mm_P0.5mm_EP3.35x3.35mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_5x5mm_P0.5mm_EP3.35x3.35mm', 'keywords':'RF, transceiver', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/AX5043-D.PDF', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nAX5043\n\nRF, transceiver', 'pins':[
             Pin(num='1',name='VDD_ANA',func=Pin.types.PWROUT,unit=1),
             Pin(num='10',name='L1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='DATA',func=Pin.types.BIDIR,unit=1),
@@ -98,7 +98,7 @@ RF = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD_ANA',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='FILT',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='L2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CC1000', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CC1000'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'Low Power RF Transceiver', 'description':'', 'datasheet':'www.ti.com/lit/ds/symlink/cc1000.pdf', 'pins':[
+        Part(**{ 'name':'CC1000', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CC1000'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'Low Power RF Transceiver', 'description':'', 'datasheet':'www.ti.com/lit/ds/symlink/cc1000.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nCC1000\n\nLow Power RF Transceiver', 'pins':[
             Pin(num='1',name='AVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='L1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='L2',func=Pin.types.PASSIVE,unit=1),
@@ -127,7 +127,7 @@ RF = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='AGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='AVDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CC1200', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CC1200'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'RF Tx Rx', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cc1200.pdf', 'pins':[
+        Part(**{ 'name':'CC1200', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CC1200'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm', 'keywords':'RF Tx Rx', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cc1200.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nCC1200\n\nRF Tx Rx', 'pins':[
             Pin(num='1',name='VDD_GUARD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GPIO0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='~{CS}',func=Pin.types.INPUT,unit=1),
@@ -160,7 +160,7 @@ RF = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SI',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='SO(GPIO1)',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CC2500', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CC2500'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGP0020H_VQFN-20-1EP_4x4mm_P0.5mm_EP2.4x2.4mm'], 'footprint':'Package_DFN_QFN:Texas_RGP0020H_VQFN-20-1EP_4x4mm_P0.5mm_EP2.4x2.4mm', 'keywords':'Low Power RF Transceiver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cc2500.pdf', 'pins':[
+        Part(**{ 'name':'CC2500', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CC2500'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RGP0020H_VQFN-20-1EP_4x4mm_P0.5mm_EP2.4x2.4mm'], 'footprint':'Package_DFN_QFN:Texas_RGP0020H_VQFN-20-1EP_4x4mm_P0.5mm_EP2.4x2.4mm', 'keywords':'Low Power RF Transceiver', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/cc2500.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nCC2500\n\nLow Power RF Transceiver', 'pins':[
             Pin(num='1',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='XOSC_Q2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='AVDD',func=Pin.types.PASSIVE,unit=1),
@@ -182,21 +182,21 @@ RF = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='XOSC_Q1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='AVDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DC4759J5020AHF-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DC4759J5020AHF-1'}), 'ref_prefix':'U', 'fplist':['RF_Converter:Anaren_0805_2012Metric-6'], 'footprint':'RF_Converter:Anaren_0805_2012Metric-6', 'keywords':'RF coupler', 'description':'', 'datasheet':'https://cdn.anaren.com/product-documents/Xinger/DirectionalCouplers/DC4759J5020AHF/DC4759J5020AHF_DataSheet(Rev_E).pdf', 'pins':[
+        Part(**{ 'name':'DC4759J5020AHF-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DC4759J5020AHF-1'}), 'ref_prefix':'U', 'fplist':['RF_Converter:Anaren_0805_2012Metric-6'], 'footprint':'RF_Converter:Anaren_0805_2012Metric-6', 'keywords':'RF coupler', 'description':'', 'datasheet':'https://cdn.anaren.com/product-documents/Xinger/DirectionalCouplers/DC4759J5020AHF/DC4759J5020AHF_DataSheet(Rev_E).pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nDC4759J5020AHF-1\n\nRF coupler', 'pins':[
             Pin(num='1',name='Direct',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='Isolated',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='Coupled',func=Pin.types.OUTPUT,unit=1),
             Pin(num='6',name='Input',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DC4759J5020AHF-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DC4759J5020AHF-2'}), 'ref_prefix':'U', 'fplist':['RF_Converter:Anaren_0805_2012Metric-6'], 'footprint':'RF_Converter:Anaren_0805_2012Metric-6', 'keywords':'RF coupler', 'description':'', 'datasheet':'https://cdn.anaren.com/product-documents/Xinger/DirectionalCouplers/DC4759J5020AHF/DC4759J5020AHF_DataSheet(Rev_E).pdf', 'pins':[
+        Part(**{ 'name':'DC4759J5020AHF-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DC4759J5020AHF-2'}), 'ref_prefix':'U', 'fplist':['RF_Converter:Anaren_0805_2012Metric-6'], 'footprint':'RF_Converter:Anaren_0805_2012Metric-6', 'keywords':'RF coupler', 'description':'', 'datasheet':'https://cdn.anaren.com/product-documents/Xinger/DirectionalCouplers/DC4759J5020AHF/DC4759J5020AHF_DataSheet(Rev_E).pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nDC4759J5020AHF-2\n\nRF coupler', 'pins':[
             Pin(num='1',name='Input',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='Coupled',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='Isolated',func=Pin.types.OUTPUT,unit=1),
             Pin(num='6',name='Direct',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DW1000', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DW1000'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm', 'keywords':'Ultra Wideband UWB transceiver IEEE802.15.4-2011 Decawave Qorvo', 'description':'', 'datasheet':'https://www.decawave.com/wp-content/uploads/2020/04/DW1000_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'DW1000', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DW1000'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm'], 'footprint':'Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm', 'keywords':'Ultra Wideband UWB transceiver IEEE802.15.4-2011 Decawave Qorvo', 'description':'', 'datasheet':'https://www.decawave.com/wp-content/uploads/2020/04/DW1000_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nDW1000\n\nUltra Wideband UWB transceiver IEEE802.15.4-2011 Decawave Qorvo', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='VDDSYN',func=Pin.types.PWROUT,unit=1),
             Pin(num='11',name='VDDVCO',func=Pin.types.PWROUT,unit=1),
@@ -246,14 +246,14 @@ RF = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDDIF',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='CLKTUNE',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VDDCLK',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'F115', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'F115'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'Synoxo SYN115 RF Transmitter', 'description':'', 'datasheet':'https://datasheet.lcsc.com/lcsc/2205181716_Synoxo-F115_C3010244.pdf', 'pins':[
+        Part(**{ 'name':'F115', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'F115'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'Synoxo SYN115 RF Transmitter', 'description':'', 'datasheet':'https://datasheet.lcsc.com/lcsc/2205181716_Synoxo-F115_C3010244.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nF115\n\nSynoxo SYN115 RF Transmitter', 'pins':[
             Pin(num='1',name='PAOUT',func=Pin.types.OUTPUT),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN),
             Pin(num='4',name='XTLOUT',func=Pin.types.OUTPUT),
             Pin(num='5',name='XTLIN',func=Pin.types.INPUT),
             Pin(num='6',name='ASK',func=Pin.types.INPUT)], 'unit_defs':[] }),
-        Part(**{ 'name':'HMC394LP4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HMC394LP4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.8x2.8mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.8x2.8mm', 'keywords':'counter prescaler programmable frequency divider', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/hmc394.pdf', 'pins':[
+        Part(**{ 'name':'HMC394LP4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HMC394LP4'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.8x2.8mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.8x2.8mm', 'keywords':'counter prescaler programmable frequency divider', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/hmc394.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nHMC394LP4\n\ncounter prescaler programmable frequency divider', 'pins':[
             Pin(num='1',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -279,7 +279,7 @@ RF = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'HMC431', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HMC431'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.8x2.8mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.8x2.8mm', 'keywords':'vco rf', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/hmc431.pdf', 'pins':[
+        Part(**{ 'name':'HMC431', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'HMC431'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.8x2.8mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.8x2.8mm', 'keywords':'vco rf', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/hmc431.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nHMC431\n\nvco rf', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='NC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='NC',func=Pin.types.PASSIVE,unit=1),
@@ -305,32 +305,32 @@ RF = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='NC',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='NC',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LAT-3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LAT-3'}), 'ref_prefix':'U', 'fplist':['RF_Mini-Circuits:Mini-Circuits_MMM168_LandPatternPL-225'], 'footprint':'RF_Mini-Circuits:Mini-Circuits_MMM168_LandPatternPL-225', 'keywords':'attenuator rf', 'description':'', 'datasheet':'https://www.minicircuits.com/pdfs/LAT-3+.pdf', 'pins':[
+        Part(**{ 'name':'LAT-3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LAT-3'}), 'ref_prefix':'U', 'fplist':['RF_Mini-Circuits:Mini-Circuits_MMM168_LandPatternPL-225'], 'footprint':'RF_Mini-Circuits:Mini-Circuits_MMM168_LandPatternPL-225', 'keywords':'attenuator rf', 'description':'', 'datasheet':'https://www.minicircuits.com/pdfs/LAT-3+.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nLAT-3\n\nattenuator rf', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='IN',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LRPS-2-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LRPS-2-1'}), 'ref_prefix':'U', 'fplist':['RF_Mini-Circuits:Mini-Circuits_QQQ130_LandPattern_PL-236_ClockwisePinNumbering'], 'footprint':'RF_Mini-Circuits:Mini-Circuits_QQQ130_LandPattern_PL-236_ClockwisePinNumbering', 'keywords':'power splitter combiner', 'description':'', 'datasheet':'https://www.minicircuits.com/pdfs/LRPS-2-1.pdf', 'pins':[
+        Part(**{ 'name':'LRPS-2-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LRPS-2-1'}), 'ref_prefix':'U', 'fplist':['RF_Mini-Circuits:Mini-Circuits_QQQ130_LandPattern_PL-236_ClockwisePinNumbering'], 'footprint':'RF_Mini-Circuits:Mini-Circuits_QQQ130_LandPattern_PL-236_ClockwisePinNumbering', 'keywords':'power splitter combiner', 'description':'', 'datasheet':'https://www.minicircuits.com/pdfs/LRPS-2-1.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nLRPS-2-1\n\npower splitter combiner', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='3',name='PORT2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='PORT1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='6',name='SUM',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC5507ES6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC5507ES6'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TSOT-23-6'], 'footprint':'Package_TO_SOT_SMD:TSOT-23-6', 'keywords':'analog linear', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/5507f.pdf', 'pins':[
+        Part(**{ 'name':'LTC5507ES6', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC5507ES6'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TSOT-23-6'], 'footprint':'Package_TO_SOT_SMD:TSOT-23-6', 'keywords':'analog linear', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/5507f.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nLTC5507ES6\n\nanalog linear', 'pins':[
             Pin(num='1',name='~{SHDN}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='V_{OUT}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='4',name='V_{CC}',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='PCAP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='RF_{IN}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAADSS0008', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAADSS0008'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'RF attenuator', 'description':'', 'datasheet':'http://cdn.macom.com/datasheets/maadss0008.pdf', 'pins':[
+        Part(**{ 'name':'MAADSS0008', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAADSS0008'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-5'], 'footprint':'Package_TO_SOT_SMD:SOT-23-5', 'keywords':'RF attenuator', 'description':'', 'datasheet':'http://cdn.macom.com/datasheets/maadss0008.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nMAADSS0008\n\nRF attenuator', 'pins':[
             Pin(num='1',name='RF1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='RF2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='V1',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='V2',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAAVSS0004', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAAVSS0004'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'VVA', 'description':'', 'datasheet':'https://cdn.macom.com/datasheets/MAAVSS0004.pdf', 'pins':[
+        Part(**{ 'name':'MAAVSS0004', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAAVSS0004'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'VVA', 'description':'', 'datasheet':'https://cdn.macom.com/datasheets/MAAVSS0004.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nMAAVSS0004\n\nVVA', 'pins':[
             Pin(num='1',name='VC',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -345,7 +345,7 @@ RF = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='RF2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC12080', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC12080'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'prescaler frequency divider', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/MC12080-D.PDF', 'pins':[
+        Part(**{ 'name':'MC12080', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC12080'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'prescaler frequency divider', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/MC12080-D.PDF', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nMC12080\n\nprescaler frequency divider', 'pins':[
             Pin(num='1',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='SW1',func=Pin.types.INPUT,unit=1),
@@ -354,7 +354,7 @@ RF = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SW2',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='SW3',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{IN}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC12093D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC12093D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'prescaler frequency divider', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/MC12093-D.PDF', 'pins':[
+        Part(**{ 'name':'MC12093D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC12093D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'prescaler frequency divider', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/MC12093-D.PDF', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nMC12093D\n\nprescaler frequency divider', 'pins':[
             Pin(num='1',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='SW2',func=Pin.types.INPUT,unit=1),
@@ -363,7 +363,7 @@ RF = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SW1',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='SB',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{IN}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MICRF112YMM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MICRF112YMM'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'ask fsk ism transmitter', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/MICRF112.pdf', 'pins':[
+        Part(**{ 'name':'MICRF112YMM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MICRF112YMM'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'ask fsk ism transmitter', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/MICRF112.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nMICRF112YMM\n\nask fsk ism transmitter', 'pins':[
             Pin(num='1',name='ASK',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='XTLIN',func=Pin.types.INPUT,unit=1),
@@ -374,7 +374,7 @@ RF = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EN',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VSSPA',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='PAOUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MICRF220AYQS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MICRF220AYQS'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'ask receiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/micrf220.pdf', 'pins':[
+        Part(**{ 'name':'MICRF220AYQS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MICRF220AYQS'}), 'ref_prefix':'U', 'fplist':['Package_SO:QSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:QSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'ask receiver', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/micrf220.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nMICRF220AYQS\n\nask receiver', 'pins':[
             Pin(num='1',name='RO1',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='SEL1',func=Pin.types.INPUT,unit=1),
@@ -391,7 +391,7 @@ RF = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SEL0',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{SHDN}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MRF89XA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MRF89XA'}), 'ref_prefix':'U2', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'RF Tx Rx', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70000622D.pdf', 'pins':[
+        Part(**{ 'name':'MRF89XA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MRF89XA'}), 'ref_prefix':'U2', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'RF Tx Rx', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/70000622D.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nMRF89XA\n\nRF Tx Rx', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='OSC1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='OSC2',func=Pin.types.PASSIVE,unit=1),
@@ -425,7 +425,7 @@ RF = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PLLP',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NRF24L01', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NRF24L01'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'keywords':'Low Power RF Transceiver', 'description':'', 'datasheet':'http://www.nordicsemi.com/eng/content/download/2730/34105/file/nRF24L01_Product_Specification_v2_0.pdf', 'pins':[
+        Part(**{ 'name':'NRF24L01', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NRF24L01'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'keywords':'Low Power RF Transceiver', 'description':'', 'datasheet':'http://www.nordicsemi.com/eng/content/download/2730/34105/file/nRF24L01_Product_Specification_v2_0.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nNRF24L01\n\nLow Power RF Transceiver', 'pins':[
             Pin(num='1',name='CE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='XC1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='VDD_PA',func=Pin.types.PWROUT,unit=1),
@@ -446,7 +446,7 @@ RF = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='XC2',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NRF24L01_Breakout', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NRF24L01_Breakout'}), 'ref_prefix':'U', 'fplist':['RF_Module:nRF24L01_Breakout'], 'footprint':'RF_Module:nRF24L01_Breakout', 'keywords':'Low Power RF Transceiver breakout carrier', 'description':'', 'datasheet':'http://www.nordicsemi.com/eng/content/download/2730/34105/file/nRF24L01_Product_Specification_v2_0.pdf', 'pins':[
+        Part(**{ 'name':'NRF24L01_Breakout', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NRF24L01_Breakout'}), 'ref_prefix':'U', 'fplist':['RF_Module:nRF24L01_Breakout'], 'footprint':'RF_Module:nRF24L01_Breakout', 'keywords':'Low Power RF Transceiver breakout carrier', 'description':'', 'datasheet':'http://www.nordicsemi.com/eng/content/download/2730/34105/file/nRF24L01_Product_Specification_v2_0.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nNRF24L01_Breakout\n\nLow Power RF Transceiver breakout carrier', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='CE',func=Pin.types.INPUT,unit=1),
@@ -455,32 +455,32 @@ RF = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='MOSI',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='MISO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='IRQ',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAT1220-C-0DB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAT1220-C-0DB'}), 'ref_prefix':'U', 'fplist':['RF_Converter:RF_Attenuator_Susumu_PAT1220'], 'footprint':'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'keywords':'RF attenuator', 'description':'', 'datasheet':'https://www.susumu.co.jp/common/pdf/n_catalog_partition16_en.pdf', 'pins':[
+        Part(**{ 'name':'PAT1220-C-0DB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAT1220-C-0DB'}), 'ref_prefix':'U', 'fplist':['RF_Converter:RF_Attenuator_Susumu_PAT1220'], 'footprint':'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'keywords':'RF attenuator', 'description':'', 'datasheet':'https://www.susumu.co.jp/common/pdf/n_catalog_partition16_en.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nPAT1220-C-0DB\n\nRF attenuator', 'pins':[
             Pin(num='3',name='~',func=Pin.types.PASSIVE),
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PD4859J5050S2HF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PD4859J5050S2HF'}), 'ref_prefix':'U', 'fplist':['RF_Converter:Anaren_0805_2012Metric-6'], 'footprint':'RF_Converter:Anaren_0805_2012Metric-6', 'keywords':'rf power divider wilkinson', 'description':'', 'datasheet':'https://cdn.anaren.com/product-documents/Xinger/PowerDividers/PD4859J5050S2HF/PD4859J5050S2HF_DataSheet(Rev_D).pdf', 'pins':[
+        Part(**{ 'name':'PD4859J5050S2HF', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PD4859J5050S2HF'}), 'ref_prefix':'U', 'fplist':['RF_Converter:Anaren_0805_2012Metric-6'], 'footprint':'RF_Converter:Anaren_0805_2012Metric-6', 'keywords':'rf power divider wilkinson', 'description':'', 'datasheet':'https://cdn.anaren.com/product-documents/Xinger/PowerDividers/PD4859J5050S2HF/PD4859J5050S2HF_DataSheet(Rev_D).pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nPD4859J5050S2HF\n\nrf power divider wilkinson', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='Input',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='Output1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='5',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='Output2',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RMK-3-451', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RMK-3-451'}), 'ref_prefix':'U', 'fplist':['RF_Mini-Circuits:Mini-Circuits_TT1224_LandPatternPL-258_ClockwisePinNumbering'], 'footprint':'RF_Mini-Circuits:Mini-Circuits_TT1224_LandPatternPL-258_ClockwisePinNumbering', 'keywords':'frequency multiplier', 'description':'', 'datasheet':'https://www.minicircuits.com/pdfs/RMK-3-451+.pdf', 'pins':[
+        Part(**{ 'name':'RMK-3-451', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RMK-3-451'}), 'ref_prefix':'U', 'fplist':['RF_Mini-Circuits:Mini-Circuits_TT1224_LandPatternPL-258_ClockwisePinNumbering'], 'footprint':'RF_Mini-Circuits:Mini-Circuits_TT1224_LandPatternPL-258_ClockwisePinNumbering', 'keywords':'frequency multiplier', 'description':'', 'datasheet':'https://www.minicircuits.com/pdfs/RMK-3-451+.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nRMK-3-451\n\nfrequency multiplier', 'pins':[
             Pin(num='1',name='F_IN',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='3F_OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='5',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'RMK-5-51', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RMK-5-51'}), 'ref_prefix':'U', 'fplist':['RF_Mini-Circuits:Mini-Circuits_TT1224_LandPatternPL-258_ClockwisePinNumbering'], 'footprint':'RF_Mini-Circuits:Mini-Circuits_TT1224_LandPatternPL-258_ClockwisePinNumbering', 'keywords':'frequency multiplier', 'description':'', 'datasheet':'https://www.minicircuits.com/pdfs/RMK-5-51+.pdf', 'pins':[
+        Part(**{ 'name':'RMK-5-51', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'RMK-5-51'}), 'ref_prefix':'U', 'fplist':['RF_Mini-Circuits:Mini-Circuits_TT1224_LandPatternPL-258_ClockwisePinNumbering'], 'footprint':'RF_Mini-Circuits:Mini-Circuits_TT1224_LandPatternPL-258_ClockwisePinNumbering', 'keywords':'frequency multiplier', 'description':'', 'datasheet':'https://www.minicircuits.com/pdfs/RMK-5-51+.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nRMK-5-51\n\nfrequency multiplier', 'pins':[
             Pin(num='1',name='F_IN',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='5F_OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='5',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SE5004L', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SE5004L'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'keywords':'RF Power Amplifier', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/SkyWorks/Documents/Products/601-700/SE5004L_202393B.pdf', 'pins':[
+        Part(**{ 'name':'SE5004L', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SE5004L'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'keywords':'RF Power Amplifier', 'description':'', 'datasheet':'https://www.skyworksinc.com/-/media/SkyWorks/Documents/Products/601-700/SE5004L_202393B.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nSE5004L\n\nRF Power Amplifier', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DET',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PASSIVE,unit=1),
@@ -502,7 +502,7 @@ RF = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SP2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='VCC2',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VCC3',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SX1231IMLTRT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SX1231IMLTRT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.25x3.25mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.25x3.25mm', 'keywords':'UHF Transceiver', 'description':'', 'datasheet':'https://semtech.my.salesforce.com/sfc/p/#E0000000JelG/a/44000000MDkO/lWPNMeJClEs8Zvyu7AlDlKSyZqhYdVpQzFLVfUp.EXs', 'pins':[
+        Part(**{ 'name':'SX1231IMLTRT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SX1231IMLTRT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.25x3.25mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_5x5mm_P0.65mm_EP3.25x3.25mm', 'keywords':'UHF Transceiver', 'description':'', 'datasheet':'https://semtech.my.salesforce.com/sfc/p/#E0000000JelG/a/44000000MDkO/lWPNMeJClEs8Zvyu7AlDlKSyZqhYdVpQzFLVfUp.EXs', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nSX1231IMLTRT\n\nUHF Transceiver', 'pins':[
             Pin(num='1',name='VBAT1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DIO3',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='DIO4',func=Pin.types.BIDIR,unit=1),
@@ -528,7 +528,7 @@ RF = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIO0',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='DIO1/DCLK',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='DIO2/DATA',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SX1262IMLTRT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SX1262IMLTRT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'low-power lora transceiver', 'description':'', 'datasheet':'https://semtech.file.force.com/sfc/dist/version/download/?oid=00DE0000000JelG&ids=0682R00000IjPWSQA3&d=%2Fa%2F2R000000Un7F%2FyT.fKdAr9ZAo3cJLc4F2cBdUsMftpT2vsOICP7NmvMo', 'pins':[
+        Part(**{ 'name':'SX1262IMLTRT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SX1262IMLTRT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'low-power lora transceiver', 'description':'', 'datasheet':'https://semtech.file.force.com/sfc/dist/version/download/?oid=00DE0000000JelG&ids=0682R00000IjPWSQA3&d=%2Fa%2F2R000000Un7F%2FyT.fKdAr9ZAo3cJLc4F2cBdUsMftpT2vsOICP7NmvMo', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nSX1262IMLTRT\n\nlow-power lora transceiver', 'pins':[
             Pin(num='1',name='VDD_IN',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='VBAT_IO',func=Pin.types.PWRIN,unit=1),
@@ -554,7 +554,7 @@ RF = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VREG',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='DCC_SW',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SX1272', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SX1272'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.8x4.8mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.8x4.8mm', 'keywords':'low-power lora transceiver', 'description':'', 'datasheet':'https://semtech.my.salesforce.com/sfc/p/#E0000000JelG/a/440000001NCE/v_VBhk1IolDgxwwnOpcS_vTFxPfSEPQbuneK3mWsXlU', 'pins':[
+        Part(**{ 'name':'SX1272', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SX1272'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.8x4.8mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.8x4.8mm', 'keywords':'low-power lora transceiver', 'description':'', 'datasheet':'https://semtech.my.salesforce.com/sfc/p/#E0000000JelG/a/440000001NCE/v_VBhk1IolDgxwwnOpcS_vTFxPfSEPQbuneK3mWsXlU', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nSX1272\n\nlow-power lora transceiver', 'pins':[
             Pin(num='1',name='VBAT1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DIO1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='DIO2',func=Pin.types.BIDIR,unit=1),
@@ -584,7 +584,7 @@ RF = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='DIO0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SX1276', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SX1276'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.8x4.8mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.8x4.8mm', 'keywords':'low-power lora transceiver', 'description':'', 'datasheet':'https://semtech.my.salesforce.com/sfc/p/#E0000000JelG/a/2R0000001Rbr/6EfVZUorrpoKFfvaF_Fkpgp5kzjiNyiAbqcpqh9qSjE', 'pins':[
+        Part(**{ 'name':'SX1276', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SX1276'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.8x4.8mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.8x4.8mm', 'keywords':'low-power lora transceiver', 'description':'', 'datasheet':'https://semtech.my.salesforce.com/sfc/p/#E0000000JelG/a/2R0000001Rbr/6EfVZUorrpoKFfvaF_Fkpgp5kzjiNyiAbqcpqh9qSjE', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nSX1276\n\nlow-power lora transceiver', 'pins':[
             Pin(num='1',name='RFI_LF',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DIO2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='DIO3',func=Pin.types.BIDIR,unit=1),
@@ -614,7 +614,7 @@ RF = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DIO0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='DIO1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SX1278', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SX1278'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.8x4.8mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.8x4.8mm', 'keywords':'low-power lora transceiver', 'description':'', 'datasheet':'https://semtech.my.salesforce.com/sfc/p/#E0000000JelG/a/2R0000001Rbr/6EfVZUorrpoKFfvaF_Fkpgp5kzjiNyiAbqcpqh9qSjE', 'pins':[
+        Part(**{ 'name':'SX1278', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SX1278'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.8x4.8mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.8x4.8mm', 'keywords':'low-power lora transceiver', 'description':'', 'datasheet':'https://semtech.my.salesforce.com/sfc/p/#E0000000JelG/a/2R0000001Rbr/6EfVZUorrpoKFfvaF_Fkpgp5kzjiNyiAbqcpqh9qSjE', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nSX1278\n\nlow-power lora transceiver', 'pins':[
             Pin(num='1',name='RFI_LF',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DIO2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='DIO3',func=Pin.types.BIDIR,unit=1),
@@ -644,14 +644,14 @@ RF = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DIO0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='DIO1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SYPD-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SYPD-2'}), 'ref_prefix':'U', 'fplist':['RF_Mini-Circuits:Mini-Circuits_TTT167_LandPatternPL-079'], 'footprint':'RF_Mini-Circuits:Mini-Circuits_TTT167_LandPatternPL-079', 'keywords':'phase detector', 'description':'', 'datasheet':'https://www.minicircuits.com/pdfs/SYPD-2.pdf', 'pins':[
+        Part(**{ 'name':'SYPD-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SYPD-2'}), 'ref_prefix':'U', 'fplist':['RF_Mini-Circuits:Mini-Circuits_TTT167_LandPatternPL-079'], 'footprint':'RF_Mini-Circuits:Mini-Circuits_TTT167_LandPatternPL-079', 'keywords':'phase detector', 'description':'', 'datasheet':'https://www.minicircuits.com/pdfs/SYPD-2.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nSYPD-2\n\nphase detector', 'pins':[
             Pin(num='1',name='RF1',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='RF2',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DC',func=Pin.types.OUTPUT,unit=1),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si4460', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si4460'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias', 'keywords':'transceiver sub-ghz radio ism', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/Si4464-63-61-60.pdf', 'pins':[
+        Part(**{ 'name':'Si4460', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si4460'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias', 'keywords':'transceiver sub-ghz radio ism', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/Si4464-63-61-60.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nSi4460\n\ntransceiver sub-ghz radio ism', 'pins':[
             Pin(num='1',name='SDN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GPIO1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='~{IRQ}',func=Pin.types.OPENCOLL,unit=1),
@@ -673,68 +673,68 @@ RF = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TXRAMP',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GPIO0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TCP-2-10X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCP-2-10X'}), 'ref_prefix':'U', 'fplist':['RF_Mini-Circuits:Mini-Circuits_DB1627'], 'footprint':'RF_Mini-Circuits:Mini-Circuits_DB1627', 'keywords':'splitter combiner', 'description':'', 'datasheet':'https://www.minicircuits.com/pdfs/TCP-2-10X+.pdf', 'pins':[
+        Part(**{ 'name':'TCP-2-10X', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TCP-2-10X'}), 'ref_prefix':'U', 'fplist':['RF_Mini-Circuits:Mini-Circuits_DB1627'], 'footprint':'RF_Mini-Circuits:Mini-Circuits_DB1627', 'keywords':'splitter combiner', 'description':'', 'datasheet':'https://www.minicircuits.com/pdfs/TCP-2-10X+.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nTCP-2-10X\n\nsplitter combiner', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='CON',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='PORT1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='PORT2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='CON',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='SUM',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'F113', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'F113'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'Synoxo SYN113 RF Transmitter', 'description':'', 'datasheet':'https://datasheet.lcsc.com/lcsc/2205181716_Synoxo-F115_C3010244.pdf', 'pins':[
+        Part(**{ 'name':'F113', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'F113'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'Synoxo SYN113 RF Transmitter', 'description':'', 'datasheet':'https://datasheet.lcsc.com/lcsc/2205181716_Synoxo-F115_C3010244.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nF113\n\nSynoxo SYN113 RF Transmitter', 'pins':[
             Pin(num='1',name='PAOUT',func=Pin.types.OUTPUT),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN),
             Pin(num='4',name='XTLOUT',func=Pin.types.OUTPUT),
             Pin(num='5',name='XTLIN',func=Pin.types.INPUT),
             Pin(num='6',name='ASK',func=Pin.types.INPUT)], 'unit_defs':[] }),
-        Part(**{ 'name':'F117', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'F117'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'Synoxo SYN117 RF Transmitter', 'description':'', 'datasheet':'https://datasheet.lcsc.com/lcsc/2205181716_Synoxo-F115_C3010244.pdf', 'pins':[
+        Part(**{ 'name':'F117', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'F117'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'Synoxo SYN117 RF Transmitter', 'description':'', 'datasheet':'https://datasheet.lcsc.com/lcsc/2205181716_Synoxo-F115_C3010244.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nF117\n\nSynoxo SYN117 RF Transmitter', 'pins':[
             Pin(num='1',name='PAOUT',func=Pin.types.OUTPUT),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN),
             Pin(num='4',name='XTLOUT',func=Pin.types.OUTPUT),
             Pin(num='5',name='XTLIN',func=Pin.types.INPUT),
             Pin(num='6',name='ASK',func=Pin.types.INPUT)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAT1220-C-10DB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAT1220-C-10DB'}), 'ref_prefix':'U', 'fplist':['RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220'], 'footprint':'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'keywords':'RF attenuator', 'description':'', 'datasheet':'https://www.susumu.co.jp/common/pdf/n_catalog_partition16_en.pdf', 'pins':[
+        Part(**{ 'name':'PAT1220-C-10DB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAT1220-C-10DB'}), 'ref_prefix':'U', 'fplist':['RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220'], 'footprint':'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'keywords':'RF attenuator', 'description':'', 'datasheet':'https://www.susumu.co.jp/common/pdf/n_catalog_partition16_en.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nPAT1220-C-10DB\n\nRF attenuator', 'pins':[
             Pin(num='3',name='~',func=Pin.types.PASSIVE),
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAT1220-C-1DB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAT1220-C-1DB'}), 'ref_prefix':'U', 'fplist':['RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220'], 'footprint':'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'keywords':'RF attenuator', 'description':'', 'datasheet':'https://www.susumu.co.jp/common/pdf/n_catalog_partition16_en.pdf', 'pins':[
+        Part(**{ 'name':'PAT1220-C-1DB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAT1220-C-1DB'}), 'ref_prefix':'U', 'fplist':['RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220'], 'footprint':'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'keywords':'RF attenuator', 'description':'', 'datasheet':'https://www.susumu.co.jp/common/pdf/n_catalog_partition16_en.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nPAT1220-C-1DB\n\nRF attenuator', 'pins':[
             Pin(num='3',name='~',func=Pin.types.PASSIVE),
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAT1220-C-2DB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAT1220-C-2DB'}), 'ref_prefix':'U', 'fplist':['RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220'], 'footprint':'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'keywords':'RF attenuator', 'description':'', 'datasheet':'https://www.susumu.co.jp/common/pdf/n_catalog_partition16_en.pdf', 'pins':[
+        Part(**{ 'name':'PAT1220-C-2DB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAT1220-C-2DB'}), 'ref_prefix':'U', 'fplist':['RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220'], 'footprint':'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'keywords':'RF attenuator', 'description':'', 'datasheet':'https://www.susumu.co.jp/common/pdf/n_catalog_partition16_en.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nPAT1220-C-2DB\n\nRF attenuator', 'pins':[
             Pin(num='3',name='~',func=Pin.types.PASSIVE),
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAT1220-C-3DB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAT1220-C-3DB'}), 'ref_prefix':'U', 'fplist':['RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220'], 'footprint':'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'keywords':'RF attenuator', 'description':'', 'datasheet':'https://www.susumu.co.jp/common/pdf/n_catalog_partition16_en.pdf', 'pins':[
+        Part(**{ 'name':'PAT1220-C-3DB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAT1220-C-3DB'}), 'ref_prefix':'U', 'fplist':['RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220'], 'footprint':'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'keywords':'RF attenuator', 'description':'', 'datasheet':'https://www.susumu.co.jp/common/pdf/n_catalog_partition16_en.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nPAT1220-C-3DB\n\nRF attenuator', 'pins':[
             Pin(num='3',name='~',func=Pin.types.PASSIVE),
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAT1220-C-4DB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAT1220-C-4DB'}), 'ref_prefix':'U', 'fplist':['RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220'], 'footprint':'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'keywords':'RF attenuator', 'description':'', 'datasheet':'https://www.susumu.co.jp/common/pdf/n_catalog_partition16_en.pdf', 'pins':[
+        Part(**{ 'name':'PAT1220-C-4DB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAT1220-C-4DB'}), 'ref_prefix':'U', 'fplist':['RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220'], 'footprint':'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'keywords':'RF attenuator', 'description':'', 'datasheet':'https://www.susumu.co.jp/common/pdf/n_catalog_partition16_en.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nPAT1220-C-4DB\n\nRF attenuator', 'pins':[
             Pin(num='3',name='~',func=Pin.types.PASSIVE),
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAT1220-C-5DB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAT1220-C-5DB'}), 'ref_prefix':'U', 'fplist':['RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220'], 'footprint':'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'keywords':'RF attenuator', 'description':'', 'datasheet':'https://www.susumu.co.jp/common/pdf/n_catalog_partition16_en.pdf', 'pins':[
+        Part(**{ 'name':'PAT1220-C-5DB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAT1220-C-5DB'}), 'ref_prefix':'U', 'fplist':['RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220'], 'footprint':'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'keywords':'RF attenuator', 'description':'', 'datasheet':'https://www.susumu.co.jp/common/pdf/n_catalog_partition16_en.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nPAT1220-C-5DB\n\nRF attenuator', 'pins':[
             Pin(num='3',name='~',func=Pin.types.PASSIVE),
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAT1220-C-6DB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAT1220-C-6DB'}), 'ref_prefix':'U', 'fplist':['RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220'], 'footprint':'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'keywords':'RF attenuator', 'description':'', 'datasheet':'https://www.susumu.co.jp/common/pdf/n_catalog_partition16_en.pdf', 'pins':[
+        Part(**{ 'name':'PAT1220-C-6DB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAT1220-C-6DB'}), 'ref_prefix':'U', 'fplist':['RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220'], 'footprint':'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'keywords':'RF attenuator', 'description':'', 'datasheet':'https://www.susumu.co.jp/common/pdf/n_catalog_partition16_en.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nPAT1220-C-6DB\n\nRF attenuator', 'pins':[
             Pin(num='3',name='~',func=Pin.types.PASSIVE),
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAT1220-C-7DB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAT1220-C-7DB'}), 'ref_prefix':'U', 'fplist':['RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220'], 'footprint':'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'keywords':'RF attenuator', 'description':'', 'datasheet':'https://www.susumu.co.jp/common/pdf/n_catalog_partition16_en.pdf', 'pins':[
+        Part(**{ 'name':'PAT1220-C-7DB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAT1220-C-7DB'}), 'ref_prefix':'U', 'fplist':['RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220'], 'footprint':'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'keywords':'RF attenuator', 'description':'', 'datasheet':'https://www.susumu.co.jp/common/pdf/n_catalog_partition16_en.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nPAT1220-C-7DB\n\nRF attenuator', 'pins':[
             Pin(num='3',name='~',func=Pin.types.PASSIVE),
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAT1220-C-8DB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAT1220-C-8DB'}), 'ref_prefix':'U', 'fplist':['RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220'], 'footprint':'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'keywords':'RF attenuator', 'description':'', 'datasheet':'https://www.susumu.co.jp/common/pdf/n_catalog_partition16_en.pdf', 'pins':[
+        Part(**{ 'name':'PAT1220-C-8DB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAT1220-C-8DB'}), 'ref_prefix':'U', 'fplist':['RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220'], 'footprint':'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'keywords':'RF attenuator', 'description':'', 'datasheet':'https://www.susumu.co.jp/common/pdf/n_catalog_partition16_en.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nPAT1220-C-8DB\n\nRF attenuator', 'pins':[
             Pin(num='3',name='~',func=Pin.types.PASSIVE),
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PAT1220-C-9DB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAT1220-C-9DB'}), 'ref_prefix':'U', 'fplist':['RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220'], 'footprint':'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'keywords':'RF attenuator', 'description':'', 'datasheet':'https://www.susumu.co.jp/common/pdf/n_catalog_partition16_en.pdf', 'pins':[
+        Part(**{ 'name':'PAT1220-C-9DB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PAT1220-C-9DB'}), 'ref_prefix':'U', 'fplist':['RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'RF_Converter:RF_Attenuator_Susumu_PAT1220'], 'footprint':'RF_Converter:RF_Attenuator_Susumu_PAT1220', 'keywords':'RF attenuator', 'description':'', 'datasheet':'https://www.susumu.co.jp/common/pdf/n_catalog_partition16_en.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nPAT1220-C-9DB\n\nRF attenuator', 'pins':[
             Pin(num='3',name='~',func=Pin.types.PASSIVE),
             Pin(num='1',name='~',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='~',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SX1261IMLTRT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SX1261IMLTRT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'low-power lora transceiver', 'description':'', 'datasheet':'https://semtech.file.force.com/sfc/dist/version/download/?oid=00DE0000000JelG&ids=0682R00000IjPWSQA3&d=%2Fa%2F2R000000Un7F%2FyT.fKdAr9ZAo3cJLc4F2cBdUsMftpT2vsOICP7NmvMo', 'pins':[
+        Part(**{ 'name':'SX1261IMLTRT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SX1261IMLTRT'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'low-power lora transceiver', 'description':'', 'datasheet':'https://semtech.file.force.com/sfc/dist/version/download/?oid=00DE0000000JelG&ids=0682R00000IjPWSQA3&d=%2Fa%2F2R000000Un7F%2FyT.fKdAr9ZAo3cJLc4F2cBdUsMftpT2vsOICP7NmvMo', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nSX1261IMLTRT\n\nlow-power lora transceiver', 'pins':[
             Pin(num='1',name='VDD_IN',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VBAT',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='VBAT_IO',func=Pin.types.PWRIN,unit=1),
@@ -760,7 +760,7 @@ RF = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VREG',func=Pin.types.PWROUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='DCC_SW',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SX1273', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SX1273'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.8x4.8mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.8x4.8mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.8x4.8mm', 'keywords':'low-power lora transceiver', 'description':'', 'datasheet':'https://semtech.my.salesforce.com/sfc/p/#E0000000JelG/a/440000001NCE/v_VBhk1IolDgxwwnOpcS_vTFxPfSEPQbuneK3mWsXlU', 'pins':[
+        Part(**{ 'name':'SX1273', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SX1273'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.8x4.8mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.8x4.8mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.8x4.8mm', 'keywords':'low-power lora transceiver', 'description':'', 'datasheet':'https://semtech.my.salesforce.com/sfc/p/#E0000000JelG/a/440000001NCE/v_VBhk1IolDgxwwnOpcS_vTFxPfSEPQbuneK3mWsXlU', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nSX1273\n\nlow-power lora transceiver', 'pins':[
             Pin(num='1',name='VBAT1',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DIO1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='DIO2',func=Pin.types.BIDIR,unit=1),
@@ -790,7 +790,7 @@ RF = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='DIO0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SX1277', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SX1277'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.8x4.8mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.8x4.8mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.8x4.8mm', 'keywords':'low-power lora transceiver', 'description':'', 'datasheet':'https://semtech.my.salesforce.com/sfc/p/#E0000000JelG/a/2R0000001Rbr/6EfVZUorrpoKFfvaF_Fkpgp5kzjiNyiAbqcpqh9qSjE', 'pins':[
+        Part(**{ 'name':'SX1277', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SX1277'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.8x4.8mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.8x4.8mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.8x4.8mm', 'keywords':'low-power lora transceiver', 'description':'', 'datasheet':'https://semtech.my.salesforce.com/sfc/p/#E0000000JelG/a/2R0000001Rbr/6EfVZUorrpoKFfvaF_Fkpgp5kzjiNyiAbqcpqh9qSjE', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nSX1277\n\nlow-power lora transceiver', 'pins':[
             Pin(num='1',name='RFI_LF',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DIO2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='DIO3',func=Pin.types.BIDIR,unit=1),
@@ -820,7 +820,7 @@ RF = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DIO0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='DIO1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SX1279', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SX1279'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.8x4.8mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.8x4.8mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.8x4.8mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.8x4.8mm', 'keywords':'low-power lora transceiver', 'description':'', 'datasheet':'https://semtech.my.salesforce.com/sfc/p/#E0000000JelG/a/2R0000001Rbr/6EfVZUorrpoKFfvaF_Fkpgp5kzjiNyiAbqcpqh9qSjE', 'pins':[
+        Part(**{ 'name':'SX1279', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SX1279'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.8x4.8mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.8x4.8mm', 'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.8x4.8mm'], 'footprint':'Package_DFN_QFN:QFN-28-1EP_6x6mm_P0.65mm_EP4.8x4.8mm', 'keywords':'low-power lora transceiver', 'description':'', 'datasheet':'https://semtech.my.salesforce.com/sfc/p/#E0000000JelG/a/2R0000001Rbr/6EfVZUorrpoKFfvaF_Fkpgp5kzjiNyiAbqcpqh9qSjE', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nSX1279\n\nlow-power lora transceiver', 'pins':[
             Pin(num='1',name='RFI_LF',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='DIO2',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='DIO3',func=Pin.types.BIDIR,unit=1),
@@ -850,21 +850,21 @@ RF = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DIO0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='DIO1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SYPD-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SYPD-1'}), 'ref_prefix':'U', 'fplist':['RF_Mini-Circuits:Mini-Circuits_TTT167_LandPatternPL-079', 'RF_Mini-Circuits:Mini-Circuits_TTT167_LandPatternPL-079'], 'footprint':'RF_Mini-Circuits:Mini-Circuits_TTT167_LandPatternPL-079', 'keywords':'Phase Detector', 'description':'', 'datasheet':'https://www.minicircuits.com/pdfs/SYPD-1+.pdf', 'pins':[
+        Part(**{ 'name':'SYPD-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SYPD-1'}), 'ref_prefix':'U', 'fplist':['RF_Mini-Circuits:Mini-Circuits_TTT167_LandPatternPL-079', 'RF_Mini-Circuits:Mini-Circuits_TTT167_LandPatternPL-079'], 'footprint':'RF_Mini-Circuits:Mini-Circuits_TTT167_LandPatternPL-079', 'keywords':'Phase Detector', 'description':'', 'datasheet':'https://www.minicircuits.com/pdfs/SYPD-1+.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nSYPD-1\n\nPhase Detector', 'pins':[
             Pin(num='1',name='RF1',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='RF2',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DC',func=Pin.types.OUTPUT,unit=1),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SYPD-52', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SYPD-52'}), 'ref_prefix':'U', 'fplist':['RF_Mini-Circuits:Mini-Circuits_TTT167_LandPatternPL-079', 'RF_Mini-Circuits:Mini-Circuits_TTT167_LandPatternPL-079', 'RF_Mini-Circuits:Mini-Circuits_TTT167_LandPatternPL-079'], 'footprint':'RF_Mini-Circuits:Mini-Circuits_TTT167_LandPatternPL-079', 'keywords':'Phase Detector', 'description':'', 'datasheet':'https://www.minicircuits.com/pdfs/SYPD-52+.pdf', 'pins':[
+        Part(**{ 'name':'SYPD-52', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SYPD-52'}), 'ref_prefix':'U', 'fplist':['RF_Mini-Circuits:Mini-Circuits_TTT167_LandPatternPL-079', 'RF_Mini-Circuits:Mini-Circuits_TTT167_LandPatternPL-079', 'RF_Mini-Circuits:Mini-Circuits_TTT167_LandPatternPL-079'], 'footprint':'RF_Mini-Circuits:Mini-Circuits_TTT167_LandPatternPL-079', 'keywords':'Phase Detector', 'description':'', 'datasheet':'https://www.minicircuits.com/pdfs/SYPD-52+.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nSYPD-52\n\nPhase Detector', 'pins':[
             Pin(num='1',name='RF1',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='RF2',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DC',func=Pin.types.OUTPUT,unit=1),
             Pin(num='4',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='6',name='GND',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si4461', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si4461'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias', 'keywords':'transceiver sub-ghz radio ism', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/Si4464-63-61-60.pdf', 'pins':[
+        Part(**{ 'name':'Si4461', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si4461'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias', 'keywords':'transceiver sub-ghz radio ism', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/Si4464-63-61-60.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nSi4461\n\ntransceiver sub-ghz radio ism', 'pins':[
             Pin(num='1',name='SDN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GPIO1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='~{IRQ}',func=Pin.types.OPENCOLL,unit=1),
@@ -886,7 +886,7 @@ RF = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TXRAMP',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GPIO0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si4463', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si4463'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias', 'keywords':'transceiver sub-ghz radio ism', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/Si4464-63-61-60.pdf', 'pins':[
+        Part(**{ 'name':'Si4463', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si4463'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias', 'keywords':'transceiver sub-ghz radio ism', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/Si4464-63-61-60.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nSi4463\n\ntransceiver sub-ghz radio ism', 'pins':[
             Pin(num='1',name='SDN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GPIO1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='~{IRQ}',func=Pin.types.OPENCOLL,unit=1),
@@ -908,7 +908,7 @@ RF = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TXRAMP',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GPIO0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'Si4464', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si4464'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias', 'keywords':'transceiver sub-ghz radio ism', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/Si4464-63-61-60.pdf', 'pins':[
+        Part(**{ 'name':'Si4464', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'Si4464'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias', 'keywords':'transceiver sub-ghz radio ism', 'description':'', 'datasheet':'https://www.silabs.com/documents/public/data-sheets/Si4464-63-61-60.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nSi4464\n\ntransceiver sub-ghz radio ism', 'pins':[
             Pin(num='1',name='SDN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='GPIO1',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='~{IRQ}',func=Pin.types.OPENCOLL,unit=1),
@@ -930,7 +930,7 @@ RF = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='TXRAMP',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='GPIO0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'nRF24L01P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'nRF24L01P'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'keywords':'Low Power RF Transceiver', 'description':'', 'datasheet':'http://www.nordicsemi.com/eng/content/download/2726/34069/file/nRF24L01P_Product_Specification_1_0.pdf', 'pins':[
+        Part(**{ 'name':'nRF24L01P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'nRF24L01P'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm'], 'footprint':'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm', 'keywords':'Low Power RF Transceiver', 'description':'', 'datasheet':'http://www.nordicsemi.com/eng/content/download/2726/34069/file/nRF24L01P_Product_Specification_1_0.pdf', 'search_text':'/usr/share/kicad/symbols/RF.kicad_sym\nnRF24L01P\n\nLow Power RF Transceiver', 'pins':[
             Pin(num='1',name='CE',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='XC1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='VDD_PA',func=Pin.types.PWROUT,unit=1),

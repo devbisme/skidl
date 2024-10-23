@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Sensor_Touch = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'AT42QT1010-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT42QT1010-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm', 'keywords':'Touch QTouch Sensor Key', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001946A.pdf', 'pins':[
+        Part(**{ 'name':'AT42QT1010-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT42QT1010-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm', 'keywords':'Touch QTouch Sensor Key', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001946A.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Touch.kicad_sym\nAT42QT1010-M\n\nTouch QTouch Sensor Key', 'pins':[
             Pin(num='1',name='SNSK',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -14,14 +14,14 @@ Sensor_Touch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='SNS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT42QT1010-TSHR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT42QT1010-TSHR'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'Touch QTouch Sensor Key', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001946A.pdf', 'pins':[
+        Part(**{ 'name':'AT42QT1010-TSHR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT42QT1010-TSHR'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'Touch QTouch Sensor Key', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001946A.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Touch.kicad_sym\nAT42QT1010-TSHR\n\nTouch QTouch Sensor Key', 'pins':[
             Pin(num='1',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='SNSK',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='SNS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='SYNC',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT42QT1012-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT42QT1012-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm', 'keywords':'Touch QTouch Sensor Key', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001948A.pdf', 'pins':[
+        Part(**{ 'name':'AT42QT1012-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT42QT1012-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm', 'keywords':'Touch QTouch Sensor Key', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001948A.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Touch.kicad_sym\nAT42QT1012-M\n\nTouch QTouch Sensor Key', 'pins':[
             Pin(num='1',name='SNSK',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -31,14 +31,14 @@ Sensor_Touch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='SNS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT42QT1012-T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT42QT1012-T'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'Touch QTouch Sensor Key', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001948A.pdf', 'pins':[
+        Part(**{ 'name':'AT42QT1012-T', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT42QT1012-T'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'Touch QTouch Sensor Key', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001948A.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Touch.kicad_sym\nAT42QT1012-T\n\nTouch QTouch Sensor Key', 'pins':[
             Pin(num='1',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='SNSK',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='SNS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='5',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='TIME',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT42QT1040-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT42QT1040-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.45mm_EP1.55x1.55mm'], 'footprint':'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.45mm_EP1.55x1.55mm', 'keywords':'Touch QTouch Sensor Key', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-9524-AT42-QTouch-BSW-AT42QT1040_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'AT42QT1040-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT42QT1040-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.45mm_EP1.55x1.55mm'], 'footprint':'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.45mm_EP1.55x1.55mm', 'keywords':'Touch QTouch Sensor Key', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-9524-AT42-QTouch-BSW-AT42QT1040_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Touch.kicad_sym\nAT42QT1040-M\n\nTouch QTouch Sensor Key', 'pins':[
             Pin(num='1',name='SNS2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='~{OUT0}',func=Pin.types.OPENCOLL,unit=1),
@@ -60,7 +60,7 @@ Sensor_Touch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT42QT1050-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT42QT1050-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.45mm_EP1.55x1.55mm'], 'footprint':'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.45mm_EP1.55x1.55mm', 'keywords':'Touch QTouch Sensor Key', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-9707-AT42-QTouch-BSW-AT42QT1050_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'AT42QT1050-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT42QT1050-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.45mm_EP1.55x1.55mm'], 'footprint':'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.45mm_EP1.55x1.55mm', 'keywords':'Touch QTouch Sensor Key', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-9707-AT42-QTouch-BSW-AT42QT1050_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Touch.kicad_sym\nAT42QT1050-M\n\nTouch QTouch Sensor Key', 'pins':[
             Pin(num='1',name='KEY2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='ADDR_SEL',func=Pin.types.INPUT,unit=1),
@@ -82,7 +82,7 @@ Sensor_Touch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT42QT1050-U', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT42QT1050-U'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-12_1.403x1.555mm_P0.4mm_Stagger'], 'footprint':'Package_CSP:WLCSP-12_1.403x1.555mm_P0.4mm_Stagger', 'keywords':'Touch QTouch Sensor Key', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-9707-AT42-QTouch-BSW-AT42QT1050_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'AT42QT1050-U', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT42QT1050-U'}), 'ref_prefix':'U', 'fplist':['Package_CSP:WLCSP-12_1.403x1.555mm_P0.4mm_Stagger'], 'footprint':'Package_CSP:WLCSP-12_1.403x1.555mm_P0.4mm_Stagger', 'keywords':'Touch QTouch Sensor Key', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-9707-AT42-QTouch-BSW-AT42QT1050_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Touch.kicad_sym\nAT42QT1050-U\n\nTouch QTouch Sensor Key', 'pins':[
             Pin(num='A1',name='KEY2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='A3',name='KEY0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='A5',name='KEY1',func=Pin.types.PASSIVE,unit=1),
@@ -95,7 +95,7 @@ Sensor_Touch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='D2',name='~{CHANGE}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='D4',name='~{RESET}',func=Pin.types.INPUT,unit=1),
             Pin(num='D6',name='ADDR_SEL',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT42QT1060-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT42QT1060-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-28-1EP_4x4mm_P0.45mm_EP2.4x2.4mm'], 'footprint':'Package_DFN_QFN:VQFN-28-1EP_4x4mm_P0.45mm_EP2.4x2.4mm', 'keywords':'Touch QTouch Sensor Key', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-9505-AT42-QTouch-BSW-AT42QT1060_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'AT42QT1060-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT42QT1060-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-28-1EP_4x4mm_P0.45mm_EP2.4x2.4mm'], 'footprint':'Package_DFN_QFN:VQFN-28-1EP_4x4mm_P0.45mm_EP2.4x2.4mm', 'keywords':'Touch QTouch Sensor Key', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-9505-AT42-QTouch-BSW-AT42QT1060_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Touch.kicad_sym\nAT42QT1060-M\n\nTouch QTouch Sensor Key', 'pins':[
             Pin(num='1',name='SNS1K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='SNS0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='SNS1',func=Pin.types.PASSIVE,unit=1),
@@ -125,7 +125,7 @@ Sensor_Touch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SNS3K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='SNS4K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='SNS5K',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT42QT1070-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT42QT1070-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.45mm_EP1.55x1.55mm'], 'footprint':'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.45mm_EP1.55x1.55mm', 'keywords':'Touch QTouch Sensor Key', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-9596-AT42-QTouch-BSW-AT42QT1070_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'AT42QT1070-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT42QT1070-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.45mm_EP1.55x1.55mm'], 'footprint':'Package_DFN_QFN:VQFN-20-1EP_3x3mm_P0.45mm_EP1.55x1.55mm', 'keywords':'Touch QTouch Sensor Key', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-9596-AT42-QTouch-BSW-AT42QT1070_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Touch.kicad_sym\nAT42QT1070-M\n\nTouch QTouch Sensor Key', 'pins':[
             Pin(num='1',name='KEY4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='MODE',func=Pin.types.INPUT,unit=1),
@@ -147,7 +147,7 @@ Sensor_Touch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT42QT1070-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT42QT1070-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'Touch QTouch Sensor Key', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-9596-AT42-QTouch-BSW-AT42QT1070_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'AT42QT1070-S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT42QT1070-S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'Touch QTouch Sensor Key', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-9596-AT42-QTouch-BSW-AT42QT1070_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Touch.kicad_sym\nAT42QT1070-S\n\nTouch QTouch Sensor Key', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='KEY3',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='KEY2',func=Pin.types.PASSIVE,unit=1),
@@ -162,7 +162,7 @@ Sensor_Touch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUT2/KEY6',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='OUT1/KEY5',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='KEY4',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT42QT1110-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT42QT1110-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:VQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'Touch QTouch Sensor Key', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-9520-AT42-QTouch-BSW-AT42QT1110_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'AT42QT1110-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT42QT1110-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:VQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_DFN_QFN:VQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'Touch QTouch Sensor Key', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-9520-AT42-QTouch-BSW-AT42QT1110_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Touch.kicad_sym\nAT42QT1110-M\n\nTouch QTouch Sensor Key', 'pins':[
             Pin(num='1',name='SNS0K',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='SNS4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='SNS4K',func=Pin.types.PASSIVE,unit=1),
@@ -196,7 +196,7 @@ Sensor_Touch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SNS2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='SNS3',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='SNS3K',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CAP1206-x-AIA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CAP1206-x-AIA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.55x2.48mm'], 'footprint':'Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.55x2.48mm', 'keywords':'6 Channel Capacitive Touch Sensor', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/00001567B.pdf', 'pins':[
+        Part(**{ 'name':'CAP1206-x-AIA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CAP1206-x-AIA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.55x2.48mm'], 'footprint':'Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.55x2.48mm', 'keywords':'6 Channel Capacitive Touch Sensor', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/00001567B.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Touch.kicad_sym\nCAP1206-x-AIA\n\n6 Channel Capacitive Touch Sensor', 'pins':[
             Pin(num='1',name='CS1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='CS2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -208,7 +208,7 @@ Sensor_Touch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CS5',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='CS4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='CS3',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CAP1206-x-SL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CAP1206-x-SL'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'6 Channel Capacitive Touch Sensor', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/00001567B.pdf', 'pins':[
+        Part(**{ 'name':'CAP1206-x-SL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CAP1206-x-SL'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'6 Channel Capacitive Touch Sensor', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/00001567B.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Touch.kicad_sym\nCAP1206-x-SL\n\n6 Channel Capacitive Touch Sensor', 'pins':[
             Pin(num='10',name='CS5',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='CS4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='12',name='CS3',func=Pin.types.PASSIVE,unit=1),
@@ -220,7 +220,7 @@ Sensor_Touch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='CS6',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CY8CMBR3002', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CY8CMBR3002'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Touch Sensor 2ch', 'description':'', 'datasheet':'http://www.cypress.com/?docID=49119', 'pins':[
+        Part(**{ 'name':'CY8CMBR3002', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CY8CMBR3002'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Touch Sensor 2ch', 'description':'', 'datasheet':'http://www.cypress.com/?docID=49119', 'search_text':'/usr/share/kicad/symbols/Sensor_Touch.kicad_sym\nCY8CMBR3002\n\nTouch Sensor 2ch', 'pins':[
             Pin(num='1',name='GPO1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='CMOD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PASSIVE,unit=1),
@@ -229,7 +229,7 @@ Sensor_Touch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CS1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='CS0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='GPO0',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CY8CMBR3102', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CY8CMBR3102'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Touch Sensor 2ch', 'description':'', 'datasheet':'http://www.cypress.com/?docID=49119', 'pins':[
+        Part(**{ 'name':'CY8CMBR3102', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CY8CMBR3102'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'Touch Sensor 2ch', 'description':'', 'datasheet':'http://www.cypress.com/?docID=49119', 'search_text':'/usr/share/kicad/symbols/Sensor_Touch.kicad_sym\nCY8CMBR3102\n\nTouch Sensor 2ch', 'pins':[
             Pin(num='1',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='CMOD',func=Pin.types.PASSIVE,unit=1),
             Pin(num='3',name='VCC',func=Pin.types.PASSIVE,unit=1),
@@ -238,7 +238,7 @@ Sensor_Touch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='CS1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='CS0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='SDA',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CY8CMBR3106S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CY8CMBR3106S'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'Touch Sensor 16ch Slider', 'description':'', 'datasheet':'http://www.cypress.com/?docID=49119', 'pins':[
+        Part(**{ 'name':'CY8CMBR3106S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CY8CMBR3106S'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'Touch Sensor 16ch Slider', 'description':'', 'datasheet':'http://www.cypress.com/?docID=49119', 'search_text':'/usr/share/kicad/symbols/Sensor_Touch.kicad_sym\nCY8CMBR3106S\n\nTouch Sensor 16ch Slider', 'pins':[
             Pin(num='1',name='CS0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='SLD11',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='SLD12',func=Pin.types.PASSIVE,unit=1),
@@ -264,7 +264,7 @@ Sensor_Touch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='SLD10',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CY8CMBR3108', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CY8CMBR3108'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.8x1.8mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'keywords':'Touch Sensor 8ch', 'description':'', 'datasheet':'http://www.cypress.com/?docID=49119', 'pins':[
+        Part(**{ 'name':'CY8CMBR3108', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CY8CMBR3108'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.8x1.8mm'], 'footprint':'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.8x1.8mm', 'keywords':'Touch Sensor 8ch', 'description':'', 'datasheet':'http://www.cypress.com/?docID=49119', 'search_text':'/usr/share/kicad/symbols/Sensor_Touch.kicad_sym\nCY8CMBR3108\n\nTouch Sensor 8ch', 'pins':[
             Pin(num='1',name='CS0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='CS6',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='CS7',func=Pin.types.PASSIVE,unit=1),
@@ -282,7 +282,7 @@ Sensor_Touch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='CS4',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='CS5',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CY8CMBR3110', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CY8CMBR3110'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'Touch Sensor 10ch', 'description':'', 'datasheet':'http://www.cypress.com/?docID=49119', 'pins':[
+        Part(**{ 'name':'CY8CMBR3110', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CY8CMBR3110'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'Touch Sensor 10ch', 'description':'', 'datasheet':'http://www.cypress.com/?docID=49119', 'search_text':'/usr/share/kicad/symbols/Sensor_Touch.kicad_sym\nCY8CMBR3110\n\nTouch Sensor 10ch', 'pins':[
             Pin(num='1',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='CS6',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='CS7',func=Pin.types.PASSIVE,unit=1),
@@ -299,7 +299,7 @@ Sensor_Touch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='CS5',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CY8CMBR3116', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CY8CMBR3116'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'Touch Sensor 16ch', 'description':'', 'datasheet':'http://www.cypress.com/?docID=49119', 'pins':[
+        Part(**{ 'name':'CY8CMBR3116', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CY8CMBR3116'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm', 'keywords':'Touch Sensor 16ch', 'description':'', 'datasheet':'http://www.cypress.com/?docID=49119', 'search_text':'/usr/share/kicad/symbols/Sensor_Touch.kicad_sym\nCY8CMBR3116\n\nTouch Sensor 16ch', 'pins':[
             Pin(num='1',name='CS0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='CS14',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='CS13',func=Pin.types.PASSIVE,unit=1),
@@ -325,7 +325,7 @@ Sensor_Touch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='CS15',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MPR121QR2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MPR121QR2'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:UQFN-20_3x3mm_P0.4mm'], 'footprint':'Package_DFN_QFN:UQFN-20_3x3mm_P0.4mm', 'keywords':'Touch Sensor 12ch', 'description':'', 'datasheet':'https://resurgentsemi.com/wp-content/uploads/2018/09/MPR121_rev5-Resurgent.pdf?d453f8&d453f8', 'pins':[
+        Part(**{ 'name':'MPR121QR2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MPR121QR2'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:UQFN-20_3x3mm_P0.4mm'], 'footprint':'Package_DFN_QFN:UQFN-20_3x3mm_P0.4mm', 'keywords':'Touch Sensor 12ch', 'description':'', 'datasheet':'https://resurgentsemi.com/wp-content/uploads/2018/09/MPR121_rev5-Resurgent.pdf?d453f8&d453f8', 'search_text':'/usr/share/kicad/symbols/Sensor_Touch.kicad_sym\nMPR121QR2\n\nTouch Sensor 12ch', 'pins':[
             Pin(num='1',name='~{IRQ}',func=Pin.types.OPENCOLL,unit=1),
             Pin(num='10',name='ELE2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='ELE3',func=Pin.types.PASSIVE,unit=1),
@@ -346,7 +346,7 @@ Sensor_Touch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='REXT',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='ELE0',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='ELE1',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PCA8886', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA8886'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'NXP capacitive touch sensor auto-calibration', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/PCA8886.pdf', 'pins':[
+        Part(**{ 'name':'PCA8886', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCA8886'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'NXP capacitive touch sensor auto-calibration', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/PCA8886.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Touch.kicad_sym\nPCA8886\n\nNXP capacitive touch sensor auto-calibration', 'pins':[
             Pin(num='1',name='IN1',func=Pin.types.INPUT,unit=1),
             Pin(num='13',name='VDD1',func=Pin.types.PWRIN,unit=1),
             Pin(num='14',name='OUT1',func=Pin.types.OUTPUT,unit=1),
@@ -362,8 +362,8 @@ Sensor_Touch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='TYPE2',func=Pin.types.INPUT,unit=2),
             Pin(num='7',name='CPC2',func=Pin.types.BIDIR,unit=2),
             Pin(num='8',name='VSS2',func=Pin.types.PWRIN,unit=2),
-            Pin(num='9',name='VDD2',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '16', '3', '14', '13', '2', '15', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['6', '11', '5', '9', '7', '8', '10', '12']}] }),
-        Part(**{ 'name':'PCF8883', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCF8883'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'NXP capacitive touch sensor auto-calibration', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/PCF8883.pdf', 'pins':[
+            Pin(num='9',name='VDD2',func=Pin.types.PWRIN,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '3', '16', '14', '2', '4', '13', '15']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '11', '5', '6', '10', '8', '12', '9']}] }),
+        Part(**{ 'name':'PCF8883', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PCF8883'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'NXP capacitive touch sensor auto-calibration', 'description':'', 'datasheet':'http://www.nxp.com/docs/en/data-sheet/PCF8883.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Touch.kicad_sym\nPCF8883\n\nNXP capacitive touch sensor auto-calibration', 'pins':[
             Pin(num='1',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='TYPE',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='CPC',func=Pin.types.BIDIR,unit=1),
@@ -372,7 +372,7 @@ Sensor_Touch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='CLIN',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='VDD(int)',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT42QT1011-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT42QT1011-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm', 'Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm', 'keywords':'Touch QTouch Sensor Key', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001947A.pdf', 'pins':[
+        Part(**{ 'name':'AT42QT1011-M', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT42QT1011-M'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm', 'Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.5mm', 'keywords':'Touch QTouch Sensor Key', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001947A.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Touch.kicad_sym\nAT42QT1011-M\n\nTouch QTouch Sensor Key', 'pins':[
             Pin(num='1',name='SNSK',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='3',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -382,7 +382,7 @@ Sensor_Touch = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='SNS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='9',name='VSS',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AT42QT1011-TSHR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT42QT1011-TSHR'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'Touch QTouch Sensor Key', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001947A.pdf', 'pins':[
+        Part(**{ 'name':'AT42QT1011-TSHR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AT42QT1011-TSHR'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'Touch QTouch Sensor Key', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/40001947A.pdf', 'search_text':'/usr/share/kicad/symbols/Sensor_Touch.kicad_sym\nAT42QT1011-TSHR\n\nTouch QTouch Sensor Key', 'pins':[
             Pin(num='1',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='SNSK',func=Pin.types.PASSIVE,unit=1),

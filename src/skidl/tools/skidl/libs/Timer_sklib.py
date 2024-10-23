@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Timer = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'8284', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8284'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-18_W7.62mm'], 'footprint':'Package_DIP:DIP-18_W7.62mm', 'keywords':'Clock Generator', 'description':'', 'datasheet':'http://www.cpu-galaxy.at/cpu/ram%20rom%20eprom/other_intel_chips/other_intel-Dateien/D8284A_Datasheet.pdf', 'pins':[
+        Part(**{ 'name':'8284', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8284'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-18_W7.62mm'], 'footprint':'Package_DIP:DIP-18_W7.62mm', 'keywords':'Clock Generator', 'description':'', 'datasheet':'http://www.cpu-galaxy.at/cpu/ram%20rom%20eprom/other_intel_chips/other_intel-Dateien/D8284A_Datasheet.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\n8284\n\nClock Generator', 'pins':[
             Pin(num='1',name='CSYNC',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='RESET',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='~{RES}',func=Pin.types.INPUT,unit=1),
@@ -23,7 +23,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{AEN2}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CLK',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'82C54', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'82C54'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-24_W15.24mm'], 'footprint':'Package_DIP:DIP-24_W15.24mm', 'keywords':'Timer Counter', 'description':'', 'datasheet':'http://download.intel.com/design/archives/periphrl/docs/23124406.pdf', 'pins':[
+        Part(**{ 'name':'82C54', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'82C54'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-24_W15.24mm'], 'footprint':'Package_DIP:DIP-24_W15.24mm', 'keywords':'Timer Counter', 'description':'', 'datasheet':'http://download.intel.com/design/archives/periphrl/docs/23124406.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\n82C54\n\nTimer Counter', 'pins':[
             Pin(num='1',name='D7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='OUT0',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='G0',func=Pin.types.INPUT,unit=1),
@@ -48,7 +48,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='D0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='CLK0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'82C54_PLCC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'82C54_PLCC'}), 'ref_prefix':'U', 'fplist':['Package_LCC:PLCC-28'], 'footprint':'Package_LCC:PLCC-28', 'keywords':'Timer Counter', 'description':'', 'datasheet':'http://download.intel.com/design/archives/periphrl/docs/23124406.pdf', 'pins':[
+        Part(**{ 'name':'82C54_PLCC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'82C54_PLCC'}), 'ref_prefix':'U', 'fplist':['Package_LCC:PLCC-28'], 'footprint':'Package_LCC:PLCC-28', 'keywords':'Timer Counter', 'description':'', 'datasheet':'http://download.intel.com/design/archives/periphrl/docs/23124406.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\n82C54_PLCC\n\nTimer Counter', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='CLK0',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -77,7 +77,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D2',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='D1',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='D0',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD9513', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD9513'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_CSP:LFCSP-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'clock distribution LVDS CMOS', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD9513.pdf', 'pins':[
+        Part(**{ 'name':'AD9513', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD9513'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_CSP:LFCSP-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'clock distribution LVDS CMOS', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD9513.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nAD9513\n\nclock distribution LVDS CMOS', 'pins':[
             Pin(num='1',name='VS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='S7',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='S6',func=Pin.types.INPUT,unit=1),
@@ -111,7 +111,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='S10',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='S9',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='S8',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD9514', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD9514'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_CSP:LFCSP-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'clock distribution LVPECL LVDS CMOS', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD9514.pdf', 'pins':[
+        Part(**{ 'name':'AD9514', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD9514'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_CSP:LFCSP-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'clock distribution LVPECL LVDS CMOS', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD9514.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nAD9514\n\nclock distribution LVPECL LVDS CMOS', 'pins':[
             Pin(num='1',name='VS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='S7',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='S6',func=Pin.types.INPUT,unit=1),
@@ -145,7 +145,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='S10',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='S9',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='S8',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD9515', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD9515'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_CSP:LFCSP-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'clock distribution LVPECL LVDS CMOS', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD9515.pdf', 'pins':[
+        Part(**{ 'name':'AD9515', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD9515'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm'], 'footprint':'Package_CSP:LFCSP-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm', 'keywords':'clock distribution LVPECL LVDS CMOS', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD9515.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nAD9515\n\nclock distribution LVPECL LVDS CMOS', 'pins':[
             Pin(num='1',name='VS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='S7',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='S6',func=Pin.types.INPUT,unit=1),
@@ -179,7 +179,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='S10',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='S9',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='S8',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CD4541BE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CD4541BE'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'cmos', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/cd4541b.pdf', 'pins':[
+        Part(**{ 'name':'CD4541BE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CD4541BE'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'cmos', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/cd4541b.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nCD4541BE\n\ncmos', 'pins':[
             Pin(num='1',name='R_{TC}',func=Pin.types.INPUT),
             Pin(num='10',name='MODE',func=Pin.types.INPUT),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT),
@@ -194,7 +194,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='V_{SS}',func=Pin.types.PWRIN),
             Pin(num='8',name='OUTPUT/Q',func=Pin.types.OUTPUT),
             Pin(num='9',name='Q/~{Q}_SELECT',func=Pin.types.INPUT)], 'unit_defs':[] }),
-        Part(**{ 'name':'DS1023S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DS1023S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'Delay Line', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/DS1023.pdf', 'pins':[
+        Part(**{ 'name':'DS1023S', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DS1023S'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', 'keywords':'Delay Line', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/DS1023.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nDS1023S\n\nDelay Line', 'pins':[
             Pin(num='1',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='P5',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='MS',func=Pin.types.INPUT,unit=1),
@@ -211,7 +211,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='P4',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='REF/PWM',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ICM7209', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICM7209'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'Timebase generator', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheets/320/500974_DS.pdf', 'pins':[
+        Part(**{ 'name':'ICM7209', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICM7209'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'Timebase generator', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheets/320/500974_DS.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nICM7209\n\nTimebase generator', 'pins':[
             Pin(num='1',name='OSC_OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='OSC_IN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DISABLE',func=Pin.types.INPUT,unit=1),
@@ -219,7 +219,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='OUT/1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='6',name='OUT/8',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VSS',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LM555xMM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM555xMM'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:VSSOP-8_3x3mm_P0.65mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm555.pdf', 'pins':[
+        Part(**{ 'name':'LM555xMM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM555xMM'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:VSSOP-8_3x3mm_P0.65mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm555.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nLM555xMM\n\nsingle timer 555', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN),
             Pin(num='2',name='TR',func=Pin.types.INPUT,unit=1),
@@ -228,7 +228,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='CV',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='THR',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='DIS',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LM556', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM556'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'dual timer', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm556.pdf', 'pins':[
+        Part(**{ 'name':'LM556', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM556'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'dual timer', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm556.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nLM556\n\ndual timer', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='DIS',func=Pin.types.INPUT,unit=1),
@@ -242,8 +242,8 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='THR',func=Pin.types.INPUT,unit=2),
             Pin(num='13',name='DIS',func=Pin.types.INPUT,unit=2),
             Pin(num='8',name='TR',func=Pin.types.INPUT,unit=2),
-            Pin(num='9',name='Q',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '5', '1', '4', '14', '3', '7', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['9', '10', '8', '11', '14', '13', '7', '12']}] }),
-        Part(**{ 'name':'LMC555xTP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LMC555xTP'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-8_1.43x1.41mm_Layout3x3_P0.5mm'], 'footprint':'Package_BGA:Texas_DSBGA-8_1.43x1.41mm_Layout3x3_P0.5mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lmc555.pdf', 'pins':[
+            Pin(num='9',name='Q',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '5', '7', '3', '14', '1', '4', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '10', '7', '9', '14', '11', '13', '12']}] }),
+        Part(**{ 'name':'LMC555xTP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LMC555xTP'}), 'ref_prefix':'U', 'fplist':['Package_BGA:Texas_DSBGA-8_1.43x1.41mm_Layout3x3_P0.5mm'], 'footprint':'Package_BGA:Texas_DSBGA-8_1.43x1.41mm_Layout3x3_P0.5mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lmc555.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nLMC555xTP\n\nsingle timer 555', 'pins':[
             Pin(num='A2',name='VCC',func=Pin.types.PWRIN),
             Pin(num='A3',name='GND',func=Pin.types.PWRIN),
             Pin(num='A1',name='DIS',func=Pin.types.INPUT,unit=1),
@@ -252,7 +252,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='C1',name='CV',func=Pin.types.INPUT,unit=1),
             Pin(num='C2',name='R',func=Pin.types.INPUT,unit=1),
             Pin(num='C3',name='Q',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC6902', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC6902'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'clock generator dual triple quad signal', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/6902f.pdf', 'pins':[
+        Part(**{ 'name':'LTC6902', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC6902'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'clock generator dual triple quad signal', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/6902f.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nLTC6902\n\nclock generator dual triple quad signal', 'pins':[
             Pin(num='1',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='SET',func=Pin.types.PASSIVE,unit=1),
             Pin(num='2',name='DIV',func=Pin.types.INPUT,unit=1),
@@ -263,7 +263,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUT4',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='MOD',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC6909', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC6909'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-16_3x4mm_P0.5mm'], 'footprint':'Package_SO:MSOP-16_3x4mm_P0.5mm', 'keywords':'clock generator signal', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/6909fa.pdf', 'pins':[
+        Part(**{ 'name':'LTC6909', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC6909'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-16_3x4mm_P0.5mm'], 'footprint':'Package_SO:MSOP-16_3x4mm_P0.5mm', 'keywords':'clock generator signal', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/6909fa.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nLTC6909\n\nclock generator signal', 'pins':[
             Pin(num='1',name='V+A',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='OUT6',func=Pin.types.TRISTATE,unit=1),
             Pin(num='11',name='OUT7',func=Pin.types.TRISTATE,unit=1),
@@ -280,28 +280,28 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUT3',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='OUT4',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='OUT5',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC6993xS6-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC6993xS6-1'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TSOT-23-6'], 'footprint':'Package_TO_SOT_SMD:TSOT-23-6', 'keywords':'Timer TimerBlox monostable pulse', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/69931234fc.pdf', 'pins':[
+        Part(**{ 'name':'LTC6993xS6-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC6993xS6-1'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TSOT-23-6'], 'footprint':'Package_TO_SOT_SMD:TSOT-23-6', 'keywords':'Timer TimerBlox monostable pulse', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/69931234fc.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nLTC6993xS6-1\n\nTimer TimerBlox monostable pulse', 'pins':[
             Pin(num='1',name='TRIG',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='SET',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='DIV',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='OUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC6994xDCB-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC6994xDCB-1'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-6-1EP_3x2mm_P0.5mm_EP1.65x1.35mm'], 'footprint':'Package_DFN_QFN:DFN-6-1EP_3x2mm_P0.5mm_EP1.65x1.35mm', 'keywords':'TimerBlox delay block noise discriminator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/699412fb.pdf', 'pins':[
+        Part(**{ 'name':'LTC6994xDCB-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC6994xDCB-1'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-6-1EP_3x2mm_P0.5mm_EP1.65x1.35mm'], 'footprint':'Package_DFN_QFN:DFN-6-1EP_3x2mm_P0.5mm_EP1.65x1.35mm', 'keywords':'TimerBlox delay block noise discriminator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/699412fb.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nLTC6994xDCB-1\n\nTimerBlox delay block noise discriminator', 'pins':[
             Pin(num='1',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='DIV',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SET',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='OUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC6994xS6-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC6994xS6-1'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TSOT-23-6'], 'footprint':'Package_TO_SOT_SMD:TSOT-23-6', 'keywords':'TimerBlox delay block noise discriminator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/699412fb.pdf', 'pins':[
+        Part(**{ 'name':'LTC6994xS6-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC6994xS6-1'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TSOT-23-6'], 'footprint':'Package_TO_SOT_SMD:TSOT-23-6', 'keywords':'TimerBlox delay block noise discriminator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/699412fb.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nLTC6994xS6-1\n\nTimerBlox delay block noise discriminator', 'pins':[
             Pin(num='1',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='SET',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='DIV',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='OUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MN3101', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MN3101'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'Matsushita Panasonic BBD CMOS', 'description':'', 'datasheet':'http://www.experimentalistsanonymous.com/diy/Datasheets/MN3101.pdf', 'pins':[
+        Part(**{ 'name':'MN3101', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MN3101'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'Matsushita Panasonic BBD CMOS', 'description':'', 'datasheet':'http://www.experimentalistsanonymous.com/diy/Datasheets/MN3101.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nMN3101\n\nMatsushita Panasonic BBD CMOS', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='CP1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -310,7 +310,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='OX2',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='OX1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VGG_OUT',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MN3102', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MN3102'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'Matsushita Panasonic BBD CMOS', 'description':'', 'datasheet':'http://www.experimentalistsanonymous.com/diy/Datasheets/MN3102.pdf', 'pins':[
+        Part(**{ 'name':'MN3102', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MN3102'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'Matsushita Panasonic BBD CMOS', 'description':'', 'datasheet':'http://www.experimentalistsanonymous.com/diy/Datasheets/MN3102.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nMN3102\n\nMatsushita Panasonic BBD CMOS', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='CP1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -319,7 +319,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='OX2',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='OX1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='VGG_OUT',func=Pin.types.PWROUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NE555D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NE555D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ne555.pdf', 'pins':[
+        Part(**{ 'name':'NE555D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NE555D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ne555.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nNE555D\n\nsingle timer 555', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN),
             Pin(num='2',name='TR',func=Pin.types.INPUT,unit=1),
@@ -328,7 +328,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='CV',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='THR',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='DIS',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NE555P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NE555P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ne555.pdf', 'pins':[
+        Part(**{ 'name':'NE555P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NE555P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ne555.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nNE555P\n\nsingle timer 555', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN),
             Pin(num='2',name='TR',func=Pin.types.INPUT,unit=1),
@@ -337,7 +337,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='CV',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='THR',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='DIS',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NE567', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NE567'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'tone decoder PLL', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm567.pdf', 'pins':[
+        Part(**{ 'name':'NE567', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NE567'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'tone decoder PLL', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm567.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nNE567\n\ntone decoder PLL', 'pins':[
             Pin(num='1',name='OFLT_C',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='LP_FLT_C',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='INPUT',func=Pin.types.INPUT,unit=1),
@@ -346,14 +346,14 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='TIM_RC',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='OUTPUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'PL611-01-xxxT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PL611-01-xxxT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'clock generator dual programmable', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PL611-01.pdf', 'pins':[
+        Part(**{ 'name':'PL611-01-xxxT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'PL611-01-xxxT'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'clock generator dual programmable', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/PL611-01.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nPL611-01-xxxT\n\nclock generator dual programmable', 'pins':[
             Pin(num='1',name='CLK1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='XIN,FIN',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='XOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='5',name='CLK2,OE,~{PDB},FSEL',func=Pin.types.BIDIR,unit=1),
             Pin(num='6',name='VDD',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SY58031U', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SY58031U'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm_ThermalVias'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm_ThermalVias', 'keywords':'CML 2.5V/3.3V differential LVPECL LVDS', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/sy58031u.pdf', 'pins':[
+        Part(**{ 'name':'SY58031U', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SY58031U'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm_ThermalVias'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm_ThermalVias', 'keywords':'CML 2.5V/3.3V differential LVPECL LVDS', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/sy58031u.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nSY58031U\n\nCML 2.5V/3.3V differential LVPECL LVDS', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{Q7}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='Q7',func=Pin.types.OUTPUT,unit=1),
@@ -387,7 +387,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SY58032U', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SY58032U'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm_ThermalVias'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm_ThermalVias', 'keywords':'2.5V/3.3V differential LVPECL LVDS', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/sy58032u.pdf', 'pins':[
+        Part(**{ 'name':'SY58032U', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SY58032U'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm_ThermalVias'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm_ThermalVias', 'keywords':'2.5V/3.3V differential LVPECL LVDS', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/sy58032u.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nSY58032U\n\n2.5V/3.3V differential LVPECL LVDS', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{Q7}',func=Pin.types.OPENEMIT,unit=1),
             Pin(num='11',name='Q7',func=Pin.types.OPENEMIT,unit=1),
@@ -421,7 +421,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLC555xPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC555xPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tlc555.pdf', 'pins':[
+        Part(**{ 'name':'TLC555xPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC555xPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tlc555.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nTLC555xPW\n\nsingle timer 555', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='14',name='VDD',func=Pin.types.PWRIN),
             Pin(num='10',name='THRES',func=Pin.types.INPUT,unit=1),
@@ -436,28 +436,28 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RESET',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CONT',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TPL5010', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPL5010'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'timer watchdog nano wake done', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tpl5010.pdf', 'pins':[
+        Part(**{ 'name':'TPL5010', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPL5010'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'timer watchdog nano wake done', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tpl5010.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nTPL5010\n\ntimer watchdog nano wake done', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='DELAY/M_RST',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='DONE',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='WAKE',func=Pin.types.OUTPUT,unit=1),
             Pin(num='6',name='~{RST}',func=Pin.types.OPENCOLL,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TPL5110', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPL5110'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'timer active-low nano wake done', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tpl5110.pdf', 'pins':[
+        Part(**{ 'name':'TPL5110', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPL5110'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'timer active-low nano wake done', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tpl5110.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nTPL5110\n\ntimer active-low nano wake done', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='DELAY/M_DRV',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='DONE',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='DRV',func=Pin.types.OUTPUT,unit=1),
             Pin(num='6',name='EN/ONE_SHOT',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TPL5111', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPL5111'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'timer active-high nano wake done', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tpl5111.pdf', 'pins':[
+        Part(**{ 'name':'TPL5111', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPL5111'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'timer active-high nano wake done', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tpl5111.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nTPL5111\n\ntimer active-high nano wake done', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='DELAY/M_DRV',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='DONE',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='~{DRV}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='6',name='EN/ONE_SHOT',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'8253', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8253'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-24_W15.24mm', 'Package_DIP:DIP-24_W15.24mm'], 'footprint':'Package_DIP:DIP-24_W15.24mm', 'keywords':'Timer Counter', 'description':'', 'datasheet':'http://www.cpcwiki.eu/imgs/e/e3/8253.pdf', 'pins':[
+        Part(**{ 'name':'8253', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8253'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-24_W15.24mm', 'Package_DIP:DIP-24_W15.24mm'], 'footprint':'Package_DIP:DIP-24_W15.24mm', 'keywords':'Timer Counter', 'description':'', 'datasheet':'http://www.cpcwiki.eu/imgs/e/e3/8253.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\n8253\n\nTimer Counter', 'pins':[
             Pin(num='1',name='D7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='OUT0',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='G0',func=Pin.types.INPUT,unit=1),
@@ -482,7 +482,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='D0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='CLK0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'8254', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8254'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-24_W15.24mm', 'Package_DIP:DIP-24_W15.24mm', 'Package_DIP:DIP-24_W15.24mm'], 'footprint':'Package_DIP:DIP-24_W15.24mm', 'keywords':'Timer Counter', 'description':'', 'datasheet':'http://www.scs.stanford.edu/10wi-cs140/pintos/specs/8254.pdf', 'pins':[
+        Part(**{ 'name':'8254', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8254'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-24_W15.24mm', 'Package_DIP:DIP-24_W15.24mm', 'Package_DIP:DIP-24_W15.24mm'], 'footprint':'Package_DIP:DIP-24_W15.24mm', 'keywords':'Timer Counter', 'description':'', 'datasheet':'http://www.scs.stanford.edu/10wi-cs140/pintos/specs/8254.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\n8254\n\nTimer Counter', 'pins':[
             Pin(num='1',name='D7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='OUT0',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='G0',func=Pin.types.INPUT,unit=1),
@@ -507,7 +507,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='D0',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='CLK0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CD4541BM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CD4541BM'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'cmos', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/cd4541b.pdf', 'pins':[
+        Part(**{ 'name':'CD4541BM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CD4541BM'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'cmos', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/cd4541b.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nCD4541BM\n\ncmos', 'pins':[
             Pin(num='1',name='R_{TC}',func=Pin.types.INPUT),
             Pin(num='10',name='MODE',func=Pin.types.INPUT),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT),
@@ -522,7 +522,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='V_{SS}',func=Pin.types.PWRIN),
             Pin(num='8',name='OUTPUT/Q',func=Pin.types.OUTPUT),
             Pin(num='9',name='Q/~{Q}_SELECT',func=Pin.types.INPUT)], 'unit_defs':[] }),
-        Part(**{ 'name':'CD4541BPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CD4541BPW'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'cmos', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/cd4541b.pdf', 'pins':[
+        Part(**{ 'name':'CD4541BPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CD4541BPW'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'cmos', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/cd4541b.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nCD4541BPW\n\ncmos', 'pins':[
             Pin(num='1',name='R_{TC}',func=Pin.types.INPUT),
             Pin(num='10',name='MODE',func=Pin.types.INPUT),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT),
@@ -537,7 +537,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='V_{SS}',func=Pin.types.PWRIN),
             Pin(num='8',name='OUTPUT/Q',func=Pin.types.OUTPUT),
             Pin(num='9',name='Q/~{Q}_SELECT',func=Pin.types.INPUT)], 'unit_defs':[] }),
-        Part(**{ 'name':'ICM7555xB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICM7555xB'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/icm7/icm7555-56.pdf', 'pins':[
+        Part(**{ 'name':'ICM7555xB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICM7555xB'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/icm7/icm7555-56.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nICM7555xB\n\nsingle timer 555', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN),
             Pin(num='2',name='TR',func=Pin.types.INPUT,unit=1),
@@ -546,7 +546,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='CV',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='THR',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='DIS',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ICM7555xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICM7555xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/icm7/icm7555-56.pdf', 'pins':[
+        Part(**{ 'name':'ICM7555xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICM7555xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/icm7/icm7555-56.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nICM7555xP\n\nsingle timer 555', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN),
             Pin(num='2',name='TR',func=Pin.types.INPUT,unit=1),
@@ -555,7 +555,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='CV',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='THR',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='DIS',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ICM7556', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICM7556'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'dual timer 556', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/icm7/icm7555-56.pdf', 'pins':[
+        Part(**{ 'name':'ICM7556', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ICM7556'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'dual timer 556', 'description':'', 'datasheet':'http://www.intersil.com/content/dam/Intersil/documents/icm7/icm7555-56.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nICM7556\n\ndual timer 556', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='DIS',func=Pin.types.INPUT,unit=1),
@@ -569,8 +569,8 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='THR',func=Pin.types.INPUT,unit=2),
             Pin(num='13',name='DIS',func=Pin.types.INPUT,unit=2),
             Pin(num='8',name='TR',func=Pin.types.INPUT,unit=2),
-            Pin(num='9',name='Q',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '4', '14', '7', '1', '5', '3', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '10', '12', '14', '13', '7', '11', '9']}] }),
-        Part(**{ 'name':'LM555xM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM555xM'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm555.pdf', 'pins':[
+            Pin(num='9',name='Q',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['7', '4', '14', '3', '1', '6', '5', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['11', '8', '14', '9', '10', '13', '7', '12']}] }),
+        Part(**{ 'name':'LM555xM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM555xM'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm555.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nLM555xM\n\nsingle timer 555', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN),
             Pin(num='2',name='TR',func=Pin.types.INPUT,unit=1),
@@ -579,7 +579,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='CV',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='THR',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='DIS',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LM555xN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM555xN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm555.pdf', 'pins':[
+        Part(**{ 'name':'LM555xN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM555xN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm555.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nLM555xN\n\nsingle timer 555', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN),
             Pin(num='2',name='TR',func=Pin.types.INPUT,unit=1),
@@ -588,7 +588,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='CV',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='THR',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='DIS',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LMC555xM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LMC555xM'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lmc555.pdf', 'pins':[
+        Part(**{ 'name':'LMC555xM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LMC555xM'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lmc555.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nLMC555xM\n\nsingle timer 555', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN),
             Pin(num='2',name='TR',func=Pin.types.INPUT,unit=1),
@@ -597,7 +597,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='CV',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='THR',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='DIS',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LMC555xMM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LMC555xMM'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-8_3x3mm_P0.65mm', 'Package_SO:VSSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:VSSOP-8_3x3mm_P0.65mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lmc555.pdf', 'pins':[
+        Part(**{ 'name':'LMC555xMM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LMC555xMM'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-8_3x3mm_P0.65mm', 'Package_SO:VSSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:VSSOP-8_3x3mm_P0.65mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lmc555.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nLMC555xMM\n\nsingle timer 555', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN),
             Pin(num='2',name='TR',func=Pin.types.INPUT,unit=1),
@@ -606,7 +606,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='CV',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='THR',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='DIS',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LMC555xN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LMC555xN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lmc555.pdf', 'pins':[
+        Part(**{ 'name':'LMC555xN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LMC555xN'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lmc555.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nLMC555xN\n\nsingle timer 555', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN),
             Pin(num='2',name='TR',func=Pin.types.INPUT,unit=1),
@@ -615,42 +615,42 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='CV',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='THR',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='DIS',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC6993xS6-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC6993xS6-2'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TSOT-23-6', 'Package_TO_SOT_SMD:TSOT-23-6'], 'footprint':'Package_TO_SOT_SMD:TSOT-23-6', 'keywords':'Timer TimerBlox monostable pulse', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/69931234fc.pdf', 'pins':[
+        Part(**{ 'name':'LTC6993xS6-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC6993xS6-2'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TSOT-23-6', 'Package_TO_SOT_SMD:TSOT-23-6'], 'footprint':'Package_TO_SOT_SMD:TSOT-23-6', 'keywords':'Timer TimerBlox monostable pulse', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/69931234fc.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nLTC6993xS6-2\n\nTimer TimerBlox monostable pulse', 'pins':[
             Pin(num='1',name='TRIG',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='SET',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='DIV',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='OUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC6993xS6-3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC6993xS6-3'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TSOT-23-6', 'Package_TO_SOT_SMD:TSOT-23-6', 'Package_TO_SOT_SMD:TSOT-23-6'], 'footprint':'Package_TO_SOT_SMD:TSOT-23-6', 'keywords':'Timer TimerBlox monostable pulse', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/69931234fc.pdf', 'pins':[
+        Part(**{ 'name':'LTC6993xS6-3', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC6993xS6-3'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TSOT-23-6', 'Package_TO_SOT_SMD:TSOT-23-6', 'Package_TO_SOT_SMD:TSOT-23-6'], 'footprint':'Package_TO_SOT_SMD:TSOT-23-6', 'keywords':'Timer TimerBlox monostable pulse', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/69931234fc.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nLTC6993xS6-3\n\nTimer TimerBlox monostable pulse', 'pins':[
             Pin(num='1',name='TRIG',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='SET',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='DIV',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='OUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC6993xS6-4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC6993xS6-4'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TSOT-23-6', 'Package_TO_SOT_SMD:TSOT-23-6', 'Package_TO_SOT_SMD:TSOT-23-6', 'Package_TO_SOT_SMD:TSOT-23-6'], 'footprint':'Package_TO_SOT_SMD:TSOT-23-6', 'keywords':'Timer TimerBlox monostable pulse', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/69931234fc.pdf', 'pins':[
+        Part(**{ 'name':'LTC6993xS6-4', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC6993xS6-4'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TSOT-23-6', 'Package_TO_SOT_SMD:TSOT-23-6', 'Package_TO_SOT_SMD:TSOT-23-6', 'Package_TO_SOT_SMD:TSOT-23-6'], 'footprint':'Package_TO_SOT_SMD:TSOT-23-6', 'keywords':'Timer TimerBlox monostable pulse', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/69931234fc.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nLTC6993xS6-4\n\nTimer TimerBlox monostable pulse', 'pins':[
             Pin(num='1',name='TRIG',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='SET',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='DIV',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='OUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC6994xDCB-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC6994xDCB-2'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-6-1EP_3x2mm_P0.5mm_EP1.65x1.35mm', 'Package_DFN_QFN:DFN-6-1EP_3x2mm_P0.5mm_EP1.65x1.35mm'], 'footprint':'Package_DFN_QFN:DFN-6-1EP_3x2mm_P0.5mm_EP1.65x1.35mm', 'keywords':'TimerBlox debouncer noise discriminator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/699412fb.pdf', 'pins':[
+        Part(**{ 'name':'LTC6994xDCB-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC6994xDCB-2'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-6-1EP_3x2mm_P0.5mm_EP1.65x1.35mm', 'Package_DFN_QFN:DFN-6-1EP_3x2mm_P0.5mm_EP1.65x1.35mm'], 'footprint':'Package_DFN_QFN:DFN-6-1EP_3x2mm_P0.5mm_EP1.65x1.35mm', 'keywords':'TimerBlox debouncer noise discriminator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/699412fb.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nLTC6994xDCB-2\n\nTimerBlox debouncer noise discriminator', 'pins':[
             Pin(num='1',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='DIV',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SET',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='OUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC6994xS6-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC6994xS6-2'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TSOT-23-6', 'Package_TO_SOT_SMD:TSOT-23-6'], 'footprint':'Package_TO_SOT_SMD:TSOT-23-6', 'keywords':'TimerBlox debouncer noise discriminator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/699412fb.pdf', 'pins':[
+        Part(**{ 'name':'LTC6994xS6-2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC6994xS6-2'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:TSOT-23-6', 'Package_TO_SOT_SMD:TSOT-23-6'], 'footprint':'Package_TO_SOT_SMD:TSOT-23-6', 'keywords':'TimerBlox debouncer noise discriminator', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/699412fb.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nLTC6994xS6-2\n\nTimerBlox debouncer noise discriminator', 'pins':[
             Pin(num='1',name='IN',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='SET',func=Pin.types.PASSIVE,unit=1),
             Pin(num='4',name='DIV',func=Pin.types.INPUT,unit=1),
             Pin(num='5',name='V+',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='OUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC14541BD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC14541BD'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'cmos', 'description':'', 'datasheet':'https://www.onsemi.com/pdf/datasheet/mc14541b-d.pdf', 'pins':[
+        Part(**{ 'name':'MC14541BD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC14541BD'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'cmos', 'description':'', 'datasheet':'https://www.onsemi.com/pdf/datasheet/mc14541b-d.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nMC14541BD\n\ncmos', 'pins':[
             Pin(num='1',name='R_{TC}',func=Pin.types.INPUT),
             Pin(num='10',name='MODE',func=Pin.types.INPUT),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT),
@@ -665,7 +665,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='V_{SS}',func=Pin.types.PWRIN),
             Pin(num='8',name='OUTPUT/Q',func=Pin.types.OUTPUT),
             Pin(num='9',name='Q/~{Q}_SELECT',func=Pin.types.INPUT)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC14541BDT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC14541BDT'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'cmos', 'description':'', 'datasheet':'https://www.onsemi.com/pdf/datasheet/mc14541b-d.pdf', 'pins':[
+        Part(**{ 'name':'MC14541BDT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC14541BDT'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'cmos', 'description':'', 'datasheet':'https://www.onsemi.com/pdf/datasheet/mc14541b-d.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nMC14541BDT\n\ncmos', 'pins':[
             Pin(num='1',name='R_{TC}',func=Pin.types.INPUT),
             Pin(num='10',name='MODE',func=Pin.types.INPUT),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT),
@@ -680,7 +680,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='V_{SS}',func=Pin.types.PWRIN),
             Pin(num='8',name='OUTPUT/Q',func=Pin.types.OUTPUT),
             Pin(num='9',name='Q/~{Q}_SELECT',func=Pin.types.INPUT)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC1455B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC1455B'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/MC1455-D.PDF', 'pins':[
+        Part(**{ 'name':'MC1455B', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC1455B'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/MC1455-D.PDF', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nMC1455B\n\nsingle timer 555', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN),
             Pin(num='2',name='TR',func=Pin.types.INPUT,unit=1),
@@ -689,7 +689,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='CV',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='THR',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='DIS',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC1455P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC1455P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/MC1455-D.PDF', 'pins':[
+        Part(**{ 'name':'MC1455P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC1455P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'https://www.onsemi.com/pub/Collateral/MC1455-D.PDF', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nMC1455P\n\nsingle timer 555', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN),
             Pin(num='2',name='TR',func=Pin.types.INPUT,unit=1),
@@ -698,7 +698,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='CV',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='THR',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='DIS',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NA555D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NA555D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ne555.pdf', 'pins':[
+        Part(**{ 'name':'NA555D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NA555D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ne555.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nNA555D\n\nsingle timer 555', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN),
             Pin(num='2',name='TR',func=Pin.types.INPUT,unit=1),
@@ -707,7 +707,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='CV',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='THR',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='DIS',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NA555P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NA555P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ne555.pdf', 'pins':[
+        Part(**{ 'name':'NA555P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NA555P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ne555.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nNA555P\n\nsingle timer 555', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN),
             Pin(num='2',name='TR',func=Pin.types.INPUT,unit=1),
@@ -716,7 +716,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='CV',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='THR',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='DIS',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'NA556', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NA556'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'dual timer', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/se556.pdf', 'pins':[
+        Part(**{ 'name':'NA556', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NA556'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'dual timer', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/se556.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nNA556\n\ndual timer', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='DIS',func=Pin.types.INPUT,unit=1),
@@ -730,8 +730,8 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='THR',func=Pin.types.INPUT,unit=2),
             Pin(num='13',name='DIS',func=Pin.types.INPUT,unit=2),
             Pin(num='8',name='TR',func=Pin.types.INPUT,unit=2),
-            Pin(num='9',name='Q',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['1', '6', '14', '2', '5', '4', '7', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['14', '10', '11', '8', '12', '7', '9', '13']}] }),
-        Part(**{ 'name':'NE556', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NE556'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'dual timer', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ne556.pdf', 'pins':[
+            Pin(num='9',name='Q',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['14', '4', '2', '3', '6', '5', '7', '1']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '13', '14', '10', '11', '7', '9', '12']}] }),
+        Part(**{ 'name':'NE556', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NE556'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'dual timer', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ne556.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nNE556\n\ndual timer', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='DIS',func=Pin.types.INPUT,unit=1),
@@ -745,8 +745,8 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='THR',func=Pin.types.INPUT,unit=2),
             Pin(num='13',name='DIS',func=Pin.types.INPUT,unit=2),
             Pin(num='8',name='TR',func=Pin.types.INPUT,unit=2),
-            Pin(num='9',name='Q',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '14', '7', '3', '5', '4', '1', '6']},{'label': 'uB', 'num': 2, 'pin_nums': ['13', '14', '7', '8', '10', '11', '9', '12']}] }),
-        Part(**{ 'name':'NLV14541BD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NLV14541BD'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'cmos', 'description':'', 'datasheet':'https://www.onsemi.com/pdf/datasheet/mc14541b-d.pdf', 'pins':[
+            Pin(num='9',name='Q',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '3', '7', '1', '5', '14', '6', '4']},{'label': 'uB', 'num': 2, 'pin_nums': ['10', '9', '11', '7', '13', '8', '14', '12']}] }),
+        Part(**{ 'name':'NLV14541BD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NLV14541BD'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'cmos', 'description':'', 'datasheet':'https://www.onsemi.com/pdf/datasheet/mc14541b-d.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nNLV14541BD\n\ncmos', 'pins':[
             Pin(num='1',name='R_{TC}',func=Pin.types.INPUT),
             Pin(num='10',name='MODE',func=Pin.types.INPUT),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT),
@@ -761,7 +761,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='V_{SS}',func=Pin.types.PWRIN),
             Pin(num='8',name='OUTPUT/Q',func=Pin.types.OUTPUT),
             Pin(num='9',name='Q/~{Q}_SELECT',func=Pin.types.INPUT)], 'unit_defs':[] }),
-        Part(**{ 'name':'NLV14541BDT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NLV14541BDT'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'cmos', 'description':'', 'datasheet':'https://www.onsemi.com/pdf/datasheet/mc14541b-d.pdf', 'pins':[
+        Part(**{ 'name':'NLV14541BDT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'NLV14541BDT'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-14_W7.62mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm'], 'footprint':'Package_DIP:DIP-14_W7.62mm', 'keywords':'cmos', 'description':'', 'datasheet':'https://www.onsemi.com/pdf/datasheet/mc14541b-d.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nNLV14541BDT\n\ncmos', 'pins':[
             Pin(num='1',name='R_{TC}',func=Pin.types.INPUT),
             Pin(num='10',name='MODE',func=Pin.types.INPUT),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT),
@@ -776,7 +776,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='V_{SS}',func=Pin.types.PWRIN),
             Pin(num='8',name='OUTPUT/Q',func=Pin.types.OUTPUT),
             Pin(num='9',name='Q/~{Q}_SELECT',func=Pin.types.INPUT)], 'unit_defs':[] }),
-        Part(**{ 'name':'SA555D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SA555D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ne555.pdf', 'pins':[
+        Part(**{ 'name':'SA555D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SA555D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ne555.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nSA555D\n\nsingle timer 555', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN),
             Pin(num='2',name='TR',func=Pin.types.INPUT,unit=1),
@@ -785,7 +785,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='CV',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='THR',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='DIS',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SA555P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SA555P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ne555.pdf', 'pins':[
+        Part(**{ 'name':'SA555P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SA555P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ne555.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nSA555P\n\nsingle timer 555', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN),
             Pin(num='2',name='TR',func=Pin.types.INPUT,unit=1),
@@ -794,7 +794,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='CV',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='THR',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='DIS',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SA556', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SA556'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'dual timer', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ne556.pdf', 'pins':[
+        Part(**{ 'name':'SA556', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SA556'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'dual timer', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ne556.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nSA556\n\ndual timer', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='DIS',func=Pin.types.INPUT,unit=1),
@@ -808,8 +808,8 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='THR',func=Pin.types.INPUT,unit=2),
             Pin(num='13',name='DIS',func=Pin.types.INPUT,unit=2),
             Pin(num='8',name='TR',func=Pin.types.INPUT,unit=2),
-            Pin(num='9',name='Q',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['6', '7', '1', '4', '2', '14', '5', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '13', '10', '11', '8', '14', '9', '12']}] }),
-        Part(**{ 'name':'SE555D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SE555D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ne555.pdf', 'pins':[
+            Pin(num='9',name='Q',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['2', '5', '3', '7', '6', '1', '4', '14']},{'label': 'uB', 'num': 2, 'pin_nums': ['8', '12', '14', '9', '7', '13', '10', '11']}] }),
+        Part(**{ 'name':'SE555D', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SE555D'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ne555.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nSE555D\n\nsingle timer 555', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN),
             Pin(num='2',name='TR',func=Pin.types.INPUT,unit=1),
@@ -818,7 +818,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='CV',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='THR',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='DIS',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SE555P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SE555P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ne555.pdf', 'pins':[
+        Part(**{ 'name':'SE555P', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SE555P'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ne555.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nSE555P\n\nsingle timer 555', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN),
             Pin(num='2',name='TR',func=Pin.types.INPUT,unit=1),
@@ -827,7 +827,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='CV',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='THR',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='DIS',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SE556', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SE556'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', ''], 'footprint':'', 'keywords':'dual timer', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ne556.pdf', 'pins':[
+        Part(**{ 'name':'SE556', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SE556'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', ''], 'footprint':'', 'keywords':'dual timer', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ne556.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nSE556\n\ndual timer', 'pins':[
             Pin(num='14',name='VCC',func=Pin.types.PWRIN),
             Pin(num='7',name='GND',func=Pin.types.PWRIN),
             Pin(num='1',name='DIS',func=Pin.types.INPUT,unit=1),
@@ -841,8 +841,8 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='12',name='THR',func=Pin.types.INPUT,unit=2),
             Pin(num='13',name='DIS',func=Pin.types.INPUT,unit=2),
             Pin(num='8',name='TR',func=Pin.types.INPUT,unit=2),
-            Pin(num='9',name='Q',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '7', '6', '1', '14', '4', '2', '3']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '12', '9', '14', '13', '10', '11', '8']}] }),
-        Part(**{ 'name':'SE567', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SE567'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'tone decoder PLL', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm567.pdf', 'pins':[
+            Pin(num='9',name='Q',func=Pin.types.OUTPUT,unit=2)], 'unit_defs':[{'label': 'uA', 'num': 1, 'pin_nums': ['5', '7', '3', '6', '1', '4', '14', '2']},{'label': 'uB', 'num': 2, 'pin_nums': ['7', '8', '9', '12', '14', '13', '11', '10']}] }),
+        Part(**{ 'name':'SE567', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SE567'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'tone decoder PLL', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm567.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nSE567\n\ntone decoder PLL', 'pins':[
             Pin(num='1',name='OFLT_C',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='LP_FLT_C',func=Pin.types.OUTPUT,unit=1),
             Pin(num='3',name='INPUT',func=Pin.types.INPUT,unit=1),
@@ -851,7 +851,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='TIM_RC',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='OUTPUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'SY58033U', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SY58033U'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm_ThermalVias', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm_ThermalVias'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm_ThermalVias', 'keywords':'2.5V/3.3V differential LVPECL LVDS', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/sy58033u.pdf', 'pins':[
+        Part(**{ 'name':'SY58033U', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'SY58033U'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm_ThermalVias', 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm_ThermalVias'], 'footprint':'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm_ThermalVias', 'keywords':'2.5V/3.3V differential LVPECL LVDS', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/sy58033u.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nSY58033U\n\n2.5V/3.3V differential LVPECL LVDS', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='~{Q7}',func=Pin.types.OPENEMIT,unit=1),
             Pin(num='11',name='Q7',func=Pin.types.OPENEMIT,unit=1),
@@ -885,7 +885,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PASSIVE,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLC555xD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC555xD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tlc555.pdf', 'pins':[
+        Part(**{ 'name':'TLC555xD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC555xD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tlc555.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nTLC555xD\n\nsingle timer 555', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN),
             Pin(num='2',name='TR',func=Pin.types.INPUT,unit=1),
@@ -894,7 +894,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='CV',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='THR',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='DIS',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLC555xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC555xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tlc555.pdf', 'pins':[
+        Part(**{ 'name':'TLC555xP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC555xP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm', 'Package_DIP:DIP-8_W7.62mm'], 'footprint':'Package_DIP:DIP-8_W7.62mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tlc555.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nTLC555xP\n\nsingle timer 555', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN),
             Pin(num='2',name='TR',func=Pin.types.INPUT,unit=1),
@@ -903,7 +903,7 @@ Timer = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='5',name='CV',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='THR',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='DIS',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLC555xPS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC555xPS'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-8_3x3mm_P0.65mm', 'Package_SO:VSSOP-8_3x3mm_P0.65mm', 'Package_SO:VSSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:VSSOP-8_3x3mm_P0.65mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tlc555.pdf', 'pins':[
+        Part(**{ 'name':'TLC555xPS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLC555xPS'}), 'ref_prefix':'U', 'fplist':['Package_SO:VSSOP-8_3x3mm_P0.65mm', 'Package_SO:VSSOP-8_3x3mm_P0.65mm', 'Package_SO:VSSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:VSSOP-8_3x3mm_P0.65mm', 'keywords':'single timer 555', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tlc555.pdf', 'search_text':'/usr/share/kicad/symbols/Timer.kicad_sym\nTLC555xPS\n\nsingle timer 555', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN),
             Pin(num='2',name='TR',func=Pin.types.INPUT,unit=1),

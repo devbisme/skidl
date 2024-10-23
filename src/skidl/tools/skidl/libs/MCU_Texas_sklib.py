@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 MCU_Texas = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'LM3S6911-EQC50', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM3S6911-EQC50'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'MCU ARM M3 Stellaris PHY ETH NRND', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm3s6911.pdf', 'pins':[
+        Part(**{ 'name':'LM3S6911-EQC50', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM3S6911-EQC50'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'MCU ARM M3 Stellaris PHY ETH NRND', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm3s6911.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas.kicad_sym\nLM3S6911-EQC50\n\nMCU ARM M3 Stellaris PHY ETH NRND', 'pins':[
             Pin(num='1',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PD0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PD7/CCP1',func=Pin.types.BIDIR,unit=1),
@@ -105,7 +105,7 @@ MCU_Texas = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='GNDA',func=Pin.types.PWRIN,unit=1),
             Pin(num='98',name='VDDA',func=Pin.types.PWRIN,unit=1),
             Pin(num='99',name='PD6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MSP432E401Y', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP432E401Y'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-128_14x14mm_P0.4mm'], 'footprint':'Package_QFP:LQFP-128_14x14mm_P0.4mm', 'keywords':'ARM Cortex-M4F MSP432 MSP432E4 MSP432E401', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp432e401y.pdf', 'pins':[
+        Part(**{ 'name':'MSP432E401Y', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MSP432E401Y'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-128_14x14mm_P0.4mm'], 'footprint':'Package_QFP:LQFP-128_14x14mm_P0.4mm', 'keywords':'ARM Cortex-M4F MSP432 MSP432E4 MSP432E401', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/msp432e401y.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas.kicad_sym\nMSP432E401Y\n\nARM Cortex-M4F MSP432 MSP432E4 MSP432E401', 'pins':[
             Pin(num='1',name='PD0',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='GNDA',func=Pin.types.PWRIN,unit=1),
             Pin(num='100',name='PC0/TCK/SWCLK',func=Pin.types.BIDIR,unit=1),
@@ -234,7 +234,7 @@ MCU_Texas = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='PC3/TDO/SWO',func=Pin.types.BIDIR,unit=1),
             Pin(num='98',name='PC2/TDI',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='PC1/TMS/SWDIO',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TM4C1230C3PM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TM4C1230C3PM'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'ARM Tiva Cortex M4 MCU', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tm4c1230c3pm.pdf', 'pins':[
+        Part(**{ 'name':'TM4C1230C3PM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TM4C1230C3PM'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'ARM Tiva Cortex M4 MCU', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tm4c1230c3pm.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas.kicad_sym\nTM4C1230C3PM\n\nARM Tiva Cortex M4 MCU', 'pins':[
             Pin(num='1',name='I2C5SCL/SSI2RX/T0CCP0/PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NMI/U2TX/WT5CCP1/PD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -299,7 +299,7 @@ MCU_Texas = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PE2/AIN1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PE1/AIN2/U7TX',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PE0/AIN3/U7RX',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TM4C1231C3PM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TM4C1231C3PM'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'ARM Tiva Cortex M4 MCU', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tm4c1231c3pm.pdf', 'pins':[
+        Part(**{ 'name':'TM4C1231C3PM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TM4C1231C3PM'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'ARM Tiva Cortex M4 MCU', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tm4c1231c3pm.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas.kicad_sym\nTM4C1231C3PM\n\nARM Tiva Cortex M4 MCU', 'pins':[
             Pin(num='1',name='SSI2RX/T0CCP0/PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NMI/U2TX/WT5CCP1/PD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -364,7 +364,7 @@ MCU_Texas = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PE2/AIN1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PE1/AIN2/U7TX',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PE0/AIN3/U7RX',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TMS320LF2406', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMS320LF2406'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'TMS320LF2406', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMS320LF2406'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/MCU_Texas.kicad_sym\nTMS320LF2406\n\n', 'pins':[
             Pin(num='77',name='ADCIN1',func=Pin.types.INPUT),
             Pin(num='0',name='BOOT_EN*/XF',func=Pin.types.INPUT,unit=1),
             Pin(num='1',name='TRST',func=Pin.types.INPUT,unit=1),
@@ -462,7 +462,7 @@ MCU_Texas = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='GNDO',func=Pin.types.PWRIN,unit=1),
             Pin(num='98',name='VDDO',func=Pin.types.PWRIN,unit=1),
             Pin(num='99',name='TDO',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TMS470R1B768', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMS470R1B768'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'ARM 7TDM uC TMS470', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tms470r1b768.pdf', 'pins':[
+        Part(**{ 'name':'TMS470R1B768', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TMS470R1B768'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'ARM 7TDM uC TMS470', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tms470r1b768.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas.kicad_sym\nTMS470R1B768\n\nARM 7TDM uC TMS470', 'pins':[
             Pin(num='1',name='~{SPI1ENA}',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='SPI4CLK',func=Pin.types.PASSIVE,unit=1),
             Pin(num='100',name='ADIN[7]',func=Pin.types.PASSIVE,unit=1),
@@ -607,7 +607,7 @@ MCU_Texas = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='~{SPI3SCS}',func=Pin.types.PASSIVE,unit=1),
             Pin(num='98',name='~{SPI3ENA}',func=Pin.types.PASSIVE,unit=1),
             Pin(num='99',name='ADEVT',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LM3S6911-IQC50', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM3S6911-IQC50'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'MCU ARM M3 Stellaris PHY ETH NRND', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm3s6911.pdf', 'pins':[
+        Part(**{ 'name':'LM3S6911-IQC50', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM3S6911-IQC50'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-100_14x14mm_P0.5mm', 'Package_QFP:LQFP-100_14x14mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-100_14x14mm_P0.5mm', 'keywords':'MCU ARM M3 Stellaris PHY ETH NRND', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/lm3s6911.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas.kicad_sym\nLM3S6911-IQC50\n\nMCU ARM M3 Stellaris PHY ETH NRND', 'pins':[
             Pin(num='1',name='PE7',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='PD0',func=Pin.types.BIDIR,unit=1),
             Pin(num='100',name='PD7/CCP1',func=Pin.types.BIDIR,unit=1),
@@ -708,7 +708,7 @@ MCU_Texas = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='GNDA',func=Pin.types.PWRIN,unit=1),
             Pin(num='98',name='VDDA',func=Pin.types.PWRIN,unit=1),
             Pin(num='99',name='PD6',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LM4F110B2QR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM4F110B2QR'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'ARM Stellaris Cortex M4 MCU NRND', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tm4c1231c3pm.pdf', 'pins':[
+        Part(**{ 'name':'LM4F110B2QR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM4F110B2QR'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'ARM Stellaris Cortex M4 MCU NRND', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tm4c1231c3pm.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas.kicad_sym\nLM4F110B2QR\n\nARM Stellaris Cortex M4 MCU NRND', 'pins':[
             Pin(num='1',name='SSI2RX/T0CCP0/PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NMI/U2TX/WT5CCP1/PD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -773,7 +773,7 @@ MCU_Texas = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PE2/AIN1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PE1/AIN2/U7TX',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PE0/AIN3/U7RX',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LM4F110C4QR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM4F110C4QR'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'ARM Stellaris Cortex M4 MCU NRND', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tm4c1231d5pm.pdf', 'pins':[
+        Part(**{ 'name':'LM4F110C4QR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM4F110C4QR'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'ARM Stellaris Cortex M4 MCU NRND', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tm4c1231d5pm.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas.kicad_sym\nLM4F110C4QR\n\nARM Stellaris Cortex M4 MCU NRND', 'pins':[
             Pin(num='1',name='SSI2RX/T0CCP0/PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NMI/U2TX/WT5CCP1/PD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -838,7 +838,7 @@ MCU_Texas = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PE2/AIN1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PE1/AIN2/U7TX',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PE0/AIN3/U7RX',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LM4F110E5QR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM4F110E5QR'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'ARM Stellaris Cortex M4 MCU NRND', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tm4c1231e6pm.pdf', 'pins':[
+        Part(**{ 'name':'LM4F110E5QR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM4F110E5QR'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'ARM Stellaris Cortex M4 MCU NRND', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tm4c1231e6pm.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas.kicad_sym\nLM4F110E5QR\n\nARM Stellaris Cortex M4 MCU NRND', 'pins':[
             Pin(num='1',name='SSI2RX/T0CCP0/PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NMI/U2TX/WT5CCP1/PD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -903,7 +903,7 @@ MCU_Texas = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PE2/AIN1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PE1/AIN2/U7TX',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PE0/AIN3/U7RX',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LM4F110H5QR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM4F110H5QR'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'ARM Stellaris Cortex M4 MCU NRND', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tm4c1231h6pm.pdf', 'pins':[
+        Part(**{ 'name':'LM4F110H5QR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM4F110H5QR'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'ARM Stellaris Cortex M4 MCU NRND', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tm4c1231h6pm.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas.kicad_sym\nLM4F110H5QR\n\nARM Stellaris Cortex M4 MCU NRND', 'pins':[
             Pin(num='1',name='SSI2RX/T0CCP0/PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NMI/U2TX/WT5CCP1/PD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -968,7 +968,7 @@ MCU_Texas = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PE2/AIN1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PE1/AIN2/U7TX',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PE0/AIN3/U7RX',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LM4F111B2QR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM4F111B2QR'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'ARM Stellaris Cortex M4 MCU NRND', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tm4c1230c3pm.pdf', 'pins':[
+        Part(**{ 'name':'LM4F111B2QR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM4F111B2QR'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'ARM Stellaris Cortex M4 MCU NRND', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tm4c1230c3pm.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas.kicad_sym\nLM4F111B2QR\n\nARM Stellaris Cortex M4 MCU NRND', 'pins':[
             Pin(num='1',name='I2C5SCL/SSI2RX/T0CCP0/PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NMI/U2TX/WT5CCP1/PD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -1033,7 +1033,7 @@ MCU_Texas = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PE2/AIN1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PE1/AIN2/U7TX',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PE0/AIN3/U7RX',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LM4F111C4QR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM4F111C4QR'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'ARM Stellaris Cortex M4 MCU NRND', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tm4c1230d5pm.pdf', 'pins':[
+        Part(**{ 'name':'LM4F111C4QR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM4F111C4QR'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'ARM Stellaris Cortex M4 MCU NRND', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tm4c1230d5pm.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas.kicad_sym\nLM4F111C4QR\n\nARM Stellaris Cortex M4 MCU NRND', 'pins':[
             Pin(num='1',name='I2C5SCL/SSI2RX/T0CCP0/PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NMI/U2TX/WT5CCP1/PD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -1098,7 +1098,7 @@ MCU_Texas = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PE2/AIN1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PE1/AIN2/U7TX',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PE0/AIN3/U7RX',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LM4F111E5QR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM4F111E5QR'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'ARM Stellaris Cortex M4 MCU NRND', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tm4c1230c3pm.pdf', 'pins':[
+        Part(**{ 'name':'LM4F111E5QR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM4F111E5QR'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'ARM Stellaris Cortex M4 MCU NRND', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tm4c1230c3pm.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas.kicad_sym\nLM4F111E5QR\n\nARM Stellaris Cortex M4 MCU NRND', 'pins':[
             Pin(num='1',name='I2C5SCL/SSI2RX/T0CCP0/PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NMI/U2TX/WT5CCP1/PD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -1163,7 +1163,7 @@ MCU_Texas = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PE2/AIN1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PE1/AIN2/U7TX',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PE0/AIN3/U7RX',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LM4F111H5QR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM4F111H5QR'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'ARM Stellaris Cortex M4 MCU NRND', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tm4c1230h6pm.pdf', 'pins':[
+        Part(**{ 'name':'LM4F111H5QR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LM4F111H5QR'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'ARM Stellaris Cortex M4 MCU NRND', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tm4c1230h6pm.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas.kicad_sym\nLM4F111H5QR\n\nARM Stellaris Cortex M4 MCU NRND', 'pins':[
             Pin(num='1',name='I2C5SCL/SSI2RX/T0CCP0/PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NMI/U2TX/WT5CCP1/PD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -1228,7 +1228,7 @@ MCU_Texas = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PE2/AIN1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PE1/AIN2/U7TX',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PE0/AIN3/U7RX',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TM4C1230D5PM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TM4C1230D5PM'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'ARM Tiva Cortex M4 MCU', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tm4c1230d5pm.pdf', 'pins':[
+        Part(**{ 'name':'TM4C1230D5PM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TM4C1230D5PM'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'ARM Tiva Cortex M4 MCU', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tm4c1230d5pm.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas.kicad_sym\nTM4C1230D5PM\n\nARM Tiva Cortex M4 MCU', 'pins':[
             Pin(num='1',name='I2C5SCL/SSI2RX/T0CCP0/PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NMI/U2TX/WT5CCP1/PD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -1293,7 +1293,7 @@ MCU_Texas = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PE2/AIN1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PE1/AIN2/U7TX',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PE0/AIN3/U7RX',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TM4C1230E6PM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TM4C1230E6PM'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'ARM Tiva Cortex M4 MCU', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tm4c1230e6pm.pdf', 'pins':[
+        Part(**{ 'name':'TM4C1230E6PM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TM4C1230E6PM'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'ARM Tiva Cortex M4 MCU', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tm4c1230e6pm.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas.kicad_sym\nTM4C1230E6PM\n\nARM Tiva Cortex M4 MCU', 'pins':[
             Pin(num='1',name='I2C5SCL/SSI2RX/T0CCP0/PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NMI/U2TX/WT5CCP1/PD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -1358,7 +1358,7 @@ MCU_Texas = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PE2/AIN1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PE1/AIN2/U7TX',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PE0/AIN3/U7RX',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TM4C1230H6PM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TM4C1230H6PM'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'ARM Tiva Cortex M4 MCU', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tm4c1230h6pm.pdf', 'pins':[
+        Part(**{ 'name':'TM4C1230H6PM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TM4C1230H6PM'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'ARM Tiva Cortex M4 MCU', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tm4c1230h6pm.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas.kicad_sym\nTM4C1230H6PM\n\nARM Tiva Cortex M4 MCU', 'pins':[
             Pin(num='1',name='I2C5SCL/SSI2RX/T0CCP0/PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NMI/U2TX/WT5CCP1/PD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -1423,7 +1423,7 @@ MCU_Texas = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PE2/AIN1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PE1/AIN2/U7TX',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PE0/AIN3/U7RX',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TM4C1231D5PM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TM4C1231D5PM'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'ARM Tiva Cortex M4 MCU', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tm4c1231d5pm.pdf', 'pins':[
+        Part(**{ 'name':'TM4C1231D5PM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TM4C1231D5PM'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'ARM Tiva Cortex M4 MCU', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tm4c1231d5pm.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas.kicad_sym\nTM4C1231D5PM\n\nARM Tiva Cortex M4 MCU', 'pins':[
             Pin(num='1',name='SSI2RX/T0CCP0/PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NMI/U2TX/WT5CCP1/PD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -1488,7 +1488,7 @@ MCU_Texas = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PE2/AIN1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PE1/AIN2/U7TX',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PE0/AIN3/U7RX',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TM4C1231E6PM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TM4C1231E6PM'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'ARM Tiva Cortex M4 MCU', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tm4c1231e6pm.pdf', 'pins':[
+        Part(**{ 'name':'TM4C1231E6PM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TM4C1231E6PM'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'ARM Tiva Cortex M4 MCU', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tm4c1231e6pm.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas.kicad_sym\nTM4C1231E6PM\n\nARM Tiva Cortex M4 MCU', 'pins':[
             Pin(num='1',name='SSI2RX/T0CCP0/PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NMI/U2TX/WT5CCP1/PD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),
@@ -1553,7 +1553,7 @@ MCU_Texas = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='PE2/AIN1',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='PE1/AIN2/U7TX',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='PE0/AIN3/U7RX',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TM4C1231H6PM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TM4C1231H6PM'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'ARM Tiva Cortex M4 MCU', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tm4c1231h6pm.pdf', 'pins':[
+        Part(**{ 'name':'TM4C1231H6PM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TM4C1231H6PM'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'Package_QFP:LQFP-64_10x10mm_P0.5mm'], 'footprint':'Package_QFP:LQFP-64_10x10mm_P0.5mm', 'keywords':'ARM Tiva Cortex M4 MCU', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tm4c1231h6pm.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Texas.kicad_sym\nTM4C1231H6PM\n\nARM Tiva Cortex M4 MCU', 'pins':[
             Pin(num='1',name='SSI2RX/T0CCP0/PB6',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='NMI/U2TX/WT5CCP1/PD7',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='VDD',func=Pin.types.PWRIN,unit=1),

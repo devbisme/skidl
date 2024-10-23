@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'AD390JD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD390JD'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'4ch DAC 12bit', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD390MIL.pdf', 'pins':[
+        Part(**{ 'name':'AD390JD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD390JD'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'4ch DAC 12bit', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD390MIL.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD390JD\n\n4ch DAC 12bit', 'pins':[
             Pin(num='1',name='D0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='D9',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='D10',func=Pin.types.INPUT,unit=1),
@@ -33,7 +33,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D6',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D7',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='D8',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD558JN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD558JN'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8bit DAC Reference Single Supply', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD558.pdf', 'pins':[
+        Part(**{ 'name':'AD558JN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD558JN'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8bit DAC Reference Single Supply', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD558.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD558JN\n\n8bit DAC Reference Single Supply', 'pins':[
             Pin(num='1',name='DB0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='V+',func=Pin.types.PWRIN,unit=1),
@@ -50,7 +50,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DB6',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DB7',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{CE}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD558JP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD558JP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8bit DAC Reference Single Supply', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD558.pdf', 'pins':[
+        Part(**{ 'name':'AD558JP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD558JP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8bit DAC Reference Single Supply', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD558.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD558JP\n\n8bit DAC Reference Single Supply', 'pins':[
             Pin(num='10',name='DB7',func=Pin.types.INPUT,unit=1),
             Pin(num='12',name='~{CE}',func=Pin.types.INPUT,unit=1),
             Pin(num='13',name='~{CS}',func=Pin.types.INPUT,unit=1),
@@ -67,7 +67,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DB4',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DB5',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DB6',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD5687BCPZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5687BCPZ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.854x1.854mm'], 'footprint':'Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.854x1.854mm', 'keywords':'dac 2nch 12bit spi', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5689_5687.pdf', 'pins':[
+        Part(**{ 'name':'AD5687BCPZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5687BCPZ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.854x1.854mm'], 'footprint':'Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.854x1.854mm', 'keywords':'dac 2nch 12bit spi', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5689_5687.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD5687BCPZ\n\ndac 2nch 12bit spi', 'pins':[
             Pin(num='1',name='VOUTA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~{SYNC}',func=Pin.types.INPUT,unit=1),
@@ -85,7 +85,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{LDAC}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GAIN',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VLOGIC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD5687BRUZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5687BRUZ'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'dac 2nch 12bit spi', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5689_5687.pdf', 'pins':[
+        Part(**{ 'name':'AD5687BRUZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5687BRUZ'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'dac 2nch 12bit spi', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5689_5687.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD5687BRUZ\n\ndac 2nch 12bit spi', 'pins':[
             Pin(num='1',name='VREF',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GAIN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VLOGIC',func=Pin.types.PWRIN,unit=1),
@@ -102,7 +102,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VOUTB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='SDO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='~{LDAC}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD5691RxRM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5691RxRM'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'serial DAC i2c digital analog converter', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5693R_5692R_5691R_5693.pdf', 'pins':[
+        Part(**{ 'name':'AD5691RxRM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5691RxRM'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'serial DAC i2c digital analog converter', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5693R_5692R_5691R_5693.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD5691RxRM\n\nserial DAC i2c digital analog converter', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='VLOGIC',func=Pin.types.PWRIN,unit=1),
@@ -113,7 +113,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VREF',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD5697RBCPZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5697RBCPZ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.854x1.854mm'], 'footprint':'Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.854x1.854mm', 'keywords':'dac 2nch 12bit i2c', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5697R.pdf', 'pins':[
+        Part(**{ 'name':'AD5697RBCPZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5697RBCPZ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.854x1.854mm'], 'footprint':'Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.854x1.854mm', 'keywords':'dac 2nch 12bit i2c', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5697R.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD5697RBCPZ\n\ndac 2nch 12bit i2c', 'pins':[
             Pin(num='1',name='VOUTA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='A0',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SCL',func=Pin.types.INPUT,unit=1),
@@ -131,7 +131,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{LDAC}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GAIN',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VLOGIC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD5697RBRUZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5697RBRUZ'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'dac 2nch 12bit i2c', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5697R.pdf', 'pins':[
+        Part(**{ 'name':'AD5697RBRUZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5697RBRUZ'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'dac 2nch 12bit i2c', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5697R.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD5697RBRUZ\n\ndac 2nch 12bit i2c', 'pins':[
             Pin(num='1',name='VREF',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GAIN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VLOGIC',func=Pin.types.PWRIN,unit=1),
@@ -148,7 +148,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VOUTB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='~{LDAC}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD5781xRUZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5781xRUZ'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'1ch', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ad5781.pdf', 'pins':[
+        Part(**{ 'name':'AD5781xRUZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5781xRUZ'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'1ch', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ad5781.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD5781xRUZ\n\n1ch', 'pins':[
             Pin(num='1',name='INV',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='IOV_{CC}',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='SDO',func=Pin.types.OUTPUT,unit=1),
@@ -169,7 +169,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{CLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{LDAC}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='V_{CC}',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7224KN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7224KN'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8bit DAC Dual Single Supply 1ch', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7224.pdf', 'pins':[
+        Part(**{ 'name':'AD7224KN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7224KN'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8bit DAC Dual Single Supply 1ch', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7224.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD7224KN\n\n8bit DAC Dual Single Supply 1ch', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DB3',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DB2',func=Pin.types.INPUT,unit=1),
@@ -188,7 +188,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DB6',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DB5',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DB4',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7224KP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7224KP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8bit DAC Dual Single Supply', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7224.pdf', 'pins':[
+        Part(**{ 'name':'AD7224KP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7224KP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8bit DAC Dual Single Supply', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7224.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD7224KP\n\n8bit DAC Dual Single Supply', 'pins':[
             Pin(num='10',name='DB4',func=Pin.types.INPUT,unit=1),
             Pin(num='12',name='DB3',func=Pin.types.INPUT,unit=1),
             Pin(num='13',name='DB2',func=Pin.types.INPUT,unit=1),
@@ -207,7 +207,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DB7(MSB)',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DB6',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DB5',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7224KR-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7224KR-1'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8bit DAC Dual Single Supply', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7224.pdf', 'pins':[
+        Part(**{ 'name':'AD7224KR-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7224KR-1'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8bit DAC Dual Single Supply', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7224.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD7224KR-1\n\n8bit DAC Dual Single Supply', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='12',name='DB3',func=Pin.types.INPUT,unit=1),
             Pin(num='13',name='DB2',func=Pin.types.INPUT,unit=1),
@@ -226,7 +226,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DB6',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DB5',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DB4',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7224KR-18', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7224KR-18'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8bit DAC Dual Single Supply', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7224.pdf', 'pins':[
+        Part(**{ 'name':'AD7224KR-18', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7224KR-18'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8bit DAC Dual Single Supply', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7224.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD7224KR-18\n\n8bit DAC Dual Single Supply', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DB3',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DB2',func=Pin.types.INPUT,unit=1),
@@ -245,7 +245,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DB6',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DB5',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DB4',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7225BRS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7225BRS'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8bit DAC 4CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7225.pdf', 'pins':[
+        Part(**{ 'name':'AD7225BRS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7225BRS'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8bit DAC 4CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7225.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD7225BRS\n\n8bit DAC 4CH', 'pins':[
             Pin(num='1',name='VOUTB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='DB6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DB5',func=Pin.types.INPUT,unit=1),
@@ -270,7 +270,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='~{LDAC}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DB7',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7225KN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7225KN'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8bit DAC 4CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7225.pdf', 'pins':[
+        Part(**{ 'name':'AD7225KN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7225KN'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8bit DAC 4CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7225.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD7225KN\n\n8bit DAC 4CH', 'pins':[
             Pin(num='1',name='VOUTB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='DB6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DB5',func=Pin.types.INPUT,unit=1),
@@ -295,7 +295,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='~{LDAC}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DB7',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7225KP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7225KP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8bit DAC 4CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7225.pdf', 'pins':[
+        Part(**{ 'name':'AD7225KP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7225KP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8bit DAC 4CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7225.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD7225KP\n\n8bit DAC 4CH', 'pins':[
             Pin(num='10',name='~{LDAC}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DB7',func=Pin.types.INPUT,unit=1),
             Pin(num='12',name='DB6',func=Pin.types.INPUT,unit=1),
@@ -320,7 +320,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VREFA',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='AGND',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7225KR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7225KR'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8bit DAC 4CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7225.pdf', 'pins':[
+        Part(**{ 'name':'AD7225KR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7225KR'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8bit DAC 4CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7225.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD7225KR\n\n8bit DAC 4CH', 'pins':[
             Pin(num='1',name='VOUTB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='DB6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DB5',func=Pin.types.INPUT,unit=1),
@@ -345,7 +345,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='~{LDAC}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DB7',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7226BRSZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7226BRSZ'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'4CH DAC 8bit', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7226.pdf', 'pins':[
+        Part(**{ 'name':'AD7226BRSZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7226BRSZ'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'4CH DAC 8bit', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7226.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD7226BRSZ\n\n4CH DAC 8bit', 'pins':[
             Pin(num='1',name='VOUTB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='DB4',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DB3',func=Pin.types.INPUT,unit=1),
@@ -366,7 +366,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DB7',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DB6',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DB5',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7226KN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7226KN'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'4CH DAC 8bit', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7226.pdf', 'pins':[
+        Part(**{ 'name':'AD7226KN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7226KN'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'4CH DAC 8bit', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7226.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD7226KN\n\n4CH DAC 8bit', 'pins':[
             Pin(num='1',name='VOUTB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='DB4',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DB3',func=Pin.types.INPUT,unit=1),
@@ -387,7 +387,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DB7',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DB6',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DB5',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7226KP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7226KP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'4CH DAC 8bit', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7226.pdf', 'pins':[
+        Part(**{ 'name':'AD7226KP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7226KP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'4CH DAC 8bit', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7226.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD7226KP\n\n4CH DAC 8bit', 'pins':[
             Pin(num='1',name='VOUTB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='DB4',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DB3',func=Pin.types.INPUT,unit=1),
@@ -408,7 +408,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DB7',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DB6',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DB5',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7226KR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7226KR'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'4CH DAC 8bit', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7226.pdf', 'pins':[
+        Part(**{ 'name':'AD7226KR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7226KR'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'4CH DAC 8bit', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7226.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD7226KR\n\n4CH DAC 8bit', 'pins':[
             Pin(num='1',name='VOUTB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='DB4',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DB3',func=Pin.types.INPUT,unit=1),
@@ -429,7 +429,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DB7',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DB6',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DB5',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7228ABN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7228ABN'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8bit DAC 8CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7228.pdf', 'pins':[
+        Part(**{ 'name':'AD7228ABN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7228ABN'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8bit DAC 8CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7228.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD7228ABN\n\n8bit DAC 8CH', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='VREF',func=Pin.types.PASSIVE,unit=1),
@@ -454,7 +454,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VOUT3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VOUT2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='VOUT1',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7228ABP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7228ABP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8bit DAC 8CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7228.pdf', 'pins':[
+        Part(**{ 'name':'AD7228ABP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7228ABP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8bit DAC 8CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7228.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD7228ABP\n\n8bit DAC 8CH', 'pins':[
             Pin(num='10',name='VOUT2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='VOUT1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='12',name='VSS',func=Pin.types.PWRIN,unit=1),
@@ -479,7 +479,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VOUT5',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VOUT4',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='VOUT3',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7228ABR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7228ABR'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8bit DAC 8CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7228.pdf', 'pins':[
+        Part(**{ 'name':'AD7228ABR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7228ABR'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8bit DAC 8CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7228.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD7228ABR\n\n8bit DAC 8CH', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='VREF',func=Pin.types.PASSIVE,unit=1),
@@ -504,7 +504,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VOUT3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VOUT2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='VOUT1',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7304', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7304'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'dac 4ch 8bit spi', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7304_7305.pdf', 'pins':[
+        Part(**{ 'name':'AD7304', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7304'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'dac 4ch 8bit spi', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7304_7305.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD7304\n\ndac 4ch 8bit spi', 'pins':[
             Pin(num='1',name='VOUTB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='CLK',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SDI/SHDN',func=Pin.types.INPUT,unit=1),
@@ -521,7 +521,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{LDAC}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='~{CLR}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='~{CS}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7305', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7305'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'dac 4ch 8bit parallel', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7304_7305.pdf', 'pins':[
+        Part(**{ 'name':'AD7305', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7305'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'dac 4ch 8bit parallel', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7304_7305.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD7305\n\ndac 4ch 8bit parallel', 'pins':[
             Pin(num='1',name='VOUTB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='DB4',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DB3',func=Pin.types.INPUT,unit=1),
@@ -542,7 +542,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DB7',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DB6',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DB5',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7390', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7390'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'SPI 12 bit DAC', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7390_7391.pdf', 'pins':[
+        Part(**{ 'name':'AD7390', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7390'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'SPI 12 bit DAC', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7390_7391.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD7390\n\nSPI 12 bit DAC', 'pins':[
             Pin(num='1',name='~{LD}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='CLK',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SDI',func=Pin.types.INPUT,unit=1),
@@ -551,7 +551,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Vout',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='Vdd',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Vref',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7533JN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7533JN'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'10bit DAC 1CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7533.pdf', 'pins':[
+        Part(**{ 'name':'AD7533JN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7533JN'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'10bit DAC 1CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7533.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD7533JN\n\n10bit DAC 1CH', 'pins':[
             Pin(num='1',name='I_OUT1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='D3',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='D2',func=Pin.types.INPUT,unit=1),
@@ -568,7 +568,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D6',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D5',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='D4',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7533JP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7533JP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'10bit DAC 1CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7533.pdf', 'pins':[
+        Part(**{ 'name':'AD7533JP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7533JP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'10bit DAC 1CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7533.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD7533JP\n\n10bit DAC 1CH', 'pins':[
             Pin(num='10',name='D5',func=Pin.types.INPUT,unit=1),
             Pin(num='12',name='D4',func=Pin.types.INPUT,unit=1),
             Pin(num='13',name='D3',func=Pin.types.INPUT,unit=1),
@@ -585,7 +585,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D8',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D7',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='D6',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7533KR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7533KR'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'10bit DAC 1CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7533.pdf', 'pins':[
+        Part(**{ 'name':'AD7533KR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7533KR'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'10bit DAC 1CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7533.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD7533KR\n\n10bit DAC 1CH', 'pins':[
             Pin(num='1',name='I_OUT1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='D3',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='D2',func=Pin.types.INPUT,unit=1),
@@ -602,7 +602,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D6',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D5',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='D4',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD775', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD775'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'DAC CNA', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD775.pdf', 'pins':[
+        Part(**{ 'name':'AD775', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD775'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'DAC CNA', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD775.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD775\n\nDAC CNA', 'pins':[
             Pin(num='1',name='~{OE}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='D7',func=Pin.types.TRISTATE,unit=1),
             Pin(num='11',name='DVDD',func=Pin.types.PWRIN,unit=1),
@@ -627,7 +627,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D4',func=Pin.types.TRISTATE,unit=1),
             Pin(num='8',name='D5',func=Pin.types.TRISTATE,unit=1),
             Pin(num='9',name='D6',func=Pin.types.TRISTATE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD9106BCP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD9106BCP'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-32-1EP_5x5mm_P0.5mm_EP3.6x3.6mm'], 'footprint':'Package_CSP:LFCSP-32-1EP_5x5mm_P0.5mm_EP3.6x3.6mm', 'keywords':'analog devices DAC DDS', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ad9106.pdf', 'pins':[
+        Part(**{ 'name':'AD9106BCP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD9106BCP'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-32-1EP_5x5mm_P0.5mm_EP3.6x3.6mm'], 'footprint':'Package_CSP:LFCSP-32-1EP_5x5mm_P0.5mm_EP3.6x3.6mm', 'keywords':'analog devices DAC DDS', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ad9106.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD9106BCP\n\nanalog devices DAC DDS', 'pins':[
             Pin(num='1',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='IOUTP4',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='IOUTN4',func=Pin.types.OUTPUT,unit=1),
@@ -661,7 +661,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SDO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{RESET}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD9142', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD9142'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-72-1EP_10x10mm_P0.5mm_EP6.15x6.15mm'], 'footprint':'Package_CSP:LFCSP-72-1EP_10x10mm_P0.5mm_EP6.15x6.15mm', 'keywords':'16bit DAC 2CH', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD9142.pdf', 'pins':[
+        Part(**{ 'name':'AD9142', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD9142'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-72-1EP_10x10mm_P0.5mm_EP6.15x6.15mm'], 'footprint':'Package_CSP:LFCSP-72-1EP_10x10mm_P0.5mm_EP6.15x6.15mm', 'keywords':'16bit DAC 2CH', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD9142.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD9142\n\n16bit DAC 2CH', 'pins':[
             Pin(num='1',name='CVDD18',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='D15P',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='D15N',func=Pin.types.INPUT,unit=1),
@@ -735,7 +735,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='73',name='AVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='FRAMEP',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='FRAMEN',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD9744', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD9744'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'14bit DAC 1CH', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD9744.pdf', 'pins':[
+        Part(**{ 'name':'AD9744', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD9744'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'14bit DAC 1CH', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD9744.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD9744\n\n14bit DAC 1CH', 'pins':[
             Pin(num='1',name='D13',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='D4',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='D3',func=Pin.types.INPUT,unit=1),
@@ -762,7 +762,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D7',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D6',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='D5',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'ADS7830', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS7830'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'8bit DAC 8CH', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads7830.pdf', 'pins':[
+        Part(**{ 'name':'ADS7830', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADS7830'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'8bit DAC 8CH', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ads7830.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nADS7830\n\n8bit DAC 8CH', 'pins':[
             Pin(num='1',name='CH0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='REFin/REFout',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='COM',func=Pin.types.INPUT,unit=1),
@@ -779,7 +779,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='CH6',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='CH7',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'CS434x-xZZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CS434x-xZZ'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-10_3x3mm_P0.5mm', 'keywords':'24-bit PCM DAC', 'description':'', 'datasheet':'https://statics.cirrus.com/pubs/proDatasheet/CS4344-45-48_F2.pdf', 'pins':[
+        Part(**{ 'name':'CS434x-xZZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'CS434x-xZZ'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-10_3x3mm_P0.5mm', 'keywords':'24-bit PCM DAC', 'description':'', 'datasheet':'https://statics.cirrus.com/pubs/proDatasheet/CS4344-45-48_F2.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nCS434x-xZZ\n\n24-bit PCM DAC', 'pins':[
             Pin(num='1',name='SDIN',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='AOUTR',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='~{DEM}/SCLK',func=Pin.types.INPUT,unit=1),
@@ -790,7 +790,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AOUTL',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='AGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='VA',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DAC08', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC08'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'DAC CNA', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/DAC08.pdf', 'pins':[
+        Part(**{ 'name':'DAC08', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC08'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'DAC CNA', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/DAC08.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nDAC08\n\nDAC CNA', 'pins':[
             Pin(num='1',name='VLC',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='B5',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='B6',func=Pin.types.INPUT,unit=1),
@@ -807,14 +807,14 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='B2',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='B3',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='B4',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DAC081C081CIMK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC081C081CIMK'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'I2C DAC 8-bit', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/dac081c081.pdf', 'pins':[
+        Part(**{ 'name':'DAC081C081CIMK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC081C081CIMK'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'I2C DAC 8-bit', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/dac081c081.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nDAC081C081CIMK\n\nI2C DAC 8-bit', 'pins':[
             Pin(num='1',name='VOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='VA',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='ADR0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DAC1220E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC1220E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'DAC', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/dac1220.pdf', 'pins':[
+        Part(**{ 'name':'DAC1220E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC1220E'}), 'ref_prefix':'U', 'fplist':['Package_SO:SSOP-16_3.9x4.9mm_P0.635mm'], 'footprint':'Package_SO:SSOP-16_3.9x4.9mm_P0.635mm', 'keywords':'DAC', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/dac1220.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nDAC1220E\n\nDAC', 'pins':[
             Pin(num='1',name='DVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='C2',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='VOUT',func=Pin.types.OUTPUT,unit=1),
@@ -831,14 +831,14 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DNC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='DNC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='9',name='C1',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DAC5311xDCK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC5311xDCK'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-363_SC-70-6'], 'footprint':'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'keywords':'DAC SPI 1-channel', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/dac5311.pdf', 'pins':[
+        Part(**{ 'name':'DAC5311xDCK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC5311xDCK'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-363_SC-70-6'], 'footprint':'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'keywords':'DAC SPI 1-channel', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/dac5311.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nDAC5311xDCK\n\nDAC SPI 1-channel', 'pins':[
             Pin(num='1',name='~{SYNC}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DIN',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='AVDD/AVREF',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='VOUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DAC5578xPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC5578xPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'DAC I2C TWI 8-channel', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/dac5578.pdf', 'pins':[
+        Part(**{ 'name':'DAC5578xPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC5578xPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'DAC I2C TWI 8-channel', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/dac5578.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nDAC5578xPW\n\nDAC I2C TWI 8-channel', 'pins':[
             Pin(num='1',name='~{LDAC}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VOUTH',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='VOUTF',func=Pin.types.OUTPUT,unit=1),
@@ -855,7 +855,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VOUTG',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VREFIN',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{CLR}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DAC5578xRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC5578xRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm', 'keywords':'DAC I2C TWI 8-channel', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/dac5578.pdf', 'pins':[
+        Part(**{ 'name':'DAC5578xRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC5578xRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm', 'keywords':'DAC I2C TWI 8-channel', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/dac5578.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nDAC5578xRGE\n\nDAC I2C TWI 8-channel', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='ADDR1',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='ADDR0',func=Pin.types.INPUT,unit=1),
@@ -881,7 +881,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='VREFIN',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='RSTSEL',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DAC7513_DCN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC7513_DCN'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-8'], 'footprint':'Package_TO_SOT_SMD:SOT-23-8', 'keywords':'TI DAC 12 bit', 'description':'', 'datasheet':'http://www.ti.com.cn/cn/lit/ds/symlink/dac7513.pdf', 'pins':[
+        Part(**{ 'name':'DAC7513_DCN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC7513_DCN'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-8'], 'footprint':'Package_TO_SOT_SMD:SOT-23-8', 'keywords':'TI DAC 12 bit', 'description':'', 'datasheet':'http://www.ti.com.cn/cn/lit/ds/symlink/dac7513.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nDAC7513_DCN\n\nTI DAC 12 bit', 'pins':[
             Pin(num='1',name='VOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='VFB',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='VREF',func=Pin.types.INPUT,unit=1),
@@ -890,7 +890,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='DIN',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{SYNC}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DAC80502', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC80502'}), 'ref_prefix':'U', 'fplist':['Package_SON:Texas_DRX_WSON-10_2.5x2.5mm_P0.5mm'], 'footprint':'Package_SON:Texas_DRX_WSON-10_2.5x2.5mm_P0.5mm', 'keywords':'texas digital-analog converter', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/dac80502.pdf', 'pins':[
+        Part(**{ 'name':'DAC80502', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC80502'}), 'ref_prefix':'U', 'fplist':['Package_SON:Texas_DRX_WSON-10_2.5x2.5mm_P0.5mm'], 'footprint':'Package_SON:Texas_DRX_WSON-10_2.5x2.5mm_P0.5mm', 'keywords':'texas digital-analog converter', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/dac80502.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nDAC80502\n\ntexas digital-analog converter', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN),
             Pin(num='10',name='VREFIO',func=Pin.types.BIDIR),
             Pin(num='2',name='VOUTA',func=Pin.types.OUTPUT),
@@ -901,7 +901,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='SDIN/SDA',func=Pin.types.BIDIR),
             Pin(num='9',name='VOUTB',func=Pin.types.OUTPUT),
             Pin(num='6',name='SCLK/SCL',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DAC80504', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC80504'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RTE0016D_WQFN-16-1EP_3x3mm_P0.5mm_EP0.8x0.8mm_ThermalVias'], 'footprint':'Package_DFN_QFN:Texas_RTE0016D_WQFN-16-1EP_3x3mm_P0.5mm_EP0.8x0.8mm_ThermalVias', 'keywords':'texas quad digital-analog converter', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/dac80504.pdf', 'pins':[
+        Part(**{ 'name':'DAC80504', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC80504'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RTE0016D_WQFN-16-1EP_3x3mm_P0.5mm_EP0.8x0.8mm_ThermalVias'], 'footprint':'Package_DFN_QFN:Texas_RTE0016D_WQFN-16-1EP_3x3mm_P0.5mm_EP0.8x0.8mm_ThermalVias', 'keywords':'texas quad digital-analog converter', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/dac80504.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nDAC80504\n\ntexas quad digital-analog converter', 'pins':[
             Pin(num='1',name='REF',func=Pin.types.BIDIR),
             Pin(num='10',name='REFDIV',func=Pin.types.INPUT),
             Pin(num='11',name='~{LDAC}',func=Pin.types.INPUT),
@@ -919,7 +919,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='GAIN',func=Pin.types.INPUT),
             Pin(num='9',name='RSTSEL',func=Pin.types.INPUT),
             Pin(num='17',name='EP',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DAC8165', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC8165'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'14-bit quad DAC voltage reference', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/dac8165.pdf', 'pins':[
+        Part(**{ 'name':'DAC8165', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC8165'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'14-bit quad DAC voltage reference', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/dac8165.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nDAC8165\n\n14-bit quad DAC voltage reference', 'pins':[
             Pin(num='1',name='VOUTA',func=Pin.types.OUTPUT),
             Pin(num='10',name='SCLK',func=Pin.types.INPUT),
             Pin(num='11',name='DIN',func=Pin.types.INPUT),
@@ -936,7 +936,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VOUTC',func=Pin.types.OUTPUT),
             Pin(num='8',name='VOUTD',func=Pin.types.OUTPUT),
             Pin(num='9',name='~{SYNC}',func=Pin.types.INPUT)], 'unit_defs':[] }),
-        Part(**{ 'name':'DAC8501E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC8501E'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'DAC 16-Bit  Voltage Output Rail-to-Rail SPI', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/dac8501.pdf', 'pins':[
+        Part(**{ 'name':'DAC8501E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC8501E'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'DAC 16-Bit  Voltage Output Rail-to-Rail SPI', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/dac8501.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nDAC8501E\n\nDAC 16-Bit  Voltage Output Rail-to-Rail SPI', 'pins':[
             Pin(num='1',name='V_{DD}',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='V_{REF}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='V_{FB}',func=Pin.types.INPUT,unit=1),
@@ -945,7 +945,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='D_{IN}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DAC8552', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC8552'}), 'ref_prefix':'U', 'fplist':['Package_SO:Texas_S-PDSO-G8_3x3mm_P0.65mm'], 'footprint':'Package_SO:Texas_S-PDSO-G8_3x3mm_P0.65mm', 'keywords':'Texas dual DAC', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/dac8552.pdf', 'pins':[
+        Part(**{ 'name':'DAC8552', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC8552'}), 'ref_prefix':'U', 'fplist':['Package_SO:Texas_S-PDSO-G8_3x3mm_P0.65mm'], 'footprint':'Package_SO:Texas_S-PDSO-G8_3x3mm_P0.65mm', 'keywords':'Texas dual DAC', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/dac8552.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nDAC8552\n\nTexas dual DAC', 'pins':[
             Pin(num='1',name='V_{DD}',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='V_{REF}',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='V_{OUT}B',func=Pin.types.OUTPUT,unit=1),
@@ -954,7 +954,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='D_{IN}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DAC8560IxDGK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC8560IxDGK'}), 'ref_prefix':'U', 'fplist':['Package_SON:VSON-8-1EP_3x3mm_P0.65mm_EP1.65x2.4mm'], 'footprint':'Package_SON:VSON-8-1EP_3x3mm_P0.65mm_EP1.65x2.4mm', 'keywords':'DAC 16-Bit Voltage Output Rail-to-Rail Internal Reference SPI', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/dac8560.pdf', 'pins':[
+        Part(**{ 'name':'DAC8560IxDGK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC8560IxDGK'}), 'ref_prefix':'U', 'fplist':['Package_SON:VSON-8-1EP_3x3mm_P0.65mm_EP1.65x2.4mm'], 'footprint':'Package_SON:VSON-8-1EP_3x3mm_P0.65mm_EP1.65x2.4mm', 'keywords':'DAC 16-Bit Voltage Output Rail-to-Rail Internal Reference SPI', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/dac8560.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nDAC8560IxDGK\n\nDAC 16-Bit Voltage Output Rail-to-Rail Internal Reference SPI', 'pins':[
             Pin(num='1',name='V_{DD}',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='V_{REF}',func=Pin.types.BIDIR,unit=1),
             Pin(num='3',name='V_{FB}',func=Pin.types.INPUT,unit=1),
@@ -963,7 +963,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='D_{IN}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DAC8571IDGK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC8571IDGK'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'DAC 16-Bit Voltage Output Rail-to-Rail I2C', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/dac8571.pdf', 'pins':[
+        Part(**{ 'name':'DAC8571IDGK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC8571IDGK'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'DAC 16-Bit Voltage Output Rail-to-Rail I2C', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/dac8571.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nDAC8571IDGK\n\nDAC 16-Bit Voltage Output Rail-to-Rail I2C', 'pins':[
             Pin(num='1',name='V_{DD}',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='V_{REF}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='V_{SENSE}',func=Pin.types.INPUT,unit=1),
@@ -972,7 +972,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DAC8750xRHA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC8750xRHA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA_VQFN-40-1EP_6x6mm_P0.5mm_EP4.6x4.6mm_ThermalVias'], 'footprint':'Package_DFN_QFN:Texas_RHA_VQFN-40-1EP_6x6mm_P0.5mm_EP4.6x4.6mm_ThermalVias', 'keywords':'DAC Current Loop 20mA', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/dac7750.pdf', 'pins':[
+        Part(**{ 'name':'DAC8750xRHA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC8750xRHA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA_VQFN-40-1EP_6x6mm_P0.5mm_EP4.6x4.6mm_ThermalVias'], 'footprint':'Package_DFN_QFN:Texas_RHA_VQFN-40-1EP_6x6mm_P0.5mm_EP4.6x4.6mm_ThermalVias', 'keywords':'DAC Current Loop 20mA', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/dac7750.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nDAC8750xRHA\n\nDAC Current Loop 20mA', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -1014,7 +1014,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DIN',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='SDO',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC1257', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1257'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'DAC 12-bit', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1257fc.pdf', 'pins':[
+        Part(**{ 'name':'LTC1257', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1257'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'DAC 12-bit', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1257fc.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nLTC1257\n\nDAC 12-bit', 'pins':[
             Pin(num='1',name='CKL',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='DIN',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~{LOAD}',func=Pin.types.INPUT,unit=1),
@@ -1023,7 +1023,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VREF',func=Pin.types.BIDIR,unit=1),
             Pin(num='7',name='VOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC1446', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1446'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'12-Bit DAC SPI Reference 2ch', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1446fa.pdf', 'pins':[
+        Part(**{ 'name':'LTC1446', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1446'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'12-Bit DAC SPI Reference 2ch', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1446fa.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nLTC1446\n\n12-Bit DAC SPI Reference 2ch', 'pins':[
             Pin(num='1',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='SDI',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~{CS}/LD',func=Pin.types.INPUT,unit=1),
@@ -1032,7 +1032,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VB',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC1664CGN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1664CGN'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Quad DAC Micropower 10bit 4ch', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1664fa.pdf', 'pins':[
+        Part(**{ 'name':'LTC1664CGN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1664CGN'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Quad DAC Micropower 10bit 4ch', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1664fa.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nLTC1664CGN\n\nQuad DAC Micropower 10bit 4ch', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='~{CLR}',func=Pin.types.INPUT,unit=1),
@@ -1049,7 +1049,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{CS}/LD',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DIN',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX5139', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX5139'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-16-1EP_3x3mm_P0.5mm_EP1.23x1.23mm'], 'footprint':'Package_DFN_QFN:TQFN-16-1EP_3x3mm_P0.5mm_EP1.23x1.23mm', 'keywords':'12-bit DAC 1CH', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX5138-MAX5139.pdf', 'pins':[
+        Part(**{ 'name':'MAX5139', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX5139'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-16-1EP_3x3mm_P0.5mm_EP1.23x1.23mm'], 'footprint':'Package_DFN_QFN:TQFN-16-1EP_3x3mm_P0.5mm_EP1.23x1.23mm', 'keywords':'12-bit DAC 1CH', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX5138-MAX5139.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMAX5139\n\n12-bit DAC 1CH', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='~{READY}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='DVDD',func=Pin.types.PWRIN,unit=1),
@@ -1066,7 +1066,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIN',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='AGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX5215', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX5215'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'DA 14 Bit 1 ch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX5215-MAX5217.pdf', 'pins':[
+        Part(**{ 'name':'MAX5215', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX5215'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'DA 14 Bit 1 ch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX5215-MAX5217.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMAX5215\n\nDA 14 Bit 1 ch', 'pins':[
             Pin(num='1',name='REF',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='ADDR',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SCL',func=Pin.types.INPUT,unit=1),
@@ -1075,7 +1075,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX5717xSD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX5717xSD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'DAC', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX5717-MAX5719.pdf', 'pins':[
+        Part(**{ 'name':'MAX5717xSD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX5717xSD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'DAC', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX5717-MAX5719.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMAX5717xSD\n\nDAC', 'pins':[
             Pin(num='1',name='RFB',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='DIN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~{LDAC}',func=Pin.types.INPUT,unit=1),
@@ -1090,7 +1090,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX5741', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX5741'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'DA 8 Bit 4 ch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX5741.pdf', 'pins':[
+        Part(**{ 'name':'MAX5741', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX5741'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'DA 8 Bit 4 ch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX5741.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMAX5741\n\nDA 8 Bit 4 ch', 'pins':[
             Pin(num='1',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='OUTD',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='SCLK',func=Pin.types.INPUT,unit=1),
@@ -1101,7 +1101,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='OUTA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='OUTB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='OUTC',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX5813', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX5813'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'DA 8 Bit 4 ch', 'description':'', 'datasheet':'http://datasheets.maximintegrated.com/en/ds/MAX5813-MAX5815.pdf', 'pins':[
+        Part(**{ 'name':'MAX5813', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX5813'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'DA 8 Bit 4 ch', 'description':'', 'datasheet':'http://datasheets.maximintegrated.com/en/ds/MAX5813-MAX5815.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMAX5813\n\nDA 8 Bit 4 ch', 'pins':[
             Pin(num='1',name='REF',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SDA',func=Pin.types.BIDIR,unit=1),
@@ -1116,7 +1116,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='ADDR1',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='ADDR0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX5813WLP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX5813WLP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'DA 8 Bit 4 ch', 'description':'', 'datasheet':'http://datasheets.maximintegrated.com/en/ds/MAX5813-MAX5815.pdf', 'pins':[
+        Part(**{ 'name':'MAX5813WLP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX5813WLP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'DA 8 Bit 4 ch', 'description':'', 'datasheet':'http://datasheets.maximintegrated.com/en/ds/MAX5813-MAX5815.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMAX5813WLP\n\nDA 8 Bit 4 ch', 'pins':[
             Pin(num='A1',name='OUTA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='A2',name='OUTB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='A3',name='OUTC',func=Pin.types.OUTPUT,unit=1),
@@ -1129,7 +1129,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='C2',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='C3',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='C4',name='ADDR0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC1408_DIP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC1408_DIP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'8 bit multiplying DAC', 'description':'', 'datasheet':'http://www.pinballpcb.com/datasheets/OnMC1408-dac.pdf', 'pins':[
+        Part(**{ 'name':'MC1408_DIP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC1408_DIP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'8 bit multiplying DAC', 'description':'', 'datasheet':'http://www.pinballpcb.com/datasheets/OnMC1408-dac.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMC1408_DIP\n\n8 bit multiplying DAC', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='A3',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='A2',func=Pin.types.INPUT,unit=1),
@@ -1146,7 +1146,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A5',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A4',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC1408_SOIC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC1408_SOIC'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'8 bit multiplying DAC', 'description':'', 'datasheet':'http://www.pinballpcb.com/datasheets/OnMC1408-dac.pdf', 'pins':[
+        Part(**{ 'name':'MC1408_SOIC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC1408_SOIC'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'8 bit multiplying DAC', 'description':'', 'datasheet':'http://www.pinballpcb.com/datasheets/OnMC1408-dac.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMC1408_SOIC\n\n8 bit multiplying DAC', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='A2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='A3',func=Pin.types.INPUT,unit=1),
@@ -1163,14 +1163,14 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VEE',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='I0',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4725xxx-xCH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4725xxx-xCH'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'dac twi', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22039d.pdf', 'pins':[
+        Part(**{ 'name':'MCP4725xxx-xCH', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4725xxx-xCH'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'dac twi', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22039d.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMCP4725xxx-xCH\n\ndac twi', 'pins':[
             Pin(num='1',name='VOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='A0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4728', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4728'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'dac i2c', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22187E.pdf', 'pins':[
+        Part(**{ 'name':'MCP4728', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4728'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'dac i2c', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22187E.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMCP4728\n\ndac i2c', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='SCL',func=Pin.types.INPUT,unit=1),
@@ -1181,7 +1181,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VOUTB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VOUTC',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='VOUTD',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4801', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4801'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8-Bit DAC SPI Reference 1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22244B.pdf', 'pins':[
+        Part(**{ 'name':'MCP4801', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4801'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8-Bit DAC SPI Reference 1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22244B.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMCP4801\n\n8-Bit DAC SPI Reference 1ch', 'pins':[
             Pin(num='1',name='Vdd',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SCK',func=Pin.types.INPUT,unit=1),
@@ -1190,7 +1190,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~{SHDN}',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='Vss',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Vout',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4801-EMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4801-EMC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'keywords':'8-Bit DAC SPI Reference 1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22244B.pdf', 'pins':[
+        Part(**{ 'name':'MCP4801-EMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4801-EMC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'keywords':'8-Bit DAC SPI Reference 1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22244B.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMCP4801-EMC\n\n8-Bit DAC SPI Reference 1ch', 'pins':[
             Pin(num='1',name='Vdd',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SCK',func=Pin.types.INPUT,unit=1),
@@ -1200,7 +1200,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Vss',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Vout',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='PAD/Vss',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4802', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4802'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8-Bit DAC SPI Reference 2ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20002249B.pdf', 'pins':[
+        Part(**{ 'name':'MCP4802', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4802'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8-Bit DAC SPI Reference 2ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20002249B.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMCP4802\n\n8-Bit DAC SPI Reference 2ch', 'pins':[
             Pin(num='1',name='Vdd',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SCK',func=Pin.types.INPUT,unit=1),
@@ -1209,7 +1209,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='Vss',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VA',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4901', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4901'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8-Bit DAC SPI  1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22248a.pdf', 'pins':[
+        Part(**{ 'name':'MCP4901', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4901'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8-Bit DAC SPI  1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22248a.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMCP4901\n\n8-Bit DAC SPI  1ch', 'pins':[
             Pin(num='1',name='Vdd',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SCK',func=Pin.types.INPUT,unit=1),
@@ -1218,7 +1218,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Vref',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='Vss',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Vout',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4901-EMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4901-EMC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'keywords':'8-Bit DAC SPI  1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22248a.pdf', 'pins':[
+        Part(**{ 'name':'MCP4901-EMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4901-EMC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'keywords':'8-Bit DAC SPI  1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22248a.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMCP4901-EMC\n\n8-Bit DAC SPI  1ch', 'pins':[
             Pin(num='1',name='Vdd',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SCK',func=Pin.types.INPUT,unit=1),
@@ -1228,7 +1228,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Vss',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Vout',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='PAD/Vss',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4902', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4902'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8-Bit DAC SPI  2ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22250A.pdf', 'pins':[
+        Part(**{ 'name':'MCP4902', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4902'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'8-Bit DAC SPI  2ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22250A.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMCP4902\n\n8-Bit DAC SPI  2ch', 'pins':[
             Pin(num='1',name='Vdd',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='VrefB',func=Pin.types.INPUT,unit=1),
@@ -1242,8 +1242,8 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='~{LDAC}',func=Pin.types.INPUT,unit=1),
-            Pin(num='9',name='~{SHDN}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4921-EMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4921-EMS'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Single DAC 1ch 12bit SPI', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/21897a.pdf', 'pins':[
+            Pin(num='9',name='~{SHDN}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'MCP4921-EMS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4921-EMS'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Single DAC 1ch 12bit SPI', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/21897a.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMCP4921-EMS\n\nSingle DAC 1ch 12bit SPI', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SCK',func=Pin.types.INPUT,unit=1),
@@ -1252,7 +1252,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VrefA',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='AVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VoutA',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4922-EP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4922-EP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Dual DAC 1ch 12bit SPI', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/21897a.pdf', 'pins':[
+        Part(**{ 'name':'MCP4922-EP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4922-EP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'Dual DAC 1ch 12bit SPI', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/21897a.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMCP4922-EP\n\nDual DAC 1ch 12bit SPI', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VoutB',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='VrefB',func=Pin.types.PASSIVE,unit=1),
@@ -1267,7 +1267,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='~{LDAC}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{SHDN}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'THS5641AxDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'THS5641AxDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'DAC IDAC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ths5641a.pdf', 'pins':[
+        Part(**{ 'name':'THS5641AxDW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'THS5641AxDW'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm', 'keywords':'DAC IDAC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ths5641a.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nTHS5641AxDW\n\nDAC IDAC', 'pins':[
             Pin(num='1',name='D7',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -1296,7 +1296,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D0',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'THS5641AxPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'THS5641AxPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'DAC IDAC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ths5641a.pdf', 'pins':[
+        Part(**{ 'name':'THS5641AxPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'THS5641AxPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm', 'keywords':'DAC IDAC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/ths5641a.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nTHS5641AxPW\n\nDAC IDAC', 'pins':[
             Pin(num='1',name='D7',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -1325,7 +1325,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D1',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D0',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLV5627CD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLV5627CD'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'DAC 4CH 8bit', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tlv5627.pdf', 'pins':[
+        Part(**{ 'name':'TLV5627CD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLV5627CD'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'DAC 4CH 8bit', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tlv5627.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nTLV5627CD\n\nDAC 4CH 8bit', 'pins':[
             Pin(num='1',name='DVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='REFINCD',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='OUTD',func=Pin.types.OUTPUT,unit=1),
@@ -1342,7 +1342,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='FS',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='AGND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD390KD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD390KD'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'4ch DAC 12bit', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD390MIL.pdf', 'pins':[
+        Part(**{ 'name':'AD390KD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD390KD'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'4ch DAC 12bit', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD390MIL.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD390KD\n\n4ch DAC 12bit', 'pins':[
             Pin(num='1',name='D0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='D9',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='D10',func=Pin.types.INPUT,unit=1),
@@ -1371,7 +1371,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D6',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D7',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='D8',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD558KN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD558KN'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'8bit DAC Reference Single Supply', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD558.pdf', 'pins':[
+        Part(**{ 'name':'AD558KN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD558KN'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'8bit DAC Reference Single Supply', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD558.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD558KN\n\n8bit DAC Reference Single Supply', 'pins':[
             Pin(num='1',name='DB0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='V+',func=Pin.types.PWRIN,unit=1),
@@ -1388,7 +1388,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DB6',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DB7',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{CE}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD558KP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD558KP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'8bit DAC Reference Single Supply', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD558.pdf', 'pins':[
+        Part(**{ 'name':'AD558KP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD558KP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'8bit DAC Reference Single Supply', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD558.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD558KP\n\n8bit DAC Reference Single Supply', 'pins':[
             Pin(num='10',name='DB7',func=Pin.types.INPUT,unit=1),
             Pin(num='12',name='~{CE}',func=Pin.types.INPUT,unit=1),
             Pin(num='13',name='~{CS}',func=Pin.types.INPUT,unit=1),
@@ -1405,7 +1405,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DB4',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DB5',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DB6',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD5687RBCPZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5687RBCPZ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.854x1.854mm', 'Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.854x1.854mm'], 'footprint':'Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.854x1.854mm', 'keywords':'dac 2nch 12bit spi', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5689R_5687R.pdf', 'pins':[
+        Part(**{ 'name':'AD5687RBCPZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5687RBCPZ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.854x1.854mm', 'Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.854x1.854mm'], 'footprint':'Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.854x1.854mm', 'keywords':'dac 2nch 12bit spi', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5689R_5687R.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD5687RBCPZ\n\ndac 2nch 12bit spi', 'pins':[
             Pin(num='1',name='VOUTA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~{SYNC}',func=Pin.types.INPUT,unit=1),
@@ -1423,7 +1423,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{LDAC}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GAIN',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VLOGIC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD5687RBRUZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5687RBRUZ'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'dac 2nch 12bit spi', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5689R_5687R.pdf', 'pins':[
+        Part(**{ 'name':'AD5687RBRUZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5687RBRUZ'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'dac 2nch 12bit spi', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5689R_5687R.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD5687RBRUZ\n\ndac 2nch 12bit spi', 'pins':[
             Pin(num='1',name='VREF',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GAIN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VLOGIC',func=Pin.types.PWRIN,unit=1),
@@ -1440,7 +1440,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VOUTB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='SDO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='~{LDAC}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD5689BCPZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5689BCPZ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.854x1.854mm', 'Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.854x1.854mm', 'Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.854x1.854mm'], 'footprint':'Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.854x1.854mm', 'keywords':'dac 2nch 16bit spi', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5689_5687.pdf', 'pins':[
+        Part(**{ 'name':'AD5689BCPZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5689BCPZ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.854x1.854mm', 'Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.854x1.854mm', 'Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.854x1.854mm'], 'footprint':'Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.854x1.854mm', 'keywords':'dac 2nch 16bit spi', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5689_5687.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD5689BCPZ\n\ndac 2nch 16bit spi', 'pins':[
             Pin(num='1',name='VOUTA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~{SYNC}',func=Pin.types.INPUT,unit=1),
@@ -1458,7 +1458,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{LDAC}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GAIN',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VLOGIC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD5689BRUZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5689BRUZ'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'dac 2nch 16bit spi', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5689_5687.pdf', 'pins':[
+        Part(**{ 'name':'AD5689BRUZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5689BRUZ'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'dac 2nch 16bit spi', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5689_5687.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD5689BRUZ\n\ndac 2nch 16bit spi', 'pins':[
             Pin(num='1',name='VREF',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GAIN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VLOGIC',func=Pin.types.PWRIN,unit=1),
@@ -1475,7 +1475,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VOUTB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='SDO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='~{LDAC}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD5689RxCPZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5689RxCPZ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.854x1.854mm', 'Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.854x1.854mm', 'Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.854x1.854mm', 'Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.854x1.854mm'], 'footprint':'Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.854x1.854mm', 'keywords':'dac 2nch 16bit spi', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5689R_5687R.pdf', 'pins':[
+        Part(**{ 'name':'AD5689RxCPZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5689RxCPZ'}), 'ref_prefix':'U', 'fplist':['Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.854x1.854mm', 'Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.854x1.854mm', 'Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.854x1.854mm', 'Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.854x1.854mm'], 'footprint':'Package_CSP:LFCSP-16-1EP_3x3mm_P0.5mm_EP1.854x1.854mm', 'keywords':'dac 2nch 16bit spi', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5689R_5687R.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD5689RxCPZ\n\ndac 2nch 16bit spi', 'pins':[
             Pin(num='1',name='VOUTA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~{SYNC}',func=Pin.types.INPUT,unit=1),
@@ -1493,7 +1493,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{LDAC}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GAIN',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='VLOGIC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD5689RxRUZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5689RxRUZ'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'dac 2nch 16bit spi', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5689R_5687R.pdf', 'pins':[
+        Part(**{ 'name':'AD5689RxRUZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5689RxRUZ'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'dac 2nch 16bit spi', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5689R_5687R.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD5689RxRUZ\n\ndac 2nch 16bit spi', 'pins':[
             Pin(num='1',name='VREF',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='GAIN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='VLOGIC',func=Pin.types.PWRIN,unit=1),
@@ -1510,7 +1510,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VOUTB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='SDO',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='~{LDAC}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD5692RxRM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5692RxRM'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm', 'Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'serial DAC i2c digital analog converter', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5693R_5692R_5691R_5693.pdf', 'pins':[
+        Part(**{ 'name':'AD5692RxRM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5692RxRM'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm', 'Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'serial DAC i2c digital analog converter', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5693R_5692R_5691R_5693.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD5692RxRM\n\nserial DAC i2c digital analog converter', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='VLOGIC',func=Pin.types.PWRIN,unit=1),
@@ -1521,7 +1521,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VREF',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD5693RxRM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5693RxRM'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm', 'Package_SO:MSOP-10_3x3mm_P0.5mm', 'Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'serial DAC i2c digital analog converter', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5693R_5692R_5691R_5693.pdf', 'pins':[
+        Part(**{ 'name':'AD5693RxRM', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5693RxRM'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-10_3x3mm_P0.5mm', 'Package_SO:MSOP-10_3x3mm_P0.5mm', 'Package_SO:MSOP-10_3x3mm_P0.5mm'], 'footprint':'Package_SO:MSOP-10_3x3mm_P0.5mm', 'keywords':'serial DAC i2c digital analog converter', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD5693R_5692R_5691R_5693.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD5693RxRM\n\nserial DAC i2c digital analog converter', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='VLOGIC',func=Pin.types.PWRIN,unit=1),
@@ -1532,7 +1532,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VREF',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD5791xRUZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5791xRUZ'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'1ch', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ad5791.pdf', 'pins':[
+        Part(**{ 'name':'AD5791xRUZ', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD5791xRUZ'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm', 'keywords':'1ch', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/ad5791.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD5791xRUZ\n\n1ch', 'pins':[
             Pin(num='1',name='INV',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='IOV_{CC}',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='SDO',func=Pin.types.OUTPUT,unit=1),
@@ -1553,7 +1553,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{CLR}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{LDAC}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='V_{CC}',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7224LN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7224LN'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'8bit DAC Dual Single Supply', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7224.pdf', 'pins':[
+        Part(**{ 'name':'AD7224LN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7224LN'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'8bit DAC Dual Single Supply', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7224.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD7224LN\n\n8bit DAC Dual Single Supply', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DB3',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DB2',func=Pin.types.INPUT,unit=1),
@@ -1572,7 +1572,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DB6',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DB5',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DB4',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7224LP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7224LP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'8bit DAC Dual Single Supply', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7224.pdf', 'pins':[
+        Part(**{ 'name':'AD7224LP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7224LP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'8bit DAC Dual Single Supply', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7224.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD7224LP\n\n8bit DAC Dual Single Supply', 'pins':[
             Pin(num='10',name='DB4',func=Pin.types.INPUT,unit=1),
             Pin(num='12',name='DB3',func=Pin.types.INPUT,unit=1),
             Pin(num='13',name='DB2',func=Pin.types.INPUT,unit=1),
@@ -1591,7 +1591,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DB7(MSB)',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DB6',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DB5',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7224LR-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7224LR-1'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'8bit DAC Dual Single Supply', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7224.pdf', 'pins':[
+        Part(**{ 'name':'AD7224LR-1', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7224LR-1'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'8bit DAC Dual Single Supply', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7224.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD7224LR-1\n\n8bit DAC Dual Single Supply', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='12',name='DB3',func=Pin.types.INPUT,unit=1),
             Pin(num='13',name='DB2',func=Pin.types.INPUT,unit=1),
@@ -1610,7 +1610,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DB6',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DB5',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DB4',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7224LR-18', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7224LR-18'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'8bit DAC Dual Single Supply', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7224.pdf', 'pins':[
+        Part(**{ 'name':'AD7224LR-18', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7224LR-18'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'8bit DAC Dual Single Supply', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7224.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD7224LR-18\n\n8bit DAC Dual Single Supply', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DB3',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DB2',func=Pin.types.INPUT,unit=1),
@@ -1629,7 +1629,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DB6',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DB5',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DB4',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7225CRS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7225CRS'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'8bit DAC 4CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7225.pdf', 'pins':[
+        Part(**{ 'name':'AD7225CRS', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7225CRS'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'8bit DAC 4CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7225.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD7225CRS\n\n8bit DAC 4CH', 'pins':[
             Pin(num='1',name='VOUTB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='DB6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DB5',func=Pin.types.INPUT,unit=1),
@@ -1654,7 +1654,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='~{LDAC}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DB7',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7225LN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7225LN'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'8bit DAC 4CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7225.pdf', 'pins':[
+        Part(**{ 'name':'AD7225LN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7225LN'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'8bit DAC 4CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7225.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD7225LN\n\n8bit DAC 4CH', 'pins':[
             Pin(num='1',name='VOUTB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='DB6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DB5',func=Pin.types.INPUT,unit=1),
@@ -1679,7 +1679,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='~{LDAC}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DB7',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7225LP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7225LP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'8bit DAC 4CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7225.pdf', 'pins':[
+        Part(**{ 'name':'AD7225LP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7225LP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'8bit DAC 4CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7225.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD7225LP\n\n8bit DAC 4CH', 'pins':[
             Pin(num='10',name='~{LDAC}',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DB7',func=Pin.types.INPUT,unit=1),
             Pin(num='12',name='DB6',func=Pin.types.INPUT,unit=1),
@@ -1704,7 +1704,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VREFA',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='AGND',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7225LR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7225LR'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'8bit DAC 4CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7225.pdf', 'pins':[
+        Part(**{ 'name':'AD7225LR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7225LR'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'8bit DAC 4CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7225.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD7225LR\n\n8bit DAC 4CH', 'pins':[
             Pin(num='1',name='VOUTB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='DB6',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='DB5',func=Pin.types.INPUT,unit=1),
@@ -1729,7 +1729,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='~{LDAC}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DB7',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7228ACN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7228ACN'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'8bit DAC 8CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7228.pdf', 'pins':[
+        Part(**{ 'name':'AD7228ACN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7228ACN'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'8bit DAC 8CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7228.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD7228ACN\n\n8bit DAC 8CH', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='VREF',func=Pin.types.PASSIVE,unit=1),
@@ -1754,7 +1754,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VOUT3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VOUT2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='VOUT1',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7228ACP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7228ACP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'8bit DAC 8CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7228.pdf', 'pins':[
+        Part(**{ 'name':'AD7228ACP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7228ACP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'8bit DAC 8CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7228.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD7228ACP\n\n8bit DAC 8CH', 'pins':[
             Pin(num='10',name='VOUT2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='VOUT1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='12',name='VSS',func=Pin.types.PWRIN,unit=1),
@@ -1779,7 +1779,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VOUT5',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VOUT4',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='VOUT3',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7228ACR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7228ACR'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'8bit DAC 8CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7228.pdf', 'pins':[
+        Part(**{ 'name':'AD7228ACR', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7228ACR'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'8bit DAC 8CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7228.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD7228ACR\n\n8bit DAC 8CH', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='11',name='VREF',func=Pin.types.PASSIVE,unit=1),
@@ -1804,7 +1804,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VOUT3',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VOUT2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='VOUT1',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7391', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7391'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'SPI 10 bit DAC', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7390_7391.pdf', 'pins':[
+        Part(**{ 'name':'AD7391', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7391'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'SPI 10 bit DAC', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/AD7390_7391.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD7391\n\nSPI 10 bit DAC', 'pins':[
             Pin(num='1',name='~{LD}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='CLK',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SDI',func=Pin.types.INPUT,unit=1),
@@ -1813,7 +1813,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Vout',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='Vdd',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Vref',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7533KN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7533KN'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'10bit DAC 1CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7533.pdf', 'pins':[
+        Part(**{ 'name':'AD7533KN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7533KN'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'10bit DAC 1CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7533.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD7533KN\n\n10bit DAC 1CH', 'pins':[
             Pin(num='1',name='I_OUT1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='D3',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='D2',func=Pin.types.INPUT,unit=1),
@@ -1830,7 +1830,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D6',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D5',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='D4',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7533KP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7533KP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'10bit DAC 1CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7533.pdf', 'pins':[
+        Part(**{ 'name':'AD7533KP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7533KP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'10bit DAC 1CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7533.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD7533KP\n\n10bit DAC 1CH', 'pins':[
             Pin(num='10',name='D5',func=Pin.types.INPUT,unit=1),
             Pin(num='12',name='D4',func=Pin.types.INPUT,unit=1),
             Pin(num='13',name='D3',func=Pin.types.INPUT,unit=1),
@@ -1847,7 +1847,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D8',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D7',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='D6',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'AD7533LN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7533LN'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'10bit DAC 1CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7533.pdf', 'pins':[
+        Part(**{ 'name':'AD7533LN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'AD7533LN'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'10bit DAC 1CH', 'description':'', 'datasheet':'https://www.analog.com/static/imported-files/data_sheets/AD7533.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nAD7533LN\n\n10bit DAC 1CH', 'pins':[
             Pin(num='1',name='I_OUT1',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='D3',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='D2',func=Pin.types.INPUT,unit=1),
@@ -1864,7 +1864,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D6',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='D5',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='D4',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DAC0808_DIP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC0808_DIP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm', 'Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'8 bit multiplying DAC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/dac0808.pdf', 'pins':[
+        Part(**{ 'name':'DAC0808_DIP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC0808_DIP'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-16_W7.62mm', 'Package_DIP:DIP-16_W7.62mm'], 'footprint':'Package_DIP:DIP-16_W7.62mm', 'keywords':'8 bit multiplying DAC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/dac0808.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nDAC0808_DIP\n\n8 bit multiplying DAC', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='A3',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='A2',func=Pin.types.INPUT,unit=1),
@@ -1881,7 +1881,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A6',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='A5',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A4',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DAC0808_SOIC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC0808_SOIC'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'8 bit multiplying DAC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/dac0808.pdf', 'pins':[
+        Part(**{ 'name':'DAC0808_SOIC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC0808_SOIC'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm'], 'footprint':'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm', 'keywords':'8 bit multiplying DAC', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/dac0808.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nDAC0808_SOIC\n\n8 bit multiplying DAC', 'pins':[
             Pin(num='1',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='A2',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='A3',func=Pin.types.INPUT,unit=1),
@@ -1898,21 +1898,21 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VEE',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='I0',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='A1',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DAC101C081CIMK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC101C081CIMK'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'I2C DAC 10-bit', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/dac101c081.pdf', 'pins':[
+        Part(**{ 'name':'DAC101C081CIMK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC101C081CIMK'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'I2C DAC 10-bit', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/dac101c081.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nDAC101C081CIMK\n\nI2C DAC 10-bit', 'pins':[
             Pin(num='1',name='VOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='VA',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='ADR0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DAC121C081CIMK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC121C081CIMK'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'I2C DAC 12-bit', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/dac121c081.pdf', 'pins':[
+        Part(**{ 'name':'DAC121C081CIMK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC121C081CIMK'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6', 'Package_TO_SOT_SMD:SOT-23-6'], 'footprint':'Package_TO_SOT_SMD:SOT-23-6', 'keywords':'I2C DAC 12-bit', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/dac121c081.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nDAC121C081CIMK\n\nI2C DAC 12-bit', 'pins':[
             Pin(num='1',name='VOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='2',name='VA',func=Pin.types.PWRIN,unit=1),
             Pin(num='3',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='4',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='5',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='6',name='ADR0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DAC60502', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC60502'}), 'ref_prefix':'U', 'fplist':['Package_SON:Texas_DRX_WSON-10_2.5x2.5mm_P0.5mm', 'Package_SON:Texas_DRX_WSON-10_2.5x2.5mm_P0.5mm'], 'footprint':'Package_SON:Texas_DRX_WSON-10_2.5x2.5mm_P0.5mm', 'keywords':'texas digital-analog converter', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/dac80502.pdf', 'pins':[
+        Part(**{ 'name':'DAC60502', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC60502'}), 'ref_prefix':'U', 'fplist':['Package_SON:Texas_DRX_WSON-10_2.5x2.5mm_P0.5mm', 'Package_SON:Texas_DRX_WSON-10_2.5x2.5mm_P0.5mm'], 'footprint':'Package_SON:Texas_DRX_WSON-10_2.5x2.5mm_P0.5mm', 'keywords':'texas digital-analog converter', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/dac80502.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nDAC60502\n\ntexas digital-analog converter', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN),
             Pin(num='10',name='VREFIO',func=Pin.types.BIDIR),
             Pin(num='2',name='VOUTA',func=Pin.types.OUTPUT),
@@ -1923,7 +1923,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='SDIN/SDA',func=Pin.types.BIDIR),
             Pin(num='9',name='VOUTB',func=Pin.types.OUTPUT),
             Pin(num='6',name='SCLK/SCL',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DAC60504', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC60504'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RTE0016D_WQFN-16-1EP_3x3mm_P0.5mm_EP0.8x0.8mm_ThermalVias', 'Package_DFN_QFN:Texas_RTE0016D_WQFN-16-1EP_3x3mm_P0.5mm_EP0.8x0.8mm_ThermalVias'], 'footprint':'Package_DFN_QFN:Texas_RTE0016D_WQFN-16-1EP_3x3mm_P0.5mm_EP0.8x0.8mm_ThermalVias', 'keywords':'texas quad digital-analog converter', 'description':'', 'datasheet':'https://www.ti.com/lit/gpn/dac60504', 'pins':[
+        Part(**{ 'name':'DAC60504', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC60504'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RTE0016D_WQFN-16-1EP_3x3mm_P0.5mm_EP0.8x0.8mm_ThermalVias', 'Package_DFN_QFN:Texas_RTE0016D_WQFN-16-1EP_3x3mm_P0.5mm_EP0.8x0.8mm_ThermalVias'], 'footprint':'Package_DFN_QFN:Texas_RTE0016D_WQFN-16-1EP_3x3mm_P0.5mm_EP0.8x0.8mm_ThermalVias', 'keywords':'texas quad digital-analog converter', 'description':'', 'datasheet':'https://www.ti.com/lit/gpn/dac60504', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nDAC60504\n\ntexas quad digital-analog converter', 'pins':[
             Pin(num='1',name='REF',func=Pin.types.BIDIR),
             Pin(num='10',name='REFDIV',func=Pin.types.INPUT),
             Pin(num='11',name='~{LDAC}',func=Pin.types.INPUT),
@@ -1941,14 +1941,14 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='GAIN',func=Pin.types.INPUT),
             Pin(num='9',name='RSTSEL',func=Pin.types.INPUT),
             Pin(num='17',name='EP',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DAC6311xDCK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC6311xDCK'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6'], 'footprint':'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'keywords':'DAC SPI 1-channel', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/dac5311.pdf', 'pins':[
+        Part(**{ 'name':'DAC6311xDCK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC6311xDCK'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6'], 'footprint':'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'keywords':'DAC SPI 1-channel', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/dac5311.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nDAC6311xDCK\n\nDAC SPI 1-channel', 'pins':[
             Pin(num='1',name='~{SYNC}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DIN',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='AVDD/AVREF',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='VOUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DAC6578xPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC6578xPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'DAC I2C TWI 8-channel', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/dac5578.pdf', 'pins':[
+        Part(**{ 'name':'DAC6578xPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC6578xPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'DAC I2C TWI 8-channel', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/dac5578.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nDAC6578xPW\n\nDAC I2C TWI 8-channel', 'pins':[
             Pin(num='1',name='~{LDAC}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VOUTH',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='VOUTF',func=Pin.types.OUTPUT,unit=1),
@@ -1965,7 +1965,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VOUTG',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VREFIN',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{CLR}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DAC6578xRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC6578xRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm', 'keywords':'DAC I2C TWI 8-channel', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/dac5578.pdf', 'pins':[
+        Part(**{ 'name':'DAC6578xRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC6578xRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm', 'keywords':'DAC I2C TWI 8-channel', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/dac5578.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nDAC6578xRGE\n\nDAC I2C TWI 8-channel', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='ADDR1',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='ADDR0',func=Pin.types.INPUT,unit=1),
@@ -1991,7 +1991,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='VREFIN',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='RSTSEL',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DAC70502', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC70502'}), 'ref_prefix':'U', 'fplist':['Package_SON:Texas_DRX_WSON-10_2.5x2.5mm_P0.5mm', 'Package_SON:Texas_DRX_WSON-10_2.5x2.5mm_P0.5mm', 'Package_SON:Texas_DRX_WSON-10_2.5x2.5mm_P0.5mm'], 'footprint':'Package_SON:Texas_DRX_WSON-10_2.5x2.5mm_P0.5mm', 'keywords':'texas digital-analog converter', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/dac80502.pdf', 'pins':[
+        Part(**{ 'name':'DAC70502', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC70502'}), 'ref_prefix':'U', 'fplist':['Package_SON:Texas_DRX_WSON-10_2.5x2.5mm_P0.5mm', 'Package_SON:Texas_DRX_WSON-10_2.5x2.5mm_P0.5mm', 'Package_SON:Texas_DRX_WSON-10_2.5x2.5mm_P0.5mm'], 'footprint':'Package_SON:Texas_DRX_WSON-10_2.5x2.5mm_P0.5mm', 'keywords':'texas digital-analog converter', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/dac80502.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nDAC70502\n\ntexas digital-analog converter', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN),
             Pin(num='10',name='VREFIO',func=Pin.types.BIDIR),
             Pin(num='2',name='VOUTA',func=Pin.types.OUTPUT),
@@ -2002,7 +2002,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='SDIN/SDA',func=Pin.types.BIDIR),
             Pin(num='9',name='VOUTB',func=Pin.types.OUTPUT),
             Pin(num='6',name='SCLK/SCL',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DAC70504', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC70504'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RTE0016D_WQFN-16-1EP_3x3mm_P0.5mm_EP0.8x0.8mm_ThermalVias', 'Package_DFN_QFN:Texas_RTE0016D_WQFN-16-1EP_3x3mm_P0.5mm_EP0.8x0.8mm_ThermalVias', 'Package_DFN_QFN:Texas_RTE0016D_WQFN-16-1EP_3x3mm_P0.5mm_EP0.8x0.8mm_ThermalVias'], 'footprint':'Package_DFN_QFN:Texas_RTE0016D_WQFN-16-1EP_3x3mm_P0.5mm_EP0.8x0.8mm_ThermalVias', 'keywords':'texas quad digital-analog converter', 'description':'', 'datasheet':'https://www.ti.com/lit/gpn/dac70504', 'pins':[
+        Part(**{ 'name':'DAC70504', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC70504'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RTE0016D_WQFN-16-1EP_3x3mm_P0.5mm_EP0.8x0.8mm_ThermalVias', 'Package_DFN_QFN:Texas_RTE0016D_WQFN-16-1EP_3x3mm_P0.5mm_EP0.8x0.8mm_ThermalVias', 'Package_DFN_QFN:Texas_RTE0016D_WQFN-16-1EP_3x3mm_P0.5mm_EP0.8x0.8mm_ThermalVias'], 'footprint':'Package_DFN_QFN:Texas_RTE0016D_WQFN-16-1EP_3x3mm_P0.5mm_EP0.8x0.8mm_ThermalVias', 'keywords':'texas quad digital-analog converter', 'description':'', 'datasheet':'https://www.ti.com/lit/gpn/dac70504', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nDAC70504\n\ntexas quad digital-analog converter', 'pins':[
             Pin(num='1',name='REF',func=Pin.types.BIDIR),
             Pin(num='10',name='REFDIV',func=Pin.types.INPUT),
             Pin(num='11',name='~{LDAC}',func=Pin.types.INPUT),
@@ -2020,14 +2020,14 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='8',name='GAIN',func=Pin.types.INPUT),
             Pin(num='9',name='RSTSEL',func=Pin.types.INPUT),
             Pin(num='17',name='EP',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DAC7311xDCK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC7311xDCK'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6'], 'footprint':'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'keywords':'DAC SPI 1-channel', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/dac5311.pdf', 'pins':[
+        Part(**{ 'name':'DAC7311xDCK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC7311xDCK'}), 'ref_prefix':'U', 'fplist':['Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'Package_TO_SOT_SMD:SOT-363_SC-70-6'], 'footprint':'Package_TO_SOT_SMD:SOT-363_SC-70-6', 'keywords':'DAC SPI 1-channel', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/dac5311.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nDAC7311xDCK\n\nDAC SPI 1-channel', 'pins':[
             Pin(num='1',name='~{SYNC}',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='DIN',func=Pin.types.INPUT,unit=1),
             Pin(num='4',name='AVDD/AVREF',func=Pin.types.PWRIN,unit=1),
             Pin(num='5',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='6',name='VOUT',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DAC7565', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC7565'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'12-bit quad DAC voltage reference', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/dac7565.pdf', 'pins':[
+        Part(**{ 'name':'DAC7565', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC7565'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'12-bit quad DAC voltage reference', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/dac7565.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nDAC7565\n\n12-bit quad DAC voltage reference', 'pins':[
             Pin(num='1',name='VOUTA',func=Pin.types.OUTPUT),
             Pin(num='10',name='SCLK',func=Pin.types.INPUT),
             Pin(num='11',name='DIN',func=Pin.types.INPUT),
@@ -2044,7 +2044,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VOUTC',func=Pin.types.OUTPUT),
             Pin(num='8',name='VOUTD',func=Pin.types.OUTPUT),
             Pin(num='9',name='~{SYNC}',func=Pin.types.INPUT)], 'unit_defs':[] }),
-        Part(**{ 'name':'DAC7578xPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC7578xPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'DAC I2C TWI 8-channel', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/dac5578.pdf', 'pins':[
+        Part(**{ 'name':'DAC7578xPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC7578xPW'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'DAC I2C TWI 8-channel', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/dac5578.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nDAC7578xPW\n\nDAC I2C TWI 8-channel', 'pins':[
             Pin(num='1',name='~{LDAC}',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='VOUTH',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='VOUTF',func=Pin.types.OUTPUT,unit=1),
@@ -2061,7 +2061,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VOUTG',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VREFIN',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{CLR}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DAC7578xRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC7578xRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm', 'keywords':'DAC I2C TWI 8-channel', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/dac5578.pdf', 'pins':[
+        Part(**{ 'name':'DAC7578xRGE', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC7578xRGE'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm', 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm'], 'footprint':'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm', 'keywords':'DAC I2C TWI 8-channel', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/dac5578.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nDAC7578xRGE\n\nDAC I2C TWI 8-channel', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='ADDR1',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='ADDR0',func=Pin.types.INPUT,unit=1),
@@ -2087,7 +2087,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='VREFIN',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='RSTSEL',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DAC7750xRHA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC7750xRHA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA_VQFN-40-1EP_6x6mm_P0.5mm_EP4.6x4.6mm_ThermalVias', 'Package_DFN_QFN:Texas_RHA_VQFN-40-1EP_6x6mm_P0.5mm_EP4.6x4.6mm_ThermalVias'], 'footprint':'Package_DFN_QFN:Texas_RHA_VQFN-40-1EP_6x6mm_P0.5mm_EP4.6x4.6mm_ThermalVias', 'keywords':'DAC Current Loop 20mA', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/dac7750.pdf', 'pins':[
+        Part(**{ 'name':'DAC7750xRHA', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC7750xRHA'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:Texas_RHA_VQFN-40-1EP_6x6mm_P0.5mm_EP4.6x4.6mm_ThermalVias', 'Package_DFN_QFN:Texas_RHA_VQFN-40-1EP_6x6mm_P0.5mm_EP4.6x4.6mm_ThermalVias'], 'footprint':'Package_DFN_QFN:Texas_RHA_VQFN-40-1EP_6x6mm_P0.5mm_EP4.6x4.6mm_ThermalVias', 'keywords':'DAC Current Loop 20mA', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/dac7750.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nDAC7750xRHA\n\nDAC Current Loop 20mA', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='11',name='NC',func=Pin.types.NOCONNECT,unit=1),
@@ -2129,7 +2129,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='DIN',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='SDO',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DAC8531E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC8531E'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'DAC 16-Bit  Voltage Output Rail-to-Rail SPI', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/dac8531.pdf', 'pins':[
+        Part(**{ 'name':'DAC8531E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC8531E'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'DAC 16-Bit  Voltage Output Rail-to-Rail SPI', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/dac8531.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nDAC8531E\n\nDAC 16-Bit  Voltage Output Rail-to-Rail SPI', 'pins':[
             Pin(num='1',name='V_{DD}',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='V_{REF}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='V_{FB}',func=Pin.types.INPUT,unit=1),
@@ -2138,7 +2138,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='D_{IN}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DAC8531IDRB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC8531IDRB'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SON:VSON-8-1EP_3x3mm_P0.65mm_EP1.65x2.4mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'DAC 16-Bit  Voltage Output Rail-to-Rail SPI', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/dac8531.pdf', 'pins':[
+        Part(**{ 'name':'DAC8531IDRB', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC8531IDRB'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SON:VSON-8-1EP_3x3mm_P0.65mm_EP1.65x2.4mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'DAC 16-Bit  Voltage Output Rail-to-Rail SPI', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/dac8531.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nDAC8531IDRB\n\nDAC 16-Bit  Voltage Output Rail-to-Rail SPI', 'pins':[
             Pin(num='1',name='V_{DD}',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='V_{REF}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='V_{FB}',func=Pin.types.INPUT,unit=1),
@@ -2147,7 +2147,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='D_{IN}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DAC8550IxDGK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC8550IxDGK'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SON:VSON-8-1EP_3x3mm_P0.65mm_EP1.65x2.4mm', 'Package_SON:VSON-8-1EP_3x3mm_P0.65mm_EP1.65x2.4mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'DAC 16-Bit  Voltage Output Rail-to-Rail SPI', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/dac8550.pdf', 'pins':[
+        Part(**{ 'name':'DAC8550IxDGK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC8550IxDGK'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SON:VSON-8-1EP_3x3mm_P0.65mm_EP1.65x2.4mm', 'Package_SON:VSON-8-1EP_3x3mm_P0.65mm_EP1.65x2.4mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'DAC 16-Bit  Voltage Output Rail-to-Rail SPI', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/dac8550.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nDAC8550IxDGK\n\nDAC 16-Bit  Voltage Output Rail-to-Rail SPI', 'pins':[
             Pin(num='1',name='V_{DD}',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='V_{REF}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='V_{FB}',func=Pin.types.INPUT,unit=1),
@@ -2156,7 +2156,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='D_{IN}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DAC8551IxDGK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC8551IxDGK'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SON:VSON-8-1EP_3x3mm_P0.65mm_EP1.65x2.4mm', 'Package_SON:VSON-8-1EP_3x3mm_P0.65mm_EP1.65x2.4mm', 'Package_SON:VSON-8-1EP_3x3mm_P0.65mm_EP1.65x2.4mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'DAC 16-Bit  Voltage Output Rail-to-Rail SPI', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/dac8551.pdf', 'pins':[
+        Part(**{ 'name':'DAC8551IxDGK', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC8551IxDGK'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SON:VSON-8-1EP_3x3mm_P0.65mm_EP1.65x2.4mm', 'Package_SON:VSON-8-1EP_3x3mm_P0.65mm_EP1.65x2.4mm', 'Package_SON:VSON-8-1EP_3x3mm_P0.65mm_EP1.65x2.4mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'DAC 16-Bit  Voltage Output Rail-to-Rail SPI', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/dac8551.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nDAC8551IxDGK\n\nDAC 16-Bit  Voltage Output Rail-to-Rail SPI', 'pins':[
             Pin(num='1',name='V_{DD}',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='V_{REF}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='V_{FB}',func=Pin.types.INPUT,unit=1),
@@ -2165,7 +2165,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='D_{IN}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'DAC8565', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC8565'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'16-bit quad DAC voltage reference', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/dac8565.pdf', 'pins':[
+        Part(**{ 'name':'DAC8565', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'DAC8565'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm'], 'footprint':'Package_SO:TSSOP-16_4.4x5mm_P0.65mm', 'keywords':'16-bit quad DAC voltage reference', 'description':'', 'datasheet':'https://www.ti.com/lit/ds/symlink/dac8565.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nDAC8565\n\n16-bit quad DAC voltage reference', 'pins':[
             Pin(num='1',name='VOUTA',func=Pin.types.OUTPUT),
             Pin(num='10',name='SCLK',func=Pin.types.INPUT),
             Pin(num='11',name='DIN',func=Pin.types.INPUT),
@@ -2182,7 +2182,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VOUTC',func=Pin.types.OUTPUT),
             Pin(num='8',name='VOUTD',func=Pin.types.OUTPUT),
             Pin(num='9',name='~{SYNC}',func=Pin.types.INPUT)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC1446L', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1446L'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'12-Bit DAC SPI 2ch', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1446fa.pdf', 'pins':[
+        Part(**{ 'name':'LTC1446L', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1446L'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'12-Bit DAC SPI 2ch', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1446fa.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nLTC1446L\n\n12-Bit DAC SPI 2ch', 'pins':[
             Pin(num='1',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='2',name='SDI',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='~{CS}/LD',func=Pin.types.INPUT,unit=1),
@@ -2191,7 +2191,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VB',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC1664CN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1664CN'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Quad DAC Micropower 10bit 4ch', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1664fa.pdf', 'pins':[
+        Part(**{ 'name':'LTC1664CN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1664CN'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Quad DAC Micropower 10bit 4ch', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1664fa.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nLTC1664CN\n\nQuad DAC Micropower 10bit 4ch', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='~{CLR}',func=Pin.types.INPUT,unit=1),
@@ -2208,7 +2208,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{CS}/LD',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DIN',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC1664IGN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1664IGN'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'Quad DAC Micropower 10bit 4ch', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1664fa.pdf', 'pins':[
+        Part(**{ 'name':'LTC1664IGN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1664IGN'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'Quad DAC Micropower 10bit 4ch', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1664fa.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nLTC1664IGN\n\nQuad DAC Micropower 10bit 4ch', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='~{CLR}',func=Pin.types.INPUT,unit=1),
@@ -2225,7 +2225,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{CS}/LD',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DIN',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'LTC1664IN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1664IN'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'Quad DAC Micropower 10bit 4ch', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1664fa.pdf', 'pins':[
+        Part(**{ 'name':'LTC1664IN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'LTC1664IN'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'Quad DAC Micropower 10bit 4ch', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/1664fa.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nLTC1664IN\n\nQuad DAC Micropower 10bit 4ch', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='DOUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='~{CLR}',func=Pin.types.INPUT,unit=1),
@@ -2242,7 +2242,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{CS}/LD',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SCK',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='DIN',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX5138', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX5138'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-16-1EP_3x3mm_P0.5mm_EP1.23x1.23mm', 'Package_DFN_QFN:TQFN-16-1EP_3x3mm_P0.5mm_EP1.23x1.23mm'], 'footprint':'Package_DFN_QFN:TQFN-16-1EP_3x3mm_P0.5mm_EP1.23x1.23mm', 'keywords':'16-bit DAC 1CH', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX5138-MAX5139.pdf', 'pins':[
+        Part(**{ 'name':'MAX5138', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX5138'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:TQFN-16-1EP_3x3mm_P0.5mm_EP1.23x1.23mm', 'Package_DFN_QFN:TQFN-16-1EP_3x3mm_P0.5mm_EP1.23x1.23mm'], 'footprint':'Package_DFN_QFN:TQFN-16-1EP_3x3mm_P0.5mm_EP1.23x1.23mm', 'keywords':'16-bit DAC 1CH', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX5138-MAX5139.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMAX5138\n\n16-bit DAC 1CH', 'pins':[
             Pin(num='1',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='10',name='~{READY}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='DVDD',func=Pin.types.PWRIN,unit=1),
@@ -2259,7 +2259,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='DIN',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='AGND',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX5217', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX5217'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'DA 16 Bit 1 ch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX5215-MAX5217.pdf', 'pins':[
+        Part(**{ 'name':'MAX5217', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX5217'}), 'ref_prefix':'U', 'fplist':['Package_SO:MSOP-8_3x3mm_P0.65mm', 'Package_SO:MSOP-8_3x3mm_P0.65mm'], 'footprint':'Package_SO:MSOP-8_3x3mm_P0.65mm', 'keywords':'DA 16 Bit 1 ch', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX5215-MAX5217.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMAX5217\n\nDA 16 Bit 1 ch', 'pins':[
             Pin(num='1',name='REF',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='ADDR',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SCL',func=Pin.types.INPUT,unit=1),
@@ -2268,7 +2268,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='OUT',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='GND',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX5719xSD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX5719xSD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'DAC', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX5717-MAX5719.pdf', 'pins':[
+        Part(**{ 'name':'MAX5719xSD', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX5719xSD'}), 'ref_prefix':'U', 'fplist':['Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm'], 'footprint':'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm', 'keywords':'DAC', 'description':'', 'datasheet':'https://datasheets.maximintegrated.com/en/ds/MAX5717-MAX5719.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMAX5719xSD\n\nDAC', 'pins':[
             Pin(num='1',name='RFB',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='DIN',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='~{LDAC}',func=Pin.types.INPUT,unit=1),
@@ -2283,7 +2283,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='SCLK',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='NC',func=Pin.types.NOCONNECT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX5814', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX5814'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'DA 10 Bit 4 ch', 'description':'', 'datasheet':'http://datasheets.maximintegrated.com/en/ds/MAX5813-MAX5815.pdf', 'pins':[
+        Part(**{ 'name':'MAX5814', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX5814'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'DA 10 Bit 4 ch', 'description':'', 'datasheet':'http://datasheets.maximintegrated.com/en/ds/MAX5813-MAX5815.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMAX5814\n\nDA 10 Bit 4 ch', 'pins':[
             Pin(num='1',name='REF',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SDA',func=Pin.types.BIDIR,unit=1),
@@ -2298,7 +2298,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='ADDR1',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='ADDR0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX5814WLP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX5814WLP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'DA 10 Bit 4 ch', 'description':'', 'datasheet':'http://datasheets.maximintegrated.com/en/ds/MAX5813-MAX5815.pdf', 'pins':[
+        Part(**{ 'name':'MAX5814WLP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX5814WLP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'DA 10 Bit 4 ch', 'description':'', 'datasheet':'http://datasheets.maximintegrated.com/en/ds/MAX5813-MAX5815.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMAX5814WLP\n\nDA 10 Bit 4 ch', 'pins':[
             Pin(num='A1',name='OUTA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='A2',name='OUTB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='A3',name='OUTC',func=Pin.types.OUTPUT,unit=1),
@@ -2311,7 +2311,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='C2',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='C3',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='C4',name='ADDR0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX5815', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX5815'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'DA 12 Bit 4 ch', 'description':'', 'datasheet':'http://datasheets.maximintegrated.com/en/ds/MAX5813-MAX5815.pdf', 'pins':[
+        Part(**{ 'name':'MAX5815', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX5815'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'DA 12 Bit 4 ch', 'description':'', 'datasheet':'http://datasheets.maximintegrated.com/en/ds/MAX5813-MAX5815.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMAX5815\n\nDA 12 Bit 4 ch', 'pins':[
             Pin(num='1',name='REF',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='SDA',func=Pin.types.BIDIR,unit=1),
@@ -2326,7 +2326,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='ADDR1',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='ADDR0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MAX5815WLP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX5815WLP'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'DA 12 Bit 4 ch', 'description':'', 'datasheet':'http://datasheets.maximintegrated.com/en/ds/MAX5813-MAX5815.pdf', 'pins':[
+        Part(**{ 'name':'MAX5815WLP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MAX5815WLP'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'DA 12 Bit 4 ch', 'description':'', 'datasheet':'http://datasheets.maximintegrated.com/en/ds/MAX5813-MAX5815.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMAX5815WLP\n\nDA 12 Bit 4 ch', 'pins':[
             Pin(num='A1',name='OUTA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='A2',name='OUTB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='A3',name='OUTC',func=Pin.types.OUTPUT,unit=1),
@@ -2339,7 +2339,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='C2',name='SDA',func=Pin.types.BIDIR,unit=1),
             Pin(num='C3',name='SCL',func=Pin.types.INPUT,unit=1),
             Pin(num='C4',name='ADDR0',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4811', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4811'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'10-Bit DAC SPI Reference 1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22244B.pdf', 'pins':[
+        Part(**{ 'name':'MCP4811', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4811'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'10-Bit DAC SPI Reference 1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22244B.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMCP4811\n\n10-Bit DAC SPI Reference 1ch', 'pins':[
             Pin(num='1',name='Vdd',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SCK',func=Pin.types.INPUT,unit=1),
@@ -2348,7 +2348,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~{SHDN}',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='Vss',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Vout',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4811-EMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4811-EMC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'keywords':'10-Bit DAC SPI Reference 1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22244B.pdf', 'pins':[
+        Part(**{ 'name':'MCP4811-EMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4811-EMC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'keywords':'10-Bit DAC SPI Reference 1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22244B.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMCP4811-EMC\n\n10-Bit DAC SPI Reference 1ch', 'pins':[
             Pin(num='1',name='Vdd',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SCK',func=Pin.types.INPUT,unit=1),
@@ -2358,7 +2358,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Vss',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Vout',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='PAD/Vss',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4812', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4812'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'10-Bit DAC SPI Reference 2ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20002249B.pdf', 'pins':[
+        Part(**{ 'name':'MCP4812', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4812'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'10-Bit DAC SPI Reference 2ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20002249B.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMCP4812\n\n10-Bit DAC SPI Reference 2ch', 'pins':[
             Pin(num='1',name='Vdd',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SCK',func=Pin.types.INPUT,unit=1),
@@ -2367,7 +2367,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='Vss',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VA',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4821', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4821'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'12-Bit DAC SPI Reference 1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22244B.pdf', 'pins':[
+        Part(**{ 'name':'MCP4821', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4821'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'12-Bit DAC SPI Reference 1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22244B.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMCP4821\n\n12-Bit DAC SPI Reference 1ch', 'pins':[
             Pin(num='1',name='Vdd',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SCK',func=Pin.types.INPUT,unit=1),
@@ -2376,7 +2376,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='~{SHDN}',func=Pin.types.INPUT,unit=1),
             Pin(num='7',name='Vss',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Vout',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4821-EMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4821-EMC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'keywords':'12-Bit DAC SPI Reference 1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22244B.pdf', 'pins':[
+        Part(**{ 'name':'MCP4821-EMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4821-EMC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'keywords':'12-Bit DAC SPI Reference 1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22244B.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMCP4821-EMC\n\n12-Bit DAC SPI Reference 1ch', 'pins':[
             Pin(num='1',name='Vdd',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SCK',func=Pin.types.INPUT,unit=1),
@@ -2386,7 +2386,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Vss',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Vout',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='PAD/Vss',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4822', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4822'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'12-Bit DAC SPI Reference 2ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20002249B.pdf', 'pins':[
+        Part(**{ 'name':'MCP4822', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4822'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'12-Bit DAC SPI Reference 2ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/20002249B.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMCP4822\n\n12-Bit DAC SPI Reference 2ch', 'pins':[
             Pin(num='1',name='Vdd',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SCK',func=Pin.types.INPUT,unit=1),
@@ -2395,7 +2395,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='7',name='Vss',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VA',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4911', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4911'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'10-Bit DAC SPI 1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22248a.pdf', 'pins':[
+        Part(**{ 'name':'MCP4911', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4911'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'10-Bit DAC SPI 1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22248a.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMCP4911\n\n10-Bit DAC SPI 1ch', 'pins':[
             Pin(num='1',name='Vdd',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SCK',func=Pin.types.INPUT,unit=1),
@@ -2404,7 +2404,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Vref',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='Vss',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Vout',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4911-EMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4911-EMC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'keywords':'10-Bit DAC SPI  1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22248a.pdf', 'pins':[
+        Part(**{ 'name':'MCP4911-EMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4911-EMC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'keywords':'10-Bit DAC SPI  1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22248a.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMCP4911-EMC\n\n10-Bit DAC SPI  1ch', 'pins':[
             Pin(num='1',name='Vdd',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SCK',func=Pin.types.INPUT,unit=1),
@@ -2414,7 +2414,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Vss',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Vout',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='PAD/Vss',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4912', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4912'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'10-Bit DAC SPI 2ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22250A.pdf', 'pins':[
+        Part(**{ 'name':'MCP4912', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4912'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'10-Bit DAC SPI 2ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22250A.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMCP4912\n\n10-Bit DAC SPI 2ch', 'pins':[
             Pin(num='1',name='Vdd',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='VrefB',func=Pin.types.INPUT,unit=1),
@@ -2428,8 +2428,8 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='~{LDAC}',func=Pin.types.INPUT,unit=1),
-            Pin(num='9',name='~{SHDN}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4921', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4921'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'12-Bit DAC SPI 1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22248a.pdf', 'pins':[
+            Pin(num='9',name='~{SHDN}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'MCP4921', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4921'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'12-Bit DAC SPI 1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22248a.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMCP4921\n\n12-Bit DAC SPI 1ch', 'pins':[
             Pin(num='1',name='Vdd',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SCK',func=Pin.types.INPUT,unit=1),
@@ -2438,7 +2438,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='Vref',func=Pin.types.PWRIN,unit=1),
             Pin(num='7',name='Vss',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Vout',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4921-EMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4921-EMC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'keywords':'12-Bit DAC SPI  1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22248a.pdf', 'pins':[
+        Part(**{ 'name':'MCP4921-EMC', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4921-EMC'}), 'ref_prefix':'U', 'fplist':['Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm'], 'footprint':'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.75x1.45mm', 'keywords':'12-Bit DAC SPI  1ch', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22248a.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMCP4921-EMC\n\n12-Bit DAC SPI  1ch', 'pins':[
             Pin(num='1',name='Vdd',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SCK',func=Pin.types.INPUT,unit=1),
@@ -2448,7 +2448,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='Vss',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='Vout',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='PAD/Vss',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4921-EP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4921-EP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Single DAC 1ch 12bit SPI', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/21897a.pdf', 'pins':[
+        Part(**{ 'name':'MCP4921-EP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4921-EP'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Single DAC 1ch 12bit SPI', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/21897a.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMCP4921-EP\n\nSingle DAC 1ch 12bit SPI', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SCK',func=Pin.types.INPUT,unit=1),
@@ -2457,7 +2457,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VrefA',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='AVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VoutA',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4921-ESN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4921-ESN'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'Single DAC 1ch 12bit SPI', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/21897a.pdf', 'pins':[
+        Part(**{ 'name':'MCP4921-ESN', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4921-ESN'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'Single DAC 1ch 12bit SPI', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/21897a.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMCP4921-ESN\n\nSingle DAC 1ch 12bit SPI', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='2',name='~{CS}',func=Pin.types.INPUT,unit=1),
             Pin(num='3',name='SCK',func=Pin.types.INPUT,unit=1),
@@ -2466,7 +2466,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='VrefA',func=Pin.types.PASSIVE,unit=1),
             Pin(num='7',name='AVSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='VoutA',func=Pin.types.PASSIVE,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4922', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4922'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'12-Bit DAC SPI 2CH', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22250A.pdf', 'pins':[
+        Part(**{ 'name':'MCP4922', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4922'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'12-Bit DAC SPI 2CH', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/DeviceDoc/22250A.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMCP4922\n\n12-Bit DAC SPI 2CH', 'pins':[
             Pin(num='1',name='Vdd',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VB',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='VrefB',func=Pin.types.INPUT,unit=1),
@@ -2480,8 +2480,8 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='6',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='~{LDAC}',func=Pin.types.INPUT,unit=1),
-            Pin(num='9',name='~{SHDN}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4922-ESL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4922-ESL'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Dual DAC 1ch 12bit SPI', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/21897a.pdf', 'pins':[
+            Pin(num='9',name='~{SHDN}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
+        Part(**{ 'name':'MCP4922-ESL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4922-ESL'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'Dual DAC 1ch 12bit SPI', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/21897a.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMCP4922-ESL\n\nDual DAC 1ch 12bit SPI', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VoutB',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='VrefB',func=Pin.types.PASSIVE,unit=1),
@@ -2496,7 +2496,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='~{LDAC}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{SHDN}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MCP4922-EST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4922-EST'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'Dual DAC 1ch 12bit SPI', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/21897a.pdf', 'pins':[
+        Part(**{ 'name':'MCP4922-EST', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MCP4922-EST'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'Dual DAC 1ch 12bit SPI', 'description':'', 'datasheet':'http://ww1.microchip.com/downloads/en/devicedoc/21897a.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nMCP4922-EST\n\nDual DAC 1ch 12bit SPI', 'pins':[
             Pin(num='1',name='VDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='VoutB',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='VrefB',func=Pin.types.PASSIVE,unit=1),
@@ -2511,7 +2511,7 @@ Analog_DAC = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='NC',func=Pin.types.NOCONNECT,unit=1),
             Pin(num='8',name='~{LDAC}',func=Pin.types.INPUT,unit=1),
             Pin(num='9',name='~{SHDN}',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TLV5627CPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLV5627CPW'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'DAC 4CH 8bit', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tlv5627.pdf', 'pins':[
+        Part(**{ 'name':'TLV5627CPW', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TLV5627CPW'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'DAC 4CH 8bit', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tlv5627.pdf', 'search_text':'/usr/share/kicad/symbols/Analog_DAC.kicad_sym\nTLV5627CPW\n\nDAC 4CH 8bit', 'pins':[
             Pin(num='1',name='DVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='REFINCD',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='OUTD',func=Pin.types.OUTPUT,unit=1),

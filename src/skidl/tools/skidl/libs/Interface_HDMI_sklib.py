@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 Interface_HDMI = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'ADV7611', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADV7611'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64-1EP_10x10mm_P0.5mm_EP5x5mm'], 'footprint':'Package_QFP:LQFP-64-1EP_10x10mm_P0.5mm_EP5x5mm', 'keywords':'hdmi', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/adv7611.pdf', 'pins':[
+        Part(**{ 'name':'ADV7611', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'ADV7611'}), 'ref_prefix':'U', 'fplist':['Package_QFP:LQFP-64-1EP_10x10mm_P0.5mm_EP5x5mm'], 'footprint':'Package_QFP:LQFP-64-1EP_10x10mm_P0.5mm_EP5x5mm', 'keywords':'hdmi', 'description':'', 'datasheet':'https://www.analog.com/media/en/technical-documentation/data-sheets/adv7611.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_HDMI.kicad_sym\nADV7611\n\nhdmi', 'pins':[
             Pin(num='1',name='HPA_A/INT2',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='RXA_1+',func=Pin.types.INPUT,unit=1),
             Pin(num='11',name='TVDD',func=Pin.types.PWRIN,unit=1),
@@ -70,7 +70,7 @@ Interface_HDMI = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='RXA_0+',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='TVDD',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='RXA_1-',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'TPD12S520DBT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPD12S520DBT'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-38_4.4x9.7mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-38_4.4x9.7mm_P0.5mm', 'keywords':'hdmi', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tpd12s520.pdf', 'pins':[
+        Part(**{ 'name':'TPD12S520DBT', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'TPD12S520DBT'}), 'ref_prefix':'U', 'fplist':['Package_SO:TSSOP-38_4.4x9.7mm_P0.5mm'], 'footprint':'Package_SO:TSSOP-38_4.4x9.7mm_P0.5mm', 'keywords':'hdmi', 'description':'', 'datasheet':'http://www.ti.com/lit/ds/symlink/tpd12s520.pdf', 'search_text':'/usr/share/kicad/symbols/Interface_HDMI.kicad_sym\nTPD12S520DBT\n\nhdmi', 'pins':[
             Pin(num='1',name='5V_SUPPLY',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='TMDS_D0+',func=Pin.types.PASSIVE,unit=1),
             Pin(num='11',name='TMDS_GND',func=Pin.types.PASSIVE,unit=1),

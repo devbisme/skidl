@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 MCU_Intel = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'80186', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'80186'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'MPRO', 'description':'', 'datasheet':'http://datasheets.chipdb.org/Intel/x86/8018x/datashts/27243002.PDF', 'pins':[
+        Part(**{ 'name':'80186', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'80186'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'MPRO', 'description':'', 'datasheet':'http://datasheets.chipdb.org/Intel/x86/8018x/datashts/27243002.PDF', 'search_text':'/usr/share/kicad/symbols/MCU_Intel.kicad_sym\n80186\n\nMPRO', 'pins':[
             Pin(num='1',name='AD15',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='AD11',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AD3',func=Pin.types.BIDIR,unit=1),
@@ -73,7 +73,7 @@ MCU_Intel = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AD12',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='AD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'80188', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'80188'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'MPRO', 'description':'', 'datasheet':'http://datasheets.chipdb.org/Intel/x86/8018x/datashts/27243002.PDF', 'pins':[
+        Part(**{ 'name':'80188', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'80188'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'MPRO', 'description':'', 'datasheet':'http://datasheets.chipdb.org/Intel/x86/8018x/datashts/27243002.PDF', 'search_text':'/usr/share/kicad/symbols/MCU_Intel.kicad_sym\n80188\n\nMPRO', 'pins':[
             Pin(num='1',name='A15',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='A11',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='AD3',func=Pin.types.BIDIR,unit=1),
@@ -142,7 +142,7 @@ MCU_Intel = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A12',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='AD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'8035', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8035'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'MCS-48 uC Microcontroller', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'8035', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8035'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'MCS-48 uC Microcontroller', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/MCU_Intel.kicad_sym\n8035\n\nMCS-48 uC Microcontroller', 'pins':[
             Pin(num='1',name='T0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{WR}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='ALE',func=Pin.types.OUTPUT,unit=1),
@@ -183,7 +183,7 @@ MCU_Intel = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EA',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{RD}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='~{PSEN}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'8080', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8080'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'cpu mpu microprocessor', 'description':'', 'datasheet':'http://datasheets.chipdb.org/Intel/MCS-80/intel-8080.pdf', 'pins':[
+        Part(**{ 'name':'8080', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8080'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'cpu mpu microprocessor', 'description':'', 'datasheet':'http://datasheets.chipdb.org/Intel/MCS-80/intel-8080.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Intel.kicad_sym\n8080\n\ncpu mpu microprocessor', 'pins':[
             Pin(num='1',name='A10',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='D0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='-5V',func=Pin.types.PWRIN,unit=1),
@@ -224,7 +224,7 @@ MCU_Intel = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='D2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='D1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'8086_Max_Mode', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8086_Max_Mode'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'MPRO', 'description':'', 'datasheet':'http://datasheets.chipdb.org/Intel/x86/808x/datashts/8086/231455-006.pdf', 'pins':[
+        Part(**{ 'name':'8086_Max_Mode', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8086_Max_Mode'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'MPRO', 'description':'', 'datasheet':'http://datasheets.chipdb.org/Intel/x86/808x/datashts/8086/231455-006.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Intel.kicad_sym\n8086_Max_Mode\n\nMPRO', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='AD6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AD5',func=Pin.types.BIDIR,unit=1),
@@ -265,7 +265,7 @@ MCU_Intel = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AD9',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='AD8',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='AD7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'8086_Min_Mode', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8086_Min_Mode'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'MPRO', 'description':'', 'datasheet':'http://datasheets.chipdb.org/Intel/x86/808x/datashts/8086/231455-006.pdf', 'pins':[
+        Part(**{ 'name':'8086_Min_Mode', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8086_Min_Mode'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'MPRO', 'description':'', 'datasheet':'http://datasheets.chipdb.org/Intel/x86/808x/datashts/8086/231455-006.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Intel.kicad_sym\n8086_Min_Mode\n\nMPRO', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='AD6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AD5',func=Pin.types.BIDIR,unit=1),
@@ -306,7 +306,7 @@ MCU_Intel = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AD9',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='AD8',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='AD7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'8087', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8087'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'FPU', 'description':'', 'datasheet':'http://datasheets.chipdb.org/Intel/x86/808x/datashts/8087/205835-007.pdf', 'pins':[
+        Part(**{ 'name':'8087', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8087'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'FPU', 'description':'', 'datasheet':'http://datasheets.chipdb.org/Intel/x86/808x/datashts/8087/205835-007.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Intel.kicad_sym\n8087\n\nFPU', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='AD6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AD5',func=Pin.types.BIDIR,unit=1),
@@ -347,7 +347,7 @@ MCU_Intel = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AD9',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='AD8',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='AD7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'8088', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8088'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'MPRO', 'description':'', 'datasheet':'http://datasheets.chipdb.org/Intel/x86/808x/datashts/8088/231456-006.pdf', 'pins':[
+        Part(**{ 'name':'8088', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8088'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'MPRO', 'description':'', 'datasheet':'http://datasheets.chipdb.org/Intel/x86/808x/datashts/8088/231456-006.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Intel.kicad_sym\n8088\n\nMPRO', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='AD6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AD5',func=Pin.types.BIDIR,unit=1),
@@ -388,7 +388,7 @@ MCU_Intel = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A9',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='A8',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='AD7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'8088_Max_Mode', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8088_Max_Mode'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'MPRO', 'description':'', 'datasheet':'http://datasheets.chipdb.org/Intel/x86/808x/datashts/8088/231456-006.pdf', 'pins':[
+        Part(**{ 'name':'8088_Max_Mode', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8088_Max_Mode'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'MPRO', 'description':'', 'datasheet':'http://datasheets.chipdb.org/Intel/x86/808x/datashts/8088/231456-006.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Intel.kicad_sym\n8088_Max_Mode\n\nMPRO', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='AD6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AD5',func=Pin.types.BIDIR,unit=1),
@@ -429,7 +429,7 @@ MCU_Intel = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A9',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='A8',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='AD7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'80C188', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'80C188'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'MPRO', 'description':'', 'datasheet':'http://datasheets.chipdb.org/Intel/x86/8018x/datashts/80188/intel-80c188.pdf', 'pins':[
+        Part(**{ 'name':'80C188', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'80C188'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'MPRO', 'description':'', 'datasheet':'http://datasheets.chipdb.org/Intel/x86/8018x/datashts/80188/intel-80c188.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Intel.kicad_sym\n80C188\n\nMPRO', 'pins':[
             Pin(num='1',name='A15',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='A11',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='AD3',func=Pin.types.BIDIR,unit=1),
@@ -498,7 +498,7 @@ MCU_Intel = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A12',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='AD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'8748', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8748'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'MCS-48 uC Microcontroller', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'8748', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8748'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'MCS-48 uC Microcontroller', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/MCU_Intel.kicad_sym\n8748\n\nMCS-48 uC Microcontroller', 'pins':[
             Pin(num='1',name='T0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{WR}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='ALE',func=Pin.types.OUTPUT,unit=1),
@@ -539,7 +539,7 @@ MCU_Intel = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EA',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{RD}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='~{PSEN}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'I386EX_PQFP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'I386EX_PQFP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'MPRO', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'I386EX_PQFP', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'I386EX_PQFP'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'MPRO', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/MCU_Intel.kicad_sym\nI386EX_PQFP\n\nMPRO', 'pins':[
             Pin(num='1',name='UCS',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='D4',func=Pin.types.TRISTATE,unit=1),
             Pin(num='100',name='GND',func=Pin.types.PWRIN,unit=1),
@@ -671,7 +671,7 @@ MCU_Intel = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='97',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='98',name='STXCLK/DSR1',func=Pin.types.BIDIR,unit=1),
             Pin(num='99',name='FLT',func=Pin.types.INPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'M80C186', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'M80C186'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'MPRO', 'description':'', 'datasheet':'http://datasheets.chipdb.org/Intel/x86/8018x/datashts/80186/27050008.PDF', 'pins':[
+        Part(**{ 'name':'M80C186', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'M80C186'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'MPRO', 'description':'', 'datasheet':'http://datasheets.chipdb.org/Intel/x86/8018x/datashts/80186/27050008.PDF', 'search_text':'/usr/share/kicad/symbols/MCU_Intel.kicad_sym\nM80C186\n\nMPRO', 'pins':[
             Pin(num='1',name='AD15',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='AD11',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AD3',func=Pin.types.BIDIR,unit=1),
@@ -740,7 +740,7 @@ MCU_Intel = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AD12',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='AD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'M80C186XL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'M80C186XL'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'MPRO', 'description':'', 'datasheet':'http://datasheets.chipdb.org/Intel/x86/8018x/datashts/80186/27127602.pdf', 'pins':[
+        Part(**{ 'name':'M80C186XL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'M80C186XL'}), 'ref_prefix':'U', 'fplist':[''], 'footprint':'', 'keywords':'MPRO', 'description':'', 'datasheet':'http://datasheets.chipdb.org/Intel/x86/8018x/datashts/80186/27127602.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Intel.kicad_sym\nM80C186XL\n\nMPRO', 'pins':[
             Pin(num='1',name='AD15',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='AD11',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AD3',func=Pin.types.BIDIR,unit=1),
@@ -809,7 +809,7 @@ MCU_Intel = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AD12',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='AD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'8039', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8039'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'MCS-48 uC Microcontroller', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'8039', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8039'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'MCS-48 uC Microcontroller', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/MCU_Intel.kicad_sym\n8039\n\nMCS-48 uC Microcontroller', 'pins':[
             Pin(num='1',name='T0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{WR}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='ALE',func=Pin.types.OUTPUT,unit=1),
@@ -850,7 +850,7 @@ MCU_Intel = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EA',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{RD}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='~{PSEN}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'8040', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8040'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'MCS-48 uC Microcontroller', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'8040', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8040'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'MCS-48 uC Microcontroller', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/MCU_Intel.kicad_sym\n8040\n\nMCS-48 uC Microcontroller', 'pins':[
             Pin(num='1',name='T0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{WR}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='ALE',func=Pin.types.OUTPUT,unit=1),
@@ -891,7 +891,7 @@ MCU_Intel = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EA',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{RD}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='~{PSEN}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'8048', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8048'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'MCS-48 uC Microcontroller', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'8048', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8048'}), 'ref_prefix':'U', 'fplist':['', '', '', ''], 'footprint':'', 'keywords':'MCS-48 uC Microcontroller', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/MCU_Intel.kicad_sym\n8048\n\nMCS-48 uC Microcontroller', 'pins':[
             Pin(num='1',name='T0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{WR}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='ALE',func=Pin.types.OUTPUT,unit=1),
@@ -932,7 +932,7 @@ MCU_Intel = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EA',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{RD}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='~{PSEN}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'8049', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8049'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'MCS-48 uC Microcontroller', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'8049', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8049'}), 'ref_prefix':'U', 'fplist':['', '', '', '', ''], 'footprint':'', 'keywords':'MCS-48 uC Microcontroller', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/MCU_Intel.kicad_sym\n8049\n\nMCS-48 uC Microcontroller', 'pins':[
             Pin(num='1',name='T0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{WR}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='ALE',func=Pin.types.OUTPUT,unit=1),
@@ -973,7 +973,7 @@ MCU_Intel = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EA',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{RD}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='~{PSEN}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'8050', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8050'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', ''], 'footprint':'', 'keywords':'MCS-48 uC Microcontroller', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'8050', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8050'}), 'ref_prefix':'U', 'fplist':['', '', '', '', '', ''], 'footprint':'', 'keywords':'MCS-48 uC Microcontroller', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/MCU_Intel.kicad_sym\n8050\n\nMCS-48 uC Microcontroller', 'pins':[
             Pin(num='1',name='T0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{WR}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='ALE',func=Pin.types.OUTPUT,unit=1),
@@ -1014,7 +1014,7 @@ MCU_Intel = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EA',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{RD}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='~{PSEN}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'8080A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8080A'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'cpu mpu microprocessor', 'description':'', 'datasheet':'http://datasheets.chipdb.org/Intel/MCS-80/intel-8080.pdf', 'pins':[
+        Part(**{ 'name':'8080A', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8080A'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'cpu mpu microprocessor', 'description':'', 'datasheet':'http://datasheets.chipdb.org/Intel/MCS-80/intel-8080.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Intel.kicad_sym\n8080A\n\ncpu mpu microprocessor', 'pins':[
             Pin(num='1',name='A10',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='D0',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='-5V',func=Pin.types.PWRIN,unit=1),
@@ -1055,7 +1055,7 @@ MCU_Intel = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='D3',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='D2',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='D1',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'8088_Min_Mode', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8088_Min_Mode'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'MPRO', 'description':'', 'datasheet':'http://datasheets.chipdb.org/Intel/x86/808x/datashts/8088/231456-006.pdf', 'pins':[
+        Part(**{ 'name':'8088_Min_Mode', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8088_Min_Mode'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'MPRO', 'description':'', 'datasheet':'http://datasheets.chipdb.org/Intel/x86/808x/datashts/8088/231456-006.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Intel.kicad_sym\n8088_Min_Mode\n\nMPRO', 'pins':[
             Pin(num='1',name='GND',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='AD6',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AD5',func=Pin.types.BIDIR,unit=1),
@@ -1096,7 +1096,7 @@ MCU_Intel = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A9',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='A8',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='AD7',func=Pin.types.BIDIR,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'80C186XL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'80C186XL'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'MPRO', 'description':'', 'datasheet':'http://datasheets.chipdb.org/Intel/x86/8018x/datashts/27243104.PDF', 'pins':[
+        Part(**{ 'name':'80C186XL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'80C186XL'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'MPRO', 'description':'', 'datasheet':'http://datasheets.chipdb.org/Intel/x86/8018x/datashts/27243104.PDF', 'search_text':'/usr/share/kicad/symbols/MCU_Intel.kicad_sym\n80C186XL\n\nMPRO', 'pins':[
             Pin(num='1',name='AD15',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='AD11',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AD3',func=Pin.types.BIDIR,unit=1),
@@ -1165,7 +1165,7 @@ MCU_Intel = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AD12',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='AD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'80C188XL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'80C188XL'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'MPRO', 'description':'', 'datasheet':'http://datasheets.chipdb.org/Intel/x86/8018x/datashts/27243104.PDF', 'pins':[
+        Part(**{ 'name':'80C188XL', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'80C188XL'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'MPRO', 'description':'', 'datasheet':'http://datasheets.chipdb.org/Intel/x86/8018x/datashts/27243104.PDF', 'search_text':'/usr/share/kicad/symbols/MCU_Intel.kicad_sym\n80C188XL\n\nMPRO', 'pins':[
             Pin(num='1',name='A15',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='A11',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='AD3',func=Pin.types.BIDIR,unit=1),
@@ -1234,7 +1234,7 @@ MCU_Intel = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='A12',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='AD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'8749', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8749'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'MCS-48 uC Microcontroller', 'description':'', 'datasheet':'', 'pins':[
+        Part(**{ 'name':'8749', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'8749'}), 'ref_prefix':'U', 'fplist':['', ''], 'footprint':'', 'keywords':'MCS-48 uC Microcontroller', 'description':'', 'datasheet':'', 'search_text':'/usr/share/kicad/symbols/MCU_Intel.kicad_sym\n8749\n\nMCS-48 uC Microcontroller', 'pins':[
             Pin(num='1',name='T0',func=Pin.types.INPUT,unit=1),
             Pin(num='10',name='~{WR}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='ALE',func=Pin.types.OUTPUT,unit=1),
@@ -1275,7 +1275,7 @@ MCU_Intel = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='EA',func=Pin.types.INPUT,unit=1),
             Pin(num='8',name='~{RD}',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='~{PSEN}',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IA186XLPLC68IR2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IA186XLPLC68IR2'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'MPRO', 'description':'', 'datasheet':'http://www.innovasic.com/upload/products/Innovasic_IA186XL_IA188XL_Data_Sheet_20110706_2.pdf', 'pins':[
+        Part(**{ 'name':'IA186XLPLC68IR2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IA186XLPLC68IR2'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'MPRO', 'description':'', 'datasheet':'http://www.innovasic.com/upload/products/Innovasic_IA186XL_IA188XL_Data_Sheet_20110706_2.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Intel.kicad_sym\nIA186XLPLC68IR2\n\nMPRO', 'pins':[
             Pin(num='1',name='AD15',func=Pin.types.BIDIR,unit=1),
             Pin(num='10',name='AD11',func=Pin.types.BIDIR,unit=1),
             Pin(num='11',name='AD3',func=Pin.types.BIDIR,unit=1),
@@ -1344,7 +1344,7 @@ MCU_Intel = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='AD12',func=Pin.types.BIDIR,unit=1),
             Pin(num='8',name='AD4',func=Pin.types.BIDIR,unit=1),
             Pin(num='9',name='VCC',func=Pin.types.PWRIN,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'IA188XLPLC68IR2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IA188XLPLC68IR2'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'MPRO', 'description':'', 'datasheet':'http://www.innovasic.com/upload/products/Innovasic_IA186XL_IA188XL_Data_Sheet_20110706_2.pdf', 'pins':[
+        Part(**{ 'name':'IA188XLPLC68IR2', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'IA188XLPLC68IR2'}), 'ref_prefix':'U', 'fplist':['', '', ''], 'footprint':'', 'keywords':'MPRO', 'description':'', 'datasheet':'http://www.innovasic.com/upload/products/Innovasic_IA186XL_IA188XL_Data_Sheet_20110706_2.pdf', 'search_text':'/usr/share/kicad/symbols/MCU_Intel.kicad_sym\nIA188XLPLC68IR2\n\nMPRO', 'pins':[
             Pin(num='1',name='A15',func=Pin.types.OUTPUT,unit=1),
             Pin(num='10',name='A11',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='AD3',func=Pin.types.BIDIR,unit=1),

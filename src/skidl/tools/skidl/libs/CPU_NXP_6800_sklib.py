@@ -4,7 +4,7 @@ from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE
 SKIDL_lib_version = '0.0.1'
 
 CPU_NXP_6800 = SchLib(tool=SKIDL).add_parts(*[
-        Part(**{ 'name':'MC6800', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC6800'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'MCU', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheet/motorola/MC68A00L.pdf', 'pins':[
+        Part(**{ 'name':'MC6800', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC6800'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'MCU', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheet/motorola/MC68A00L.pdf', 'search_text':'/usr/share/kicad/symbols/CPU_NXP_6800.kicad_sym\nMC6800\n\nMCU', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='A1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='A2',func=Pin.types.OUTPUT,unit=1),
@@ -45,7 +45,7 @@ CPU_NXP_6800 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='BA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='A0',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC6802', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC6802'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'MCU', 'description':'', 'datasheet':'https://www.jameco.com/Jameco/Products/ProdDS/43502.pdf', 'pins':[
+        Part(**{ 'name':'MC6802', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC6802'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'MCU', 'description':'', 'datasheet':'https://www.jameco.com/Jameco/Products/ProdDS/43502.pdf', 'search_text':'/usr/share/kicad/symbols/CPU_NXP_6800.kicad_sym\nMC6802\n\nMCU', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='A1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='A2',func=Pin.types.OUTPUT,unit=1),
@@ -86,7 +86,7 @@ CPU_NXP_6800 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='BA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='A0',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC6809', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC6809'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'MCU', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheet/motorola/MC68B09S.pdf', 'pins':[
+        Part(**{ 'name':'MC6809', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC6809'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'MCU', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheet/motorola/MC68B09S.pdf', 'search_text':'/usr/share/kicad/symbols/CPU_NXP_6800.kicad_sym\nMC6809\n\nMCU', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='A2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='A3',func=Pin.types.OUTPUT,unit=1),
@@ -127,7 +127,7 @@ CPU_NXP_6800 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='A0',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='A1',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC6809E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC6809E'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'MCU', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheet/motorola/MC68B09S.pdf', 'pins':[
+        Part(**{ 'name':'MC6809E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC6809E'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'MCU', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheet/motorola/MC68B09S.pdf', 'search_text':'/usr/share/kicad/symbols/CPU_NXP_6800.kicad_sym\nMC6809E\n\nMCU', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='A2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='A3',func=Pin.types.OUTPUT,unit=1),
@@ -168,7 +168,7 @@ CPU_NXP_6800 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='A0',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='A1',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC68A00', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68A00'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'MCU', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheet/motorola/MC68A00L.pdf', 'pins':[
+        Part(**{ 'name':'MC68A00', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68A00'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'MCU', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheet/motorola/MC68A00L.pdf', 'search_text':'/usr/share/kicad/symbols/CPU_NXP_6800.kicad_sym\nMC68A00\n\nMCU', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='A1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='A2',func=Pin.types.OUTPUT,unit=1),
@@ -209,7 +209,7 @@ CPU_NXP_6800 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='BA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='A0',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC68A02', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68A02'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'MCU', 'description':'', 'datasheet':'https://www.jameco.com/Jameco/Products/ProdDS/43502.pdf', 'pins':[
+        Part(**{ 'name':'MC68A02', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68A02'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'MCU', 'description':'', 'datasheet':'https://www.jameco.com/Jameco/Products/ProdDS/43502.pdf', 'search_text':'/usr/share/kicad/symbols/CPU_NXP_6800.kicad_sym\nMC68A02\n\nMCU', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='A1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='A2',func=Pin.types.OUTPUT,unit=1),
@@ -250,7 +250,7 @@ CPU_NXP_6800 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='BA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='A0',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC68A09', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68A09'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'MCU', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheet/motorola/MC68B09S.pdf', 'pins':[
+        Part(**{ 'name':'MC68A09', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68A09'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'MCU', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheet/motorola/MC68B09S.pdf', 'search_text':'/usr/share/kicad/symbols/CPU_NXP_6800.kicad_sym\nMC68A09\n\nMCU', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='A2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='A3',func=Pin.types.OUTPUT,unit=1),
@@ -291,7 +291,7 @@ CPU_NXP_6800 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='A0',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='A1',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC68A09E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68A09E'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'MCU', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheet/motorola/MC68B09S.pdf', 'pins':[
+        Part(**{ 'name':'MC68A09E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68A09E'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'MCU', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheet/motorola/MC68B09S.pdf', 'search_text':'/usr/share/kicad/symbols/CPU_NXP_6800.kicad_sym\nMC68A09E\n\nMCU', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='A2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='A3',func=Pin.types.OUTPUT,unit=1),
@@ -332,7 +332,7 @@ CPU_NXP_6800 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='A0',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='A1',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC68B00', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68B00'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'MCU', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheet/motorola/MC68A00L.pdf', 'pins':[
+        Part(**{ 'name':'MC68B00', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68B00'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'MCU', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheet/motorola/MC68A00L.pdf', 'search_text':'/usr/share/kicad/symbols/CPU_NXP_6800.kicad_sym\nMC68B00\n\nMCU', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='A1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='A2',func=Pin.types.OUTPUT,unit=1),
@@ -373,7 +373,7 @@ CPU_NXP_6800 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='BA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='A0',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC68B02', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68B02'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'MCU', 'description':'', 'datasheet':'https://www.jameco.com/Jameco/Products/ProdDS/43502.pdf', 'pins':[
+        Part(**{ 'name':'MC68B02', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68B02'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'MCU', 'description':'', 'datasheet':'https://www.jameco.com/Jameco/Products/ProdDS/43502.pdf', 'search_text':'/usr/share/kicad/symbols/CPU_NXP_6800.kicad_sym\nMC68B02\n\nMCU', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PASSIVE,unit=1),
             Pin(num='10',name='A1',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='A2',func=Pin.types.OUTPUT,unit=1),
@@ -414,7 +414,7 @@ CPU_NXP_6800 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='BA',func=Pin.types.OUTPUT,unit=1),
             Pin(num='8',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='9',name='A0',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC68B09', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68B09'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'MCU', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheet/motorola/MC68B09S.pdf', 'pins':[
+        Part(**{ 'name':'MC68B09', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68B09'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'MCU', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheet/motorola/MC68B09S.pdf', 'search_text':'/usr/share/kicad/symbols/CPU_NXP_6800.kicad_sym\nMC68B09\n\nMCU', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='A2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='A3',func=Pin.types.OUTPUT,unit=1),
@@ -455,7 +455,7 @@ CPU_NXP_6800 = SchLib(tool=SKIDL).add_parts(*[
             Pin(num='7',name='VCC',func=Pin.types.PWRIN,unit=1),
             Pin(num='8',name='A0',func=Pin.types.OUTPUT,unit=1),
             Pin(num='9',name='A1',func=Pin.types.OUTPUT,unit=1)], 'unit_defs':[] }),
-        Part(**{ 'name':'MC68B09E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68B09E'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'MCU', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheet/motorola/MC68B09S.pdf', 'pins':[
+        Part(**{ 'name':'MC68B09E', 'dest':TEMPLATE, 'tool':SKIDL, 'aliases':Alias({'MC68B09E'}), 'ref_prefix':'U', 'fplist':['Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm', 'Package_DIP:DIP-40_W15.24mm'], 'footprint':'Package_DIP:DIP-40_W15.24mm', 'keywords':'MCU', 'description':'', 'datasheet':'http://pdf.datasheetcatalog.com/datasheet/motorola/MC68B09S.pdf', 'search_text':'/usr/share/kicad/symbols/CPU_NXP_6800.kicad_sym\nMC68B09E\n\nMCU', 'pins':[
             Pin(num='1',name='VSS',func=Pin.types.PWRIN,unit=1),
             Pin(num='10',name='A2',func=Pin.types.OUTPUT,unit=1),
             Pin(num='11',name='A3',func=Pin.types.OUTPUT,unit=1),
