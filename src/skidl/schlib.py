@@ -11,12 +11,14 @@ import re
 from .alias import Alias
 from .logger import active_logger
 from .utilities import (
+    consistent_hash,
     cnvt_to_var_name,
     export_to_all,
     filter_list,
     flatten,
     list_or_scalar,
     opened,
+    get_abs_filename,
     norecurse,
 )
 
@@ -49,9 +51,13 @@ class SchLib(object):
         Load the parts from a library file.
         """
 
+        import os
+        import pickle
         import skidl
 
-        from .tools import tool_modules
+        from .tools import tool_modules, lib_suffixes
+
+        use_cache = False
 
         tool = tool or skidl.config.tool
 
@@ -62,34 +68,73 @@ class SchLib(object):
         for k, v in list(attribs.items()):
             setattr(self, k, v)
 
-        # If no filename, create an empty library.
+        # If no filename, just create an empty library and exit.
         if not filename:
-            pass
+            return
+        
+        # Get the absolute path for the part library file.
+        try:
+            paths = skidl.lib_search_paths[tool]
+            exts = lib_suffixes[tool]
+        except KeyError:
+            # OK, unknown tool...
+            active_logger.raise_(
+                ValueError,
+                "Unsupported ECAD tool library: {}.".format(tool),
+            )
+        abs_filename = get_abs_filename(filename, paths, exts, allow_failure=False)
 
-        # Load this SchLib with an existing SchLib object if the file name
+        # Get a unique hash to reference the part library file.
+        abs_fn_hash = consistent_hash(abs_filename)
+
+        # Create the absolute file name of the pickle file for storing this part library.
+        lib_pickle_abs_fn = os.path.join(skidl.config.pickle_dir, "_".join((filename, str(abs_fn_hash))))
+
+        # Load this SchLib with an existing SchLib object if the file name hash
         # matches one in the cache.
-        elif filename in self._cache:
-            self.__dict__.update(self._cache[filename].__dict__)
+        if lib_pickle_abs_fn in self._cache:
+            self.__dict__.update(self._cache[lib_pickle_abs_fn].__dict__)
 
-        # Otherwise, load from a schematic library file.
+        # Load this Schlib from the pickle file if it exists and it's more recent
+        # than the original part library file.
+        elif (os.path.exists(lib_pickle_abs_fn) and
+                # os.path.getsize(lib_pickle_abs_fn) > 0 and
+                os.path.getmtime(lib_pickle_abs_fn) >= os.path.getmtime(abs_filename)):
+            with open(lib_pickle_abs_fn, "rb") as f:
+                self.__dict__ = pickle.load(f).__dict__
+            # Cache a reference to the library.
+            if use_cache:
+                self._cache[lib_pickle_abs_fn] = self
+
+        # Otherwise, load from a schematic part library file.
         else:
-            if tool in tool_modules.keys():
-                # Use the tool name to find the function for loading the library.
-                tool_modules[tool].load_sch_lib(
-                    self,
-                    filename,
-                    skidl.lib_search_paths[tool],
-                    lib_section=lib_section,
-                )
-                self.filename = filename
-                # Cache a reference to the library.
-                self._cache[filename] = self
-            else:
-                # OK, that didn't work so well...
-                active_logger.raise_(
-                    ValueError,
-                    "Unsupported ECAD tool library: {}.".format(tool),
-                )
+            # Use the tool name to find the function for loading the library.
+            tool_modules[tool].load_sch_lib(
+                self,
+                abs_filename,
+                # skidl.lib_search_paths[tool],
+                lib_section=lib_section,
+            )
+            self.filename = filename
+            # Cache a reference to the library.
+            if use_cache:
+                self._cache[lib_pickle_abs_fn] = self
+            # Pickle the library for future use.
+            if not os.path.exists(skidl.config.pickle_dir):
+                os.mkdir(skidl.config.pickle_dir)
+            with open(lib_pickle_abs_fn, "wb") as f:
+                try:
+                    print(f"Pickling {lib_pickle_abs_fn}")
+                    pickle.dump(self, f)
+                except Exception as e:
+                    print(e)
+                    pass
+            # Delete the pickled lib if its size if zero (i.e., a pickling error occurred).
+            if os.path.exists(lib_pickle_abs_fn):
+                if os.path.getsize(lib_pickle_abs_fn) == 0:
+                    # Delete the file
+                    os.remove(lib_pickle_abs_fn)
+
 
     def __str__(self):
         """Return a list of the part names in this library as a string."""

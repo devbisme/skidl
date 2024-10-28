@@ -7,6 +7,7 @@ Utility functions used by the rest of SKiDL.
 """
 
 import collections
+import hashlib
 import os
 import os.path
 import platform
@@ -78,6 +79,20 @@ def debug_trace(fn, *args, **kwargs):
         return fn(*args, **kwargs)
 
     return traced_fn
+
+
+@export_to_all
+def consistent_hash(text):
+    """Return a hash value for a text string."""
+
+    # Create a SHA-256 hash object
+    hash_object = hashlib.sha256()
+    
+    # Update the hash object with the bytes of the text
+    hash_object.update(text.encode('utf-8'))
+    
+    # Get the hexadecimal representation of the hash
+    return hash_object.hexdigest()[:16]
 
 
 @export_to_all
@@ -768,7 +783,7 @@ def find_and_open_file(
     Args:
         filename: Base file name (e.g., "my_file").
         paths: List of paths to search for the file.
-        ext: The extension for the file (e.g., ".txt").
+        ext: The extension for the file (e.g., ".txt") or a list of extensions.
         allow_failure: If false, failure to find file raises and exception.
         exclude_binary: If true, skip files that contain binary data.
         descend: If 0, don't search lower-level directories. If positive, search
@@ -804,10 +819,6 @@ def find_and_open_file(
     else:
         exts = to_list(ext)
 
-    # Create the regular expression for matching against the filename.
-    # exts = [re.escape(ext) for ext in exts]
-    match_name = re.escape(base) + "(" + "|".join(exts) + ")$"
-
     # Search through the directory paths for a file whose name matches the regular expression.
     for path in paths:
         if is_url(path):
@@ -819,6 +830,10 @@ def find_and_open_file(
                     # File failed, so keep searching.
                     pass
         else:
+            # Create the regular expression for matching against the filename.
+            # exts = [re.escape(ext) for ext in exts]
+            match_name = re.escape(base) + "(" + "|".join(exts) + ")$"
+
             # Search through the files in a particular directory path.
             descent_ctr = descend  # Controls the descent through the path.
             for root, dirnames, filenames in os.walk(path):
@@ -855,7 +870,7 @@ def find_and_read_file(
     Args:
         filename: Base file name (e.g., "my_file").
         paths: List of paths to search for the file.
-        ext: The extension for the file (e.g., ".txt").
+        ext: The extension for the file (e.g., ".txt") or a list of extensions.
         allow_failure: If false, failure to find file raises and exception.
         exclude_binary: If true, skip files that contain binary data.
         descend: If 0, don't search lower-level directories. If positive, search
@@ -865,6 +880,7 @@ def find_and_read_file(
     Returns:
         File contents and file name or None, None if file could not be opened.
     """
+
     fp, fn = find_and_open_file(
         filename, paths, ext, allow_failure, exclude_binary, descend
     )
@@ -878,6 +894,34 @@ def find_and_read_file(
             pass
         return contents, fn
     return None, None
+
+
+@export_to_all
+def get_abs_filename(filename, paths=None, ext=None, allow_failure=False, descend=0):
+    """Search for a file in list of paths, and return its absolute file name.
+
+    Args:
+        filename: Base file name (e.g., "my_file").
+        paths: List of paths to search for the file.
+        ext: The extension for the file (e.g., ".txt").
+        allow_failure: If false, failure to find file raises and exception.
+        descend: If 0, don't search lower-level directories. If positive, search
+                 that many levels down for the file. If negative, descend into
+                 subdirectories withcurrent_level limit.
+
+    Returns:
+        File name if file exists, otherwise None.
+    """
+
+    fp, fn = find_and_open_file(filename, paths, ext, allow_failure, False, descend)
+
+    if fp:
+        # Found it, so close file pointer and return file name.
+        fp.close()
+        return fn
+
+    # No file found, so return None.
+    return None
 
 
 @export_to_all

@@ -84,6 +84,10 @@ class SkidlConfig(Config):
         if "tool" not in self:
             self.tool = KICAD
 
+        # If no configuration files were found, set default directory for part library pickle files.
+        if "pickle_dir" not in self:
+            self.pickle_dir = "./lib_pickle_dir"
+
         # If no configuration files were found, set some default part lib search paths.
         if "lib_search_paths" not in self:
             self["lib_search_paths"] = {
