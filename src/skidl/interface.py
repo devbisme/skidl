@@ -37,35 +37,58 @@ class Interface(dict):
     erc_list = []
 
     def __init__(self, *args, **kwargs):
+
+        # By default, buses are unbundled into individual nets.
+        unbundle = kwargs.pop("unbundle", True)
+
+        self.unexpio = dict()
+
+        # Start with a standard dictionary of objects.
         super().__init__(*args, **kwargs)
+
         super().__setattr__("match_pin_regex", False)
+
         for k, v in list(self.items()):
-            if isinstance(v, (Pin, Net)):
-                cct = v.circuit
-                n = Net(circuit=cct)
-                n.aliases += k
-                n += v
-                setattr(self, k, n)
-            elif isinstance(v, (Bus, NetPinList)):
-                cct = v.circuit
-                b = Bus(len(v), circuit=cct)
-                b.aliases += k
-                b += v
-                setattr(self, k, b)
-                for i in range(len(v)):
-                    n = Net(circuit=cct)
-                    n.aliases += k + str(i)
-                    n += b[i]
-                    setattr(self, k + str(i), n)
-            elif isinstance(v, SkidlBaseObject):
-                setattr(self, k, v)
+            if isinstance(v, (Pin, Net, Bus, NetPinList, SkidlBaseObject)):
+                # Add SKiDL-type objects.
+                self.__setattr__(k, v, unbundle=unbundle)
             else:
+                # Add standard Python objects.
                 super().__setattr__(k, v)
 
-    def __setattr__(self, key, value):
+    def __setattr__(self, key, value, unbundle=True):
         """Sets attribute and also a dict entry with a key using the attribute name."""
-        super().__setitem__(key, value)
+
+        # Create net-like objects for pin-like objects.
+        if isinstance(value, NetPinList):
+            # Convert NetPinList into a Bus.
+            value = Bus(value)
+        elif isinstance(value, Pin):
+            # Convert Pin into a Net.
+            n = Net()
+            n += value
+            value = n
+
+        # Assign the key as an alias to any net-like object.
+        if isinstance(value, (Net, Bus)):
+            value.aliases += key
+            self.unexpio[key] = value
+
+        # Add the value to the dictionary and as an attribute.
+        if isinstance(value, SkidlBaseObject):
+            # Only SKiDL-type objects get added as dictionary items.
+            super().__setitem__(key, value)
         super().__setattr__(key, value)
+
+        # If enabled, expand a bus and add its individual nets.
+        if isinstance(value, Bus) and unbundle:
+            for i, v in enumerate(value):
+                n = Net(circuit=v.circuit)
+                n.aliases += key + str(i)
+                n += v
+                super().__setitem__(key + str(i), n)
+                super().__setattr__(key + str(i), n)
+                # self.setattr(self, key + str(i), n)
 
     def __getitem__(self, *io_ids, **criteria):
         """
