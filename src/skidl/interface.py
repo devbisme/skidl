@@ -158,16 +158,6 @@ class Interface(dict):
         if from_iadd(value):
             # The += flag in the values are no longer needed.
             rmv_iadd(value)
-            # If interface items are being changed as a result of += operator...
-            for v in to_list(value):
-                # Look for interface key name attached to each value.
-                # Only ProtoNets should have them because they need to be
-                # changed to a Net or Bus once they are connected to something.
-                key = getattr(v, "intfc_key", None)
-                if key:
-                    # Set the ProtoNet in the interface entry with key to its new Net or Bus value.
-                    dict.__setitem__(self, key, v)
-                    dict.__setattr__(self, key, v)
         else:
             # This is for a straight assignment of value to key.
             setattr(self, key, value)
