@@ -37,10 +37,8 @@ class Interface(dict):
     erc_list = []
 
     def __init__(self, *args, **kwargs):
-        # dict is used instead of super() throughout because using super()
-        # caused the tests to run forever under Python 2.7.18.
-        dict.__init__(self, *args, **kwargs)
-        dict.__setattr__(self, "match_pin_regex", False)
+        super().__init__(*args, **kwargs)
+        super().__setattr__("match_pin_regex", False)
         for k, v in list(self.items()):
             if isinstance(v, (Pin, Net)):
                 cct = v.circuit
@@ -62,15 +60,12 @@ class Interface(dict):
             elif isinstance(v, SkidlBaseObject):
                 setattr(self, k, v)
             else:
-                dict.__setattr__(self, k, v)
-
-    def __getattribute__(self, key):
-        return dict.__getattribute__(self, key)
+                super().__setattr__(k, v)
 
     def __setattr__(self, key, value):
         """Sets attribute and also a dict entry with a key using the attribute name."""
-        dict.__setitem__(self, key, value)
-        dict.__setattr__(self, key, value)
+        super().__setitem__(key, value)
+        super().__setattr__(key, value)
 
     def __getitem__(self, *io_ids, **criteria):
         """
