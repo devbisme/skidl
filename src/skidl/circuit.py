@@ -27,7 +27,7 @@ from .logger import active_logger, erc_logger, stop_log_file_output
 from .net import NCNet, Net
 from .part import Part, PartUnit
 from .pckg_info import __version__
-from .pin import Pin
+from .pin import pin_types
 from .schlib import SchLib
 from .scriptinfo import get_script_name, get_skidl_trace
 from .skidlbaseobj import SkidlBaseObject
@@ -830,19 +830,19 @@ class Circuit(SkidlBaseObject):
                     pass
 
         pin_dir_tbl = {
-            Pin.types.INPUT: "input",
-            Pin.types.OUTPUT: "output",
-            Pin.types.BIDIR: "output",
-            Pin.types.TRISTATE: "output",
-            Pin.types.PASSIVE: "input",
-            Pin.types.PULLUP: "output",
-            Pin.types.PULLDN: "output",
-            Pin.types.UNSPEC: "input",
-            Pin.types.PWRIN: "input",
-            Pin.types.PWROUT: "output",
-            Pin.types.OPENCOLL: "output",
-            Pin.types.OPENEMIT: "output",
-            Pin.types.NOCONNECT: "nc",
+            pin_types.INPUT: "input",
+            pin_types.OUTPUT: "output",
+            pin_types.BIDIR: "output",
+            pin_types.TRISTATE: "output",
+            pin_types.PASSIVE: "input",
+            pin_types.PULLUP: "output",
+            pin_types.PULLDN: "output",
+            pin_types.UNSPEC: "input",
+            pin_types.PWRIN: "input",
+            pin_types.PWROUT: "output",
+            pin_types.OPENCOLL: "output",
+            pin_types.OPENEMIT: "output",
+            pin_types.NOCONNECT: "nc",
         }
 
         cells = {}

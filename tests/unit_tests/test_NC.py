@@ -5,6 +5,7 @@
 import pytest
 
 from skidl import SKIDL, TEMPLATE, Circuit, Part, Pin, subcircuit
+from skidl.pin import pin_types
 
 from .setup_teardown import setup_function, teardown_function
 
@@ -18,8 +19,8 @@ def test_NC_1():
             ref_prefix="R",
             dest=TEMPLATE,
             pins=[
-                Pin(num=1, func=Pin.types.PASSIVE),
-                Pin(num=2, func=Pin.types.PASSIVE),
+                Pin(num=1, func=pin_types.PASSIVE),
+                Pin(num=2, func=pin_types.PASSIVE),
             ],
         )
         r1 = res()

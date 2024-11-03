@@ -58,6 +58,7 @@ class SchLib(object):
         from .tools import tool_modules, lib_suffixes
 
         use_cache = False
+        use_pickle = True
 
         tool = tool or skidl.config.tool
 
@@ -88,7 +89,7 @@ class SchLib(object):
         abs_fn_hash = consistent_hash(abs_filename)
 
         # Create the absolute file name of the pickle file for storing this part library.
-        lib_pickle_abs_fn = os.path.join(skidl.config.pickle_dir, "_".join((filename, str(abs_fn_hash))))
+        lib_pickle_abs_fn = os.path.join(skidl.config.pickle_dir, "_".join((filename, tool, str(abs_fn_hash))))
 
         # Load this SchLib with an existing SchLib object if the file name hash
         # matches one in the cache.
@@ -97,7 +98,7 @@ class SchLib(object):
 
         # Load this Schlib from the pickle file if it exists and it's more recent
         # than the original part library file.
-        elif (os.path.exists(lib_pickle_abs_fn) and
+        elif (use_pickle and os.path.exists(lib_pickle_abs_fn) and
                 # os.path.getsize(lib_pickle_abs_fn) > 0 and
                 os.path.getmtime(lib_pickle_abs_fn) >= os.path.getmtime(abs_filename)):
             with open(lib_pickle_abs_fn, "rb") as f:
@@ -120,20 +121,21 @@ class SchLib(object):
             if use_cache:
                 self._cache[lib_pickle_abs_fn] = self
             # Pickle the library for future use.
-            if not os.path.exists(skidl.config.pickle_dir):
-                os.mkdir(skidl.config.pickle_dir)
-            with open(lib_pickle_abs_fn, "wb") as f:
-                try:
-                    print(f"Pickling {lib_pickle_abs_fn}")
-                    pickle.dump(self, f)
-                except Exception as e:
-                    print(e)
-                    pass
-            # Delete the pickled lib if its size if zero (i.e., a pickling error occurred).
-            if os.path.exists(lib_pickle_abs_fn):
-                if os.path.getsize(lib_pickle_abs_fn) == 0:
-                    # Delete the file
-                    os.remove(lib_pickle_abs_fn)
+            if use_pickle:
+                if not os.path.exists(skidl.config.pickle_dir):
+                    os.mkdir(skidl.config.pickle_dir)
+                with open(lib_pickle_abs_fn, "wb") as f:
+                    try:
+                        print(f"Pickling {lib_pickle_abs_fn}")
+                        pickle.dump(self, f)
+                    except Exception as e:
+                        print(e)
+                        pass
+                # Delete the pickled lib if its size if zero (i.e., a pickling error occurred).
+                if os.path.exists(lib_pickle_abs_fn):
+                    if os.path.getsize(lib_pickle_abs_fn) == 0:
+                        # Delete the file
+                        os.remove(lib_pickle_abs_fn)
 
 
     def __str__(self):
@@ -287,6 +289,7 @@ class SchLib(object):
 
         export_str = "from collections import defaultdict\n"
         export_str += "from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE\n\n"
+        export_str += "from skidl.pin import pin_types\n\n"
         export_str += "SKIDL_lib_version = '0.0.1'\n\n"
         part_export_str = ",".join([p.export(addtl_part_attrs=addtl_part_attrs) for p in self.parts])
         export_str += "{} = SchLib(tool=SKIDL).add_parts(*[{}])".format(

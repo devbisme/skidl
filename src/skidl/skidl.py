@@ -8,7 +8,7 @@ from .circuit import Circuit
 from .common import builtins
 from .config_ import SkidlConfig
 from .part import default_empty_footprint_handler
-from .pin import Pin
+from .pin import pin_drives
 from .utilities import export_to_all
 
 
@@ -70,7 +70,7 @@ no_files = default_circuit.no_files
 empty_footprint_handler = default_empty_footprint_handler
 
 # Define a tag for nets that convey power (e.g., VCC or GND).
-POWER = Pin.drives.POWER
+POWER = pin_drives.POWER
 
 
 @export_to_all

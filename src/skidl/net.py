@@ -56,13 +56,13 @@ class Net(SkidlBaseObject):
     erc_list = [dflt_net_erc]
 
     def __init__(self, name=None, circuit=None, *pins_nets_buses, **attribs):
-        from .pin import Pin
+        from .pin import pin_drives
 
         super().__init__()
 
         self._valid = True  # Make net valid before doing anything else.
         self.do_erc = True
-        self._drive = Pin.drives.NONE
+        self._drive = pin_drives.NONE
         self._pins = []
         self.circuit = None
         self.code = None  # This is the net number used in a KiCad netlist file.
@@ -886,10 +886,10 @@ class NCNet(Net):
     """
 
     def __init__(self, name=None, circuit=None, *pins_nets_buses, **attribs):
-        from .pin import Pin
+        from .pin import pin_drives
 
         super().__init__(name=name, circuit=circuit, *pins_nets_buses, **attribs)
-        self._drive = Pin.drives.NOCONNECT
+        self._drive = pin_drives.NOCONNECT
         self.do_erc = False  # No need to do ERC on no-connect nets.
 
     def generate_netlist_net(self, tool=None):
