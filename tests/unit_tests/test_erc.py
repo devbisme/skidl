@@ -18,6 +18,7 @@ from skidl import (
     erc_logger,
     subcircuit,
 )
+from skidl.pin import pin_types
 
 from .setup_teardown import setup_function, teardown_function
 
@@ -36,7 +37,7 @@ def test_nc_1():
         name="res",
         ref_prefix="R",
         dest=TEMPLATE,
-        pins=[Pin(num=1, func=Pin.types.PASSIVE), Pin(num=2, func=Pin.types.PASSIVE)],
+        pins=[Pin(num=1, func=pin_types.PASSIVE), Pin(num=2, func=pin_types.PASSIVE)],
     )
     r1 = res(value="1K")
     r2 = res(value="500")
@@ -47,7 +48,7 @@ def test_nc_1():
         name="cap",
         ref_prefix="C",
         dest=TEMPLATE,
-        pins=[Pin(num=1, func=Pin.types.PASSIVE), Pin(num=2, func=Pin.types.NOCONNECT)],
+        pins=[Pin(num=1, func=pin_types.PASSIVE), Pin(num=2, func=pin_types.NOCONNECT)],
     )
     c1 = cap()
     c2 = cap(value="1uF")
@@ -68,7 +69,7 @@ def test_nc_2():
         name="res",
         ref_prefix="R",
         dest=TEMPLATE,
-        pins=[Pin(num=1, func=Pin.types.NOCONNECT), Pin(num=2, func=Pin.types.PASSIVE)],
+        pins=[Pin(num=1, func=pin_types.NOCONNECT), Pin(num=2, func=pin_types.PASSIVE)],
     )
     r1 = res()
     r1[1] += r1[2]
@@ -84,7 +85,7 @@ def test_conflict_1():
         name="res",
         ref_prefix="R",
         dest=TEMPLATE,
-        pins=[Pin(num=1, func=Pin.types.PWRIN), Pin(num=2, func=Pin.types.PWROUT)],
+        pins=[Pin(num=1, func=pin_types.PWRIN), Pin(num=2, func=pin_types.PWROUT)],
     )
     r1 = res()
     r1[1] += r1[2]
@@ -100,7 +101,7 @@ def test_conflict_2():
         name="res",
         ref_prefix="R",
         dest=TEMPLATE,
-        pins=[Pin(num=1, func=Pin.types.OUTPUT), Pin(num=2, func=Pin.types.PWROUT)],
+        pins=[Pin(num=1, func=pin_types.OUTPUT), Pin(num=2, func=pin_types.PWROUT)],
     )
     r1 = res()
     r1[1] += r1[2]
@@ -116,7 +117,7 @@ def test_drive_1():
         name="res",
         ref_prefix="R",
         dest=TEMPLATE,
-        pins=[Pin(num=1, func=Pin.types.INPUT), Pin(num=2, func=Pin.types.PWRIN)],
+        pins=[Pin(num=1, func=pin_types.INPUT), Pin(num=2, func=pin_types.PWRIN)],
     )
     r1 = res()
     r1[1] += r1[2]
@@ -132,7 +133,7 @@ def test_drive_2():
         name="res",
         ref_prefix="R",
         dest=TEMPLATE,
-        pins=[Pin(num=1, func=Pin.types.INPUT), Pin(num=2, func=Pin.types.PWRIN)],
+        pins=[Pin(num=1, func=pin_types.INPUT), Pin(num=2, func=pin_types.PWRIN)],
     )
     r1 = res()
     r1[1] += r1[2]
@@ -148,7 +149,7 @@ def test_drive_3():
         name="res",
         ref_prefix="R",
         dest=TEMPLATE,
-        pins=[Pin(num=1, func=Pin.types.INPUT), Pin(num=2, func=Pin.types.PWRIN)],
+        pins=[Pin(num=1, func=pin_types.INPUT), Pin(num=2, func=pin_types.PWRIN)],
     )
     r1 = res()
     r1[1] += r1[2]
@@ -165,7 +166,7 @@ def test_drive_4():
         name="res",
         ref_prefix="R",
         dest=TEMPLATE,
-        pins=[Pin(num=1, func=Pin.types.INPUT), Pin(num=2, func=Pin.types.PWRIN)],
+        pins=[Pin(num=1, func=pin_types.INPUT), Pin(num=2, func=pin_types.PWRIN)],
     )
     r1 = res()
     n = Net()
@@ -183,7 +184,7 @@ def test_pull_1():
         name="res",
         ref_prefix="R",
         dest=TEMPLATE,
-        pins=[Pin(num=1, func=Pin.types.PULLUP), Pin(num=2, func=Pin.types.PULLDN)],
+        pins=[Pin(num=1, func=pin_types.PULLUP), Pin(num=2, func=pin_types.PULLDN)],
     )
     r1 = res()
     r1[1] += r1[2]
@@ -199,7 +200,7 @@ def test_pull_2():
         name="res",
         ref_prefix="R",
         dest=TEMPLATE,
-        pins=[Pin(num=1, func=Pin.types.PULLUP), Pin(num=2, func=Pin.types.PULLUP)],
+        pins=[Pin(num=1, func=pin_types.PULLUP), Pin(num=2, func=pin_types.PULLUP)],
     )
     r1 = res()
     r1[1] += r1[2]
@@ -215,7 +216,7 @@ def test_pull_3():
         name="res",
         ref_prefix="R",
         dest=TEMPLATE,
-        pins=[Pin(num=1, func=Pin.types.PULLDN), Pin(num=2, func=Pin.types.INPUT)],
+        pins=[Pin(num=1, func=pin_types.PULLDN), Pin(num=2, func=pin_types.INPUT)],
     )
     r1 = res()
     r1[1] += r1[2]
@@ -231,10 +232,10 @@ def test_all_pin_funcs_1():
         name="res",
         ref_prefix="R",
         dest=TEMPLATE,
-        pins=[Pin(num=1, func=Pin.types.PULLDN), Pin(num=2, func=Pin.types.INPUT)],
+        pins=[Pin(num=1, func=pin_types.PULLDN), Pin(num=2, func=pin_types.INPUT)],
     )
-    for f1 in Pin.types:
-        for f2 in Pin.types:
+    for f1 in pin_types:
+        for f2 in pin_types:
             r = res()
             r[1].func = f1
             r[2].func = f2

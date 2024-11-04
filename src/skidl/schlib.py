@@ -11,12 +11,15 @@ import re
 from .alias import Alias
 from .logger import active_logger
 from .utilities import (
+    consistent_hash,
     cnvt_to_var_name,
     export_to_all,
     filter_list,
     flatten,
+    is_url,
     list_or_scalar,
     opened,
+    get_abs_filename,
     norecurse,
 )
 
@@ -41,7 +44,6 @@ class SchLib(object):
 
     # Keep a dict of filenames and their associated SchLib object
     # for fast loading of libraries.
-    # TODO: Find a way to retain the cache between invocations of SKiDL and only update new changed libraries.
     _cache = {}
 
     def __init__(self, filename=None, tool=None, lib_section=None, **attribs):
@@ -49,9 +51,15 @@ class SchLib(object):
         Load the parts from a library file.
         """
 
+        import os
+        import pickle
         import skidl
 
-        from .tools import tool_modules
+        from .tools import tool_modules, lib_suffixes
+
+        # Some flags for enabling library caching and pickling.
+        use_cache = False
+        use_pickle = True
 
         tool = tool or skidl.config.tool
 
@@ -62,34 +70,75 @@ class SchLib(object):
         for k, v in list(attribs.items()):
             setattr(self, k, v)
 
-        # If no filename, create an empty library.
+        # If no filename, just create an empty library and exit.
         if not filename:
-            pass
+            return
+        
+        # Get the absolute path for the part library file.
+        try:
+            paths = skidl.lib_search_paths[tool]
+            exts = lib_suffixes[tool]
+        except KeyError:
+            # OK, unknown tool...
+            active_logger.raise_(
+                ValueError,
+                "Unsupported ECAD tool library: {}.".format(tool),
+            )
+        abs_filename = get_abs_filename(filename, paths, exts, allow_failure=False)
 
-        # Load this SchLib with an existing SchLib object if the file name
+        # Don't pickle files stored in remote repos because it's difficult to
+        # get their modification times to compare against the local pickled library.
+        use_pickle = not is_url(abs_filename)
+
+        # Get a unique hash to reference the part library file.
+        abs_fn_hash = consistent_hash(abs_filename)
+
+        # Create the absolute file name of the pickle file for storing this part library.
+        lib_pickle_abs_fn = os.path.join(skidl.config.pickle_dir, "_".join((filename, tool, str(abs_fn_hash))))
+
+        # Load this SchLib with an existing SchLib object if the file name hash
         # matches one in the cache.
-        elif filename in self._cache:
-            self.__dict__.update(self._cache[filename].__dict__)
+        if lib_pickle_abs_fn in self._cache:
+            self.__dict__.update(self._cache[lib_pickle_abs_fn].__dict__)
 
-        # Otherwise, load from a schematic library file.
+        # Load this Schlib from the pickle file if it exists and it's more recent
+        # than the original part library file.
+        elif (use_pickle and os.path.exists(lib_pickle_abs_fn) and
+                os.path.getmtime(lib_pickle_abs_fn) >= os.path.getmtime(abs_filename)):
+            with open(lib_pickle_abs_fn, "rb") as f:
+                self.__dict__ = pickle.load(f).__dict__
+            # Cache a reference to the library.
+            if use_cache:
+                self._cache[lib_pickle_abs_fn] = self
+
+        # Otherwise, load from a schematic part library file.
         else:
-            if tool in tool_modules.keys():
-                # Use the tool name to find the function for loading the library.
-                tool_modules[tool].load_sch_lib(
-                    self,
-                    filename,
-                    skidl.lib_search_paths[tool],
-                    lib_section=lib_section,
-                )
-                self.filename = filename
-                # Cache a reference to the library.
-                self._cache[filename] = self
-            else:
-                # OK, that didn't work so well...
-                active_logger.raise_(
-                    ValueError,
-                    "Unsupported ECAD tool library: {}.".format(tool),
-                )
+            # Use the tool name to find the function for loading the library.
+            tool_modules[tool].load_sch_lib(
+                self,
+                abs_filename,
+                # skidl.lib_search_paths[tool],
+                lib_section=lib_section,
+            )
+            self.filename = filename
+            # Cache a reference to the library.
+            if use_cache:
+                self._cache[lib_pickle_abs_fn] = self
+            # Pickle the library for future use.
+            if use_pickle:
+                if not os.path.exists(skidl.config.pickle_dir):
+                    os.mkdir(skidl.config.pickle_dir)
+                with open(lib_pickle_abs_fn, "wb") as f:
+                    try:
+                        pickle.dump(self, f)
+                    except Exception as e:
+                        pass
+                # Delete the pickled lib if its size if zero (i.e., a pickling error occurred).
+                if os.path.exists(lib_pickle_abs_fn):
+                    if os.path.getsize(lib_pickle_abs_fn) == 0:
+                        # Delete the file
+                        os.remove(lib_pickle_abs_fn)
+
 
     def __str__(self):
         """Return a list of the part names in this library as a string."""
@@ -242,6 +291,7 @@ class SchLib(object):
 
         export_str = "from collections import defaultdict\n"
         export_str += "from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE\n\n"
+        export_str += "from skidl.pin import pin_types\n\n"
         export_str += "SKIDL_lib_version = '0.0.1'\n\n"
         part_export_str = ",".join([p.export(addtl_part_attrs=addtl_part_attrs) for p in self.parts])
         export_str += "{} = SchLib(tool=SKIDL).add_parts(*[{}])".format(

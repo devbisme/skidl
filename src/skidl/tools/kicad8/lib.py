@@ -13,6 +13,7 @@ import sexpdata
 from skidl import Alias
 from skidl.logger import active_logger
 from skidl.part import LIBRARY
+from skidl.pin import pin_types
 from skidl.schematics.geometry import mils_per_mm, BBox
 from skidl.utilities import (
     export_to_all,
@@ -277,18 +278,18 @@ def parse_lib_part(part, partial_parse):
 
         # Association between KiCad : SKiDL pin types.
         pin_io_type_translation = {
-            "input": Pin.types.INPUT,
-            "output": Pin.types.OUTPUT,
-            "bidirectional": Pin.types.BIDIR,
-            "tri_state": Pin.types.TRISTATE,
-            "passive": Pin.types.PASSIVE,
-            "free": Pin.types.FREE,
-            "unspecified": Pin.types.UNSPEC,
-            "power_in": Pin.types.PWRIN,
-            "power_out": Pin.types.PWROUT,
-            "open_collector": Pin.types.OPENCOLL,
-            "open_emitter": Pin.types.OPENEMIT,
-            "no_connect": Pin.types.NOCONNECT,
+            "input": pin_types.INPUT,
+            "output": pin_types.OUTPUT,
+            "bidirectional": pin_types.BIDIR,
+            "tri_state": pin_types.TRISTATE,
+            "passive": pin_types.PASSIVE,
+            "free": pin_types.FREE,
+            "unspecified": pin_types.UNSPEC,
+            "power_in": pin_types.PWRIN,
+            "power_out": pin_types.PWROUT,
+            "open_collector": pin_types.OPENCOLL,
+            "open_emitter": pin_types.OPENEMIT,
+            "no_connect": pin_types.NOCONNECT,
         }
 
         # Get the pins for this symbol.

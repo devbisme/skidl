@@ -26,6 +26,7 @@ from skidl import (
     set_default_tool,
 )
 from skidl.logger import active_logger
+from skidl.pin import pin_types
 from skidl.tools import ALL_TOOLS, lib_suffixes
 from skidl.utilities import to_list, find_and_read_file
 
@@ -74,11 +75,11 @@ def test_lib_creation_1():
     assert not lib.get_parts(name="QQ")  # Part not in library.
     prt2 = SkidlPart(name="QQ", dest=TEMPLATE)
     prt2.add_pins(
-        Pin(num=1, name="Q1", func=Pin.types.TRISTATE),
-        Pin(num=2, name="Q2", func=Pin.types.PWRIN),
+        Pin(num=1, name="Q1", func=pin_types.TRISTATE),
+        Pin(num=2, name="Q2", func=pin_types.PWRIN),
     )
     lib += prt2
-    prt2.add_pins(Pin(num=3, name="Q1", func=Pin.types.PWROUT))
+    prt2.add_pins(Pin(num=3, name="Q1", func=pin_types.PWROUT))
     assert len(lib.parts) == 2
     assert lib["Q"].name == "Q"
     assert len(lib["Q"].pins) == 0

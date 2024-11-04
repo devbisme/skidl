@@ -263,10 +263,10 @@ class Part(SkidlBaseObject):
 
         # If any unit definitions were passed in, then make units.
         # FIXME: make_unit takes too long because of filtering pin lists.
-        # for unit_def in kwargs.pop("unit_defs", []):
-        #     self.make_unit(
-        #         unit_def["label"], *unit_def["pin_nums"], unit=unit_def["num"]
-        #     )
+        for unit_def in kwargs.pop("unit_defs", []):
+            self.make_unit(
+                unit_def["label"], *unit_def["pin_nums"], unit=unit_def["num"]
+            )
 
         # Add any other passed-in attributes to the part.
         for k, v in list(kwargs.items()):
@@ -1311,7 +1311,8 @@ class PartUnit(Part):
 
         # Give the PartUnit the same information as the Part it is generated
         # from so it can act the same way, just with fewer pins.
-        # FIXME: Do we need this if we define __getattr__ as below?
+        # Do we need this if we define __getattr__ as below?
+        # Yes, since we're no longer using the __getattr__ shown below.
         for k, v in list(parent.__dict__.items()):
             self.__dict__[k] = v
 
@@ -1336,11 +1337,14 @@ class PartUnit(Part):
         # TODO: KiCad uses unit 0 for global unit. What about other tools?
         self.add_pins_from_parent(unit=0, silent=True)
 
-    def __getattr__(self, key):
-        """Return attribute from parent Part if it wasn't found in the PartUnit."""
-        # FIXME: This allows the unit to access *all* the attributes of the parent
-        #        even those it shouldn't be able to (like pins not assigned to it).
-        return getattr(self.parent, key)
+    #
+    # This was commented-out because it led to infinite recursion when pickling libraries.
+    #
+    # def __getattr__(self, key):
+    #     """Return attribute from parent Part if it wasn't found in the PartUnit."""
+    #     # FIXME: This allows the unit to access *all* the attributes of the parent
+    #     #        even those it shouldn't be able to (like pins not assigned to it).
+    #     return getattr(self.parent, key)
 
     def add_pins_from_parent(self, *pin_ids, **criteria):
         """
