@@ -769,6 +769,7 @@ def is_binary_file(filename):
         return False
 
 
+@export_to_all
 def is_url(s):
     return urllib.parse.urlparse(s).scheme in {"http", "https"}
 

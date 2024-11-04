@@ -30,23 +30,6 @@ from .utilities import (
 
 
 # Various types of pins.
-# TODO: Remove this class.
-# class PinTypes:
-#     INPUT = 0
-#     OUTPUT = 1
-#     BIDIR = 2
-#     TRISTATE = 3
-#     PASSIVE = 4
-#     UNSPEC = 5
-#     PWRIN = 6
-#     PWROUT = 7
-#     OPENCOLL = 8
-#     OPENEMIT = 9
-#     PULLUP = 10
-#     PULLDN = 11
-#     NOCONNECT = 12
-#     FREE = 13
-# pin_types = PinTypes()
 pin_types = IntEnum(
     "pin_types",
     (

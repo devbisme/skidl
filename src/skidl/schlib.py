@@ -16,6 +16,7 @@ from .utilities import (
     export_to_all,
     filter_list,
     flatten,
+    is_url,
     list_or_scalar,
     opened,
     get_abs_filename,
@@ -43,7 +44,6 @@ class SchLib(object):
 
     # Keep a dict of filenames and their associated SchLib object
     # for fast loading of libraries.
-    # TODO: Find a way to retain the cache between invocations of SKiDL and only update new changed libraries.
     _cache = {}
 
     def __init__(self, filename=None, tool=None, lib_section=None, **attribs):
@@ -57,6 +57,7 @@ class SchLib(object):
 
         from .tools import tool_modules, lib_suffixes
 
+        # Some flags for enabling library caching and pickling.
         use_cache = False
         use_pickle = True
 
@@ -85,6 +86,10 @@ class SchLib(object):
             )
         abs_filename = get_abs_filename(filename, paths, exts, allow_failure=False)
 
+        # Don't pickle files stored in remote repos because it's difficult to
+        # get their modification times to compare against the local pickled library.
+        use_pickle = not is_url(abs_filename)
+
         # Get a unique hash to reference the part library file.
         abs_fn_hash = consistent_hash(abs_filename)
 
@@ -99,7 +104,6 @@ class SchLib(object):
         # Load this Schlib from the pickle file if it exists and it's more recent
         # than the original part library file.
         elif (use_pickle and os.path.exists(lib_pickle_abs_fn) and
-                # os.path.getsize(lib_pickle_abs_fn) > 0 and
                 os.path.getmtime(lib_pickle_abs_fn) >= os.path.getmtime(abs_filename)):
             with open(lib_pickle_abs_fn, "rb") as f:
                 self.__dict__ = pickle.load(f).__dict__
@@ -126,10 +130,8 @@ class SchLib(object):
                     os.mkdir(skidl.config.pickle_dir)
                 with open(lib_pickle_abs_fn, "wb") as f:
                     try:
-                        print(f"Pickling {lib_pickle_abs_fn}")
                         pickle.dump(self, f)
                     except Exception as e:
-                        print(e)
                         pass
                 # Delete the pickled lib if its size if zero (i.e., a pickling error occurred).
                 if os.path.exists(lib_pickle_abs_fn):

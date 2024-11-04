@@ -435,23 +435,20 @@ def parse_lib_part(part, partial_parse):
             unit_nums.remove(0)
 
     # Create any units now that all the part pins have been added.
-    # TODO: Remove this flag.
-    allow_units = True
-    if allow_units:
-        for unit_num in unit_nums:
-            unit_label = "u" + num_to_chars(unit_num)
-            # Create a unit using pins with the same unit number.
-            # This will also add pins from the global unit to this unit.
-            u = part.make_unit(unit_label, unit=unit_num)
+    for unit_num in unit_nums:
+        unit_label = "u" + num_to_chars(unit_num)
+        # Create a unit using pins with the same unit number.
+        # This will also add pins from the global unit to this unit.
+        u = part.make_unit(unit_label, unit=unit_num)
 
-        if len(part.unit) == 1:
-            # If there's only one unit, that unit is the part itself.
-            # Replace the PartUnit object with the parent Part object.
-            unit_label = list(part.unit.keys())[0]
-            part.rmv_unit(unit_label)
-            part.unit[unit_label] = part
-            part.num = 1
-            add_unique_attr(part, unit_label, part)
+    if len(part.unit) == 1:
+        # If there's only one unit, that unit is the part itself.
+        # Replace the PartUnit object with the parent Part object.
+        unit_label = list(part.unit.keys())[0]
+        part.rmv_unit(unit_label)
+        part.unit[unit_label] = part
+        part.num = 1
+        add_unique_attr(part, unit_label, part)
 
     # Populate part fields from symbol properties. Properties will also be included below in drawing commands.
     props = {

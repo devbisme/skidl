@@ -5,6 +5,7 @@
 import pytest
 
 from skidl import Part, Pin
+from skidl.pin import pin_types
 
 from .setup_teardown import setup_function, teardown_function
 
@@ -82,11 +83,11 @@ def test_alphanum_sorts():
 
 def test_pin_search_1():
     mem = Part("Memory_RAM", "AS4C4M16SA")
-    bidir = mem.get_pins(func=Pin.BIDIR)
-    input = mem.get_pins(func=Pin.INPUT)
-    passive = mem.get_pins(func=Pin.PASSIVE)
-    nc = mem.get_pins(func=Pin.NOCONNECT)
-    pwrin = mem.get_pins(func=Pin.PWRIN)
+    bidir = mem.get_pins(func=pin_types.BIDIR)
+    input = mem.get_pins(func=pin_types.INPUT)
+    passive = mem.get_pins(func=pin_types.PASSIVE)
+    nc = mem.get_pins(func=pin_types.NOCONNECT)
+    pwrin = mem.get_pins(func=pin_types.PWRIN)
     assert len(bidir) == 16
     assert len(pwrin) == 4
     assert len(bidir) + len(pwrin) + len(input) + len(passive) + len(nc) == len(mem)

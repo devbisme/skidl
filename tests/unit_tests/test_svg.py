@@ -158,8 +158,8 @@ def test_svg_6():
 def test_svg_7():
     u1 = Part("4xxx", "4001")
     gnd = Net("GND")
-    u1.uA.VSS += gnd
-    u1.uA.VDD += gnd
+    u1.uE.VSS += gnd
+    u1.uE.VDD += gnd
     gnd.stub = True
     generate_svg(file_="test7")
 
