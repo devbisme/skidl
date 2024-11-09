@@ -29,7 +29,7 @@ def setup_function(f):
         lib_search_paths[tool] = [os.getcwd(), lib_dir]
 
     # Extra library directory for SKiDL tool.
-    skidl_lib_dir = os.path.join(this_file_dir, "../..", "src/skidl/libs")
+    skidl_lib_dir = os.path.join(this_file_dir, "../..", "src/skidl/tools/skidl/libs")
     lib_search_paths[SKIDL].append(skidl_lib_dir)
 
     # SPICE models from the SkyWater 130nm process.
