@@ -26,7 +26,7 @@ def setup_function(f):
     for tool in ALL_TOOLS:
         # Each tool has a specific directory that stores the libraries used for testing.
         lib_dir = os.path.join(this_file_dir, "..", "test_data", tool)
-        lib_search_paths[tool] = [os.getcwd(), lib_dir]
+        lib_search_paths[tool] = [lib_dir]
 
     # Extra library directory for SKiDL tool.
     skidl_lib_dir = os.path.join(this_file_dir, "../..", "src/skidl/tools/skidl/libs")
