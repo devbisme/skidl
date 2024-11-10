@@ -45,7 +45,6 @@ def gen_netlist_comp(part):
     for fld_name, fld_value in part.fields.items():
         fld_value = add_quotes(fld_value)
         if fld_value:
-            fld_name = add_quotes(fld_name)
             fields += "\n        (field (name {fld_name}) {fld_value})".format(
                 **locals()
             )

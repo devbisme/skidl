@@ -8,6 +8,7 @@ Utility functions used by the rest of SKiDL.
 
 import collections
 import hashlib
+import json
 import os
 import os.path
 import platform
@@ -129,17 +130,8 @@ def add_quotes(s):
 
     if not isinstance(s, basestring):
         return s
-
-    # Remove quotes if string already has them.
-    s = rmv_quotes(s)
-
-    if re.search(r"[\s()]", s):
-        try:
-            s = '"' + s.decode("utf-8") + '"'
-        except AttributeError:
-            s = '"' + s + '"'
-
-    return s
+    
+    return json.dumps(s, ensure_ascii=False)
 
 
 @export_to_all
