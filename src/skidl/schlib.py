@@ -37,6 +37,8 @@ class SchLib(object):
         filename: The name of the library file.
         tool: The format of the library file (e.g., KICAD).
         lib_section: The section of the library to access (for SPICE, only).
+        use_cache: If true, use a cache of libraries to speed up loading.
+        use_pickle: If true, pickle the library for faster loading next time.
 
     Keyword Args:
         attribs: Key/value pairs of attributes to add to the library.
@@ -46,7 +48,15 @@ class SchLib(object):
     # for fast loading of libraries.
     _cache = {}
 
-    def __init__(self, filename=None, tool=None, lib_section=None, **attribs):
+    def __init__(
+        self,
+        filename=None,
+        tool=None,
+        lib_section=None,
+        use_cache=True,
+        use_pickle=True,
+        **attribs
+    ):
         """
         Load the parts from a library file.
         """
@@ -56,10 +66,6 @@ class SchLib(object):
         import skidl
 
         from .tools import tool_modules, lib_suffixes
-
-        # Some flags for enabling library caching and pickling.
-        use_cache = False
-        use_pickle = True
 
         tool = tool or skidl.config.tool
 
@@ -73,7 +79,7 @@ class SchLib(object):
         # If no filename, just create an empty library and exit.
         if not filename:
             return
-        
+
         # Get the absolute path for the part library file.
         try:
             paths = skidl.lib_search_paths[tool]
@@ -84,17 +90,22 @@ class SchLib(object):
                 ValueError,
                 "Unsupported ECAD tool library: {}.".format(tool),
             )
-        abs_filename = get_abs_filename(filename, paths, exts, allow_failure=False)
+        abs_filename = get_abs_filename(
+            filename, paths, exts, allow_failure=False, descend=-1
+        )
 
         # Don't pickle files stored in remote repos because it's difficult to
-        # get their modification times to compare against the local pickled library.
-        use_pickle = not is_url(abs_filename)
+        # get their modification times to compare against the local pickled library
+        # to see which is fresher. So remote libs are never pickled.
+        use_pickle = use_pickle and not is_url(abs_filename)
 
         # Get a unique hash to reference the part library file.
         abs_fn_hash = consistent_hash(abs_filename)
 
         # Create the absolute file name of the pickle file for storing this part library.
-        lib_pickle_abs_fn = os.path.join(skidl.config.pickle_dir, "_".join((filename, tool, str(abs_fn_hash))))
+        lib_pickle_abs_fn = os.path.join(
+            skidl.config.pickle_dir, "_".join((filename, tool, str(abs_fn_hash)))
+        ) + ".pkl"
 
         # Load this SchLib with an existing SchLib object if the file name hash
         # matches one in the cache.
@@ -103,8 +114,11 @@ class SchLib(object):
 
         # Load this Schlib from the pickle file if it exists and it's more recent
         # than the original part library file.
-        elif (use_pickle and os.path.exists(lib_pickle_abs_fn) and
-                os.path.getmtime(lib_pickle_abs_fn) >= os.path.getmtime(abs_filename)):
+        elif (
+            use_pickle
+            and os.path.exists(lib_pickle_abs_fn)
+            and os.path.getmtime(lib_pickle_abs_fn) >= os.path.getmtime(abs_filename)
+        ):
             with open(lib_pickle_abs_fn, "rb") as f:
                 self.__dict__ = pickle.load(f).__dict__
             # Cache a reference to the library.
@@ -138,7 +152,6 @@ class SchLib(object):
                     if os.path.getsize(lib_pickle_abs_fn) == 0:
                         # Delete the file
                         os.remove(lib_pickle_abs_fn)
-
 
     def __str__(self):
         """Return a list of the part names in this library as a string."""
@@ -293,7 +306,9 @@ class SchLib(object):
         export_str += "from skidl import Pin, Part, Alias, SchLib, SKIDL, TEMPLATE\n\n"
         export_str += "from skidl.pin import pin_types\n\n"
         export_str += "SKIDL_lib_version = '0.0.1'\n\n"
-        part_export_str = ",".join([p.export(addtl_part_attrs=addtl_part_attrs) for p in self.parts])
+        part_export_str = ",".join(
+            [p.export(addtl_part_attrs=addtl_part_attrs) for p in self.parts]
+        )
         export_str += "{} = SchLib(tool=SKIDL).add_parts(*[{}])".format(
             cnvt_to_var_name(libname), part_export_str
         )
