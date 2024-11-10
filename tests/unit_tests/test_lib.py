@@ -28,7 +28,7 @@ from skidl import (
 from skidl.logger import active_logger
 from skidl.pin import pin_types
 from skidl.tools import ALL_TOOLS, lib_suffixes
-from skidl.utilities import to_list, find_and_read_file, get_abs_filename
+from skidl.utilities import to_list, find_and_read_file
 
 from .setup_teardown import setup_function, teardown_function
 

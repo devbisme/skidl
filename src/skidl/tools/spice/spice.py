@@ -159,6 +159,11 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
                         )
                     else:
                         # Now find a symbol file for the part to assign names to the pins.
+
+                        # Start looking from the directory above where the SPICE library file was found.
+                        # FIXME: This is a hack because it might be somewhere else, but it's a start.
+                        lib_search_paths_ = [os.sep + os.path.join(*(spice_lib_path.split(os.sep)[:-2]))]
+
                         # First, check for LTSpice symbol file.
                         sym_file, _ = find_and_read_file(
                             part.name,
@@ -188,8 +193,9 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
                                 part.pins[int(index) - 1].name = name
                         else:
                             # No LTSpice symbol file, so check for PSPICE symbol file.
+                            base_name = os.path.splitext(os.path.basename(lib_file))[0]
                             sym_file, _ = find_and_read_file(
-                                filename,
+                                base_name,
                                 lib_search_paths_,
                                 ".slb",
                                 allow_failure=True,
