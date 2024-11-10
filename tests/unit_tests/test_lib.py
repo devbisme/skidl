@@ -28,7 +28,7 @@ from skidl import (
 from skidl.logger import active_logger
 from skidl.pin import pin_types
 from skidl.tools import ALL_TOOLS, lib_suffixes
-from skidl.utilities import to_list, find_and_read_file
+from skidl.utilities import to_list, find_and_read_file, get_abs_filename
 
 from .setup_teardown import setup_function, teardown_function
 
@@ -55,8 +55,8 @@ def test_lib_import_1():
 def test_lib_export_1():
     SchLib.reset()
     lib = SchLib("Device")
-    lib.export("my_device", tool=SKIDL, addtl_part_attrs=["value","search_text"])
-    my_lib = SchLib("my_device", tool=SKIDL)
+    lib.export("./my_device", tool=SKIDL, addtl_part_attrs=["value","search_text"])
+    my_lib = SchLib("./my_device", tool=SKIDL)
     assert len(lib) == len(my_lib)
     assert active_logger.error.count == 0
     my_res = Part(my_lib, "R")
@@ -134,7 +134,7 @@ def test_lib_1():
     lib_kicad = SchLib("Device")
     lib_kicad.export("Device")
     SchLib.reset()
-    lib_skidl = SchLib("Device", tool=SKIDL)
+    lib_skidl = SchLib("./Device", tool=SKIDL)
     assert len(lib_kicad) == len(lib_skidl)
     SchLib.reset()
     set_default_tool(SKIDL)
@@ -239,9 +239,9 @@ def test_lib_kicad_top_level_pins():
     except FileNotFoundError:
         # No test library exists for this tool.
         return
-    # lib = SchLib(lib_name, tool=tool)
     tool = get_default_tool()
     part_names = [part.name for part in lib.parts]
+    # Open the .kicad_sym file and get the S-expression for each part.
     sexp, _ = find_and_read_file(
         lib_name, ext=lib_suffixes[tool], paths=lib_search_paths[tool]
     )
