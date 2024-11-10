@@ -27,7 +27,7 @@ def convert_libs(from_dir, to_dir):
     for lib_file in lib_files:
         print(lib_file)
         basename = os.path.splitext(lib_file)[0]
-        lib = SchLib(os.path.join(from_dir, lib_file), tool=KICAD)
+        lib = SchLib(os.path.join(from_dir, lib_file), tool=KICAD, use_pickle=False)
         lib.export(
             libname=basename,
             file_=os.path.join(to_dir, basename + lib_suffixes[SKIDL]),
