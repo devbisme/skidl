@@ -178,3 +178,13 @@ def test_subclass_2():
 
     ERC()
     assert erc_logger.warning.count == 2
+
+def test_alias_rename():
+    u1 = Part("Amplifier_Operational", "LT1493")
+    u2 = Part("Amplifier_Operational", "LTC6082xGN")
+    assert u1.name=="LT1493"
+    assert u1.value=="LT1493"
+    assert u2.name=="LTC6082xGN"
+    assert u2.value=="LTC6082xGN"
+    assert len(u1.get_pins()) == len(u2.get_pins())
+

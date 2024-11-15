@@ -272,6 +272,17 @@ class Part(SkidlBaseObject):
         for k, v in list(kwargs.items()):
             setattr(self, k, v)
 
+        # If the part was found using an alias, then substitute the alias for the name in the part.
+        # (This only seems necessary when using KiCad 5.)
+        part_name = self.name
+        if name and part_name != name:
+            for k,v in vars(self).items():
+                if v == part_name:
+                    setattr(self, k, name)
+            for k,v in self.fields.items():
+                if v == part_name:
+                    self.fields[k] = name
+
         # Make sure the part name is also included in the list of aliases
         # because part searching only checks the aliases for name matches.
         self.aliases += name
