@@ -65,13 +65,14 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
     try:
         # The SKiDL library is stored as a Python module that's executed to
         # recreate the library object.
-        vars_ = {
+        glb_vars = None
+        loc_vars = {
             "__file__": path,
         }
-        exec(contents, vars_)  # Execute and store library in dict.
+        exec(contents, glb_vars, loc_vars)  # Execute and store library in dict.
 
         # Now look through the dict to find the library object.
-        for val in vars_.values():
+        for val in loc_vars.values():
             if isinstance(val, SchLib):
                 # Overwrite self with the new library.
                 self.__dict__.update(val.__dict__)

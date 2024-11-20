@@ -103,9 +103,10 @@ class SchLib(object):
         abs_fn_hash = consistent_hash(abs_filename)
 
         # Create the absolute file name of the pickle file for storing this part library.
-        lib_pickle_abs_fn = os.path.join(
-            skidl.config.pickle_dir, "_".join((filename, tool, str(abs_fn_hash)))
-        ) + ".pkl"
+        lib_name, lib_ext = os.path.splitext(os.path.split(abs_filename)[1])
+        lib_pickle_abs_fn = os.path.abspath(os.path.join(
+            skidl.config.pickle_dir, "_".join((lib_name, tool, str(abs_fn_hash)))
+        ) + ".pkl")
 
         # Load this SchLib with an existing SchLib object if the file name hash
         # matches one in the cache.
@@ -120,7 +121,7 @@ class SchLib(object):
             and os.path.getmtime(lib_pickle_abs_fn) >= os.path.getmtime(abs_filename)
         ):
             with open(lib_pickle_abs_fn, "rb") as f:
-                self.__dict__ = pickle.load(f).__dict__
+                self.__dict__.update(pickle.load(f).__dict__)
             # Cache a reference to the library.
             if use_cache:
                 self._cache[lib_pickle_abs_fn] = self
@@ -328,9 +329,10 @@ def load_backup_lib():
     if not skidl.config.backup_lib:
         try:
             # The backup library is a SKiDL lib stored as a Python module.
-            exec(open(skidl.config.backup_lib_file_name).read())
+            glb_vars, loc_vars = None, locals()
+            exec(open(skidl.config.backup_lib_file_name).read(), glb_vars, loc_vars)
             # Copy the backup library in the local storage to the global storage.
-            skidl.config.backup_lib = locals()[skidl.config.backup_lib_name]
+            skidl.config.backup_lib = loc_vars[skidl.config.backup_lib_name]
 
         except (FileNotFoundError, ImportError, NameError, IOError):
             pass
