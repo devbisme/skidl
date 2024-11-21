@@ -33,6 +33,8 @@ from .setup_teardown import setup_function, teardown_function
 
 @subcircuit
 def flat_circuit():
+    """Create a flat circuit."""
+    # Define parts.
     q = Part(
         lib="Device",
         name="Q_PNP_CBE",
@@ -47,6 +49,7 @@ def flat_circuit():
     gndt = Part("power", "GND", footprint="TestPoint:TestPoint_Pad_D4.0mm")
     vcct = Part("power", "VCC", footprint="TestPoint:TestPoint_Pad_D4.0mm")
 
+    # Define nets.
     gnd = Net("GND")
     vcc = Net("VCC")
     gnd & gndt
@@ -54,6 +57,8 @@ def flat_circuit():
     a = Net("A", netio="i")
     b = Net("B", netio="i")
     a_and_b = Net("A_AND_B", netio="o")
+
+    # Instantiate parts.
     q1 = q()
     q1.E.symio = "i"
     q1.B.symio = "i"
@@ -63,6 +68,8 @@ def flat_circuit():
     q2.B.symio = "i"
     q2.C.symio = "o"
     r1, r2, r3, r4, r5 = r(5, value="10K")
+
+    # Connect parts using nets.
     a & r1 & q1["B", "C"] & r4 & q2["B", "C"] & a_and_b & r5 & gnd
     b & r2 & q1["B"]
     q1["C"] & r3 & gnd
@@ -70,23 +77,29 @@ def flat_circuit():
     vcc & q2["E"]
 
 def test_gen_flat_svg():
+    """Test generating SVG for flat circuit."""
     flat_circuit()
     generate_svg()
 
 def test_gen_flat_netlist():
+    """Test generating netlist for flat circuit."""
     flat_circuit()
     generate_netlist()
 
 def test_gen_flat_xml():
+    """Test generating XML for flat circuit."""
     flat_circuit()
     generate_xml()
 
 def test_gen_flat_graph():
+    """Test generating graph for flat circuit."""
     flat_circuit()
     generate_graph()
 
 @subcircuit
 def hier_circuit():
+    """Create a hierarchical circuit."""
+    # Define parts.
     q = Part(
         lib="Device",
         name="Q_PNP_CBE",
@@ -100,6 +113,7 @@ def hier_circuit():
     vcc = Net("VCC")
     gnd = Net("GND")
 
+    # Create groups of parts and nets.
     for _ in range(3):
         with Group("G:"):
             a = Net("A")
@@ -126,22 +140,26 @@ def hier_circuit():
         qs[-1].C & Net("O")
 
 def test_gen_hier_svg():
+    """Test generating SVG for hierarchical circuit."""
     hier_circuit()
     generate_svg()
 
 def test_gen_hier_netlist():
+    """Test generating netlist for hierarchical circuit."""
     hier_circuit()
     generate_netlist()
 
 def test_gen_hier_xml():
+    """Test generating XML for hierarchical circuit."""
     hier_circuit()
     generate_xml()
 
 def test_gen_hier_graph():
+    """Test generating graph for hierarchical circuit."""
     hier_circuit()
     generate_graph()
 
 def test_gen_pcb():
+    """Test generating PCB."""
     esp32 = Part('RF_Module','ESP32-WROOM-32', footprint='RF_Module:ESP32-WROOM-32')
     generate_pcb()
-    

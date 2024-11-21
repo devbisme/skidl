@@ -41,6 +41,7 @@ def setup_function(f):
     spice_lib_dir = os.path.join(this_file_dir, "..", "test_data", "SpiceLib")
     lib_search_paths[SPICE].append(spice_lib_dir)
 
+    # Turn on backup part library creation.
     skidl.config.query_backup_lib = True
 
     # Clear any logger errors and warnings.

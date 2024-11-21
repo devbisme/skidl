@@ -24,12 +24,14 @@ from .setup_teardown import setup_function, teardown_function
 
 
 def test_subcircuit_1():
+    """Test subcircuit creation and connection."""
     class Resistor(Part):
         def __init__(self, value, ref=None, footprint="Resistors_SMD:R_0805"):
             super().__init__("Device", "R", value=value, ref=ref, footprint=footprint)
 
     @subcircuit
     def resdiv():
+        """Create a resistor divider subcircuit."""
         gnd = Net("GND")  # Ground reference.
         vin = Net("VI")  # Input voltage to the divider.
         vout = Net("VO")  # Output voltage from the divider.
@@ -47,6 +49,7 @@ def test_subcircuit_1():
         r2[2] += gnd  # Connect the second resistor to ground.
         vout += r1[2], r2[1]  # Output comes from the connection of the two resistors.
 
+    # Create multiple circuits and add the subcircuit to them.
     circuit1 = Circuit()
     circuit2 = Circuit()
     resdiv(circuit=circuit2)
@@ -56,6 +59,7 @@ def test_subcircuit_1():
     resdiv(circuit=circuit2)
     resdiv(circuit=circuit2)
 
+    # Assert the number of parts, nets, and buses in each circuit.
     assert len(default_circuit.parts) == 4
     assert len(default_circuit.get_nets()) == 3
     assert len(default_circuit.buses) == 1
@@ -68,6 +72,7 @@ def test_subcircuit_1():
     assert len(circuit2.get_nets()) == 9
     assert len(circuit2.buses) == 3
 
+    # Perform ERC and generate netlist and XML for each circuit.
     ERC()
     generate_netlist()
     generate_xml()
@@ -82,12 +87,14 @@ def test_subcircuit_1():
 
 
 def test_subcircuit_2():
+    """Test nested subcircuit creation and connection."""
     class Resistor(Part):
         def __init__(self, value, ref=None, footprint="Resistors_SMD:R_0805"):
             super().__init__("Device", "R", value=value, ref=ref, footprint=footprint)
 
     @subcircuit
     def resdiv_1():
+        """Create a resistor divider subcircuit with capacitors."""
         gnd = Net("GND")  # Ground reference.
         vin = Net("VI")  # Input voltage to the divider.
         vout = Net("VO")  # Output voltage from the divider.
@@ -109,6 +116,7 @@ def test_subcircuit_2():
 
     @subcircuit
     def resdiv_2():
+        """Create a nested resistor divider subcircuit."""
         resdiv_1()
         resdiv_1()
 
@@ -129,6 +137,7 @@ def test_subcircuit_2():
         r2[2] += b  # Connect the second resistor to ground.
         c += r1[2], r2[1]  # Output comes from the connection of the two resistors.
 
+    # Create multiple circuits and add the nested subcircuit to them.
     default_circuit.name = "DEFAULT"
     circuit1 = Circuit(name="CIRCUIT1")
     circuit2 = Circuit(name="CIRCUIT2")
@@ -139,6 +148,7 @@ def test_subcircuit_2():
     resdiv_2(circuit=circuit2)
     resdiv_2(circuit=circuit2)
 
+    # Assert the number of parts, nets, buses, and NC pins in each circuit.
     assert len(default_circuit.parts) == 12
     assert len(default_circuit.get_nets()) == 9
     assert len(default_circuit.buses) == 3
@@ -154,6 +164,7 @@ def test_subcircuit_2():
     assert len(circuit2.buses) == 9
     assert len(circuit2.NC.pins) == 18
 
+    # Perform ERC and generate netlist and XML for each circuit.
     ERC()
     generate_netlist()
     generate_xml()
@@ -168,6 +179,7 @@ def test_subcircuit_2():
 
 
 def test_circuit_add_rmv_1():
+    """Test adding and removing parts and nets between circuits."""
     circuit1 = Circuit()
     circuit2 = Circuit()
     r1 = Part("Device", "R")
@@ -190,6 +202,7 @@ def test_circuit_add_rmv_1():
 
 
 def test_circuit_add_rmv_2():
+    """Test adding and removing buses between circuits."""
     circuit1 = Circuit()
     circuit2 = Circuit()
     r1 = Part("Device", "R")
@@ -203,6 +216,7 @@ def test_circuit_add_rmv_2():
 
 
 def test_circuit_add_rmv_3():
+    """Test adding and removing multiple parts, nets, and buses."""
     circuit = Circuit()
     r = Part("Device", "R")
     c = Part("Device", "C")
@@ -221,6 +235,7 @@ def test_circuit_add_rmv_3():
 
 
 def test_circuit_connect_btwn_circuits_1():
+    """Test connecting parts between different circuits."""
     circuit1 = Circuit()
     circuit2 = Circuit()
     r1 = Part(tool=SKIDL, name="R")
@@ -233,6 +248,7 @@ def test_circuit_connect_btwn_circuits_1():
 
 
 def test_circuit_NC_1():
+    """Test handling of NC (not connected) pins."""
     circuit1 = Circuit()
     circuit2 = Circuit()
     res = Part(tool=SKIDL, name="res", dest=TEMPLATE, pins=[Pin(num=1), Pin(num=2)])
@@ -248,6 +264,7 @@ def test_circuit_NC_1():
 
 
 def test_circuit_context_1():
+    """Test using circuits as context managers."""
     circuit1 = Circuit()
     circuit2 = Circuit()
     res = Part(tool=SKIDL, name="res", dest=TEMPLATE, pins=[Pin(num=1), Pin(num=2)])

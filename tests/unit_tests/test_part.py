@@ -11,6 +11,7 @@ from .setup_teardown import setup_function, teardown_function
 
 
 def test_part_1():
+    """Test connecting all part pins to a net."""
     vreg = Part("Regulator_Linear", "AP1117-ADJ")
     n = Net()
     # Connect all the part pins to a net...
@@ -21,8 +22,10 @@ def test_part_1():
 
 
 def test_part_2():
+    """Test getting parts by reference."""
     vreg = Part("Regulator_Linear", "AP1117-ADJ")
-    codec = Part("Device", "R")
+    r = Part("Device", "R")
+    # Get parts by reference and check their count.
     parts = to_list(Part.get("u1"))
     assert len(parts) == 1
     parts = to_list(Part.get("AP1117-ADJ"))
@@ -32,13 +35,17 @@ def test_part_2():
 
 
 def test_part_3():
+    """Test part reference assignment."""
     r = Part("Device", "R", ref=None)
+    # Check if the reference is assigned correctly.
     assert r.ref == "R1"
 
 
 def test_part_unit_1():
+    """Test creating units within a part."""
     vreg = Part("Regulator_Linear", "AP1117-ADJ")
     vreg.match_pin_regex = True
+    # Create units within the part.
     vreg.make_unit("A", 1, 2)
     vreg.make_unit("B", 3)
     assert len(vreg.unit["A"][".*"]) == 2
@@ -46,20 +53,26 @@ def test_part_unit_1():
 
 
 def test_part_unit_2():
+    """Test creating units with overlapping pins."""
     vreg = Part("Regulator_Linear", "AP1117-ADJ")
+    # Create units with overlapping pins.
     vreg.make_unit("A", 1, 2)
     vreg.make_unit("A", 3)
     assert len((vreg.unit["A"][".*"],)) == 1
 
 
 def test_part_unit_3():
+    """Test creating a unit with specific pins."""
     vreg = Part("Regulator_Linear", "AP1117-ADJ")
+    # Create a unit with specific pins.
     vreg.make_unit("1", 1, 2)
 
 
 def test_part_unit_4():
+    """Test wildcard pin matching in units."""
     mem = Part("Memory_RAM", "AS4C4M16SA")
     mem.match_pin_regex = True
+    # Match pins using wildcard.
     data_pin_names = [p.name for p in mem[".*DQ[0:15].*"]]
     mem.make_unit("A", data_pin_names)
     # Wildcard pin matching OFF globally.
@@ -81,13 +94,16 @@ def test_part_unit_4():
 
 
 def test_part_unit_5():
-    # Test if #pins in units sum to the total #pins in part.
+    """Test if the number of pins in units sum to the total number of pins in the part."""
     hdr = Part("4xxx", "4001")
+    # Check if the number of pins in units sum to the total number of pins in the part.
     assert len(hdr) == sum([len(u) for u in hdr.unit.values()])
 
 
 def test_part_tmplt_1():
+    """Test creating parts from a template."""
     rt = PartTmplt("Device", "R", value=1000)
+    # Create parts from a template.
     r1, r2 = rt(num_copies=2)
     assert r1.ref == "R1"
     assert r2.ref == "R2"
@@ -96,8 +112,10 @@ def test_part_tmplt_1():
 
 
 def test_index_slicing_1():
+    """Test pin indexing and slicing."""
     mcu = Part("MCU_STC", "STC15W204S-35x-SOP16", pin_splitters="/()")
     mcu.match_pin_regex = False
+    # Test pin indexing and slicing.
     assert len(mcu["T[0:9]"]) == 2
     assert len(mcu["INT[0:9]"]) == 2
     assert len(mcu[Rgx("T[0:9]")]) == 2
@@ -113,8 +131,10 @@ def test_index_slicing_1():
 
 
 def test_index_slicing_2():
+    """Test pin indexing and slicing with memory part."""
     mem = Part("Memory_RAM", "AS4C4M16SA")
     mem.match_pin_regex = False
+    # Test pin indexing and slicing with memory part.
     assert len(mem["DQ[0:15]"]) == 16
     assert len(mem["DQ[15:0]"]) == 16
     assert len(mem["A[0:15]"]) == 11
@@ -129,10 +149,12 @@ def test_index_slicing_2():
 
 
 def test_string_indices_1():
+    """Test connecting part pins using string indices."""
     vreg1 = Part("Regulator_Linear", "LT1117-3.3")
     r1 = Part("Device", "R")
     gnd = Net("GND")
     vin = Net("Vin")
+    # Connect part pins using string indices.
     vreg1["GND, VI, VO"] += gnd, vin, r1.p1
     assert vreg1.is_connected() == True
     assert len(gnd) == 1
@@ -144,11 +166,14 @@ def test_string_indices_1():
 
 
 def test_part_ref_prefix():
+    """Test setting a custom reference prefix for a part."""
     c = Part("Device", "C", ref_prefix="test")
+    # Set a custom reference prefix for a part.
     assert c.ref == "test1"
 
 
 def test_subclass_1():
+    """Test creating a subclass of Part."""
     class Resistor(Part):
         def __init__(self, value, ref=None, footprint="Resistors_SMD:R_0805"):
             super().__init__("Device", "R", value=value, ref=ref, footprint=footprint)
@@ -160,31 +185,38 @@ def test_subclass_1():
     r1 = Resistor("1k")
     r2 = Resistor("500")
 
-    r1[1] += vin  # Connect the input to the first resistor.
-    r2[2] += gnd  # Connect the second resistor to ground.
-    vout += r1[2], r2[1]  # Output comes from the connection of the two resistors.
+    # Connect the input to the first resistor.
+    r1[1] += vin
+    # Connect the second resistor to ground.
+    r2[2] += gnd
+    # Output comes from the connection of the two resistors.
+    vout += r1[2], r2[1]
 
     ERC()
     generate_netlist()
 
 
 def test_subclass_2():
+    """Test creating a custom subclass of Part."""
     class CustomPart(Part):
         pass
 
     r1 = Part("Device", "R")
     r2 = CustomPart("Device", "R")
-    r1 & r2  # Make a connection so resistors don't get culled.
+    # Make a connection so resistors don't get culled.
+    r1 & r2
 
     ERC()
     assert erc_logger.warning.count == 2
 
+
 def test_alias_rename():
+    """Test alias and renaming of parts."""
     u1 = Part("Amplifier_Operational", "LT1493")
     u2 = Part("Amplifier_Operational", "LTC6082xGN")
-    assert u1.name=="LT1493"
-    assert u1.value=="LT1493"
-    assert u2.name=="LTC6082xGN"
-    assert u2.value=="LTC6082xGN"
+    # Check alias and renaming of parts.
+    assert u1.name == "LT1493"
+    assert u1.value == "LT1493"
+    assert u2.name == "LTC6082xGN"
+    assert u2.value == "LTC6082xGN"
     assert len(u1.get_pins()) == len(u2.get_pins())
-
