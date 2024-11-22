@@ -14,7 +14,7 @@ from skidl import Alias
 from skidl.logger import active_logger
 from skidl.part import LIBRARY
 from skidl.pin import pin_types
-from skidl.schematics.geometry import mils_per_mm, BBox
+from skidl.geometry import mils_per_mm, BBox
 from skidl.utilities import (
     export_to_all,
     find_and_open_file,

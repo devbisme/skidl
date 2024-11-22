@@ -7,7 +7,7 @@ from collections import defaultdict
 from itertools import chain
 
 from skidl.utilities import export_to_all, rmv_attr
-from .geometry import BBox, Point, Tx, Vector
+from skidl.geometry import BBox, Point, Tx, Vector
 from .place import Placer
 from .route import Router
 

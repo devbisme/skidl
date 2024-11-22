@@ -24,7 +24,7 @@ from .debug_draw import (
     draw_start,
     draw_text,
 )
-from .geometry import BBox, Point, Segment, Tx, Vector
+from skidl.geometry import BBox, Point, Segment, Tx, Vector
 
 
 __all__ = [

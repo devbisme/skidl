@@ -9,7 +9,7 @@ Calculate bounding boxes for part symbols and hierarchical sheets.
 from collections import namedtuple
 
 from skidl.logger import active_logger
-from skidl.schematics.geometry import (
+from skidl.geometry import (
     Tx,
     BBox,
     Point,
@@ -21,7 +21,7 @@ from skidl.schematics.geometry import (
 )
 from skidl.utilities import export_to_all
 from .constants import HIER_TERM_SIZE, PIN_LABEL_FONT_SIZE
-from skidl.schematics.geometry import BBox, Point, Tx, Vector
+from skidl.geometry import BBox, Point, Tx, Vector
 from .draw_objs import *
 
 

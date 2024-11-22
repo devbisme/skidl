@@ -11,7 +11,7 @@ from collections import namedtuple
 from skidl.logger import active_logger
 from skidl.utilities import export_to_all
 from .draw_objs import *
-from skidl.schematics.geometry import BBox, Point
+from skidl.geometry import BBox, Point
 
 
 @export_to_all

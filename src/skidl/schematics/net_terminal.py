@@ -4,7 +4,7 @@
 
 from skidl import Part, Pin
 from skidl.utilities import export_to_all
-from .geometry import Point, Tx, Vector
+from skidl.geometry import Point, Tx, Vector
 
 
 """

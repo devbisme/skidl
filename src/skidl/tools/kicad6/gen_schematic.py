@@ -9,7 +9,7 @@ import time
 from collections import Counter, OrderedDict
 
 from skidl.scriptinfo import get_script_name
-from skidl.schematics.geometry import BBox, Point, Tx, Vector
+from skidl.geometry import BBox, Point, Tx, Vector
 from skidl.schematics.net_terminal import NetTerminal
 from skidl.utilities import export_to_all
 from .constants import BLK_INT_PAD, BOX_LABEL_FONT_SIZE, GRID, PIN_LABEL_FONT_SIZE

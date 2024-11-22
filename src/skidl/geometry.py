@@ -5,7 +5,7 @@
 from math import sqrt, sin, cos, radians
 from copy import copy
 
-from ..utilities import export_to_all
+from .utilities import export_to_all
 
 __all__ = [
     "mms_per_mil",

@@ -9,7 +9,7 @@ Functions for generating SVG.
 import math
 from collections import namedtuple
 
-from skidl.schematics.geometry import Tx, Point, BBox, tx_flip_y
+from skidl.geometry import Tx, Point, BBox, tx_flip_y
 from skidl.utilities import export_to_all
 
 
