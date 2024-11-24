@@ -28,6 +28,7 @@ Submodules
    skidl.common
    skidl.config_
    skidl.erc
+   skidl.geometry
    skidl.group
    skidl.interface
    skidl.logger
@@ -37,12 +38,10 @@ Submodules
    skidl.netpinlist
    skidl.network
    skidl.note
-   skidl.package
    skidl.part
    skidl.part_query
    skidl.pckg_info
    skidl.pin
-   skidl.protonet
    skidl.pyspice
    skidl.schlib
    skidl.scriptinfo

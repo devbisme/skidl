@@ -38,9 +38,8 @@ create a finished circuit board.
   - [Part Fields](#part-fields)
   - [Hierarchy](#hierarchy)
     - [Subcircuits](#subcircuits)
-    - [Packages](#packages)
+    - [Interfaces](#interfaces)
     - [Groups](#groups)
-  - [Interfaces](#interfaces)
   - [Libraries](#libraries)
   - [Doodads](#doodads)
     - [No Connects](#no-connects)
@@ -1566,6 +1565,72 @@ vdiv(inp, outp, ratio=0.33)
 ```
 
 
+### Interfaces
+
+Passing nets between hierarchically-organized subcircuit modules can lead to long
+lists of arguments.
+To make the code easier to write and understand, SKiDL supports *interfaces*
+which are simply dictionaries that encapsulate a number of `Bus`, `Net`, or `Pin` objects.
+For example, here is an interface for a memory:
+
+```py
+mem_intfc = Interface(
+  rd = Net('MEM_RD#'),
+  wr = Net('MEM_WR#'),
+  addr = Bus('MEM_ADDR', 20),
+  data = Bus('MEM_DATA', 16)
+)
+```
+
+This interface can be passed to a RAM module and a microcontroller that uses it:
+
+```py
+mem_module(mem_intfc)
+uc_module(clk, mem_intfc, io_intfc)
+```
+
+Inside the `mem_module`, the interface signals are connected to a RAM chip:
+
+```py
+@subcircuit
+def mem_module(intfc):
+  ram = Part('Memory_RAM', 'AS6C1616')
+  ram['A[0:19]'] += intfc.addr
+  ram['DQ[0:15]'] += intfc.data
+  ram['WE#'] += intfc.wr
+  ram['OE#'] += intfc['rd']  # Interface members are also accessible using []'s.
+  ...
+```
+
+A similar set of statements is used to make connections to the microcontroller inside the `uc_module`.
+
+Instead of defining an interface external to the subcircuit modules, you can also
+have a module return an interface that can be passed to other modules.
+Here's an example of the `mem_module` that returns an interface:
+
+```py
+@subcircuit
+def mem_module():
+  ram = Part('Memory_RAM', 'AS6C1616')
+  mem_intfc = Interface(
+    rd = ram['OE#'],
+    wr = ram['WE#'],
+    addr = ram['A[0:19]'],
+    data = ram['DQ[0:15]']
+  )
+  ...
+  return mem_intfc
+```
+
+Then this interface can be passed to the `uc_module` to connect the memory and microcontroller:
+
+```py
+mem_intfc = mem_module()
+uc_module(clk, mem_intfc, io_intfc)
+```
+
+
+<!--
 ### Packages
 
 The `@subcircuit` decorator lets you create a hierarchical circuit where the
@@ -1626,6 +1691,8 @@ divider.ratio = 0.5
 
 generate_netlist(file_=sys.stdout)
 ```
+-->
+
 
 ### Groups
 
@@ -1656,45 +1723,6 @@ reflects the nesting of the `Group` contexts:
 R1 top
 C1 top.A0
 L1 top.A0.B0
-```
-
-
-## Interfaces
-
-Passing nets between hierarchically-organized modules can lead to long
-lists of arguments.
-To make the code easier to write and understand, SKiDL supports *interfaces*
-which are simply dictionaries that encapsulate a number of `Bus`, `Net`, or `Pin` objects.
-For example, here is an interface for a memory:
-
-```py
-mem_intfc = Interface(
-  rd = Net('MEM_RD#'),
-  wr = Net('MEM_WR#'),
-  addr = Bus('MEM_ADDR', 20),
-  data = Bus('MEM_DATA', 16)
-)
-```
-
-Then this interface can be passed to a module that implements a RAM memory
-and a microcontroller that uses it:
-
-```py
-mem_module(mem_intfc)
-uc_module(clk, mem_intfc, io_intfc)
-```
-
-Inside the `mem_module`, the interface signals are connected to a RAM chip:
-
-```py
-@subcircuit
-def mem_module(intfc):
-  ram = Part('Memory_RAM', 'AS6C1616')
-  ram['A[0:19]'] += intfc.addr
-  ram['DQ[0:15]'] += intfc.data
-  ram['WE#'] += intfc.wr
-  ram['OE#'] += intfc['rd']  # Interface members are also accessible using []'s.
-  ...
 ```
 
 
