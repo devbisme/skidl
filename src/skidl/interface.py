@@ -19,7 +19,7 @@ from .utilities import (
     from_iadd,
     list_or_scalar,
     rmv_iadd,
-    to_list,
+    set_iadd,
 )
 
 
@@ -179,3 +179,37 @@ class Interface(dict):
         else:
             # This is for a straight assignment of value to key.
             setattr(self, key, value)
+
+    def __iadd__(self, other_intfc):
+        """
+        Connects the nets/buses of this interface to the nets/buses of another interface.
+
+        Args:
+            other_intfc: The interface to connect to this one.
+        """
+        return self.connect(other_intfc)
+
+    def connect(self, other_intfc):
+        """
+        Connects the nets/buses of this interface to the nets/buses of another interface.
+
+        Args:
+            other_intfc: The interface to connect to this one.
+
+        Returns:
+            The updated interface with the new connections.
+
+        Notes:
+            Connections between interfaces can also be made using the += operator.
+        """
+
+        # Connect the nets/buses of this interface to the nets/buses of the other interface.
+        for k,v in self.unexpio.items():
+            if isinstance(v, (Net, Bus, Pin)):
+                if k in other_intfc:
+                    self[k] += other_intfc[k]
+
+        # Set the flag to indicate this result came from the += operator.
+        set_iadd(self, True)
+
+        return self
