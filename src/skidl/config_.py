@@ -3,7 +3,7 @@
 # The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
 """
-Handles configuration parameters stored in a JSON file.
+Handles SKiDL configuration parameters stored in a JSON file.
 """
 
 import collections
@@ -78,6 +78,7 @@ class SkidlConfig(Config):
     def __init__(self):
         from skidl import SKIDL, KICAD
 
+        # Load the .skidlcfg file from one of the list of directories.
         super().__init__(".skidlcfg", "/etc", "~", ".")
 
         # If no configuration files were found, set default backend/tool.
