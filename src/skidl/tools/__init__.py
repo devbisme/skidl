@@ -58,4 +58,4 @@ for module_name in os.listdir(directory):
     lib_suffixes[tool_name] = lib_suffix
 
 # TODO: This is a temporary fix to make the tests pass.
-setattr(sys.modules["skidl"], "KICAD", "kicad5")
+setattr(sys.modules["skidl"], "KICAD", "kicad8")

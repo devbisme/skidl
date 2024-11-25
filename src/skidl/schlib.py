@@ -97,12 +97,15 @@ class SchLib(object):
         # Don't pickle files stored in remote repos because it's difficult to
         # get their modification times to compare against the local pickled library
         # to see which is fresher. So remote libs are never pickled.
+        # TODO: Allow pickling of remote part libraries.
         use_pickle = use_pickle and not is_url(abs_filename)
 
         # Get a unique hash to reference the part library file.
         abs_fn_hash = consistent_hash(abs_filename)
 
         # Create the absolute file name of the pickle file for storing this part library.
+        # The pickle file name is based on the library name, the tool name, and the hash.
+        # It is stored in a directory specified in the SKIDL configuration file.
         lib_name, lib_ext = os.path.splitext(os.path.split(abs_filename)[1])
         lib_pickle_abs_fn = os.path.abspath(os.path.join(
             skidl.config.pickle_dir, "_".join((lib_name, tool, str(abs_fn_hash)))
