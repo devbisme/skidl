@@ -722,3 +722,28 @@ def test_interface_16():
     assert len(in4) == 1
     assert len(out1) == 2
     assert len(out2) == 2
+
+def test_interface_17():
+    """Test interconnection of two interfaces."""
+    intfc1 = Interface(a=Net(), b=Net(), c=Bus(8), d=Bus(4))
+    intfc2 = Interface(a=Net(), b=Net(), c=Bus(8), e=Bus(4))
+    intfc1 += intfc2
+    intfc1.a += Pin()
+    assert len(intfc2.a.pins)==1
+    assert len(intfc2.b.pins)==0
+
+def test_interface_18():
+    mem = Part("Memory_RAM", "AS4C4M16SA")
+    intfc1 = Interface(a=mem["A[0:9]"], d=mem["DQ[0:15]"])
+    intfc2 = Interface(a=Bus(10), d=Bus(16))
+    intfc1 += intfc2
+    for n in intfc2.a:
+        assert len(n)==1
+
+def test_interface_19():
+    mem = Part("Memory_RAM", "AS4C4M16SA")
+    intfc1 = Interface(a=mem["A[0:9]"], d=mem["DQ[0:15]"])
+    intfc2 = Interface(a=Bus(9), d=Bus(16))
+    with pytest.raises(ValueError):
+        intfc1 += intfc2
+
