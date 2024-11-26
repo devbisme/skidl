@@ -4,7 +4,7 @@
 
 import pytest
 
-from skidl import Part, Net, generate_svg, TEMPLATE, KICAD, KICAD6, lib_search_paths, SubCircuit, Bus, POWER, ERC, set_default_tool
+from skidl import Part, Net, generate_svg, TEMPLATE, SubCircuit, Bus, POWER, ERC
 from .setup_teardown import setup_function, teardown_function
 
 

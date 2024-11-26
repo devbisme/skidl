@@ -733,6 +733,7 @@ def test_interface_17():
     assert len(intfc2.b.pins)==0
 
 def test_interface_18():
+    """Test interconnection of two interfaces."""
     mem = Part("Memory_RAM", "AS4C4M16SA")
     intfc1 = Interface(a=mem["A[0:9]"], d=mem["DQ[0:15]"])
     intfc2 = Interface(a=Bus(10), d=Bus(16))
@@ -741,6 +742,7 @@ def test_interface_18():
         assert len(n)==1
 
 def test_interface_19():
+    """Test interconnection of two mismatching interfaces."""
     mem = Part("Memory_RAM", "AS4C4M16SA")
     intfc1 = Interface(a=mem["A[0:9]"], d=mem["DQ[0:15]"])
     intfc2 = Interface(a=Bus(9), d=Bus(16))

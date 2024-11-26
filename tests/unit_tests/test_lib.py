@@ -9,7 +9,6 @@ import sexpdata
 
 import skidl
 from skidl import (
-    KICAD,
     KICAD5,
     KICAD6,
     KICAD7,
@@ -376,7 +375,6 @@ def test_lib_kicad_repository():
     tool = get_default_tool()
     # Set the repository URLs for each tool.
     repo_urls = {
-        KICAD: "https://raw.githubusercontent.com/KiCad/kicad-symbols/master/",
         KICAD5: "https://raw.githubusercontent.com/KiCad/kicad-symbols/master/",
         KICAD6: "https://gitlab.com/kicad/libraries/kicad-symbols/-/raw/master",
         KICAD7: "https://gitlab.com/kicad/libraries/kicad-symbols/-/raw/master",

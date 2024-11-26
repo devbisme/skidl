@@ -11,7 +11,7 @@ except ModuleNotFoundError:
     # are not being run anyway. So just eat the exception.
     pass
 
-from skidl import SKIDL, SPICE, KICAD, Interface
+from skidl import SKIDL, SPICE, Interface
 from skidl.pyspice import (
     TEMPLATE,
     Parameters,
