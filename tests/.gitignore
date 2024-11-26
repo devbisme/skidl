@@ -6,4 +6,6 @@
 *.json
 *.out
 *.cir
+*_sklib.py
+*.pkl
 __pycache__
