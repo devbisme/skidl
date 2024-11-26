@@ -699,7 +699,7 @@ def gen_schematic(
         options (dict, optional): Dict of options and values, usually for drawing/debugging.
     """
 
-    from skidl import KICAD
+    from skidl import KICAD5
     from skidl.schematics.place import PlacementFailure
     from skidl.schematics.route import RoutingFailure
     from skidl.tools import tool_modules
@@ -718,7 +718,7 @@ def gen_schematic(
     for _ in range(retries):
         preprocess_circuit(circuit, **options)
 
-        node = Node(circuit, tool_modules[KICAD], filepath, top_name, title, flatness)
+        node = Node(circuit, tool_modules[KICAD5], filepath, top_name, title, flatness)
 
         try:
             # Place parts.

@@ -86,7 +86,6 @@ def gen_xml(circuit):
     Returns:
         str: String containing the XML for the circuit.
     """
-    from skidl import KICAD
 
     scr_dict = scriptinfo()
     src_file = os.path.join(scr_dict["dir"], scr_dict["source"])

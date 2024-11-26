@@ -39,7 +39,7 @@ class Config(dict):
         self[key] = value
 
     def merge(self, merge_dct):
-        """Recurse through both dicts and updates keys."""
+        """Recurse through both dicts and update keys."""
         for k, v in list(merge_dct.items()):
             if (
                 k in self
@@ -75,15 +75,15 @@ class Config(dict):
 class SkidlConfig(Config):
     """Config specialized for SKiDL configuration files."""
 
-    def __init__(self):
-        from skidl import SKIDL, KICAD
+    def __init__(self, tool):
+        from skidl import SKIDL
 
         # Load the .skidlcfg file from one of the list of directories.
         super().__init__(".skidlcfg", "/etc", "~", ".")
 
         # If no configuration files were found, set default backend/tool.
         if "tool" not in self:
-            self.tool = KICAD
+            self.tool = tool
 
         # If no configuration files were found, set default directory for part library pickle files.
         if "pickle_dir" not in self:
@@ -116,4 +116,4 @@ class SkidlConfig(Config):
             footprint_cache.reset()
 
         self["footprint_search_paths"] = TriggerDict(self["footprint_search_paths"])
-        self["footprint_search_paths"].trigger_funcs[KICAD] = invalidate_footprint_cache
+        self["footprint_search_paths"].trigger_funcs[self.tool] = invalidate_footprint_cache
