@@ -16,6 +16,7 @@ def test_interface_1():
 
     @subcircuit
     def resdiv(gnd, vin, vout):
+        """Create resistor divider."""
         res = Part("Device", "R", dest=TEMPLATE)
         r1 = res(value="1k")
         r2 = res(value="500")
@@ -35,18 +36,22 @@ def test_interface_1():
             c2[1],
         )  # Output comes from the connection of the two resistors.
 
+    # Create interface with nets
     intfc = Interface(
         gnd=Net("GND"),
         vin=Net("VI"),
         vout=Net("VO"),
     )
 
+    # Add aliases to the ground net
     intfc.gnd.aliases += "GND"
     intfc.gnd.aliases += "GNDA"
 
+    # Instantiate the resistor divider subcircuit
     resdiv(**intfc)
     resdiv(gnd=intfc.gnd, vin=intfc.vin, vout=intfc.vout)
 
+    # Assertions to verify the circuit
     assert len(default_circuit.parts) == 8
     assert len(default_circuit.get_nets()) == 3
     assert len(default_circuit.buses) == 2
@@ -63,9 +68,11 @@ def test_interface_1():
     assert len(intfc["vin"]) == 4
     assert len(intfc["vout"]) == 8
 
+    # Add pins to the interface nets
     intfc.gnd += Pin()
     intfc["vin"] += Pin()
 
+    # Assertions to verify the updated circuit
     assert len(Net.fetch("GND")) == 5
     assert len(Net.fetch("VI")) == 5
     assert len(Net.fetch("VO")) == 8
@@ -83,6 +90,7 @@ def test_interface_1():
 
 
 def test_interface_2():
+    """Test interface with memory part."""
     mem = Part("Memory_RAM", "AS4C4M16SA")
     intf = Interface(a=mem["A[0:9]"], d=mem["DQ[0:15]"])
     assert len(intf.a) == 10
@@ -105,6 +113,7 @@ def test_interface_3():
 
     @subcircuit
     def resdiv():
+        """Create resistor divider."""
         gnd, vin, vout = Net(), Net(), Net()
         res = Part("Device", "R", dest=TEMPLATE)
         r1 = res(value="1k")
@@ -127,11 +136,14 @@ def test_interface_3():
 
         return Interface(vin=vin, vout=vout, gnd=gnd)
 
+    # Instantiate two resistor divider subcircuits
     resdiv1 = resdiv()
     resdiv2 = resdiv()
 
+    # Create nets
     vin, vout, gnd = Net("VI"), Net("VO"), Net("GND")
 
+    # Connect the subcircuits to the nets
     resdiv1.gnd += gnd
     resdiv1.vin += vin
     resdiv1.vout += vout
@@ -140,9 +152,11 @@ def test_interface_3():
     resdiv2["vin"] += vin
     resdiv2["vout"] += vout
 
+    # Add pins to the nets
     gnd += Pin()
     vin += Pin()
 
+    # Assertions to verify the circuit
     assert len(Net.fetch("GND")) == 5
     assert len(Net.fetch("VI")) == 5
     assert len(Net.fetch("VO")) == 8
@@ -157,24 +171,27 @@ def test_interface_3():
 
 
 def test_interface_4():
+    """Test nested subcircuits."""
+
     @subcircuit
     def rc_rc():
-        # def rc_rc(gnd, vin, vout):
-
+        """Create two-stage RC filter."""
         gnd, vin, vout = Net(), Net(), Net()
 
         @subcircuit
         def rc():
-            # def rc(gnd, vin, vout):
+            """Create RC filter stage."""
             gnd, vin, vout = Net(), Net(), Net()
             r = Part("Device", "R")
             c = Part("Device", "C")
             vin & r & vout & c & gnd
             return Interface(gnd=gnd, vin=vin, vout=vout)
 
+        # Instantiate two RC filter stages
         stage1 = rc()
         stage2 = rc()
 
+        # Connect the stages
         stage1.vin += vin
         stage1.vout += Net()
         stage2.vin += stage1.vout
@@ -184,9 +201,11 @@ def test_interface_4():
 
         return Interface(gnd=gnd, vin=vin, vout=vout)
 
+    # Instantiate two two-stage RC filters
     rc_rc_1 = rc_rc()
     rc_rc_2 = rc_rc()
 
+    # Connect the filters to nets
     rc_rc_1.vin += Net("VI")
     rc_rc_1.vout += Net()
     rc_rc_2.vin += rc_rc_1.vout
@@ -194,6 +213,7 @@ def test_interface_4():
     rc_rc_1.gnd += Net("GND")
     rc_rc_2.gnd += rc_rc_1.gnd
 
+    # Assertions to verify the circuit
     assert len(Net.fetch("GND")) == 4
     assert len(Net.fetch("VI")) == 1
     assert len(Net.fetch("VO")) == 2
@@ -208,16 +228,22 @@ def test_interface_4():
 
 
 def test_interface_5():
+    """Test interface with bus."""
+
     @subcircuit
     def f():
+        """Create interface with two nets."""
         a, b = Net(), Net()
         return Interface(a=a, b=b)
 
+    # Instantiate the subcircuit
     ff = f()
     b = Bus("B", 2)
     b += Pin(), Pin()
     b += ff["a,b"]
     b[0] += Pin()
+
+    # Assertions to verify the interface
     assert len(ff.a) == 2
     assert len(ff.b) == 1
     assert len(ff["a"]) == 2
@@ -225,16 +251,22 @@ def test_interface_5():
 
 
 def test_interface_6():
+    """Test interface with bus and nets."""
+
     @subcircuit
     def f():
+        """Create interface with two nets."""
         a, b = Net(), Net()
         return Interface(a=a, b=b)
 
+    # Instantiate the subcircuit
     ff = f()
     b = Bus("B", 2)
     b += Pin(), Pin()
     ff["a,b"] += b
     b[0] += Pin()
+
+    # Assertions to verify the interface
     assert len(ff.a) == 2
     assert len(ff.b) == 1
     assert len(ff["a"]) == 2
@@ -242,16 +274,22 @@ def test_interface_6():
 
 
 def test_interface_7():
+    """Test interface with three nets."""
+
     @subcircuit
     def f():
+        """Create interface with three nets."""
         a, b, c = Net(), Net(), Net()
         return Interface(a=a, b=b, c=c)
 
+    # Instantiate the subcircuit
     ff = f()
     b = Bus("B", 2)
     b += Pin(), Pin()
     ff["a,b"] += b
     b[0] += Pin()
+
+    # Assertions to verify the interface
     assert len(ff.a) == 2
     assert len(ff.b) == 1
     assert len(ff.c) == 0
@@ -261,10 +299,11 @@ def test_interface_7():
 
 
 def test_interface_8():
+    """Test adjustable voltage regulator."""
+
     @subcircuit
     def reg_adj(bom, output_voltage):
         """Create voltage regulator with adjustable output."""
-
         VI, VO, GND = 3 * Net()
 
         # Create adjustable regulator chip and connect to input and output.
@@ -285,7 +324,6 @@ def test_interface_8():
     @subcircuit
     def vreg(vin, vout, gnd, bom):
         """Create voltage regulator with filtering caps."""
-
         # Create regulator and attach to input, output and ground.
         reg = bom["reg"]
         reg["VI, VO, GND"] += vin, vout, gnd
@@ -298,7 +336,6 @@ def test_interface_8():
     @subcircuit
     def vreg_adj(bom, output_voltage=3.0):
         """Create adjustable voltage regulator with filtering caps."""
-
         vin, vout, gnd = 3 * Net()
 
         bom2 = copy.copy(bom)
@@ -307,6 +344,7 @@ def test_interface_8():
 
         return Interface(vin=vin, vout=vout, gnd=gnd)
 
+    # Create nets and parts
     vin, vout, gnd = Net("VIN"), Net("VOUT"), Net("GND")
     reg = Part("Regulator_Linear", "AP1117-ADJ", dest=TEMPLATE)
     bom = {
@@ -314,14 +352,15 @@ def test_interface_8():
         "c": Part("Device", "C", dest=TEMPLATE),
         "reg": reg,
     }
+
+    # Instantiate the adjustable voltage regulator subcircuit
     vr = vreg_adj(bom=bom)
     vr["vin, vout, gnd"] += vin, vout, gnd
-    default_circuit.instantiate_packages()
-    # generate_netlist()
+
+    # Assertions to verify the circuit
     assert len(vin) == 2
     assert len(gnd) == 3
     assert len(vout) == 3
-
 
 # def test_interface_9():
 #     """Test multiple packages for independence."""
@@ -404,108 +443,133 @@ def test_interface_8():
 
 
 def test_interface_10():
+    """Test resistor subcircuit."""
     r = Part("Device", "R", dest=TEMPLATE)
 
     @subcircuit
     def r_sub():
+        # Create nets
         neta, netb = 2 * Net()
+        # Connect resistor between nets
         neta & r() & netb
         return Interface(neta=neta, netb=netb)
 
+    # Instantiate the subcircuit
     rr = r_sub()
+    # Create nets
     vcc, gnd = Net("VCC"), Net("GND")
+    # Connect the subcircuit to the nets
     rr.neta += vcc
     gnd += rr.netb
+    # Assertions to verify the circuit
     assert len(gnd) == 1
     assert len(vcc) == 1
 
 
 def test_interface_11():
-
+    """Test nested subcircuits with resistors and capacitors."""
     r = Part("Device", "R", dest=TEMPLATE)
     c = Part("Device", "C", dest=TEMPLATE)
 
     @subcircuit
     def sub1(my_vin, my_gnd):
+        # Create resistor and capacitor
         r1 = r()
         c1 = c()
+        # Connect resistor and capacitor between input and ground
         my_vin & r1 & c1 & my_gnd
 
     @subcircuit
     def sub2():
+        # Create nets
         my_vin1, my_vin2, my_gnd = 3 * Net()
+        # Instantiate subcircuits
         sub1(my_vin1, my_gnd)
         sub1(my_vin2, my_gnd)
         return Interface(my_vin1=my_vin1, my_vin2=my_vin2, my_gnd=my_gnd)
 
+    # Create nets
     vin1, vin2, gnd = Net("VIN1"), Net("VIN2"), Net("GND")
+    # Instantiate the subcircuit
     sub = sub2()
+    # Connect the subcircuit to the nets
     vin1 += sub.my_vin1
     sub.my_vin2 += vin2
     sub.my_gnd += gnd
+    # Create resistor and connect between input and ground
     r1 = r()
     vin1 & r1 & gnd
 
-    default_circuit.instantiate_packages()
-
+    # Assertions to verify the circuit
     assert len(gnd) == 3
     assert len(vin1) == 2
     assert len(vin2) == 1
 
 
 def test_interface_12():
-
+    """Test nested subcircuits with fixed nets."""
     r = Part("Device", "R", dest=TEMPLATE)
     c = Part("Device", "C", dest=TEMPLATE)
 
     @subcircuit
     def sub1():
-        # The following line causes a recursion error if test_schematic_gen_units() was called previously by pytest:
-        #    $ pytest test_generate.py::test_schematic_gen_units test_interface.py::test_interface_12
-        # my_vin, my_gnd = 2 * Net()
-
-        # For unknown reasons, this line "fixes" the problem noted above.
+        # Create nets
         my_vin, my_gnd = Net(), Net()
-
+        # Create resistor and capacitor
         r1 = r()
         c1 = c()
+        # Connect resistor and capacitor between input and ground
         my_vin & r1 & c1 & my_gnd
         return Interface(my_vin=my_vin, my_gnd=my_gnd)
 
     @subcircuit
     def sub2(my_vin1, my_vin2, my_gnd):
+        # Instantiate subcircuits
         s1 = sub1()
         s2 = sub1()
+        # Connect the subcircuits to the nets
         s1.my_vin += my_vin1
         my_vin2 += s2.my_vin
         my_gnd += s1.my_gnd
         s2.my_gnd += my_gnd
 
+    # Create nets
     vin1, vin2, gnd = Net("VIN1"), Net("VIN2"), Net("GND")
+    # Instantiate the subcircuit
     sub = sub2(vin1, vin2, gnd)
+    # Create resistor and connect between input and ground
     r1 = r()
     vin1 & r1 & gnd
 
+    # Assertions to verify the circuit
     assert len(gnd) == 3
     assert len(vin1) == 2
     assert len(vin2) == 1
 
 
 def test_interface_13():
+    """Test analog averaging circuit."""
     @subcircuit
     def analog_average():
+        # Create nets
         in1, in2, avg = 3 * Net()
+        # Create resistors
         r1, r2 = 2 * Part("Device", "R", value="1K", dest=TEMPLATE)
+        # Connect resistors to nets
         r1[1, 2] += in1, avg
         r2[1, 2] += in2, avg
         return Interface(in1=in1, in2=in2, avg=avg)
 
+    # Create circuit
     cct = Circuit(name="My circuit")
 
+    # Instantiate subcircuits
     avg1 = analog_average(circuit=cct)
     avg2 = analog_average(circuit=cct)
 
+    # Create nets
     in1, in2, in3, in4, out1, out2 = Net(circuit=cct) * 6
+    # Connect subcircuits to nets
     avg1["in1"] += in1
     avg1.in2 += in2
     avg1["avg"] += out1
@@ -514,9 +578,7 @@ def test_interface_13():
     avg2["in2"] += in4
     avg2.avg += out2
 
-    # Can't generate netlist because nets get merged and in1, in2, ... no longer point to valid nets.
-    # cct.generate_netlist()
-
+    # Assertions to verify the circuit
     assert len(cct.parts) == 4
     assert len(default_circuit.parts) == 0
 
@@ -529,22 +591,31 @@ def test_interface_13():
 
 
 def test_interface_14():
+    """Test analog averaging circuit with default circuit."""
     @subcircuit
     def analog_average(circuit=None):
+        # Use default circuit if none provided
         circuit = circuit or default_circuit
         with circuit as cct:
+            # Create nets
             in1, in2, avg = 3 * Net(circuit=circuit)
+            # Create resistors
             r1, r2 = 2 * Part("Device", "R", value="1K", dest=TEMPLATE)
+            # Connect resistors to nets
             r1[1, 2] += in1, avg
             r2[1, 2] += in2, avg
             return Interface(in1=in1, in2=in2, avg=avg)
 
+    # Create circuit
     cct = Circuit(name="My circuit")
 
+    # Instantiate subcircuits
     avg1 = analog_average(circuit=cct)
     avg2 = analog_average(circuit=cct)
 
+    # Create nets
     in1, in2, in3, in4, out1, out2 = Net(circuit=cct) * 6
+    # Connect subcircuits to nets
     avg1["in1"] += in1
     avg1.in2 += in2
     avg1["avg"] += out1
@@ -553,9 +624,7 @@ def test_interface_14():
     avg2["in2"] += in4
     avg2.avg += out2
 
-    # Can't generate netlist because nets get merged and in1, in2, ... no longer point to valid nets.
-    # cct.generate_netlist()
-
+    # Assertions to verify the circuit
     assert len(cct.parts) == 4
     assert len(default_circuit.parts) == 0
 
@@ -568,21 +637,29 @@ def test_interface_14():
 
 
 def test_interface_15():
+    """Test analog averaging circuit with explicit circuit."""
     @subcircuit
     def analog_average(cct=None):
+        # Create nets
         in1, in2, avg = 3 * Net(circuit=cct)
+        # Create resistors
         r1, r2 = 2 * Part("Device", "R", value="1K", dest=TEMPLATE, circuit=cct)
+        # Connect resistors to nets
         r1[1, 2] += in1, avg
         r2[1, 2] += in2, avg
         return Interface(in1=in1, in2=in2, avg=avg)
 
+    # Create circuit
     cct = Circuit(name="My circuit")
 
+    # Instantiate subcircuits
     avg1 = analog_average(circuit=cct, cct=cct)
     avg2 = analog_average(circuit=cct, cct=cct)
 
+    # Create nets
     in1, in2, in3, in4, out1, out2 = Net(circuit=cct) * 6
 
+    # Connect subcircuits to nets
     avg1["in1"] += in1
     avg1.in2 += in2
     avg1["avg"] += out1
@@ -591,9 +668,7 @@ def test_interface_15():
     avg2["in2"] += in4
     avg2.avg += out2
 
-    # Can't generate netlist because nets get merged and in1, in2, ... no longer point to valid nets.
-    # cct.generate_netlist()
-
+    # Assertions to verify the circuit
     assert len(cct.parts) == 4
     assert len(default_circuit.parts) == 0
 
@@ -602,32 +677,33 @@ def test_interface_15():
     assert len(in3) == 1
     assert len(in4) == 1
     assert len(out1) == 2
-    assert len(out2) == 2
     assert len(out2) == 2
 
 
 def test_interface_16():
+    """Test analog averaging circuit with gates."""
     @subcircuit
     def analog_average(cct=None):
-        # in1, in2, avg = Net(), Net(), Net()
-        # in1, in2, avg = 3 * Net()
+        # Create nets
         in1, in2, avg = 3 * Net(circuit=cct)
+        # Create gates
         g1, g2 = 2 * Part("4xxx", "4001", value="4001", dest=TEMPLATE, circuit=cct)
+        # Connect gates to nets
         g1[1, 2] += in1, avg
         g2[1, 2] += in2, avg
         return Interface(in1=in1, in2=in2, avg=avg)
 
+    # Create circuit
     cct = Circuit(name="My circuit")
 
-    # avg1 = analog_average()
-    # avg2 = analog_average()
+    # Instantiate subcircuits
     avg1 = analog_average(circuit=cct, cct=cct)
     avg2 = analog_average(circuit=cct, cct=cct)
 
-    # in1, in2, in3, in4, out1, out2 = Net(), Net(), Net(), Net(), Net(), Net()
-    # in1, in2, in3, in4, out1, out2 = Net() * 6
+    # Create nets
     in1, in2, in3, in4, out1, out2 = Net(circuit=cct) * 6
 
+    # Connect subcircuits to nets
     avg1["in1"] += in1
     avg1.in2 += in2
     avg1["avg"] += out1
@@ -636,9 +712,7 @@ def test_interface_16():
     avg2["in2"] += in4
     avg2.avg += out2
 
-    # Can't generate netlist because nets get merged and in1, in2, ... no longer point to valid nets.
-    # cct.generate_netlist()
-
+    # Assertions to verify the circuit
     assert len(cct.parts) == 4
     assert len(default_circuit.parts) == 0
 
@@ -648,4 +722,30 @@ def test_interface_16():
     assert len(in4) == 1
     assert len(out1) == 2
     assert len(out2) == 2
-    assert len(out2) == 2
+
+def test_interface_17():
+    """Test interconnection of two interfaces."""
+    intfc1 = Interface(a=Net(), b=Net(), c=Bus(8), d=Bus(4))
+    intfc2 = Interface(a=Net(), b=Net(), c=Bus(8), e=Bus(4))
+    intfc1 += intfc2
+    intfc1.a += Pin()
+    assert len(intfc2.a.pins)==1
+    assert len(intfc2.b.pins)==0
+
+def test_interface_18():
+    """Test interconnection of two interfaces."""
+    mem = Part("Memory_RAM", "AS4C4M16SA")
+    intfc1 = Interface(a=mem["A[0:9]"], d=mem["DQ[0:15]"])
+    intfc2 = Interface(a=Bus(10), d=Bus(16))
+    intfc1 += intfc2
+    for n in intfc2.a:
+        assert len(n)==1
+
+def test_interface_19():
+    """Test interconnection of two mismatching interfaces."""
+    mem = Part("Memory_RAM", "AS4C4M16SA")
+    intfc1 = Interface(a=mem["A[0:9]"], d=mem["DQ[0:15]"])
+    intfc2 = Interface(a=Bus(9), d=Bus(16))
+    with pytest.raises(ValueError):
+        intfc1 += intfc2
+

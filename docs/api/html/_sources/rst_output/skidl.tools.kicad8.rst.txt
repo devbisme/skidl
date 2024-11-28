@@ -1,0 +1,22 @@
+skidl.tools.kicad8 package
+==========================
+
+.. automodule:: skidl.tools.kicad8
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   skidl.tools.kicad8.bboxes
+   skidl.tools.kicad8.constants
+   skidl.tools.kicad8.gen_netlist
+   skidl.tools.kicad8.gen_pcb
+   skidl.tools.kicad8.gen_schematic
+   skidl.tools.kicad8.gen_svg
+   skidl.tools.kicad8.gen_xml
+   skidl.tools.kicad8.lib

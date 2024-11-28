@@ -6,16 +6,7 @@
 Handles buses.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
-import builtins
 import re
-from builtins import range, str, super
 
 try:
     from future import standard_library

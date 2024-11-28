@@ -3,26 +3,12 @@
 # The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
 """
-Base object for Circuit, Interface, Package, Part, Net, Bus, Pin objects.
+Base object for Circuit, Interface, Part, Net, Bus, Pin objects.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import inspect
-from builtins import object, range, str, super
 from collections import namedtuple
 from copy import deepcopy
-
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
 
 from .alias import Alias
 from .note import Note

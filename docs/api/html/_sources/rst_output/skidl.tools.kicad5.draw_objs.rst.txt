@@ -1,0 +1,7 @@
+skidl.tools.kicad5.draw\_objs module
+====================================
+
+.. automodule:: skidl.tools.kicad5.draw_objs
+   :members:
+   :undoc-members:
+   :show-inheritance:

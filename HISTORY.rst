@@ -4,10 +4,16 @@ History
 -------
 
 
-1.2.3 (2024-08-03)
+2.0.0 (2024-XX-XX)
 ______________________
-- Fixed SVG generation for Windows OS.
-- Improved export into `*_sklib.py` files of parts with units. 
+- No longer compatible with Python 2.
+- `@package` decorator removed.
+- Additional `Part`` attributes can be specified when exporting libraries.
+- Added `unexpio` dict to `Interface` objects for accessing I/O without buses expanded into individual nets.
+- Added connect() and __iadd__() methods to interconnect `Interface` objects. 
+- Part libraries are pickled when first loaded for faster access on subsequent accesses.
+  The directory for storing the pickled library files is specified in the SKiDL configuration file.
+- The `KICAD` tool identifier now points to `KICAD8`.
 
 
 1.2.2 (2024-07-13)

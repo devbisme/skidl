@@ -7,11 +7,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>skidl.circuit module &#8212; SKiDL 1.2.3 documentation</title>
+    <title>skidl.circuit module &#8212; SKiDL 2.0.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../_static/documentation_options.js?v=590429e0"></script>
+    <script src="../_static/documentation_options.js?v=51b770b3"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/bizstyle.js"></script>
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.circuit module</a></li> 
       </ul>
     </div>  
@@ -117,11 +117,6 @@ SubCircuits at the current time it is read.</p>
 <span class="sig-name descname"><span class="pre">add_nets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">nets</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/circuit.html#Circuit.add_nets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.circuit.Circuit.add_nets" title="Link to this definition">¶</a></dt>
 <dd><p>Add some Net objects to the circuit. Assign a net name if necessary.</p>
 </dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="skidl.circuit.Circuit.add_packages">
-<span class="sig-name descname"><span class="pre">add_packages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">packages</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/circuit.html#Circuit.add_packages"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.circuit.Circuit.add_packages" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.circuit.Circuit.add_parts">
@@ -335,12 +330,6 @@ containing a file name, or None.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="skidl.circuit.Circuit.instantiate_packages">
-<span class="sig-name descname"><span class="pre">instantiate_packages</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/circuit.html#Circuit.instantiate_packages"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.circuit.Circuit.instantiate_packages" title="Link to this definition">¶</a></dt>
-<dd><p>Run the package executables to instantiate their circuitry.</p>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="skidl.circuit.Circuit.merge_net_names">
 <span class="sig-name descname"><span class="pre">merge_net_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/circuit.html#Circuit.merge_net_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.circuit.Circuit.merge_net_names" title="Link to this definition">¶</a></dt>
 <dd><p>Assign same name to all segments of multi-segment nets.</p>
@@ -389,11 +378,6 @@ containing a file name, or None.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="skidl.circuit.Circuit.rmv_packages">
-<span class="sig-name descname"><span class="pre">rmv_packages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">packages</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/circuit.html#Circuit.rmv_packages"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.circuit.Circuit.rmv_packages" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="skidl.circuit.Circuit.rmv_parts">
 <span class="sig-name descname"><span class="pre">rmv_parts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">parts</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/circuit.html#Circuit.rmv_parts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.circuit.Circuit.rmv_parts" title="Link to this definition">¶</a></dt>
 <dd><p>Remove some Part objects from the circuit.</p>
@@ -432,7 +416,6 @@ containing a file name, or None.</p></li>
 <li><a class="reference internal" href="#skidl.circuit.Circuit.add_buses"><code class="docutils literal notranslate"><span class="pre">Circuit.add_buses()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.circuit.Circuit.add_hierarchical_name"><code class="docutils literal notranslate"><span class="pre">Circuit.add_hierarchical_name()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.circuit.Circuit.add_nets"><code class="docutils literal notranslate"><span class="pre">Circuit.add_nets()</span></code></a></li>
-<li><a class="reference internal" href="#skidl.circuit.Circuit.add_packages"><code class="docutils literal notranslate"><span class="pre">Circuit.add_packages()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.circuit.Circuit.add_parts"><code class="docutils literal notranslate"><span class="pre">Circuit.add_parts()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.circuit.Circuit.add_stuff"><code class="docutils literal notranslate"><span class="pre">Circuit.add_stuff()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.circuit.Circuit.backup_parts"><code class="docutils literal notranslate"><span class="pre">Circuit.backup_parts()</span></code></a></li>
@@ -448,7 +431,6 @@ containing a file name, or None.</p></li>
 <li><a class="reference internal" href="#skidl.circuit.Circuit.generate_xml"><code class="docutils literal notranslate"><span class="pre">Circuit.generate_xml()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.circuit.Circuit.get_net_nc_stubs"><code class="docutils literal notranslate"><span class="pre">Circuit.get_net_nc_stubs()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.circuit.Circuit.get_nets"><code class="docutils literal notranslate"><span class="pre">Circuit.get_nets()</span></code></a></li>
-<li><a class="reference internal" href="#skidl.circuit.Circuit.instantiate_packages"><code class="docutils literal notranslate"><span class="pre">Circuit.instantiate_packages()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.circuit.Circuit.merge_net_names"><code class="docutils literal notranslate"><span class="pre">Circuit.merge_net_names()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.circuit.Circuit.merge_nets"><code class="docutils literal notranslate"><span class="pre">Circuit.merge_nets()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.circuit.Circuit.mini_reset"><code class="docutils literal notranslate"><span class="pre">Circuit.mini_reset()</span></code></a></li>
@@ -457,7 +439,6 @@ containing a file name, or None.</p></li>
 <li><a class="reference internal" href="#skidl.circuit.Circuit.rmv_buses"><code class="docutils literal notranslate"><span class="pre">Circuit.rmv_buses()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.circuit.Circuit.rmv_hierarchical_name"><code class="docutils literal notranslate"><span class="pre">Circuit.rmv_hierarchical_name()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.circuit.Circuit.rmv_nets"><code class="docutils literal notranslate"><span class="pre">Circuit.rmv_nets()</span></code></a></li>
-<li><a class="reference internal" href="#skidl.circuit.Circuit.rmv_packages"><code class="docutils literal notranslate"><span class="pre">Circuit.rmv_packages()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.circuit.Circuit.rmv_parts"><code class="docutils literal notranslate"><span class="pre">Circuit.rmv_parts()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.circuit.Circuit.rmv_stuff"><code class="docutils literal notranslate"><span class="pre">Circuit.rmv_stuff()</span></code></a></li>
 </ul>
@@ -497,7 +478,7 @@ containing a file name, or None.</p></li>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.circuit module</a></li> 
       </ul>
     </div>

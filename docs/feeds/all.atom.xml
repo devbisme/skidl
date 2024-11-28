@@ -1,5 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>SKiDL</title><link href="/skidl/" rel="alternate"></link><link href="/skidl/feeds/all.atom.xml" rel="self"></link><id>/skidl/</id><updated>2023-07-14T00:00:00-04:00</updated><entry><title>SKiDL Has Schematics!</title><link href="/skidl/generating-editable-schematics-2023-07-14.html" rel="alternate"></link><published>2023-07-14T00:00:00-04:00</published><updated>2023-07-14T00:00:00-04:00</updated><author><name>Dave Vandenbout</name></author><id>tag:None,2023-07-14:/skidl/generating-editable-schematics-2023-07-14.html</id><summary type="html">&lt;p&gt;You can finally generate editable schematics from your SKiDL code.&lt;/p&gt;</summary><content type="html">&lt;p&gt;The most frequently-asked question after &lt;a href="https://www.youtube.com/watch?v=WErQYI2A36M"&gt;my talk about SKiDL at KiCon in 2019&lt;/a&gt;&lt;br&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>SKiDL</title><link href="/skidl/" rel="alternate"></link><link href="/skidl/feeds/all.atom.xml" rel="self"></link><id>/skidl/</id><updated>2024-11-27T00:00:00-05:00</updated><entry><title>2.0</title><link href="/skidl/two-dot-oh-2024-11-27.html" rel="alternate"></link><published>2024-11-27T00:00:00-05:00</published><updated>2024-11-27T00:00:00-05:00</updated><author><name>Dave Vandenbout</name></author><id>tag:None,2024-11-27:/skidl/two-dot-oh-2024-11-27.html</id><summary type="html">&lt;p&gt;After three years since version 1.0, today marks the release of SKiDL version &lt;strong&gt;2.0.0&lt;/strong&gt;.
+The increment in the major version number indicates that this release is not backward compatible
+with previous versions, so some SKiDL code may not work if:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;It relies on Python 2 (which is …&lt;/li&gt;&lt;/ol&gt;</summary><content type="html">&lt;p&gt;After three years since version 1.0, today marks the release of SKiDL version &lt;strong&gt;2.0.0&lt;/strong&gt;.
+The increment in the major version number indicates that this release is not backward compatible
+with previous versions, so some SKiDL code may not work if:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;It relies on Python 2 (which is is no longer supported).&lt;/li&gt;
+&lt;li&gt;It uses the @package decorator (which was dropped).&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;If either of these things are important to you, then stick with version 1.2.3.&lt;/p&gt;
+&lt;p&gt;Here's a list of other changes in 2.0.0:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Additional &lt;code&gt;Part&lt;/code&gt; attributes can be specified when exporting libraries.&lt;/li&gt;
+&lt;li&gt;A &lt;code&gt;unexpio&lt;/code&gt; dict has been to &lt;code&gt;Interface&lt;/code&gt; objects for accessing I/O without buses expanded into individual nets.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;connect()&lt;/code&gt; and &lt;code&gt;__iadd__()&lt;/code&gt; methods were added to allow interconnection of &lt;code&gt;Interface&lt;/code&gt; objects. &lt;/li&gt;
+&lt;li&gt;Part libraries are pickled when first loaded for faster access on subsequent accesses.
+  The directory for storing the pickled library files is specified in the SKiDL configuration file.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;KICAD&lt;/code&gt; tool identifier now points to &lt;code&gt;KICAD8&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Look at &lt;a href="https://github.com/devbisme/skidl/blob/master/HISTORY.rst"&gt;SKiDL's complete history&lt;/a&gt; for all the changes
+made in each release.&lt;/p&gt;</content><category term="posts"></category></entry><entry><title>SKiDL Has Schematics!</title><link href="/skidl/generating-editable-schematics-2023-07-14.html" rel="alternate"></link><published>2023-07-14T00:00:00-04:00</published><updated>2023-07-14T00:00:00-04:00</updated><author><name>Dave Vandenbout</name></author><id>tag:None,2023-07-14:/skidl/generating-editable-schematics-2023-07-14.html</id><summary type="html">&lt;p&gt;You can finally generate editable schematics from your SKiDL code.&lt;/p&gt;</summary><content type="html">&lt;p&gt;The most frequently-asked question after &lt;a href="https://www.youtube.com/watch?v=WErQYI2A36M"&gt;my talk about SKiDL at KiCon in 2019&lt;/a&gt;&lt;br&gt;
 was "Can it output schematics?"
 Quite disappointing since the whole point of SKiDL is to avoid schematics!
 But people want what they want, and maybe outputting schematics

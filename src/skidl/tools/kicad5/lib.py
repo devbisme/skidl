@@ -6,29 +6,19 @@
 Parsing of Kicad 5 libraries.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
-import os
-# import os.path
-from builtins import range
 import os
 import re
-from builtins import int, range, zip
-
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
 
 from skidl.logger import active_logger
 from skidl.part import LIBRARY
-from skidl.utilities import export_to_all, find_and_read_file, find_and_open_file, num_to_chars, rmv_quotes
+from skidl.pin import pin_types
+from skidl.utilities import (
+    export_to_all,
+    find_and_read_file,
+    find_and_open_file,
+    num_to_chars,
+    rmv_quotes,
+)
 from .draw_objs import *
 
 
@@ -87,11 +77,11 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
         lib_section: Only used for SPICE simulations.
     """
 
-    from skidl import Part, KICAD
+    from skidl import Part, KICAD5
     from skidl.tools import lib_suffixes
 
     # Try to open the file using allowable suffixes for the versions of KiCAD.
-    suffixes = lib_suffixes[KICAD]
+    suffixes = lib_suffixes[KICAD5]
     base, suffix = os.path.splitext(filename)
     if suffix:
         # If an explicit file extension was given, use it instead of tool lib default extensions.
@@ -154,7 +144,7 @@ def load_sch_lib(lib, filename=None, lib_search_paths_=None, lib_section=None):
         lib.add_parts(
             Part(
                 part_defn=part_defn,
-                tool=KICAD,
+                tool=KICAD5,
                 dest=LIBRARY,
                 filename=filename,
                 name=part_name,
@@ -573,17 +563,17 @@ def parse_lib_part(part, partial_parse):
         p.unit = kicad_pin.unit
 
         pin_type_translation = {
-            "I": Pin.types.INPUT,
-            "O": Pin.types.OUTPUT,
-            "B": Pin.types.BIDIR,
-            "T": Pin.types.TRISTATE,
-            "P": Pin.types.PASSIVE,
-            "U": Pin.types.UNSPEC,
-            "W": Pin.types.PWRIN,
-            "w": Pin.types.PWROUT,
-            "C": Pin.types.OPENCOLL,
-            "E": Pin.types.OPENEMIT,
-            "N": Pin.types.NOCONNECT,
+            "I": pin_types.INPUT,
+            "O": pin_types.OUTPUT,
+            "B": pin_types.BIDIR,
+            "T": pin_types.TRISTATE,
+            "P": pin_types.PASSIVE,
+            "U": pin_types.UNSPEC,
+            "W": pin_types.PWRIN,
+            "w": pin_types.PWROUT,
+            "C": pin_types.OPENCOLL,
+            "E": pin_types.OPENEMIT,
+            "N": pin_types.NOCONNECT,
         }
         p.func = pin_type_translation[kicad_pin.electrical_type.upper()]
 

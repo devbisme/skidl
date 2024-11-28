@@ -6,24 +6,9 @@
 Functions for generating SVG.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import math
-from collections import namedtuple
 
-try:
-    from future import standard_library
-
-    standard_library.install_aliases()
-except ImportError:
-    pass
-
-from skidl.schematics.geometry import Tx, Point, BBox, tx_flip_y
+from skidl.geometry import Tx, Point, BBox, tx_flip_y
 from skidl.utilities import export_to_all
 
 
@@ -97,7 +82,7 @@ def draw_cmd_to_svg(draw_cmd, tx, part, net_stubs, max_stub_len):
         shape_svg (str): SVG command for the shape.
         shape_bbox (BBox): Bounding box for the shape.
     """
-    
+
     # Use this when determining width of a text string based on its number of characters.
     char_sz_fudge_factor = 0.6
 

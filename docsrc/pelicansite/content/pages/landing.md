@@ -38,9 +38,8 @@ create a finished circuit board.
   - [Part Fields](#part-fields)
   - [Hierarchy](#hierarchy)
     - [Subcircuits](#subcircuits)
-    - [Packages](#packages)
+    - [Interfaces](#interfaces)
     - [Groups](#groups)
-  - [Interfaces](#interfaces)
   - [Libraries](#libraries)
   - [Doodads](#doodads)
     - [No Connects](#no-connects)
@@ -50,6 +49,7 @@ create a finished circuit board.
     - [Customizable ERC Using `erc_assert()`](#customizable-erc-using-erc_assert)
     - [Handling Empty Footprints](#handling-empty-footprints)
     - [Tags](#tags)
+    - [Configuration File](#configuration-file)
 - [Going Really Deep](#going-really-deep)
   - [Circuit Objects](#circuit-objects)
 - [Generating a Schematic](#generating-a-schematic)
@@ -69,7 +69,7 @@ The resulting Python program performs electrical rules checking
 for common mistakes and outputs a netlist that serves as input to
 a PCB layout tool.
 
-First, let's look at a "normal" design flow in [KiCad](https://kicad-pcb.org):
+First, let's look at a "normal" design flow in [KiCad](https://kicad.org):
 
 ![Schematic-based PCB design flow](images/schematic-process-flow.png)
 
@@ -185,8 +185,11 @@ SKiDL is pure Python so it's easy to install:
 $ pip install skidl
 ```
 
-To give SKiDL some part libraries to work with,
-you'll also need to install [KiCad](http://kicad.org/).
+While it's not entirely necessary, you may install some part libraries
+for SKiDL to play with.
+Some possible options are to do a full install of [KiCad](http://kicad.org/) or
+to install only the [KiCad libraries](https://gitlab.com/kicad/libraries/kicad-symbols).
+
 Then, you'll need to set an environment variable so SKiDL can find the libraries.
 For Windows, do this:
 
@@ -1566,6 +1569,73 @@ vdiv(inp, outp, ratio=0.33)
 ```
 
 
+### Interfaces
+
+Passing nets between hierarchically-organized subcircuit modules can lead to long
+lists of arguments.
+To make the code easier to write and understand, SKiDL supports *interfaces*
+which are simply dictionaries that encapsulate a number of `Bus`, `Net`, or `Pin` objects.
+For example, here is an interface for a memory:
+
+```py
+mem_intfc = Interface(
+  rd = Net('MEM_RD#'),
+  wr = Net('MEM_WR#'),
+  addr = Bus('MEM_ADDR', 20),
+  data = Bus('MEM_DATA', 16)
+)
+```
+
+This interface can be passed to a RAM module and a microcontroller that uses it:
+
+```py
+mem_module(mem_intfc)
+uc_module(clk, mem_intfc, io_intfc)
+```
+
+Inside the `mem_module`, the interface signals are connected to a RAM chip:
+
+```py
+@subcircuit
+def mem_module(intfc):
+  ram = Part('Memory_RAM', 'AS6C1616')
+  ram['A[0:19]'] += intfc.addr
+  ram['DQ[0:15]'] += intfc.data
+  ram['WE#'] += intfc.wr
+  ram['OE#'] += intfc['rd']  # Interface members are also accessible using []'s.
+  ...
+```
+
+A similar set of statements is used to make connections to the microcontroller inside the `uc_module`
+with the `mem_intfc` argument.
+
+Instead of defining an interface external to the subcircuit modules, you can also
+have a module return an interface that can be passed to other modules.
+Here's an example of the `mem_module` that returns an interface:
+
+```py
+@subcircuit
+def mem_module():
+  ram = Part('Memory_RAM', 'AS6C1616')
+  mem_intfc = Interface(
+    rd = ram['OE#'],
+    wr = ram['WE#'],
+    addr = ram['A[0:19]'],
+    data = ram['DQ[0:15]']
+  )
+  ...
+  return mem_intfc
+```
+
+Then this interface can be passed to the `uc_module` to connect the memory and microcontroller:
+
+```py
+mem_intfc = mem_module()
+uc_module(clk, mem_intfc, io_intfc)
+```
+
+
+<!--
 ### Packages
 
 The `@subcircuit` decorator lets you create a hierarchical circuit where the
@@ -1626,6 +1696,8 @@ divider.ratio = 0.5
 
 generate_netlist(file_=sys.stdout)
 ```
+-->
+
 
 ### Groups
 
@@ -1659,45 +1731,6 @@ L1 top.A0.B0
 ```
 
 
-## Interfaces
-
-Passing nets between hierarchically-organized modules can lead to long
-lists of arguments.
-To make the code easier to write and understand, SKiDL supports *interfaces*
-which are simply dictionaries that encapsulate a number of `Bus`, `Net`, or `Pin` objects.
-For example, here is an interface for a memory:
-
-```py
-mem_intfc = Interface(
-  rd = Net('MEM_RD#'),
-  wr = Net('MEM_WR#'),
-  addr = Bus('MEM_ADDR', 20),
-  data = Bus('MEM_DATA', 16)
-)
-```
-
-Then this interface can be passed to a module that implements a RAM memory
-and a microcontroller that uses it:
-
-```py
-mem_module(mem_intfc)
-uc_module(clk, mem_intfc, io_intfc)
-```
-
-Inside the `mem_module`, the interface signals are connected to a RAM chip:
-
-```py
-@subcircuit
-def mem_module(intfc):
-  ram = Part('Memory_RAM', 'AS6C1616')
-  ram['A[0:19]'] += intfc.addr
-  ram['DQ[0:15]'] += intfc.data
-  ram['WE#'] += intfc.wr
-  ram['OE#'] += intfc['rd']  # Interface members are also accessible using []'s.
-  ...
-```
-
-
 ## Libraries
 
 As you've already seen, SKiDL gets its parts from *part libraries*.
@@ -1710,7 +1743,7 @@ Currently, SKiDL supports the library formats for the following ECAD tools:
 * `KICAD6`: Schematic part libraries for KiCad version 6.
 * `KICAD7`: Schematic part libraries for KiCad version 7.
 * `KICAD8`: Schematic part libraries for KiCad version 8.
-* `KICAD`: Generic KiCad schematic part libraries that currently mirrors `KICAD5`.
+* `KICAD`: Generic KiCad schematic part libraries that currently mirrors `KICAD8`.
 * `SKIDL`: Schematic parts stored as SKiDL/Python modules.
 
 You may set the default library format you want to use in your SKiDL script like so:
@@ -1734,6 +1767,25 @@ URL in the list of libraries:
 ```py
 lib_search_paths[KICAD].append('https://gitlab.com/kicad/libraries/kicad-symbols/-/raw/master')
 ```
+
+You can also bypass `lib_search_paths` and access a part library directly by
+specifying the full path or URL to the library file:
+
+```py
+resistor = Part('C:\\my\\kicad\\libs\\my_lib.kicad_sym', 'R')
+```
+
+Opening large libraries can cause a significant delay as the part descriptions are parsed
+into the internal `SchLib` data structure.
+To speed up the process, libraries are cached after parsing so subsequent accesses
+during a session will be fast.
+
+SKiDL will also [pickle](https://docs.python.org/3/library/pickle.html) any local libraries
+(but not those in online repositories) to disk so they can be reloaded quickly in future sessions.
+If the original library file is modified, SKiDL will re-parse it and update the pickled file.
+By default, pickled library files are stored in the `lib_pickle_dir` subdirectory of the current directory.
+You can change the location of the pickled library files by setting the `pickle_dir` entry in
+the [configuration file](#configuration-file).
 
 You can convert a KiCad library into the SKiDL format by exporting it:
 
@@ -1787,19 +1839,22 @@ When creating a pin, these are the attributes you'll want to set:
 
 The pin function identifiers are as follows:
  
-| Identifier    | Pin Function                                                    |
-| ------------- | --------------------------------------------------------------- |
-| Pin.INPUT     | Input pin.                                                      |
-| Pin.OUTPUT    | Output pin.                                                     |
-| Pin.BIDIR     | Bidirectional in/out pin.                                       |
-| Pin.TRISTATE  | Output pin that goes into a high-impedance state when disabled. |
-| Pin.PASSIVE   | Pin on a passive component (like a resistor).                   |
-| Pin.UNSPEC    | Pin with an unspecified function.                               |
-| Pin.PWRIN     | Power input pin (either voltage supply or ground).              |
-| Pin.PWROUT    | Power output pin (like the output of a voltage regulator).      |
-| Pin.OPENCOLL  | Open-collector pin (pulls to ground but not to positive rail).  |
-| Pin.OPENEMIT  | Open-emitter pin (pulls to positive rail but not to ground).    |
-| Pin.NOCONNECT | A pin that should be left unconnected.                          |
+| Identifier | Pin Function                                                    |
+| ---------  | --------------------------------------------------------------- |
+| INPUT      | Input pin.                                                      |
+| OUTPUT     | Output pin.                                                     |
+| BIDIR      | Bidirectional in/out pin.                                       |
+| TRISTATE   | Output pin that goes into a high-impedance state when disabled. |
+| PASSIVE    | Pin on a passive component (like a resistor).                   |
+| UNSPEC     | Pin with an unspecified function.                               |
+| PWRIN      | Power input pin (either voltage supply or ground).              |
+| PWROUT     | Power output pin (like the output of a voltage regulator).      |
+| OPENCOLL   | Open-collector pin (pulls to ground but not to positive rail).  |
+| OPENEMIT   | Open-emitter pin (pulls to positive rail but not to ground).    |
+| PULLUP     | Pin with a pull-up resistor.                                    |
+| PULLDOWN   | Pin with a pull-down resistor.                                  |
+| NOCONNECT  | A pin that should be left unconnected.                          |
+| FREE       | A pin that is free to be used for any function.                 |
 
 SKiDL will also create a library of all the parts used in your design whenever
 you use the `generate_netlist()` function.
@@ -2136,6 +2191,70 @@ the automatically-assigned references of the resistors will change.
 The resulting netlist can be imported into layout editors like KiCad's PCBNEW using the
 timestamps (instead of part references) and will remain consistent with the PCB
 wiring traces.
+
+
+### Configuration File
+
+SKiDL's configuration file lets you override the default settings.
+You can store the current settings by running the following command:
+
+```terminal
+>>> from skidl import *
+>>> skidl.config.store('.')
+```
+
+The `.skidlcfg` JSON file with the SKiDL settings will be created in the current directory:
+
+```json
+{
+    "cfg_file_name": ".skidlcfg",
+    "tool": "kicad8",
+    "pickle_dir": "./lib_pickle_dir",
+    "lib_search_paths": {
+        "kicad8": [
+            ".",
+            "/usr/share/kicad/symbols"
+        ],
+        "spice": [
+            "."
+        ],
+        "kicad7": [
+            ".",
+            "/usr/share/kicad/symbols"
+        ],
+        "kicad6": [
+            ".",
+            "/usr/share/kicad/symbols"
+        ],
+        "skidl": [
+            ".",
+            "/home/devb/projects/KiCad/tools/skidl/src/skidl/tools/skidl/libs"
+        ],
+        "kicad5": [
+            ".",
+            "/usr/share/kicad/library"
+        ]
+    },
+    "backup_lib_name": "__init___lib",
+    "backup_lib_file_name": "__init___lib_sklib.py",
+    "query_backup_lib": true,
+    "backup_lib": null,
+    "footprint_search_paths": {
+        "kicad8": "/home/devb/.config/kicad",
+        "spice": "",
+        "kicad7": "/home/devb/.config/kicad",
+        "kicad6": "/home/devb/.config/kicad",
+        "skidl": "",
+        "kicad5": "/home/devb/.config/kicad"
+    }
+}
+```
+
+You can modify any of the settings in this file to reflect your preferences.
+Then store it in your home directory to use it as the default configuration
+for all your SKiDL projects.
+Or store it in a directory where you're working on a specific project to
+have it only apply to that project.
 
 
 # Going Really Deep

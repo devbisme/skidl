@@ -6,11 +6,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.part &#8212; SKiDL 1.2.3 documentation</title>
+    <title>skidl.part &#8212; SKiDL 2.0.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../_static/documentation_options.js?v=590429e0"></script>
+    <script src="../../_static/documentation_options.js?v=51b770b3"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/bizstyle.js"></script>
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.part</a></li> 
       </ul>
@@ -52,25 +52,10 @@
 <span class="sd">Handles parts.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># isort:skip</span>
-    <span class="n">absolute_import</span><span class="p">,</span>
-    <span class="n">division</span><span class="p">,</span>
-    <span class="n">print_function</span><span class="p">,</span>
-    <span class="n">unicode_literals</span><span class="p">,</span>
-<span class="p">)</span>
-
 <span class="kn">import</span> <span class="nn">functools</span>
 <span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">dict</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">object</span><span class="p">,</span> <span class="nb">range</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">super</span>
 <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">copy</span>
 <span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randint</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
-
-    <span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
-<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="k">pass</span>
 
 <span class="kn">from</span> <span class="nn">.erc</span> <span class="kn">import</span> <span class="n">dflt_part_erc</span>
 <span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
@@ -325,6 +310,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">associate_pins</span><span class="p">()</span>
 
         <span class="c1"># If any unit definitions were passed in, then make units.</span>
+        <span class="c1"># FIXME: make_unit takes too long because of filtering pin lists.</span>
         <span class="k">for</span> <span class="n">unit_def</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;unit_defs&quot;</span><span class="p">,</span> <span class="p">[]):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">make_unit</span><span class="p">(</span>
                 <span class="n">unit_def</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">],</span> <span class="o">*</span><span class="n">unit_def</span><span class="p">[</span><span class="s2">&quot;pin_nums&quot;</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="n">unit_def</span><span class="p">[</span><span class="s2">&quot;num&quot;</span><span class="p">]</span>
@@ -333,6 +319,17 @@
         <span class="c1"># Add any other passed-in attributes to the part.</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
             <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+
+        <span class="c1"># If the part was found using an alias, then substitute the alias for the name in the part.</span>
+        <span class="c1"># (This only seems necessary when using KiCad 5.)</span>
+        <span class="n">part_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">and</span> <span class="n">part_name</span> <span class="o">!=</span> <span class="n">name</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="nb">vars</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">v</span> <span class="o">==</span> <span class="n">part_name</span><span class="p">:</span>
+                    <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">v</span> <span class="o">==</span> <span class="n">part_name</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
 
         <span class="c1"># Make sure the part name is also included in the list of aliases</span>
         <span class="c1"># because part searching only checks the aliases for name matches.</span>
@@ -391,7 +388,9 @@
 <span class="sd">                cap = Part(&quot;Device&quot;, &#39;C&#39;)   # Get a capacitor</span>
 <span class="sd">                caps = 10 * cap             # Make an array with 10 copies of it.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">num_copies</span><span class="o">=</span><span class="n">num_copies</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">dest</span><span class="p">,</span> <span class="n">circuit</span><span class="o">=</span><span class="n">circuit</span><span class="p">,</span> <span class="n">io</span><span class="o">=</span><span class="n">io</span><span class="p">,</span> <span class="o">**</span><span class="n">attribs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span>
+            <span class="n">num_copies</span><span class="o">=</span><span class="n">num_copies</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">dest</span><span class="p">,</span> <span class="n">circuit</span><span class="o">=</span><span class="n">circuit</span><span class="p">,</span> <span class="n">io</span><span class="o">=</span><span class="n">io</span><span class="p">,</span> <span class="o">**</span><span class="n">attribs</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_copies</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">num_copies</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -1121,7 +1120,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit</span><span class="p">[</span><span class="n">label</span><span class="p">]</span></div>
 
-    
+
 <div class="viewcode-block" id="Part.rmv_unit">
 <a class="viewcode-back" href="../../rst_output/skidl.part.html#skidl.part.Part.rmv_unit">[docs]</a>
     <span class="k">def</span> <span class="nf">rmv_unit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
@@ -1178,13 +1177,22 @@
 <a class="viewcode-back" href="../../rst_output/skidl.part.html#skidl.part.Part.erc_desc">[docs]</a>
     <span class="k">def</span> <span class="nf">erc_desc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create description of part for ERC and other error reporting.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{p.name}</span><span class="s2">/</span><span class="si">{p.ref}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{p.name}</span><span class="s2">/</span><span class="si">{p.ref}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span></div>
 
 
 <div class="viewcode-block" id="Part.export">
 <a class="viewcode-back" href="../../rst_output/skidl.part.html#skidl.part.Part.export">[docs]</a>
-    <span class="k">def</span> <span class="nf">export</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a string to recreate a Part object.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">export</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">addtl_part_attrs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a string to recreate a Part object.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            addtl_part_attrs (list): List of additional part attribute names to include in export.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: String that can be evaluated to rebuild the Part object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># Make sure the part is fully instantiated. Otherwise, attributes like</span>
         <span class="c1"># pins may be missing because they haven&#39;t been parsed from the part definition.</span>
@@ -1200,6 +1208,10 @@
             <span class="s2">&quot;description&quot;</span><span class="p">,</span>
             <span class="s2">&quot;datasheet&quot;</span><span class="p">,</span>
         <span class="p">]</span>
+
+        <span class="c1"># Add any other additional part attributes</span>
+        <span class="k">if</span> <span class="n">addtl_part_attrs</span><span class="p">:</span>
+            <span class="n">keys</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">addtl_part_attrs</span><span class="p">)</span>
 
         <span class="c1"># Export the part as a SKiDL template.</span>
         <span class="n">attribs</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1445,7 +1457,8 @@
 
         <span class="c1"># Give the PartUnit the same information as the Part it is generated</span>
         <span class="c1"># from so it can act the same way, just with fewer pins.</span>
-        <span class="c1"># FIXME: Do we need this if we define __getattr__ as below?</span>
+        <span class="c1"># Do we need this if we define __getattr__ as below?</span>
+        <span class="c1"># Yes, since we&#39;re no longer using the __getattr__ shown below.</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
             <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
 
@@ -1470,11 +1483,14 @@
         <span class="c1"># TODO: KiCad uses unit 0 for global unit. What about other tools?</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_pins_from_parent</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">silent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return attribute from parent Part if it wasn&#39;t found in the PartUnit.&quot;&quot;&quot;</span>
-        <span class="c1"># FIXME: This allows the unit to access *all* the attributes of the parent</span>
-        <span class="c1">#        even those it shouldn&#39;t be able to (like pins not assigned to it).</span>
-        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+    <span class="c1">#</span>
+    <span class="c1"># This was commented-out because it led to infinite recursion when pickling libraries.</span>
+    <span class="c1">#</span>
+    <span class="c1"># def __getattr__(self, key):</span>
+    <span class="c1">#     &quot;&quot;&quot;Return attribute from parent Part if it wasn&#39;t found in the PartUnit.&quot;&quot;&quot;</span>
+    <span class="c1">#     # FIXME: This allows the unit to access *all* the attributes of the parent</span>
+    <span class="c1">#     #        even those it shouldn&#39;t be able to (like pins not assigned to it).</span>
+    <span class="c1">#     return getattr(self.parent, key)</span>
 
 <div class="viewcode-block" id="PartUnit.add_pins_from_parent">
 <a class="viewcode-back" href="../../rst_output/skidl.part.html#skidl.part.PartUnit.add_pins_from_parent">[docs]</a>
@@ -1619,7 +1635,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.part</a></li> 
       </ul>

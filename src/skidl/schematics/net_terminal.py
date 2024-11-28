@@ -2,31 +2,15 @@
 
 # The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
-
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
-import re
-from builtins import super
-
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
-
 from skidl import Part, Pin
 from skidl.utilities import export_to_all
-from .geometry import Point, Tx, Vector
+from skidl.geometry import Point, Tx, Vector
 
 
 """
 Net_Terminal class for handling net labels.
 """
+
 
 @export_to_all
 class NetTerminal(Part):

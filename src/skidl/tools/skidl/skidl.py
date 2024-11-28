@@ -6,25 +6,9 @@
 Handler for reading SKiDL libraries.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
-from builtins import str
 import os.path
 
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
-
-
 from skidl.utilities import export_to_all
-
 
 
 # These aren't used here, but they are used in modules
@@ -51,7 +35,7 @@ def default_lib_paths():
 def get_fp_lib_tbl_dir():
     """Get the path to where the global fp-lib-table file is found."""
 
-    return "" # No global fp-lib-table file for SKiDL.
+    return ""  # No global fp-lib-table file for SKiDL.
 
 
 @export_to_all
@@ -81,13 +65,14 @@ def load_sch_lib(self, filename=None, lib_search_paths_=None, lib_section=None):
     try:
         # The SKiDL library is stored as a Python module that's executed to
         # recreate the library object.
-        vars_ = {
+        glb_vars = None
+        loc_vars = {
             "__file__": path,
         }
-        exec(contents, vars_)  # Execute and store library in dict.
+        exec(contents, glb_vars, loc_vars)  # Execute and store library in dict.
 
         # Now look through the dict to find the library object.
-        for val in vars_.values():
+        for val in loc_vars.values():
             if isinstance(val, SchLib):
                 # Overwrite self with the new library.
                 self.__dict__.update(val.__dict__)

@@ -6,29 +6,12 @@
 Specialized list for handling nets, pins, and buses.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
-from builtins import range
-
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
-
 from .alias import Alias
 from .logger import active_logger
 from .net import Net
 from .network import Network
 from .pin import Pin
-from .protonet import ProtoNet
 from .utilities import expand_buses, export_to_all, flatten, set_iadd
-
 
 
 @export_to_all
@@ -64,7 +47,7 @@ class NetPinList(list):
 
         # Check the stuff you want to connect to see if it's the right kind.
         nets_pins_b = expand_buses(flatten(nets_pins_buses))
-        allowed_types = (Pin, Net, ProtoNet)
+        allowed_types = (Pin, Net)
         illegal = (np for np in nets_pins_b if not isinstance(np, allowed_types))
         for np in illegal:
             active_logger.raise_(
@@ -95,26 +78,9 @@ class NetPinList(list):
         assert len_a == len_b
 
         for npa, npb in zip(nets_pins_a, nets_pins_b):
-            if isinstance(npb, ProtoNet):
-                # npb is a ProtoNet so it will get replaced by a real Net by the += op.
-                # Should the new Net replace the equivalent ProtoNet in nets_pins_buses?
-                # It doesn't appear to be necessary since all tests pass, but be aware
-                # of this issue.
-                npb += npa
-            elif isinstance(npa, ProtoNet):
-                # npa is a ProtoNet so it will get replaced by a real Net by the += op.
-                # Therefore, find the equivalent ProtoNet in self and replace it with the
-                # new Net.
-                id_npa = id(npa)
-                npa += npb
-                for i in range(len(self)):
-                    if id_npa == id(self[i]):
-                        self[i] = npa
-            else:
-                # Just regular attachment of nets and/or pins which updates the existing
-                # objects within the self and nets_pins_buses lists.
-                npa += npb
-                pass
+            # Attachment of nets and/or pins which updates the existing
+            # objects within the self and nets_pins_buses lists.
+            npa += npb
 
         # Set the flag to indicate this result came from the += operator.
         set_iadd(self, True)

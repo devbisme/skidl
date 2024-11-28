@@ -1,0 +1,7 @@
+skidl.tools.kicad7.lib module
+=============================
+
+.. automodule:: skidl.tools.kicad7.lib
+   :members:
+   :undoc-members:
+   :show-inheritance:

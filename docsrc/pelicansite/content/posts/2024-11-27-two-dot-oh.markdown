@@ -1,0 +1,26 @@
+title: 2.0
+date: 2024-11-27
+author: Dave Vandenbout
+slug: two-dot-oh
+
+After three years since version 1.0, today marks the release of SKiDL version **2.0.0**.
+The increment in the major version number indicates that this release is not backward compatible
+with previous versions, so some SKiDL code may not work if:
+
+1. It relies on Python 2 (which is is no longer supported).
+2. It uses the @package decorator (which was dropped).
+
+If either of these things are important to you, then stick with version 1.2.3.
+
+Here's a list of other changes in 2.0.0:
+
+- Additional `Part` attributes can be specified when exporting libraries.
+- A `unexpio` dict has been to `Interface` objects for accessing I/O without buses expanded into individual nets.
+- `connect()` and `__iadd__()` methods were added to allow interconnection of `Interface` objects. 
+- Part libraries are pickled when first loaded for faster access on subsequent accesses.
+  The directory for storing the pickled library files is specified in the SKiDL configuration file.
+- The `KICAD` tool identifier now points to `KICAD8`.
+
+Look at [SKiDL's complete history](https://github.com/devbisme/skidl/blob/master/HISTORY.rst) for all the changes
+made in each release.
+

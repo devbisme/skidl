@@ -1,0 +1,7 @@
+skidl.schematics.net\_terminal module
+=====================================
+
+.. automodule:: skidl.schematics.net_terminal
+   :members:
+   :undoc-members:
+   :show-inheritance:

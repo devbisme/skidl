@@ -6,27 +6,11 @@
 Handles interfaces for subsystems with complicated I/O.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
-from builtins import str, super
-
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
-
 from .alias import Alias
 from .bus import Bus
 from .net import Net
 from .netpinlist import NetPinList
 from .pin import Pin
-from .protonet import ProtoNet
 from .skidlbaseobj import SkidlBaseObject
 from .utilities import (
     expand_indices,
@@ -35,7 +19,7 @@ from .utilities import (
     from_iadd,
     list_or_scalar,
     rmv_iadd,
-    to_list,
+    set_iadd,
 )
 
 
@@ -53,50 +37,58 @@ class Interface(dict):
     erc_list = []
 
     def __init__(self, *args, **kwargs):
-        # dict is used instead of super() throughout because using super()
-        # caused the tests to run forever under Python 2.7.18.
-        dict.__init__(self, *args, **kwargs)
-        dict.__setattr__(self, "match_pin_regex", False)
+
+        # By default, buses are unbundled into individual nets.
+        unbundle = kwargs.pop("unbundle", True)
+
+        self.unexpio = dict()
+
+        # Start with a standard dictionary of objects.
+        super().__init__(*args, **kwargs)
+
+        super().__setattr__("match_pin_regex", False)
+
         for k, v in list(self.items()):
-            if isinstance(v, ProtoNet):
-                # Store the ProtoNet directly in the Interface.
-                # It will get promoted to a Net when it gets connected to something.
-                v.aliases += k
-                setattr(self, k, v)
-            elif isinstance(v, (Pin, Net)):
-                cct = v.circuit
-                n = Net(circuit=cct)
-                n.aliases += k
-                n += v
-                setattr(self, k, n)
-            elif isinstance(v, (Bus, NetPinList)):
-                cct = v.circuit
-                b = Bus(len(v), circuit=cct)
-                b.aliases += k
-                b += v
-                setattr(self, k, b)
-                for i in range(len(v)):
-                    n = Net(circuit=cct)
-                    n.aliases += k + str(i)
-                    n += b[i]
-                    setattr(self, k + str(i), n)
-            elif isinstance(v, SkidlBaseObject):
-                setattr(self, k, v)
+            if isinstance(v, (Pin, Net, Bus, NetPinList, SkidlBaseObject)):
+                # Add SKiDL-type objects.
+                self.__setattr__(k, v, unbundle=unbundle)
             else:
-                dict.__setattr__(self, k, v)
+                # Add standard Python objects.
+                super().__setattr__(k, v)
 
-    def __getattribute__(self, key):
-        value = dict.__getattribute__(self, key)
-        if isinstance(value, ProtoNet):
-            # If the retrieved attribute is a ProtoNet, record where it came from.
-            value.intfc_key = key
-            value.intfc = self
-        return value
-
-    def __setattr__(self, key, value):
+    def __setattr__(self, key, value, unbundle=True):
         """Sets attribute and also a dict entry with a key using the attribute name."""
-        dict.__setitem__(self, key, value)
-        dict.__setattr__(self, key, value)
+
+        # Create net-like objects for pin-like objects.
+        if isinstance(value, NetPinList):
+            # Convert NetPinList into a Bus.
+            value = Bus(value)
+        elif isinstance(value, Pin):
+            # Convert Pin into a Net.
+            n = Net()
+            n += value
+            value = n
+
+        # Assign the key as an alias to any net-like object.
+        if isinstance(value, (Net, Bus)):
+            value.aliases += key
+            self.unexpio[key] = value
+
+        # Add the value to the dictionary and as an attribute.
+        if isinstance(value, SkidlBaseObject):
+            # Only SKiDL-type objects get added as dictionary items.
+            super().__setitem__(key, value)
+        super().__setattr__(key, value)
+
+        # If enabled, expand a bus and add its individual nets.
+        if isinstance(value, Bus) and unbundle:
+            for i, v in enumerate(value):
+                n = Net(circuit=v.circuit)
+                n.aliases += key + str(i)
+                n += v
+                super().__setitem__(key + str(i), n)
+                super().__setattr__(key + str(i), n)
+                # self.setattr(self, key + str(i), n)
 
     def __getitem__(self, *io_ids, **criteria):
         """
@@ -138,7 +130,7 @@ class Interface(dict):
         min_pin, max_pin = 0, 0
 
         # Get I/O entries.
-        io_types = (Net, ProtoNet, Pin, NetPinList, Bus)
+        io_types = (Net, Pin, NetPinList, Bus)
         ios = [io for io in self.values() if isinstance(io, io_types)]
 
         # Use this for looking up the dict key using the id of a given I/O.
@@ -156,20 +148,12 @@ class Interface(dict):
                 pass
             else:
                 # Add exact match to the list of selected I/Os and go to the next ID.
-                if isinstance(io, ProtoNet):
-                    # Store key for this ProtoNet I/O so we'll know where to update it later.
-                    io.intfc = self
-                    io.intfc_key = io_id
                 selected_ios.append(io)
                 continue
 
             # Check I/O aliases for an exact match with the current ID.
             tmp_ios = filter_list(ios, aliases=io_id, do_str_match=True, **criteria)
             for io in tmp_ios:
-                if isinstance(io, ProtoNet):
-                    # Store key for this ProtoNet I/O so we'll know where to update it later.
-                    io.intfc = self
-                    io.intfc_key = id_to_key[id(io)]
                 selected_ios.append(io)
             if tmp_ios:
                 # Found exact match between alias and ID, so done with this ID and go to next ID.
@@ -182,10 +166,6 @@ class Interface(dict):
             # OK, ID doesn't exactly match an I/O name or alias. Does it match as a regex?
             tmp_ios = filter_list(ios, aliases=Alias(io_id), **criteria)
             for io in tmp_ios:
-                if isinstance(io, ProtoNet):
-                    # Store key for this ProtoNet I/O so we'll know where to update it later.
-                    io.intfc = self
-                    io.intfc_key = id_to_key[id(io)]
                 selected_ios.append(io)
 
         # Return list of I/Os that were selected by the IDs.
@@ -196,16 +176,40 @@ class Interface(dict):
         if from_iadd(value):
             # The += flag in the values are no longer needed.
             rmv_iadd(value)
-            # If interface items are being changed as a result of += operator...
-            for v in to_list(value):
-                # Look for interface key name attached to each value.
-                # Only ProtoNets should have them because they need to be
-                # changed to a Net or Bus once they are connected to something.
-                key = getattr(v, "intfc_key", None)
-                if key:
-                    # Set the ProtoNet in the interface entry with key to its new Net or Bus value.
-                    dict.__setitem__(self, key, v)
-                    dict.__setattr__(self, key, v)
         else:
             # This is for a straight assignment of value to key.
             setattr(self, key, value)
+
+    def __iadd__(self, other_intfc):
+        """
+        Connects the nets/buses of this interface to the nets/buses of another interface.
+
+        Args:
+            other_intfc: The interface to connect to this one.
+        """
+        return self.connect(other_intfc)
+
+    def connect(self, other_intfc):
+        """
+        Connects the nets/buses of this interface to the nets/buses of another interface.
+
+        Args:
+            other_intfc: The interface to connect to this one.
+
+        Returns:
+            The updated interface with the new connections.
+
+        Notes:
+            Connections between interfaces can also be made using the += operator.
+        """
+
+        # Connect the nets/buses of this interface to the nets/buses of the other interface.
+        for k,v in self.unexpio.items():
+            if isinstance(v, (Net, Bus, Pin)):
+                if k in other_intfc:
+                    self[k] += other_intfc[k]
+
+        # Set the flag to indicate this result came from the += operator.
+        set_iadd(self, True)
+
+        return self

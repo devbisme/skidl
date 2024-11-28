@@ -1,0 +1,696 @@
+
+
+<!doctype html>
+
+<html lang="en" data-content_root="../../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>skidl.tools.kicad5.gen_svg &#8212; SKiDL 2.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/bizstyle.css?v=a66e137f" />
+    
+    <script src="../../../../_static/documentation_options.js?v=51b770b3"></script>
+    <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <h1 id="site-title"><a href="../../../../../../"><img src="../../../../../../images/slim_banner.png" width="100%"></a></h1>
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad5.gen_svg</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for skidl.tools.kicad5.gen_svg</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># The MIT License (MIT) - Copyright (c) Dave Vandenbout.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Functions for generating SVG.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+
+<span class="kn">from</span> <span class="nn">skidl.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
+<span class="kn">from</span> <span class="nn">skidl.utilities</span> <span class="kn">import</span> <span class="n">export_to_all</span>
+<span class="kn">from</span> <span class="nn">.draw_objs</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">skidl.geometry</span> <span class="kn">import</span> <span class="n">BBox</span><span class="p">,</span> <span class="n">Point</span>
+
+
+<div class="viewcode-block" id="gen_svg_comp">
+<a class="viewcode-back" href="../../../../rst_output/skidl.tools.kicad5.gen_svg.html#skidl.tools.kicad5.gen_svg.gen_svg_comp">[docs]</a>
+<span class="nd">@export_to_all</span>
+<span class="k">def</span> <span class="nf">gen_svg_comp</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">symtx</span><span class="p">,</span> <span class="n">net_stubs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate SVG for this component.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        part: Part object for which an SVG symbol will be created.</span>
+<span class="sd">        net_stubs: List of Net objects whose names will be connected to</span>
+<span class="sd">            part symbol pins as connection stubs.</span>
+<span class="sd">        symtx: String such as &quot;HR&quot; that indicates symbol mirroring/rotation.</span>
+
+<span class="sd">    Returns: SVG for the part symbol.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">tx</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">ops</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Transform Point, number, or direction according to the list of opcodes.&quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">H</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+            <span class="c1"># Flip horizontally.</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">Point</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="n">obj</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">)):</span>
+                <span class="k">return</span> <span class="mf">180.0</span> <span class="o">-</span> <span class="n">obj</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;U&quot;</span><span class="p">:</span> <span class="s2">&quot;U&quot;</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">:</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="s2">&quot;L&quot;</span><span class="p">:</span> <span class="s2">&quot;R&quot;</span><span class="p">,</span> <span class="s2">&quot;R&quot;</span><span class="p">:</span> <span class="s2">&quot;L&quot;</span><span class="p">}[</span><span class="n">obj</span><span class="p">]</span>
+
+        <span class="k">def</span> <span class="nf">V</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+            <span class="c1"># Flip vertically.</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">Point</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">Point</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="n">obj</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">)):</span>
+                <span class="k">return</span> <span class="o">-</span><span class="n">obj</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;U&quot;</span><span class="p">:</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">:</span> <span class="s2">&quot;U&quot;</span><span class="p">,</span> <span class="s2">&quot;L&quot;</span><span class="p">:</span> <span class="s2">&quot;L&quot;</span><span class="p">,</span> <span class="s2">&quot;R&quot;</span><span class="p">:</span> <span class="s2">&quot;R&quot;</span><span class="p">}[</span><span class="n">obj</span><span class="p">]</span>
+
+        <span class="k">def</span> <span class="nf">R</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+            <span class="c1"># Rotate right.</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">Point</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="n">obj</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">)):</span>
+                <span class="k">return</span> <span class="n">obj</span> <span class="o">+</span> <span class="mf">90.0</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;U&quot;</span><span class="p">:</span> <span class="s2">&quot;R&quot;</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">:</span> <span class="s2">&quot;L&quot;</span><span class="p">,</span> <span class="s2">&quot;L&quot;</span><span class="p">:</span> <span class="s2">&quot;U&quot;</span><span class="p">,</span> <span class="s2">&quot;R&quot;</span><span class="p">:</span> <span class="s2">&quot;D&quot;</span><span class="p">}[</span><span class="n">obj</span><span class="p">]</span>
+
+        <span class="k">def</span> <span class="nf">L</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+            <span class="c1"># Rotate left.</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">Point</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">Point</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="o">-</span><span class="n">obj</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">)):</span>
+                <span class="k">return</span> <span class="n">obj</span> <span class="o">-</span> <span class="mf">90.0</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;U&quot;</span><span class="p">:</span> <span class="s2">&quot;L&quot;</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">:</span> <span class="s2">&quot;R&quot;</span><span class="p">,</span> <span class="s2">&quot;L&quot;</span><span class="p">:</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="s2">&quot;R&quot;</span><span class="p">:</span> <span class="s2">&quot;U&quot;</span><span class="p">}[</span><span class="n">obj</span><span class="p">]</span>
+
+        <span class="c1"># Each character in ops applies a geometrical transformation.</span>
+        <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">ops</span><span class="p">:</span>
+            <span class="n">obj</span> <span class="o">=</span> <span class="nb">locals</span><span class="p">()[</span><span class="n">op</span><span class="o">.</span><span class="n">upper</span><span class="p">()](</span><span class="n">obj</span><span class="p">)</span>  <span class="c1"># op selects the H, V, L, or R subroutine.</span>
+        <span class="k">return</span> <span class="n">obj</span>
+
+    <span class="k">def</span> <span class="nf">draw_text</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">justify</span><span class="p">,</span> <span class="n">origin</span><span class="p">,</span> <span class="n">rotation</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">class_</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="s2">&quot;&lt;text&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;class=&#39;</span><span class="si">{class_}</span><span class="s2">&#39;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;text-anchor=&#39;</span><span class="si">{justify}</span><span class="s2">&#39;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;x=&#39;</span><span class="si">{origin.x}</span><span class="s2">&#39; y=&#39;</span><span class="si">{origin.y}</span><span class="s2">&#39;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;transform=&#39;rotate(</span><span class="si">{rotation}</span><span class="s2"> </span><span class="si">{origin.x}</span><span class="s2"> </span><span class="si">{origin.y}</span><span class="s2">) translate(</span><span class="si">{offset.x}</span><span class="s2"> </span><span class="si">{offset.y}</span><span class="s2">)&#39;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;style=&#39;font-size:</span><span class="si">{size}</span><span class="s2">px&#39;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;</span><span class="si">{extra}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;</span><span class="si">{text}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;&lt;/text&gt;&quot;</span><span class="p">,</span>
+            <span class="p">]</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="nf">make_pin_dir_tbl</span><span class="p">(</span><span class="n">abs_xoff</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+
+        <span class="c1"># abs_xoff is the absolute distance of name/num from the end of the pin.</span>
+        <span class="n">rel_yoff_num</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.15</span>  <span class="c1"># Relative distance of number above pin line.</span>
+        <span class="n">rel_yoff_name</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="mf">0.2</span>  <span class="c1"># Relative distance that places name midline even with pin line.</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Tuple for storing information about pins in each of four directions:</span>
+        <span class="c1">#     direction: The direction the pin line is drawn from start to end.</span>
+        <span class="c1">#     side: The side of the symbol the pin is on. (Opposite of the direction.)</span>
+        <span class="c1">#     angle: The angle of the name/number text for the pin (usually 0, -90.).</span>
+        <span class="c1">#     num_justify: Text justification of the pin number.</span>
+        <span class="c1">#     name_justify: Text justification of the pin name.</span>
+        <span class="c1">#     num_offset: (x,y) offset of the pin number w.r.t. the end of the pin.</span>
+        <span class="c1">#     name_offset: (x,y) offset of the pin name w.r.t. the end of the pin.</span>
+        <span class="n">PinDir</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span>
+            <span class="s2">&quot;PinDir&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;direction side angle num_justify name_justify num_offset name_offset net_offset&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;U&quot;</span><span class="p">:</span> <span class="n">PinDir</span><span class="p">(</span>
+                <span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+                <span class="s2">&quot;bottom&quot;</span><span class="p">,</span>
+                <span class="o">-</span><span class="mi">90</span><span class="p">,</span>
+                <span class="s2">&quot;end&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;start&quot;</span><span class="p">,</span>
+                <span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="n">abs_xoff</span><span class="p">,</span> <span class="n">rel_yoff_num</span><span class="p">),</span>
+                <span class="n">Point</span><span class="p">(</span><span class="n">abs_xoff</span><span class="p">,</span> <span class="n">rel_yoff_name</span><span class="p">),</span>
+                <span class="n">Point</span><span class="p">(</span><span class="n">abs_xoff</span><span class="p">,</span> <span class="n">rel_yoff_num</span><span class="p">),</span>
+            <span class="p">),</span>
+            <span class="s2">&quot;D&quot;</span><span class="p">:</span> <span class="n">PinDir</span><span class="p">(</span>
+                <span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                <span class="s2">&quot;top&quot;</span><span class="p">,</span>
+                <span class="o">-</span><span class="mi">90</span><span class="p">,</span>
+                <span class="s2">&quot;start&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;end&quot;</span><span class="p">,</span>
+                <span class="n">Point</span><span class="p">(</span><span class="n">abs_xoff</span><span class="p">,</span> <span class="n">rel_yoff_num</span><span class="p">),</span>
+                <span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="n">abs_xoff</span><span class="p">,</span> <span class="n">rel_yoff_name</span><span class="p">),</span>
+                <span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="n">abs_xoff</span><span class="p">,</span> <span class="n">rel_yoff_num</span><span class="p">),</span>
+            <span class="p">),</span>
+            <span class="s2">&quot;L&quot;</span><span class="p">:</span> <span class="n">PinDir</span><span class="p">(</span>
+                <span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                <span class="s2">&quot;right&quot;</span><span class="p">,</span>
+                <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">&quot;start&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;end&quot;</span><span class="p">,</span>
+                <span class="n">Point</span><span class="p">(</span><span class="n">abs_xoff</span><span class="p">,</span> <span class="n">rel_yoff_num</span><span class="p">),</span>
+                <span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="n">abs_xoff</span><span class="p">,</span> <span class="n">rel_yoff_name</span><span class="p">),</span>
+                <span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="n">abs_xoff</span><span class="p">,</span> <span class="n">rel_yoff_num</span><span class="p">),</span>
+            <span class="p">),</span>
+            <span class="s2">&quot;R&quot;</span><span class="p">:</span> <span class="n">PinDir</span><span class="p">(</span>
+                <span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                <span class="s2">&quot;left&quot;</span><span class="p">,</span>
+                <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">&quot;end&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;start&quot;</span><span class="p">,</span>
+                <span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="n">abs_xoff</span><span class="p">,</span> <span class="n">rel_yoff_num</span><span class="p">),</span>
+                <span class="n">Point</span><span class="p">(</span><span class="n">abs_xoff</span><span class="p">,</span> <span class="n">rel_yoff_name</span><span class="p">),</span>
+                <span class="n">Point</span><span class="p">(</span><span class="n">abs_xoff</span><span class="p">,</span> <span class="n">rel_yoff_num</span><span class="p">),</span>
+            <span class="p">),</span>
+        <span class="p">}</span>
+
+    <span class="n">fill_tbl</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;f&quot;</span><span class="p">:</span> <span class="s2">&quot;background_fill&quot;</span><span class="p">,</span> <span class="s2">&quot;F&quot;</span><span class="p">:</span> <span class="s2">&quot;pen_fill&quot;</span><span class="p">,</span> <span class="s2">&quot;N&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">}</span>
+
+    <span class="n">scale</span> <span class="o">=</span> <span class="mf">0.30</span>  <span class="c1"># Scale of KiCad units to SVG units.</span>
+    <span class="n">default_thickness</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">scale</span>  <span class="c1"># Default line thickness = 1.</span>
+    <span class="n">default_pin_name_offset</span> <span class="o">=</span> <span class="mi">20</span>
+
+    <span class="c1"># Named tuple for storing component pin information.</span>
+    <span class="n">PinInfo</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;PinInfo&quot;</span><span class="p">,</span> <span class="s2">&quot;x y side pid&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Get maximum length of net stub name if any are needed for this part symbol.</span>
+    <span class="n">net_stubs</span> <span class="o">=</span> <span class="n">net_stubs</span> <span class="ow">or</span> <span class="p">[]</span>  <span class="c1"># Empty list of stub nets if argument is None.</span>
+    <span class="n">max_stub_len</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># If no net stubs are needed, this stays at zero.</span>
+    <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">part</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="n">pin</span><span class="o">.</span><span class="n">nets</span><span class="p">:</span>
+            <span class="c1"># Don&#39;t let names for no-connect nets affect maximum stub length.</span>
+            <span class="k">if</span> <span class="n">net</span> <span class="ow">in</span> <span class="p">[</span><span class="n">NC</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">net</span> <span class="ow">in</span> <span class="n">net_stubs</span><span class="p">:</span>
+                <span class="n">max_stub_len</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">),</span> <span class="n">max_stub_len</span><span class="p">)</span>
+
+    <span class="c1"># Go through each graphic object that makes up the component symbol.</span>
+    <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">part</span><span class="o">.</span><span class="n">draw</span><span class="p">:</span>
+
+        <span class="n">obj_pin_info</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">[]</span>
+        <span class="p">)</span>  <span class="c1"># Component pin info so they can be generated once bbox is known.</span>
+        <span class="n">obj_svg</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Component graphic objects.</span>
+        <span class="n">obj_filled_svg</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Filled component graphic objects.</span>
+        <span class="n">obj_txt_svg</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Component text (because it has to be drawn last).</span>
+        <span class="n">obj_bbox</span> <span class="o">=</span> <span class="n">BBox</span><span class="p">()</span>  <span class="c1"># Bounding box of all the component objects.</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">DrawDef</span><span class="p">):</span>
+            <span class="n">def_</span> <span class="o">=</span> <span class="n">obj</span>
+            <span class="n">show_name</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">def_</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">int</span> <span class="ow">or</span> <span class="n">def_</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;~&quot;</span>
+            <span class="n">show_nums</span> <span class="o">=</span> <span class="n">def_</span><span class="o">.</span><span class="n">show_nums</span> <span class="o">==</span> <span class="s2">&quot;Y&quot;</span>
+            <span class="n">show_names</span> <span class="o">=</span> <span class="n">def_</span><span class="o">.</span><span class="n">show_names</span> <span class="o">==</span> <span class="s2">&quot;Y&quot;</span>
+            <span class="c1"># Make pin direction table with symbol-specific name offset.</span>
+            <span class="n">pin_dir_tbl</span> <span class="o">=</span> <span class="n">make_pin_dir_tbl</span><span class="p">(</span><span class="n">def_</span><span class="o">.</span><span class="n">name_offset</span> <span class="ow">or</span> <span class="n">default_pin_name_offset</span><span class="p">)</span>
+            <span class="c1"># Make structures for holding info on each part unit.</span>
+            <span class="n">num_units</span> <span class="o">=</span> <span class="n">def_</span><span class="o">.</span><span class="n">num_units</span>
+            <span class="n">unit_pin_info</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_units</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+            <span class="n">unit_svg</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_units</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+            <span class="n">unit_filled_svg</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_units</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+            <span class="n">unit_txt_svg</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_units</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+            <span class="n">unit_bbox</span> <span class="o">=</span> <span class="p">[</span><span class="n">BBox</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_units</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">DrawF0</span><span class="p">):</span>
+            <span class="n">f0</span> <span class="o">=</span> <span class="n">obj</span>
+            <span class="k">if</span> <span class="n">f0</span><span class="o">.</span><span class="n">visibility</span> <span class="o">!=</span> <span class="s2">&quot;I&quot;</span><span class="p">:</span>
+                <span class="c1"># F0 field is not invisible.</span>
+                <span class="n">origin</span> <span class="o">=</span> <span class="n">tx</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="n">f0</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="n">f0</span><span class="o">.</span><span class="n">y</span><span class="p">),</span> <span class="n">symtx</span><span class="p">)</span> <span class="o">*</span> <span class="n">scale</span>
+                <span class="n">orientation</span> <span class="o">=</span> <span class="n">f0</span><span class="o">.</span><span class="n">orientation</span> <span class="o">+</span> <span class="n">f0</span><span class="o">.</span><span class="n">halign</span>
+                <span class="nb">dir</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">&quot;HL&quot;</span><span class="p">:</span> <span class="s2">&quot;L&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;HC&quot;</span><span class="p">:</span> <span class="s2">&quot;L&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;HR&quot;</span><span class="p">:</span> <span class="s2">&quot;R&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;VL&quot;</span><span class="p">:</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;VC&quot;</span><span class="p">:</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;VR&quot;</span><span class="p">:</span> <span class="s2">&quot;U&quot;</span><span class="p">,</span>
+                <span class="p">}[</span><span class="n">orientation</span><span class="p">]</span>
+                <span class="nb">dir</span> <span class="o">=</span> <span class="n">tx</span><span class="p">(</span><span class="nb">dir</span><span class="p">,</span> <span class="n">symtx</span><span class="p">)</span>
+                <span class="n">angle</span> <span class="o">=</span> <span class="n">pin_dir_tbl</span><span class="p">[</span><span class="nb">dir</span><span class="p">]</span><span class="o">.</span><span class="n">angle</span>
+                <span class="n">size</span> <span class="o">=</span> <span class="n">f0</span><span class="o">.</span><span class="n">size</span> <span class="o">*</span> <span class="n">scale</span>
+                <span class="n">justify</span> <span class="o">=</span> <span class="s2">&quot;middle&quot;</span> <span class="k">if</span> <span class="n">f0</span><span class="o">.</span><span class="n">halign</span> <span class="o">==</span> <span class="s2">&quot;C&quot;</span> <span class="k">else</span> <span class="n">pin_dir_tbl</span><span class="p">[</span><span class="nb">dir</span><span class="p">]</span><span class="o">.</span><span class="n">num_justify</span>
+                <span class="n">offset</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">tx</span><span class="p">(</span>
+                        <span class="p">{</span><span class="s2">&quot;T&quot;</span><span class="p">:</span> <span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span> <span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)}[</span>
+                            <span class="n">f0</span><span class="o">.</span><span class="n">valign</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="p">],</span>
+                        <span class="n">symtx</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="o">*</span> <span class="n">size</span>
+                <span class="p">)</span>
+                <span class="n">class_</span> <span class="o">=</span> <span class="s2">&quot;part_ref_text&quot;</span>
+                <span class="n">extra</span> <span class="o">=</span> <span class="s1">&#39;s:attribute=&quot;ref&quot;&#39;</span>
+                <span class="n">obj_txt_svg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">draw_text</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">justify</span><span class="p">,</span> <span class="n">origin</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">class_</span><span class="p">,</span> <span class="n">extra</span><span class="p">)</span>
+                <span class="p">)</span>
+
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">DrawF1</span><span class="p">):</span>
+            <span class="n">f1</span> <span class="o">=</span> <span class="n">obj</span>
+            <span class="k">if</span> <span class="n">f1</span><span class="o">.</span><span class="n">visibility</span> <span class="o">!=</span> <span class="s2">&quot;I&quot;</span> <span class="ow">and</span> <span class="n">show_name</span><span class="p">:</span>
+                <span class="c1"># F1 field is not invisible.</span>
+                <span class="n">origin</span> <span class="o">=</span> <span class="n">tx</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="n">f1</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="n">f1</span><span class="o">.</span><span class="n">y</span><span class="p">),</span> <span class="n">symtx</span><span class="p">)</span> <span class="o">*</span> <span class="n">scale</span>
+                <span class="n">orientation</span> <span class="o">=</span> <span class="n">f1</span><span class="o">.</span><span class="n">orientation</span> <span class="o">+</span> <span class="n">f1</span><span class="o">.</span><span class="n">halign</span>
+                <span class="nb">dir</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">&quot;HL&quot;</span><span class="p">:</span> <span class="s2">&quot;L&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;HC&quot;</span><span class="p">:</span> <span class="s2">&quot;L&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;HR&quot;</span><span class="p">:</span> <span class="s2">&quot;R&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;VL&quot;</span><span class="p">:</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;VC&quot;</span><span class="p">:</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;VR&quot;</span><span class="p">:</span> <span class="s2">&quot;U&quot;</span><span class="p">,</span>
+                <span class="p">}[</span><span class="n">orientation</span><span class="p">]</span>
+                <span class="nb">dir</span> <span class="o">=</span> <span class="n">tx</span><span class="p">(</span><span class="nb">dir</span><span class="p">,</span> <span class="n">symtx</span><span class="p">)</span>
+                <span class="n">angle</span> <span class="o">=</span> <span class="n">pin_dir_tbl</span><span class="p">[</span><span class="nb">dir</span><span class="p">]</span><span class="o">.</span><span class="n">angle</span>
+                <span class="n">size</span> <span class="o">=</span> <span class="n">f1</span><span class="o">.</span><span class="n">size</span> <span class="o">*</span> <span class="n">scale</span>
+                <span class="n">justify</span> <span class="o">=</span> <span class="s2">&quot;middle&quot;</span> <span class="k">if</span> <span class="n">f1</span><span class="o">.</span><span class="n">halign</span> <span class="o">==</span> <span class="s2">&quot;C&quot;</span> <span class="k">else</span> <span class="n">pin_dir_tbl</span><span class="p">[</span><span class="nb">dir</span><span class="p">]</span><span class="o">.</span><span class="n">num_justify</span>
+                <span class="n">offset</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">tx</span><span class="p">(</span>
+                        <span class="p">{</span><span class="s2">&quot;T&quot;</span><span class="p">:</span> <span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span> <span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)}[</span>
+                            <span class="n">f1</span><span class="o">.</span><span class="n">valign</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="p">],</span>
+                        <span class="n">symtx</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="o">*</span> <span class="n">size</span>
+                <span class="p">)</span>
+                <span class="n">class_</span> <span class="o">=</span> <span class="s2">&quot;part_name_text&quot;</span>
+                <span class="n">extra</span> <span class="o">=</span> <span class="s1">&#39;s:attribute=&quot;value&quot;&#39;</span>
+                <span class="n">obj_txt_svg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">draw_text</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">justify</span><span class="p">,</span> <span class="n">origin</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">class_</span><span class="p">,</span> <span class="n">extra</span><span class="p">)</span>
+                <span class="p">)</span>
+
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">DrawArc</span><span class="p">):</span>
+            <span class="n">arc</span> <span class="o">=</span> <span class="n">obj</span>
+            <span class="n">center</span> <span class="o">=</span> <span class="n">tx</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="n">arc</span><span class="o">.</span><span class="n">cx</span><span class="p">,</span> <span class="o">-</span><span class="n">arc</span><span class="o">.</span><span class="n">cy</span><span class="p">),</span> <span class="n">symtx</span><span class="p">)</span> <span class="o">*</span> <span class="n">scale</span>
+            <span class="n">radius</span> <span class="o">=</span> <span class="n">arc</span><span class="o">.</span><span class="n">radius</span> <span class="o">*</span> <span class="n">scale</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">tx</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="n">arc</span><span class="o">.</span><span class="n">startx</span><span class="p">,</span> <span class="o">-</span><span class="n">arc</span><span class="o">.</span><span class="n">starty</span><span class="p">),</span> <span class="n">symtx</span><span class="p">)</span> <span class="o">*</span> <span class="n">scale</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="n">tx</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="n">arc</span><span class="o">.</span><span class="n">endx</span><span class="p">,</span> <span class="o">-</span><span class="n">arc</span><span class="o">.</span><span class="n">endy</span><span class="p">),</span> <span class="n">symtx</span><span class="p">)</span> <span class="o">*</span> <span class="n">scale</span>
+            <span class="n">start_angle</span> <span class="o">=</span> <span class="n">tx</span><span class="p">(</span><span class="n">arc</span><span class="o">.</span><span class="n">start_angle</span> <span class="o">/</span> <span class="mi">10</span><span class="p">,</span> <span class="n">symtx</span><span class="p">)</span>
+            <span class="n">end_angle</span> <span class="o">=</span> <span class="n">tx</span><span class="p">(</span><span class="n">arc</span><span class="o">.</span><span class="n">end_angle</span> <span class="o">/</span> <span class="mi">10</span><span class="p">,</span> <span class="n">symtx</span><span class="p">)</span>
+            <span class="n">clock_wise</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">end_angle</span> <span class="o">&lt;</span> <span class="n">start_angle</span><span class="p">)</span>
+            <span class="n">large_arc</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">end_angle</span> <span class="o">-</span> <span class="n">start_angle</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">180</span><span class="p">)</span>
+            <span class="n">thickness</span> <span class="o">=</span> <span class="p">(</span><span class="n">arc</span><span class="o">.</span><span class="n">thickness</span> <span class="ow">or</span> <span class="n">default_thickness</span><span class="p">)</span> <span class="o">*</span> <span class="n">scale</span>
+            <span class="n">fill</span> <span class="o">=</span> <span class="n">fill_tbl</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">arc</span><span class="o">.</span><span class="n">fill</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="n">radius_pt</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">radius</span><span class="p">,</span> <span class="n">radius</span><span class="p">)</span>
+            <span class="n">obj_bbox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">center</span> <span class="o">-</span> <span class="n">radius_pt</span><span class="p">)</span>
+            <span class="n">obj_bbox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">center</span> <span class="o">+</span> <span class="n">radius_pt</span><span class="p">)</span>
+            <span class="n">svg</span> <span class="o">=</span> <span class="n">obj_filled_svg</span> <span class="k">if</span> <span class="n">fill</span> <span class="k">else</span> <span class="n">obj_svg</span>
+            <span class="n">svg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                    <span class="p">[</span>
+                        <span class="s2">&quot;&lt;path&quot;</span><span class="p">,</span>
+                        <span class="s1">&#39;d=&quot;M </span><span class="si">{start.x}</span><span class="s1"> </span><span class="si">{start.y}</span><span class="s1"> A </span><span class="si">{radius}</span><span class="s1"> </span><span class="si">{radius}</span><span class="s1"> 0 </span><span class="si">{large_arc}</span><span class="s1"> </span><span class="si">{clock_wise}</span><span class="s1"> </span><span class="si">{end.x}</span><span class="s1"> </span><span class="si">{end.y}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;style=&quot;stroke-width:</span><span class="si">{thickness}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;class=&quot;$cell_id symbol </span><span class="si">{fill}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+                        <span class="s2">&quot;/&gt;&quot;</span><span class="p">,</span>
+                    <span class="p">]</span>
+                <span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
+            <span class="p">)</span>
+
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">DrawCircle</span><span class="p">):</span>
+            <span class="n">circle</span> <span class="o">=</span> <span class="n">obj</span>
+            <span class="n">center</span> <span class="o">=</span> <span class="n">tx</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="n">circle</span><span class="o">.</span><span class="n">cx</span><span class="p">,</span> <span class="o">-</span><span class="n">circle</span><span class="o">.</span><span class="n">cy</span><span class="p">),</span> <span class="n">symtx</span><span class="p">)</span> <span class="o">*</span> <span class="n">scale</span>
+            <span class="n">radius</span> <span class="o">=</span> <span class="n">circle</span><span class="o">.</span><span class="n">radius</span> <span class="o">*</span> <span class="n">scale</span>
+            <span class="n">thickness</span> <span class="o">=</span> <span class="p">(</span><span class="n">circle</span><span class="o">.</span><span class="n">thickness</span> <span class="ow">or</span> <span class="n">default_thickness</span><span class="p">)</span> <span class="o">*</span> <span class="n">scale</span>
+            <span class="n">fill</span> <span class="o">=</span> <span class="n">fill_tbl</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">circle</span><span class="o">.</span><span class="n">fill</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="n">radius_pt</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">radius</span><span class="p">,</span> <span class="n">radius</span><span class="p">)</span>
+            <span class="n">obj_bbox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">center</span> <span class="o">-</span> <span class="n">radius_pt</span><span class="p">)</span>
+            <span class="n">obj_bbox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">center</span> <span class="o">+</span> <span class="n">radius_pt</span><span class="p">)</span>
+            <span class="n">svg</span> <span class="o">=</span> <span class="n">obj_filled_svg</span> <span class="k">if</span> <span class="n">fill</span> <span class="k">else</span> <span class="n">obj_svg</span>
+            <span class="n">svg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                    <span class="p">[</span>
+                        <span class="s2">&quot;&lt;circle&quot;</span><span class="p">,</span>
+                        <span class="s1">&#39;cx=&quot;</span><span class="si">{center.x}</span><span class="s1">&quot; cy=&quot;</span><span class="si">{center.y}</span><span class="s1">&quot; r=&quot;</span><span class="si">{radius}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;style=&quot;stroke-width:</span><span class="si">{thickness}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;class=&quot;$cell_id symbol </span><span class="si">{fill}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+                        <span class="s2">&quot;/&gt;&quot;</span><span class="p">,</span>
+                    <span class="p">]</span>
+                <span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
+            <span class="p">)</span>
+
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">DrawPoly</span><span class="p">):</span>
+            <span class="n">poly</span> <span class="o">=</span> <span class="n">obj</span>
+            <span class="n">pts</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">tx</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="n">y</span><span class="p">),</span> <span class="n">symtx</span><span class="p">)</span> <span class="o">*</span> <span class="n">scale</span>
+                <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">poly</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">::</span><span class="mi">2</span><span class="p">],</span> <span class="n">poly</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">])</span>
+            <span class="p">]</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">path_op</span> <span class="o">=</span> <span class="s2">&quot;M&quot;</span>
+            <span class="k">for</span> <span class="n">pt</span> <span class="ow">in</span> <span class="n">pts</span><span class="p">:</span>
+                <span class="n">obj_bbox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pt</span><span class="p">)</span>
+                <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{path_op}</span><span class="s2"> </span><span class="si">{pt.x}</span><span class="s2"> </span><span class="si">{pt.y}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">()))</span>
+                <span class="n">path_op</span> <span class="o">=</span> <span class="s2">&quot;L&quot;</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+            <span class="n">thickness</span> <span class="o">=</span> <span class="p">(</span><span class="n">poly</span><span class="o">.</span><span class="n">thickness</span> <span class="ow">or</span> <span class="n">default_thickness</span><span class="p">)</span> <span class="o">*</span> <span class="n">scale</span>
+            <span class="n">fill</span> <span class="o">=</span> <span class="n">fill_tbl</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">poly</span><span class="o">.</span><span class="n">fill</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="n">svg</span> <span class="o">=</span> <span class="n">obj_filled_svg</span> <span class="k">if</span> <span class="n">fill</span> <span class="k">else</span> <span class="n">obj_svg</span>
+            <span class="n">svg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                    <span class="p">[</span>
+                        <span class="s2">&quot;&lt;path&quot;</span><span class="p">,</span>
+                        <span class="s1">&#39;d=&quot;</span><span class="si">{path}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;style=&quot;stroke-width:</span><span class="si">{thickness}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;class=&quot;$cell_id symbol </span><span class="si">{fill}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+                        <span class="s2">&quot;/&gt;&quot;</span><span class="p">,</span>
+                    <span class="p">]</span>
+                <span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
+            <span class="p">)</span>
+
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">DrawRect</span><span class="p">):</span>
+            <span class="n">rect</span> <span class="o">=</span> <span class="n">obj</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">tx</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="n">rect</span><span class="o">.</span><span class="n">x1</span><span class="p">,</span> <span class="o">-</span><span class="n">rect</span><span class="o">.</span><span class="n">y1</span><span class="p">),</span> <span class="n">symtx</span><span class="p">)</span> <span class="o">*</span> <span class="n">scale</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="n">tx</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="n">rect</span><span class="o">.</span><span class="n">x2</span><span class="p">,</span> <span class="o">-</span><span class="n">rect</span><span class="o">.</span><span class="n">y2</span><span class="p">),</span> <span class="n">symtx</span><span class="p">)</span> <span class="o">*</span> <span class="n">scale</span>
+            <span class="n">obj_bbox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">start</span><span class="p">)</span>
+            <span class="n">obj_bbox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">end</span><span class="p">)</span>
+            <span class="n">rect_bbox</span> <span class="o">=</span> <span class="n">BBox</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+            <span class="n">thickness</span> <span class="o">=</span> <span class="p">(</span><span class="n">rect</span><span class="o">.</span><span class="n">thickness</span> <span class="ow">or</span> <span class="n">default_thickness</span><span class="p">)</span> <span class="o">*</span> <span class="n">scale</span>
+            <span class="n">fill</span> <span class="o">=</span> <span class="n">fill_tbl</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">rect</span><span class="o">.</span><span class="n">fill</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="n">svg</span> <span class="o">=</span> <span class="n">obj_filled_svg</span> <span class="k">if</span> <span class="n">fill</span> <span class="k">else</span> <span class="n">obj_svg</span>
+            <span class="n">svg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                    <span class="p">[</span>
+                        <span class="s2">&quot;&lt;rect&quot;</span><span class="p">,</span>
+                        <span class="s1">&#39;x=&quot;</span><span class="si">{rect_bbox.min.x}</span><span class="s1">&quot; y=&quot;</span><span class="si">{rect_bbox.min.y}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;width=&quot;</span><span class="si">{rect_bbox.w}</span><span class="s1">&quot; height=&quot;</span><span class="si">{rect_bbox.h}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;style=&quot;stroke-width:</span><span class="si">{thickness}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;class=&quot;$cell_id symbol </span><span class="si">{fill}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+                        <span class="s2">&quot;/&gt;&quot;</span><span class="p">,</span>
+                    <span class="p">]</span>
+                <span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
+            <span class="p">)</span>
+
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">DrawText</span><span class="p">):</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">obj</span>
+            <span class="n">origin</span> <span class="o">=</span> <span class="n">tx</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="n">text</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="n">text</span><span class="o">.</span><span class="n">y</span><span class="p">),</span> <span class="n">symtx</span><span class="p">)</span> <span class="o">*</span> <span class="n">scale</span>
+            <span class="n">angle</span> <span class="o">=</span> <span class="n">tx</span><span class="p">(</span><span class="n">text</span><span class="o">.</span><span class="n">angle</span><span class="p">,</span> <span class="n">symtx</span><span class="p">)</span>
+            <span class="n">size</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">size</span> <span class="o">*</span> <span class="n">scale</span>
+            <span class="n">justify</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;L&quot;</span><span class="p">:</span> <span class="s2">&quot;start&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span> <span class="s2">&quot;middle&quot;</span><span class="p">,</span> <span class="s2">&quot;R&quot;</span><span class="p">:</span> <span class="s2">&quot;end&quot;</span><span class="p">}[</span><span class="n">text</span><span class="o">.</span><span class="n">halign</span><span class="p">]</span>
+            <span class="n">offset</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">tx</span><span class="p">(</span>
+                    <span class="p">{</span><span class="s2">&quot;T&quot;</span><span class="p">:</span> <span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span> <span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)}[</span>
+                        <span class="n">text</span><span class="o">.</span><span class="n">valign</span>
+                    <span class="p">],</span>
+                    <span class="n">symtx</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="o">*</span> <span class="n">size</span>
+            <span class="p">)</span>
+            <span class="n">obj_txt_svg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">draw_text</span><span class="p">(</span>
+                    <span class="n">text</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">justify</span><span class="p">,</span> <span class="n">origin</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">&quot;part_text&quot;</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">DrawPin</span><span class="p">):</span>
+
+            <span class="n">pin</span> <span class="o">=</span> <span class="n">obj</span>
+            <span class="n">part_pin</span> <span class="o">=</span> <span class="n">part</span><span class="p">[</span>
+                <span class="n">pin</span><span class="o">.</span><span class="n">num</span>
+            <span class="p">]</span>  <span class="c1"># Get Pin object associated with this pin drawing object.</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">visible</span> <span class="o">=</span> <span class="n">pin</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;N&quot;</span>
+            <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+                <span class="n">visible</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># No pin shape given, so it is visible by default.</span>
+
+            <span class="c1"># Start pin group.</span>
+            <span class="n">orientation</span> <span class="o">=</span> <span class="n">tx</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">orientation</span><span class="p">,</span> <span class="n">symtx</span><span class="p">)</span>
+            <span class="nb">dir</span> <span class="o">=</span> <span class="n">pin_dir_tbl</span><span class="p">[</span><span class="n">orientation</span><span class="p">]</span><span class="o">.</span><span class="n">direction</span>
+            <span class="k">if</span> <span class="n">part_pin</span><span class="o">.</span><span class="n">net</span> <span class="ow">in</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">NC</span><span class="p">]:</span>
+                <span class="c1"># Unconnected pins remain at the length of the default symbol pin.</span>
+                <span class="n">extension</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Extend the pin if it&#39;s connected to a net.</span>
+                <span class="n">extension</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="nb">dir</span>
+                    <span class="o">*</span> <span class="p">(</span>
+                        <span class="n">pin</span><span class="o">.</span><span class="n">name_size</span> <span class="o">*</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">max_stub_len</span>
+                        <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="nb">abs</span><span class="p">(</span><span class="n">pin_dir_tbl</span><span class="p">[</span><span class="n">orientation</span><span class="p">]</span><span class="o">.</span><span class="n">net_offset</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="o">*</span> <span class="n">scale</span>
+                <span class="p">)</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">tx</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="n">pin</span><span class="o">.</span><span class="n">y</span><span class="p">),</span> <span class="n">symtx</span><span class="p">)</span> <span class="o">*</span> <span class="n">scale</span> <span class="o">-</span> <span class="n">extension</span>
+            <span class="n">side</span> <span class="o">=</span> <span class="n">pin_dir_tbl</span><span class="p">[</span><span class="n">orientation</span><span class="p">]</span><span class="o">.</span><span class="n">side</span>
+            <span class="n">obj_pin_info</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">PinInfo</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">start</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">start</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">side</span><span class="o">=</span><span class="n">side</span><span class="p">,</span> <span class="n">pid</span><span class="o">=</span><span class="n">pin</span><span class="o">.</span><span class="n">num</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="n">visible</span><span class="p">:</span>
+                <span class="c1"># Draw pin if it&#39;s not invisible.</span>
+
+                <span class="c1"># Create line for pin lead.</span>
+                <span class="n">l</span> <span class="o">=</span> <span class="nb">dir</span> <span class="o">*</span> <span class="n">pin</span><span class="o">.</span><span class="n">length</span> <span class="o">*</span> <span class="n">scale</span>
+                <span class="n">end</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">l</span> <span class="o">+</span> <span class="n">extension</span>
+                <span class="n">thickness</span> <span class="o">=</span> <span class="n">default_thickness</span> <span class="o">*</span> <span class="n">scale</span>
+                <span class="n">obj_bbox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">start</span><span class="p">)</span>
+                <span class="n">obj_bbox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">end</span><span class="p">)</span>
+                <span class="n">obj_svg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                        <span class="p">[</span>
+                            <span class="s2">&quot;&lt;path&quot;</span><span class="p">,</span>
+                            <span class="s1">&#39;d=&quot;M </span><span class="si">{start.x}</span><span class="s1"> </span><span class="si">{start.y}</span><span class="s1"> L </span><span class="si">{end.x}</span><span class="s1"> </span><span class="si">{end.y}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;style=&quot;stroke-width:</span><span class="si">{thickness}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;class=&quot;$cell_id symbol&quot;&#39;</span> <span class="s2">&quot;/&gt;&quot;</span><span class="p">,</span>
+                        <span class="p">]</span>
+                    <span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
+                <span class="p">)</span>
+
+                <span class="c1"># Create pin number.</span>
+                <span class="k">if</span> <span class="n">show_nums</span><span class="p">:</span>
+                    <span class="n">angle</span> <span class="o">=</span> <span class="n">pin_dir_tbl</span><span class="p">[</span><span class="n">orientation</span><span class="p">]</span><span class="o">.</span><span class="n">angle</span>
+                    <span class="n">num_justify</span> <span class="o">=</span> <span class="n">pin_dir_tbl</span><span class="p">[</span><span class="n">orientation</span><span class="p">]</span><span class="o">.</span><span class="n">num_justify</span>
+                    <span class="n">num_size</span> <span class="o">=</span> <span class="n">pin</span><span class="o">.</span><span class="n">num_size</span> <span class="o">*</span> <span class="n">scale</span>
+                    <span class="n">num_offset</span> <span class="o">=</span> <span class="n">pin_dir_tbl</span><span class="p">[</span><span class="n">orientation</span><span class="p">]</span><span class="o">.</span><span class="n">num_offset</span> <span class="o">*</span> <span class="n">scale</span>
+                    <span class="n">num_offset</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">num_offset</span><span class="o">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">pin</span><span class="o">.</span><span class="n">num_size</span>
+                    <span class="c1"># Pin nums are text, but they go into graphical SVG because they are part of a pin object.</span>
+                    <span class="n">obj_svg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="n">draw_text</span><span class="p">(</span>
+                            <span class="nb">str</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">num</span><span class="p">),</span>
+                            <span class="n">num_size</span><span class="p">,</span>
+                            <span class="n">num_justify</span><span class="p">,</span>
+                            <span class="n">end</span><span class="p">,</span>
+                            <span class="n">angle</span><span class="p">,</span>
+                            <span class="n">num_offset</span><span class="p">,</span>
+                            <span class="s2">&quot;pin_num_text&quot;</span><span class="p">,</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+
+                <span class="c1"># Create pin name.</span>
+                <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;~&quot;</span> <span class="ow">and</span> <span class="n">show_names</span><span class="p">:</span>
+                    <span class="n">name_justify</span> <span class="o">=</span> <span class="n">pin_dir_tbl</span><span class="p">[</span><span class="n">orientation</span><span class="p">]</span><span class="o">.</span><span class="n">name_justify</span>
+                    <span class="n">name_size</span> <span class="o">=</span> <span class="n">pin</span><span class="o">.</span><span class="n">name_size</span> <span class="o">*</span> <span class="n">scale</span>
+                    <span class="n">name_offset</span> <span class="o">=</span> <span class="n">pin_dir_tbl</span><span class="p">[</span><span class="n">orientation</span><span class="p">]</span><span class="o">.</span><span class="n">name_offset</span> <span class="o">*</span> <span class="n">scale</span>
+                    <span class="n">name_offset</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">name_offset</span><span class="o">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">pin</span><span class="o">.</span><span class="n">name_size</span>
+                    <span class="c1"># Pin names are text, but they go into graphical SVG because they are part of a pin object.</span>
+                    <span class="n">obj_svg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="n">draw_text</span><span class="p">(</span>
+                            <span class="nb">str</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">name</span><span class="p">),</span>
+                            <span class="n">name_size</span><span class="p">,</span>
+                            <span class="n">name_justify</span><span class="p">,</span>
+                            <span class="n">end</span><span class="p">,</span>
+                            <span class="n">angle</span><span class="p">,</span>
+                            <span class="n">name_offset</span><span class="p">,</span>
+                            <span class="s2">&quot;pin_name_text&quot;</span><span class="p">,</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+
+                <span class="c1"># Create net stub name.</span>
+                <span class="k">if</span> <span class="n">max_stub_len</span><span class="p">:</span>
+                    <span class="c1"># Only do this if stub length &gt; 0; otherwise, no stubs are needed.</span>
+                    <span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="n">part_pin</span><span class="o">.</span><span class="n">nets</span><span class="p">:</span>
+                        <span class="c1"># Don&#39;t create stubs for no-connect nets.</span>
+                        <span class="k">if</span> <span class="n">net</span> <span class="ow">in</span> <span class="p">[</span><span class="n">NC</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+                            <span class="k">continue</span>
+                        <span class="k">if</span> <span class="n">net</span> <span class="ow">in</span> <span class="n">net_stubs</span><span class="p">:</span>
+                            <span class="n">net_justify</span> <span class="o">=</span> <span class="n">pin_dir_tbl</span><span class="p">[</span><span class="n">orientation</span><span class="p">]</span><span class="o">.</span><span class="n">name_justify</span>
+                            <span class="n">net_size</span> <span class="o">=</span> <span class="p">(</span>
+                                <span class="n">pin</span><span class="o">.</span><span class="n">name_size</span> <span class="o">*</span> <span class="n">scale</span>
+                            <span class="p">)</span>  <span class="c1"># Net name font size same as pin name font size.</span>
+                            <span class="n">net_offset</span> <span class="o">=</span> <span class="n">pin_dir_tbl</span><span class="p">[</span><span class="n">orientation</span><span class="p">]</span><span class="o">.</span><span class="n">net_offset</span> <span class="o">*</span> <span class="n">scale</span>
+                            <span class="n">net_offset</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">net_offset</span><span class="o">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">pin</span><span class="o">.</span><span class="n">name_size</span>
+                            <span class="n">obj_svg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                                <span class="n">draw_text</span><span class="p">(</span>
+                                    <span class="n">net</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                    <span class="n">net_size</span><span class="p">,</span>
+                                    <span class="n">net_justify</span><span class="p">,</span>
+                                    <span class="n">start</span><span class="p">,</span>
+                                    <span class="n">angle</span><span class="p">,</span>
+                                    <span class="n">net_offset</span><span class="p">,</span>
+                                    <span class="s2">&quot;net_name_text&quot;</span><span class="p">,</span>
+                                <span class="p">)</span>
+                            <span class="p">)</span>
+                            <span class="k">break</span>  <span class="c1"># Only one label is needed per stub.</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">active_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="s2">&quot;Unknown graphical object </span><span class="si">{}</span><span class="s2"> in part symbol </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="nb">type</span><span class="p">(</span><span class="n">obj</span><span class="p">),</span> <span class="n">part</span><span class="o">.</span><span class="n">name</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Enter the current object into the SVG for this part.</span>
+        <span class="n">unit</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">&quot;unit&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">unit</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># Anything in unit #0 gets added to all units.</span>
+            <span class="k">for</span> <span class="n">pin_info</span> <span class="ow">in</span> <span class="n">unit_pin_info</span><span class="p">:</span>
+                <span class="n">pin_info</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">obj_pin_info</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">svg</span> <span class="ow">in</span> <span class="n">unit_svg</span><span class="p">:</span>
+                <span class="n">svg</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">obj_svg</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">svg</span> <span class="ow">in</span> <span class="n">unit_filled_svg</span><span class="p">:</span>
+                <span class="n">svg</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">obj_filled_svg</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">txt_svg</span> <span class="ow">in</span> <span class="n">unit_txt_svg</span><span class="p">:</span>
+                <span class="n">txt_svg</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">obj_txt_svg</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">bbox</span> <span class="ow">in</span> <span class="n">unit_bbox</span><span class="p">:</span>
+                <span class="n">bbox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">obj_bbox</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">unit_pin_info</span><span class="p">[</span><span class="n">unit</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">obj_pin_info</span><span class="p">)</span>
+            <span class="n">unit_svg</span><span class="p">[</span><span class="n">unit</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">obj_svg</span><span class="p">)</span>
+            <span class="n">unit_filled_svg</span><span class="p">[</span><span class="n">unit</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">obj_filled_svg</span><span class="p">)</span>
+            <span class="n">unit_txt_svg</span><span class="p">[</span><span class="n">unit</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">obj_txt_svg</span><span class="p">)</span>
+            <span class="n">unit_bbox</span><span class="p">[</span><span class="n">unit</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">obj_bbox</span><span class="p">)</span>
+
+    <span class="c1"># End of loop through all the component objects.</span>
+
+    <span class="c1"># Assemble and name the SVGs for all the part units.</span>
+    <span class="n">svg</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">unit</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_units</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">bbox</span> <span class="o">=</span> <span class="n">unit_bbox</span><span class="p">[</span><span class="n">unit</span><span class="p">]</span>
+
+        <span class="c1"># Assign part unit name.</span>
+        <span class="k">if</span> <span class="n">max_stub_len</span><span class="p">:</span>
+            <span class="c1"># If net stubs are attached to symbol, then it&#39;s only to be used</span>
+            <span class="c1"># for a specific part. Therefore, tag the symbol name with the unique</span>
+            <span class="c1"># part reference so it will only be used by this part.</span>
+            <span class="n">symbol_name</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{part.name}</span><span class="s2">_</span><span class="si">{part.ref}</span><span class="s2">_</span><span class="si">{unit}</span><span class="s2">_</span><span class="si">{symtx}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># No net stubs means this symbol can be used for any part that</span>
+            <span class="c1"># also has no net stubs, so don&#39;t tag it with a specific part reference.</span>
+            <span class="n">symbol_name</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{part.name}</span><span class="s2">_</span><span class="si">{unit}</span><span class="s2">_</span><span class="si">{symtx}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
+
+        <span class="c1"># Begin SVG for part unit. Translate it so the bbox.min is at (0,0).</span>
+        <span class="n">translate</span> <span class="o">=</span> <span class="n">bbox</span><span class="o">.</span><span class="n">min</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">svg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="s2">&quot;&lt;g&quot;</span><span class="p">,</span>
+                    <span class="s1">&#39;s:type=&quot;</span><span class="si">{symbol_name}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;s:width=&quot;</span><span class="si">{bbox.w}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;s:height=&quot;</span><span class="si">{bbox.h}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;transform=&quot;translate(</span><span class="si">{translate.x}</span><span class="s1">,</span><span class="si">{translate.y}</span><span class="s1">)&quot;&#39;</span><span class="p">,</span>
+                    <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span>
+                <span class="p">]</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Add part alias.</span>
+        <span class="n">svg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;&lt;s:alias val=&quot;</span><span class="si">{symbol_name}</span><span class="s1">&quot;/&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">()))</span>
+
+        <span class="c1"># Add part unit text and graphics.</span>
+        <span class="n">svg</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">unit_filled_svg</span><span class="p">[</span><span class="n">unit</span><span class="p">])</span>  <span class="c1"># Filled items go on the bottom.</span>
+        <span class="n">svg</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">unit_svg</span><span class="p">[</span><span class="n">unit</span><span class="p">])</span>  <span class="c1"># Then unfilled items.</span>
+        <span class="n">svg</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">unit_txt_svg</span><span class="p">[</span><span class="n">unit</span><span class="p">])</span>  <span class="c1"># Text comes last.</span>
+
+        <span class="c1"># Place a visible bounding-box around symbol for trouble-shooting.</span>
+        <span class="n">show_bbox</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">show_bbox</span><span class="p">:</span>
+            <span class="n">svg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                    <span class="p">[</span>
+                        <span class="s2">&quot;&lt;rect&quot;</span><span class="p">,</span>
+                        <span class="s1">&#39;x=&quot;</span><span class="si">{bbox.min.x}</span><span class="s1">&quot; y=&quot;</span><span class="si">{bbox.min.y}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;width=&quot;</span><span class="si">{bbox.w}</span><span class="s1">&quot; height=&quot;</span><span class="si">{bbox.h}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;style=&quot;stroke-width:3; stroke:#f00&quot;&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;class=&quot;$cell_id symbol&quot;&#39;</span><span class="p">,</span>
+                        <span class="s2">&quot;/&gt;&quot;</span><span class="p">,</span>
+                    <span class="p">]</span>
+                <span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Keep the pins out of the grouped text &amp; graphics but adjust their coords</span>
+        <span class="c1"># to account for moving the bbox.</span>
+        <span class="k">for</span> <span class="n">pin_info</span> <span class="ow">in</span> <span class="n">unit_pin_info</span><span class="p">[</span><span class="n">unit</span><span class="p">]:</span>
+            <span class="n">pin_pt</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">pin_info</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">pin_info</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+            <span class="n">side</span> <span class="o">=</span> <span class="n">pin_info</span><span class="o">.</span><span class="n">side</span>
+            <span class="n">pid</span> <span class="o">=</span> <span class="n">pin_info</span><span class="o">.</span><span class="n">pid</span>
+            <span class="n">pin_svg</span> <span class="o">=</span> <span class="s1">&#39;&lt;g s:x=&quot;</span><span class="si">{pin_pt.x}</span><span class="s1">&quot; s:y=&quot;</span><span class="si">{pin_pt.y}</span><span class="s1">&quot; s:pid=&quot;</span><span class="si">{pid}</span><span class="s1">&quot; s:position=&quot;</span><span class="si">{side}</span><span class="s1">&quot;/&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="o">**</span><span class="nb">locals</span><span class="p">()</span>
+            <span class="p">)</span>
+            <span class="n">svg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pin_svg</span><span class="p">)</span>
+
+        <span class="c1"># Finish SVG for part unit.</span>
+        <span class="n">svg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&lt;/g&gt;&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">svg</span><span class="p">)</span></div>
+
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.tools.kicad5.gen_svg</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2016-2024, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    </div>
+  </body>
+</html>

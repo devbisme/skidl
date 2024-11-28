@@ -10,11 +10,12 @@ from .setup_teardown import setup_function, teardown_function
 
 
 def test_net_merge_1():
-    a = Net("A")
-    b = Net("B")
-    a += Pin(), Pin(), Pin(), Pin(), Pin()
-    assert len(a) == 5
-    b += Pin(), Pin(), Pin()
-    assert len(b) == 3
-    a += b
-    assert len(a) == 8
+    """Test merging of two nets."""
+    a = Net("A")  # Create net A.
+    b = Net("B")  # Create net B.
+    a += Pin(), Pin(), Pin(), Pin(), Pin()  # Add 5 pins to net A.
+    assert len(a) == 5  # Check that net A has 5 pins.
+    b += Pin(), Pin(), Pin()  # Add 3 pins to net B.
+    assert len(b) == 3  # Check that net B has 3 pins.
+    a += b  # Merge net B into net A.
+    assert len(a) == 8  # Check that net A now has 8 pins.

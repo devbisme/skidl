@@ -6,25 +6,10 @@
 Handles parts.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import functools
 import re
-from builtins import dict, int, object, range, str, super
 from copy import copy
 from random import randint
-
-try:
-    from future import standard_library
-
-    standard_library.install_aliases()
-except ImportError:
-    pass
 
 from .erc import dflt_part_erc
 from .logger import active_logger
@@ -277,6 +262,7 @@ class Part(SkidlBaseObject):
         self.associate_pins()
 
         # If any unit definitions were passed in, then make units.
+        # FIXME: make_unit takes too long because of filtering pin lists.
         for unit_def in kwargs.pop("unit_defs", []):
             self.make_unit(
                 unit_def["label"], *unit_def["pin_nums"], unit=unit_def["num"]
@@ -285,6 +271,17 @@ class Part(SkidlBaseObject):
         # Add any other passed-in attributes to the part.
         for k, v in list(kwargs.items()):
             setattr(self, k, v)
+
+        # If the part was found using an alias, then substitute the alias for the name in the part.
+        # (This only seems necessary when using KiCad 5.)
+        part_name = self.name
+        if name and part_name != name:
+            for k,v in vars(self).items():
+                if v == part_name:
+                    setattr(self, k, name)
+            for k,v in self.fields.items():
+                if v == part_name:
+                    self.fields[k] = name
 
         # Make sure the part name is also included in the list of aliases
         # because part searching only checks the aliases for name matches.
@@ -343,7 +340,9 @@ class Part(SkidlBaseObject):
                 cap = Part("Device", 'C')   # Get a capacitor
                 caps = 10 * cap             # Make an array with 10 copies of it.
         """
-        return self.copy(num_copies=num_copies, dest=dest, circuit=circuit, io=io, **attribs)
+        return self.copy(
+            num_copies=num_copies, dest=dest, circuit=circuit, io=io, **attribs
+        )
 
     def __mul__(self, num_copies):
         if num_copies is None:
@@ -1013,7 +1012,7 @@ class Part(SkidlBaseObject):
         add_unique_attr(self, label, self.unit[label])
 
         return self.unit[label]
-    
+
     def rmv_unit(self, label):
         """Remove a PartUnit from a Part."""
         delattr(self, label)
@@ -1055,8 +1054,17 @@ class Part(SkidlBaseObject):
         """Create description of part for ERC and other error reporting."""
         return "{p.name}/{p.ref}".format(p=self)
 
-    def export(self):
-        """Return a string to recreate a Part object."""
+        """"""
+
+    def export(self, addtl_part_attrs=None):
+        """Return a string to recreate a Part object.
+
+        Args:
+            addtl_part_attrs (list): List of additional part attribute names to include in export.
+
+        Returns:
+            str: String that can be evaluated to rebuild the Part object.
+        """
 
         # Make sure the part is fully instantiated. Otherwise, attributes like
         # pins may be missing because they haven't been parsed from the part definition.
@@ -1072,6 +1080,10 @@ class Part(SkidlBaseObject):
             "description",
             "datasheet",
         ]
+
+        # Add any other additional part attributes
+        if addtl_part_attrs:
+            keys.extend(addtl_part_attrs)
 
         # Export the part as a SKiDL template.
         attribs = []
@@ -1310,7 +1322,8 @@ class PartUnit(Part):
 
         # Give the PartUnit the same information as the Part it is generated
         # from so it can act the same way, just with fewer pins.
-        # FIXME: Do we need this if we define __getattr__ as below?
+        # Do we need this if we define __getattr__ as below?
+        # Yes, since we're no longer using the __getattr__ shown below.
         for k, v in list(parent.__dict__.items()):
             self.__dict__[k] = v
 
@@ -1335,11 +1348,14 @@ class PartUnit(Part):
         # TODO: KiCad uses unit 0 for global unit. What about other tools?
         self.add_pins_from_parent(unit=0, silent=True)
 
-    def __getattr__(self, key):
-        """Return attribute from parent Part if it wasn't found in the PartUnit."""
-        # FIXME: This allows the unit to access *all* the attributes of the parent
-        #        even those it shouldn't be able to (like pins not assigned to it).
-        return getattr(self.parent, key)
+    #
+    # This was commented-out because it led to infinite recursion when pickling libraries.
+    #
+    # def __getattr__(self, key):
+    #     """Return attribute from parent Part if it wasn't found in the PartUnit."""
+    #     # FIXME: This allows the unit to access *all* the attributes of the parent
+    #     #        even those it shouldn't be able to (like pins not assigned to it).
+    #     return getattr(self.parent, key)
 
     def add_pins_from_parent(self, *pin_ids, **criteria):
         """

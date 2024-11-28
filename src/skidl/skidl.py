@@ -2,28 +2,15 @@
 
 # The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import sys
-from builtins import open
-
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
 
 from .circuit import Circuit
 from .common import builtins
 from .config_ import SkidlConfig
 from .part import default_empty_footprint_handler
-from .pin import Pin
+from .pin import pin_drives
 from .utilities import export_to_all
+from skidl import KICAD8
 
 
 __all__ = [
@@ -42,6 +29,7 @@ __all__ = [
     "backup_parts",
     "empty_footprint_handler",
     "POWER",
+    "KICAD",
 ]
 
 try:
@@ -58,7 +46,8 @@ except NameError:
 ###############################################################################
 
 # Get SKiDL configuration and set global search paths.
-config = SkidlConfig()
+KICAD = KICAD8 # Reference to the latest version of KiCad.
+config = SkidlConfig(KICAD) # Sets default tool.
 lib_search_paths = config.lib_search_paths
 footprint_search_paths = config.footprint_search_paths
 
@@ -84,13 +73,14 @@ no_files = default_circuit.no_files
 empty_footprint_handler = default_empty_footprint_handler
 
 # Define a tag for nets that convey power (e.g., VCC or GND).
-POWER = Pin.drives.POWER
+POWER = pin_drives.POWER
 
 
 @export_to_all
 def get_default_tool():
     """Get the ECAD tool that will be used by default."""
     return config.tool
+
 
 @export_to_all
 def set_default_tool(tool):

@@ -1,0 +1,145 @@
+
+
+<!doctype html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>skidl.config_ module &#8212; SKiDL 2.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
+    
+    <script src="../_static/documentation_options.js?v=51b770b3"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <h1 id="site-title"><a href="../../../"><img src="../../../images/slim_banner.png" width="100%"></a></h1>
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.config_ module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-skidl.config_">
+<span id="skidl-config-module"></span><h1>skidl.config_ module<a class="headerlink" href="#module-skidl.config_" title="Link to this heading">¶</a></h1>
+<p>Handles SKiDL configuration parameters stored in a JSON file.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="skidl.config_.Config">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.config_.</span></span><span class="sig-name descname"><span class="pre">Config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg_file_name</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">dirs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/config_.html#Config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.config_.Config" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p>
+<p>Class for handling configuration parameters.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.config_.Config.load">
+<span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">dirs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/config_.html#Config.load"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.config_.Config.load" title="Link to this definition">¶</a></dt>
+<dd><p>Load configuration from JSON files in given dirs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.config_.Config.merge">
+<span class="sig-name descname"><span class="pre">merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">merge_dct</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/config_.html#Config.merge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.config_.Config.merge" title="Link to this definition">¶</a></dt>
+<dd><p>Recurse through both dicts and update keys.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.config_.Config.store">
+<span class="sig-name descname"><span class="pre">store</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/config_.html#Config.store"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.config_.Config.store" title="Link to this definition">¶</a></dt>
+<dd><p>Store configuration file as JSON in directory.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="skidl.config_.SkidlConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.config_.</span></span><span class="sig-name descname"><span class="pre">SkidlConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tool</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/config_.html#SkidlConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.config_.SkidlConfig" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#skidl.config_.Config" title="skidl.config_.Config"><code class="xref py py-class docutils literal notranslate"><span class="pre">Config</span></code></a></p>
+<p>Config specialized for SKiDL configuration files.</p>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">skidl.config_ module</a><ul>
+<li><a class="reference internal" href="#skidl.config_.Config"><code class="docutils literal notranslate"><span class="pre">Config</span></code></a><ul>
+<li><a class="reference internal" href="#skidl.config_.Config.load"><code class="docutils literal notranslate"><span class="pre">Config.load()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.config_.Config.merge"><code class="docutils literal notranslate"><span class="pre">Config.merge()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.config_.Config.store"><code class="docutils literal notranslate"><span class="pre">Config.store()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#skidl.config_.SkidlConfig"><code class="docutils literal notranslate"><span class="pre">SkidlConfig</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/rst_output/skidl.config_.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.config_ module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2016-2024, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    </div>
+  </body>
+</html>

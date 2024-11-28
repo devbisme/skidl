@@ -1,0 +1,7 @@
+skidl.tools.kicad8.gen\_svg module
+==================================
+
+.. automodule:: skidl.tools.kicad8.gen_svg
+   :members:
+   :undoc-members:
+   :show-inheritance:

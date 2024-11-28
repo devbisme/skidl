@@ -3,26 +3,12 @@
 # The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
 """
-Handles configuration parameters stored in a JSON file.
+Handles SKiDL configuration parameters stored in a JSON file.
 """
-
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
 
 import collections
 import json
 import os.path
-from builtins import open, super
-
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
 
 from .logger import active_logger
 from .part_query import footprint_cache
@@ -46,14 +32,14 @@ class Config(dict):
             return self[key]
         except KeyError:
             raise AttributeError
-        
+
     def __setattr__(self, key, value):
         """Set the value of both a Config attribute and a Config dictionary entry."""
         self.__dict__[key] = value
         self[key] = value
 
     def merge(self, merge_dct):
-        """Recurse through both dicts and updates keys."""
+        """Recurse through both dicts and update keys."""
         for k, v in list(merge_dct.items()):
             if (
                 k in self
@@ -89,18 +75,25 @@ class Config(dict):
 class SkidlConfig(Config):
     """Config specialized for SKiDL configuration files."""
 
-    def __init__(self):
-        from skidl import SKIDL, KICAD
+    def __init__(self, tool):
+        from skidl import SKIDL
 
+        # Load the .skidlcfg file from one of the list of directories.
         super().__init__(".skidlcfg", "/etc", "~", ".")
 
         # If no configuration files were found, set default backend/tool.
         if "tool" not in self:
-            self.tool = KICAD
+            self.tool = tool
+
+        # If no configuration files were found, set default directory for part library pickle files.
+        if "pickle_dir" not in self:
+            self.pickle_dir = "./lib_pickle_dir"
 
         # If no configuration files were found, set some default part lib search paths.
         if "lib_search_paths" not in self:
-            self["lib_search_paths"] = {tool: tool_modules[tool].default_lib_paths() for tool in ALL_TOOLS}
+            self["lib_search_paths"] = {
+                tool: tool_modules[tool].default_lib_paths() for tool in ALL_TOOLS
+            }
 
         # If no configuration files were found, set base name of default backup part library.
         if "backup_lib_name" not in self:
@@ -114,11 +107,13 @@ class SkidlConfig(Config):
 
         # If no configuration files were found, set some default footprint search paths.
         if "footprint_search_paths" not in self:
-            self["footprint_search_paths"] = {tool: tool_modules[tool].get_fp_lib_tbl_dir() for tool in ALL_TOOLS}
+            self["footprint_search_paths"] = {
+                tool: tool_modules[tool].get_fp_lib_tbl_dir() for tool in ALL_TOOLS
+            }
 
         # Cause the footprint cache to be invalidated if the footprint search path changes.
         def invalidate_footprint_cache(self, k, v):
             footprint_cache.reset()
 
         self["footprint_search_paths"] = TriggerDict(self["footprint_search_paths"])
-        self["footprint_search_paths"].trigger_funcs[KICAD] = invalidate_footprint_cache
+        self["footprint_search_paths"].trigger_funcs[self.tool] = invalidate_footprint_cache

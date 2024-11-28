@@ -5,9 +5,9 @@ import sys
 
 import setuptools
 
-__version__ = "1.2.3"
+__version__ = "2.0.0"
 __author__ = "Dave Vandenbout"
-__email__ = "devb@xess.com"
+__email__ = "dave@vdb.name"
 
 if "sdist" in sys.argv[1:]:
     with open("src/skidl/pckg_info.py", "w") as f:
@@ -31,7 +31,7 @@ requirements = [
     "sexpdata == 1.0.0",
     "kinparse >= 1.2.1",
     "kinet2pcb >= 1.1.0",
-    'enum34; python_version < "3.0"',
+    # 'enum34; python_version < "3.0"',
     #'PySpice; python_version >= "3.0"',
     "graphviz",
     "deprecation",
@@ -76,8 +76,7 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Natural Language :: English",
         "Operating System :: OS Independent",
-        "Programming Language :: Python :: 2.7",
-        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: Implementation :: CPython",
         "Topic :: Scientific/Engineering :: Electronic Design Automation (EDA)",
     ],

@@ -6,19 +6,8 @@
 Handles complete circuits made of parts and nets.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
-import functools
 import json
-import re
 import subprocess
-import time
-from builtins import range, str, super
 from collections import Counter, deque
 
 import graphviz
@@ -38,7 +27,7 @@ from .logger import active_logger, erc_logger, stop_log_file_output
 from .net import NCNet, Net
 from .part import Part, PartUnit
 from .pckg_info import __version__
-from .pin import Pin
+from .pin import pin_types
 from .schlib import SchLib
 from .scriptinfo import get_script_name, get_skidl_trace
 from .skidlbaseobj import SkidlBaseObject
@@ -358,56 +347,8 @@ class Circuit(SkidlBaseObject):
                     "Can't remove unmovable bus {} from this circuit.".format(bus.name),
                 )
 
-    def add_packages(self, *packages):
-        for package in packages:
-            if package.circuit is None:
-                if package.is_movable():
-
-                    # Add the package to this circuit.
-                    self.packages.appendleft(package)
-                    package.circuit = self
-                    for obj in package.values():
-                        try:
-                            if obj.is_movable():
-                                obj.circuit = self
-                        except AttributeError:
-                            pass
-            else:
-                active_logger.raise_(
-                    ValueError,
-                    "Can't add the same package to more than one circuit.",
-                )
-
-    def rmv_packages(self, *packages):
-        for package in packages:
-            if package.is_movable():
-                if package.circuit == self and package in self.packages:
-                    self.packages.remove(package)
-                    package.circuit = None
-                    for obj in package.values():
-                        try:
-                            if obj.is_movable():
-                                obj.circuit = None
-                        except AttributeError:
-                            pass
-                else:
-                    active_logger.active_logger.warning(
-                        "Removing non-existent package {} from this circuit.".format(
-                            package.name
-                        )
-                    )
-            else:
-                active_logger.raise_(
-                    ValueError,
-                    "Can't remove unmovable package {} from this circuit.".format(
-                        package.name
-                    ),
-                )
-
     def add_stuff(self, *stuff):
         """Add Parts, Nets, Buses, and Interfaces to the circuit."""
-
-        from .package import Package
 
         for thing in flatten(stuff):
             if isinstance(thing, Part):
@@ -416,8 +357,6 @@ class Circuit(SkidlBaseObject):
                 self.add_nets(thing)
             elif isinstance(thing, Bus):
                 self.add_buses(thing)
-            elif isinstance(thing, Package):
-                self.add_packages(thing)
             else:
                 active_logger.raise_(
                     ValueError,
@@ -427,8 +366,6 @@ class Circuit(SkidlBaseObject):
 
     def rmv_stuff(self, *stuff):
         """Remove Parts, Nets, Buses, and Interfaces from the circuit."""
-
-        from .package import Package
 
         for thing in flatten(stuff):
             if isinstance(thing, Part):
@@ -466,26 +403,6 @@ class Circuit(SkidlBaseObject):
                 # so it is also distinct.
                 distinct_nets.append(net)
         return distinct_nets
-
-    def instantiate_packages(self):
-        """Run the package executables to instantiate their circuitry."""
-
-        # Set default_circuit to this circuit and instantiate the packages.
-        with self:
-            while self.packages:
-                package = self.packages.pop()
-
-                # If there are still ProtoNets attached to the package at this point,
-                # just replace them with Nets. This will allow any internal connections
-                # inside the package to be reflected on the package I/O pins.
-                # **THIS WILL PROBABLY FAIL IF THE INTERNAL CONNECTIONS ARE BUSES.**
-                # DISABLE THIS FOR NOW...
-                # for k, v in package.items():
-                #     if isinstance(v, ProtoNet):
-                #         package[k] = Net()
-
-                # Call the function to instantiate the package with its arguments.
-                package.subcircuit(**package)
 
     def merge_net_names(self):
         """Assign same name to all segments of multi-segment nets."""
@@ -913,19 +830,19 @@ class Circuit(SkidlBaseObject):
                     pass
 
         pin_dir_tbl = {
-            Pin.types.INPUT: "input",
-            Pin.types.OUTPUT: "output",
-            Pin.types.BIDIR: "output",
-            Pin.types.TRISTATE: "output",
-            Pin.types.PASSIVE: "input",
-            Pin.types.PULLUP: "output",
-            Pin.types.PULLDN: "output",
-            Pin.types.UNSPEC: "input",
-            Pin.types.PWRIN: "input",
-            Pin.types.PWROUT: "output",
-            Pin.types.OPENCOLL: "output",
-            Pin.types.OPENEMIT: "output",
-            Pin.types.NOCONNECT: "nc",
+            pin_types.INPUT: "input",
+            pin_types.OUTPUT: "output",
+            pin_types.BIDIR: "output",
+            pin_types.TRISTATE: "output",
+            pin_types.PASSIVE: "input",
+            pin_types.PULLUP: "output",
+            pin_types.PULLDN: "output",
+            pin_types.UNSPEC: "input",
+            pin_types.PWRIN: "input",
+            pin_types.PWROUT: "output",
+            pin_types.OPENCOLL: "output",
+            pin_types.OPENEMIT: "output",
+            pin_types.NOCONNECT: "nc",
         }
 
         cells = {}
@@ -1231,7 +1148,6 @@ class Circuit(SkidlBaseObject):
     def _preprocess(self):
         """Prepare the circuit for generating a netlist, PCB, etc."""
 
-        self.instantiate_packages()
         # self._cull_unconnected_parts()
         self.merge_nets()
         self._check_for_empty_footprints()

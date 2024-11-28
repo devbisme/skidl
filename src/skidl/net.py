@@ -6,24 +6,9 @@
 Handles nets.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import collections
 import re
-from builtins import range, super
 from copy import copy, deepcopy
-
-try:
-    from future import standard_library
-
-    standard_library.install_aliases()
-except ImportError:
-    pass
 
 from .erc import dflt_net_erc
 from .logger import active_logger
@@ -71,13 +56,13 @@ class Net(SkidlBaseObject):
     erc_list = [dflt_net_erc]
 
     def __init__(self, name=None, circuit=None, *pins_nets_buses, **attribs):
-        from .pin import Pin
+        from .pin import pin_drives
 
         super().__init__()
 
         self._valid = True  # Make net valid before doing anything else.
         self.do_erc = True
-        self._drive = Pin.drives.NONE
+        self._drive = pin_drives.NONE
         self._pins = []
         self.circuit = None
         self.code = None  # This is the net number used in a KiCad netlist file.
@@ -372,8 +357,8 @@ class Net(SkidlBaseObject):
 
             # Deep copy attributes from the source net to the copy.
             # Skip some attributes that would cause an infinite recursion exception.
-            for k,v in self.__dict__.items():
-                if k not in ['circuit', 'traversal']:
+            for k, v in self.__dict__.items():
+                if k not in ["circuit", "traversal"]:
                     setattr(cpy, k, deepcopy(v))
 
             # Add other attributes to the net copy.
@@ -419,7 +404,6 @@ class Net(SkidlBaseObject):
         """
 
         from .pin import PhantomPin, Pin
-        from .protonet import ProtoNet
 
         def join(net):
             """
@@ -489,9 +473,7 @@ class Net(SkidlBaseObject):
 
         # Go through all the pins and/or nets and connect them to this net.
         for pn in expand_buses(flatten(pins_nets_buses)):
-            if isinstance(pn, ProtoNet):
-                pn += self
-            elif isinstance(pn, Net):
+            if isinstance(pn, Net):
                 if pn.circuit == self.circuit:
                     join(pn)
                 else:
@@ -904,10 +886,10 @@ class NCNet(Net):
     """
 
     def __init__(self, name=None, circuit=None, *pins_nets_buses, **attribs):
-        from .pin import Pin
+        from .pin import pin_drives
 
         super().__init__(name=name, circuit=circuit, *pins_nets_buses, **attribs)
-        self._drive = Pin.drives.NOCONNECT
+        self._drive = pin_drives.NOCONNECT
         self.do_erc = False  # No need to do ERC on no-connect nets.
 
     def generate_netlist_net(self, tool=None):

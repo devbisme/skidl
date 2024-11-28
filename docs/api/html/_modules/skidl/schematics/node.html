@@ -1,0 +1,478 @@
+
+
+<!doctype html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>skidl.schematics.node &#8212; SKiDL 2.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/bizstyle.css?v=a66e137f" />
+    
+    <script src="../../../_static/documentation_options.js?v=51b770b3"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <h1 id="site-title"><a href="../../../../../"><img src="../../../../../images/slim_banner.png" width="100%"></a></h1>
+    
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.schematics.node</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for skidl.schematics.node</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># The MIT License (MIT) - Copyright (c) Dave Vandenbout.</span>
+
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+
+<span class="kn">from</span> <span class="nn">skidl.utilities</span> <span class="kn">import</span> <span class="n">export_to_all</span><span class="p">,</span> <span class="n">rmv_attr</span>
+<span class="kn">from</span> <span class="nn">skidl.geometry</span> <span class="kn">import</span> <span class="n">BBox</span><span class="p">,</span> <span class="n">Point</span><span class="p">,</span> <span class="n">Tx</span><span class="p">,</span> <span class="n">Vector</span>
+<span class="kn">from</span> <span class="nn">.place</span> <span class="kn">import</span> <span class="n">Placer</span>
+<span class="kn">from</span> <span class="nn">.route</span> <span class="kn">import</span> <span class="n">Router</span>
+
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Node class for storing circuit hierarchy.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="Node">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.node.html#skidl.schematics.node.Node">[docs]</a>
+<span class="nd">@export_to_all</span>
+<span class="k">class</span> <span class="nc">Node</span><span class="p">(</span><span class="n">Placer</span><span class="p">,</span> <span class="n">Router</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Data structure for holding information about a node in the circuit hierarchy.&quot;&quot;&quot;</span>
+
+    <span class="n">filename_sz</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="n">name_sz</span> <span class="o">=</span> <span class="mi">40</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">circuit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">tool_module</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">filepath</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span>
+        <span class="n">top_name</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">flatness</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span>
+            <span class="k">lambda</span><span class="p">:</span> <span class="n">Node</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">tool_module</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">top_name</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">flatness</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filepath</span> <span class="o">=</span> <span class="n">filepath</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">top_name</span> <span class="o">=</span> <span class="n">top_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sheet_name</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sheet_filename</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">title</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flatness</span> <span class="o">=</span> <span class="n">flatness</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flattened</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tool_module</span> <span class="o">=</span> <span class="n">tool_module</span>  <span class="c1"># Backend tool.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parts</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wires</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">junctions</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tx</span> <span class="o">=</span> <span class="n">Tx</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bbox</span> <span class="o">=</span> <span class="n">BBox</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">circuit</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_circuit</span><span class="p">(</span><span class="n">circuit</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Node.find_node_with_part">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.node.html#skidl.schematics.node.Node.find_node_with_part">[docs]</a>
+    <span class="k">def</span> <span class="nf">find_node_with_part</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">part</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Find the node that contains the part based on its hierarchy.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            part (Part): The part being searched for in the node hierarchy.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Node: The Node object containing the part.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="kn">from</span> <span class="nn">skidl.circuit</span> <span class="kn">import</span> <span class="n">HIER_SEP</span>
+
+        <span class="n">level_names</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">hierarchy</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">HIER_SEP</span><span class="p">)</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="k">for</span> <span class="n">lvl_nm</span> <span class="ow">in</span> <span class="n">level_names</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="n">lvl_nm</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">parts</span>
+        <span class="k">return</span> <span class="n">node</span></div>
+
+
+<div class="viewcode-block" id="Node.add_circuit">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.node.html#skidl.schematics.node.Node.add_circuit">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_circuit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">circuit</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add parts in circuit to node and its children.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            circuit (Circuit): Circuit object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Build the circuit node hierarchy by adding the parts.</span>
+        <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_part</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>
+
+        <span class="c1"># Add terminals to nodes in the hierarchy for nets that span across nodes.</span>
+        <span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="n">circuit</span><span class="o">.</span><span class="n">nets</span><span class="p">:</span>
+            <span class="c1"># Skip nets that are stubbed since there will be no wire to attach to the NetTerminal.</span>
+            <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="s2">&quot;stub&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># Search for pins in different nodes.</span>
+            <span class="k">for</span> <span class="n">pin1</span><span class="p">,</span> <span class="n">pin2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">pins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">net</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+                <span class="k">if</span> <span class="n">pin1</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">hierarchy</span> <span class="o">!=</span> <span class="n">pin2</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">hierarchy</span><span class="p">:</span>
+                    <span class="c1"># Found pins in different nodes, so break and add terminals to nodes below.</span>
+                    <span class="k">break</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">pins</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="c1"># Single pin on net and not stubbed, so add a terminal to it below.</span>
+                    <span class="k">pass</span>
+                <span class="k">elif</span> <span class="ow">not</span> <span class="n">net</span><span class="o">.</span><span class="n">is_implicit</span><span class="p">():</span>
+                    <span class="c1"># The net has a user-assigned name, so add a terminal to it below.</span>
+                    <span class="k">pass</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># No need for net terminal because there are multiple pins</span>
+                    <span class="c1"># and they are all in the same node.</span>
+                    <span class="k">continue</span>
+
+            <span class="c1"># Add a single terminal to each node that contains one or more pins of the net.</span>
+            <span class="n">visited</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
+                <span class="c1"># A stubbed pin can&#39;t be used to add NetTerminal since there is no explicit wire.</span>
+                <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">stub</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+                <span class="n">part</span> <span class="o">=</span> <span class="n">pin</span><span class="o">.</span><span class="n">part</span>
+
+                <span class="k">if</span> <span class="n">part</span><span class="o">.</span><span class="n">hierarchy</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+                    <span class="c1"># Already added a terminal to this node, so don&#39;t add another.</span>
+                    <span class="k">continue</span>
+
+                <span class="c1"># Add NetTerminal to the node with this part/pin.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">find_node_with_part</span><span class="p">(</span><span class="n">part</span><span class="p">)</span><span class="o">.</span><span class="n">add_terminal</span><span class="p">(</span><span class="n">net</span><span class="p">)</span>
+
+                <span class="c1"># Record that this hierarchical node was visited.</span>
+                <span class="n">visited</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">hierarchy</span><span class="p">)</span>
+
+        <span class="c1"># Flatten the hierarchy as specified by the flatness parameter.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">flatness</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Node.add_part">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.node.html#skidl.schematics.node.Node.add_part">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_part</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">part</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a part to the node at the appropriate level of the hierarchy.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            part (Part): Part to be added to this node or one of its children.</span>
+<span class="sd">            level (int, optional): The current level (depth) of the node in the hierarchy. Defaults to 0.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="kn">from</span> <span class="nn">skidl.circuit</span> <span class="kn">import</span> <span class="n">HIER_SEP</span>
+
+        <span class="c1"># Get list of names of hierarchical levels (in order) leading to this part.</span>
+        <span class="n">level_names</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">hierarchy</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">HIER_SEP</span><span class="p">)</span>
+
+        <span class="c1"># Get depth in hierarchy for this part.</span>
+        <span class="n">part_level</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">level_names</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">assert</span> <span class="n">part_level</span> <span class="o">&gt;=</span> <span class="n">level</span>
+
+        <span class="c1"># Node name is the name assigned to this level of the hierarchy.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">level_names</span><span class="p">[</span><span class="n">level</span><span class="p">]</span>
+
+        <span class="c1"># File name for storing the schematic for this node.</span>
+        <span class="n">base_filename</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">top_name</span><span class="p">]</span> <span class="o">+</span> <span class="n">level_names</span><span class="p">[</span><span class="mi">0</span> <span class="p">:</span> <span class="n">level</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;.sch&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sheet_filename</span> <span class="o">=</span> <span class="n">base_filename</span>
+
+        <span class="k">if</span> <span class="n">part_level</span> <span class="o">==</span> <span class="n">level</span><span class="p">:</span>
+            <span class="c1"># Add part to node at this level in the hierarchy.</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">part</span><span class="o">.</span><span class="n">unit</span><span class="p">:</span>
+                <span class="c1"># Monolithic part so just add it to the node.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Multi-unit part so add each unit to the node.</span>
+                <span class="c1"># FIXME: Some part units might be split into other nodes.</span>
+                <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">part</span><span class="o">.</span><span class="n">unit</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Part is at a level below the current node. Get the child node using</span>
+            <span class="c1"># the name of the next level in the hierarchy for this part.</span>
+            <span class="n">child_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="n">level_names</span><span class="p">[</span><span class="n">level</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]]</span>
+
+            <span class="c1"># Attach the child node to this node. (It may have just been created.)</span>
+            <span class="n">child_node</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span>
+
+            <span class="c1"># Add part to the child node (or one of its children).</span>
+            <span class="n">child_node</span><span class="o">.</span><span class="n">add_part</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">level</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Node.add_terminal">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.node.html#skidl.schematics.node.Node.add_terminal">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_terminal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">net</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a terminal for this net to the node.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            net (Net): The net to be added to this node.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="kn">from</span> <span class="nn">skidl.circuit</span> <span class="kn">import</span> <span class="n">HIER_SEP</span>
+        <span class="kn">from</span> <span class="nn">.net_terminal</span> <span class="kn">import</span> <span class="n">NetTerminal</span>
+
+        <span class="n">nt</span> <span class="o">=</span> <span class="n">NetTerminal</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tool_module</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nt</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Node.external_bbox">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.node.html#skidl.schematics.node.Node.external_bbox">[docs]</a>
+    <span class="k">def</span> <span class="nf">external_bbox</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the bounding box of a hierarchical sheet as seen by its parent node.&quot;&quot;&quot;</span>
+        <span class="n">bbox</span> <span class="o">=</span> <span class="n">BBox</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">Point</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">500</span><span class="p">))</span>
+        <span class="n">bbox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="s2">&quot;File: &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">sheet_filename</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename_sz</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="n">bbox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="s2">&quot;Sheet: &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">name_sz</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+        <span class="c1"># Pad the bounding box for extra spacing when placed.</span>
+        <span class="n">bbox</span> <span class="o">=</span> <span class="n">bbox</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">bbox</span></div>
+
+
+<div class="viewcode-block" id="Node.internal_bbox">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.node.html#skidl.schematics.node.Node.internal_bbox">[docs]</a>
+    <span class="k">def</span> <span class="nf">internal_bbox</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the bounding box for the circuitry contained within this node.&quot;&quot;&quot;</span>
+
+        <span class="c1"># The bounding box is determined by the arrangement of the node&#39;s parts and child nodes.</span>
+        <span class="n">bbox</span> <span class="o">=</span> <span class="n">BBox</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">chain</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+            <span class="n">tx_bbox</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">bbox</span> <span class="o">*</span> <span class="n">obj</span><span class="o">.</span><span class="n">tx</span>
+            <span class="n">bbox</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">tx_bbox</span><span class="p">)</span>
+
+        <span class="c1"># Pad the bounding box for extra spacing when placed.</span>
+        <span class="n">bbox</span> <span class="o">=</span> <span class="n">bbox</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">bbox</span></div>
+
+
+<div class="viewcode-block" id="Node.calc_bbox">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.node.html#skidl.schematics.node.Node.calc_bbox">[docs]</a>
+    <span class="k">def</span> <span class="nf">calc_bbox</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the bounding box for the node in the circuit hierarchy.&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">flattened</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bbox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">internal_bbox</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Use hierarchical bounding box if node has not been flattened.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bbox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">external_bbox</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">bbox</span></div>
+
+
+<div class="viewcode-block" id="Node.flatten">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.node.html#skidl.schematics.node.Node.flatten">[docs]</a>
+    <span class="k">def</span> <span class="nf">flatten</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flatness</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Flatten node hierarchy according to flatness parameter.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            flatness (float, optional): Degree of hierarchical flattening (0=completely hierarchical, 1=totally flat). Defaults to 0.0.</span>
+
+<span class="sd">        Create hierarchical sheets for the node and its child nodes. Complexity (or size) of a node</span>
+<span class="sd">        and its children is the total number of part pins they contain. The sum of all the child sizes</span>
+<span class="sd">        multiplied by the flatness is the number of part pins that can be shown on the schematic</span>
+<span class="sd">        page before hierarchy is used. The instances of each type of child are flattened and placed</span>
+<span class="sd">        directly in the sheet as long as the sum of their sizes is below the slack. Otherwise, the</span>
+<span class="sd">        children are included using hierarchical sheets. The children are handled in order of</span>
+<span class="sd">        increasing size so small children are more likely to be flattened while large, complicated</span>
+<span class="sd">        children are included using hierarchical sheets.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Create sheets and compute complexity for any circuitry in hierarchical child nodes.</span>
+        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">child</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">flatness</span><span class="p">)</span>
+
+        <span class="c1"># Complexity of the parts directly instantiated at this hierarchical level.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">complexity</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">part</span><span class="p">)</span> <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parts</span><span class="p">))</span>
+
+        <span class="c1"># Sum the child complexities and use it to compute the number of pins that can be</span>
+        <span class="c1"># shown before hierarchical sheets are used.</span>
+        <span class="n">child_complexity</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">((</span><span class="n">child</span><span class="o">.</span><span class="n">complexity</span> <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+        <span class="n">slack</span> <span class="o">=</span> <span class="n">child_complexity</span> <span class="o">*</span> <span class="n">flatness</span>
+
+        <span class="c1"># Group the children according to what types of modules they are by removing trailing instance ids.</span>
+        <span class="n">child_types</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">child_id</span><span class="p">,</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">child_types</span><span class="p">[</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\d+$&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">child_id</span><span class="p">)]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+
+        <span class="c1"># Compute the total size of each type of children.</span>
+        <span class="n">child_type_sizes</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">child_type</span><span class="p">,</span> <span class="n">children</span> <span class="ow">in</span> <span class="n">child_types</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">child_type_sizes</span><span class="p">[</span><span class="n">child_type</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">((</span><span class="n">child</span><span class="o">.</span><span class="n">complexity</span> <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">children</span><span class="p">))</span>
+
+        <span class="c1"># Sort the groups from smallest total size to largest.</span>
+        <span class="n">sorted_child_type_sizes</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
+            <span class="n">child_type_sizes</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Flatten each instance in a group until the slack is used up.</span>
+        <span class="k">for</span> <span class="n">child_type</span><span class="p">,</span> <span class="n">child_type_size</span> <span class="ow">in</span> <span class="n">sorted_child_type_sizes</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">child_type_size</span> <span class="o">&lt;=</span> <span class="n">slack</span><span class="p">:</span>
+                <span class="c1"># Include the circuitry of each child instance directly in the sheet.</span>
+                <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">child_types</span><span class="p">[</span><span class="n">child_type</span><span class="p">]:</span>
+                    <span class="n">child</span><span class="o">.</span><span class="n">flattened</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="c1"># Reduce the slack by the sum of the child sizes.</span>
+                <span class="n">slack</span> <span class="o">-=</span> <span class="n">child_type_size</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Not enough slack left. Add these children as hierarchical sheets.</span>
+                <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">child_types</span><span class="p">[</span><span class="n">child_type</span><span class="p">]:</span>
+                    <span class="n">child</span><span class="o">.</span><span class="n">flattened</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="Node.get_internal_nets">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.node.html#skidl.schematics.node.Node.get_internal_nets">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_internal_nets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of nets that have at least one pin on a part in this node.&quot;&quot;&quot;</span>
+
+        <span class="n">processed_nets</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">internal_nets</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">part_pin</span> <span class="ow">in</span> <span class="n">part</span><span class="p">:</span>
+                <span class="c1"># No explicit wire for pins connected to labeled stub nets.</span>
+                <span class="k">if</span> <span class="n">part_pin</span><span class="o">.</span><span class="n">stub</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+                <span class="c1"># No explicit wires if the pin is not connected to anything.</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">part_pin</span><span class="o">.</span><span class="n">is_connected</span><span class="p">():</span>
+                    <span class="k">continue</span>
+
+                <span class="n">net</span> <span class="o">=</span> <span class="n">part_pin</span><span class="o">.</span><span class="n">net</span>
+
+                <span class="c1"># Skip nets that have already been processed.</span>
+                <span class="k">if</span> <span class="n">net</span> <span class="ow">in</span> <span class="n">processed_nets</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+                <span class="n">processed_nets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">net</span><span class="p">)</span>
+
+                <span class="c1"># Skip stubbed nets.</span>
+                <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="s2">&quot;stub&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+                <span class="c1"># Add net to collection if at least one pin is on one of the parts of the node.</span>
+                <span class="k">for</span> <span class="n">net_pin</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">net_pin</span><span class="o">.</span><span class="n">part</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
+                        <span class="n">internal_nets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">net</span><span class="p">)</span>
+                        <span class="k">break</span>
+
+        <span class="k">return</span> <span class="n">internal_nets</span></div>
+
+
+<div class="viewcode-block" id="Node.get_internal_pins">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.node.html#skidl.schematics.node.Node.get_internal_pins">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_internal_pins</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">net</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the pins on the net that are on parts in the node.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            net (Net): The net whose pins are being examined.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list: List of pins on the net that are on parts in this node.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Skip pins on stubbed nets.</span>
+        <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="s2">&quot;stub&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+
+        <span class="k">return</span> <span class="p">[</span><span class="n">pin</span> <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">pins</span> <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">stub</span> <span class="ow">is</span> <span class="kc">False</span> <span class="ow">and</span> <span class="n">pin</span><span class="o">.</span><span class="n">part</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parts</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="Node.collect_stats">
+<a class="viewcode-back" href="../../../rst_output/skidl.schematics.node.html#skidl.schematics.node.Node.collect_stats">[docs]</a>
+    <span class="k">def</span> <span class="nf">collect_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return comma-separated string with place &amp; route statistics of a schematic.&quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">get_wire_length</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;Return the sum of the wire segment lengths between parts in a routed node.&quot;&quot;&quot;</span>
+
+            <span class="n">wire_length</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="c1"># Sum wire lengths for child nodes.</span>
+            <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="n">wire_length</span> <span class="o">+=</span> <span class="n">get_wire_length</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+
+            <span class="c1"># Add the wire lengths between parts in the top node.</span>
+            <span class="k">for</span> <span class="n">wire_segs</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">wires</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="k">for</span> <span class="n">seg</span> <span class="ow">in</span> <span class="n">wire_segs</span><span class="p">:</span>
+                    <span class="n">len_x</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">seg</span><span class="o">.</span><span class="n">p1</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">seg</span><span class="o">.</span><span class="n">p2</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+                    <span class="n">len_y</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">seg</span><span class="o">.</span><span class="n">p1</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">seg</span><span class="o">.</span><span class="n">p2</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+                    <span class="n">wire_length</span> <span class="o">+=</span> <span class="n">len_x</span> <span class="o">+</span> <span class="n">len_y</span>
+
+            <span class="k">return</span> <span class="n">wire_length</span>
+
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">get_wire_length</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div>
+</div>
+
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">skidl.schematics.node</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2016-2024, Dave Vandenbout.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    </div>
+  </body>
+</html>

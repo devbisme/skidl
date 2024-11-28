@@ -6,21 +6,7 @@
 KiCad 5 drawing objects.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 from collections import namedtuple
-
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
-
 
 
 DrawDef = namedtuple(
@@ -53,4 +39,3 @@ DrawPin = namedtuple(
     "DrawPin",
     "name num x y length orientation num_size name_size unit dmg electrical_type shape",
 )
-

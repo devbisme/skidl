@@ -17,19 +17,8 @@ outputs a netlist that can be imported into a PCB layout tool or Spice simulator
 The script can also check the resulting circuitry for electrical rule violations.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
 
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
-
+from .pckg_info import __version__
 from .alias import Alias
 from .bus import Bus
 from .circuit import HIER_SEP, Circuit
@@ -40,7 +29,6 @@ from .net import Net
 from .netclass import NetClass
 from .netlist_to_skidl import netlist_to_skidl
 from .network import Network, tee
-from .package import Package, package
 from .part import LIBRARY, NETLIST, TEMPLATE, Part, PartTmplt, SkidlPart
 from .part_query import (
     search,
@@ -73,7 +61,7 @@ from .skidl import (
     reset,
     get_default_tool,
     set_default_tool,
+    KICAD, # References the latest version of KiCad.
 )
 from .utilities import Rgx
-from . import scripts # Necessary to get access to netlist_to_skidl_main.
-
+from . import scripts  # Necessary to get access to netlist_to_skidl_main.

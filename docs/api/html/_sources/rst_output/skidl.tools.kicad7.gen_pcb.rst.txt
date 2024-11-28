@@ -1,0 +1,7 @@
+skidl.tools.kicad7.gen\_pcb module
+==================================
+
+.. automodule:: skidl.tools.kicad7.gen_pcb
+   :members:
+   :undoc-members:
+   :show-inheritance:

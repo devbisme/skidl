@@ -9,7 +9,6 @@ import sexpdata
 
 import skidl
 from skidl import (
-    KICAD,
     KICAD5,
     KICAD6,
     KICAD7,
@@ -26,6 +25,7 @@ from skidl import (
     set_default_tool,
 )
 from skidl.logger import active_logger
+from skidl.pin import pin_types
 from skidl.tools import ALL_TOOLS, lib_suffixes
 from skidl.utilities import to_list, find_and_read_file
 
@@ -33,6 +33,7 @@ from .setup_teardown import setup_function, teardown_function
 
 
 def test_missing_lib():
+    """Test loading a part from a non-existent library."""
     # Sometimes, loading a part from a non-existent library doesn't throw an
     # exception until the second time it's tried. This detects that error.
 
@@ -46,95 +47,161 @@ def test_missing_lib():
 
 
 def test_lib_import_1():
+    """Test importing a library."""
+    # Reset the library.
     SchLib.reset()
+    # Import the library.
     lib = SchLib("Device")
+    # Assert that the library has parts.
     assert len(lib) > 0
 
 
 def test_lib_export_1():
+    """Test exporting a library."""
+    # Reset the library.
     SchLib.reset()
+    # Import the library.
     lib = SchLib("Device")
-    lib.export("my_device", tool=SKIDL)
-    my_lib = SchLib("my_device", tool=SKIDL)
+    # Export the library.
+    lib.export("./my_device", tool=SKIDL, addtl_part_attrs=["value", "search_text"])
+    # Import the exported library.
+    my_lib = SchLib("./my_device", tool=SKIDL)
+    # Assert that the original and exported libraries have the same number of parts.
     assert len(lib) == len(my_lib)
+    # Assert that there are no errors in the logger.
     assert active_logger.error.count == 0
+    # Instantiate a part from the exported library.
+    my_res = Part(my_lib, "R")
+    # Assert that the part has the specified attributes.
+    assert hasattr(my_res, "value")
+    assert hasattr(my_res, "search_text")
+    assert hasattr(my_res, "name")
 
 
 def test_lib_creation_1():
+    """Test creating a library."""
+    # Reset the library.
     SchLib.reset()
+    # Create a new library.
     lib = SchLib()
+    # Create a new part.
     prt1 = SkidlPart(name="Q", dest=TEMPLATE)
+    # Add the part to the library.
     lib += prt1
-    lib += prt1  # Duplicate library entries are not added.
+    # Add the part again (duplicate entries are not added).
+    lib += prt1
+    # Assert that the library has only one part.
     assert len(lib.parts) == 1
-    assert not lib.get_parts(name="QQ")  # Part not in library.
+    # Assert that a non-existent part is not in the library.
+    assert not lib.get_parts(name="QQ")
+    # Create another part.
     prt2 = SkidlPart(name="QQ", dest=TEMPLATE)
+    # Add pins to the part.
     prt2.add_pins(
-        Pin(num=1, name="Q1", func=Pin.types.TRISTATE),
-        Pin(num=2, name="Q2", func=Pin.types.PWRIN),
+        Pin(num=1, name="Q1", func=pin_types.TRISTATE),
+        Pin(num=2, name="Q2", func=pin_types.PWRIN),
     )
+    # Add the part to the library.
     lib += prt2
-    prt2.add_pins(Pin(num=3, name="Q1", func=Pin.types.PWROUT))
+    # Add another pin to the part.
+    prt2.add_pins(Pin(num=3, name="Q1", func=pin_types.PWROUT))
+    # Assert that the library has two parts.
     assert len(lib.parts) == 2
+    # Assert that the first part has no pins.
     assert lib["Q"].name == "Q"
     assert len(lib["Q"].pins) == 0
+    # Assert that the second part has two pins.
     assert lib["QQ"].name == "QQ"
     assert len(lib["QQ"].pins) == 2
 
 
 def test_backup_1():
+    """Test creating a backup parts library."""
+    # Reset the library.
     SchLib.reset()
+    # Create parts.
     a = Part("Device", "R", footprint="null")
     b = Part("Device", "C", footprint="null")
     c = Part("Device", "L", footprint="null")
-    a & b & c  # Connect device to keep them from being culled.
-    generate_netlist(do_backup=True)  # This creates the backup parts library.
+    # Connect parts to keep them from being culled.
+    a & b & c
+    # Generate netlist and create backup parts library.
+    generate_netlist(do_backup=True)
+    # Reset the circuit.
     default_circuit.reset()
-    skidl.config.query_backup_lib = True  # FIXME: this is already True by default!
-    # Non-existent library so these parts should come from the backup library.
+    # Enable querying the backup library.
+    skidl.config.query_backup_lib = True
+    # Instantiate parts from the non-existent library (should come from backup library).
     a = Part("crap", "R", footprint="null")
     b = Part("crap", "C", footprint="null")
+    # Generate netlist.
     generate_netlist()
 
 
 def test_backup_2():
+    """Test backup parts library with netlist generation."""
+    # Reset the library.
     SchLib.reset()
+    # Create parts.
     a = Part("Device", "R", footprint="null")
     b = Part("Device", "C", footprint="null")
     c = Part("Device", "L", footprint="null")
-    a & b & c  # Place parts in series.
+    # Place parts in series.
+    a & b & c
+    # Get the number of pins per net before generating netlist.
     num_pins_per_net_1 = {net.name: len(net) for net in default_circuit.nets}
-    generate_netlist(do_backup=True)  # This creates the backup parts library.
+    # Generate netlist and create backup parts library.
+    generate_netlist(do_backup=True)
+    # Get the number of pins per net after generating netlist.
     num_pins_per_net_2 = {net.name: len(net) for net in default_circuit.nets}
+    # Assert that the number of pins per net is the same before and after generating netlist.
     for nm in num_pins_per_net_1:
         assert num_pins_per_net_1[nm] == num_pins_per_net_2[nm]
 
-# @pytest.mark.skip(reason="Part export doesn't support units.")
+
 def test_backup_3():
+    """Test backup parts library with unit connections."""
+    # Reset the library.
     SchLib.reset()
+    # Create a part with units.
     rn1 = Part("Device", "R_Pack08_Split", footprint="null")
+    # Connect units of the part.
     rn1.uA[1] & rn1.uC[3]
-    generate_netlist(do_backup=True)  # This creates the backup parts library.
+    # Generate netlist and create backup parts library.
+    generate_netlist(do_backup=True)
+    # Reset the circuit.
     default_circuit.reset()
-    skidl.config.query_backup_lib = True  # FIXME: this is already True by default!
-    # Non-existent library so these parts should come from the backup library.
+    # Enable querying the backup library.
+    skidl.config.query_backup_lib = True
+    # Instantiate part from the non-existent library (should come from backup library).
     rn2 = Part("crap", "R_Pack08_Split", footprint="null")
-    # Connect parts using them as units.
+    # Connect units of the part.
     rn2.uA[1] & rn2.uC[3]
+    # Generate netlist.
     generate_netlist()
 
 
-
 def test_lib_1():
+    """Test library import and export."""
+    # Reset the library.
     SchLib.reset()
+    # Import the KiCad library.
     lib_kicad = SchLib("Device")
+    # Export the library.
     lib_kicad.export("Device")
+    # Reset the library.
     SchLib.reset()
-    lib_skidl = SchLib("Device", tool=SKIDL)
+    # Import the exported library.
+    lib_skidl = SchLib("./Device", tool=SKIDL)
+    # Assert that the original and exported libraries have the same number of parts.
     assert len(lib_kicad) == len(lib_skidl)
+    # Reset the library.
     SchLib.reset()
+    # Set the default tool to SKIDL.
     set_default_tool(SKIDL)
+    # Disable querying the backup library.
     skidl.config.query_backup_lib = False
+    # Instantiate parts from the library.
     a = Part("Device", "R")
     assert a.tool == SKIDL
     assert len(a.pins) == 2
@@ -147,48 +214,71 @@ def test_lib_1():
 
 
 def test_non_existing_lib_cannot_be_loaded():
+    """Test loading a non-existing library."""
+    # Reset the library.
     SchLib.reset()
+    # Try to load a non-existing library for each tool.
     for tool in ALL_TOOLS:
         with pytest.raises(FileNotFoundError):
             lib = SchLib("non-existing", tool=tool)
 
 
 def test_part_from_non_existing_lib_cannot_be_instantiated():
+    """Test instantiating a part from a non-existing library."""
+    # Reset the library.
     SchLib.reset()
+    # Try to instantiate a part from a non-existing library for each tool.
     for tool in ALL_TOOLS:
         with pytest.raises((FileNotFoundError, ValueError)):
             part = Part("non-existing", "P", tool=tool)
 
 
 def check_lib_part(part):
-    part.parse()  # Parse lib part to fully instantiate pins, etc.
+    """Check the integrity of a library part."""
+    # Parse lib part to fully instantiate pins, etc.
+    part.parse()
+    # Get the list of pins.
     pins = to_list(part.get_pins())
+    # Raise an exception if the part has no pins.
     if not pins:
         raise Exception("Part {} has no pins!".format(part.name))
+    # Get the list of pins for each unit.
     unit_pins = []
     for unit in part.unit.values():
         unit_pins.extend(unit.get_pins())
-    unit_pins = list(set(unit_pins))  # Remove dups of pins shared between units.
+    # Remove duplicates of pins shared between units.
+    unit_pins = list(set(unit_pins))
+    # Raise an exception if the number of pins in the units doesn't match the total number of pins.
     if part.unit and len(unit_pins) != len(pins):
         raise Exception(
             "Part {} with {} pins in {} units doesn't match {} total part pins!".format(
                 part.name, len(unit_pins), len(part.unit), len(pins)
             )
         )
+    # Raise an exception if the part has no pins.
     if len(part.pins) == 0:
         raise Exception("Part {part.name} has no pins: {part.pins}".format(**locals()))
 
 
 def test_lib_kicad_1():
+    """Test KiCad library import and part checking."""
+    # Reset the library.
     SchLib.reset()
+    # Set the library name.
     lib_name = "Device"
+    # Import the library.
     lib = SchLib(lib_name)
+    # Get the list of part names.
     part_names = [part.name for part in lib.parts]
+    # Get the default tool.
     tool = get_default_tool()
+    # Read the library file.
     lines = find_and_read_file(
         lib_name, ext=lib_suffixes[tool], paths=lib_search_paths[tool]
     )[0].split("\n")
+    # Count the number of parts in the library file.
     part_cnt = len([l for l in lines if l.startswith("ENDDEF")])
+    # If no parts are found, parse the library file as an S-expression.
     if not part_cnt:
         nested_list = sexpdata.loads("\n".join(lines))
         parts = {
@@ -197,22 +287,34 @@ def test_lib_kicad_1():
             if item[0].value().lower() == "symbol"
         }
         part_cnt = len(parts.keys())
+    # Assert that the number of parts in the library file matches the number of parts in the library.
     assert part_cnt == len(part_names)
+    # Assert that the number of parts is within the expected range.
     assert part_cnt in (559, 571, 596, 600)
+    # Check the integrity of each part in the library.
     for part in lib.parts:
         check_lib_part(part)
 
 
 def test_lib_kicad_2():
+    """Test another KiCad library import and part checking."""
+    # Reset the library.
     SchLib.reset()
+    # Set the library name.
     lib_name = "4xxx"
+    # Import the library.
     lib = SchLib(lib_name)
+    # Get the list of part names.
     part_names = [part.name for part in lib.parts]
+    # Get the default tool.
     tool = get_default_tool()
+    # Read the library file.
     lines = find_and_read_file(
         lib_name, ext=lib_suffixes[tool], paths=lib_search_paths[tool]
     )[0].split("\n")
+    # Count the number of parts in the library file.
     part_cnt = len([l for l in lines if l.startswith("ENDDEF")])
+    # If no parts are found, parse the library file as an S-expression.
     if not part_cnt:
         nested_list = sexpdata.loads("\n".join(lines))
         parts = {
@@ -221,23 +323,32 @@ def test_lib_kicad_2():
             if item[0].value().lower() == "symbol"
         }
         part_cnt = len(parts.keys())
+    # Assert that the number of parts in the library file matches the number of parts in the library.
     assert part_cnt == len(part_names)
+    # Assert that the number of parts is within the expected range.
     assert part_cnt in (44, 48, 49, 51)
+    # Check the integrity of each part in the library.
     for part in lib.parts:
         check_lib_part(part)
 
 
 def test_lib_kicad_top_level_pins():
+    """Test KiCad library with top-level pins."""
+    # Reset the library.
     SchLib.reset()
+    # Set the library name.
     lib_name = "ecad_example"
     try:
+        # Try to import the library.
         lib = SchLib(lib_name)
     except FileNotFoundError:
         # No test library exists for this tool.
         return
-    # lib = SchLib(lib_name, tool=tool)
+    # Get the default tool.
     tool = get_default_tool()
+    # Get the list of part names.
     part_names = [part.name for part in lib.parts]
+    # Open the .kicad_sym file and get the S-expression for each part.
     sexp, _ = find_and_read_file(
         lib_name, ext=lib_suffixes[tool], paths=lib_search_paths[tool]
     )
@@ -247,7 +358,9 @@ def test_lib_kicad_top_level_pins():
         for item in nested_list[1:]
         if item[0].value().lower() == "symbol"
     }
+    # Assert that the number of parts in the library file matches the number of parts in the library.
     assert len(parts.keys()) == len(part_names)
+    # Check the integrity of each part in the library.
     for name in parts.keys():
         part = lib[name]
     for part in lib.parts:
@@ -255,18 +368,26 @@ def test_lib_kicad_top_level_pins():
 
 
 def test_lib_kicad_repository():
+    """Test KiCad library repository."""
+    # Reset the library.
     SchLib.reset()
+    # Get the default tool.
     tool = get_default_tool()
+    # Set the repository URLs for each tool.
     repo_urls = {
-        KICAD: "https://raw.githubusercontent.com/KiCad/kicad-symbols/master/",
         KICAD5: "https://raw.githubusercontent.com/KiCad/kicad-symbols/master/",
         KICAD6: "https://gitlab.com/kicad/libraries/kicad-symbols/-/raw/master",
         KICAD7: "https://gitlab.com/kicad/libraries/kicad-symbols/-/raw/master",
         KICAD8: "https://gitlab.com/kicad/libraries/kicad-symbols/-/raw/master",
     }
+    # Set the library name.
     lib_name = "4xxx"
+    # Set the search paths to the repository URL.
     lib_search_paths[tool] = [repo_urls[tool]]
+    # Import the library from the repository.
     lib_4xxx = SchLib(lib_name)
+    # Assert that the library has parts.
     assert len(lib_4xxx.parts) > 0
+    # Check the integrity of each part in the library.
     for part in lib_4xxx.parts:
         check_lib_part(part)

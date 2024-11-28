@@ -7,11 +7,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>skidl.utilities module &#8212; SKiDL 1.2.3 documentation</title>
+    <title>skidl.utilities module &#8212; SKiDL 2.0.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../_static/documentation_options.js?v=590429e0"></script>
+    <script src="../_static/documentation_options.js?v=51b770b3"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/bizstyle.js"></script>
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.utilities module</a></li> 
       </ul>
     </div>  
@@ -76,6 +76,12 @@
 <dt class="sig sig-object py" id="skidl.utilities.cnvt_to_var_name">
 <span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">cnvt_to_var_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#cnvt_to_var_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.cnvt_to_var_name" title="Link to this definition">¶</a></dt>
 <dd><p>Convert a string to a legal Python variable name and return it.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.utilities.consistent_hash">
+<span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">consistent_hash</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#consistent_hash"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.consistent_hash" title="Link to this definition">¶</a></dt>
+<dd><p>Return a hash value for a text string.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -181,7 +187,7 @@ object.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>filename</strong> – Base file name (e.g., “my_file”).</p></li>
 <li><p><strong>paths</strong> – List of paths to search for the file.</p></li>
-<li><p><strong>ext</strong> – The extension for the file (e.g., “.txt”).</p></li>
+<li><p><strong>ext</strong> – The extension for the file (e.g., “.txt”) or a list of extensions.</p></li>
 <li><p><strong>allow_failure</strong> – If false, failure to find file raises and exception.</p></li>
 <li><p><strong>exclude_binary</strong> – If true, skip files that contain binary data.</p></li>
 <li><p><strong>descend</strong> – If 0, don’t search lower-level directories. If positive, search
@@ -204,7 +210,7 @@ subdirectories withcurrent_level limit.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>filename</strong> – Base file name (e.g., “my_file”).</p></li>
 <li><p><strong>paths</strong> – List of paths to search for the file.</p></li>
-<li><p><strong>ext</strong> – The extension for the file (e.g., “.txt”).</p></li>
+<li><p><strong>ext</strong> – The extension for the file (e.g., “.txt”) or a list of extensions.</p></li>
 <li><p><strong>allow_failure</strong> – If false, failure to find file raises and exception.</p></li>
 <li><p><strong>exclude_binary</strong> – If true, skip files that contain binary data.</p></li>
 <li><p><strong>descend</strong> – If 0, don’t search lower-level directories. If positive, search
@@ -261,6 +267,28 @@ length of the list/tuple.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="skidl.utilities.get_abs_filename">
+<span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">get_abs_filename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paths</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ext</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_failure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">descend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#get_abs_filename"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.get_abs_filename" title="Link to this definition">¶</a></dt>
+<dd><p>Search for a file in list of paths, and return its absolute file name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> – Base file name (e.g., “my_file”).</p></li>
+<li><p><strong>paths</strong> – List of paths to search for the file.</p></li>
+<li><p><strong>ext</strong> – The extension for the file (e.g., “.txt”).</p></li>
+<li><p><strong>allow_failure</strong> – If false, failure to find file raises and exception.</p></li>
+<li><p><strong>descend</strong> – If 0, don’t search lower-level directories. If positive, search
+that many levels down for the file. If negative, descend into
+subdirectories withcurrent_level limit.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>File name if file exists, otherwise None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="skidl.utilities.get_unique_name">
 <span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">get_unique_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lst</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrib</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#get_unique_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.get_unique_name" title="Link to this definition">¶</a></dt>
 <dd><p>Return a name that doesn’t collide with another in a list.</p>
@@ -286,6 +314,11 @@ or unique net names (e.g., “N$5”).</p>
 <span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">is_binary_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#is_binary_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.is_binary_file" title="Link to this definition">¶</a></dt>
 <dd><p>Return true if a file contains binary (non-text) characters.</p>
 </dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="skidl.utilities.is_url">
+<span class="sig-prename descclassname"><span class="pre">skidl.utilities.</span></span><span class="sig-name descname"><span class="pre">is_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/utilities.html#is_url"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.utilities.is_url" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="skidl.utilities.list_or_scalar">
@@ -422,6 +455,7 @@ object, or a filename to open.</p></li>
 <li><a class="reference internal" href="#skidl.utilities.add_quotes"><code class="docutils literal notranslate"><span class="pre">add_quotes()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.utilities.add_unique_attr"><code class="docutils literal notranslate"><span class="pre">add_unique_attr()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.utilities.cnvt_to_var_name"><code class="docutils literal notranslate"><span class="pre">cnvt_to_var_name()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.utilities.consistent_hash"><code class="docutils literal notranslate"><span class="pre">consistent_hash()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.utilities.debug_trace"><code class="docutils literal notranslate"><span class="pre">debug_trace()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.utilities.detect_os"><code class="docutils literal notranslate"><span class="pre">detect_os()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.utilities.expand_buses"><code class="docutils literal notranslate"><span class="pre">expand_buses()</span></code></a></li>
@@ -434,8 +468,10 @@ object, or a filename to open.</p></li>
 <li><a class="reference internal" href="#skidl.utilities.flatten"><code class="docutils literal notranslate"><span class="pre">flatten()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.utilities.from_iadd"><code class="docutils literal notranslate"><span class="pre">from_iadd()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.utilities.fullmatch"><code class="docutils literal notranslate"><span class="pre">fullmatch()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.utilities.get_abs_filename"><code class="docutils literal notranslate"><span class="pre">get_abs_filename()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.utilities.get_unique_name"><code class="docutils literal notranslate"><span class="pre">get_unique_name()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.utilities.is_binary_file"><code class="docutils literal notranslate"><span class="pre">is_binary_file()</span></code></a></li>
+<li><a class="reference internal" href="#skidl.utilities.is_url"><code class="docutils literal notranslate"><span class="pre">is_url()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.utilities.list_or_scalar"><code class="docutils literal notranslate"><span class="pre">list_or_scalar()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.utilities.merge_dicts"><code class="docutils literal notranslate"><span class="pre">merge_dicts()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.utilities.norecurse"><code class="docutils literal notranslate"><span class="pre">norecurse()</span></code></a></li>
@@ -484,7 +520,7 @@ object, or a filename to open.</p></li>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.utilities module</a></li> 
       </ul>
     </div>

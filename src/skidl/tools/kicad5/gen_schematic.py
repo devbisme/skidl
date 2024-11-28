@@ -3,28 +3,14 @@
 # The MIT License (MIT) - Copyright (c) Dave Vandenbout.
 
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import datetime
 import os.path
 import re
 import time
-from builtins import range, str
 from collections import Counter, OrderedDict
 
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
-
 from skidl.scriptinfo import get_script_name
-from skidl.schematics.geometry import BBox, Point, Tx, Vector
+from skidl.geometry import BBox, Point, Tx, Vector
 from skidl.schematics.net_terminal import NetTerminal
 from skidl.utilities import export_to_all
 from .constants import BLK_INT_PAD, BOX_LABEL_FONT_SIZE, GRID, PIN_LABEL_FONT_SIZE
@@ -131,7 +117,7 @@ def part_to_eeschema(part, tx):
             str(origin.x + part.draw[n_F0].x),
             str(origin.y + part.draw[n_F0].y),
             part.draw[n_F0].size,
-            "000", # TODO: Refine this to match part def.
+            "000",  # TODO: Refine this to match part def.
             part.draw[n_F0].halign,
             part.draw[n_F0].valign,
         )
@@ -150,7 +136,7 @@ def part_to_eeschema(part, tx):
             str(origin.x + part.draw[n_F1].x),
             str(origin.y + part.draw[n_F1].y),
             part.draw[n_F1].size,
-            "000", # TODO: Refine this to match part def.
+            "000",  # TODO: Refine this to match part def.
             part.draw[n_F1].halign,
             part.draw[n_F1].valign,
         )
@@ -169,7 +155,7 @@ def part_to_eeschema(part, tx):
             str(origin.x + part.draw[n_F2].x),
             str(origin.y + part.draw[n_F2].y),
             part.draw[n_F2].size,
-            "001", # TODO: Refine this to match part def.
+            "001",  # TODO: Refine this to match part def.
             part.draw[n_F2].halign,
             part.draw[n_F2].valign,
         )
@@ -713,7 +699,7 @@ def gen_schematic(
         options (dict, optional): Dict of options and values, usually for drawing/debugging.
     """
 
-    from skidl import KICAD
+    from skidl import KICAD5
     from skidl.schematics.place import PlacementFailure
     from skidl.schematics.route import RoutingFailure
     from skidl.tools import tool_modules
@@ -732,7 +718,7 @@ def gen_schematic(
     for _ in range(retries):
         preprocess_circuit(circuit, **options)
 
-        node = Node(circuit, tool_modules[KICAD], filepath, top_name, title, flatness)
+        node = Node(circuit, tool_modules[KICAD5], filepath, top_name, title, flatness)
 
         try:
             # Place parts.

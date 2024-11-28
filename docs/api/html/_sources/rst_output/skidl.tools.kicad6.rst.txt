@@ -1,0 +1,22 @@
+skidl.tools.kicad6 package
+==========================
+
+.. automodule:: skidl.tools.kicad6
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   skidl.tools.kicad6.bboxes
+   skidl.tools.kicad6.constants
+   skidl.tools.kicad6.gen_netlist
+   skidl.tools.kicad6.gen_pcb
+   skidl.tools.kicad6.gen_schematic
+   skidl.tools.kicad6.gen_svg
+   skidl.tools.kicad6.gen_xml
+   skidl.tools.kicad6.lib

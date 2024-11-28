@@ -7,11 +7,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>skidl.schlib module &#8212; SKiDL 1.2.3 documentation</title>
+    <title>skidl.schlib module &#8212; SKiDL 2.0.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../_static/documentation_options.js?v=590429e0"></script>
+    <script src="../_static/documentation_options.js?v=51b770b3"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/bizstyle.js"></script>
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.schlib module</a></li> 
       </ul>
     </div>  
@@ -48,7 +48,7 @@
 <p>Handles schematic libraries for various ECAD tools.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="skidl.schlib.SchLib">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.schlib.</span></span><span class="sig-name descname"><span class="pre">SchLib</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib_section</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schlib.html#SchLib"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schlib.SchLib" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skidl.schlib.</span></span><span class="sig-name descname"><span class="pre">SchLib</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib_section</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_pickle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attribs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schlib.html#SchLib"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schlib.SchLib" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.11/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>A class for storing parts from a schematic component library file.</p>
 <dl class="py attribute">
@@ -69,6 +69,8 @@
 <li><p><strong>filename</strong> – The name of the library file.</p></li>
 <li><p><strong>tool</strong> – The format of the library file (e.g., KICAD).</p></li>
 <li><p><strong>lib_section</strong> – The section of the library to access (for SPICE, only).</p></li>
+<li><p><strong>use_cache</strong> – If true, use a cache of libraries to speed up loading.</p></li>
+<li><p><strong>use_pickle</strong> – If true, pickle the library for faster loading next time.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
@@ -83,7 +85,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="skidl.schlib.SchLib.export">
-<span class="sig-name descname"><span class="pre">export</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">libname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schlib.html#SchLib.export"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schlib.SchLib.export" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">export</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">libname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addtl_part_attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/schlib.html#SchLib.export"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.schlib.SchLib.export" title="Link to this definition">¶</a></dt>
 <dd><p>Export a library into a file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -95,6 +97,7 @@ will be the same as the library name with the library
 suffix appended.</p></li>
 <li><p><strong>tool</strong> – The CAD tool library format to be used. Currently, this can
 only be SKIDL.</p></li>
+<li><p><strong>addtl_part_attrs</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – List of additional part attribute names to include in export.</p></li>
 </ul>
 </dd>
 </dl>
@@ -211,7 +214,7 @@ a warning if there were more than one.</p></li>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.schlib module</a></li> 
       </ul>
     </div>

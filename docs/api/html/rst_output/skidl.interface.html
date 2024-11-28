@@ -7,11 +7,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>skidl.interface module &#8212; SKiDL 1.2.3 documentation</title>
+    <title>skidl.interface module &#8212; SKiDL 2.0.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../_static/documentation_options.js?v=590429e0"></script>
+    <script src="../_static/documentation_options.js?v=51b770b3"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/bizstyle.js"></script>
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.interface module</a></li> 
       </ul>
     </div>  
@@ -54,6 +54,22 @@
 net/bus becoming an attribute.  An Interface is also usable as a dict
 where the attribute names serve as keys. This means the ** operator works
 on an Interface.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="skidl.interface.Interface.connect">
+<span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other_intfc</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skidl/interface.html#Interface.connect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skidl.interface.Interface.connect" title="Link to this definition">¶</a></dt>
+<dd><p>Connects the nets/buses of this interface to the nets/buses of another interface.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other_intfc</strong> – The interface to connect to this one.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated interface with the new connections.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Connections between interfaces can also be made using the += operator.</p>
+</dd></dl>
+
 <dl class="py attribute">
 <dt class="sig sig-object py" id="skidl.interface.Interface.erc_list">
 <span class="sig-name descname"><span class="pre">erc_list</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#skidl.interface.Interface.erc_list" title="Link to this definition">¶</a></dt>
@@ -75,6 +91,7 @@ on an Interface.</p>
     <ul>
 <li><a class="reference internal" href="#">skidl.interface module</a><ul>
 <li><a class="reference internal" href="#skidl.interface.Interface"><code class="docutils literal notranslate"><span class="pre">Interface</span></code></a><ul>
+<li><a class="reference internal" href="#skidl.interface.Interface.connect"><code class="docutils literal notranslate"><span class="pre">Interface.connect()</span></code></a></li>
 <li><a class="reference internal" href="#skidl.interface.Interface.erc_list"><code class="docutils literal notranslate"><span class="pre">Interface.erc_list</span></code></a></li>
 </ul>
 </li>
@@ -113,7 +130,7 @@ on an Interface.</p>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 1.2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.interface module</a></li> 
       </ul>
     </div>

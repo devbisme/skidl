@@ -6,26 +6,12 @@
 Generate KiCad 5 netlist.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import os.path
 import time
-
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
 
 from skidl.pckg_info import __version__
 from skidl.scriptinfo import scriptinfo
 from skidl.utilities import add_quotes, export_to_all
-
 
 
 def gen_netlist_comp(part):
@@ -57,9 +43,9 @@ def gen_netlist_comp(part):
 
     fields = ""
     for fld_name, fld_value in part.fields.items():
+        fld_name = add_quotes(fld_name)
         fld_value = add_quotes(fld_value)
         if fld_value:
-            fld_name = add_quotes(fld_name)
             fields += "\n        (field (name {fld_name}) {fld_value})".format(
                 **locals()
             )
@@ -109,7 +95,6 @@ def gen_netlist(circuit):
     Returns:
         str: String containing netlist text.
     """
-    from skidl import KICAD
 
     scr_dict = scriptinfo()
     src_file = os.path.join(scr_dict["dir"], scr_dict["source"])

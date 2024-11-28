@@ -6,11 +6,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>skidl.pin &#8212; SKiDL 1.2.3 documentation</title>
+    <title>skidl.pin &#8212; SKiDL 2.0.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=a66e137f" />
     
-    <script src="../../_static/documentation_options.js?v=590429e0"></script>
+    <script src="../../_static/documentation_options.js?v=51b770b3"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/bizstyle.js"></script>
@@ -32,7 +32,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.pin</a></li> 
       </ul>
@@ -52,27 +52,13 @@
 <span class="sd">Handles part pins.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># isort:skip</span>
-    <span class="n">absolute_import</span><span class="p">,</span>
-    <span class="n">division</span><span class="p">,</span>
-    <span class="n">print_function</span><span class="p">,</span>
-    <span class="n">unicode_literals</span><span class="p">,</span>
-<span class="p">)</span>
-
 <span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">range</span><span class="p">,</span> <span class="nb">super</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
 <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">copy</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">IntEnum</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">total_ordering</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
-    <span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
-<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="k">pass</span>
 
 <span class="kn">from</span> <span class="nn">.logger</span> <span class="kn">import</span> <span class="n">active_logger</span>
 <span class="kn">from</span> <span class="nn">.skidlbaseobj</span> <span class="kn">import</span> <span class="n">ERROR</span><span class="p">,</span> <span class="n">OK</span><span class="p">,</span> <span class="n">WARNING</span><span class="p">,</span> <span class="n">SkidlBaseObject</span>
@@ -88,6 +74,150 @@
     <span class="n">to_list</span><span class="p">,</span>
 <span class="p">)</span>
 
+
+<span class="c1"># Various types of pins.</span>
+<span class="n">pin_types</span> <span class="o">=</span> <span class="n">IntEnum</span><span class="p">(</span>
+    <span class="s2">&quot;pin_types&quot;</span><span class="p">,</span>
+    <span class="p">(</span>
+    <span class="s2">&quot;INPUT&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;OUTPUT&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;BIDIR&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TRISTATE&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;PASSIVE&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;UNSPEC&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;PWRIN&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;PWROUT&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;OPENCOLL&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;OPENEMIT&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;PULLUP&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;PULLDN&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;NOCONNECT&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;FREE&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+
+<span class="c1"># Various drive levels a pin can output.</span>
+<span class="c1"># The order of these is important! The first entry has the weakest</span>
+<span class="c1"># drive and the drive increases for each successive entry.</span>
+<span class="n">pin_drives</span> <span class="o">=</span> <span class="n">IntEnum</span><span class="p">(</span>
+    <span class="s2">&quot;pin_drives&quot;</span><span class="p">,</span>
+    <span class="p">(</span>
+        <span class="s2">&quot;NOCONNECT&quot;</span><span class="p">,</span>  <span class="c1">#  NC pin drive.</span>
+        <span class="s2">&quot;NONE&quot;</span><span class="p">,</span>  <span class="c1"># No drive capability (like an input pin).</span>
+        <span class="s2">&quot;PASSIVE&quot;</span><span class="p">,</span>  <span class="c1"># Small drive capability, but less than a pull-up or pull-down.</span>
+        <span class="s2">&quot;PULLUPDN&quot;</span><span class="p">,</span>  <span class="c1"># Pull-up or pull-down capability.</span>
+        <span class="s2">&quot;ONESIDE&quot;</span><span class="p">,</span>  <span class="c1"># Can pull high (open-emitter) or low (open-collector).</span>
+        <span class="s2">&quot;TRISTATE&quot;</span><span class="p">,</span>  <span class="c1"># Can pull high/low and be in high-impedance state.</span>
+        <span class="s2">&quot;PUSHPULL&quot;</span><span class="p">,</span>  <span class="c1"># Can actively drive high or low.</span>
+        <span class="s2">&quot;POWER&quot;</span><span class="p">,</span>  <span class="c1"># A power supply or ground line.</span>
+    <span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Information about the various types of pins:</span>
+<span class="c1">#   function: A string describing the pin&#39;s function.</span>
+<span class="c1">#   drive: The drive capability of the pin.</span>
+<span class="c1">#   rcv_min: The minimum amount of drive the pin must receive to function.</span>
+<span class="c1">#   rcv_max: The maximum amount of drive the pin can receive and still function.</span>
+<span class="n">pin_info</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">pin_types</span><span class="o">.</span><span class="n">INPUT</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;INPUT&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;INPUT&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
+        <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">POWER</span><span class="p">,</span>
+        <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">PASSIVE</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">pin_types</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;OUTPUT&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;OUTPUT&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">PUSHPULL</span><span class="p">,</span>
+        <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">PASSIVE</span><span class="p">,</span>
+        <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">pin_types</span><span class="o">.</span><span class="n">BIDIR</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;BIDIRECTIONAL&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;BIDIR&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">,</span>
+        <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">POWER</span><span class="p">,</span>
+        <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">pin_types</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;TRISTATE&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;TRISTATE&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">,</span>
+        <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">,</span>
+        <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">pin_types</span><span class="o">.</span><span class="n">PASSIVE</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;PASSIVE&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;PASSIVE&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">PASSIVE</span><span class="p">,</span>
+        <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">POWER</span><span class="p">,</span>
+        <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">pin_types</span><span class="o">.</span><span class="n">PULLUP</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;PULLUP&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;PULLUP&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">PULLUPDN</span><span class="p">,</span>
+        <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">POWER</span><span class="p">,</span>
+        <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">pin_types</span><span class="o">.</span><span class="n">PULLDN</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;PULLDN&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;PULLDN&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">PULLUPDN</span><span class="p">,</span>
+        <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">POWER</span><span class="p">,</span>
+        <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">pin_types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;UNSPECIFIED&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;UNSPEC&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
+        <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">POWER</span><span class="p">,</span>
+        <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">pin_types</span><span class="o">.</span><span class="n">PWRIN</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;POWER-IN&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;PWRIN&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
+        <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">POWER</span><span class="p">,</span>
+        <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">POWER</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">pin_types</span><span class="o">.</span><span class="n">PWROUT</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;POWER-OUT&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;PWROUT&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">POWER</span><span class="p">,</span>
+        <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">PASSIVE</span><span class="p">,</span>
+        <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">pin_types</span><span class="o">.</span><span class="n">OPENCOLL</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;OPEN-COLLECTOR&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;OPENCOLL&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">ONESIDE</span><span class="p">,</span>
+        <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">,</span>
+        <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">pin_types</span><span class="o">.</span><span class="n">OPENEMIT</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;OPEN-EMITTER&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;OPENEMIT&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">ONESIDE</span><span class="p">,</span>
+        <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">,</span>
+        <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">pin_types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;NO-CONNECT&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;NOCONNECT&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">,</span>
+        <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">,</span>
+        <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">pin_types</span><span class="o">.</span><span class="n">FREE</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;FREE&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;FREE&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
+        <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">POWER</span><span class="p">,</span>
+        <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">pin_drives</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">}</span>
 
 
 <div class="viewcode-block" id="Pin">
@@ -109,150 +239,6 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="c1"># Various types of pins.</span>
-    <span class="n">types</span> <span class="o">=</span> <span class="n">IntEnum</span><span class="p">(</span>
-        <span class="s2">&quot;types&quot;</span><span class="p">,</span>
-        <span class="p">(</span>
-            <span class="s2">&quot;INPUT&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;OUTPUT&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;BIDIR&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;TRISTATE&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;PASSIVE&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;UNSPEC&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;PWRIN&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;PWROUT&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;OPENCOLL&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;OPENEMIT&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;PULLUP&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;PULLDN&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;NOCONNECT&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;FREE&quot;</span><span class="p">,</span>
-        <span class="p">),</span>
-    <span class="p">)</span>
-
-    <span class="c1"># Various drive levels a pin can output.</span>
-    <span class="c1"># The order of these is important! The first entry has the weakest</span>
-    <span class="c1"># drive and the drive increases for each successive entry.</span>
-    <span class="n">drives</span> <span class="o">=</span> <span class="n">IntEnum</span><span class="p">(</span>
-        <span class="s2">&quot;drives&quot;</span><span class="p">,</span>
-        <span class="p">(</span>
-            <span class="s2">&quot;NOCONNECT&quot;</span><span class="p">,</span>  <span class="c1">#  NC pin drive.</span>
-            <span class="s2">&quot;NONE&quot;</span><span class="p">,</span>  <span class="c1"># No drive capability (like an input pin).</span>
-            <span class="s2">&quot;PASSIVE&quot;</span><span class="p">,</span>  <span class="c1"># Small drive capability, but less than a pull-up or pull-down.</span>
-            <span class="s2">&quot;PULLUPDN&quot;</span><span class="p">,</span>  <span class="c1"># Pull-up or pull-down capability.</span>
-            <span class="s2">&quot;ONESIDE&quot;</span><span class="p">,</span>  <span class="c1"># Can pull high (open-emitter) or low (open-collector).</span>
-            <span class="s2">&quot;TRISTATE&quot;</span><span class="p">,</span>  <span class="c1"># Can pull high/low and be in high-impedance state.</span>
-            <span class="s2">&quot;PUSHPULL&quot;</span><span class="p">,</span>  <span class="c1"># Can actively drive high or low.</span>
-            <span class="s2">&quot;POWER&quot;</span><span class="p">,</span>  <span class="c1"># A power supply or ground line.</span>
-        <span class="p">),</span>
-    <span class="p">)</span>
-
-    <span class="c1"># Information about the various types of pins:</span>
-    <span class="c1">#   function: A string describing the pin&#39;s function.</span>
-    <span class="c1">#   drive: The drive capability of the pin.</span>
-    <span class="c1">#   rcv_min: The minimum amount of drive the pin must receive to function.</span>
-    <span class="c1">#   rcv_max: The maximum amount of drive the pin can receive and still function.</span>
-    <span class="n">pin_info</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="n">types</span><span class="o">.</span><span class="n">INPUT</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;INPUT&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;INPUT&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
-            <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">POWER</span><span class="p">,</span>
-            <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">PASSIVE</span><span class="p">,</span>
-        <span class="p">},</span>
-        <span class="n">types</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;OUTPUT&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;OUTPUT&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">PUSHPULL</span><span class="p">,</span>
-            <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">PASSIVE</span><span class="p">,</span>
-            <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
-        <span class="p">},</span>
-        <span class="n">types</span><span class="o">.</span><span class="n">BIDIR</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;BIDIRECTIONAL&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;BIDIR&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">,</span>
-            <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">POWER</span><span class="p">,</span>
-            <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
-        <span class="p">},</span>
-        <span class="n">types</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;TRISTATE&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;TRISTATE&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">,</span>
-            <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">,</span>
-            <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
-        <span class="p">},</span>
-        <span class="n">types</span><span class="o">.</span><span class="n">PASSIVE</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;PASSIVE&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;PASSIVE&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">PASSIVE</span><span class="p">,</span>
-            <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">POWER</span><span class="p">,</span>
-            <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
-        <span class="p">},</span>
-        <span class="n">types</span><span class="o">.</span><span class="n">PULLUP</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;PULLUP&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;PULLUP&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">PULLUPDN</span><span class="p">,</span>
-            <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">POWER</span><span class="p">,</span>
-            <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
-        <span class="p">},</span>
-        <span class="n">types</span><span class="o">.</span><span class="n">PULLDN</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;PULLDN&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;PULLDN&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">PULLUPDN</span><span class="p">,</span>
-            <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">POWER</span><span class="p">,</span>
-            <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
-        <span class="p">},</span>
-        <span class="n">types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;UNSPECIFIED&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;UNSPEC&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
-            <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">POWER</span><span class="p">,</span>
-            <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
-        <span class="p">},</span>
-        <span class="n">types</span><span class="o">.</span><span class="n">PWRIN</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;POWER-IN&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;PWRIN&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
-            <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">POWER</span><span class="p">,</span>
-            <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">POWER</span><span class="p">,</span>
-        <span class="p">},</span>
-        <span class="n">types</span><span class="o">.</span><span class="n">PWROUT</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;POWER-OUT&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;PWROUT&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">POWER</span><span class="p">,</span>
-            <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">PASSIVE</span><span class="p">,</span>
-            <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
-        <span class="p">},</span>
-        <span class="n">types</span><span class="o">.</span><span class="n">OPENCOLL</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;OPEN-COLLECTOR&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;OPENCOLL&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">ONESIDE</span><span class="p">,</span>
-            <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">,</span>
-            <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
-        <span class="p">},</span>
-        <span class="n">types</span><span class="o">.</span><span class="n">OPENEMIT</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;OPEN-EMITTER&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;OPENEMIT&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">ONESIDE</span><span class="p">,</span>
-            <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">,</span>
-            <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
-        <span class="p">},</span>
-        <span class="n">types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;NO-CONNECT&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;NOCONNECT&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">,</span>
-            <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">,</span>
-            <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">,</span>
-        <span class="p">},</span>
-        <span class="n">types</span><span class="o">.</span><span class="n">FREE</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="s2">&quot;FREE&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;func_str&quot;</span><span class="p">:</span> <span class="s2">&quot;FREE&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
-            <span class="s2">&quot;max_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">POWER</span><span class="p">,</span>
-            <span class="s2">&quot;min_rcv&quot;</span><span class="p">:</span> <span class="n">drives</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">,</span>
-        <span class="p">},</span>
-    <span class="p">}</span>
-
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">attribs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
@@ -262,7 +248,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">num</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stub</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">do_erc</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">func</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">UNSPEC</span>  <span class="c1"># Pin function defaults to unspecified.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">func</span> <span class="o">=</span> <span class="n">pin_types</span><span class="o">.</span><span class="n">UNSPEC</span>  <span class="c1"># Pin function defaults to unspecified.</span>
 
         <span class="c1"># Set pin number as a random integer so that calling Pin() multiple</span>
         <span class="c1"># times will give pins that are distinct according to __eq__.</span>
@@ -434,25 +420,6 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="o">*</span><span class="n">pins_nets_buses</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Pin.add_type">
-<a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.Pin.add_type">[docs]</a>
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">add_type</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">pin_types</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Add new pin type identifiers to the list of pin types.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            pin_types: Strings identifying zero or more pin types.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">cls</span><span class="o">.</span><span class="n">types</span> <span class="o">=</span> <span class="n">IntEnum</span><span class="p">(</span><span class="s2">&quot;types&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">types</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">pin_types</span><span class="p">))</span>
-
-        <span class="c1"># Also add the pin types as attributes of the Pin class so</span>
-        <span class="c1"># existing SKiDL part libs will still work (e.g. Pin.INPUT</span>
-        <span class="c1"># still works as well as the newer Pin.types.INPUT).</span>
-        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">types</span><span class="p">:</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span></div>
-
-
 <div class="viewcode-block" id="Pin.copy">
 <a class="viewcode-back" href="../../rst_output/skidl.pin.html#skidl.pin.Pin.copy">[docs]</a>
     <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_copies</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">attribs</span><span class="p">):</span>
@@ -623,13 +590,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="kn">from</span> <span class="nn">.net</span> <span class="kn">import</span> <span class="n">Net</span>
-        <span class="kn">from</span> <span class="nn">.protonet</span> <span class="kn">import</span> <span class="n">ProtoNet</span>
 
         <span class="c1"># Go through all the pins and/or nets and connect them to this pin.</span>
         <span class="k">for</span> <span class="n">pn</span> <span class="ow">in</span> <span class="n">expand_buses</span><span class="p">(</span><span class="n">flatten</span><span class="p">(</span><span class="n">pins_nets_buses</span><span class="p">)):</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pn</span><span class="p">,</span> <span class="n">ProtoNet</span><span class="p">):</span>
-                <span class="n">pn</span> <span class="o">+=</span> <span class="bp">self</span>
-            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pn</span><span class="p">,</span> <span class="n">Pin</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pn</span><span class="p">,</span> <span class="n">Pin</span><span class="p">):</span>
                 <span class="c1"># Connecting pin-to-pin.</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_connected</span><span class="p">():</span>
                     <span class="c1"># If self is already connected to a net, then add the</span>
@@ -728,9 +692,9 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="n">erc_msg</span><span class="p">:</span>
             <span class="n">erc_msg</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
                 <span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">pin_info</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">][</span><span class="s2">&quot;function&quot;</span><span class="p">],</span>
+                    <span class="n">pin_info</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">][</span><span class="s2">&quot;function&quot;</span><span class="p">],</span>
                     <span class="s2">&quot;connected to&quot;</span><span class="p">,</span>
-                    <span class="n">other_pin</span><span class="o">.</span><span class="n">pin_info</span><span class="p">[</span><span class="n">other_pin</span><span class="o">.</span><span class="n">func</span><span class="p">][</span><span class="s2">&quot;function&quot;</span><span class="p">],</span>
+                    <span class="n">pin_info</span><span class="p">[</span><span class="n">other_pin</span><span class="o">.</span><span class="n">func</span><span class="p">][</span><span class="s2">&quot;function&quot;</span><span class="p">],</span>
                 <span class="p">)</span>
             <span class="p">)</span>
         <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">name</span>
@@ -751,7 +715,7 @@
             <span class="n">part</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">erc_desc</span><span class="p">(),</span>
             <span class="n">num</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">num</span><span class="p">,</span>
             <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-            <span class="n">func</span><span class="o">=</span><span class="n">Pin</span><span class="o">.</span><span class="n">pin_info</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">][</span><span class="s2">&quot;function&quot;</span><span class="p">],</span>
+            <span class="n">func</span><span class="o">=</span><span class="n">pin_info</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">][</span><span class="s2">&quot;function&quot;</span><span class="p">],</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">desc</span></div>
 
@@ -763,7 +727,7 @@
         <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;???&quot;</span><span class="p">)]</span>
         <span class="n">names</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">aliases</span><span class="p">)</span>
         <span class="n">names</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
-        <span class="n">func</span> <span class="o">=</span> <span class="n">Pin</span><span class="o">.</span><span class="n">pin_info</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">][</span><span class="s2">&quot;function&quot;</span><span class="p">]</span>
+        <span class="n">func</span> <span class="o">=</span> <span class="n">pin_info</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">][</span><span class="s2">&quot;function&quot;</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">num</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">func</span></div>
 
 
@@ -779,7 +743,7 @@
                     <span class="c1"># Assign the pin function using the actual name of the</span>
                     <span class="c1"># function, not its numerical value (in case that changes</span>
                     <span class="c1"># in the future if more pin functions are added).</span>
-                    <span class="n">v</span> <span class="o">=</span> <span class="s2">&quot;Pin.types.&quot;</span> <span class="o">+</span> <span class="n">Pin</span><span class="o">.</span><span class="n">pin_info</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="s2">&quot;func_str&quot;</span><span class="p">]</span>
+                    <span class="n">v</span> <span class="o">=</span> <span class="s2">&quot;pin_types.&quot;</span> <span class="o">+</span> <span class="n">pin_info</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="s2">&quot;func_str&quot;</span><span class="p">]</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">v</span> <span class="o">=</span> <span class="nb">repr</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
                 <span class="n">attribs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
@@ -834,7 +798,7 @@
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_drive</span>
         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
             <span class="c1"># Drive unspecified, so use default drive for this type of pin.</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pin_info</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">][</span><span class="s2">&quot;drive&quot;</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">pin_info</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">][</span><span class="s2">&quot;drive&quot;</span><span class="p">]</span>
 
     <span class="nd">@drive</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">drive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">drive</span><span class="p">):</span>
@@ -882,65 +846,61 @@
 <span class="c1">##############################################################################</span>
 
 
-<span class="c1"># This will make all the Pin.drive members into attributes of the Pin class</span>
-<span class="c1"># so things like Pin.INPUT will work as well as Pin.types.INPUT.</span>
-<span class="n">Pin</span><span class="o">.</span><span class="n">add_type</span><span class="p">()</span>
-
 <span class="c1"># Create the pin conflict matrix as a defaultdict of defaultdicts which</span>
 <span class="c1"># returns OK if the given element is not in the matrix. This would indicate</span>
 <span class="c1"># the pin types used to index that element have no contention if connected.</span>
 <span class="n">conflict_matrix</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="p">[</span><span class="n">OK</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]))</span>
 
 <span class="c1"># Add the non-OK pin connections to the matrix.</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">INPUT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">BIDIR</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PASSIVE</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PULLUP</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PULLDN</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PWRIN</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PWRIN</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PWROUT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PWROUT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">BIDIR</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PWROUT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PWROUT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PWROUT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PWROUT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OPENCOLL</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OPENCOLL</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">BIDIR</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OPENCOLL</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OPENCOLL</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OPENCOLL</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PWROUT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OPENEMIT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OPENEMIT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">BIDIR</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OPENEMIT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OPENEMIT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OPENEMIT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PWROUT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">INPUT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">BIDIR</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PASSIVE</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PULLUP</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PULLDN</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PWRIN</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PWROUT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OPENCOLL</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">OPENEMIT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PULLUP</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PULLUP</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">INPUT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">BIDIR</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">PASSIVE</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">PULLUP</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">PULLDN</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">PWRIN</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">PWRIN</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">PWROUT</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">PWROUT</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">BIDIR</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">PWROUT</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">PWROUT</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">PWROUT</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">PWROUT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">OPENCOLL</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">OPENCOLL</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">BIDIR</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">OPENCOLL</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">OPENCOLL</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">OPENCOLL</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">PWROUT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">OPENEMIT</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">OPENEMIT</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">BIDIR</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">OPENEMIT</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">OPENEMIT</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">WARNING</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">OPENEMIT</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">PWROUT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">INPUT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">OUTPUT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">BIDIR</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">TRISTATE</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">PASSIVE</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">PULLUP</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">PULLDN</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">UNSPEC</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">PWRIN</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">PWROUT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">OPENCOLL</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">OPENEMIT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">NOCONNECT</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ERROR</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">PULLUP</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">PULLUP</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
     <span class="n">WARNING</span><span class="p">,</span>
     <span class="s2">&quot;Multiple pull-ups connected.&quot;</span><span class="p">,</span>
 <span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PULLDN</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PULLDN</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">PULLDN</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">PULLDN</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
     <span class="n">WARNING</span><span class="p">,</span>
     <span class="s2">&quot;Multiple pull-downs connected.&quot;</span><span class="p">,</span>
 <span class="p">]</span>
-<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PULLUP</span><span class="p">][</span><span class="n">Pin</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PULLDN</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+<span class="n">conflict_matrix</span><span class="p">[</span><span class="n">pin_types</span><span class="o">.</span><span class="n">PULLUP</span><span class="p">][</span><span class="n">pin_types</span><span class="o">.</span><span class="n">PULLDN</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
     <span class="n">ERROR</span><span class="p">,</span>
     <span class="s2">&quot;Pull-up connected to pull-down.&quot;</span><span class="p">,</span>
 <span class="p">]</span>
@@ -983,7 +943,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 1.2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">SKiDL 2.0.0 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">skidl.pin</a></li> 
       </ul>

@@ -6,24 +6,8 @@
 ERC functions for Circuit, Part, Pin, Net, Bus, Interface objects.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
-from builtins import range
-
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
-
 from .logger import active_logger
 from .utilities import export_to_all
-
 
 
 @export_to_all
@@ -56,7 +40,7 @@ def dflt_part_erc(part):
     Do an electrical rules check on a part in the schematic.
     """
 
-    from .pin import Pin
+    from .pin import Pin, pin_types, pin_drives
 
     # Don't check this part if the flag is not true.
     if not part.do_erc:
@@ -71,12 +55,12 @@ def dflt_part_erc(part):
 
         # Error if a pin is unconnected but not of type NOCONNECT.
         if pin.net is None:
-            if pin.func != Pin.types.NOCONNECT:
+            if pin.func != pin_types.NOCONNECT:
                 active_logger.warning("Unconnected pin: {p}.".format(p=pin.erc_desc()))
 
         # Error if a no-connect pin is connected to a net.
-        elif pin.net.drive != Pin.drives.NOCONNECT:
-            if pin.func == Pin.types.NOCONNECT:
+        elif pin.net.drive != pin_drives.NOCONNECT:
+            if pin.func == pin_types.NOCONNECT:
                 active_logger.warning(
                     "Incorrectly connected pin: {p} should not be connected to a net ({n}).".format(
                         p=pin.erc_desc(), n=pin.net.name
@@ -90,7 +74,7 @@ def dflt_net_erc(net):
     Do electrical rules check on a net in the schematic.
     """
 
-    from .pin import Pin
+    from .pin import pin_drives, pin_info
 
     net.test_validity()
 
@@ -121,10 +105,10 @@ def dflt_net_erc(net):
     # been assigned a drive, so include that.
     net_drive = max([p.drive for p in pins] + [net.drive])
 
-    if net_drive <= Pin.drives.NONE:
+    if net_drive <= pin_drives.NONE:
         active_logger.warning("No drivers for net {n}".format(n=net.name))
     for p in pins:
-        if Pin.pin_info[p.func]["min_rcv"] > net_drive:
+        if pin_info[p.func]["min_rcv"] > net_drive:
             active_logger.warning(
                 "Insufficient drive current on net {n} for pin {p}".format(
                     n=net.name, p=p.erc_desc()

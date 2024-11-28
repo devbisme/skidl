@@ -6,24 +6,10 @@
 Logging for generic messages and ERC.
 """
 
-from __future__ import (  # isort:skip
-    absolute_import,
-    division,
-    print_function,
-    unicode_literals,
-)
-
 import logging
 import os
 import queue
 import sys
-from builtins import object, super
-
-try:
-    from future import standard_library
-    standard_library.install_aliases()
-except ImportError:
-    pass
 
 from .scriptinfo import get_script_name, get_skidl_trace
 from .skidlbaseobj import WARNING
